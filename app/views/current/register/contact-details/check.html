@@ -1,0 +1,91 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Contact details
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Email address'
+                            },
+                            value: {
+                                text: data['email']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'email',
+                                        visuallyHiddenText: ' email address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Mobile number'
+                            },
+                            value: {
+                                text: data['mobile']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'mobile',
+                                        visuallyHiddenText: ' mobile number'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                <input type="hidden" name="section-contact-details" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Home" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+
+    <h1 class="govuk-heading-xl">
+      {{ serviceName }}
+    </h1>
+
+    <h2 class="govuk-heading-l">Iterations</h2>
+
+    {{ govukSummaryList ({
+      rows: [
+        {
+          key: {
+            text: 'Current iteration'
+          },
+          value: {
+            text: 'Implemented from Mural mock-up'
+          },
+          actions: {
+            items: [
+              {
+                text: 'Open',
+                href: 'current/start'
+              }
+            ]
+          }
+        }
+      }
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

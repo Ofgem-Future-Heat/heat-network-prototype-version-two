@@ -1,0 +1,75 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Operator’s email address
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="operator-add">
+
+                <h1 class="govuk-heading-l">Operator’s email address</h1>
+
+                <p>
+                    We will notify them that they have been listed as a operator. They will be able to review the information sent to Ofgem about their heat network.
+                </p>
+
+                {{ govukInput ({
+                    id: 'operator-email',
+                    name: 'operator-email',
+                    value: data['operator-email'] if data['operator-email'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Email address',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                <p>
+                    <a href="operator-contact">
+                        The operator will stuggle to respond to an email
+                    </a>
+                </p>
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

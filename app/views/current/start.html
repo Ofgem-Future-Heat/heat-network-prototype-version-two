@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Register a heat network
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                <h1 class="govuk-heading-l">Register a heat network</h1>
+
+                <p>
+                    A heat network is a system in which heating. cooling or hot water is generated at a central source and supplied to customers through a network serving either multiple buildings or multiple occupants in a single building.
+                </p>
+
+                <p>
+                    If you are registering a new heat network, you will have to wait for Ofqem to approve vour registration before the heat network can start operating.
+                </p>
+
+                {{ govukButton ({
+                    html: 'Start',
+                    href: 'register/name',
+                    isStartButton: true
+                }) }}
+
+                <p>
+                    <a href="register/tasklist">
+                        Continue an existing registration
+                    </a>
+                </p>
+
+                <h2 class="govuk-heading-m">
+                    Before you start
+                </h2>
+
+                <p>
+                    You will need:
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>OPSS ID if you have one</li>
+                    <li>details of any responsible parties</li>
+                    <li>information about the heat network vou are registering</li>
+                </ul>
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
