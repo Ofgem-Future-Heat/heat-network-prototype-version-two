@@ -78,17 +78,22 @@
                         </h2>
 
                         <ul class="app-task-list__items">
+                            {% set locationstatus = 'Complete' if data['section-location'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
                                 id: 'location',
                                 title: 'Location',
-                                href: false,
-                                status: 'Cannot start yet'
+                                href: 'location/operate-scotland' if locationstatus == 'Not started' else 'location/check',
+                                status: locationstatus
                             }) }}
+                            {% set characteristicsStatus = 'Not started' if data['section-location'] == 'complete' else 'Cannot start yet' %}
+                            {% if data['section-characteristics'] == 'complete' %}
+                                {% set characteristicsStatus = 'Complete' %}
+                            {% endif %}
                             {{ taskListRow({
                                 id: 'characteristics',
                                 title: 'Characteristics',
-                                href: false,
-                                status: 'Cannot start yet'
+                                href: ('characteristics/start' if characteristicsStatus == 'Not started' else 'characteristics/check') if characteristicsStatus != 'Cannot start yet' else false,
+                                status: characteristicsStatus
                             }) }}
                         </ul>
                     </li>

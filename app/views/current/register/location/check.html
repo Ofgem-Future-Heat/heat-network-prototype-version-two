@@ -1,0 +1,142 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Location
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Operate in Scotland?'
+                            },
+                            value: {
+                                text: data['operates-in-scotland']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'operate-scotland',
+                                        visuallyHiddenText: ' whether you operate in Scotland'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Specific address?'
+                            },
+                            value: {
+                                text: data['check-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'check-address',
+                                        visuallyHiddenText: ' whether the energy centre has a specific address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Energy centre address'
+                            },
+                            value: {
+                                text: data['centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'centre-postcode',
+                                        visuallyHiddenText: ' the energy centre address'
+                                    }
+                                ]
+                            }
+                        } if data['check-address'] == 'Yes',
+                        {
+                            key: {
+                                text: 'Nearest postcode'
+                            },
+                            value: {
+                                text: data['nearest-postcode']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'nearest-postcode',
+                                        visuallyHiddenText: ' the nearest postcode'
+                                    }
+                                ]
+                            }
+                        } if data['check-address'] == 'No',
+                        {
+                            key: {
+                                text: 'Energy centre’s address'
+                            },
+                            value: {
+                                text: data['mobile']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'mobile',
+                                        visuallyHiddenText: ' mobile number'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                <input type="hidden" name="section-location" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
