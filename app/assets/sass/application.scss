@@ -57,4 +57,32 @@ body,
 	a.govuk-button--secondary {
 		color: rgb(11, 12, 12);
 	}
+
+	.dwp-\!-background-grey {
+		background-color: #f8f8f8 !important;
+	}
+
+	.ds-grid-row--item:last-of-type {
+		margin-right: 0;
+	}
+
+	.govuk-\!-padding-4 {
+		padding: 20px !important;
+	}
+
+	.ds-grid-row--item {
+		float: none;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+
+	.ds-grid-row {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-gap: 30px;
+		margin: 0;
+		padding: 0;
+	}
+
 }

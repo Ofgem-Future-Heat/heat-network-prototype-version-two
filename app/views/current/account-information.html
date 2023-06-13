@@ -1,0 +1,71 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Account created
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    
+      <h1 class="govuk-heading-l">Radianteco Ltd</h1>
+
+    
+      <h2 class="govuk-heading-m">Account information</h2>
+      
+      <div class="govuk-grid-row ds-grid-row">
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Organisation details</a></h3>
+    <p class="govuk-body">View, change and add organisation information.</p>
+    {{ govukTag({
+    text: "Completed"
+    }) }}
+    </div>
+
+ 
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Contact details</a></h3>
+    <p class="govuk-body">View, change and add contact information.</p>
+    {{govukTag({
+          text: "Not started",
+          classes: "govuk-tag--grey"
+        })}}
+    </div>
+
+    <br>
+  
+
+    <h2 class="govuk-heading-m">Your heat networks</h2>
+
+    <div class="govuk-grid-row ds-grid-row">
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Add a heat network</a></h3>
+    <p class="govuk-body">Register a new heat network</p>
+    
+    </div>
+
+            
+
+      
+    </div>
+  </div>
+{% endblock %}

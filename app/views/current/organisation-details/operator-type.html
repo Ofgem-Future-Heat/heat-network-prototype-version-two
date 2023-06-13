@@ -25,15 +25,13 @@
 
 {% block content %}
 
-{% if data['supplier-operator'] == 'Yes' %}
-    {{ 'check' | redirect | safe }}
-{% endif %}
+
 
 <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="operator-company">
+            <form action="company-details">
 
                 <h1 class="govuk-heading-l">Register as a heat supplier/network operator</h1>
 
@@ -60,39 +58,19 @@
 
                 {% endset %}
 
-                {% set charityNumberHTML %}
-
-                    {{ govukInput ({
-                        id: 'operator-ref-charity',
-                        name: 'operator-ref-charity',
-                        value: data['operator-ref-charity'] if data['operator-ref-charity'] else '',
-                        classes: 'govuk-input--width-20',
-                        label: {
-                            text: 'Registered charity number',
-                            classes: 'govuk-input--width-20'
-                        }
-                    }) }}
-
-                {% endset %}
+                
 
                 {{ govukRadios ({
                     idPrefix: 'operator-type',
                     name: 'operator-type',
                     fieldset: {
                         legend: {
-                            text: 'Supplier type',
+                            text: 'Choose your organisation type',
                             isPageHeading: false
                         }
                     },
                     items: [
-                        {
-                            text: 'Someone you’ve already told us about',
-                            value: 'Someone you’ve already told us about',
-                            checked: true if data['operator-type'] == 'Someone you’ve already told us about'
-                        },
-                        {
-                            divider: "or"
-                        },
+                        
                         {
                             text: 'A registered UK company',
                             value: 'A registered UK company',
@@ -127,17 +105,13 @@
                     ]
                 }) }}
 
-                {{ govukButton ({
+               {{ govukButton ({
                     html: 'Continue'
                 }) }}
 
-                <br>
+                
 
-                {{ govukButton ({
-                    html: 'Save and return later',
-                    classes: 'govuk-button--secondary',
-                    href: '#'
-                }) }}
+                
 
             </form>
 

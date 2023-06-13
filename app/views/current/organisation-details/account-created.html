@@ -1,0 +1,55 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Account created
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form action="../account-information">
+      {{ govukPanel({
+        titleText: "Account created",
+        html: "Your reference number<br><strong>REG-XX00RT-A2</strong>"
+      }) }}
+
+      <p class="govuk-body">Your account is created. You can now access your account to manage your heat networks.</p>
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">
+        You can use your account to:
+      </p>
+      
+      <ul class="govuk-list govuk-list--bullet">
+                    <li>Register and gain authorisation for additional heat networks.</li>
+                    <li>Apply for a "rights & powers" licence.</li>
+                    <li>Inform us about changes to your company or your heat network(s)</li>
+                    <li>Report on your heat network(s) on a periodic basis as required</li>
+                    <li>Manage payments</li>
+                </ul>
+
+      {{ govukButton ({
+                    html: 'Go to your account'
+                }) }}          
+
+      
+    </div>
+  </div>
+{% endblock %}
