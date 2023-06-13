@@ -1,0 +1,148 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Register as a heat supplier/network operator
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if data['supplier-operator'] == 'Yes' %}
+    {{ 'check' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="operator-company">
+
+                <h1 class="govuk-heading-l">Register as a heat supplier/network operator</h1>
+
+                <p>
+                    We expect heat network operation and heat supply activities to be undertaken by the same organisation for a single heat network. Please provide your organisational details below so that you can register any heat networks you are responsible for.
+                </p>
+
+                {{ govukInsetText({
+                text: "If for your heat network, operation and supply responsibilities are split across different organisations please complete and submit your registration and contact the Ofgem team via heatnetworkregulation@ofgem.gov.uk"
+                }) }}
+
+                {% set companyNumberHTML %}
+
+                    {{ govukInput ({
+                        id: 'operator-ref-company',
+                        name: 'operator-ref-company',
+                        value: data['operator-ref-company'] if data['operator-ref-company'] else '',
+                        classes: 'govuk-input--width-20',
+                        label: {
+                            text: 'Companies House number',
+                            classes: 'govuk-input--width-20'
+                        }
+                    }) }}
+
+                {% endset %}
+
+                {% set charityNumberHTML %}
+
+                    {{ govukInput ({
+                        id: 'operator-ref-charity',
+                        name: 'operator-ref-charity',
+                        value: data['operator-ref-charity'] if data['operator-ref-charity'] else '',
+                        classes: 'govuk-input--width-20',
+                        label: {
+                            text: 'Registered charity number',
+                            classes: 'govuk-input--width-20'
+                        }
+                    }) }}
+
+                {% endset %}
+
+                {{ govukRadios ({
+                    idPrefix: 'operator-type',
+                    name: 'operator-type',
+                    fieldset: {
+                        legend: {
+                            text: 'Supplier type',
+                            isPageHeading: false
+                        }
+                    },
+                    items: [
+                        {
+                            text: 'Someone you’ve already told us about',
+                            value: 'Someone you’ve already told us about',
+                            checked: true if data['operator-type'] == 'Someone you’ve already told us about'
+                        },
+                        {
+                            divider: "or"
+                        },
+                        {
+                            text: 'A registered UK company',
+                            value: 'A registered UK company',
+                            checked: true if data['operator-type'] == 'A registered UK company',
+                            conditional: {
+                                html: companyNumberHTML
+                            }
+                        },
+                        {
+                            text: 'A registered UK charity',
+                            value: 'A registered UK charity',
+                            checked: true if data['operator-type'] == 'A registered UK charity',
+                            conditional: {
+                                html: charityNumberHTML
+                            }
+                        },
+                        {
+                            text: 'A different type of UK organisation',
+                            value: 'A different type of UK organisation',
+                            checked: true if data['operator-type'] == 'A different type of UK organisation'
+                        },
+                        {
+                            text: 'A company or organisation registered overseas',
+                            value: 'A company or organisation registered overseas',
+                            checked: true if data['operator-type'] == 'A company or organisation registered overseas'
+                        },
+                        {
+                            text: 'An individual',
+                            value: 'An individual',
+                            checked: true if data['operator-type'] == 'An individual'
+                        }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

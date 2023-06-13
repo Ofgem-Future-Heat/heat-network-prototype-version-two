@@ -1,0 +1,79 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Does the heat network operate in Scotland?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if data['check-address'] == 'No' %}
+    {{ 'nearest-postcode' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="centre-address-result">
+
+    
+                
+                <h1 class="govuk-heading-l">Enter the energy centre's address</h1>
+                <p>
+                    If you have more than one, tell us about the one that generates the most energy used in the heat network.
+                </p>
+                {{ govukInput({
+                label: {
+                text: "Energy centre postcode"
+                },
+                value: data['energy-centre-postcode'],
+                classes: "govuk-!-width-two-thirds",
+                hint: {
+                text: "For example, AA3 1AB."
+                },
+                id: "energy-centre-postcode",
+                name: "energy-centre-postcode"
+                }) }}
+
+                
+
+                {{ govukButton({
+                text: "Find address"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+                
+                </div> 
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
