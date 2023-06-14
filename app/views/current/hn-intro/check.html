@@ -26,63 +26,97 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="../account-information">
+            <form action="../tasklist">
 
                 <h1 class="govuk-heading-l">Check your answers from this section</h1>
 
                 <h2 class="govuk-heading-m">
-                    Administrative contact details
+                    Heat network introduction
                 </h2>
 
                 {{ govukSummaryList ({
                     rows: [
                         {
                             key: {
-                                text: 'Full name'
+                                text: 'Heat network name'
                             },
                             value: {
-                                text: data['admin-name']
+                                text: data['network-name']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'admin-name',
-                                        visuallyHiddenText: ' administrative contact name'
+                                        href: 'name',
+                                        visuallyHiddenText: ' heat network name'
                                     }
                                 ]
                             }
                         },
                         {
                             key: {
-                                text: 'Email address'
+                                text: 'Is your heat network currently supplying consumers?'
                             },
                             value: {
-                                text: data['admin-email']
+                                text: data['hn-active']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'admin-email',
-                                        visuallyHiddenText: ' administrative contact email address'
+                                        href: 'active',
+                                        visuallyHiddenText: ' whether your heat network is currently supplying consumers'
                                     }
                                 ]
                             }
                         },
                         {
                             key: {
-                                text: 'Telephone number'
+                                text: 'When did your heat network start operating?'
                             },
                             value: {
-                                text: data['admin-telephone']
+                                text: data['started-operating']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'admin-telephone',
-                                        visuallyHiddenText: ' administrative contact telephone number'
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network started operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'When is your heat network expected to start operating?'
+                            },
+                            value: {
+                                text: data['will-operate']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Heat network type'
+                            },
+                            value: {
+                                text: data['type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type',
+                                        visuallyHiddenText: ' heat network type'
                                     }
                                 ]
                             }
@@ -90,69 +124,9 @@
                     }
                 }) }}
 
-                <br>
                 
-                <h2 class="govuk-heading-m">
-                    Regulatory contact details
-                </h2>
 
-                {{ govukSummaryList ({
-                    rows: [
-                        {
-                            key: {
-                                text: 'Full name'
-                            },
-                            value: {
-                                text: data['regulatory-name']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'regulatory-name',
-                                        visuallyHiddenText: ' regulatory contact name'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Email address'
-                            },
-                            value: {
-                                text: data['regulatory-email']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'regulatory-email',
-                                        visuallyHiddenText: ' regulatory contact email address'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Telephone number'
-                            },
-                            value: {
-                                text: data['regulatory-telephone']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'regulatory-telephone',
-                                        visuallyHiddenText: ' regulatory contact telephone number'
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                }) }}
-
-                <input type="hidden" name="section-contact-details" value="complete">                 
+                <input type="hidden" name="section-hn-intro" value="complete">                 
 
                 {{ govukButton ({
                     html: 'Continue'

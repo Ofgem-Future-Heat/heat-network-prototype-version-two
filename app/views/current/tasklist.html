@@ -1,0 +1,131 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Register a heat network
+{% endblock %}
+
+{% macro taskListRow(props) %}
+    <li class="app-task-list__item">
+        <span class="app-task-list__task-name">
+            {% if props.href %}
+                <a href="{{ props.href }}" aria-describedby="{{ props.id }}">
+                    {{ props.title }}
+                </a>
+            {% else %}
+                {{ props.title }}
+            {% endif %}
+        </span>
+        {% set tagColor = 'grey' %}
+        {% if props.status == 'Complete' %}
+            {% set tagColor = 'blue' %}
+        {% elseif props.status == 'Not started' %}
+            {% set tagColor = 'orange' %}
+        {% endif %}
+        {{ govukTag({
+            text: props.status,
+            classes: 'app-task-list__tag govuk-tag--' + tagColor,
+            id: props.id
+        }) }}
+    </li>
+{% endmacro %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                <h1 class="govuk-heading-l">Register a heat network</h1>
+
+                <p>
+                    <b>Application incomplete</b><br>
+                    You have completed 0 of 3 sections.
+                </p>
+
+                <ol class="app-task-list">
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">1. </span>
+                            Introduction
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">2. </span>
+                            Your heat network
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                        </ul>
+                    </li>
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">3. </span>
+                            Standards and declarations
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                status: hnIntroStatus
+                            }) }}
+                        </ul>
+                    </li>
+                </ol>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
