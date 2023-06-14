@@ -1,10 +1,90 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    Is there a procedure in place for customers on this network to raise a complaint?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="complaint-info">
+
+            <h1 class="govuk-heading-l">Is there a procedure in place for customers on this network to raise a complaint?</h1>
+
+            <p>A policy and procedure for managing complaints from domestic consumers and microbusinesses is a requirement of the new regulations.</p>
+
+            {{ govukDetails({
+                  summaryText: "Help with difference between domestic consumers and microbusinesses",
+                  text: "A domestic consumer ????????? A non-domestic consumer is defined as a microbusiness if they: employ fewer than 10 employees (or their full time equivalent) and has an annual turnover or balance sheet no greater than €2 million; or uses no more than 100,000 kWh of electricity per year; or uses no more than 293,000 kWh of gas per year."
+                }) }}
+
+            
+
+                {{ govukRadios ({
+                    idPrefix: 'complaint',
+                    name: 'complaint',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: ''
+                    },
+                    items: [
+                      {
+                        value: "Yes",
+                        text: "Yes",
+                        checked: true if data['complaint'] == 'Yes'
+                      },
+                      {
+                        value: "No",
+                        text: "No",
+                        checked: true if data['complaint'] == 'No'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}
