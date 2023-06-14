@@ -1,10 +1,80 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    What is the cooling capacity in kilowatts?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="backup-cooling">
+
+                <h1 class="govuk-heading-l">What is the cooling capacity in kilowatts?</h1>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "What does capacity mean?",
+                  text: "This is the maximum output of the cooling sources on the network. If the heat network is capable of thermal storage do not include this. The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If its not, you can ask your service engineer to give you this information. If there is more than one cooling source, please add together the combined total capacity of all the sources."
+                }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "cooling-capacity",
+                  name: "cooling-capacity",
+                  label: {
+                    text: "Cooling capacity",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "kW"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

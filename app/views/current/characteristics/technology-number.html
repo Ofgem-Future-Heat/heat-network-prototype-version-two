@@ -1,10 +1,86 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    How many different energy technologies are on the network?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="technology">
+
+            
+
+                {{ govukRadios ({
+                    idPrefix: 'technology-number',
+                    name: 'technology-number',
+                    fieldset: {
+                        legend: {
+                            text: 'How many different energy technologies are on the network?',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: 'These are the technologies that provide the heat or cooling for the heat network. This could be a boiler, CHP, heat pump, solar panels, chiller, or something else entirely.'
+                    },
+                    items: [
+                      {
+                        value: "1",
+                        text: "1",
+                        checked: true if data['connection-check'] == '1'
+                      },
+                      {
+                        value: "2",
+                        text: "2",
+                        checked: true if data['connection-check'] == '2'
+                      },
+                      {
+                        value: "3 or more",
+                        text: "3 or more",
+                        checked: true if data['connection-check'] == '3 or more'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

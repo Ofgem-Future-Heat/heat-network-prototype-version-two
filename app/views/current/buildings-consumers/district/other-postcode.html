@@ -1,10 +1,75 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    Enter an address
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="other-address">
+
+    
+                
+                <h1 class="govuk-heading-l">Enter an address for {{ data['other-name'] }}</h1>
+                
+                {{ govukInput({
+                label: {
+                text: "Postcode"
+                },
+                value: data['other-postcode'] if data['other-postcode'] else '',
+                classes: "govuk-!-width-two-thirds",
+                hint: {
+                text: "For example, AA3 1AB."
+                },
+                id: "other-postcode",
+                name: "other-postcode"
+                }) }}
+
+                
+
+                {{ govukButton({
+                text: "Find address"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+                
+                </div> 
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

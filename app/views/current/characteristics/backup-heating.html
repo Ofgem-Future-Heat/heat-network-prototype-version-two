@@ -1,10 +1,80 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    ????
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="heating-generation">
+
+                <h1 class="govuk-heading-l">???</h1>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "???",
+                  text: "???"
+                }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "???",
+                  name: "???",
+                  label: {
+                    text: "???",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "???"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

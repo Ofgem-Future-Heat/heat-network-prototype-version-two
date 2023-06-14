@@ -1,10 +1,144 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    What energy source do your technology use?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="source">
+
+                <h1 class="govuk-heading-l">What energy source do your {{ data['primary-technology-type']}} use?</h1>
+                <h1 class="govuk-heading-l">What energy source do your {{ data['secondary-technology-type']}} use?</h1>
+                <h1 class="govuk-heading-l">What energy source do your {{ data['tertiary-technology-type']}} use?</h1>
+
+                <p>If there is a difference in capacity between your technologies, list the one that provides the largest proportion of your heat first.</p>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "What is energy source?",
+                  text: "The primary energy source is the energy source that provides the largest proportion of the heat energy. The secondary and tertiary sources are any that are used in addition to the primary. Not all networks will have them. They may be back up systems."
+                }) }}
+
+                {{ govukSelect({
+                id: "energy-source",
+                name: "energy-source",
+                label: {
+                  text: "Energy source"
+                },
+                  hint: {
+                  text: ""
+                },
+                items: [
+                  {
+                    value: "select",
+                    text: "Select",
+                    selected: true
+                  },
+                  {
+                    value: "ambientheat",
+                    text: "Ambient Heat"
+                  },
+                  {
+                    value: "biogas",
+                    text: "Biogas"
+                  },
+                  {
+                    value: "biomass",
+                    text: "Biomass"
+                  },
+                  {
+                    value: "diesel",
+                    text: "Diesel"
+                  },
+                  {
+                    value: "electricity",
+                    text: "Electricity"
+                  },
+                  {
+                    value: "geothermal",
+                    text: "Geothermal"
+                  },
+                  {
+                    value: "hydrogen",
+                    text: "Hydrogen"
+                  },
+                  {
+                    value: "liquidbiofuel",
+                    text: "Liquid Biofuel"
+                  },
+                  {
+                    value: "naturalgas",
+                    text: "Natural gas"
+                  },
+                  {
+                    value: "oil",
+                    text: "Oil"
+                  },
+                  {
+                    value: "solar",
+                    text: "Solar"
+                  },
+                  {
+                    value: "energyfromwaste",
+                    text: "Energy from waste"
+                  },
+                  {
+                    value: "wasteheat",
+                    text: "Waste heat"
+                  },
+                  {
+                    value: "fuelinputisnotlisted",
+                    text: "Fuel input is not listed"
+                  }
+                ]
+
+              }) }}
+
+              
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

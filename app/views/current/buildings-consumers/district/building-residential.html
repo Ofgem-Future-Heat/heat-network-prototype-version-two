@@ -1,10 +1,78 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    How many residential buildings does the heat network supply?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="domestic-consumers">
+
+                
+
+                
+
+                
+
+                
+
+                {{ govukInput({
+                label: {
+                  text: "How many residential buildings does the heat network supply?",
+                  classes: "govuk-label--l",
+                  isPageHeading: true
+                },
+                classes: "govuk-input--width-10",
+                hint: {
+                  text: "Number of residential buildings"
+                },
+                id: "building-residential",
+                name: "building-residential",
+                inputmode: "numeric",
+                spellcheck: false
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

@@ -1,10 +1,80 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    What is the heating and hot water generation per calendar year in kilowatt hours?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="heating-supply">
+
+                <h1 class="govuk-heading-l">What is the heating and hot water generation per calendar year in kilowatt hours?</h1>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "What does generation mean?",
+                  text: "Generation is the heat/cooling input into the system and not the amount of fuel being used. The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Please provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading. If there is no appropriate meter fitted, please leave this blank."
+                }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "heating-generation",
+                  name: "heating-generation",
+                  label: {
+                    text: "Generation per calendar year",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "kWh"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}
