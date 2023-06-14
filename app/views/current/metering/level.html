@@ -1,10 +1,78 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    How many building level meters are on the heat network?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="consumer">
+
+                
+
+                
+
+                
+
+                
+
+                {{ govukInput({
+                label: {
+                  text: "How many building level meters are on the heat network?",
+                  classes: "govuk-label--l",
+                  isPageHeading: true
+                },
+                classes: "govuk-input--width-10",
+                hint: {
+                  text: "Building level meters are meters that are used to measure the use of a single building on a heat network. They are not used to measure or bill customers' use."
+                },
+                id: "level-meters",
+                name: "level-meters",
+                inputmode: "numeric",
+                spellcheck: false
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}
