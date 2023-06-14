@@ -34,7 +34,21 @@
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
     <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Organisation details</a></h3>
     <p class="govuk-body">View, change and add organisation information.</p>
+    
+    {# {% set contactDetailsStatus = 'Complete' if data['section-organisation-details'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'organisation-details',
+                                title: 'Contact details',
+                                href: 'contact-details/email' if contactDetailsStatus == 'Not started' else 'contact-details/check',
+                                status: contactDetailsStatus
+                            }) }}
+    
+    
+    <input type="hidden" name="section-organisation-details" value="complete"> #}
+    
+    
     {{ govukTag({
+    id: 'organisation-details',  
     text: "Completed"
     }) }}
     </div>
