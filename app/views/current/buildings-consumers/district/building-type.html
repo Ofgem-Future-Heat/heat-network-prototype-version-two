@@ -29,12 +29,12 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="cooling-capacity">
+            <form action="check">
 
-                {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+                
 
                 {{ govukCheckboxes({
-                  name: "waste",
+                  name: "building-type",
                   fieldset: {
                     legend: {
                       text: "What type of buildings does the heat network supply?",

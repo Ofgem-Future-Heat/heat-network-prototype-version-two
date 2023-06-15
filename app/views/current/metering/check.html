@@ -1,10 +1,141 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Metering
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Do you use an agent?'
+                            },
+                            value: {
+                                text: data['agent']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'agent',
+                                        visuallyHiddenText: ' whether you use an agent to deal with metering and billing'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Who is the agent?'
+                            },
+                            value: {
+                                text: data['agent-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'agent-name',
+                                        visuallyHiddenText: ' the metering and billing agent name'
+                                    }
+                                ]
+                            }
+                        } if data['agent'] !== 'No',
+                        {
+                            key: {
+                                text: 'Building level meters'
+                            },
+                            value: {
+                                text: data['level-meters']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'level',
+                                        visuallyHiddenText: ' number of building level meters'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Final consumer meters'
+                            },
+                            value: {
+                                text: data['consumer-meters']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'consumer',
+                                        visuallyHiddenText: ' number of final consumer meters'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Heat cost allocators'
+                            },
+                            value: {
+                                text: data['cost-allocators']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'cost',
+                                        visuallyHiddenText: ' number of heat cost allocators'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-hn-intro" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}
