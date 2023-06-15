@@ -8,3 +8,21 @@ addFilter('redirect', function (str) {
 addFilter('debug', function (str) {
 	return JSON.stringify(str, null, 2)
 })
+
+addFilter('monthName', function (int) {
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	]
+	return months[Number(int)-1]
+})

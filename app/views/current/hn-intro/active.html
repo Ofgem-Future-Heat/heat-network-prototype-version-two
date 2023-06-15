@@ -49,7 +49,24 @@
                       },
                       hint: {
                         text: "For example, 27 3 2007"
-                      }
+                      },
+                      items: [
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "day",
+                            value: data['started-operating-day']
+                            },
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "month",
+                            value: data['started-operating-month']
+                            },
+                            {
+                            classes: "govuk-input--width-4",
+                            name: "year",
+                            value: data['started-operating-year']
+                            }
+                        ]
                     }) }}
 
                 {% endset %}
@@ -65,8 +82,25 @@
                       }
                     },
                     hint: {
-                      text: "For example, 27 3 2007"
-                    }
+                      text: "For example, 27 3 2024"
+                    },
+                    items: [
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "day",
+                            value: data['will-operate-day']
+                            },
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "month",
+                            value: data['will-operate-month']
+                            },
+                            {
+                            classes: "govuk-input--width-4",
+                            name: "year",
+                            value: data['will-operate-year']
+                            }
+                        ]
                   }) }}
 
                 {% endset %}
@@ -83,7 +117,7 @@
                     items: [
                         {
                             text: 'Yes',
-                            value: 'yes',
+                            value: 'Yes',
                             checked: true if data['hn-active'] == 'Yes',
                             conditional: {
                                 html: startedOperatingDateHTML
@@ -91,7 +125,7 @@
                         },
                         {
                             text: 'No',
-                            value: 'no',
+                            value: 'No',
                             checked: true if data['hn-active'] == 'No',
                             conditional: {
                                 html: willStartOperatingHTML

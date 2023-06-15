@@ -75,7 +75,7 @@
                                 text: 'When did your heat network start operating?'
                             },
                             value: {
-                                text: data['started-operating']
+                                text: data['started-operating-day'] + ' ' + data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
                             },
                             actions: {
                                 items: [
@@ -86,13 +86,13 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['hn-active'] !== 'No',
                         {
                             key: {
                                 text: 'When is your heat network expected to start operating?'
                             },
                             value: {
-                                text: data['will-operate']
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
                             },
                             actions: {
                                 items: [
@@ -103,7 +103,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['hn-active'] !== 'Yes',
                         {
                             key: {
                                 text: 'Heat network type'

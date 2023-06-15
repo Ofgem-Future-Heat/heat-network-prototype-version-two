@@ -55,6 +55,23 @@
                         },
                         {
                             key: {
+                                text: 'Job title'
+                            },
+                            value: {
+                                text: data['admin-title']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'admin-title',
+                                        visuallyHiddenText: ' administrative contact job title'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
                                 text: 'Email address'
                             },
                             value: {
@@ -100,6 +117,23 @@
                     rows: [
                         {
                             key: {
+                                text: 'Same as administrative contact?'
+                            },
+                            value: {
+                                text: data['regulatory-check']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-check',
+                                        visuallyHiddenText: ' whether regulatory contact is same as administrative contact'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
                                 text: 'Full name'
                             },
                             value: {
@@ -114,7 +148,24 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['regulatory-check'] !== 'Yes',
+                        {
+                            key: {
+                                text: 'Job title'
+                            },
+                            value: {
+                                text: data['regulatory-title']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-title',
+                                        visuallyHiddenText: ' regulatory contact job title'
+                                    }
+                                ]
+                            }
+                        } if data['regulatory-check'] !== 'Yes',
                         {
                             key: {
                                 text: 'Email address'
@@ -131,7 +182,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['regulatory-check'] !== 'Yes',
                         {
                             key: {
                                 text: 'Telephone number'
@@ -148,7 +199,7 @@
                                     }
                                 ]
                             }
-                        }
+                        } if data['regulatory-check'] !== 'Yes'
                     }
                 }) }}
 
