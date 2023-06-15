@@ -1,10 +1,348 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Buildings and consumers
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        
+                        {
+                            key: {
+                                text: 'District networks provides heat to communally heated buildings'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'For all of the connected communal networks do you operate and supply heat to all end consumers?'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Organisation name of the other heat supplier'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Address for the other organisation'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Contact name for the other organisation'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Email address for the contact in the other organisation'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Telephone number for the contact in the other organisation'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of residential buildings'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of domestic consumers'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of commercial buildings'
+                            },
+                            value: {
+                                text: data['centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'centre-postcode',
+                                        visuallyHiddenText: ' the energy centre address'
+                                    }
+                                ]
+                            }
+                        } if data['check-centre-address'] == 'Yes',
+                        {
+                            key: {
+                                text: 'Number of commercial consumers'
+                            },
+                            value: {
+                                text: data['nearest-postcode']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'nearest',
+                                        visuallyHiddenText: ' the nearest postcode'
+                                    }
+                                ]
+                            }
+                        } if data['check-centre-address'] == 'No',
+                        {
+                            key: {
+                                text: 'Number of industrial buildings'
+                            },
+                            value: {
+                                text: data['mobile']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'mobile',
+                                        visuallyHiddenText: ' mobile number'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of industrial consumers'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of public buildings'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of public consumers'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of other buildings'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of other consumers'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        }
+
+                    }
+                }) }}
+
+                <input type="hidden" name="section-location-district" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}
