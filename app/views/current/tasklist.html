@@ -56,7 +56,7 @@
                             {{ taskListRow({
                                 id: 'hn-introduction',
                                 title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-intro/check',
                                 status: hnIntroStatus
                             }) }}
                             
@@ -69,33 +69,33 @@
                         </h2>
 
                         <ul class="app-task-list__items">
-                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {% set locationStatus = 'Complete' if data['section-location'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
-                                id: 'hn-introduction',
-                                title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
-                                status: hnIntroStatus
+                                id: 'location',
+                                title: 'Location',
+                                href: 'location/district/address-check' if locationStatus == 'Not started' else 'location/district/check',
+                                status: locationStatus
                             }) }}
-                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {% set buildingsStatus = 'Complete' if data['section-buildings'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
-                                id: 'hn-introduction',
-                                title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
-                                status: hnIntroStatus
+                                id: 'buildings',
+                                title: 'Buildings and consumers',
+                                href: 'buildings-consumers/district/connection-check' if buildingsStatus == 'Not started' else 'buildings-consumers/district/check',
+                                status: buildingsStatus
                             }) }}
-                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {% set characteristicsStatus = 'Complete' if data['section-characteristics'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
-                                id: 'hn-introduction',
-                                title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
-                                status: hnIntroStatus
+                                id: 'characteristics',
+                                title: 'Characteristics',
+                                href: 'characteristics/type' if characteristicsStatus == 'Not started' else 'characteristics/check',
+                                status: characteristicsStatus
                             }) }}
-                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {% set meteringStatus = 'Complete' if data['section-metering'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
-                                id: 'hn-introduction',
-                                title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
-                                status: hnIntroStatus
+                                id: 'metering',
+                                title: 'Metering',
+                                href: 'metering/agent' if meteringStatus == 'Not started' else 'metering/check',
+                                status: meteringStatus
                             }) }}
                         </ul>
                     </li>
@@ -106,12 +106,12 @@
                         </h2>
 
                         <ul class="app-task-list__items">
-                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {% set declarationsStatus = 'Complete' if data['section-declarations'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
-                                id: 'hn-introduction',
-                                title: 'Heat network introduction',
-                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-into/check',
-                                status: hnIntroStatus
+                                id: 'declarations',
+                                title: 'Commit to declarations and send',
+                                href: 'declarations/complaint' if declarationsStatus == 'Not started' else 'declarations/final',
+                                status: declarationsStatus
                             }) }}
                         </ul>
                     </li>
