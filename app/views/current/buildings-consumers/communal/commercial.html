@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block beforeContent %}
+{% if not data['communal-type'] | includes('Commercial') %}
+    {{ 'check' | redirect | safe }}
+{% endif %}
 
     <div class="govuk-grid-row">
 

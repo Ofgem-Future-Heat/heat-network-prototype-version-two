@@ -41,7 +41,7 @@
                                 text: 'Type of consumers'
                             },
                             value: {
-                                text: data['type']
+                                text: data['communal-type']
                             },
                             actions: {
                                 items: [
@@ -69,7 +69,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['communal-type'] | includes('Domestic'),
                         {
                             key: {
                                 text: 'Commercial consumers'
@@ -86,7 +86,7 @@
                                     }
                                 ]
                             }
-                        }
+                        } if data['communal-type'] | includes('Commercial')
                     }
                 }) }}
 

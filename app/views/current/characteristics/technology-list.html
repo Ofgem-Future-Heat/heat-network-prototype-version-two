@@ -1,0 +1,95 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Technologies used for your heat network
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="check">
+
+                <h1 class="govuk-heading-xl">Technologies used for your heat network</h1>
+
+                {% set technologyName = data['other-technology'] if data['technology-type'] == 'Other' else data['technology-type'] %}
+                {% set energyName = data['other-energy-source'] if data['energy-source-type'] == 'Other' else data['energy-source-type'] %}
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Primary'
+                            },
+                            value: {
+                                text: technologyName + ' using energy: ' + energyName
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'technology',
+                                        visuallyHiddenText: ' the type of technology and energy source'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                {{ govukRadios ({
+                    idPrefix: 'technology-add',
+                    name: 'technology-add',
+                    fieldset: {
+                        legend: {
+                            text: 'Does your heat network use any other technologies?',
+                            isPageHeading: false,
+                            classes: 'govuk-fieldset__legend--m'
+                        }
+                    },
+                    items: [
+                        {
+                            text: 'Yes',
+                            value: 'Yes',
+                            checked: true if data['technology-add'] == 'Yes'
+                        },
+                        {
+                            text: 'No',
+                            value: 'No',
+                            checked: true if data['technology-add'] == 'No'
+                        }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

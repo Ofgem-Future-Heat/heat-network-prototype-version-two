@@ -24,5 +24,21 @@ addFilter('monthName', function (int) {
 		'November',
 		'December',
 	]
-	return months[Number(int)-1]
+	return months[Number(int) - 1]
+})
+
+addFilter('includes', function (arr, str) {
+	if (arr && Array.isArray(arr)) {
+		return arr.includes(str)
+	}
+	return false
+})
+
+addFilter('commas2br', function (str) {
+	// test if str is type string
+	if (typeof str !== 'string') {
+		return str.replace(/,/g, '<br>')
+	} else {
+		return str
+	}
 })

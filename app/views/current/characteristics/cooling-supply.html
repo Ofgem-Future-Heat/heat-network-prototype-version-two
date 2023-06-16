@@ -25,11 +25,15 @@
 
 {% block content %}
 
+{% if not data['heat-network-provides'] | includes('Cooling') %}
+    {{ 'heating-supply' | redirect | safe }}
+{% endif %}
+
 <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="technology-number">
+            <form action="heating-supply">
 
                 <h1 class="govuk-heading-l">What is the cooling supply per calendar year in kilowatt hours?</h1>
 

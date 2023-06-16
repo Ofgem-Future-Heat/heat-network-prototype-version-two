@@ -29,79 +29,90 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="technology-energy-source">
-            {% set otherTechnologyHTML %}
+            <form action="technology-list">
+
+            {% set otherEnergySourceHTML %}
 
               {{ govukInput ({
-                id: 'other-technology',
-                name: 'other-technology',
-                value: data['other-technology'],
+                id: 'other-energy-source',
+                name: 'other-energy-source',
+                value: data['other-energy-source'],
                 classes: 'govuk-input--width-20',
                 label: {
-                  text: 'Name of technology used',
+                  text: 'Name of energy source',
                   classes: 'govuk-input--width-20'
                 }
               }) }}
 
             {% endset %}
 
+            {% set technologyName = data['other-technology'] if data['technology-type'] == 'Other' else data['technology-type'] %}
+
             {{ govukRadios ({
-              idPrefix: 'technology-type',
-              name: 'technology-type',
+              idPrefix: 'energy-source-type',
+              name: 'energy-source-type',
               fieldset: {
                 legend: {
-                  text: 'Which technology provides the the largest proportion of the heat energy?',
+                  text: 'What energy source do your ' + technologyName + ' use?',
                   isPageHeading: true,
                   classes: 'govuk-fieldset__legend--xl'
                 }
               },
               hint: {
-                text: 'We will ask about other technologies you use later.'
+                text: 'HINT NEEDED'
               },
               items: [
                   {
-                    value: "Boiler",
-                    text: "Boiler"
+                    value: "Ambient Heat",
+                    text: "Ambient Heat"
                   },
                   {
-                    value: "Chiller",
-                    text: "Chiller"
+                    value: "Biogas",
+                    text: "Biogas"
                   },
                   {
-                    value: "CHP engine",
-                    text: "CHP engine"
+                    value: "Biomass",
+                    text: "Biomass"
                   },
                   {
-                    value: "CHP fuel cell",
-                    text: "CHP fuel cell"
+                    value: "Diesel",
+                    text: "Diesel"
                   },
                   {
-                    value: "CHP gas turbine or Combined Cycle Plant",
-                    text: "CHP gas turbine or Combined Cycle Plant"
+                    value: "Electricity",
+                    text: "Electricity"
                   },
                   {
-                    value: "CHP Organic Rankine Cycle",
-                    text: "CHP Organic Rankine Cycle"
+                    value: "Geothermal",
+                    text: "Geothermal"
                   },
                   {
-                    value: "CHP Steam Turbine or Steam Screw",
-                    text: "CHP Steam Turbine or Steam Screw"
+                    value: "Hydrogen",
+                    text: "Hydrogen"
                   },
                   {
-                    value: "Expander",
-                    text: "Expander"
+                    value: "Liquid Biofuel",
+                    text: "Liquid Biofuel"
                   },
                   {
-                    value: "Heat exchanger from waste heat recovery process",
-                    text: "Heat exchanger from waste heat recovery process"
+                    value: "Natural gas",
+                    text: "Natural gas"
                   },
                   {
-                    value: "Heat pump",
-                    text: "Heat pump"
+                    value: "Oil",
+                    text: "Oil"
                   },
                   {
-                    value: "Solar thermal panels",
-                    text: "Solar thermal panels"
+                    value: "Solar",
+                    text: "Solar"
+                  },
+                  {
+                    value: "Energy from waste",
+                    text: "Energy from waste"
+                  },
+                  {
+                    value: "Waste heat",
+                    text: "Waste heat"
                   },
                   {
                     divider: "or"
@@ -110,7 +121,7 @@
                     value: "Other",
                     text: "Other",
                     conditional: {
-                      html: otherTechnologyHTML
+                      html: otherEnergySourceHTML
                     }
                   }
               ]

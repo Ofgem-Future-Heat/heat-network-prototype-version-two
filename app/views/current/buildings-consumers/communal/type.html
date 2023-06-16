@@ -29,12 +29,12 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="cooling-capacity">
+            <form action="domestic">
 
                 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
                 {{ govukCheckboxes({
-                  name: "type",
+                  name: "communal-type",
                   fieldset: {
                     legend: {
                       text: "What type of consumers does the heat network supply?",
@@ -49,12 +49,12 @@
                     {
                       value: "Domestic",
                       text: "Domestic",
-                      checked: true if data['type'] == 'Domestic'
+                      checked: true if data['communal-type'] | includes('Domestic')
                     },
                     {
                       value: "Commercial",
                       text: "Commercial",
-                      checked: true if data['type'] == 'Commercial'
+                      checked: true if data['communal-type'] | includes('Domestic')
                     }
                   ]
                 }) }}

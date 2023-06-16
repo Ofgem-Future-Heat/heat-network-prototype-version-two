@@ -34,7 +34,7 @@
                 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
                 {{ govukCheckboxes({
-                  name: "waste",
+                  name: "heat-network-provides",
                   fieldset: {
                     legend: {
                       text: "What does your heat network provide?",
@@ -47,15 +47,15 @@
                   },
                   items: [
                     {
-                      value: "heating",
+                      value: "Heating",
                       text: "Heating"
                     },
                     {
-                      value: "hot water",
+                      value: "Hot water",
                       text: "Hot water"
                     },
                     {
-                      value: "cooling",
+                      value: "Cooling",
                       text: "Cooling"
                     }
                   ]

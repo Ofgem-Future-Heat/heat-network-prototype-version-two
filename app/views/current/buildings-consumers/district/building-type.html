@@ -29,7 +29,7 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="check">
+            <form action="building-residential">
 
                 
 
@@ -47,24 +47,29 @@
                   },
                   items: [
                     {
-                      value: "residential buildings",
-                      text: "Residential buildings"
+                      value: "Residential buildings",
+                      text: "Residential buildings",
+                      checked: true if data['building-type'] | includes("Residential buildings")
                     },
                     {
-                      value: "commercial buildings",
-                      text: "Commercial buildings"
+                      value: "Commercial buildings",
+                      text: "Commercial buildings",
+                      checked: true if data['building-type'] | includes("Commercial buildings")
                     },
                     {
-                      value: "industrial buildings",
-                      text: "Industrial buildings"
+                      value: "Industrial buildings",
+                      text: "Industrial buildings",
+                      checked: true if data['building-type'] | includes("Industrial buildings")
                     },
                     {
-                      value: "public buildings",
-                      text: "Public buildings"
+                      value: "Public buildings",
+                      text: "Public buildings",
+                      checked: true if data['building-type'] | includes("Public buildings")
                     },
                     {
-                      value: "other buildings",
-                      text: "Other buildings"
+                      value: "Other buildings",
+                      text: "Other buildings",
+                      checked: true if data['building-type'] | includes("Other buildings")
                     }
                   ]
                 }) }}

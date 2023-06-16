@@ -73,7 +73,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['connection-check'] == "Yes",
                         {
                             key: {
                                 text: 'Organisation name of the other heat supplier'
@@ -90,7 +90,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['bulk-check'] == "No",
                         {
                             key: {
                                 text: 'Address for the other organisation'
@@ -107,7 +107,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['bulk-check'] == "No",
                         {
                             key: {
                                 text: 'Contact name for the other organisation'
@@ -124,7 +124,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['bulk-check'] == "No",
                         {
                             key: {
                                 text: 'Email address for the contact in the other organisation'
@@ -141,7 +141,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['bulk-check'] == "No",
                         {
                             key: {
                                 text: 'Telephone number for the contact in the other organisation'
@@ -155,6 +155,23 @@
                                         text: 'Change',
                                         href: 'other-telephone',
                                         visuallyHiddenText: ' telephone number for the contact in the other organisation'
+                                    }
+                                ]
+                            }
+                        } if data['bulk-check'] == "No",
+                        {
+                            key: {
+                                text: 'Types of buildings the heat networks supplies'
+                            },
+                            value: {
+                                text: data['building-type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'building-type',
+                                        visuallyHiddenText: ' the type of buildings the heat networks supplies'
                                     }
                                 ]
                             }
@@ -175,7 +192,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Residential buildings"),
                         {
                             key: {
                                 text: 'Number of domestic consumers'
@@ -192,7 +209,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Residential buildings"),
                         {
                             key: {
                                 text: 'Number of commercial buildings'
@@ -209,7 +226,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Commercial buildings"),
                         {
                             key: {
                                 text: 'Number of commercial consumers'
@@ -226,7 +243,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Commercial buildings"),
                         {
                             key: {
                                 text: 'Number of industrial buildings'
@@ -243,7 +260,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Industrial buildings"),
                         {
                             key: {
                                 text: 'Number of industrial consumers'
@@ -260,7 +277,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Industrial buildings"),
                         {
                             key: {
                                 text: 'Number of public buildings'
@@ -277,7 +294,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Public buildings"),
                         {
                             key: {
                                 text: 'Number of public consumers'
@@ -294,7 +311,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Public buildings"),
                         {
                             key: {
                                 text: 'Number of other buildings'
@@ -311,7 +328,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['building-type'] | includes("Other buildings"),
                         {
                             key: {
                                 text: 'Number of other consumers'
@@ -328,7 +345,7 @@
                                     }
                                 ]
                             }
-                        }
+                        } if data['building-type'] | includes("Other buildings")
 
                     }
                 }) }}

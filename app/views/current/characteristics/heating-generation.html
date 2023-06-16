@@ -25,11 +25,15 @@
 
 {% block content %}
 
+{% if not (data['heat-network-provides'] | includes('Heating') or data['heat-network-provides'] | includes('Hot water'))  %}
+    {{ 'cooling-supply' | redirect | safe }}
+{% endif %}
+
 <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="heating-supply">
+            <form action="cooling-supply">
 
                 <h1 class="govuk-heading-l">What is the heating and hot water generation per calendar year in kilowatt hours?</h1>
 
