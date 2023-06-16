@@ -39,19 +39,24 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many domestic consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'domestic consumers'",
+                  text: "Enter the total number of final/end consumers currently served by the network that fall into the domestic/residential class. These are end consumers in residential or domestic premises so are related to housing."
+                }) }}
 
                 
 
                 {{ govukInput({
                 label: {
-                  text: "How many domestic consumers do you have?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of domestic consumers"
+                  text: ""
                 },
                 id: "communal-domestic-consumers",
                 name: "communal-domestic-consumers",

@@ -31,6 +31,13 @@
 
             <form action="bulk-check">
 
+            <h1 class="govuk-heading-l">Does your district network provide heat to any communally heated buildings / networks?'</h1>
+
+            {{ govukDetails({
+                  summaryText: "Help with communal network",
+                  text: "A communal network distributes thermal energy in the form of steam, hot water or chilled liquids from a central heat source through pipework to a single building with multiple final customers, for the use of space or process heating, cooling or hot water. It is not necessary for the heat source to be within the building it serves, only that a single building makes use of the heat."
+                }) }}
+
             
 
                 {{ govukRadios ({
@@ -38,7 +45,7 @@
                     name: 'connection-check',
                     fieldset: {
                         legend: {
-                            text: 'Does your district network provide heat to any communally heated buildings / networks?',
+                            text: '',
                             isPageHeading: true,
                             classes: 'govuk-fieldset__legend--l'
                         }

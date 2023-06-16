@@ -37,21 +37,22 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many residential buildings does the heat network supply?</h1>
 
-                
-
-                
+                {{ govukDetails({
+                  summaryText: "Help with 'residential buildings'",
+                  text: "Enter the total number of buildings currently served by the network that fall into the domestic/residential class. These are residential or domestic premises so are related to housing."
+                }) }}
 
                 {{ govukInput({
                 label: {
-                  text: "How many residential buildings does the heat network supply?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of residential buildings"
+                  text: ""
                 },
                 id: "building-residential",
                 name: "building-residential",

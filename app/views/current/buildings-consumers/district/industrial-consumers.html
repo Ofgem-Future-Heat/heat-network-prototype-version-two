@@ -33,7 +33,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many industrial consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'industrial consumers'",
+                  text: "Enter the total number of final customers currently served by the network that fall into the industrial class. These are consumers typically related to factories or warehouses."
+                }) }}
 
                 
 
@@ -41,13 +46,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many industrial consumers do you have?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of industrial consumers"
+                  text: ""
                 },
                 id: "industrial-consumers",
                 name: "industrial-consumers",

@@ -37,7 +37,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many other buildings does the heat network supply?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'other buildings'",
+                  text: "Enter the total number of buildings currently served by the network that do not fall into any of the other classes."
+                }) }}
 
                 
 
@@ -45,13 +50,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many other buildings does the heat network supply?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of other buildings"
+                  text: ""
                 },
                 id: "building-other",
                 name: "building-other",

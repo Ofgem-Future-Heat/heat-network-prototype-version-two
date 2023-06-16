@@ -37,7 +37,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many commercial buildings does the heat network supply?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'commercial buildings'",
+                  text: "Enter the total number of buildings currently served by the network that fall into the commercial/retail class. These are related to shops, offices, or businesses."
+                }) }}
 
                 
 
@@ -45,13 +50,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many commercial buildings does the heat network supply?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of commercial buildings"
+                  text: ""
                 },
                 id: "building-commercial",
                 name: "building-commercial",

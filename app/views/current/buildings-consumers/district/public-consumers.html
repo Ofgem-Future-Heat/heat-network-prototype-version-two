@@ -33,7 +33,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many public consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'public consumers'",
+                  text: "Enter the total number of final/end consumers currently served by the network that fall into the public class. These would typically be related to local authority buildings, libraries, or other government type buildings."
+                }) }}
 
                 
 
@@ -41,13 +46,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many public consumers do you have?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of public consumers"
+                  text: ""
                 },
                 id: "public-consumers",
                 name: "public-consumers",

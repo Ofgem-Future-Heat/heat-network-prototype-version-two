@@ -37,7 +37,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many public buildings does the heat network supply?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'public buildings'",
+                  text: "Enter the total number of buildings currently served by the network that fall into the public class. These would typically be related to local authority buildings, libraries, or other government type buildings."
+                }) }}
 
                 
 
@@ -45,13 +50,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many public buildings does the heat network supply?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of public buildings"
+                  text: ""
                 },
                 id: "building-public",
                 name: "building-public",

@@ -33,7 +33,12 @@
 
                 
 
-                
+                 <h1 class="govuk-heading-l">How many commercial consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'commercial consumers'",
+                  text: "Enter the total number of final/end consumers currently served by the network that fall into the commercial/retail class. These are consumers related to shops, offices, or business."
+                }) }}
 
                 
 
@@ -41,13 +46,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many commercial consumers do you have?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of commercial consumers"
+                  text: ""
                 },
                 id: "commercial-consumers",
                 name: "commercial-consumers",

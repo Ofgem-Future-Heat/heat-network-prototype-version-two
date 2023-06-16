@@ -33,7 +33,12 @@
 
                 
 
-                
+                <h1 class="govuk-heading-l">How many other consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'other consumers'",
+                  text: "Enter the total number of final/end consumers currently served by the network that do not fall into any of the other classes."
+                }) }}
 
                 
 
@@ -41,13 +46,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many other consumers do you have?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of other consumers"
+                  text: ""
                 },
                 id: "other-consumers",
                 name: "other-consumers",

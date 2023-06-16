@@ -95,30 +95,30 @@
                                 text: 'Backup cooling'
                             },
                             value: {
-                                text: data['heating-capacity']
+                                text: data['backup-cooling']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
+                                        href: 'backup-cooling',
                                         visuallyHiddenText: ' when your heat network is expected to start operating'
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Cooling"),
                         {
                             key: {
                                 text: 'Backup heating and hot water'
                             },
                             value: {
-                                text: data['type']
+                                text: data['backup-heating']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'type',
+                                        href: 'backup-heating',
                                         visuallyHiddenText: ' heat network type'
                                     }
                                 ]

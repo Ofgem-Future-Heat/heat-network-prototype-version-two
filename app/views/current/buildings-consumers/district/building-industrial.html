@@ -37,7 +37,12 @@
 
                 
 
-                
+                 <h1 class="govuk-heading-l">How many industrial buildings does the heat network supply?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'industrial buildings'",
+                  text: "Enter the total number of buildings currently served by the network that fall into the industrial class. These are typically related to factories or warehouses."
+                }) }}
 
                 
 
@@ -45,13 +50,13 @@
 
                 {{ govukInput({
                 label: {
-                  text: "How many industrial buildings does the heat network supply?",
+                  text: "",
                   classes: "govuk-label--l",
                   isPageHeading: true
                 },
                 classes: "govuk-input--width-10",
                 hint: {
-                  text: "Number of industrial buildings"
+                  text: ""
                 },
                 id: "building-industrial",
                 name: "building-industrial",
