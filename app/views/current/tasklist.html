@@ -75,6 +75,13 @@
                                 title: 'Location',
                                 href: 'location/district/address-check' if locationStatus == 'Not started' else 'location/district/check',
                                 status: locationStatus
+                            }) }} 
+                            {% set locationStatus = 'Complete' if data['section-location'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'location',
+                                title: 'Location',
+                                href: 'location/district/address-check' if locationStatus == 'Not started' else 'location/district/check',
+                                status: locationStatus
                             }) }}
                             {% set buildingsStatus = 'Complete' if data['section-buildings'] == 'complete' else 'Not started' %}
                             {{ taskListRow({

@@ -34,7 +34,7 @@
                 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
                 {{ govukCheckboxes({
-                  name: "waste",
+                  name: "type",
                   fieldset: {
                     legend: {
                       text: "What type of consumers does the heat network supply?",
@@ -47,12 +47,14 @@
                   },
                   items: [
                     {
-                      value: "domestic",
-                      text: "Domestic"
+                      value: "Domestic",
+                      text: "Domestic",
+                      checked: true if data['type'] == 'Domestic'
                     },
                     {
-                      value: "commercial",
-                      text: "Commercial"
+                      value: "Commercial",
+                      text: "Commercial",
+                      checked: true if data['type'] == 'Commercial'
                     }
                   ]
                 }) }}

@@ -45,14 +45,14 @@
                                 text: 'District networks provides heat to communally heated buildings'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['connection-check']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'connection-check',
+                                        visuallyHiddenText: ' whether your district network provide heat to any communally heated buildings / networks'
                                     }
                                 ]
                             }
@@ -62,14 +62,14 @@
                                 text: 'For all of the connected communal networks do you operate and supply heat to all end consumers?'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['bulk-check']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'bulk-check',
+                                        visuallyHiddenText: ' whether for all of the connected communal networks you operate and supply heat to all end consumers'
                                     }
                                 ]
                             }
@@ -79,14 +79,14 @@
                                 text: 'Organisation name of the other heat supplier'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-name']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-name',
+                                        visuallyHiddenText: ' the organisation name of the other heat supplier/network operator'
                                     }
                                 ]
                             }
@@ -96,14 +96,14 @@
                                 text: 'Address for the other organisation'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-address']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-postcode',
+                                        visuallyHiddenText: ' the address for the other organisation'
                                     }
                                 ]
                             }
@@ -113,14 +113,14 @@
                                 text: 'Contact name for the other organisation'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-contact']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-contact',
+                                        visuallyHiddenText: ' contact name for the other organisation'
                                     }
                                 ]
                             }
@@ -130,14 +130,14 @@
                                 text: 'Email address for the contact in the other organisation'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-email']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-email',
+                                        visuallyHiddenText: ' email address for the contact in the other organisation'
                                     }
                                 ]
                             }
@@ -147,14 +147,14 @@
                                 text: 'Telephone number for the contact in the other organisation'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-telephone']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-telephone',
+                                        visuallyHiddenText: ' telephone number for the contact in the other organisation'
                                     }
                                 ]
                             }
@@ -164,14 +164,14 @@
                                 text: 'Number of residential buildings'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['building-residential']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'building-residential',
+                                        visuallyHiddenText: ' number of residential buildings'
                                     }
                                 ]
                             }
@@ -181,14 +181,14 @@
                                 text: 'Number of domestic consumers'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['domestic-consumers']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'domestic-consumers',
+                                        visuallyHiddenText: ' number of domestic consumers'
                                     }
                                 ]
                             }
@@ -198,48 +198,48 @@
                                 text: 'Number of commercial buildings'
                             },
                             value: {
-                                text: data['centre-address']
+                                text: data['building-commercial']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'centre-postcode',
-                                        visuallyHiddenText: ' the energy centre address'
+                                        href: 'building-commercial',
+                                        visuallyHiddenText: ' number of commercial buildings'
                                     }
                                 ]
                             }
-                        } if data['check-centre-address'] == 'Yes',
+                        },
                         {
                             key: {
                                 text: 'Number of commercial consumers'
                             },
                             value: {
-                                text: data['nearest-postcode']
+                                text: data['commercial-consumers']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'nearest',
-                                        visuallyHiddenText: ' the nearest postcode'
+                                        href: 'commercial-consumers',
+                                        visuallyHiddenText: ' number of commercial consumers'
                                     }
                                 ]
                             }
-                        } if data['check-centre-address'] == 'No',
+                        },
                         {
                             key: {
                                 text: 'Number of industrial buildings'
                             },
                             value: {
-                                text: data['mobile']
+                                text: data['building-industrial']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'mobile',
-                                        visuallyHiddenText: ' mobile number'
+                                        href: 'building-industrial',
+                                        visuallyHiddenText: ' number of industrial buildings'
                                     }
                                 ]
                             }
@@ -249,14 +249,14 @@
                                 text: 'Number of industrial consumers'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['industrial-consumers']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'industrial-consumers',
+                                        visuallyHiddenText: ' number of industrial consumers'
                                     }
                                 ]
                             }
@@ -266,14 +266,14 @@
                                 text: 'Number of public buildings'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['building-public']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'building-public',
+                                        visuallyHiddenText: ' number of public buildings'
                                     }
                                 ]
                             }
@@ -283,14 +283,14 @@
                                 text: 'Number of public consumers'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['public-consumers']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'public-consumers',
+                                        visuallyHiddenText: ' number of public consumers'
                                     }
                                 ]
                             }
@@ -300,14 +300,14 @@
                                 text: 'Number of other buildings'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['building-other']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'building-other',
+                                        visuallyHiddenText: ' number of other buildings'
                                     }
                                 ]
                             }
@@ -317,14 +317,14 @@
                                 text: 'Number of other consumers'
                             },
                             value: {
-                                text: data['check-centre-address']
+                                text: data['other-consumers']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'address-check',
-                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                        href: 'other-consumers',
+                                        visuallyHiddenText: ' number of other consumers'
                                     }
                                 ]
                             }

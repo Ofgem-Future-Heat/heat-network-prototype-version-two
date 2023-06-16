@@ -42,8 +42,8 @@
           <h1 class="govuk-heading-l">Select the address for {{ data['other-name'] }}</h1>
 
           {{ govukRadios({
-          idPrefix: 'centre-address',
-          name: 'centre-address',
+          idPrefix: 'other-address',
+          name: 'other-address',
           fieldset: {
           legend: {
           text: "",
@@ -55,17 +55,17 @@
           {
           value: "1 Washington Street, Worcester, WR1 1NL",
           text: "1 Washington Street, Worcester, WR1 1NL",
-          checked: true if data['centre-address'] == '1 Washington Street, Worcester, WR1 1NL'
+          checked: true if data['other-address'] == '1 Washington Street, Worcester, WR1 1NL'
           },
           {
           value: "2 Washington Street, Worcester, WR1 1NL",
           text: "2 Washington Street, Worcester, WR1 1NL",
-          checked: true if data['centre-address'] == '2 Washington Street, Worcester, WR1 1NL'
+          checked: true if data['other-address'] == '2 Washington Street, Worcester, WR1 1NL'
           },
           {
           value: "3 Washington Street, Worcester, WR1 1NL",
           text: "3 Washington Street, Worcester, WR1 1NL",
-          checked: true if data['centre-address'] == '3 Washington Street, Worcester, WR1 1NL'
+          checked: true if data['other-address'] == '3 Washington Street, Worcester, WR1 1NL'
           }
           ]
           }) }}
