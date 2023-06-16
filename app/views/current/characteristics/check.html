@@ -1,10 +1,328 @@
-{% extends "layouts/main.html" %}
+{% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
 {% endblock %}
 
 {% block content %}
 
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Characteristics
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'What does it provide?'
+                            },
+                            value: {
+                                text: data['network-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'name',
+                                        visuallyHiddenText: ' heat network name'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Cooling capacity'
+                            },
+                            value: {
+                                text: data['hn-active']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' whether your heat network is currently supplying consumers'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Heating and hot water capacity'
+                            },
+                            value: {
+                                text: data['started-operating-day'] + ' ' + data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network started operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Backup cooling'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Backup heating and hot water'
+                            },
+                            value: {
+                                text: data['type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type',
+                                        visuallyHiddenText: ' heat network type'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Cooling generation'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Heating generation'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Cooling supply'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Heating supply'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Number of technologies'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Primary technology'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Secondary technology'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Tertiary technology'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Primary energy source'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Secondary energy source'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Tertiary energy source'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-characteristics" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
 
 {% endblock %}

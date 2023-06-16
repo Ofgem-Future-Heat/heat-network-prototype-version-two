@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    ????
+    BACKUP HEATING
 {% endblock %}
 
 {% block beforeContent %}
@@ -31,7 +31,7 @@
 
             <form action="heating-generation">
 
-                <h1 class="govuk-heading-l">???</h1>
+                <h1 class="govuk-heading-l">BACKUP HEATING</h1>
 
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "???",
                   name: "???",
+                  value: data['cooling-capacity'] if data['cooling-capacity'] else '',
                   label: {
                     text: "???",
               

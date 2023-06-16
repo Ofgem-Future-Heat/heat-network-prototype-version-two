@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "cooling-generation",
                   name: "cooling-generation",
+                  value: data['cooling-generation'] if data['cooling-generation'] else '',
                   label: {
                     text: "Generation per calendar year",
               

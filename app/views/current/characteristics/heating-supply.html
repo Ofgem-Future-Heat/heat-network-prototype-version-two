@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "heating-supply",
                   name: "heating-supply",
+                  value: data['heating-supply'] if data['heating-supply'] else '',
                   label: {
                     text: "Supply per calendar year",
               

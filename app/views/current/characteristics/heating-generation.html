@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "heating-generation",
                   name: "heating-generation",
+                  value: data['heating-generation'] if data['heating-generation'] else '',
                   label: {
                     text: "Generation per calendar year",
               

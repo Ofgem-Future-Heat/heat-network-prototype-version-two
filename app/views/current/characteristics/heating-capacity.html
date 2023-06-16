@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "heating-capacity",
                   name: "heating-capacity",
+                  value: data['heating-capacity'] if data['heating-capacity'] else '',
                   label: {
                     text: "Heating and hot water capacity",
               

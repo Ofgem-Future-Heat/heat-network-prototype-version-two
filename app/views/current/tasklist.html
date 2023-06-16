@@ -41,7 +41,7 @@
 
                 <p>
                     <b>Application incomplete</b><br>
-                    You have completed 0 of 3 sections.
+                    You have not completed all sections.
                 </p>
 
                 <ol class="app-task-list">
@@ -69,25 +69,32 @@
                         </h2>
 
                         <ul class="app-task-list__items">
-                            {% set locationStatus = 'Complete' if data['section-location'] == 'complete' else 'Not started' %}
+                            {% set locationStatus = 'Complete' if data['section-location-district'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
                                 id: 'location',
-                                title: 'Location',
-                                href: 'location/district/address-check' if locationStatus == 'Not started' else 'location/district/check',
-                                status: locationStatus
-                            }) }} 
-                            {% set locationStatus = 'Complete' if data['section-location'] == 'complete' else 'Not started' %}
-                            {{ taskListRow({
-                                id: 'location',
-                                title: 'Location',
+                                title: 'Location (district)',
                                 href: 'location/district/address-check' if locationStatus == 'Not started' else 'location/district/check',
                                 status: locationStatus
                             }) }}
-                            {% set buildingsStatus = 'Complete' if data['section-buildings'] == 'complete' else 'Not started' %}
+                            {% set locationStatus = 'Complete' if data['section-location-communal'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'location',
+                                title: 'Location (communal)',
+                                href: 'location/communal/postcode' if locationStatus == 'Not started' else 'location/communal/check',
+                                status: locationStatus
+                            }) }}
+                            {% set buildingsStatus = 'Complete' if data['section-buildings-district'] == 'complete' else 'Not started' %}
                             {{ taskListRow({
                                 id: 'buildings',
-                                title: 'Buildings and consumers',
+                                title: 'Buildings and consumers (district)',
                                 href: 'buildings-consumers/district/connection-check' if buildingsStatus == 'Not started' else 'buildings-consumers/district/check',
+                                status: buildingsStatus
+                            }) }}
+                            {% set buildingsStatus = 'Complete' if data['section-buildings-communal'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'buildings',
+                                title: 'Buildings and consumers (communal)',
+                                href: 'buildings-consumers/communal/type' if buildingsStatus == 'Not started' else 'buildings-consumers/communal/check',
                                 status: buildingsStatus
                             }) }}
                             {% set characteristicsStatus = 'Complete' if data['section-characteristics'] == 'complete' else 'Not started' %}

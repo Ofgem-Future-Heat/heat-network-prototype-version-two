@@ -45,6 +45,7 @@
                 {{ govukInput({
                   id: "cooling-capacity",
                   name: "cooling-capacity",
+                  value: data['cooling-capacity'] if data['cooling-capacity'] else '',
                   label: {
                     text: "Cooling capacity",
               
