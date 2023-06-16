@@ -34,11 +34,17 @@ addFilter('includes', function (arr, str) {
 	return false
 })
 
-addFilter('commas2br', function (str) {
-	// test if str is type string
-	if (typeof str !== 'string') {
-		return str.replace(/,/g, '<br>')
-	} else {
-		return str
+addFilter('arrayToBullets', function (arr) {
+	if (arr && Array.isArray(arr)) {
+		// If array length is 1, return a string
+		if (arr.length === 1) {
+			return arr[0]
+		}
+		return (
+			'<ul class="govuk-list govuk-list--bullet">' +
+			arr.map((item) => `<li>${item}</li>`).join('') +
+			'</ul>'
+		)
 	}
+	return ''
 })

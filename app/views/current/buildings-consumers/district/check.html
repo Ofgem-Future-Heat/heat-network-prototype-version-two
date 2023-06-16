@@ -164,7 +164,7 @@
                                 text: 'Types of buildings the heat networks supplies'
                             },
                             value: {
-                                text: data['building-type']
+                                text: data['building-type'] | arrayToBullets | safe
                             },
                             actions: {
                                 items: [
