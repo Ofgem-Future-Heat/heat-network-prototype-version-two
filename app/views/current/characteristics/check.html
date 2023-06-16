@@ -41,14 +41,14 @@
                                 text: 'What does it provide?'
                             },
                             value: {
-                                text: data['network-name']
+                                text: data['heat-network-provides']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'name',
-                                        visuallyHiddenText: ' heat network name'
+                                        href: 'type',
+                                        visuallyHiddenText: ' what your heat network provides'
                                     }
                                 ]
                             }
@@ -58,7 +58,7 @@
                                 text: 'Cooling capacity'
                             },
                             value: {
-                                text: data['hn-active']
+                                text: data['cooling-capacity']
                             },
                             actions: {
                                 items: [
@@ -69,30 +69,30 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Cooling"),
                         {
                             key: {
                                 text: 'Heating and hot water capacity'
                             },
                             value: {
-                                text: data['started-operating-day'] + ' ' + data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
+                                text: data['heating-capacity']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network started operating'
+                                        href: 'heating-capacity',
+                                        visuallyHiddenText: ' heating and hot water capacity'
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Heating") or includes ("Hot water"),
                         {
                             key: {
                                 text: 'Backup cooling'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['heating-capacity']
                             },
                             actions: {
                                 items: [
@@ -126,184 +126,99 @@
                                 text: 'Cooling generation'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['cooling-generation']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        href: 'cooling-generation',
+                                        visuallyHiddenText: ' cooling generation per calendar year in kilowatt hours'
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Cooling"),
                         {
                             key: {
                                 text: 'Heating generation'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['heating-generation']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        href: 'heating-generation',
+                                        visuallyHiddenText: ' cooling generation per calendar year in kilowatt hours'
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Heating") or includes ("Hot water"),
                         {
                             key: {
                                 text: 'Cooling supply'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['cooling-supply']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        href: 'cooling-supply',
+                                        visuallyHiddenText: ' cooling supply per calendar year in kilowatt hours'
                                     }
                                 ]
                             }
-                        },
+                        } if data['heat-network-provides'] | includes("Cooling"),
                         {
                             key: {
                                 text: 'Heating supply'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['heating-supply']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
+                                        href: 'heating-supply',
                                         visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Heating") or includes("Hot water"),
+                        {
+                            key: {
+                                text: 'Which technology provides the the largest proportion of the heat energy?'
+                            },
+                            value: {
+                                text: data['technology-type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'technology',
+                                        visuallyHiddenText: ' the technology that provides the largest proportion of the heat energy'
                                     }
                                 ]
                             }
                         },
                         {
                             key: {
-                                text: 'Number of technologies'
+                                text: 'What energy source do your primary technology use?'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['energy-source-type']
                             },
                             actions: {
                                 items: [
                                     {
                                         text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Primary technology'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Secondary technology'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Tertiary technology'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Primary energy source'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Secondary energy source'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            key: {
-                                text: 'Tertiary energy source'
-                            },
-                            value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
-                            },
-                            actions: {
-                                items: [
-                                    {
-                                        text: 'Change',
-                                        href: 'active',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        href: 'technology-energy-source',
+                                        visuallyHiddenText: ' the energy source your primary technology uses'
                                     }
                                 ]
                             }
