@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    Enter the largest three energy technologies used
+    Which technology in your network provides the largest proportion of the heat energy?
 {% endblock %}
 
 {% block beforeContent %}
@@ -45,18 +45,27 @@
 
             {% endset %}
 
+            <h1 class="govuk-heading-l">Which technology in your network provides the largest proportion of the heat energy?</h1>
+
+            
+
+            {# {{ govukDetails({
+                  summaryText: "Help with 'energy technology'",
+                  text: "The primary technology type is the technology that provides the largest proportion of the heat energy. The secondary and tertiary technologies are any other technologies that are on the network. Not all networks will have them. They may be back up systems."
+                }) }} #}
+
             {{ govukRadios ({
               idPrefix: 'technology-type',
               name: 'technology-type',
               fieldset: {
                 legend: {
-                  text: 'Which technology provides the the largest proportion of the heat energy?',
+                  text: '',
                   isPageHeading: true,
                   classes: 'govuk-fieldset__legend--xl'
                 }
               },
               hint: {
-                text: 'We will ask about other technologies you use later.'
+                text: 'We will ask about other technologies later.'
               },
               items: [
                   {

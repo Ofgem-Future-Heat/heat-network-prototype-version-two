@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    Enter the largest three energy technologies used
+    What energy source does it use?
 {% endblock %}
 
 {% block beforeContent %}
@@ -55,11 +55,11 @@
                 legend: {
                   text: 'What energy source do your ' + technologyName + ' use?',
                   isPageHeading: true,
-                  classes: 'govuk-fieldset__legend--xl'
+                  classes: 'govuk-fieldset__legend--l'
                 }
               },
               hint: {
-                text: 'HINT NEEDED'
+                text: ''
               },
               items: [
                   {
