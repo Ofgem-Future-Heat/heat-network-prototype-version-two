@@ -39,8 +39,12 @@
                     We expect heat network operation and heat supply activities to be undertaken by the same organisation for a single heat network. Please provide your organisational details below so that you can register any heat networks you are responsible for.
                 </p>
 
+                {% set operatorTypeInsetHTML %}
+                <p> If for your heat network, operation and supply responsibilities are split across different organisations please complete and submit your registration and contact the Ofgem team via <a href>heatnetworkregulation@ofgem.gov.uk</a></p>
+                {% endset %}
+
                 {{ govukInsetText({
-                text: "If for your heat network, operation and supply responsibilities are split across different organisations please complete and submit your registration and contact the Ofgem team via heatnetworkregulation@ofgem.gov.uk"
+                html: operatorTypeInsetHTML
                 }) }}
 
                 {% set companyNumberHTML %}
