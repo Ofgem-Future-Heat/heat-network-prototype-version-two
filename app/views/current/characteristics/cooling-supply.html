@@ -40,7 +40,7 @@
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
                 {{ govukDetails({
-                  summaryText: "What does supply mean?",
+                  summaryText: "Help with 'supply'",
                   text: "Heat/cooling supplied is the total amount of heat/cooling used by the customers of the network in the last calendar year in kWh. Use figures from the final customers' meters/heat cost allocators (HCAs) and combine these to get a total figure from all customers' meters. Provide a figure for annual supply for the previous full calendar year - this may require subtracting the previous years meter reading from the latest meter reading. If there are no final customer meters/HCAs, leave this blank."
                 }) }}
 
@@ -51,7 +51,7 @@
                   name: "cooling-supply",
                   value: data['cooling-supply'] if data['cooling-supply'] else '',
                   label: {
-                    text: "Supply per calendar year",
+                    text: "Cooling supply per calendar year",
               
                     isPageHeading: true
                   },

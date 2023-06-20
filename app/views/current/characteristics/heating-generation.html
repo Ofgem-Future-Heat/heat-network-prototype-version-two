@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    What is the heating and hot water generation per calendar year in kilowatt hours?
+    What is the heating and/or hot water generation per calendar year in kilowatt hours?
 {% endblock %}
 
 {% block beforeContent %}
@@ -35,12 +35,12 @@
 
             <form action="cooling-supply">
 
-                <h1 class="govuk-heading-l">What is the heating and hot water generation per calendar year in kilowatt hours?</h1>
+                <h1 class="govuk-heading-l">What is the heating and/or hot water generation per calendar year in kilowatt hours?</h1>
 
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
                 {{ govukDetails({
-                  summaryText: "What does generation mean?",
+                  summaryText: "Help with 'generation'",
                   text: "Generation is the heat/cooling input into the system and not the amount of fuel being used. The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading. If there is no appropriate meter fitted, leave this blank."
                 }) }}
 
@@ -51,7 +51,7 @@
                   name: "heating-generation",
                   value: data['heating-generation'] if data['heating-generation'] else '',
                   label: {
-                    text: "Generation per calendar year",
+                    text: "Heating and/or hot water generation per calendar year",
               
                     isPageHeading: true
                   },

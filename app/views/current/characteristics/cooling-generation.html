@@ -40,7 +40,7 @@
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
                 {{ govukDetails({
-                  summaryText: "What does generation mean?",
+                  summaryText: "Help with 'generation'",
                   text: "Generation is the heat/cooling input into the system and not the amount of fuel being used. The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading. If there is no appropriate meter fitted, leave this blank."
                 }) }}
 
@@ -51,7 +51,7 @@
                   name: "cooling-generation",
                   value: data['cooling-generation'] if data['cooling-generation'] else '',
                   label: {
-                    text: "Generation per calendar year",
+                    text: "Cooling generation per calendar year",
               
                     isPageHeading: true
                   },

@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    What is the heating and hot water capacity in kilowatts?
+    What is the heating and/or hot water capacity in kilowatts?
 {% endblock %}
 
 {% block beforeContent %}
@@ -35,13 +35,13 @@
 
             <form action="backup-cooling">
 
-                <h1 class="govuk-heading-l">What is the heating and hot water capacity in kilowatts?</h1>
+                <h1 class="govuk-heading-l">What is the heating and/or hot water capacity in kilowatts?</h1>
 
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
                 {{ govukDetails({
-                  summaryText: "What does capacity mean?",
-                  text: "This is the maximum output of the heating and hot water sources on the network. If the heat network is capable of thermal storage do not include this. The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If its not, you can ask your service engineer to give you this information. If there is more than one heating and hot water source, add together the combined total capacity of all the sources."
+                  summaryText: "Help with 'capacity'",
+                  text: "This is the maximum output of the heating and/or hot water sources on the network. If the heat network is capable of thermal storage do not include this. The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If its not, you can ask your service engineer to give you this information. If there is more than one heating and/or hot water source, add together the combined total capacity of all the sources."
                 }) }}
 
                 {% from "govuk/components/input/macro.njk" import govukInput %}
@@ -51,7 +51,7 @@
                   name: "heating-capacity",
                   value: data['heating-capacity'] if data['heating-capacity'] else '',
                   label: {
-                    text: "Heating and hot water capacity",
+                    text: "Heating and/or hot water capacity",
               
                     isPageHeading: true
                   },

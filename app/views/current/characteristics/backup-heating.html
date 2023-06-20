@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block pageTitle %}
-    What is the backup system capacity for heating and hot water in kilowatts?
+    What is the backup system capacity for heating and/or hot water in kilowatts?
 {% endblock %}
 
 {% block beforeContent %}
@@ -35,12 +35,12 @@
 
             <form action="cooling-generation">
 
-                <h1 class="govuk-heading-l">What is the backup system capacity for heating and hot water in kilowatts?</h1>
+                <h1 class="govuk-heading-l">What is the backup system capacity for heating and/or hot water in kilowatts?</h1>
 
                 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
                 {{ govukDetails({
-                  summaryText: "What does backup capacity mean?",
+                  summaryText: "Help with 'backup capacity'",
                   text: "If you have one. This is the maximum output of the backup heat energy source on the network. If the heat network is capable of thermal storage, do not include this. The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If it's not, you can ask your service engineer to give you this information. If there is more than one backup source, add together the combined total capacity of all the sources. If there is no backup available, leave blank."
                 }) }}
 
@@ -51,7 +51,7 @@
                   name: "backup-heating",
                   value: data['backup-heating'] if data['backup-heating'] else '',
                   label: {
-                    text: "Backup capacity for heating and hot water",
+                    text: "Backup capacity for heating and/or hot water",
               
                     isPageHeading: true
                   },
