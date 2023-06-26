@@ -1,0 +1,69 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Register a heat network
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                <h1 class="govuk-heading-l">Register a heat network</h1>
+
+                <p>
+                    Ofgem is now the regulator for heat networks in Great Britain. The operation and supply of heat (including hot water and cooling) from a heat network is now a regulated activity that requires authorisation.
+                </p>
+
+                <p>
+                    If you supply more than one customer using a single source of heat, you are running a heat network.
+                </p>
+
+                <p>
+                    You now need to register any heat networks with Ofgem, even if you have registered with OPSS in the past.
+                </p>
+
+                {{ govukButton ({
+                    html: 'Start',
+                    href: 'roles',
+                    isStartButton: true
+                }) }}
+
+                <p>
+                    <a href>
+                        Login to your account
+                    </a>
+                </p>
+
+                <h2 class="govuk-heading-m">
+                    Before you start
+                </h2>
+
+                <p>
+                    If you need help using the service:
+                </p>
+
+                <p>
+                    <a href>
+                        Read more about what heat networks are and what is covered by the regulations?
+                    </a>
+                </p>
+
+                <p>
+                    <a href>
+                        Read more about Ofgem's regulation of heat networks
+                    </a>
+                </p>
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

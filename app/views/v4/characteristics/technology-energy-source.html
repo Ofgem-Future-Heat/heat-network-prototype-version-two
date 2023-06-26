@@ -1,0 +1,390 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What energy source does it use?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="technology-list">
+
+            {% set otherEnergySourceHTML %}
+
+              {{ govukInput ({
+                id: 'other-energy-source',
+                name: 'other-energy-source',
+                value: data['other-energy-source'],
+                classes: 'govuk-input--width-20',
+                label: {
+                  text: 'Name of energy source',
+                  classes: 'govuk-input--width-20'
+                }
+              }) }}
+
+            {% endset %}
+
+            {% set technologyName = data['other-technology'] if data['technology-type'] == 'Other' else data['technology-type'] %}
+
+            {{ govukRadios ({
+              idPrefix: 'energy-source-type',
+              name: 'energy-source-type',
+              fieldset: {
+                legend: {
+                  text: 'What energy source do your ' + technologyName + ' use?',
+                  isPageHeading: true,
+                  classes: 'govuk-fieldset__legend--l'
+                }
+              },
+              hint: {
+                text: ''
+              },
+              items: [
+                  {
+                    value: "Ambient Heat",
+                    text: "Ambient Heat"
+                  },
+                  {
+                    value: "Biogas",
+                    text: "Biogas"
+                  },
+                  {
+                    value: "Biomass",
+                    text: "Biomass"
+                  },
+                  {
+                    value: "Diesel",
+                    text: "Diesel"
+                  },
+                  {
+                    value: "Electricity",
+                    text: "Electricity"
+                  },
+                  {
+                    value: "Geothermal",
+                    text: "Geothermal"
+                  },
+                  {
+                    value: "Hydrogen",
+                    text: "Hydrogen"
+                  },
+                  {
+                    value: "Liquid Biofuel",
+                    text: "Liquid Biofuel"
+                  },
+                  {
+                    value: "Natural gas",
+                    text: "Natural gas"
+                  },
+                  {
+                    value: "Oil",
+                    text: "Oil"
+                  },
+                  {
+                    value: "Solar",
+                    text: "Solar"
+                  },
+                  {
+                    value: "Energy from waste",
+                    text: "Energy from waste"
+                  },
+                  {
+                    value: "Waste heat",
+                    text: "Waste heat"
+                  },
+                  {
+                    divider: "or"
+                  },
+                  {
+                    value: "Other",
+                    text: "Other",
+                    conditional: {
+                      html: otherEnergySourceHTML
+                    }
+                  }
+              ]
+            }) }}
+
+            {{ govukButton({
+            text: "Continue"
+            }) }}
+
+            <br>
+
+            {{ govukButton ({
+                html: 'Save and return later',
+                classes: 'govuk-button--secondary',
+                href: '#'
+            }) }} 
+
+            </form>
+
+            {# <form action="source">
+
+                <h1 class="govuk-heading-l">Enter the largest three energy technologies used</h1>
+
+                <p>If there is a difference in capacity between your technologies, list the one that provides the largest proportion of your heat first.</p>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "What is energy technology?",
+                  text: "The primary technology type is the technology that provides the largest proportion of the heat energy. The secondary and tertiary technologies are any other technologies that are on the network. Not all networks will have them. They may be back up systems."
+                }) }}
+
+                {{ govukSelect({
+                id: "primary-technology-type",
+                name: "primary-technology-type",
+                label: {
+                  text: "Primary technology type"
+                },
+                  hint: {
+                  text: ""
+                },
+                items: [
+                  {
+                    value: "select",
+                    text: "Select",
+                    selected: true
+                  },
+                  {
+                    value: "None",
+                    text: "None"
+                  },
+                  {
+                    value: "Boiler",
+                    text: "Boiler"
+                  },
+                  {
+                    value: "Chiller",
+                    text: "Chiller"
+                  },
+                  {
+                    value: "CHP engine",
+                    text: "CHP engine"
+                  },
+                  {
+                    value: "CHP fuel cell",
+                    text: "CHP fuel cell"
+                  },
+                  {
+                    value: "CHP gas turbine or Combined Cyle Plant",
+                    text: "CHP gas turbine or Combined Cyle Plant"
+                  },
+                  {
+                    value: "chporganicrankinecycle",
+                    text: "CHP Organic Rankine Cycle"
+                  },
+                  {
+                    value: "chpsteamturbineorsteamscrew",
+                    text: "CHP Steam Turbine or Steam Screw"
+                  },
+                  {
+                    value: "expander",
+                    text: "Expander"
+                  },
+                  {
+                    value: "heatexchangerfromwasteheatrecoveryprocess",
+                    text: "Heat exchanger from waste heat recovery process"
+                  },
+                  {
+                    value: "heatpump",
+                    text: "Heat pump"
+                  },
+                  {
+                    value: "solarthermalpanels",
+                    text: "Solar thermal panels"
+                  },
+                  {
+                    value: "thetechnologyisnotlisted",
+                    text: "The technology is not listed"
+                  }
+                ]
+
+              }) }}
+
+              {{ govukSelect({
+                id: "secondary-technology-type",
+                name: "secondary-technology-type",
+                label: {
+                  text: "Secondary technology type"
+                },
+                  hint: {
+                  text: ""
+                },
+                items: [
+                  {
+                    value: "select",
+                    text: "Select",
+                    selected: true
+                  },
+                  {
+                    value: "none",
+                    text: "None"
+                  },
+                  {
+                    value: "boiler",
+                    text: "Boiler"
+                  },
+                  {
+                    value: "chiller",
+                    text: "Chiller"
+                  },
+                  {
+                    value: "chpengine",
+                    text: "CHP engine"
+                  },
+                  {
+                    value: "chpfuelcell",
+                    text: "CHP fuel cell"
+                  },
+                  {
+                    value: "chpgasturbineorcombinedcycleplant",
+                    text: "CHP gas turbine or Combined Cyle Plant"
+                  },
+                  {
+                    value: "chporganicrankinecycle",
+                    text: "CHP Organic Rankine Cycle"
+                  },
+                  {
+                    value: "chpsteamturbineorsteamscrew",
+                    text: "CHP Steam Turbine or Steam Screw"
+                  },
+                  {
+                    value: "expander",
+                    text: "Expander"
+                  },
+                  {
+                    value: "heatexchangerfromwasteheatrecoveryprocess",
+                    text: "Heat exchanger from waste heat recovery process"
+                  },
+                  {
+                    value: "heatpump",
+                    text: "Heat pump"
+                  },
+                  {
+                    value: "solarthermalpanels",
+                    text: "Solar thermal panels"
+                  },
+                  {
+                    value: "thetechnologyisnotlisted",
+                    text: "The technology is not listed"
+                  }
+                ]
+
+              }) }}
+
+              {{ govukSelect({
+                id: "tertiary-technology-type",
+                name: "tertiary-technology-type",
+                label: {
+                  text: "Tertiary technology type"
+                },
+                  hint: {
+                  text: ""
+                },
+                items: [
+                  {
+                    value: "select",
+                    text: "Select",
+                    selected: true
+                  },
+                  {
+                    value: "none",
+                    text: "None"
+                  },
+                  {
+                    value: "boiler",
+                    text: "Boiler"
+                  },
+                  {
+                    value: "chiller",
+                    text: "Chiller"
+                  },
+                  {
+                    value: "chpengine",
+                    text: "CHP engine"
+                  },
+                  {
+                    value: "chpfuelcell",
+                    text: "CHP fuel cell"
+                  },
+                  {
+                    value: "chpgasturbineorcombinedcycleplant",
+                    text: "CHP gas turbine or Combined Cyle Plant"
+                  },
+                  {
+                    value: "chporganicrankinecycle",
+                    text: "CHP Organic Rankine Cycle"
+                  },
+                  {
+                    value: "chpsteamturbineorsteamscrew",
+                    text: "CHP Steam Turbine or Steam Screw"
+                  },
+                  {
+                    value: "expander",
+                    text: "Expander"
+                  },
+                  {
+                    value: "heatexchangerfromwasteheatrecoveryprocess",
+                    text: "Heat exchanger from waste heat recovery process"
+                  },
+                  {
+                    value: "heatpump",
+                    text: "Heat pump"
+                  },
+                  {
+                    value: "solarthermalpanels",
+                    text: "Solar thermal panels"
+                  },
+                  {
+                    value: "thetechnologyisnotlisted",
+                    text: "The technology is not listed"
+                  }
+                ]
+
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form> #}
+
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Is your heat network currently supplying consumers?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="type">
+
+                <h1 class="govuk-heading-l">Is your heat network currently supplying consumers?</h1>
+
+                <p>
+                    If this is a new heat network, you will need to wait for confirmation of your registration before supplying consumers.
+                </p>
+
+                {% set startedOperatingDateHTML %}
+
+                    {{ govukDateInput({
+                      id: "started-operating",
+                      namePrefix: "started-operating",
+                      fieldset: {
+                        legend: {
+                          text: "When did your heat network start operating?"
+                        }
+                      },
+                      hint: {
+                        text: "For example, 27 3 2007"
+                      },
+                      items: [
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "day",
+                            value: data['started-operating-day']
+                            },
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "month",
+                            value: data['started-operating-month']
+                            },
+                            {
+                            classes: "govuk-input--width-4",
+                            name: "year",
+                            value: data['started-operating-year']
+                            }
+                        ]
+                    }) }}
+
+                {% endset %}
+
+                {% set willStartOperatingHTML %}
+
+                    {{ govukDateInput({
+                    id: "will-operate",
+                    namePrefix: "will-operate",
+                    fieldset: {
+                      legend: {
+                        text: "When is your heat network expected to start operating?"
+                      }
+                    },
+                    hint: {
+                      text: "For example, 27 3 2024"
+                    },
+                    items: [
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "day",
+                            value: data['will-operate-day']
+                            },
+                            {
+                            classes: "govuk-input--width-2",
+                            name: "month",
+                            value: data['will-operate-month']
+                            },
+                            {
+                            classes: "govuk-input--width-4",
+                            name: "year",
+                            value: data['will-operate-year']
+                            }
+                        ]
+                  }) }}
+
+                {% endset %}
+
+                {{ govukRadios ({
+                    idPrefix: 'hn-active',
+                    name: 'hn-active',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: false
+                        }
+                    },
+                    items: [
+                        {
+                            text: 'Yes',
+                            value: 'Yes',
+                            checked: true if data['hn-active'] == 'Yes',
+                            conditional: {
+                                html: startedOperatingDateHTML
+                            }
+                        },
+                        {
+                            text: 'No',
+                            value: 'No',
+                            checked: true if data['hn-active'] == 'No',
+                            conditional: {
+                                html: willStartOperatingHTML
+                            }
+                        }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

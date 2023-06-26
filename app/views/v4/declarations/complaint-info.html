@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    You may need to send a copy of your complaints procedure
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{# {% if data['complaint'] == 'No' %}
+    {{ 'vulnerable' | redirect | safe }}
+{% endif %} #}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="vulnerable">
+
+            <h1 class="govuk-heading-l">You may need to send a copy of your complaints procedure</h1>
+
+            <p>You will need to have a complaints policy to comply with the regulations.</p>
+
+            <p>You may need to provide details of this policy when you submit your first round of monitoring information. If we need to see this we will request this from you.</p>
+
+            
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

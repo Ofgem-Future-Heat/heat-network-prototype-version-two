@@ -1,0 +1,101 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Is there a procedure in place for consumers on this network to raise a complaint?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="complaint-info">
+
+            <h1 class="govuk-heading-l">Is there a procedure in place for consumers on this network to raise a complaint?</h1>
+
+            <p>A policy and procedure for managing complaints from domestic consumers and microbusinesses is a requirement of the new regulations.</p>
+
+            {% set complaintHelpHTML %}
+            <p> A domestic consumer is served by the network that fall into the domestic/residential class. These are end consumers in residential or domestic premises so are related to housing.</p>
+            <p> A non-domestic consumer is defined as a microbusiness if they:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                    <li>employ fewer than 10 employees (or their full time equivalent) and has an annual turnover or balance sheet no greater than €2 million; or</li>
+                    <li>uses no more than 100,000 kWh of electricity per year; or</li>
+                    <li>uses no more than 293,000 kWh of gas per year.</li>
+                </ul>
+            
+            {% endset %}
+
+            {{ govukDetails({
+                  summaryText: "Help with 'domestic consumers' and 'microbusinesses'",
+                  html: complaintHelpHTML
+                }) }}
+
+            
+
+                {{ govukRadios ({
+                    idPrefix: 'complaint',
+                    name: 'complaint',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: ''
+                    },
+                    items: [
+                      {
+                        value: "Yes",
+                        text: "Yes",
+                        checked: true if data['complaint'] == 'Yes'
+                      },
+                      {
+                        value: "No",
+                        text: "No",
+                        checked: true if data['complaint'] == 'No'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

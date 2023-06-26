@@ -1,0 +1,80 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Company details
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="email">
+
+                <h1 class="govuk-heading-l">Company details</h1>
+
+                <p>
+                     If these details are incorrect, contact Companies House to update them.
+                </p>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Company name'
+                            },
+                            value: {
+                                text: 'Radianteco Ltd'
+                            }
+                        },
+                        
+                        {
+                            key: {
+                                text: 'Company address'
+                            },
+                            value: {
+                                html: '18 Angel Court<br> Brislington, BS16 7HQ'
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Nature of business'
+                            },
+                            value: {
+                                text: '231 - Utilities'
+                            }
+                        }
+                    }
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

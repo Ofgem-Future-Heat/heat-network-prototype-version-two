@@ -1,0 +1,69 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Give your heat network a name
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="active">
+
+                <h1 class="govuk-heading-l">Give your heat network a name</h1>
+
+                <p>
+                    Give your heat network a name that makes sense to you. This is what we'll use when we request information about it in future.
+                </p>
+
+                <p>
+                    If you have more than one heat network, you will be able to add others after you have registered this one.
+                </p>
+
+                <p>
+                    This name will be part of a public list of authorised heat networks across Great Britain. You will be able to change it in future.
+                </p>
+
+                {{ govukInput ({
+                    id: 'network-name',
+                    name: 'network-name',
+                    value: data['network-name'] if data['network-name'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Heat network name',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

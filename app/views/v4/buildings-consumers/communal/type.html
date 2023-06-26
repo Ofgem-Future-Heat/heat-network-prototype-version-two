@@ -1,0 +1,80 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What type of consumers does the heat network supply?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="domestic">
+
+                {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+                {{ govukCheckboxes({
+                  name: "communal-type",
+                  fieldset: {
+                    legend: {
+                      text: "What type of consumers does the heat network supply?",
+                      isPageHeading: true,
+                      classes: "govuk-fieldset__legend--l"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Domestic",
+                      text: "Domestic",
+                      checked: true if data['communal-type'] | includes('Domestic')
+                    },
+                    {
+                      value: "Commercial",
+                      text: "Commercial",
+                      checked: true if data['communal-type'] | includes('Domestic')
+                    }
+                  ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

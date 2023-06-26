@@ -1,0 +1,75 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Location
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        
+                        {
+                            key: {
+                                text: 'Communal building or block address'
+                            },
+                            value: {
+                                text: data['building-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'postcode',
+                                        visuallyHiddenText: ' the communal building or block address'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                <input type="hidden" name="section-location-communal" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

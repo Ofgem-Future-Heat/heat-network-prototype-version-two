@@ -1,0 +1,75 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Who is the metering and billing agent?
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if data['agent'] == 'No' %}
+    {{ 'level' | redirect | safe }}
+{% endif %}
+
+
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="level">
+
+                <h1 class="govuk-heading-l">Who is the metering and billing agent?</h1>
+
+                <p>Please provide the name of the metering and billing agent you use for this heat network</p>
+
+                
+
+                {{ govukInput ({
+                    id: 'agent-name',
+                    name: 'agent-name',
+                    value: data['agent-name'] if data['agent-name'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Organisation name',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

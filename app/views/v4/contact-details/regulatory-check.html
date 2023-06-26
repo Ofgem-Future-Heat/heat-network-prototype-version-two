@@ -1,0 +1,83 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Regulatory contact
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="regulatory-name">
+
+            <h1 class="govuk-heading-l">Is {{ data['admin-name'] }} also the regulatory contact?</h1>
+
+                
+
+                {{ govukRadios ({
+                    idPrefix: 'regulatory-check',
+                    name: 'regulatory-check',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: 'This will be the person responsible for heat network regulatory compliance and related engagement with Ofgem.'
+                    },
+                    items: [
+                      {
+                        value: "Yes",
+                        text: "Yes",
+                        checked: true if data['regulatory-check'] == 'Yes'
+                      },
+                      {
+                        value: "No",
+                        text: "No",
+                        checked: true if data['regulatory-check'] == 'No'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

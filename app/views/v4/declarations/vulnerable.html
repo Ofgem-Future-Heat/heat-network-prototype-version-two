@@ -1,0 +1,98 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Do you have policies and procedures in place to identify and support vulnerable domestic consumers?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="vulnerable-info">
+
+            <h1 class="govuk-heading-l">Do you have policies and procedures in place to identify and support vulnerable domestic consumers?</h1>
+
+            <p>A policy and procedures for identifying and providing support for vulnerable domestic consumers is a requirement of the new regulations.</p>
+
+            {% set vulnerableHelpHTML %}
+            <p> We define vulnerability as when a consumer’s personal circumstances and characteristics combine with aspects of the market to create situations where he or she is:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                    <li>significantly less able than a typical domestic consumer to protect or represent his or her interests; and/or</li>
+                    <li>significantly more likely than a typical domestic consumer to suffer detriment or that detriment is likely to be more substantial. There are a range of risk factors that should be considered in Appendix 1 of our <a href>Consumer Vulnerability Strategy</a></li>
+                </ul>
+            
+            {% endset %}
+
+            {{ govukDetails({
+                  summaryText: "Help with 'vulnerable consumer'",
+                  html: vulnerableHelpHTML
+                }) }}
+            
+
+                {{ govukRadios ({
+                    idPrefix: 'vulnerable',
+                    name: 'vulnerable',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: ''
+                    },
+                    items: [
+                      {
+                        value: "Yes",
+                        text: "Yes",
+                        checked: true if data['vulnerable'] == 'Yes'
+                      },
+                      {
+                        value: "No",
+                        text: "No",
+                        checked: true if data['vulnerable'] == 'No'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

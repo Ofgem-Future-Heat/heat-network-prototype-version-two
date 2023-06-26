@@ -1,0 +1,141 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Heat network introduction
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Heat network name'
+                            },
+                            value: {
+                                text: data['network-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'name',
+                                        visuallyHiddenText: ' heat network name'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Is your heat network currently supplying consumers?'
+                            },
+                            value: {
+                                text: data['hn-active']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' whether your heat network is currently supplying consumers'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'When did your heat network start operating?'
+                            },
+                            value: {
+                                text: data['started-operating-day'] + ' ' + data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network started operating'
+                                    }
+                                ]
+                            }
+                        } if data['hn-active'] !== 'No',
+                        {
+                            key: {
+                                text: 'When is your heat network expected to start operating?'
+                            },
+                            value: {
+                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        } if data['hn-active'] !== 'Yes',
+                        {
+                            key: {
+                                text: 'Heat network type'
+                            },
+                            value: {
+                                text: data['hn-type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type',
+                                        visuallyHiddenText: ' heat network type'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-hn-intro" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

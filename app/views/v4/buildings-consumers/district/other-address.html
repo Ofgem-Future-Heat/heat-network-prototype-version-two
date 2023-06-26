@@ -1,0 +1,98 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Select the address
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="other-contact">
+
+                
+
+                
+
+         
+
+          <p>3 addresses found for <b>wr11nl</b>. <a href="other-postcode">Search again</a></p>
+
+          <h1 class="govuk-heading-l">Select the address for {{ data['other-name'] }}</h1>
+
+          {{ govukRadios({
+          idPrefix: 'other-address',
+          name: 'other-address',
+          fieldset: {
+          legend: {
+          text: "",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+          }
+          },
+          items: [
+          {
+          value: "1 Washington Street, Worcester, WR1 1NL",
+          text: "1 Washington Street, Worcester, WR1 1NL",
+          checked: true if data['other-address'] == '1 Washington Street, Worcester, WR1 1NL'
+          },
+          {
+          value: "2 Washington Street, Worcester, WR1 1NL",
+          text: "2 Washington Street, Worcester, WR1 1NL",
+          checked: true if data['other-address'] == '2 Washington Street, Worcester, WR1 1NL'
+          },
+          {
+          value: "3 Washington Street, Worcester, WR1 1NL",
+          text: "3 Washington Street, Worcester, WR1 1NL",
+          checked: true if data['other-address'] == '3 Washington Street, Worcester, WR1 1NL'
+          }
+          ]
+          }) }}
+
+         
+          <p class="govuk-body govuk-!-margin-bottom-0"><a href="" class="govuk-link">Enter the address manually</a></p>
+          
+          <br>
+
+           {{ govukButton({
+          text: "Continue"
+          }) }}
+
+           <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+                
+                </div> 
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

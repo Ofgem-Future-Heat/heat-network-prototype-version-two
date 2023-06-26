@@ -1,0 +1,55 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Registration received
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<form action="../account-information">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form action="../account-information">
+      {{ govukPanel({
+        titleText: "Registration received",
+        html: ""
+      }) }}
+
+      
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p>Your registration request has been received. The information you've sent will be reviewed by Ofgem.</p>
+
+      <p>We will notify you by email if your registration has been successful within 10 working days.</p>
+
+      <p>You can register more heat networks from your account.</p>
+
+      
+      <input type="hidden" name="section-heat-network" value="complete">
+      
+      {{ govukButton ({
+                    html: 'Go to your account'
+                }) }}          
+
+      
+    </div>
+  </div>
+{% endblock %}

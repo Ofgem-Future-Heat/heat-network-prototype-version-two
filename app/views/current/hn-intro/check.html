@@ -12,6 +12,11 @@
 
             {{ super() }}
 
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
             
 
         </div>
@@ -75,7 +80,7 @@
                                 text: 'When did your heat network start operating?'
                             },
                             value: {
-                                text: data['started-operating-day'] + ' ' + data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
+                                text: data['started-operating-month'] | monthName + ' ' + data['started-operating-year']
                             },
                             actions: {
                                 items: [
@@ -92,7 +97,7 @@
                                 text: 'When is your heat network expected to start operating?'
                             },
                             value: {
-                                text: data['will-operate-day'] + ' ' + data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
+                                text: data['will-operate-month'] | monthName + ' ' + data['will-operate-year']
                             },
                             actions: {
                                 items: [

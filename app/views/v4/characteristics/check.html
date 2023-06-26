@@ -1,0 +1,229 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../tasklist">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Characteristics
+                </h2>
+
+                {% set technologyName = data['other-technology'] if data['technology-type'] == 'Other' else data['technology-type'] %}
+                {% set energyName = data['other-energy-source'] if data['energy-source-type'] == 'Other' else data['energy-source-type'] %}
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'What does it provide?'
+                            },
+                            value: {
+                                text: data['heat-network-provides'] | arrayToBullets | safe
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type',
+                                        visuallyHiddenText: ' what your heat network provides'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Cooling capacity'
+                            },
+                            value: {
+                                text: data['cooling-capacity']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'active',
+                                        visuallyHiddenText: ' whether your heat network is currently supplying consumers'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Cooling"),
+                        {
+                            key: {
+                                text: 'Heating and hot water capacity'
+                            },
+                            value: {
+                                text: data['heating-capacity']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'heating-capacity',
+                                        visuallyHiddenText: ' heating and hot water capacity'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Heating") or data['heat-network-provides'] | includes("Hot water"),
+                        {
+                            key: {
+                                text: 'Backup cooling'
+                            },
+                            value: {
+                                text: data['backup-cooling']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'backup-cooling',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Cooling"),
+                        {
+                            key: {
+                                text: 'Backup heating and hot water'
+                            },
+                            value: {
+                                text: data['backup-heating']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'backup-heating',
+                                        visuallyHiddenText: ' heat network type'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Cooling generation'
+                            },
+                            value: {
+                                text: data['cooling-generation']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'cooling-generation',
+                                        visuallyHiddenText: ' cooling generation per calendar year in kilowatt hours'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Cooling"),
+                        {
+                            key: {
+                                text: 'Heating generation'
+                            },
+                            value: {
+                                text: data['heating-generation']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'heating-generation',
+                                        visuallyHiddenText: ' cooling generation per calendar year in kilowatt hours'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Heating") or data['heat-network-provides'] | includes("Hot water"),
+                        {
+                            key: {
+                                text: 'Cooling supply'
+                            },
+                            value: {
+                                text: data['cooling-supply']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'cooling-supply',
+                                        visuallyHiddenText: ' cooling supply per calendar year in kilowatt hours'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Cooling"),
+                        {
+                            key: {
+                                text: 'Heating supply'
+                            },
+                            value: {
+                                text: data['heating-supply']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'heating-supply',
+                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Heating") or data['heat-network-provides'] | includes("Hot water"),
+                        {
+                            key: {
+                                text: 'Which technologies are used?'
+                            },
+                            value: {
+                                text: technologyName + ' using energy: ' + energyName
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'technology-list',
+                                        visuallyHiddenText: ' the technology used'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-characteristics" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What is the cooling generation per calendar year in kilowatt hours?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if not data['heat-network-provides'] | includes('Cooling') %}
+    {{ 'heating-generation' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="heating-generation">
+
+                <h1 class="govuk-heading-l">What is the cooling generation per calendar year in kilowatt hours?</h1>
+
+                {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+                {{ govukDetails({
+                  summaryText: "Help with 'generation'",
+                  text: "Generation is the heat/cooling input into the system and not the amount of fuel being used. The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading. If there is no appropriate meter fitted, leave this blank."
+                }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "cooling-generation",
+                  name: "cooling-generation",
+                  value: data['cooling-generation'] if data['cooling-generation'] else '',
+                  label: {
+                    text: "Cooling generation per calendar year",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "kWh"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    How many commercial buildings does the heat network supply?
+{% endblock %}
+
+{% block beforeContent %}
+
+{% if not data['building-type'] | includes('Commercial buildings') %}
+    {{ 'building-industrial' | redirect | safe }}
+{% endif %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="commercial-consumers">
+
+                
+
+                <h1 class="govuk-heading-l">How many commercial buildings does the heat network supply?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'commercial buildings'",
+                  text: "Enter the total number of buildings currently served by the network that fall into the commercial/retail class. These are related to shops, offices, or businesses."
+                }) }}
+
+                
+
+                
+
+                {{ govukInput({
+                label: {
+                  text: "",
+                  classes: "govuk-label--l",
+                  isPageHeading: true
+                },
+                classes: "govuk-input--width-10",
+                hint: {
+                  text: ""
+                },
+                id: "building-commercial",
+                name: "building-commercial",
+                inputmode: "numeric",
+                value: data['building-commercial'] if data['building-commercial'] else '',
+                spellcheck: false
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

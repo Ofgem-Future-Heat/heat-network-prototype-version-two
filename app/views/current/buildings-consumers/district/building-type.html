@@ -49,21 +49,33 @@
                     {
                       value: "Residential buildings",
                       text: "Residential buildings",
+                      hint: {
+                      text: "Residential or domestic premises so are related to housing."
+                    },
                       checked: true if data['building-type'] | includes("Residential buildings")
                     },
                     {
                       value: "Commercial buildings",
                       text: "Commercial buildings",
+                      hint: {
+                      text: "Shops, offices, or businesses."
+                    },
                       checked: true if data['building-type'] | includes("Commercial buildings")
                     },
                     {
                       value: "Industrial buildings",
                       text: "Industrial buildings",
+                      hint: {
+                      text: "Factories or warehouses."
+                    },
                       checked: true if data['building-type'] | includes("Industrial buildings")
                     },
                     {
                       value: "Public buildings",
                       text: "Public buildings",
+                      hint: {
+                      text: "Local authority buildings, libraries, or other government type buildings."
+                    },
                       checked: true if data['building-type'] | includes("Public buildings")
                     },
                     {
