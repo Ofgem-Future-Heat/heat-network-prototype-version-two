@@ -44,7 +44,7 @@
                                 text: 'Type of consumers'
                             },
                             value: {
-                                text: data['communal-type']
+                                text: data['communal-type'] | arrayToBullets | safe
                             },
                             actions: {
                                 items: [

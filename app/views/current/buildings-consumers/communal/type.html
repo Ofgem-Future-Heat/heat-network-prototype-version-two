@@ -49,11 +49,17 @@
                     {
                       value: "Domestic",
                       text: "Domestic",
+                      hint: {
+                      text: "Residential or domestic consumers so are related to housing."
+                    },
                       checked: true if data['communal-type'] | includes('Domestic')
                     },
                     {
                       value: "Commercial",
                       text: "Commercial",
+                      hint: {
+                      text: "Shops, offices, or business consumers."
+                    },
                       checked: true if data['communal-type'] | includes('Domestic')
                     }
                   ]

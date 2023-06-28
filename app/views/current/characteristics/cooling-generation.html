@@ -35,13 +35,17 @@
 
             <form action="heating-generation">
 
-                <h1 class="govuk-heading-l">What is the cooling generation per calendar year in kilowatt hours?</h1>
+                <h1 class="govuk-heading-l">What is the cooling generation per calendar year in kilowatt hours? (optional)</h1>
 
-                {% from "govuk/components/details/macro.njk" import govukDetails %}
+                {% set coolingGenerationHelpHTML %}
+                <p> Generation is the heat/cooling input into the system and not the amount of fuel being used.</p>
+                <p> The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Please provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading.</p>
+            
+                {% endset %}
 
                 {{ govukDetails({
                   summaryText: "Help with 'generation'",
-                  text: "Generation is the heat/cooling input into the system and not the amount of fuel being used. The heat/cooling generated can be measured by a heat meter placed on the out put of the heat/cooling generator. Provide a figure for annual generation for the previous full calendar year - this may require subtracting the previous years meter reading from the last meter reading. If there is no appropriate meter fitted, leave this blank."
+                  html: coolingGenerationHelpHTML
                 }) }}
 
                 {% from "govuk/components/input/macro.njk" import govukInput %}

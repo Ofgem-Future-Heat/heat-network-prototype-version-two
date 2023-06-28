@@ -35,13 +35,17 @@
 
             <form action="technology">
 
-                <h1 class="govuk-heading-l">What is the heating and/or hot water supply per calendar year in kilowatt hours?</h1>
+                <h1 class="govuk-heading-l">What is the heating and/or hot water supply per calendar year in kilowatt hours? (optional)</h1>
 
-                {% from "govuk/components/details/macro.njk" import govukDetails %}
+                {% set heatingSupplyHelpHTML %}
+                <p> Heat/cooling supplied is the total amount of heat/cooling used by the consumers of the network in the last calendar year in kWh.</p>
+                <p> Use figures from the final consumers' meters/heat cost allocators (HCAs) and combine these to get a total figure from all consumers' meters. Provide a figure for annual supply for the previous full calendar year - this may require subtracting the previous years meter reading from the latest meter reading.</p>
+            
+                {% endset %}
 
                 {{ govukDetails({
                   summaryText: "Help with 'supply'",
-                  text: "Heat/cooling supplied is the total amount of heat/cooling used by the customers of the network in the last calendar year in kWh. Use figures from the final customers' meters/heat cost allocators (HCAs) and combine these to get a total figure from all customers' meters. Provide a figure for annual supply for the previous full calendar year - this may require subtracting the previous years meter reading from the latest meter reading. If there are no final customer meters/HCAs, leave this blank."
+                  html: heatingSupplyHelpHTML
                 }) }}
 
                 {% from "govuk/components/input/macro.njk" import govukInput %}

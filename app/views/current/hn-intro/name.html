@@ -42,8 +42,12 @@
                 </p>
 
                 <p>
-                    This name will be part of a public list of authorised heat networks across Great Britain. You will be able to change it in future.
+                    This name will be part of a public list of authorised heat networks across Great Britain.
                 </p>
+
+                {{ govukInsetText({
+                text: "You will be able to change it in the future."
+                }) }}
 
                 {{ govukInput ({
                     id: 'network-name',

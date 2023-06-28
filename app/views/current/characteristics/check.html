@@ -12,7 +12,10 @@
 
             {{ super() }}
 
-            
+            {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
 
         </div>
 
@@ -92,7 +95,24 @@
                         } if data['heat-network-provides'] | includes("Heating") or data['heat-network-provides'] | includes("Hot water"),
                         {
                             key: {
-                                text: 'Backup cooling'
+                                text: 'Is there a backup system for cooling?'
+                            },
+                            value: {
+                                text: data['backup-cooling-check']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'backup-cooling-check',
+                                        visuallyHiddenText: ' whether your heat network has a backup system for cooling'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Cooling"),
+                        {
+                            key: {
+                                text: 'Backup system capacity for cooling in kilowatts'
                             },
                             value: {
                                 text: data['backup-cooling']
@@ -102,14 +122,31 @@
                                     {
                                         text: 'Change',
                                         href: 'backup-cooling',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        visuallyHiddenText: ' backup system capacity for cooling in kilowatts'
                                     }
                                 ]
                             }
-                        } if data['heat-network-provides'] | includes("Cooling"),
+                        } if data['backup-cooling-check'] == "Yes",
                         {
                             key: {
-                                text: 'Backup heating and hot water'
+                                text: 'Is there a backup system for heating and/or hot water?'
+                            },
+                            value: {
+                                text: data['backup-heating-check']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'backup-heating-check',
+                                        visuallyHiddenText: ' whether your heat network has a backup system for heating and/or hot water'
+                                    }
+                                ]
+                            }
+                        } if data['heat-network-provides'] | includes("Heating") or data['heat-network-provides'] | includes("Hot water"),
+                        {
+                            key: {
+                                text: 'Backup system capacity for heating and/or hot water'
                             },
                             value: {
                                 text: data['backup-heating']
@@ -123,7 +160,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['backup-heating-check'] == "Yes",
                         {
                             key: {
                                 text: 'Cooling generation'
@@ -187,7 +224,7 @@
                                     {
                                         text: 'Change',
                                         href: 'heating-supply',
-                                        visuallyHiddenText: ' when your heat network is expected to start operating'
+                                        visuallyHiddenText: ' heating and/or hot water supply per calendar year in kilowatt hours'
                                     }
                                 ]
                             }

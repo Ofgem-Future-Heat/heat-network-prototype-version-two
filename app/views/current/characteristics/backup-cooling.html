@@ -25,24 +25,32 @@
 
 {% block content %}
 
-{% if not data['heat-network-provides'] | includes('Cooling') %}
-    {{ 'backup-heating' | redirect | safe }}
+{% if data['backup-cooling-check'] == 'No' %}
+    {{ 'backup-heating-check' | redirect | safe }}
 {% endif %}
 
 <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="backup-heating">
+            <form action="backup-heating-check">
 
                 <h1 class="govuk-heading-l">What is the backup system capacity for cooling in kilowatts?</h1>
 
-                {% from "govuk/components/details/macro.njk" import govukDetails %}
+                {% set backupCoolingCapacityHelpHTML %}
+                <p> This is the maximum output of the backup heat energy source on the network. If the heat network is capable of thermal storage do not include this.</p>
+                <p> The capacity in kilowatts (kW) is normally written on the heating/ cooling source e.g. boiler(s), or in the technical documentation. If its not, you can ask your service engineer to give you this information.</p>
+            
+                {% endset %}
 
                 {{ govukDetails({
                   summaryText: "Help with 'backup capacity'",
-                  text: "If you have one. This is the maximum output of the backup heat energy source on the network. If the heat network is capable of thermal storage, do not include this. The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If it's not, you can ask your service engineer to give you this information. If there is more than one backup source, add together the combined total capacity of all the sources."
+                  html: backupCoolingCapacityHelpHTML
                 }) }}
+
+                {{ govukInsetText({
+                text: "If there is more than one backup source, please add together the combined total capacity of all the sources."
+              }) }}
 
                 {% from "govuk/components/input/macro.njk" import govukInput %}
 
