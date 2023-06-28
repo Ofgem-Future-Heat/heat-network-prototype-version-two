@@ -31,14 +31,19 @@
 
             <form action="agent-name">
 
-            
+                <h1 class="govuk-heading-l">Do you use an agent to deal with metering and billing?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'agent'",
+                  text: "A metering and billing agent is a company that acts on your behalf to provide metering and billing services to you and generally manages contact with end users for you."
+                }) }}            
 
                 {{ govukRadios ({
                     idPrefix: 'agent',
                     name: 'agent',
                     fieldset: {
                         legend: {
-                            text: 'Do you use an agent to deal with metering and billing?',
+                            text: '',
                             isPageHeading: true,
                             classes: 'govuk-fieldset__legend--l'
                         }

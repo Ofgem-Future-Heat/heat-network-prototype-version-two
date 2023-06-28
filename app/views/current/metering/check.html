@@ -12,6 +12,11 @@
 
             {{ super() }}
 
+            {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
             
 
         </div>
@@ -72,6 +77,23 @@
                         } if data['agent'] !== 'No',
                         {
                             key: {
+                                text: 'Which one do you have in your heat network?'
+                            },
+                            value: {
+                                text: data['meter-type'] | arrayToBullets | safe
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type-check',
+                                        visuallyHiddenText: ' which one you have in your heat network'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
                                 text: 'Building level meters'
                             },
                             value: {
@@ -86,7 +108,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['meter-type'] | includes("Building level meters"),
                         {
                             key: {
                                 text: 'Final consumer meters'
@@ -103,7 +125,7 @@
                                     }
                                 ]
                             }
-                        },
+                        } if data['meter-type'] | includes("Final consumer meters"),
                         {
                             key: {
                                 text: 'Heat cost allocators'
@@ -120,7 +142,7 @@
                                     }
                                 ]
                             }
-                        }
+                        } if data['meter-type'] | includes("Final consumer heat cost allocators")
                     }
                 }) }}
 

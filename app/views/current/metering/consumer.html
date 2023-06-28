@@ -6,6 +6,10 @@
 
 {% block beforeContent %}
 
+{% if not data['meter-type'] | includes('Final consumer meters') %}
+    {{ 'cost' | redirect | safe }}
+{% endif %}
+
     <div class="govuk-grid-row">
 
             <div class="govuk-grid-column-full">

@@ -29,16 +29,16 @@
     <form action="../account-information">
       {{ govukPanel({
         titleText: "Registration received",
-        html: ""
+        html: "Your reference number<br><strong>HN-XX00RT-A2</strong>"
       }) }}
 
-      
+      <br>
 
       <h2 class="govuk-heading-m">What happens next</h2>
 
       <p>Your registration request has been received. The information you've sent will be reviewed by Ofgem.</p>
 
-      <p>We will notify you by email if your registration has been successful within 10 working days.</p>
+      <p>We will notify you by email if your registration has been successful or not within 10 working days.</p>
 
       <p>You can register more heat networks from your account.</p>
 
@@ -46,8 +46,18 @@
       <input type="hidden" name="section-heat-network" value="complete">
       
       {{ govukButton ({
-                    html: 'Go to your account'
-                }) }}          
+        html: 'Go to your account'
+      }) }}
+
+      <br>
+
+      {{ govukButton ({
+          html: 'Save and return later',
+          classes: 'govuk-button--secondary',
+          href: '#'
+      }) }}
+
+     
 
       
     </div>

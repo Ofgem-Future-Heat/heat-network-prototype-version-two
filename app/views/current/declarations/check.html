@@ -1,0 +1,96 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="confirmation">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Commit to declarations and send
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Is there a procedure in place for consumers on this network to raise a complaint?'
+                            },
+                            value: {
+                                text: data['complaint']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'complaint',
+                                        visuallyHiddenText: ' whether there is a procedure in place for consumers on this network to raise a complaint'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Do you have policies and procedures in place to identify and support vulnerable domestic consumers?'
+                            },
+                            value: {
+                                text: data['vulnerable']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'vulnerable',
+                                        visuallyHiddenText: ' whether you have policies and procedures in place to identify and support vulnerable domestic consumers'
+                                    }
+                                ]
+                            }
+                        }
+                        
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-hn-intro" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
