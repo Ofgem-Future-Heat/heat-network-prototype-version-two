@@ -44,7 +44,7 @@
                 {% endset %}
 
                 {{ govukDetails({
-                  summaryText: "Help with 'backup capacity'",
+                  summaryText: "Help with 'backup system capacity'",
                   html: backupCoolingCapacityHelpHTML
                 }) }}
 
@@ -59,7 +59,7 @@
                   name: "backup-cooling",
                   value: data['backup-cooling'] if data['backup-cooling'] else '',
                   label: {
-                    text: "Backup capacity for cooling",
+                    text: "Backup system capacity for cooling",
               
                     isPageHeading: true
                   },
