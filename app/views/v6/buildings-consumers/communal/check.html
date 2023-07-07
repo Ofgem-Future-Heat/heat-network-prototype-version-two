@@ -1,0 +1,113 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../../tasklist">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Buildings and consumers
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Type of consumers'
+                            },
+                            value: {
+                                text: data['communal-type'] | arrayToBullets | safe
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type',
+                                        visuallyHiddenText: ' type of consumers the heat network supplies'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Domestic consumers'
+                            },
+                            value: {
+                                text: data['communal-domestic-consumers']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'domestic',
+                                        visuallyHiddenText: ' number of domestic consumers'
+                                    }
+                                ]
+                            }
+                        } if data['communal-type'] | includes('Domestic'),
+                        {
+                            key: {
+                                text: 'Commercial consumers'
+                            },
+                            value: {
+                                text: data['communal-commercial-consumers']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'commercial',
+                                        visuallyHiddenText: ' number of commercial consumers'
+                                    }
+                                ]
+                            }
+                        } if data['communal-type'] | includes('Commercial')
+                    }
+                }) }}
+
+                
+
+                <input type="hidden" name="section-buildings-communal" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

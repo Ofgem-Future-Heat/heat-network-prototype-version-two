@@ -1,0 +1,111 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What type of buildings does the heat network supply?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="building-residential">
+
+                
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+
+                {{ govukCheckboxes({
+                  name: "building-type",
+                  fieldset: {
+                    legend: {
+                      text: "What type of buildings does the heat network supply?",
+                      isPageHeading: true,
+                      classes: "govuk-fieldset__legend--l"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Residential buildings",
+                      text: "Residential buildings",
+                      hint: {
+                      text: "Residential or domestic premises so are related to housing."
+                    },
+                      checked: true if data['building-type'] | includes("Residential buildings")
+                    },
+                    {
+                      value: "Commercial buildings",
+                      text: "Commercial buildings",
+                      hint: {
+                      text: "Shops, offices, or businesses."
+                    },
+                      checked: true if data['building-type'] | includes("Commercial buildings")
+                    },
+                    {
+                      value: "Industrial buildings",
+                      text: "Industrial buildings",
+                      hint: {
+                      text: "Factories or warehouses."
+                    },
+                      checked: true if data['building-type'] | includes("Industrial buildings")
+                    },
+                    {
+                      value: "Public buildings",
+                      text: "Public buildings",
+                      hint: {
+                      text: "Local authority buildings, libraries, or other government type buildings."
+                    },
+                      checked: true if data['building-type'] | includes("Public buildings")
+                    },
+                    {
+                      value: "Other buildings",
+                      text: "Other buildings",
+                      checked: true if data['building-type'] | includes("Other buildings")
+                    }
+                  ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

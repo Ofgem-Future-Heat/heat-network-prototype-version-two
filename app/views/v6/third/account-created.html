@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Heat supplier/heat network operator added
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form action="../account-information">
+
+      {{ govukPanel({
+        titleText: "Heat supplier / heat network operator added",
+        html: "Lumosense Energy Limited"
+      }) }}
+
+      <p class="govuk-body">A new heat supplier/heat network operator is created. You can now access their profile to manage their heat networks.</p>
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">
+        You can use this account on behalf of <b>Lumosense Energy Limited</b> to:
+      </p>
+      
+      <ul class="govuk-list govuk-list--bullet">
+                    <li>Register and gain authorisation for additional heat networks on their behalf.</li>
+                    <li>Inform us about any organisational changes</li>
+                    <li>Report on their heat network(s) on a periodic basis as required</li>
+                    <li>Manage payments on their behalf</li>
+                </ul>
+
+      <input type="hidden" name="third-party-details" value="complete">
+      
+      {{ govukButton ({
+                    html: 'Go to your account'
+                }) }}          
+
+      
+    </div>
+  </div>
+{% endblock %}

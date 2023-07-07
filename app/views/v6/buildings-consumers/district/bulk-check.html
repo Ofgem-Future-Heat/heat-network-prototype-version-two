@@ -1,0 +1,97 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    For all of the connected communal networks do you supply heat to all end consumers?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if data['connection-check'] == 'No' %}
+    {{ 'building-type' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="other-name">
+
+            {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+            <h1 class="govuk-heading-l">For all of the connected communal networks do you supply heat to all end consumers?</h1>
+
+            <p>If you provide a 'bulk heat supply' arrangement to another organisation, select 'No'.</p>
+
+            {{ govukDetails({
+                  summaryText: "Help with 'bulk heat'",
+                  text: "In a 'bulk heat' supply arrangement, the district network operator does not have a direct relationship with an end consumer. Instead the network operator supplies heat to a building owner/operator in ‘bulk’ who then takes over and supplies and charges for the heat to end consumers."
+                }) }}
+
+            
+
+                {{ govukRadios ({
+                    idPrefix: 'bulk-check',
+                    name: 'bulk-check',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: true,
+                            classes: 'govuk-fieldset__legend--l'
+                        }
+                    },
+                    hint: {
+                        text: ""
+                    },
+                    items: [
+                      {
+                        value: "Yes",
+                        text: "Yes",
+                        checked: true if data['bulk-check'] == 'Yes'
+                      },
+                      {
+                        value: "No",
+                        text: "No",
+                        checked: true if data['bulk-check'] == 'No'
+                      }
+                    ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

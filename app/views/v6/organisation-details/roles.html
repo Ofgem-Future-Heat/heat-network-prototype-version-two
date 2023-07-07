@@ -1,0 +1,92 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Heat supplier and heat network operator
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                <h1 class="govuk-heading-l">Heat supplier and heat network operator</h1>
+
+                <p>
+                    The operation and supply of heat (including hot water and cooling) from a heat network is now a regulated activity that requires authorisation. These activities are performed by a heat network operator and a heat supplier that each heat network will have.
+                </p>
+
+                {{ govukInsetText({
+                text: "The operation and supply of heat activities are likely to be performed by the same organisation on a single network."
+                }) }}
+
+                <h2 class="govuk-heading-m">Heat supplier</h2>
+
+                <p>
+                    This is the organisation that supplies heating, cooling or hot water to end consumers through a communal (single building) or district (multi-building) heat network. Heat suppliers tend to have a direct contractual relationship with consumers for their heat supply. This could also include the supply of heat as part of a package, paid for indirectly through rent, a service contract, or other means.
+                </p>
+
+                 <h2 class="govuk-heading-m">Network operator</h2>
+
+                <p>
+                    This is the organisation that operates the heat network. They are involved in and responsible for the day to day operation and maintenance of the network and its infrastructure. This responsibility extends to the generation plant, heat distribution pipework and connections.
+                </p>
+
+                <p>
+                    The network operator is likely to be the asset owner or a party with a long term concession agreement that has control over the asset for time period (Energy Service Company model).
+                </p>
+
+                {% set operatorTypeInsetHTML %}
+                <p> If for your heat network, operation and supply responsibilities are split across different organisations please complete and submit your registration and contact the Ofgem team via <a href>heatnetworkregulation@ofgem.gov.uk</a></p>
+                {% endset %}
+
+                {{ govukInsetText({
+                html: operatorTypeInsetHTML
+                }) }}
+
+                <p>
+                    <a href>
+                        Read more about supplier and operator obligations
+                    </a>
+                </p>
+
+                {{ govukButton ({
+                    html: 'Continue',
+                    classes: 'govuk-button--primary',
+                    href: 'choose-role'
+                }) }}
+
+                
+
+                
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

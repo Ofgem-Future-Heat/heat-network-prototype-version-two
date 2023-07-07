@@ -1,0 +1,144 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="account-created">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Organisation details
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Organisation role'
+                            },
+                            value: {
+                                text: data['choose-organisation-role']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'choose-role',
+                                        visuallyHiddenText: ' organisation role'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Organisation type'
+                            },
+                            value: {
+                                text: data['operator-type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'operator-type',
+                                        visuallyHiddenText: ' organisation type'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Organisation details'
+                            },
+                            value: {
+                                html: 'EcoDynamo Solutions Ltd<br> 18 Angel Court<br> Brislington, BS16 7HQ'
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'operator-type',
+                                        visuallyHiddenText: ' organisation details'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Email address'
+                            },
+                            value: {
+                                text: data['operator-email']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'email',
+                                        visuallyHiddenText: ' email address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Mobile telephone number'
+                            },
+                            value: {
+                                text: data['mobile']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'mobile',
+                                        visuallyHiddenText: ' mobile telephone number'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                                
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

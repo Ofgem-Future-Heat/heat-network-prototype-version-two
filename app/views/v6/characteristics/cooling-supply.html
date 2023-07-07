@@ -1,0 +1,92 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What is the cooling supply per calendar year in kilowatt hours?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if not data['heat-network-provides'] | includes('Cooling') %}
+    {{ 'heating-supply' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="heating-supply">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">What is the cooling supply per calendar year in kilowatt hours? (optional)</h1>
+
+                {% set coolingSupplyHelpHTML %}
+                <p> Heat/cooling supplied is the total amount of heat/cooling used by the consumers of the network in the last calendar year in kWh.</p>
+                <p> Use figures from the final consumers' meters/heat cost allocators (HCAs) and combine these to get a total figure from all consumers' meters. Provide a figure for the supply for the previous full calendar year - this may require subtracting the previous years meter reading from the latest meter reading.</p>
+            
+                {% endset %}
+
+                {{ govukDetails({
+                  summaryText: "Help with 'supply'",
+                  html: coolingSupplyHelpHTML
+                }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "cooling-supply",
+                  name: "cooling-supply",
+                  value: data['cooling-supply'] if data['cooling-supply'] else '',
+                  label: {
+                    text: "Cooling supply per calendar year",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "kWh"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

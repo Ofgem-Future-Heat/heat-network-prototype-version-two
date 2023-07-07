@@ -1,0 +1,77 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Add a heat network
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Add a heat network</h1>
+
+                <p>
+                    A heat network is a system in which heating, cooling or hot water is generated at a central source and supplied to customers through a network serving either multiple buildings or multiple occupants in a single building.
+                </p>
+
+                <p>
+                    Heat network operation and heat supply are now regulated activities and require authorisation for each heat network. This is obtained by registering your heat network with Ofgem.
+                </p>
+
+                <p>
+                    If the heat network is not yet operational, it must be registered and authorised by Ofgem before it commences operation and the supply of heat to consumers.
+                </p>
+
+                {{ govukButton ({
+                    html: 'Start',
+                    href: 'name',
+                    isStartButton: true
+                }) }}
+
+                
+
+                <h2 class="govuk-heading-m">
+                    Before you start
+                </h2>
+
+                <p>
+                    You will need:
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>details of any responsible parties.</li>
+                    <li>information about the heat network you are registering for example, number of buildings, consumers and details of heat sources and metering details.</li>
+                    <li>to have to hand any copies of previous notifications spreadsheets sent to OPSS for the Heat Network (Metering & Billing) Regulations.</li>
+                    <li>to know that we will notify you by email if your registration has been successful or not within 10 working days following your registration.</li>
+                </ul>
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
