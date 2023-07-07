@@ -35,9 +35,15 @@
 
                 <h1 class="govuk-heading-l">Check your answers from this section</h1>
 
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h2 class="govuk-heading-m">
+                    Third party representative details
+                </h2>
+                {% else %}
                 <h2 class="govuk-heading-m">
                     Organisation details
                 </h2>
+                {% endif %}
 
                 {{ govukSummaryList ({
                     rows: [
