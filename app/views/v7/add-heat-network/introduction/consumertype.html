@@ -1,0 +1,124 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Which of these types of consumer does the heat network supply?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.consumertypes %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - Introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">Select all that apply</p>
+
+                    {% if data.validationErrors.consumertypes %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.consumertypes.message}}
+                    </p>
+                    {% endif %}
+
+                    <div class="govuk-checkboxes govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="consumertype" name="consumertype" type="checkbox" value="Residential consumers" aria-describedby="consumertype-hint"  {% if "Residential consumers" in data.consumertype %}checked{% endif %}>
+                            <label class="govuk-label govuk-checkboxes__label" for="consumertype">
+                                Residential consumers
+                            </label>
+                            <div id="consumertype1-hint" class="govuk-hint govuk-checkboxes__hint">
+                                People living in houses or flats
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="consumertype2" name="consumertype" type="checkbox" value="Microbusinesses" aria-describedby="consumertype2-hint" {% if "Microbusinesses" in data.consumertype %}checked{% endif %}>
+                            <label class="govuk-label govuk-checkboxes__label" for="consumertype2">
+                                Microbusinesses
+                            </label>
+                            <div id="consumertype2-hint" class="govuk-hint govuk-checkboxes__hint">
+                                Businesses that either:
+
+                                <ul class="govuk-list govuk-list--bullet govuk-hint">
+                                    <li>consume less than 247,000 kWh of heat per year</li>
+                                    <li>have less than 10 full-time employees</li>
+                                    <li>turn over less than &pound;2 million per year</li>
+                                </ul>
+                            </div>
+                        </div>
+
+<div class="govuk-checkboxes__divider">or</div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="consumertype3" name="consumertype" type="checkbox" value="Neither / other" aria-describedby="consumertype3-hint" {% if "Neither / other" in data.consumertype %}checked{% endif %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="consumertype3">
+                            Neither / other
+                        </label>
+                    </div>
+                </div>
+
+            </fieldset>
+
+
+    </div>
+    {{
+                govukButton ({
+                    html: 'Continue'
+                })
+    }}
+    </form>
+    <a href="cancel" class="govuk-link">Cancel</a>
+</div>
+
+</div>
+
+{% endblock %}

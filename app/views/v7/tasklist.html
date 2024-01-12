@@ -1,0 +1,179 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Register a heat network
+{% endblock %}
+
+{% macro taskListRow(props) %}
+    <li class="app-task-list__item">
+        <span class="app-task-list__task-name">
+            {% if props.href %}
+                <a href="{{ props.href }}" aria-describedby="{{ props.id }}">
+                    {{ props.title }}
+                </a>
+            {% else %}
+                {{ props.title }}
+            {% endif %}
+        </span>
+        {% set tagColor = 'grey' %}
+        {% if props.status == 'Complete' %}
+            {% set tagColor = 'blue' %}
+        {% elseif props.status == 'Not started' %}
+            {% set tagColor = 'orange' %}
+        {% endif %}
+        {{ govukTag({
+            text: props.status,
+            classes: 'app-task-list__tag govuk-tag--' + tagColor,
+            id: props.id
+        }) }}
+    </li>
+{% endmacro %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form method="post">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Register a heat network</h1>
+
+                <p>
+                    <b>Application incomplete</b><br>
+                    You have completed <span class="app-complete-count">0</span> out of <span class="section-count">X</span> sections.
+                </p>
+
+                <ol class="app-task-list">
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">1. </span>
+                            Introduction
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% set hnIntroStatus = 'Complete' if data['section-hn-intro'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'hn-introduction',
+                                title: 'Heat network introduction',
+                                href: 'hn-intro/start' if hnIntroStatus == 'Not started' else 'hn-intro/check',
+                                status: hnIntroStatus
+                            }) }}
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">2. </span>
+                            Your heat network
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% if data['hn-type'] == 'District' %}
+                                {% set locationStatusDistrict = 'Complete' if data['section-location-district'] == 'complete' else 'Not started' %}
+                                {{ taskListRow({
+                                    id: 'location',
+                                    title: 'Location',
+                                    href: 'location/district/address-check' if locationStatusDistrict == 'Not started' else 'location/district/check',
+                                    status: locationStatusDistrict
+                                }) }}
+                            {% endif %}
+                            {% if data['hn-type'] == 'Communal' %}
+                                {% set locationStatusCommunal = 'Complete' if data['section-location-communal'] == 'complete' else 'Not started' %}
+                                {{ taskListRow({
+                                    id: 'location',
+                                    title: 'Location',
+                                    href: 'location/communal/postcode' if locationStatusCommunal == 'Not started' else 'location/communal/check',
+                                    status: locationStatusCommunal
+                                }) }}
+                            {% endif %}
+                            {% if data['hn-type'] == 'District' %}
+                                {% set buildingsStatusDistrict = 'Complete' if data['section-buildings-district'] == 'complete' else 'Not started' %}
+                                {{ taskListRow({
+                                    id: 'buildings',
+                                    title: 'Buildings and consumers',
+                                    href: 'buildings-consumers/district/connection-check' if buildingsStatusDistrict == 'Not started' else 'buildings-consumers/district/check',
+                                    status: buildingsStatusDistrict
+                                }) }}
+                            {% endif %}
+                            {% if data['hn-type'] == 'Communal' %}
+                                {% set buildingsStatusCommunal = 'Complete' if data['section-buildings-communal'] == 'complete' else 'Not started' %}
+                                {{ taskListRow({
+                                    id: 'buildings',
+                                    title: 'Buildings and consumers',
+                                    href: 'buildings-consumers/communal/type' if buildingsStatusCommunal == 'Not started' else 'buildings-consumers/communal/check',
+                                    status: buildingsStatusCommunal
+                                }) }}
+                            {% endif %}
+                            {% set characteristicsStatus = 'Complete' if data['section-characteristics'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'characteristics',
+                                title: 'Characteristics',
+                                href: 'characteristics/type' if characteristicsStatus == 'Not started' else 'characteristics/check',
+                                status: characteristicsStatus
+                            }) }}
+                            {% set meteringStatus = 'Complete' if data['section-metering'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'metering',
+                                title: 'Metering',
+                                href: 'metering/agent' if meteringStatus == 'Not started' else 'metering/check',
+                                status: meteringStatus
+                            }) }}
+                        </ul>
+                    </li>
+                    <li>
+                        <h2 class="app-task-list__section">
+                            <span class="app-task-list__section-number">3. </span>
+                            Standards and declarations
+                        </h2>
+
+                        <ul class="app-task-list__items">
+                            {% set declarationsStatus = 'Complete' if data['section-declarations'] == 'complete' else 'Not started' %}
+                            {{ taskListRow({
+                                id: 'declarations',
+                                title: 'Commit to declarations and send',
+                                href: 'declarations/complaint' if declarationsStatus == 'Not started' else 'declarations/final',
+                                status: declarationsStatus
+                            }) }}
+                        </ul>
+                    </li>
+                </ol>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+    <script>
+        function updateSectionCount() {
+            // Count how many times there are elements with a class of .govuk-tag that contains the word 'Complete' (without using :contains("Complete"))
+            var allTags = document.querySelectorAll('.govuk-tag');
+            var tagCount = 0;
+            var completeCount = 0;
+            for (var i = 0; i < allTags.length; i++) {
+                tagCount++;
+                if (allTags[i].innerHTML.indexOf('Complete') > -1) {
+                    completeCount++;
+                }
+            }
+            // Update .app-complete-count with the number of complete sections and .section-count with the total number of sections
+            document.querySelector('.app-complete-count').innerHTML = completeCount;
+            document.querySelector('.section-count').innerHTML = tagCount;
+        }
+
+        // Run updateSectionCount() on page load
+        updateSectionCount();
+    </script>
+{% endblock %}

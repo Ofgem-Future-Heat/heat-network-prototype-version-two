@@ -1,0 +1,98 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Which of the following do you have in your heat network?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="level">
+
+                
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                
+                {{ govukCheckboxes({
+                  name: "meter-type",
+                  fieldset: {
+                    legend: {
+                      text: "Which of the following do you have in your heat network?",
+                      isPageHeading: true,
+                      classes: "govuk-fieldset__legend--l"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Building level meters",
+                      text: "Building level meters",
+                      hint: {
+                      text: "They are used to measure the use of a single building on a heat network. They are not used to measure or bill consumers' use."
+                    },
+                      checked: true if data['meter-type'] | includes("Building level meters")
+                    },
+                    {
+                      value: "Final consumer meters",
+                      text: "Final consumer meters",
+                      hint: {
+                      text: "They are used to measure consumers' use, and to bill them."
+                    },
+                      checked: true if data['meter-type'] | includes("Final consumer meters")
+                    },
+                    {
+                      value: "Final consumer heat cost allocators",
+                      text: "Final consumer heat cost allocators",
+                      hint: {
+                      text: "They are devices that are attached to individual radiators to measure the total heat output of that radiator."
+                    },
+                      checked: true if data['meter-type'] | includes("Final consumer heat cost allocators")
+                    }
+                  ]
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

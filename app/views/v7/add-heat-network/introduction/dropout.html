@@ -1,0 +1,63 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You do not need to provide any information" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - Introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                    <p class="govuk-body">
+                        The heat network regulations do not apply to you / this situation.
+                    </p>
+                    <p class="govuk-body">
+                        You do not need to do anything else.  
+                    </p>
+
+
+
+
+
+
+
+            </div>
+        <a href="../../account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Submit your registration
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="final">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Submit your registration</h1>
+
+                <p>
+                    By submitting this application you are confirming that, to the best of your ability and knowledge, all information you are providing are correct and if any information changes you will inform Ofgem as soon as possible.
+                </p>
+
+
+                {{ govukButton ({
+                    html: 'Accept and submit'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+        </div>
+
+</div>
+
+{% endblock %}

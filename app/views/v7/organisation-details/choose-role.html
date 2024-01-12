@@ -1,0 +1,83 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Choose the role of your organisation
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="operator-type">
+
+                <h1 class="govuk-heading-l">Choose the role of your organisation</h1>
+
+                {# <p>
+                    We expect heat network operation and heat supply activities to be undertaken by the same organisation for a single heat network. Please provide your organisational details below so that you can register any heat networks you are responsible for.
+                </p> #}
+
+                
+
+                {{ govukRadios ({
+                    idPrefix: 'choose-organisation-role',
+                    name: 'choose-organisation-role',
+                    fieldset: {
+                        legend: {
+                            text: 'Confirm if you are registering a heat network as a heat supplier/network operator or as a third party representative on behalf of one.',
+                            isPageHeading: false
+                        }
+                    },
+                    items: [
+                        
+                        {
+                            text: 'Heat supplier / heat network operator',
+                            value: 'Heat supplier / heat network operator',
+                            checked: true if data['choose-organisation-role'] == 'Heat supplier / heat network operator'
+                        },
+                        {
+                            text: 'Third party representative',
+                            value: 'Third party representative',
+                            checked: true if data['choose-organisation-role'] == 'An individual',
+                            hint: {text: 'A third party representative could be a metering & billing agent, managing agent, consultancy or other organisation that a heat network operator/heat supply delegates responsibility for certain activities to.'}
+                        }
+                    ]
+                }) }}
+
+               {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

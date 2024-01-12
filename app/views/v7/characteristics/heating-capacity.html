@@ -1,0 +1,96 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    What is the heating and/or hot water capacity in kilowatts?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if not (data['heat-network-provides'] | includes('Heating') or data['heat-network-provides'] | includes('Hot water'))  %}
+    {{ 'backup-cooling-check' | redirect | safe }}
+{% endif %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="backup-cooling-check">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">What is the heating and/or hot water capacity in kilowatts?</h1>
+
+                {% set heatingCapacityHelpHTML %}
+                <p> The capacity is the maximum output of the heating and/or hot water sources on the network. If the heat network is capable of thermal storage do not include this.</p>
+                <p> The capacity in kilowatts (kW) is normally written on the boiler(s) or pumps, or in the technical documentation. If its not, you can ask your service engineer to give you this information.</p>
+            
+                {% endset %}
+
+                {{ govukDetails({
+                  summaryText: "Help with 'capacity'",
+                  html: heatingCapacityHelpHTML
+                }) }}
+
+                {{ govukInsetText({
+                text: "If there is more than one heating and/or hot water source, add together the combined total capacity of all the sources."
+              }) }}
+
+                {% from "govuk/components/input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                  id: "heating-capacity",
+                  name: "heating-capacity",
+                  value: data['heating-capacity'] if data['heating-capacity'] else '',
+                  label: {
+                    text: "Heating and/or hot water capacity",
+              
+                    isPageHeading: true
+                  },
+                  suffix: {
+                    text: "kW"
+                  },
+                  classes: "govuk-input--width-5",
+                  spellcheck: false
+                }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

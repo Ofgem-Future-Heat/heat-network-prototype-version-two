@@ -1,0 +1,161 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="account-created">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Heat supplier/heat network operator details
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Organisation type'
+                            },
+                            value: {
+                                text: data['third-operator-type']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'operator-type',
+                                        visuallyHiddenText: ' organisation type'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Organisation details'
+                            },
+                            value: {
+                                html: 'Lumosense Energy Limited<br> 18 Angel Court<br> Brislington, BS16 7HQ'
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'operator-type',
+                                        visuallyHiddenText: ' organisation details'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Regulatory contact'
+                            },
+                            value: {
+                                text: data['third-regulatory-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-name',
+                                        visuallyHiddenText: ' regulatory contact name'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Job title'
+                            },
+                            value: {
+                                text: data['third-regulatory-title']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-title',
+                                        visuallyHiddenText: ' job title'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Email address'
+                            },
+                            value: {
+                                text: data['third-regulatory-email']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-email',
+                                        visuallyHiddenText: ' email address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Telephone number'
+                            },
+                            value: {
+                                text: data['third-regulatory-telephone']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-telephone',
+                                        visuallyHiddenText: ' telephone number'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                <input type="hidden" name="section-contact-details" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

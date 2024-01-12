@@ -1,0 +1,81 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Will the heat network start supplying consumers before 25 March 2025?" %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form action="supplywhen">
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - Introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+
+<div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="supply" name="supply" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="supply">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="supply-2" name="supply" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="supply-2">
+          No
+        </label>
+      </div>
+    </div>
+
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

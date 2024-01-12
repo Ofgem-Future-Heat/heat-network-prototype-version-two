@@ -1,0 +1,65 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Enter an email address
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="mobile">
+
+                <h1 class="govuk-heading-l">Enter an email address</h1>
+
+                <p>
+                    This email address will be used to send you a link to access your account next time.
+                </p>
+
+                {{ govukInput ({
+                    id: 'operator-email',
+                    name: 'operator-email',
+                    value: data['operator-email'] if data['operator-email'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Email address',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
