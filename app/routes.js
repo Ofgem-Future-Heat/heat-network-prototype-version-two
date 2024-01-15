@@ -346,7 +346,6 @@ router.get('/v7/add-heat-network/introduction/name', function (req, res) {
 
 router.post('/v7/add-heat-network/introduction/name', function (req, res) {
     clearvalidation(req);
-    req.session.data['name'] = req.body.name
     var name = req.session.data['name']
 
     if (!name) {
@@ -368,3 +367,128 @@ router.post('/v7/add-heat-network/introduction/name', function (req, res) {
 
     }
 });
+
+// Intro - cya
+router.get('/v7/add-heat-network/introduction/cya', function (req, res) {
+    res.render('/v7/add-heat-network/introduction/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/introduction/cya', function (req, res) {
+        res.redirect('/v7/add-heat-network/introduction/moreinfo');
+
+});
+
+
+// Tasklist
+router.get('/v7/add-heat-network/tasklist', function (req, res) {
+    res.render('/v7/add-heat-network/tasklist', {
+        data: req.session.data
+    });
+});
+
+
+// Location - Address
+router.get('/v7/add-heat-network/location/address', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/location/address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/location/address', function (req, res) {
+    clearvalidation(req);
+    var postcode = req.session.data['addressPostcode']
+    var number = req.session.data['addressNumber']
+
+    if (!postcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.addressPostcode = {
+            "anchor": "addressPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (!number) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.addressNumber = {
+            "anchor": "addressNumber",
+            "message": "Enter a building name or number",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/location/address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/location/addressconfirm');
+
+    }
+});
+
+// Location - cya
+router.get('/v7/add-heat-network/location/cya', function (req, res) {
+    res.render('/v7/add-heat-network/location/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/location/cya', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+// Buildings & consumers - How many
+router.get('/v7/add-heat-network/buildingsandconsumers/howmany', function (req, res) {
+    res.render('/v7/add-heat-network/buildingsandconsumers/howmany', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/howmany', function (req, res) {
+    var building = req.session.data['building']
+
+    if (building == "Yes") {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/customers');
+    } else {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/cya');
+    }
+});
+
+// Buildings & consumers - Customers
+router.get('/v7/add-heat-network/buildingsandconsumers/customers', function (req, res) {
+    res.render('/v7/add-heat-network/buildingsandconsumers/customers', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/customers', function (req, res) {
+    res.redirect('/v7/add-heat-network/buildingsandconsumers/communalheating');
+});
+
+
+// Buildings & consumers - Communal heating
+router.get('/v7/add-heat-network/buildingsandconsumers/communalheating', function (req, res) {
+    res.render('/v7/add-heat-network/buildingsandconsumers/communalheating', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/communalheating', function (req, res) {
+
+    if (req.session.data['communalheating'] == "Yes") {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/howmanycommunal');
+    } else {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/cya');
+    }
+});
+

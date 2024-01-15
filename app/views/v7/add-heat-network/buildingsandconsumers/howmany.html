@@ -1,0 +1,196 @@
+{% extends 'layouts/main.html' %}
+{% if data.building == "Yes" %}
+    {% set title = "How many buildings does the heat network supply?" %}
+{% else %}
+    {% set title = "How many 'final customers' does the heat network supply?" %}
+{% endif %}
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        {% if data.building == "Yes" %}
+        <p class="govuk-body">We need to know how many buildings of each building type there are.</p>
+        {% else %}
+        <p class="govuk-body">A final customer is the person or organisation that purchases heating, hot water or cooling from a heat supplier.</p>
+        {% endif %}
+        <p class="govuk-body">Leave fields blank if they're not relevant.</p>
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group {% if data.validationErrors.howmanyresidential %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanyresidential">
+                        Residential {% if data.building == "Yes" %}buildings{% else %}customers{% endif %}
+                    </label>
+                    {% if data.building == "No" %}
+                    <div id="howmanyresidential-hint" class="govuk-hint">
+                        For example, people living in flats
+                    </div>
+                    {% endif %}
+                    {% if data.validationErrors.howmanyresidential %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanyresidential.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanyresidential %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanyresidential" name="howmanyresidential" type="number" value="{{data.howmanyresidential}}">
+                </div>
+
+                <div class="govuk-form-group {% if data.validationErrors.howmanycommercial %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanycommercial">
+                        Commercial {% if data.building == "Yes" %}buildings{% else %}customers{% endif %}
+                    </label>
+                    <div id="howmanycommercial-hint" class="govuk-hint">
+                        {% if data.building == "Yes" %}
+                        For example, shops or offices
+                        {% else %}
+                        For example, organisations working in shops or offices
+                        {% endif %}
+                    </div>
+                    {% if data.validationErrors.howmanycommercial %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanycommercial.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanycommercial %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanycommercial" name="howmanycommercial" type="number" value="{{data.howmanycommercial}}">
+                </div>
+
+                <div class="govuk-form-group {% if data.validationErrors.howmanyindustrial %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanyindustrial">
+                        Industrial {% if data.building == "Yes" %}buildings{% else %}customers{% endif %}
+                    </label>
+                    <div id="howmanyindustrial-hint" class="govuk-hint">
+                        {% if data.building == "Yes" %}
+                        For example, factories or warehouses
+                        {% else %}
+                        For example, organisations working in factories or warehouses
+                        {% endif %}
+                    </div>
+                    {% if data.validationErrors.howmanyindustrial %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanyindustrial.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanyindustrial %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanyindustrial" name="howmanyindustrial" type="number" value="{{data.howmanyindustrial}}">
+                </div>
+
+                <div class="govuk-form-group {% if data.validationErrors.howmanypublic %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanypublic">
+                        Public {% if data.building == "Yes" %}buildings{% else %}customers{% endif %}
+                    </label>
+                    <div id="howmanypublic-hint" class="govuk-hint">
+                        {% if data.building == "Yes" %}
+                        For example, local authority or other government buildings, libraries, schools and healthcare facilities
+                        {% else %}
+                        For example, local councils working in government buildings
+                        {% endif %}
+                    </div>
+                    {% if data.validationErrors.howmanypublic %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanypublic.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanypublic %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanypublic" name="howmanypublic" type="number" value="{{data.howmanypublic}}">
+                </div>
+
+                {% if data.building == "Yes" %}
+                <div class="govuk-form-group {% if data.validationErrors.howmanymixeduse %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanymixeduse">
+                        Mixed use
+                    </label>
+                    <div id="howmanycommercial-hint" class="govuk-hint">
+                        For example, residential and commercial
+                    </div>
+                    {% if data.validationErrors.howmanymixeduse %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanymixeduse.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanymixeduse %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanymixeduse" name="howmanymixeduse" type="number" value="{{data.howmanymixeduse}}">
+                </div>
+                {% endif %}
+
+                <div class="govuk-form-group {% if data.validationErrors.howmanyother %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="howmanyother">
+                        Other
+                    </label>
+                    {% if data.validationErrors.howmanyother %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.howmanyother.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.howmanyother %}govuk-input--error{% endif %} govuk-input--width-3" id="howmanyother" name="howmanyother" type="number" value="{{data.howmanyother}}">
+                </div>
+
+
+            </fieldset>
+
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

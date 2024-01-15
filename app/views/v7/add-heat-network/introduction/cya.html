@@ -31,7 +31,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Add a heat network - Introduction</span>
+        <span class="govuk-caption-l">Add a heat network - introduction</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -43,7 +43,7 @@
                     Your network role
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Supplier and operator
+                    {{data.role}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your network role</span></a>
@@ -121,7 +121,7 @@
                     Supplies residential and microbusiness consumers?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if ("Residential consumers" in data.consumertype) and ("Microbusinesses" in data.consumertype) %} 
+                    {% if ((data.consumertype or []).indexOf('Residential consumers') > -1) and ((data.consumertype or []).indexOf('Microbusinesses') > -1) %}
                     Yes
                     {% else %}
                     No
@@ -143,8 +143,13 @@
                 </dd>
             </div>
         </dl>
-
-        <a href="../../account-information" class="govuk-button">Save and continue</a>
+                <form method="POST" novalidate>
+    <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
+    {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+    }}            </form>
 
     </div>
 

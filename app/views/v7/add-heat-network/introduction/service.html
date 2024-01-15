@@ -56,7 +56,7 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - Introduction</span>
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
@@ -73,7 +73,7 @@
 
                     <div class="govuk-checkboxes govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="service" name="service" type="checkbox" value="Space heating" aria-describedby="service-hint" {% if "Space heating" in data.service %}checked{% endif %}>
+                            <input class="govuk-checkboxes__input" id="service" name="service" type="checkbox" value="Space heating" aria-describedby="service-hint" {% for service in data.service %}{% if service==='Space heating' %}checked{% endif %}{% endfor %}>
                             <label class="govuk-label govuk-checkboxes__label" for="service">
                                 Space heating
                             </label>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="service2" name="service" type="checkbox" value="Process heating" aria-describedby="service2-hint" {% if "Process heating" in data.service %}checked{% endif %}>
+                            <input class="govuk-checkboxes__input" id="service2" name="service" type="checkbox" value="Process heating" aria-describedby="service2-hint" {% for service in data.service %}{% if service==='Process heating' %}checked{% endif %}{% endfor %} >
                             <label class="govuk-label govuk-checkboxes__label" for="service2">
                                 Process heating
                             </label>
@@ -91,20 +91,20 @@
                             </div>
                         </div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service3" name="service" type="checkbox" value="Hot water" aria-describedby="service3-hint" {% if "Hot water" in data.service %}checked{% endif %}>
+                        <input class="govuk-checkboxes__input" id="service3" name="service" type="checkbox" value="Hot water" aria-describedby="service3-hint" {% for service in data.service %}{% if service==='Hot water' %}checked{% endif %}{% endfor %}>
                         <label class="govuk-label govuk-checkboxes__label" for="service3">
                             Hot water
                         </label>
                     </div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service4" name="service" type="checkbox" value="Cooling" aria-describedby="service4-hint" {% if "Cooling" in data.service %}checked{% endif %}>
+                        <input class="govuk-checkboxes__input" id="service4" name="service" type="checkbox" value="Cooling" aria-describedby="service4-hint" {% for service in data.service %}{% if service==='Cooling' %}checked{% endif %}{% endfor %}>
                         <label class="govuk-label govuk-checkboxes__label" for="service4">
                             Cooling
                         </label>
                     </div>
                         <div class="govuk-checkboxes__divider">or</div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service5" name="service" type="checkbox" value="None" aria-describedby="service5-hint"{% if "None" in data.service %}checked{% endif %}>
+                        <input class="govuk-checkboxes__input" id="service5" name="service" type="checkbox" value="None" aria-describedby="service5-hint" {% for service in data.service %}{% if service==='None' %}checked{% endif %}{% endfor %}>
                         <label class="govuk-label govuk-checkboxes__label" for="service5">
                             None of these
                         </label>

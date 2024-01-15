@@ -1,0 +1,153 @@
+{% extends 'layouts/main.html' %}
+{% set title = data.name %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        <div class="govuk-breadcrumbs">
+            <ol class="govuk-breadcrumbs__list">
+                <li class="govuk-breadcrumbs__list-item">
+                    <a class="govuk-breadcrumbs__link" href="../account-information">Account home</a>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <ul class="govuk-task-list">
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-1-status">
+                        {% if data.introcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="location/address" aria-describedby="company-details-2-status">Location</a>
+                        <div id="company-details-2-hint" class="govuk-task-list__hint">
+                            Address of the network's energy centre
+                        </div>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-2-status">
+                        {% if data.locationcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/howmany" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        <div id="company-details-3-hint" class="govuk-task-list__hint">
+                            Number of buildings and consumers by type; information about communally-heated buildings, including their addresses
+                        </div>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-3-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-4-status">Technical information</a>
+                        <div id="company-details-3-hint" class="govuk-task-list__hint">
+                            Network capacity, generation and supply, which technologies and energy sources it uses
+                        </div>
+
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-4-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">Metering</a>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-5-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-6-status">Pricing</a>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-6-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-7-status">Financial resilience</a>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-7-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-8-status">Consumer protections</a>
+                    </div>
+                    <div class="govuk-task-list__status" id="company-details-8-status">
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+        <a href="#" class="govuk-button">Submit</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

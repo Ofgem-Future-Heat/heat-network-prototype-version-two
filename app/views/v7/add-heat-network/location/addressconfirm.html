@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You do not need to provide any information" %}
+{% set title = "Confirm address" %}
 
 
 {% block pageTitle %}
@@ -36,16 +36,19 @@
 
             <div class="govuk-form-group ">
 
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Add a heat network - location</span>
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
                     <p class="govuk-body">
-                        The heat network regulations do not apply to you / this situation.
+                        12 results found for {{data.addressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
                     </p>
-                    <p class="govuk-body">
-                        You do not need to do anything else.  
-                    </p>
+                    <div class="govuk-inset-text">
+                        {{data.addressNumber}},<br />
+                        Grosvenor Road,<br />
+                        Solihull,<br />
+                      {{data.addressPostcode}}
+                    </div>
 
 
 
@@ -54,7 +57,7 @@
 
 
             </div>
-        <a href="../../account-information" class="govuk-button">Finish</a>
+        <a href="cya" class="govuk-button">Use this address</a>
 
     </div>
 

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the heat network a 'self-supply' network?" %}
+{% set title = "Does the heat network supply any buildings with 'communal heating'?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,36 +51,36 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.selfsupply %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.sharedfacilities %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
                     </legend>
                     <p class="govuk-body">
-                        These are networks where a single business or organisation pays for the network's services on behalf of all consumers. For example, hospitals, prisons and university buildings.
+                        This means buildings with shared toilets, personal washing facilities or cooking facilities that all occupants have to use. For example, a house in multiple occupation (HMO) or a care home.
                     </p>
 
-                    {% if data.validationErrors.selfsupply %}
+                    {% if data.validationErrors.sharedfacilities %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.selfsupply.message}}
+                        {{data.validationErrors.sharedfacilities.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="selfsupply" name="selfsupply" type="radio" value="Yes" {% if data.selfsupply == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="selfsupply">
+                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sharedfacilities">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="selfsupply-2" name="selfsupply" type="radio" value="No" {% if data.selfsupply == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="selfsupply-2">
+                            <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sharedfacilities-2">
                                 No
                             </label>
                         </div>
