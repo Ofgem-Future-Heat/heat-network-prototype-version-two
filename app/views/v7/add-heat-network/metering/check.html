@@ -1,0 +1,163 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Metering
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Do you use an agent?'
+                            },
+                            value: {
+                                text: data['agent']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'agent',
+                                        visuallyHiddenText: ' whether you use an agent to deal with metering and billing'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Who is the agent?'
+                            },
+                            value: {
+                                text: data['agent-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'agent-name',
+                                        visuallyHiddenText: ' the metering and billing agent name'
+                                    }
+                                ]
+                            }
+                        } if data['agent'] !== 'No',
+                        {
+                            key: {
+                                text: 'Which one do you have in your heat network?'
+                            },
+                            value: {
+                                text: data['meter-type'] | arrayToBullets | safe
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'type-check',
+                                        visuallyHiddenText: ' which one you have in your heat network'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Building level meters'
+                            },
+                            value: {
+                                text: data['level-meters']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'level',
+                                        visuallyHiddenText: ' number of building level meters'
+                                    }
+                                ]
+                            }
+                        } if data['meter-type'] | includes("Building level meters"),
+                        {
+                            key: {
+                                text: 'Final consumer meters'
+                            },
+                            value: {
+                                text: data['consumer-meters']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'consumer',
+                                        visuallyHiddenText: ' number of final consumer meters'
+                                    }
+                                ]
+                            }
+                        } if data['meter-type'] | includes("Final consumer meters"),
+                        {
+                            key: {
+                                text: 'Heat cost allocators'
+                            },
+                            value: {
+                                text: data['cost-allocators']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'cost',
+                                        visuallyHiddenText: ' number of heat cost allocators'
+                                    }
+                                ]
+                            }
+                        } if data['meter-type'] | includes("Final consumer heat cost allocators")
+                    }
+                }) }}
+
+                
+
+
+                <form method="POST" novalidate>
+    <input type="hidden" id="meteringcomplete" name="meteringcomplete" value="true" />
+    {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+    }}            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

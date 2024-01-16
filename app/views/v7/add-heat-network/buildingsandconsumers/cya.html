@@ -31,7 +31,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Add a heat network - location</span>
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -104,12 +104,58 @@
                     How many final customers are in the network's communally-heated buildings?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.communalresidential >= 1 %}Residential - {{data.communalresidential}}<br />{% endif %}
-                    {% if data.communalcommercial >= 1 %}Commercial - {{data.communalcommercial}}<br />{% endif %}
-                    {% if data.communalindustrial >= 1 %}Industrial - {{data.communalindustrial}}<br />{% endif %}
-                    {% if data.communalpublic >= 1 %}Public - {{data.communalpublic}}<br />{% endif %}
-                    {% if data.communalmixeduse >= 1 %}Mixed use - {{data.communalmixeduse}}<br />{% endif %}
+                    {% if data.communalresidential >= 1 %}Residential - {{data.buildingaddressCustomers}}<br />{% endif %}
+                    {% if data.communalcommercial >= 1 %}Commercial - {{data.buildingaddressCustomers | float + 3 | float}}<br />{% endif %}
+                    {% if data.communalindustrial >= 1 %}Industrial - {{data.buildingaddressCustomers | float + 6 | float}}<br />{% endif %}
+                    {% if data.communalpublic >= 1 %}Public - {{data.buildingaddressCustomers | float +68 | float}}<br />{% endif %}
+                    {% if data.communalmixeduse >= 1 %}Mixed use - {{data.buildingaddressCustomers | float + 3 | float}}<br />{% endif %}
                     {% if data.communalother >= 1 %}Other - {{data.communalother}}<br />{% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Addresses of communally-heated buildings
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if (data.communalresidential >= 1) %}
+                    {% for i in range(0, data.communalresidential) -%}
+                    Residential building {{ i + 1 }}</br>
+                    {{data.buildingaddressNumber}} Grosvenor Road,<br />
+                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {%- endfor %}
+                    {% endif %}
+                    {% if (data.communalcommercial >= 1) %}
+                    {% for i in range(0, data.communalcommercial) -%}
+                    Commercial building {{ i + 1 }}</br>
+                    155 Grosvenor Road,<br />
+                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {%- endfor %}
+                    {% endif %}
+                    {% if (data.communalindustrial >= 1) %}
+                    {% for i in range(0, data.communalindustrial) -%}
+                    Industrial building {{ i + 1 }}</br>
+                    168 Grosvenor Road,<br />
+                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {%- endfor %}
+                    {% endif %}
+                    {% if (data.communalpublic >= 1) %}
+                    {% for i in range(0, data.communalpublic) -%}
+                    Public building {{ i + 1 }}</br>
+                    201 Grosvenor Road,<br />
+                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {%- endfor %}
+                    {% endif %}
+                    {% if (data.communalmixeduse >= 1) %}
+                    {% for i in range(0, data.communalmixeduse) -%}
+                    Mixed use building {{ i + 1 }}</br>
+                    77 Grosvenor Road,<br />
+                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {%- endfor %}
+                    {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
@@ -135,7 +181,7 @@
             {% endif %}
         </dl>
         <form method="POST" novalidate>
-            <input type="hidden" id="locationcomplete" name="locationcomplete" value="true" />
+            <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
             {{
                 govukButton ({
                     html: 'Save and continue'

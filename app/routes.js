@@ -638,3 +638,426 @@ router.post('/v7/add-heat-network/buildingsandconsumers/addresscustomers', funct
 
     }
 });
+
+// Buildings & consumers - cya
+router.get('/v7/add-heat-network/buildingsandconsumers/cya', function (req, res) {
+    res.render('/v7/add-heat-network/buildingsandconsumers/cya', {
+        data: req.session.data
+    });
+});
+
+router.post('/v7/add-heat-network/buildingsandconsumers/cya', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+
+// Tech - Capacity
+router.get('/v7/add-heat-network/technical/capacity', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/capacity', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/capacity', function (req, res) {
+    clearvalidation(req);
+    var techcapacity = req.session.data['techcapacity']
+
+    if (!techcapacity) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techcapacity = {
+            "anchor": "techcapacity",
+            "message": "Enter a capcity"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/capacity', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/technical/backup');
+    }
+});
+
+// Tech - Backup
+router.get('/v7/add-heat-network/technical/backup', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/backup', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/backup', function (req, res) {
+    clearvalidation(req);
+    var techbackup = req.session.data['techbackup']
+
+    if (!techbackup) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techbackup = {
+            "anchor": "techbackup",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/backup', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/technical/generation');
+    }
+
+});
+
+// Tech - generation
+router.get('/v7/add-heat-network/technical/generation', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/generation', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/generation', function (req, res) {
+    clearvalidation(req);
+    var techgeneration = req.session.data['techgeneration']
+
+    if (!techgeneration) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techgeneration = {
+            "anchor": "techgeneration",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/generation', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/technical/supply');
+    }
+
+});
+// Tech - supply
+router.get('/v7/add-heat-network/technical/supply', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/supply', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/supply', function (req, res) {
+    clearvalidation(req);
+    var techsupply = req.session.data['techsupply']
+
+    if (!techsupply) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techsupply = {
+            "anchor": "techsupply",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/supply', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/technical/storage');
+    }
+
+});
+
+// Tech - storage
+router.get('/v7/add-heat-network/technical/storage', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/storage', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/storage', function (req, res) {
+    clearvalidation(req);
+    var techstorage = req.session.data['techstorage']
+    var techstoragecapacity = req.session.data['techstoragecapacity']
+
+
+    if (!techstorage) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techstorage = {
+            "anchor": "techstorage",
+            "message": "Select if the system is capable of thermal storage"
+        }
+    }
+
+    if (techstorage == "Yes" && !techstoragecapacity) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techstoragecapacity = {
+            "anchor": "techstoragecapacity",
+            "message": "Enter a capacity"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/storage', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/technical/electricity');
+    }
+
+});
+
+
+// Tech - electricity
+router.get('/v7/add-heat-network/technical/electricity', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/electricity', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/electricity', function (req, res) {
+    clearvalidation(req);
+    var techelectricity = req.session.data['techelectricity']
+    var techelectricitygeneration = req.session.data['techelectricitygeneration']
+
+
+    if (!techelectricity) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techelectricity = {
+            "anchor": "techelectricity",
+            "message": "Select if the system is capable of thermal electricity"
+        }
+    }
+
+    if (techelectricity == "Yes" && !techelectricitygeneration) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techelectricitygeneration = {
+            "anchor": "techelectricitygeneration",
+            "message": "Enter generation"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/electricity', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/technical/technology');
+    }
+
+});
+
+// Tech - technology
+router.get('/v7/add-heat-network/technical/technology', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/technology', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/technology', function (req, res) {
+    clearvalidation(req);
+    var techtechnology = req.session.data['techtechnology']
+    var techtechnologyother = req.session.data['techtechnologyother']
+
+
+    if (!techtechnology) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techtechnology = {
+            "anchor": "techtechnology",
+            "message": "Select a technology"
+        }
+    }
+
+    if (techtechnology == "Other" && !techtechnologyother) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techtechnologyother = {
+            "anchor": "techtechnologyother",
+            "message": "Enter a technology name"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/technology', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/technical/energysource');
+    }
+});
+
+// Tech - energysource
+router.get('/v7/add-heat-network/technical/energysource', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/energysource', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/energysource', function (req, res) {
+    clearvalidation(req);
+    var techenergysource = req.session.data['techenergysource']
+    var techenergysourceother = req.session.data['techenergysourceother']
+
+
+    if (!techenergysource) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techenergysource = {
+            "anchor": "techenergysource",
+            "message": "Select an energy source"
+        }
+    }
+
+    if (techenergysource == "Other" && !techenergysourceother) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techenergysourceother = {
+            "anchor": "techenergysourceother",
+            "message": "Enter an energy source name"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/energysource', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/technical/when');
+    }
+});
+
+// Tech when
+router.get('/v7/add-heat-network/technical/when', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/when', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/when', function (req, res) {
+    clearvalidation(req);
+    var techwhenmonth = req.session.data['techwhenmonth']
+    var techwhenyear = req.session.data['techwhenyear']
+
+    if (!techwhenmonth || !techwhenyear) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techwhen = {
+            "anchor": "techwhen",
+            "message": "Enter a month and year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/when', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/technical/summary');
+    }
+});
+
+// Tech - summary
+router.get('/v7/add-heat-network/technical/summary', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/technical/summary', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/technical/summary', function (req, res) {
+    clearvalidation(req);
+    var techsummaryother = req.session.data['techsummaryother']
+
+
+    if (!techsummaryother) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techsummaryother = {
+            "anchor": "techsummaryother",
+            "message": "Select an option"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/technical/summary', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (techsummaryother == "No") {
+            res.redirect('/v7/add-heat-network/technical/cya');
+        } else {
+            req.session.data['techtechnology'] = "";
+            req.session.data['technologyother'] = "";
+            req.session.data['techenergysource'] = "";
+            req.session.data['techenergysourceother'] = "";
+            req.session.data['techwhenmonth'] = "";
+            req.session.data['techwhenyear'] = "";
+            res.redirect('/v7/add-heat-network/technical/technology');
+        }
+
+    }
+
+});
+
+// Tech - cya
+router.get('/v7/add-heat-network/technical/cya', function (req, res) {
+    res.render('/v7/add-heat-network/technical/cya', {
+        data: req.session.data
+    });
+});
+
+router.post('/v7/add-heat-network/technical/cya', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+// Metering - cya
+router.get('/v7/add-heat-network/metering/check', function (req, res) {
+    res.render('/v7/add-heat-network/metering/check', {
+        data: req.session.data
+    });
+});
+
+router.post('/v7/add-heat-network/metering/check', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+// Protections - summary
+router.get('/v7/add-heat-network/consumerprotections/confirm', function (req, res) {
+    res.render('/v7/add-heat-network/consumerprotections/confirm', {
+        data: req.session.data
+    });
+});
+
+router.post('/v7/add-heat-network/consumerprotections/confirm', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});

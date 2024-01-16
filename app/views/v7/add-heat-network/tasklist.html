@@ -81,33 +81,45 @@
                         </div>
                     </div>
                     <div class="govuk-task-list__status" id="company-details-3-status">
+                        {% if data.buildingcomplete == "true" %}
+                        Completed
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-4-status">Technical information</a>
+                        <a class="govuk-link govuk-task-list__link" href="technical/capacity" aria-describedby="company-details-4-status">Technical information</a>
                         <div id="company-details-3-hint" class="govuk-task-list__hint">
                             Network capacity, generation and supply, which technologies and energy sources it uses
                         </div>
 
                     </div>
                     <div class="govuk-task-list__status" id="company-details-4-status">
+                        {% if data.techcomplete == "true" %}
+                        Completed
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">Metering</a>
+                        <a class="govuk-link govuk-task-list__link" href="metering/agent" aria-describedby="company-details-5-status">Metering</a>
                     </div>
                     <div class="govuk-task-list__status" id="company-details-5-status">
+                        {% if data.meteringcomplete == "true" %}
+                        Completed
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
@@ -130,16 +142,25 @@
                         </strong>
                     </div>
                 </li>
+                
+                {% if (data.consumertype=='Residential consumers') or (data.consumertype=='Microbusinesses') or (data.consumertype=='Residential consumers,Microbusinesses') %}
+
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-8-status">Consumer protections</a>
+                        <a class="govuk-link govuk-task-list__link" href="consumerprotections/confirm" aria-describedby="company-details-8-status">Consumer protections</a>
                     </div>
                     <div class="govuk-task-list__status" id="company-details-8-status">
+                      {% if data.protectionscomplete == "true" %}
+                        Completed
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
+                        {% endif %}
+
                     </div>
                 </li>
+                {% endif %}
             </ul>
 
 
