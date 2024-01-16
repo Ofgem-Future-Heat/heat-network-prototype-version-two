@@ -1,0 +1,108 @@
+{% extends 'layouts/main.html' %}
+    {% set title = "Find address for residential building 1" %}
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        {% if data.building == "Yes" %}
+        <p class="govuk-body">This is where the thermal energy supplied by the network is created. If there are two energy centres, use the one that supplies the most energy.</p>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressPostcode %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="address-postcode">
+                        Postcode
+                    </label>
+                    {% if data.validationErrors.buildingaddressPostcode %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressPostcode.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.buildingaddressPostcode %}govuk-input--error{% endif %}" id="buildingaddressPostcode" name="buildingaddressPostcode" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.buildingaddressPostcode}}">
+                </div>
+
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressNumber %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="buildingaddressNumber">
+                        Building name or number
+                    </label>
+
+                    {% if data.validationErrors.buildingaddressNumber %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressNumber.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.buildingaddressNumber %}govuk-input--error{% endif %} " id="buildingaddressNumber" name="buildingaddressNumber" type="text" value="{{data.buildingaddressNumber}}">
+                </div>
+
+            </fieldset>
+
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

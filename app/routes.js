@@ -475,8 +475,9 @@ router.post('/v7/add-heat-network/buildingsandconsumers/customers', function (re
 });
 
 
-// Buildings & consumers - Communal heating
+// sharedfacilities
 router.get('/v7/add-heat-network/buildingsandconsumers/communalheating', function (req, res) {
+    clearvalidation(req);
     res.render('/v7/add-heat-network/buildingsandconsumers/communalheating', {
         data: req.session.data
     });
@@ -484,11 +485,156 @@ router.get('/v7/add-heat-network/buildingsandconsumers/communalheating', functio
 
 
 router.post('/v7/add-heat-network/buildingsandconsumers/communalheating', function (req, res) {
+    clearvalidation(req);
+    var communalheating = req.session.data['communalheating']
 
-    if (req.session.data['communalheating'] == "Yes") {
-        res.redirect('/v7/add-heat-network/buildingsandconsumers/howmanycommunal');
-    } else {
+    if (!communalheating) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.communalheating = {
+            "anchor": "communalheating",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/buildingsandconsumers/communalheating', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (communalheating == "Yes") {
+            res.redirect('/v7/add-heat-network/buildingsandconsumers/howmanycommunal');
+        } else {
+            res.redirect('/v7/add-heat-network/buildingsandconsumers/cya');
+        }
+    }
+
+});
+
+// Buildings & consumers - Communal How Many
+router.get('/v7/add-heat-network/buildingsandconsumers/howmanycommunal', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/buildingsandconsumers/howmanycommunal', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/howmanycommunal', function (req, res) {
+    clearvalidation(req);
+
+    res.redirect('/v7/add-heat-network/buildingsandconsumers/communalinfo');
+});
+
+
+// Buildings & consumers - Communal building info
+router.get('/v7/add-heat-network/buildingsandconsumers/communalinfo', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/buildingsandconsumers/communalinfo', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/communalinfo', function (req, res) {
+    clearvalidation(req);
+    var buildingaddressPostcode = req.session.data['buildingaddressPostcode']
+    var buildingaddressNumber = req.session.data['buildingaddressNumber']
+
+    if (!buildingaddressPostcode || !buildingaddressNumber) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.communalinfo = {
+            "anchor": "communalinfo",
+            "message": "Fill in all address information before continuing",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/buildingsandconsumers/communalinfo', {
+            data: req.session.data
+        });
+    }
+    else {
         res.redirect('/v7/add-heat-network/buildingsandconsumers/cya');
     }
 });
 
+// Buildings & consumers - Address
+router.get('/v7/add-heat-network/buildingsandconsumers/address', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/buildingsandconsumers/address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/address', function (req, res) {
+    clearvalidation(req);
+    var postcode = req.session.data['buildingaddressPostcode']
+    var number = req.session.data['buildingaddressPostcode']
+
+    if (!postcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressPostcode = {
+            "anchor": "buildingaddressPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (!number) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressNumber = {
+            "anchor": "buildingaddressNumber",
+            "message": "Enter a building name or number",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/buildingsandconsumers/address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/addressconfirm');
+
+    }
+});
+
+// Buildings & consumers - Address
+router.get('/v7/add-heat-network/buildingsandconsumers/addresscustomers', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/buildingsandconsumers/addresscustomers', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/buildingsandconsumers/addresscustomers', function (req, res) {
+    clearvalidation(req);
+    var addresscustomers = req.session.data['buildingaddressCustomers']
+
+    if (!addresscustomers) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressCustomers = {
+            "anchor": "buildingaddressCustomers",
+            "message": "Enter a postcode",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/buildingsandconsumers/addresscustomers', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/buildingsandconsumers/cya');
+
+    }
+});

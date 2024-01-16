@@ -51,7 +51,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.sharedfacilities %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.communalheating %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -62,25 +62,25 @@
                         </h1>
                     </legend>
                     <p class="govuk-body">
-                        This means buildings with shared toilets, personal washing facilities or cooking facilities that all occupants have to use. For example, a house in multiple occupation (HMO) or a care home.
+                        These are buildings that have multiple final customers in them.
                     </p>
 
-                    {% if data.validationErrors.sharedfacilities %}
+                    {% if data.validationErrors.communalheating %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.sharedfacilities.message}}
+                        {{data.validationErrors.communalheating.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities">
+                            <input class="govuk-radios__input" id="communalheating" name="communalheating" type="radio" value="Yes" {% if data.communalheating == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="communalheating">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities-2">
+                            <input class="govuk-radios__input" id="communalheating-2" name="communalheating" type="radio" value="No"  {% if data.communalheating == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="communalheating-2">
                                 No
                             </label>
                         </div>
