@@ -46,7 +46,7 @@
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-1-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-1-status">
                         {% if data.introcomplete == "true" %}
                         Completed
                         {% else %}
@@ -63,7 +63,7 @@
                             Address of the network's energy centre
                         </div>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-2-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-2-status">
                         {% if data.locationcomplete == "true" %}
                         Completed
                         {% else %}
@@ -80,7 +80,7 @@
                             Number of buildings and consumers by type; information about communally-heated buildings, including their addresses
                         </div>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-3-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
                         {% if data.buildingcomplete == "true" %}
                         Completed
                         {% else %}
@@ -98,7 +98,7 @@
                         </div>
 
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-4-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
                         {% if data.techcomplete == "true" %}
                         Completed
                         {% else %}
@@ -112,8 +112,22 @@
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="metering/agent" aria-describedby="company-details-5-status">Metering</a>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-5-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-5-status">
                         {% if data.meteringcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                    <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">Billing</a>
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-5-status">
+                        {% if data.billingcomplete == "true" %}
                         Completed
                         {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
@@ -126,7 +140,7 @@
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-6-status">Pricing</a>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-6-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-6-status">
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
@@ -136,7 +150,7 @@
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-7-status">Financial resilience</a>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-7-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-7-status">
                         <strong class="govuk-tag govuk-tag--blue">
                             Not yet started
                         </strong>
@@ -149,7 +163,7 @@
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="consumerprotections/confirm" aria-describedby="company-details-8-status">Consumer protections</a>
                     </div>
-                    <div class="govuk-task-list__status" id="company-details-8-status">
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-8-status">
                       {% if data.protectionscomplete == "true" %}
                         Completed
                         {% else %}
@@ -165,7 +179,8 @@
 
 
         </div>
-        <a href="#" class="govuk-button">Submit</a>
+
+        <a href="confirmsubmit" class="govuk-button">Submit</a>
 
     </div>
 

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "When did the network first start using " + data.techtechnology.toLowerCase() + " with " + data.techenergysource.toLowerCase() + "?" %}
+{% set title = "When did the network first start using this combination?" %}
 
 
 {% block pageTitle %}
@@ -59,7 +59,14 @@
                         </h1>
 
                     </legend>
-
+                    <p class="govuk-body">
+                        <strong>Technology</strong><br />
+                        {{data.techtechnology}}
+                    </p>
+                    <p class="govuk-body">
+                        <strong>Energy source</strong><br />
+                        {{data.techenergysource}}
+                    </p>
                     <div id="supply-date-hint" class="govuk-hint">
                         For example 11 2020
                     </div>

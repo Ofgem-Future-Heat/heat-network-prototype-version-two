@@ -87,7 +87,7 @@
                                 Microbusinesses
                             </label>
                             <div id="consumertype2-hint" class="govuk-hint govuk-checkboxes__hint">
-                                Businesses that either:
+                               <p class="govuk-body  govuk-hint"> Businesses that either:</p>
 
                                 <ul class="govuk-list govuk-list--bullet govuk-hint">
                                     <li>consume less than 247,000 kWh of heat per year</li>
@@ -99,9 +99,9 @@
 
 <div class="govuk-checkboxes__divider">or</div>
                         <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="consumertype3" name="consumertype" type="checkbox" value="Neither / other" aria-describedby="consumertype3-hint" {% for consumertype in data.consumertype %}{% if consumertype=='Neither / other' %}checked{% endif %}{% endfor %}>
+                        <input class="govuk-checkboxes__input" id="consumertype3" name="consumertype" type="checkbox" value="Neither" aria-describedby="consumertype3-hint" {% for consumertype in data.consumertype %}{% if consumertype=='Neither' %}checked{% endif %}{% endfor %}>
                         <label class="govuk-label govuk-checkboxes__label" for="consumertype3">
-                            Neither / other
+                            Neither
                         </label>
                     </div>
                 </div>

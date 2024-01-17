@@ -67,7 +67,7 @@
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th class="govuk-table__cell">{% if (data.techtechnology == "Other") %}{{data.techtechnologyother}}{% else %}{{data.techtechnology}}{% endif %}</th>
+      <td class="govuk-table__cell">{% if (data.techtechnology == "Other") %}{{data.techtechnologyother}}{% else %}{{data.techtechnology}}{% endif %}</td>
       <td class="govuk-table__cell">{% if (data.techenergysource == "Other") %}{{data.techenergysourceother}}{% else %}{{data.techenergysource}}{% endif %}</td>
       <td class="govuk-table__cell">{{data.techwhenmonth}} {{data.techwhenyear}}</td>
     </tr>

@@ -152,9 +152,9 @@
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="techenergysource-12" name="techenergysource" type="radio" value="Energy from waste" {% if data.techenergysource=="Energy from waste" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="techenergysource-12" name="techenergysource" type="radio" value="Energy from burning waste" {% if data.techenergysource=="Energy from burning waste" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="techenergysource-12">
-                                Energy from waste
+                                Energy from burning waste
                             </label>
                         </div>
                         <div class="govuk-radios__item">
@@ -163,10 +163,16 @@
                                 Waste heat
                             </label>
                         </div>
+                            <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techenergysource-14" name="techenergysource" type="radio" value="Energy from another heat network" {% if data.techenergysource=="Energy from another heat network" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techenergysource-14">
+                                Energy from another heat network
+                            </label>
+                        </div>
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="techenergysource-14" name="techenergysource" type="radio" value="Other" {% if data.techenergysource=="Other" %}checked{% endif %} data-aria-controls="conditional-techenergysource">
-                            <label class="govuk-label govuk-radios__label" for="techenergysource-14">
+                            <input class="govuk-radios__input" id="techenergysource-15" name="techenergysource" type="radio" value="Other" {% if data.techenergysource=="Other" %}checked{% endif %} data-aria-controls="conditional-techenergysource">
+                            <label class="govuk-label govuk-radios__label" for="techenergysource-15">
                                 Other
                             </label>
                         </div>

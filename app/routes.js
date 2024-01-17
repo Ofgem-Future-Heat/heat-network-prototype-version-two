@@ -25,6 +25,46 @@ module.exports = function (router, _data) {
 
 
 // Add Heat Network - Intro
+// Cancel
+router.get('/v7/add-heat-network/introduction/cancel', function (req, res) {
+    clearvalidation(req);
+    req.session.data['cancels'] = "";
+    backURL = req.header('Referer')
+    res.render('/v7/add-heat-network/introduction/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/introduction/cancel', function (req, res) {
+    clearvalidation(req);
+    var cancels = req.session.data['cancels']
+
+    if (!cancels) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.cancels = {
+            "anchor": "cancels",
+            "message": "Select whether you wish to cancel"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/introduction/cancel', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (cancels == "Yes") {
+            res.redirect('/v7/account-information');
+        } else {
+            res.redirect(backURL);
+        }
+    }
+
+});
+
+
 // Supply
 router.get('/v7/add-heat-network/introduction/supply', function (req, res) {
         clearvalidation(req);
@@ -156,6 +196,44 @@ router.post('/v7/add-heat-network/introduction/supplywhen', function (req, res) 
     else {
         res.redirect('/v7/add-heat-network/introduction/service');
     }
+});
+
+
+// Supply before
+router.get('/v7/add-heat-network/introduction/supplybefore', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/introduction/supplybefore', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/introduction/supplybefore', function (req, res) {
+    clearvalidation(req);
+    var supplybefore = req.session.data['supplybefore']
+
+    if (!supplybefore) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplybefore = {
+            "anchor": "supplybefore",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/introduction/supplybefore', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (supplybefore == "Yes") {
+            res.redirect('/v7/add-heat-network/introduction/service');
+        } else {
+            res.redirect('/v7/add-heat-network/introduction/service');
+        }
+    }
+
 });
 
 // Services
@@ -622,7 +700,7 @@ router.post('/v7/add-heat-network/buildingsandconsumers/addresscustomers', funct
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildingaddressCustomers = {
             "anchor": "buildingaddressCustomers",
-            "message": "Enter a postcode",
+            "message": "Enter the number of final customers",
         }
     }
 
@@ -1060,4 +1138,43 @@ router.get('/v7/add-heat-network/consumerprotections/confirm', function (req, re
 
 router.post('/v7/add-heat-network/consumerprotections/confirm', function (req, res) {
     res.redirect('/v7/add-heat-network/tasklist');
+});
+
+// Final submit confirm
+router.get('/v7/add-heat-network/confirmsubmit', function (req, res) {
+    clearvalidation(req);
+    req.session.data['confirms'] = "";
+    backURL = req.header('Referer')
+    res.render('/v7/add-heat-network/confirmsubmit', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/confirmsubmit', function (req, res) {
+    clearvalidation(req);
+    var confirms = req.session.data['confirms']
+
+    if (!confirms) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.confirms = {
+            "anchor": "confirms",
+            "message": "Select whether you wish to submit your application"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/confirmsubmit', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (confirms == "Yes") {
+            res.redirect('/v7/account-information');
+        } else {
+            res.redirect(backURL);
+        }
+    }
+
 });

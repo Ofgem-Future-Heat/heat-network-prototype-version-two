@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Will the heat network start supplying consumers before 31 March 2025?" %}
+{% set title = "Are you sure you want to submit your application?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,33 +51,45 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.supplybefore %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.confirms %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Authorisation for {{data.name}}</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
                     </legend>
-
-                    {% if data.validationErrors.supplybefore %}
+                    <p class="govuk-body">By submitting this application, you are confirming that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>you have the authority to provide this information, or are acting on behalf of someone who has delegated this authority to you</li>
+                        <li>all the information you are providing is correct to the best of your knowledge</li>
+                        <li>you will notify Ofgem as soon as possible if any of the information changes</li>
+                    </ul>
+                    <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+   After submitting, you will not be able to change any of the information in your application.
+  </strong>
+</div>
+                    {% if data.validationErrors.confirms %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.supplybefore.message}}
+                        {{data.validationErrors.confirms.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore" name="supplybefore" type="radio" value="Yes" {% if data.supplybefore == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore">
+                            <input class="govuk-radios__input" id="confirm" name="confirms" type="radio" value="Yes" {% if data.confirms=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore-2" name="supplybefore" type="radio" value="No" {% if data.supplybefore == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore-2">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirms" type="radio" value="No" {% if data.confirms=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">
                                 No
                             </label>
                         </div>
@@ -94,6 +106,7 @@
                 })
             }}
         </form>
+
         <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 
