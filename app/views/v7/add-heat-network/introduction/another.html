@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the heat network supply any buildings with 'communal heating'?" %}
+{% set title = "Does the heat network supply thermal energy to another heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,36 +51,33 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.communalheating %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.another %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </legend>
-                    <p class="govuk-body">
-                        These are buildings that have multiple final customers and premises in them.
-                    </p>
 
-                    {% if data.validationErrors.communalheating %}
+                    </legend>
+                    {% if data.validationErrors.another %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.communalheating.message}}
+                        {{data.validationErrors.another.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communalheating" name="communalheating" type="radio" value="Yes" {% if data.communalheating == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communalheating">
+                            <input class="govuk-radios__input" id="another" name="another" type="radio" value="Yes" {% if data.another == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="another">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communalheating-2" name="communalheating" type="radio" value="No"  {% if data.communalheating == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communalheating-2">
+                            <input class="govuk-radios__input" id="another-2" name="another" type="radio" value="No" {% if data.another == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="another-2">
                                 No
                             </label>
                         </div>

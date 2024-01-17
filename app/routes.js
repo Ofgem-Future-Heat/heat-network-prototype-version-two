@@ -300,10 +300,44 @@ router.post('/v7/add-heat-network/introduction/building', function (req, res) {
 
     else {
         if (building == "Yes") {
-            res.redirect('/v7/add-heat-network/introduction/selfsupply');
+            res.redirect('/v7/add-heat-network/introduction/another');
         } else {
             res.redirect('/v7/add-heat-network/introduction/sharedfacilities');
         }
+    }
+
+});
+
+// Another
+router.get('/v7/add-heat-network/introduction/another', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/introduction/another', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/introduction/another', function (req, res) {
+    clearvalidation(req);
+    req.session.data['another'] = req.body.another
+    var another = req.session.data['another']
+
+    if (!another) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.another = {
+            "anchor": "another",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/introduction/another', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/v7/add-heat-network/introduction/selfsupply');
     }
 
 });
@@ -509,6 +543,41 @@ router.post('/v7/add-heat-network/location/address', function (req, res) {
 
     }
 });
+
+// Location  - control
+router.get('/v7/add-heat-network/location/control', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/location/control', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/location/control', function (req, res) {
+    clearvalidation(req);
+    req.session.data['addresscontrol'] = req.body.addresscontrol
+    var addresscontrol = req.session.data['addresscontrol']
+
+    if (!addresscontrol) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.addresscontrol = {
+            "anchor": "addresscontrol",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/location/control', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/v7/add-heat-network/location/cya');
+    }
+
+});
+
 
 // Location - cya
 router.get('/v7/add-heat-network/location/cya', function (req, res) {

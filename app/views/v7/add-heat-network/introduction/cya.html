@@ -90,6 +90,20 @@
                     <a class="govuk-link" href="building">Change<span class="govuk-visually-hidden"> building supply status</span></a>
                 </dd>
             </div>
+            {% if data.building == "Yes" %} 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Supplies thermal energy to another heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.another}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="another">Change<span class="govuk-visually-hidden"> another heat network supply status</span></a>
+                </dd>
+            </div>
+            
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     'Self-supply' network?
@@ -101,6 +115,20 @@
                     <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> self supply status</span></a>
                 </dd>
             </div>
+            {% else %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Building has shared facilities?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.sharedfacilities}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="sharedfacilities">Change<span class="govuk-visually-hidden"> self supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Building types
