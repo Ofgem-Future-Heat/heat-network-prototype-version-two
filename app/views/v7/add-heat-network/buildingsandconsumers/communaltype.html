@@ -1,7 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Will the heat network start supplying customers before 1 April 2025?" %}
+{% set title = "What type of building is this connected communal network ?" %}
 {% set _inError = data.validationError == "true"  %}
-
 
 {% block pageTitle %}
 {{title}}
@@ -48,53 +47,54 @@
             </div>
         </div>
         {% endif %}
-
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.supplybefore %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.buildingcommunaltype %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset">
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </legend>
 
-                    {% if data.validationErrors.supplybefore %}
+                    </legend>
+                    {% if data.validationErrors.buildingcommunaltype %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.supplybefore.message}}
+                        {{data.validationErrors.buildingcommunaltype.message}}
                     </p>
                     {% endif %}
-                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore" name="supplybefore" type="radio" value="Yes" {% if data.supplybefore == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore">
-                                Yes
+                            <input class="govuk-radios__input" id="buildingcommunaltype" name="buildingcommunaltype" type="radio" value="Residential building" aria-describedby="role-item-hint" {% if data.buildingcommunaltype == "Residential building" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="buildingcommunaltype">
+                                Residential building
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore-2" name="supplybefore" type="radio" value="No" {% if data.supplybefore == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore-2">
-                                No
+                            <input class="govuk-radios__input" id="buildingcommunaltype-2" name="buildingcommunaltype" type="radio" value="Commercial building" aria-describedby="role-2-item-hint" {% if data.buildingcommunaltype == "Commercial building" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="buildingcommunaltype-2">
+                                Commercial building
                             </label>
                         </div>
                     </div>
-
-
                 </fieldset>
-
-
             </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>
-        <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="cancel" class="govuk-link">Cancel</a>
+
     </div>
 
 </div>

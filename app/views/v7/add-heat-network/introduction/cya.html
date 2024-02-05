@@ -40,33 +40,54 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Your network role
+                    Completing on behalf of another organisation?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introbehalf}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="behalf">Change<span class="govuk-visually-hidden"> whether you are completeing on behalf of another organisation</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Role on network
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.role}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your network role</span></a>
+                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your role on network</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Network is currently supplying
+                    Currently supplying customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.introsupply == "Yes" %} 
-                    {{data.introsupply}} - started {{data.supplywhen}}
-                    {% else %}
                     {{data.introsupply}}
-                    {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
+
+            {% if data.introsupply == "Yes" %} 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Network services
+                    Year started supplying customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.supplywhen}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supplywhen">Change<span class="govuk-visually-hidden"> year started supplying customers</span></a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Types of energy supplied
                 </dt>
                 <dd class="govuk-summary-list__value">
                     <ul class="govuk-list">
@@ -93,6 +114,17 @@
             {% if data.building == "Yes" %} 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
+                    How many connected communal networks? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.communalnetworks}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="building">Change<span class="govuk-visually-hidden"> how many connected communal networks</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                     Supplies thermal energy to another heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
@@ -106,7 +138,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    'Self-supply' network?
+                    Self-supply network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.selfsupply}}
@@ -131,14 +163,10 @@
             {% endif %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Building types
+                    Supplies residential customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <ul class="govuk-list">
-                    {% for consumertype in data.consumertype %}
-                    <li>{{consumertype}}</li>
-                    {% endfor %}
-                        </ul>
+                    {{data.consumertyperesidential}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="consumertype">Change<span class="govuk-visually-hidden"> building type</span></a>
@@ -146,22 +174,18 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Supplies residential and microbusiness consumers?
+                    Supplies microbusiness customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if ((data.consumertype or []).indexOf('Residential consumers') > -1) and ((data.consumertype or []).indexOf('Microbusinesses') > -1) %}
-                    Yes
-                    {% else %}
-                    No
-                    {% endif %}
+                    {{data.consumertypemicrobusiness}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="consumertype">Change<span class="govuk-visually-hidden"> consumer type</span></a>
+                    <a class="govuk-link" href="consumertype">Change<span class="govuk-visually-hidden"> building type</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Network name
+                    Heat network name
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.name}}
@@ -178,6 +202,10 @@
                     html: 'Save and continue'
                 })
     }}            </form>
+                    {% if data.introcomplete == "true" %} 
+
+            <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
 
     </div>
 

@@ -62,18 +62,50 @@
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">Include any 'connected communal networks' that you control.</p>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with connected communal networks
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            These are buildings attached to a wider heat network that have more than one customer or premises in them. For example, a block of flats.
+                        </div>
+                    </details>
+
+                    <p class="govuk-body">Do not include:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>your network's energy centre</li>
+                        <li>buildings that have shared facilities (shared toilets, personal washing facilities or cooking facilities that all occupants have to use)</li>
+                    </ul>
                     {% if data.validationErrors.building %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
                         {{data.validationErrors.building.message}}
                     </p>
                     {% endif %}
-                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="building" name="building" type="radio" value="Yes" {% if data.building == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="building" name="building" type="radio" value="Yes" {% if data.building == "Yes" %}checked{% endif %} data-aria-controls="conditional-building">
                             <label class="govuk-label govuk-radios__label" for="building">
                                 Yes
                             </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-building">
+                            <div class="govuk-form-group {% if data.validationErrors.communalnetworks %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="communalnetworks">
+                                How many connected communal networks are there?
+                              </label>
+                                {% if data.validationErrors.communalnetworks %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.communalnetworks.message}}
+                                </p>
+                                {% endif %}
+                              <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.communalnetworks %}govuk-input--error{% endif %}" id="communalnetworks" name="communalnetworks"  type="text" inputmode="numeric" value="{{data.communalnetworks}}">
+                            </div>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="building-2" name="building" type="radio" value="No" {% if data.building == "No" %}checked{% endif %}>

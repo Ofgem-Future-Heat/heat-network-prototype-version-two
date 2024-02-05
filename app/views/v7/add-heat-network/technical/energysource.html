@@ -60,9 +60,6 @@
                         </h1>
 
                     </legend>
-                    <div id="waste-hint" class="govuk-hint">
-                        We will ask about other technologies later.
-                    </div>
                     {% if data.validationErrors.techenergysource %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -109,6 +106,13 @@
                                Electricity
                             </label>
                         </div>
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techenergysource-12" name="techenergysource" type="radio" value="Energy from burning waste" {% if data.techenergysource=="Energy from burning waste" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techenergysource-12">
+                                Energy from burning waste
+                            </label>
+                        </div>
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="techenergysource-6" name="techenergysource" type="radio" value="Geothermal" {% if data.techenergysource=="Geothermal" %}checked{% endif %}>
@@ -151,24 +155,14 @@
                                 Solar
                             </label>
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="techenergysource-12" name="techenergysource" type="radio" value="Energy from burning waste" {% if data.techenergysource=="Energy from burning waste" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="techenergysource-12">
-                                Energy from burning waste
-                            </label>
-                        </div>
+
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="techenergysource-13" name="techenergysource" type="radio" value="Waste heat" {% if data.techenergysource=="Waste heat" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="techenergysource-13">
                                 Waste heat
                             </label>
                         </div>
-                            <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="techenergysource-14" name="techenergysource" type="radio" value="Energy from another heat network" {% if data.techenergysource=="Energy from another heat network" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="techenergysource-14">
-                                Energy from another heat network
-                            </label>
-                        </div>
+       
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="techenergysource-15" name="techenergysource" type="radio" value="Other" {% if data.techenergysource=="Other" %}checked{% endif %} data-aria-controls="conditional-techenergysource">
@@ -199,7 +193,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is your role on the heat network?" %}
+{% set title = "What is your organisation's role on the heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -78,7 +78,7 @@
                                 Heat supplier
                             </label>
                             <div id="role-item-hint" class="govuk-hint govuk-radios__hint">
-                                You provide heating, hot water or cooling to consumers on the network
+                                Has a contract to provide space or process heating, hot water or cooling to customers on the network
                             </div>
                         </div>
                         <div class="govuk-radios__item">
@@ -87,7 +87,7 @@
                                 Network operator
                             </label>
                             <div id="role-2-item-hint" class="govuk-hint govuk-radios__hint">
-                                You're responsible for the day-to-day operation and maintenance of the network and its infrastructure
+                                Has ultimate responsibility for the day-to-day operation and maintenance of the network and its infrastructure, regardless of whether any operational activities are contracted out
                             </div>
                         </div>
                         <div class="govuk-radios__item">

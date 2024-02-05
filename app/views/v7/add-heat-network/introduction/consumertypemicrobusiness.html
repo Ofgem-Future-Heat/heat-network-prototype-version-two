@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Will the heat network start supplying customers before 1 April 2025?" %}
+{% set title = "Does the heat network supply microbusiness customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,7 +51,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.supplybefore %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.consumertypemicrobusiness %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -60,42 +60,52 @@
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </legend>
 
-                    {% if data.validationErrors.supplybefore %}
+                    </legend>
+                    <p class="govuk-body">These are businesses that either:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>consume less than 247,000 kWh of heat per year</li>
+                        <li>have less than 10 full-time employees</li>
+                        <li>turn over less than &pound;2 million per year</li>
+                    </ul>
+                    <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
+                    <p class="govuk-body">Include microbusinesses in any connected communal networks that you control.</p>
+
+                    {% if data.validationErrors.consumertypemicrobusiness %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.supplybefore.message}}
+                        {{data.validationErrors.consumertypemicrobusiness.message}}
                     </p>
                     {% endif %}
+
+
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore" name="supplybefore" type="radio" value="Yes" {% if data.supplybefore == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore">
+                            <input class="govuk-radios__input" id="consumertypemicrobusiness" name="consumertypemicrobusiness" type="radio" value="Yes" {% if data.consumertypemicrobusiness == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore-2" name="supplybefore" type="radio" value="No" {% if data.supplybefore == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore-2">
+                            <input class="govuk-radios__input" id="consumertypemicrobusiness-2" name="consumertypemicrobusiness" type="radio" value="No" {% if data.consumertypemicrobusiness == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness-2">
                                 No
                             </label>
                         </div>
                     </div>
 
+            </fieldset>
 
-                </fieldset>
 
-
-            </div>
-            {{
+    </div>
+    {{
                 govukButton ({
                     html: 'Continue'
                 })
-            }}
-        </form>
-        <a href="cancel" class="govuk-link">Cancel</a>
-    </div>
+    }}
+    </form>
+    <a href="cancel" class="govuk-link">Cancel</a>
+</div>
 
 </div>
 

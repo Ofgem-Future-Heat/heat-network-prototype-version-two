@@ -2,14 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\app",
+    "\\app\\assets",
+    "\\app\\assets\\sass",
     "\\app\\views",
     "\\app\\views\\v7",
     "\\app\\views\\v7\\add-heat-network",
-    "\\app\\views\\v7\\add-heat-network\\consumerprotections",
-    "\\app\\views\\v7\\add-heat-network\\introduction",
-    "\\app\\views\\v7\\add-heat-network\\location",
+    "\\app\\views\\v7\\add-heat-network\\buildingsandconsumers",
     "\\app\\views\\v7\\add-heat-network\\metering",
     "\\app\\views\\v7\\add-heat-network\\technical"
   ],
+  "SelectedNode": "\\app\\routes.js",
   "PreviewInSolutionExplorer": false
 }

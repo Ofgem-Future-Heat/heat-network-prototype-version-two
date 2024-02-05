@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the combined heating and hot water generation of the heat network per calendar year in kilowatts?" %}
+{% set title = "What is the combined heating and hot water generation of the heat network per calendar year?" %}
 
 
 {% block pageTitle %}
@@ -62,7 +62,9 @@
 
                   <p class="govuk-body">This is the combined heat input into the system, not the amount of fuel being used.</p>
                   <p class="govuk-body">This can be measured by a heat meter placed on the output of the heat generator. We need a figure for the previous full calendar year. You may need to subtract the previous year's reading from the last meter reading.</p>
-
+                    <div class="govuk-inset-text">
+                        If you cannot yet give a figure for a full year, you can provide an estimate.
+                    </div>
                                         {% if data.validationErrors.techgeneration %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -76,8 +78,19 @@
                                     Combined heating and hot water generation per calendar year
                                 </label>
                                 <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techgeneration %}govuk-input--error{% endif %} govuk-input--width-5" id="techgeneration" name="techgeneration" type="number" spellcheck="false" value="{{data.techgeneration}}">
-    <div class="govuk-input__suffix" aria-hidden="true">kW</div>
+    <div class="govuk-input__suffix" aria-hidden="true">kWh</div>
   </div>
+                                </div>
+                                                        <div class="govuk-form-group">
+
+
+                                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="techgenerationestimate" name="techgenerationestimate" type="checkbox" value="estimate">
+        <label class="govuk-label govuk-checkboxes__label" for="techgenerationestimate">
+          This is an estimate
+        </label>
+      </div>
                             </div>
                         </div>
                     </div>
@@ -89,7 +102,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>

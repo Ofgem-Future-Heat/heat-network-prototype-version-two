@@ -58,7 +58,12 @@
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
+                        {% if data.buildingcomplete == "true" %}
+                        <a class="govuk-link govuk-task-list__link" href="location/cya" aria-describedby="company-details-2-status">Location</a>
+                        {% else %}
                         <a class="govuk-link govuk-task-list__link" href="location/address" aria-describedby="company-details-2-status">Location</a>
+                        {% endif %}
+
                         <div id="company-details-2-hint" class="govuk-task-list__hint">
                             Address of the network's energy centre
                         </div>
@@ -75,9 +80,14 @@
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/howmany" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% if data.buildingcomplete == "true" %}
+                            <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/type" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% endif %}
+
                         <div id="company-details-3-hint" class="govuk-task-list__hint">
-                            Number of buildings and consumers by type; information about communally-heated buildings, including their addresses
+                            Number of buildings and customers by type; information about connected communal networks, including their addresses
                         </div>
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
@@ -110,7 +120,11 @@
                 </li>
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
+                        {% if data.meteringcomplete == "true" %}
+                        <a class="govuk-link govuk-task-list__link" href="metering/cya" aria-describedby="company-details-5-status">Metering</a>
+                        {% else %}
                         <a class="govuk-link govuk-task-list__link" href="metering/agent" aria-describedby="company-details-5-status">Metering</a>
+                        {% endif %}
                         <div id="company-details-5-hint" class="govuk-task-list__hint">
                             Number of building-level meters, final consumer meters and heat cost allocators; details of any metering agents
                         </div>
@@ -128,7 +142,11 @@
                 </li>
                     <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
+                        {% if data.billingcomplete == "true" %}
                         <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">Billing</a>
+                        {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">Billing</a>
+                        {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-5-status">
                         {% if data.billingcomplete == "true" %}
@@ -140,16 +158,7 @@
                         {% endif %}
                     </div>
                 </li>
-                <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-6-status">Pricing</a>
-                    </div>
-                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-6-status">
-                        <strong class="govuk-tag govuk-tag--blue">
-                            Not yet started
-                        </strong>
-                    </div>
-                </li>
+
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-7-status">Financial resilience</a>

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the heat network supply thermal energy to another heat network?" %}
+{% set title = "Does the heat network supply thermal energy to another heat network that you do not control?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,6 +62,7 @@
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">Thermal energy is space or process heating, hot water or cooling.</p>
                     {% if data.validationErrors.another %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "How many 'final customers' are in this building?" %}
+{% set title = "How many customers are in this building?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -58,10 +58,7 @@
                 {{title}}
             </h1>
             <div class="govuk-inset-text">
-                {{data.buildingaddressNumber}},<br />
-                Grosvenor Road,<br />
-                Solihull,<br />
-                {{data.buildingaddressPostcode}}
+                {{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
             </div>
         </div>
 

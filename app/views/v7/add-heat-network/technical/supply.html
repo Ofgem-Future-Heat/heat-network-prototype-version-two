@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the combined heating and hot water supply of the heat network per calendar year in kilowatt hours?" %}
+{% set title = "What is the combined heating and hot water supply of the heat network per calendar year?" %}
 
 
 {% block pageTitle %}
@@ -46,11 +46,11 @@
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
+        <form method="POST" novalidate>
 
             <div class="govuk-form-group {% if data.validationErrors.techsupply %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" >
+                <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - technical information</span>
@@ -60,28 +60,36 @@
 
                     </legend>
 
-                  <p class="govuk-body">This is the combined heat used by consumers on the network into the system, not the amount of fuel being used.</p>
-                  <p class="govuk-body">Use figures from the final consumers' meters or heat cost allocators and combine them to get your total.</p>
-
+                    <p class="govuk-body">This is the combined heat used by consumers on the network into the system, not the amount of fuel being used.</p>
+                    <p class="govuk-body">Use figures from the final consumers' meters or heat cost allocators and combine them to get your total.</p>
+                    <div class="govuk-inset-text">
+                        If you cannot give a figure for a full year or the network is not fully metered, you can estimate this figure.
+                    </div>
                     {% if data.validationErrors.techsupply %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
                         {{data.validationErrors.techsupply.message}}
                     </p>
                     {% endif %}
-                    <div class="govuk-date-input" id="supply-date">
-                        <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                                <label class="govuk-label govuk-input__label" for="techsupply">
-                                    Combined heating and hot water supply per calendar year
-                                </label>
-                                <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techsupply %}govuk-input--error{% endif %} govuk-input--width-5" id="techsupply" name="techsupply" type="number" spellcheck="false" value="{{data.techsupply}}">
-    <div class="govuk-input__suffix" aria-hidden="true">kWh</div>
-  </div>
-                            </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-input__label" for="techsupply">
+                            Combined heating and hot water supply per calendar year
+                        </label>
+                        <div class="govuk-input__wrapper">
+                            <input class="govuk-input {% if data.validationErrors.techsupply %}govuk-input--error{% endif %} govuk-input--width-5" id="techsupply" name="techsupply" type="number" spellcheck="false" value="{{data.techsupply}}">
+                            <div class="govuk-input__suffix" aria-hidden="true">kWh</div>
                         </div>
                     </div>
+                    <div class="govuk-form-group">
 
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="techgenerationestimate" name="techgenerationestimate" type="checkbox" value="estimate">
+                                <label class="govuk-label govuk-checkboxes__label" for="techgenerationestimate">
+                                    This is an estimate
+                                </label>
+                            </div>
+                        </div>
 
                 </fieldset>
 
@@ -89,7 +97,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>

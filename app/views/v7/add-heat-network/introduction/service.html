@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What service does the heat network provide?" %}
+{% set title = "What types of thermal energy does the heat network supply to consumers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -78,7 +78,7 @@
                                 Space heating
                             </label>
                             <div id="service1-hint" class="govuk-hint govuk-checkboxes__hint">
-                                For example, heat that's used to increase the ambient temperature of a domestic of office space
+                                For example, heat that's used to increase the ambient temperature of a domestic or office space
                             </div>
                         </div>
                         <div class="govuk-checkboxes__item">
@@ -101,17 +101,12 @@
                         <label class="govuk-label govuk-checkboxes__label" for="service4">
                             Cooling
                         </label>
+                            <div id="service4-hint" class="govuk-hint govuk-checkboxes__hint">
+                               Do not include cooling systems that rely on local compressors, purely ducted air, or variable refrigerant volume or flow (VRV/VRF)?
+                            </div>
+
                     </div>
-                        <div class="govuk-checkboxes__divider">or</div>
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service5" name="service" type="checkbox" value="None" aria-describedby="service5-hint" {% for service in data.service %}{% if service=='None' %}checked{% endif %}{% endfor %}>
-                        <label class="govuk-label govuk-checkboxes__label" for="service5">
-                            None of these
-                        </label>
-                        <div id="service5-hint" class="govuk-hint govuk-checkboxes__hint">
-                            Consumers generate their own heating or hot water, for example via individual electric boilers, electric radiators or overnight storage heaters
-                        </div>
-                    </div>
+
                 </div>
 
             </fieldset>

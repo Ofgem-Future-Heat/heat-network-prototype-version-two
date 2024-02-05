@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the system capable of thermal storage?" %}
+{% set title = "Are smart pre-payment meters available to customers on the heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,49 +51,33 @@
 
         <form  method="POST" novalidate >
 
-            <div class="govuk-form-group {% if data.validationErrors.techstorage %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.meteringsmart %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" >
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - technical information</span>
+                        <span class="govuk-caption-l">Add a heat network - metering</span>
                         <h1 class="govuk-fieldset__heading">
                                {{title}}
                         </h1>
 
                         </legend>
-                        {% if data.validationErrors.techstorage %}
+                        {% if data.validationErrors.meteringsmart %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.techstorage.message}}
+                    {{data.validationErrors.meteringsmart.message}}
                 </p>
                 {% endif %}
-<div class="govuk-radios govuk-radios" data-module="govuk-radios">
+<div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="techstorage" name="techstorage" type="radio" value="Yes" {% if data.techstorage == "Yes" %}checked{% endif %} data-aria-controls="conditional-techstorage">
-        <label class="govuk-label govuk-radios__label" for="techstorage">
+        <input class="govuk-radios__input" id="meteringsmart" name="meteringsmart" type="radio" value="Yes" {% if data.meteringsmart == "Yes" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="meteringsmart">
           Yes
         </label>
       </div>
-    <div class="govuk-radios__conditional" id="conditional-techstorage">
-        <div class="govuk-form-group {% if data.validationErrors.techstoragecapacity %}govuk-form-group--error{% endif %}">
-          <label class="govuk-label" for="techstoragecapacity">
-            Enter capacity
-          </label>
-                        {% if data.validationErrors.techstoragecapacity %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.techstoragecapacity.message}}
-                </p>
-                {% endif %}
-          <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techstoragecapacity %}govuk-input--error{% endif %} govuk-input--width-5" id="techstoragecapacity" name="techstoragecapacity" type="number" spellcheck="false" value="{{data.techstoragecapacity}}">
-            <div class="govuk-input__suffix" aria-hidden="true">m&#179;</div>
-          </div>
-        </div>
-      </div>
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="techstorage-2" name="techstorage" type="radio" value="No" {% if data.techstorage == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="techstorage-2">
+        <input class="govuk-radios__input" id="meteringsmart-2" name="meteringsmart" type="radio" value="No" {% if data.meteringsmart == "No" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="meteringsmart-2">
           No
         </label>
       </div>
@@ -106,7 +90,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
         </form>

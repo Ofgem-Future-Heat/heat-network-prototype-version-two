@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Will the heat network start supplying customers before 1 April 2025?" %}
+{% set title = "Are you sure you want to make these changes?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,33 +51,34 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.supplybefore %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.confirmchange %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Authorisation for {{data.name}}</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
                     </legend>
-
-                    {% if data.validationErrors.supplybefore %}
+                    <p class="govuk-body">The changes you want to make could impact the other questions we need to ask about the heat network.</p>
+                    <p class="govuk-body">If you've already started answering these other questions you may lose the information that you've entered.</p>
+                    {% if data.validationErrors.confirmchange %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.supplybefore.message}}
+                        {{data.validationErrors.confirmchange.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore" name="supplybefore" type="radio" value="Yes" {% if data.supplybefore == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore">
+                            <input class="govuk-radios__input" id="confirmchange" name="confirmchange" type="radio" value="Yes" {% if data.confirmchange=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirmchange">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="supplybefore-2" name="supplybefore" type="radio" value="No" {% if data.supplybefore == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="supplybefore-2">
+                            <input class="govuk-radios__input" id="confirmchange-2" name="confirmchange" type="radio" value="No" {% if data.confirmchange=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirmchange-2">
                                 No
                             </label>
                         </div>
@@ -94,6 +95,7 @@
                 })
             }}
         </form>
+
         <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 

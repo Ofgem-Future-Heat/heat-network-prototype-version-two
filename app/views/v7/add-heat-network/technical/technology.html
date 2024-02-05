@@ -76,8 +76,14 @@
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="techtechnology" name="techtechnology" type="radio" value="Boiler" {% if data.techtechnology=="Boiler" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="techtechnology" name="techtechnology" type="radio" value="Another heat network" {% if data.techtechnology=="Another heat network" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="techtechnology">
+                                Another heat network
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-1" name="techtechnology" type="radio" value="Boiler" {% if data.techtechnology=="Boiler" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-1">
                                 Boiler
                             </label>
                         </div>
@@ -181,7 +187,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>

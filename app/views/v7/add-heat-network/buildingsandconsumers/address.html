@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-    {% set title = "Find address for residential building 1" %}
+    {% set title = "Find address for this connected communal network" %}
 
 
 {% set _inError = data.validationError == "true"  %}
@@ -96,7 +96,7 @@
 
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>

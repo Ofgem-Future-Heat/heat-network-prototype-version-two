@@ -1,5 +1,10 @@
 {% extends 'layouts/main.html' %}
-{% set title = "How many 'final customers' does the heat network supply?" %}
+{% if data.building == "Yes" %}
+    {% set title = "How many customers are on the heat network?" %}
+{% else %}
+    {% set title = "How many customers are in this building?" %}
+{% endif %}
+
 
 
 {% set _inError = data.validationError == "true"  %}
@@ -49,113 +54,75 @@
             </div>
         </div>
         {% endif %}
-
-
-
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
-        <h1 class="govuk-heading-l">
-            {{title}}
-        </h1>
-
-
-        <p class="govuk-body">A final customer is the person or organisation that purchases heating, hot water or cooling from a heat supplier.</p>
         <form method="POST" novalidate>
-            <fieldset class="govuk-fieldset">
 
-                {% if (data.howmanyresidential >= 1) or (data.howmanymixeduse >= 1) %}
-                <div class="govuk-form-group {% if data.validationErrors.customersresidential %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="customersresidential">
-                        Residential customers
-                    </label>
-                    {% if (data.howmanymixeduse >= 1) %}
-                    <div id="customerscommercial-hint" class="govuk-hint">
-                        Include any that are in mixed-use buildings
+            <div class="govuk-form-group {% if data.validationErrors.customerstotal %}govuk-form-group--error{% endif %}">
+
+                <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+
+
+                <fieldset class="govuk-fieldset">
+                    {% if data.building == "Yes" %}
+                    {% set customertypes = data.buildingtypealt %}
+                    {% if (data.buildingtypealt or []).indexOf('Mixed0use') > -1 %}
+                        {% set mixeduse = true %}
+                        {% set mixedtypes = ['Residential', 'Commercial', 'Public'] %}
+
+                        
+                    {% for type in mixedtypes %}
+                            {% if (customertypes or []).indexOf(type) === -1 %}
+                            {{customertypes.push(type) | reject() }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% for building in customertypes.sort() %}
+                    {% if building != "Mixed0use" %}
+                    <div class="govuk-form-group {% if data.validationErrors[building] %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label" for="customers{{building}}">
+                            {% if building == "Public" %}
+                            {{building}} sector customers
+                            {% else %}
+                            {{building}} customers
+                            {% endif %}
+                        </label>
+                        {% if data.validationErrors[building] %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors[building].message}}
+                        </p>
+
+                        {% endif %}
+                        {% if mixeduse and (building != "Industrial") %}
+                        <p class="govuk-hint">Include any living in {% if building == "Public" %}commercial or {% endif %}Mixeduse buildings </p>
+                        {% endif %}
+
+                        <input class="govuk-input govuk-input--width-3" id="customers{{building}}" name="customers{{building}}" type="number" value="{{data['customers' + building]}}">
                     </div>
-                    {% endif %}
-                    {% if data.validationErrors.customersresidential %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customersresidential.message}}
-                    </p>
-                    {% endif %}
-                    <input class="govuk-input {% if data.validationErrors.customersresidential %}govuk-input--error{% endif %} govuk-input--width-3" id="customersresidential" name="customersresidential" type="number" value="{{data.customersresidential}}">
-                </div>
-                {% endif %}
 
-                {% if (data.howmanycommercial >= 1) or (data.howmanymixeduse >= 1) %}
-                <div class="govuk-form-group {% if data.validationErrors.customerscommercial %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="customerscommercial">
-                        Commercial customers
-                    </label>
-                    {% if (data.howmanymixeduse >= 1) %}
-                    <div id="customerscommercial-hint" class="govuk-hint">
-                        Include any that are in mixed-use buildings
+
+
+                    {% endif %}
+
+
+                    {% endfor %}
+
+
+                    {% else %}
+                    <div class="govuk-form-group govuk-!-margin-bottom-4">
+
+                        <input class="govuk-input govuk-input--width-4" id="customerstotal" name="customerstotal" type="text" spellcheck="false" inputmode="numeric">
                     </div>
+
                     {% endif %}
 
-                    {% if data.validationErrors.customerscommercial %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customerscommercial.message}}
-                    </p>
-                    {% endif %}
-                    <input class="govuk-input {% if data.validationErrors.customerscommercial %}govuk-input--error{% endif %} govuk-input--width-3" id="customerscommercial" name="customerscommercial" type="number" value="{{data.customerscommercial}}">
-                </div>
-                {% endif %}
-
-                {% if (data.howmanyindustrial >= 1) %}
-                <div class="govuk-form-group {% if data.validationErrors.customersindustrial %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="customersindustrial">
-                        Industrial customers
-                    </label>
-                    {% if data.validationErrors.customersindustrial %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customersindustrial.message}}
-                    </p>
-                    {% endif %}
-                    <input class="govuk-input {% if data.validationErrors.customersindustrial %}govuk-input--error{% endif %} govuk-input--width-3" id="customersindustrial" name="customersindustrial" type="number" value="{{data.customersindustrial}}">
-                </div>
-                {% endif %}
-
-                
-                {% if (data.howmanypublic >= 1) %}
-                <div class="govuk-form-group {% if data.validationErrors.customerspublic %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="customerspublic">
-                        Public customers
-                    </label>
-                    {% if data.validationErrors.customerspublic %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customerspublic.message}}
-                    </p>
-                    {% endif %}
-                    <input class="govuk-input {% if data.validationErrors.customerspublic %}govuk-input--error{% endif %} govuk-input--width-3" id="customerspublic" name="customerspublic" type="number" value="{{data.customerspublic}}">
-                </div>
-                {% endif %}
-
-                    {% if (data.howmanyother >= 1) %}
-                <div class="govuk-form-group {% if data.validationErrors.customersother %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="customersother">
-                        Other customers
-                    </label>
-
-                    {% if data.validationErrors.customersother %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customersother.message}}
-                    </p>
-                    {% endif %}
-                    <input class="govuk-input {% if data.validationErrors.customersother %}govuk-input--error{% endif %} govuk-input--width-3" id="customersother" name="customersother" type="number" value="{{data.customersother}}">
-                </div>
-                {% endif %}
 
 
-
-
-
-            </fieldset>
-
+                </fieldset>
+            </div>
 
             {{
                 govukButton ({
@@ -163,6 +130,7 @@
                 })
             }}
         </form>
+
         <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 

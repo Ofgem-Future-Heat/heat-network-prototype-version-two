@@ -56,6 +56,11 @@
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
+        </div>
+    </div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
         <div class="govuk-form-group {% if data.validationErrors.communalinfo %}govuk-form-group--error{% endif %}">
             {% if data.validationErrors.communalinfo %}
             <p class="govuk-error-message">
@@ -75,14 +80,14 @@
 
                 </thead>
                 <tbody class="govuk-table__body">
-                    {% if (data.communalresidential >= 1) %}
-                    {% for i in range(0, data.communalresidential) -%}
+                    {% if (data.communalnetworks >= 1) %}
+                    <p>Test</p>
+                    {% for i in range(0, data.communalnetworks) -%}
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Residential building {{ i + 1 }}</td>
+                        <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
                         <td class="govuk-table__cell">
                             {% if data.buildingaddressPostcode %}
-                            {{data.buildingaddressNumber}} Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
+{{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
                             {% else %}
                             -
                             {% endif %}
@@ -94,126 +99,7 @@
                             -
                             {% endif %}
                         </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
-                    </tr>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalcommercial >= 1) %}
-                    {% for i in range(0, data.communalcommercial) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Commercial building {{ i +1 }}</td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            155 Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            {{i + 3}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
-                    </tr>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalindustrial >= 1) %}
-
-                    {% for i in range(0, data.communalindustrial) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Industrial building {{ i +1 }}</td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            168 Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            {{i + 6}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
-                    </tr>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalpublic >= 1) %}
-
-                    {% for i in range(0, data.communalpublic) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Public building {{ i + 1 }}</td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            201 Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            {{i + 68}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
-                    </tr>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalmixeduse >= 1) %}
-
-                    {% for i in range(0, data.communalmixeduse) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Mixed-use building {{ i + 1 }}</td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            77 Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            {{i + 1}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
-                    </tr>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalother >= 1) %}
-
-                    {% for i in range(0, data.communalother) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Other building {{ i + 1 }}</td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            1 Grosvenor Road, Solihull, <br />
-                            {{data.buildingaddressPostcode}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-                            {{i + 3}}
-                            {% else %}
-                            -
-                            {% endif %}
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
+                        <td class="govuk-table__cell"><a href="communaltype" class="govuk-link">Add information</a></td>
                     </tr>
                     {%- endfor %}
                     {% endif %}
@@ -228,7 +114,7 @@
 
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save & continue'
                 })
             }}
         </form>

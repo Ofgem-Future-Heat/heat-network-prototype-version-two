@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-    {% set title = "How many of each building type are there?" %}
+{% set title = "How many buildings in the viable class have final customer meters?" %}
+
+
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -48,43 +50,42 @@
             </div>
         </div>
         {% endif %}
-
-
-
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
-        <h1 class="govuk-heading-l">
-            {{title}}
-        </h1>
-
         <form method="POST" novalidate>
-            <fieldset class="govuk-fieldset">
-                {% for buildingtype in data.buildingtype.sort() %}
-                <div class="govuk-form-group {% if data.validationErrors[buildingtype] %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="howmany{{buildingtype}}">
-                        {{buildingtype | replace("0", "-") | safe}} buildings
-                    </label>
-                    {% if data.validationErrors[buildingtype] %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors[buildingtype].message}}
-                    </p>
+
+            <div class="govuk-form-group {% if data.validationErrors.meteringmeters %}govuk-form-group--error{% endif %}">
+
+                <span class="govuk-caption-l">Add a heat network - metering</span>
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+
+                <fieldset class="govuk-fieldset">
+
+
+                        {% if data.validationErrors.meteringmeters %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.meteringmeters.message}}
+                        </p>
+
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-3" id="meteringmeters" name="meteringmeters" type="number" value="{{data.meteringmeters}}">
                     
-                    {% endif %}
-                    <input class="govuk-input govuk-input--width-3" id="howmany{{buildingtype}}" name="howmany{{buildingtype}}" type="number" value="{{data['howmany' + buildingtype]}}">
-                </div>
-                {% endfor %}
+                </fieldset>
+            </div>
 
 
 
-            </fieldset>
+
 
 
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>
+
         <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 

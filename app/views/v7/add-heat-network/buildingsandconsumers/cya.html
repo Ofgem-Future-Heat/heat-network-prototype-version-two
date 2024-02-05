@@ -8,6 +8,7 @@
 
 {% block beforeContent %}
 
+
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
@@ -36,25 +37,23 @@
             {{title}}
         </h1>
 
-
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             {% if data.building == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    How many buildings does network supply?
+                    Include any connected communal networks that you control.
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.howmanyresidential >= 1 %}Residential - {{data.howmanyresidential}}<br />{% endif %}
-                    {% if data.howmanycommercial >= 1 %}Commercial - {{data.howmanycommercial}}<br />{% endif %}
-                    {% if data.howmanyindustrial >= 1 %}Industrial - {{data.howmanyindustrial}}<br />{% endif %}
-                    {% if data.howmanypublic >= 1 %}Public - {{data.howmanypublic}}<br />{% endif %}
-                    {% if data.howmanymixeduse >= 1 %}Mixed use - {{data.howmanymixeduse}}<br />{% endif %}
-                    {% if data.howmanyother >= 1 %}Other - {{data.howmanyother}}<br />{% endif %}
+                    {% if data.howmanyResidential >= 1 %}Residential - {{data.howmanyResidential}}<br />{% endif %}
+                    {% if data.howmanyCommercial >= 1 %}Commercial - {{data.howmanyCommercial}}<br />{% endif %}
+                    {% if data.howmanyIndustrial >= 1 %}Industrial - {{data.howmanyIndustrial}}<br />{% endif %}
+                    {% if data.howmanyPublic >= 1 %}Public - {{data.howmanyPublic}}<br />{% endif %}
+                    {% if data.howmanyMixed0use >= 1 %}Mixed-use - {{data.howmanyMixed0use}}<br />{% endif %}
 
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -62,54 +61,21 @@
                     How many final consumers does network supply?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.customersresidential >= 1 %}Residential - {{data.customersresidential}}<br />{% endif %}
-                    {% if data.customerscommercial >= 1 %}Commercial - {{data.customerscommercial}}<br />{% endif %}
-                    {% if data.customersindustrial >= 1 %}Industrial - {{data.customersindustrial}}<br />{% endif %}
-                    {% if data.customerspublic >= 1 %}Public - {{data.customerspublic}}<br />{% endif %}
-                    {% if data.customersother >= 1 %}Other - {{data.customersother}}<br />{% endif %}
+                    {% if data.customersResidential >= 1 %}Residential - {{data.customersResidential}}<br />{% endif %}
+                    {% if data.customersCommercial >= 1 %}Commercial - {{data.customersCommercial}}<br />{% endif %}
+                    {% if data.customersIndustrial >= 1 %}Industrial - {{data.customersIndustrial}}<br />{% endif %}
+                    {% if data.customersPublic >= 1 %}Public - {{data.customersPublic}}<br />{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="customers">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does network have communally-heated buildings?
+                    Total number of connections on the heat network
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.communalheating}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    How many buildings on network are communally heated?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {% if data.communalresidential >= 1 %}Residential - {{data.communalresidential}}<br />{% endif %}
-                    {% if data.communalcommercial >= 1 %}Commercial - {{data.communalcommercial}}<br />{% endif %}
-                    {% if data.communalindustrial >= 1 %}Industrial - {{data.communalindustrial}}<br />{% endif %}
-                    {% if data.communalpublic >= 1 %}Public - {{data.communalpublic}}<br />{% endif %}
-                    {% if data.communalmixeduse >= 1 %}Mixed use - {{data.communalmixeduse}}<br />{% endif %}
-                    {% if data.communalother >= 1 %}Other - {{data.communalother}}<br />{% endif %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    How many final customers are in the network's communally-heated buildings?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {% if data.communalresidential >= 1 %}Residential - {{data.buildingaddressCustomers}}<br />{% endif %}
-                    {% if data.communalcommercial >= 1 %}Commercial - {{data.buildingaddressCustomers | float + 3 | float}}<br />{% endif %}
-                    {% if data.communalindustrial >= 1 %}Industrial - {{data.buildingaddressCustomers | float + 6 | float}}<br />{% endif %}
-                    {% if data.communalpublic >= 1 %}Public - {{data.buildingaddressCustomers | float +68 | float}}<br />{% endif %}
-                    {% if data.communalmixeduse >= 1 %}Mixed use - {{data.buildingaddressCustomers | float + 3 | float}}<br />{% endif %}
-                    {% if data.communalother >= 1 %}Other - {{data.communalother}}<br />{% endif %}
+                    {{data.buildingconnections}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
@@ -121,41 +87,19 @@
                     Addresses of communally-heated buildings
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if (data.communalresidential >= 1) %}
-                    {% for i in range(0, data.communalresidential) -%}
-                    Residential building {{ i + 1 }}</br>
-                    {{data.buildingaddressNumber}} Grosvenor Road,<br />
-                    Solihull, {{data.buildingaddressPostcode}}</br></br>
+                    {% if (data.communalnetworks >= 1) %}
+                    {% for i in range(0, data.communalnetworks) -%}
+                                        {% if i != 0 %}
+                        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                    {% endif %}
+
+                        <p class="govuk-body">Connected communal network {{ i + 1 }}</p>
+{{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
+                    <br />
+                            {{data.buildingaddressCustomers | float + i | float}}
                     {%- endfor %}
                     {% endif %}
-                    {% if (data.communalcommercial >= 1) %}
-                    {% for i in range(0, data.communalcommercial) -%}
-                    Commercial building {{ i + 1 }}</br>
-                    155 Grosvenor Road,<br />
-                    Solihull, {{data.buildingaddressPostcode}}</br></br>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalindustrial >= 1) %}
-                    {% for i in range(0, data.communalindustrial) -%}
-                    Industrial building {{ i + 1 }}</br>
-                    168 Grosvenor Road,<br />
-                    Solihull, {{data.buildingaddressPostcode}}</br></br>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalpublic >= 1) %}
-                    {% for i in range(0, data.communalpublic) -%}
-                    Public building {{ i + 1 }}</br>
-                    201 Grosvenor Road,<br />
-                    Solihull, {{data.buildingaddressPostcode}}</br></br>
-                    {%- endfor %}
-                    {% endif %}
-                    {% if (data.communalmixeduse >= 1) %}
-                    {% for i in range(0, data.communalmixeduse) -%}
-                    Mixed use building {{ i + 1 }}</br>
-                    77 Grosvenor Road,<br />
-                    Solihull, {{data.buildingaddressPostcode}}</br></br>
-                    {%- endfor %}
-                    {% endif %}
+
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
