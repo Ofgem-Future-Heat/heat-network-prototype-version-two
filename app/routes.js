@@ -1956,6 +1956,83 @@ router.post('/v7/add-heat-network/metering/cost', function (req, res) {
         res.redirect('/v7/add-heat-network/metering/smart');
 });
 
+// Metering - agent
+router.get('/v7/add-heat-network/metering/agent', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/agent', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/agent', function (req, res) {
+    clearvalidation(req);
+    var meteringagent = req.session.data['meteringagent']
+
+    if (!meteringagent) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.meteringagent = {
+            "anchor": "meteringagent",
+            "message": "Select whether you use a metering agent",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/metering/agent', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (meteringagent == "Yes") {
+            res.redirect('/v7/add-heat-network/metering/agent-name');
+        }
+        else {
+            res.redirect('/v7/add-heat-network/metering/type-check');
+        }
+
+    }
+});
+
+// Metering - agent name
+router.get('/v7/add-heat-network/metering/agent-name', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/agent-name', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/agent-name', function (req, res) {
+    clearvalidation(req);
+    var meteringagentname = req.session.data['meteringagentname']
+
+    if (!meteringagentname) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.meteringagentname = {
+            "anchor": "meteringagentname",
+            "message": "Enter a metering agent name",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/metering/agent-name', {
+            data: req.session.data
+        });
+    }
+    else {
+
+            res.redirect('/v7/add-heat-network/metering/type-check');
+
+
+    }
+});
+
 
 
 
