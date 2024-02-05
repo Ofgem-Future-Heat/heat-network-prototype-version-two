@@ -70,7 +70,7 @@
                     <a class="govuk-link" href="customers">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
+            <!--<div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Total number of connections on the heat network
                 </dt>
@@ -80,7 +80,7 @@
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
-            </div>
+            </div>-->
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -94,6 +94,7 @@
                     {% endif %}
 
                         <p class="govuk-body">Connected communal network {{ i + 1 }}</p>
+                    <p class="govuk-body">{{data.buildingcommunaltype}}</p>
 {{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
                     <br />
                             {{data.buildingaddressCustomers | float + i | float}}
@@ -102,7 +103,7 @@
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="communalinfo">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
 

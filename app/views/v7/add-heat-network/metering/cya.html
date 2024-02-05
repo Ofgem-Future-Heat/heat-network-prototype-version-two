@@ -189,14 +189,14 @@
 
         </dl>
         <form method="POST" novalidate>
-            <input type="hidden" id="financialcomplete" name="financialcomplete" value="true" />
+            <input type="hidden" id="meteringcomplete" name="meteringcomplete" value="true" />
             {{
                 govukButton ({
                     html: 'Save and continue'
                 })
             }}
         </form>
-        {% if data.financialcomplete == "true" %}
+        {% if data.meteringcomplete == "true" %}
 
         <a href="cancel" class="govuk-link">Cancel changes</a>
         {% endif %}

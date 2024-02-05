@@ -58,7 +58,7 @@
 
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
-                {% for buildingtype in data.buildingtype.sort() %}
+                {% for buildingtype in data.buildingtype %}
                 <div class="govuk-form-group {% if data.validationErrors[buildingtype] %}govuk-form-group--error{% endif %}">
                     <label class="govuk-label" for="howmany{{buildingtype}}">
                         {{buildingtype | replace("0", "-") | safe}} buildings

@@ -88,7 +88,7 @@
                     {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Commercial', 'For example, an office block'], ['Mixed0use', 'For example, residential and commercial'], ['Industrial', 'For example, a factory or warehouse'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility']] %}
                                 {% endif %}
 
-                    {% for building, description in buildtypes.sort() %}
+                    {% for building, description in buildtypes %}
                     <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
                         <div class="govuk-{{inputtype}}__item">
                             <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}"  {% for buildingitem in data.buildingtype %}{% if buildingitem == building %}checked{% endif %}{% endfor %}">

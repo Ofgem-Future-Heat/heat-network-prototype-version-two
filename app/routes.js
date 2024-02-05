@@ -318,21 +318,12 @@ router.post('/v7/add-heat-network/introduction/building', function (req, res) {
     req.session.data['building'] = req.body.building
     req.session.data['communalnetworks'] = req.body.communalnetworks
     var building = req.session.data['building']
-    var communalnetworks = req.session.data['communalnetworks']
 
     if (!building) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.building = {
             "anchor": "building",
             "message": "Error text"
-        }
-    }
-
-    if (building == "Yes" && !communalnetworks) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.communalnetworks = {
-            "anchor": "communalnetworks",
-            "message": "Enter the numnber of connected communal networks"
         }
     }
 
@@ -344,10 +335,44 @@ router.post('/v7/add-heat-network/introduction/building', function (req, res) {
 
     else {
         if (building == "Yes") {
-            res.redirect('/v7/add-heat-network/introduction/another');
+            res.redirect('/v7/add-heat-network/introduction/communalnetworks');
         } else {
             res.redirect('/v7/add-heat-network/introduction/sharedfacilities');
         }
+    }
+
+});
+
+// Building
+router.get('/v7/add-heat-network/introduction/communalnetworks', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/introduction/communalnetworks', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/introduction/communalnetworks', function (req, res) {
+    clearvalidation(req);
+    var communalnetworks = req.session.data['communalnetworks']
+
+    if (!communalnetworks) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.communalnetworks = {
+            "anchor": "communalnetworks",
+            "message": "Enter the number of connected communal networks"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/introduction/communalnetworks', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+            res.redirect('/v7/add-heat-network/introduction/another');
     }
 
 });
