@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the heat network supply microbusiness customers?" %}
+{% set title = "Do you provide information so customers can compare your charges with other energy suppliers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,61 +51,51 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.consumertypemicrobusiness %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.billingcompare %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Add a heat network - billing</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">These are businesses that either:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>consume less than 247,000 kWh of heat per year</li>
-                        <li>have less than 10 full-time employees</li>
-                        <li>turn over less than &pound;2 million per year</li>
-                    </ul>
-                    <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
-                    <p class="govuk-body">Include microbusinesses in any connected communal networks that you control.</p>
-
-                    {% if data.validationErrors.consumertypemicrobusiness %}
+                    {% if data.validationErrors.billingcompare %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.consumertypemicrobusiness.message}}
+                        {{data.validationErrors.billingcompare.message}}
                     </p>
                     {% endif %}
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness" name="consumertypemicrobusiness" type="radio" value="Yes" {% if data.consumertypemicrobusiness == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness">
+                            <input class="govuk-radios__input" id="billingcompare" name="billingcompare" type="radio" value="Yes" {% if data.billingcompare == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="billingcompare">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness-2" name="consumertypemicrobusiness" type="radio" value="No" {% if data.consumertypemicrobusiness == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness-2">
+                            <input class="govuk-radios__input" id="billingcompare-2" name="billingcompare" type="radio" value="No" {% if data.billingcompare == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="billingcompare-2">
                                 No
                             </label>
                         </div>
                     </div>
 
-            </fieldset>
+
+                </fieldset>
 
 
-    </div>
-    {{
+            </div>
+            {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
-    }}
-    </form>
-    <a href="cancel" class="govuk-link">Cancel</a>
-</div>
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
 
 </div>
 

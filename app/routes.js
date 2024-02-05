@@ -1210,13 +1210,13 @@ router.post('/v7/add-heat-network/technical/cya', function (req, res) {
 });
 
 // Metering - cya
-router.get('/v7/add-heat-network/metering/check', function (req, res) {
-    res.render('/v7/add-heat-network/metering/check', {
+router.get('/v7/add-heat-network/metering/cya', function (req, res) {
+    res.render('/v7/add-heat-network/metering/cya', {
         data: req.session.data
     });
 });
 
-router.post('/v7/add-heat-network/metering/check', function (req, res) {
+router.post('/v7/add-heat-network/metering/cya', function (req, res) {
     res.redirect('/v7/add-heat-network/tasklist');
 });
 
@@ -1483,7 +1483,7 @@ router.post('/v7/add-heat-network/buildingsandconsumers/customers', function (re
 
     else {
         if (communal > 1) {
-            res.redirect('/v7/add-heat-network/buildingsandconsumers/connections')
+            res.redirect('/v7/add-heat-network/buildingsandconsumers/communalinfo')
         }
         else {
             res.redirect('/v7/add-heat-network/buildingsandconsumers/cya')
@@ -1885,6 +1885,328 @@ router.post('/v7/add-heat-network/metering/electrical', function (req, res) {
         });
     }
     else {
-        res.redirect('/v7/add-heat-network/metering/check');
+        res.redirect('/v7/add-heat-network/metering/cya');
+    }
+});
+
+
+// Metering - type
+router.get('/v7/add-heat-network/metering/type-check', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/type-check', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/type-check', function (req, res) {
+    clearvalidation(req);
+    res.redirect('/v7/add-heat-network/metering/level');
+});
+
+
+
+
+// Billing - often
+router.get('/v7/add-heat-network/billing/often', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/billing/often', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/billing/often', function (req, res) {
+    clearvalidation(req);
+    var billingoften = req.session.data['billingoften']
+
+    if (!billingoften) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingoften = {
+            "anchor": "billingoften",
+            "message": "Select how often you send bills",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/billing/often', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/billing/calculated');
+    }
+});
+
+
+// Billing - calculated
+router.get('/v7/add-heat-network/billing/calculated', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/billing/calculated', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/billing/calculated', function (req, res) {
+    clearvalidation(req);
+    var billingcalculated = req.session.data['billingcalculated']
+
+    if (!billingcalculated) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcalculated = {
+            "anchor": "billingcalculated",
+            "message": "Select how calculated you send bills",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/billing/calculated', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/billing/compare');
+    }
+});
+
+
+// Billing - compare
+router.get('/v7/add-heat-network/billing/compare', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/billing/compare', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/billing/compare', function (req, res) {
+    clearvalidation(req);
+    var billingcompare = req.session.data['billingcompare']
+
+    if (!billingcompare) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcompare = {
+            "anchor": "billingcompare",
+            "message": "Select how compare you send bills",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/billing/compare', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/billing/otherinfo');
+    }
+});
+
+// Billing - other info
+router.get('/v7/add-heat-network/billing/otherinfo', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/billing/otherinfo', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/billing/otherinfo', function (req, res) {
+    clearvalidation(req);
+    var billinginfo = req.session.data['billinginfo']
+
+    //if (!billinginfo) {
+    //    req.session.data.validationError = "true"
+    //    req.session.data.validationErrors.billinginfo = {
+    //        "anchor": "billinginfo",
+    //        "message": "Select how otherinfo you send bills",
+    //    }
+    //}
+
+
+    //if (req.session.data.validationError == "true") {
+    //    res.render('/v7/add-heat-network/billing/otherinfo', {
+    //        data: req.session.data
+    //    });
+    //}
+    //else {
+        res.redirect('/v7/add-heat-network/billing/cya');
+//    }
+});
+
+
+// Billing - cya
+router.get('/v7/add-heat-network/billing/cya', function (req, res) {
+    res.render('/v7/add-heat-network/billing/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/billing/cya', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+
+
+// Financial - plan
+router.get('/v7/add-heat-network/financial/plan', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/financial/plan', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/financial/plan', function (req, res) {
+    clearvalidation(req);
+    var financialplan = req.session.data['financialplan']
+
+    if (!financialplan) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialplan = {
+            "anchor": "financialplan",
+            "message": "Tell us whether you have a continuity plan in place",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/financial/plan', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/financial/arrangement');
+    }
+});
+
+// Financial - arrangement
+router.get('/v7/add-heat-network/financial/arrangement', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/financial/arrangement', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/financial/arrangement', function (req, res) {
+    clearvalidation(req);
+    var financialarrangement = req.session.data['financialarrangement']
+
+    if (!financialarrangement) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialarrangement = {
+            "anchor": "financialarrangement",
+            "message": "Tell us whether you have a continuity arrangement in place",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/financial/arrangement', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/financial/cya');
+    }
+});
+
+// Financial - cya
+router.get('/v7/add-heat-network/financial/cya', function (req, res) {
+    res.render('/v7/add-heat-network/financial/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/v7/add-heat-network/financial/cya', function (req, res) {
+    res.redirect('/v7/add-heat-network/tasklist');
+});
+
+
+// Consumer - vulnerable
+router.get('/v7/add-heat-network/consumerprotections/vulnerable', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/consumerprotections/vulnerable', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/consumerprotections/vulnerable', function (req, res) {
+    clearvalidation(req);
+    var consumervulnerable = req.session.data['consumervulnerable']
+
+    if (!consumervulnerable) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumervulnerable = {
+            "anchor": "consumervulnerable",
+            "message": "Tell us whether the heat network supply vulnerable customers",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/consumerprotections/vulnerable', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumervulnerable == "Yes") {
+            res.redirect('/v7/add-heat-network/consumerprotections/psr');
+        }
+
+        else {
+            res.redirect('/v7/add-heat-network/consumerprotections/confirm');
+        }
+    }
+});
+
+
+// Consumer - psr
+router.get('/v7/add-heat-network/consumerprotections/psr', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/consumerprotections/psr', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/consumerprotections/psr', function (req, res) {
+    clearvalidation(req);
+    var consumerpsr = req.session.data['consumerpsr']
+
+    if (!consumerpsr) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerpsr = {
+            "anchor": "consumerpsr",
+            "message": "Tell us whether you have a Priority Service Register (PSR)",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/consumerprotections/psr', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/v7/add-heat-network/consumerprotections/confirm');
+
     }
 });

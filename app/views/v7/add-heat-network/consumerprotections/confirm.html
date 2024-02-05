@@ -78,15 +78,18 @@
                                 There is a procedure in place for domestic consumers and microbusinesses to raise a complaint.
                             </label>
                         </div>
+                        {% if (data.consumertyperesidential=='Yes') %}
+
                         <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" id="protection2" name="protection2" type="checkbox" value="There is a procedure in place to identify and support vulnerable domestic consumers." aria-describedby="protection2-hint" {% for protection2 in data.protection2 %}{% if protection2=='There is a procedure in place to identify and support vulnerable domestic consumers.' %}checked{% endif %}{% endfor %}>
                             <label class="govuk-label govuk-checkboxes__label" for="protection2">
                                 There is a procedure in place to identify and support vulnerable domestic consumers.
                             </label>
                             <div id="protection2-hint" class="govuk-hint govuk-checkboxes__hint">
-                                Vulnerable consumers are either significantly less able to protect or represent the ir interests, or are more likely to suffer 'detriment' due to personal characteristics or their situation.
+                                Vulnerable consumers are either significantly less able to protect or represent their interests, or are more likely to suffer 'detriment' due to personal characteristics or their situation.
                             </div>
                         </div>
+                        {% endif %}
                         <div class="govuk-radios__divider">or</div>
 
                         <div class="govuk-checkboxes__item">
@@ -99,8 +102,9 @@
 
                 </fieldset>
 
-
             </div>
+                            <p class="govuk-body">We may request these from you in the future.</p>
+
                         <input type="hidden" id="protectionscomplete" name="protectionscomplete" value="true" />
 
             {{

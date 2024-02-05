@@ -81,7 +81,6 @@
                 </thead>
                 <tbody class="govuk-table__body">
                     {% if (data.communalnetworks >= 1) %}
-                    <p>Test</p>
                     {% for i in range(0, data.communalnetworks) -%}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
@@ -114,7 +113,7 @@
 
             {{
                 govukButton ({
-                    html: 'Save & continue'
+                    html: 'Save and continue'
                 })
             }}
         </form>
