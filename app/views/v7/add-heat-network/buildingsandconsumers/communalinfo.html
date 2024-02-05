@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 
-{% set title = "Information about communally-heated buildings" %}
+{% set title = "Information about connected communal networks" %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -56,6 +56,8 @@
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
+
+        <p class="govuk-body">You've already told us that the heat network has {{data.communalnetworks}} connected communal networks. We need some more information about them before you can continue.</p>
         </div>
     </div>
 <div class="govuk-grid-row">
@@ -73,6 +75,7 @@
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Building</th>
+                        <th scope="col" class="govuk-table__header">Type</th>
                         <th scope="col" class="govuk-table__header">Address</th>
                         <th scope="col" class="govuk-table__header">Final customers</th>
                         <th scope="col" class="govuk-table__header"></th>
@@ -84,6 +87,7 @@
                     {% for i in range(0, data.communalnetworks) -%}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
+                        <td class="govuk-table__cell">{{data.buildingcommunaltype}}</td>
                         <td class="govuk-table__cell">
                             {% if data.buildingaddressPostcode %}
 {{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}

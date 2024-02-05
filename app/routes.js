@@ -961,7 +961,6 @@ router.get('/v7/add-heat-network/technical/storage', function (req, res) {
 router.post('/v7/add-heat-network/technical/storage', function (req, res) {
     clearvalidation(req);
     var techstorage = req.session.data['techstorage']
-    var techstoragecapacity = req.session.data['techstoragecapacity']
 
 
     if (!techstorage) {
@@ -969,14 +968,6 @@ router.post('/v7/add-heat-network/technical/storage', function (req, res) {
         req.session.data.validationErrors.techstorage = {
             "anchor": "techstorage",
             "message": "Select if the system is capable of thermal storage"
-        }
-    }
-
-    if (techstorage == "Yes" && !techstoragecapacity) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techstoragecapacity = {
-            "anchor": "techstoragecapacity",
-            "message": "Enter a capacity"
         }
     }
 
@@ -1005,7 +996,6 @@ router.get('/v7/add-heat-network/technical/electricity', function (req, res) {
 router.post('/v7/add-heat-network/technical/electricity', function (req, res) {
     clearvalidation(req);
     var techelectricity = req.session.data['techelectricity']
-    var techelectricitygeneration = req.session.data['techelectricitygeneration']
 
 
     if (!techelectricity) {
@@ -1016,13 +1006,6 @@ router.post('/v7/add-heat-network/technical/electricity', function (req, res) {
         }
     }
 
-    if (techelectricity == "Yes" && !techelectricitygeneration) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techelectricitygeneration = {
-            "anchor": "techelectricitygeneration",
-            "message": "Enter generation"
-        }
-    }
 
     if (req.session.data.validationError == "true") {
         res.render('/v7/add-heat-network/technical/electricity', {
@@ -1131,25 +1114,8 @@ router.get('/v7/add-heat-network/technical/when', function (req, res) {
 
 router.post('/v7/add-heat-network/technical/when', function (req, res) {
     clearvalidation(req);
-    var techwhenmonth = req.session.data['techwhenmonth']
-    var techwhenyear = req.session.data['techwhenyear']
 
-    if (!techwhenmonth || !techwhenyear) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techwhen = {
-            "anchor": "techwhen",
-            "message": "Enter a month and year"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/v7/add-heat-network/technical/when', {
-            data: req.session.data
-        });
-    }
-    else {
         res.redirect('/v7/add-heat-network/technical/summary');
-    }
 });
 
 // Tech - summary
@@ -1903,7 +1869,91 @@ router.get('/v7/add-heat-network/metering/type-check', function (req, res) {
 
 router.post('/v7/add-heat-network/metering/type-check', function (req, res) {
     clearvalidation(req);
-    res.redirect('/v7/add-heat-network/metering/level');
+    var metertype = req.session.data['metertype']
+
+
+    if (metertype.includes("Building level meters")) {
+        res.redirect('/v7/add-heat-network/metering/level');
+    }
+
+    else if (metertype.includes("Final consumer meters")) {
+        res.redirect('/v7/add-heat-network/metering/consumer');
+    }
+
+    else if (metertype.includes("Final consumer heat cost allocators")) {
+        res.redirect('/v7/add-heat-network/metering/cost');
+    }
+    else {
+        res.redirect('/v7/add-heat-network/metering/smart');
+    }
+});
+
+// Metering - level
+router.get('/v7/add-heat-network/metering/level', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/level', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/level', function (req, res) {
+    clearvalidation(req);
+    var metertype = req.session.data['metertype']
+
+    if (metertype.includes("Final consumer meters")) {
+        res.redirect('/v7/add-heat-network/metering/consumer');
+    }
+
+    else if (metertype.includes("Final consumer heat cost allocators")) {
+        res.redirect('/v7/add-heat-network/metering/cost');
+    }
+    else {
+        res.redirect('/v7/add-heat-network/metering/smart');
+    }
+});
+
+
+// Metering - consumer
+router.get('/v7/add-heat-network/metering/consumer', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/consumer', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/consumer', function (req, res) {
+    clearvalidation(req);
+    var metertype = req.session.data['metertype']
+
+    if (metertype.includes("Final consumer heat cost allocators")) {
+        res.redirect('/v7/add-heat-network/metering/cost');
+    }
+    else {
+        res.redirect('/v7/add-heat-network/metering/smart');
+    }
+});
+
+// Metering - cost
+router.get('/v7/add-heat-network/metering/cost', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/v7/add-heat-network/metering/cost', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/metering/cost', function (req, res) {
+    clearvalidation(req);
+
+        res.redirect('/v7/add-heat-network/metering/smart');
 });
 
 
@@ -2150,12 +2200,21 @@ router.get('/v7/add-heat-network/consumerprotections/vulnerable', function (req,
 router.post('/v7/add-heat-network/consumerprotections/vulnerable', function (req, res) {
     clearvalidation(req);
     var consumervulnerable = req.session.data['consumervulnerable']
+    var consumervulnerableammount = req.session.data['consumervulnerableammount']
 
     if (!consumervulnerable) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumervulnerable = {
             "anchor": "consumervulnerable",
             "message": "Tell us whether the heat network supply vulnerable customers",
+        }
+    }
+
+    if (consumervulnerable == "Yes" && !consumervulnerableammount) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumervulnerableammount = {
+            "anchor": "consumervulnerableammount",
+            "message": "Enter the total number of vulnerable customer",
         }
     }
 

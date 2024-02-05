@@ -74,11 +74,25 @@
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumervulnerable" name="consumervulnerable" type="radio" value="Yes" {% if data.consumervulnerable == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumervulnerable" name="consumervulnerable" type="radio" value="Yes" data-aria-controls="consumervulnerableextra" {% if data.consumervulnerable == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumervulnerable">
                                 Yes
                             </label>
                         </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="consumervulnerableextra">
+                            <div class="govuk-form-group {% if data.validationErrors.consumervulnerableammount %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="consumervulnerableammount">
+                                Total number of vulnerable customers
+                              </label>
+                                {% if data.validationErrors.consumervulnerableammount %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.consumervulnerableammount.message}}
+                                </p>
+                                {% endif %}
+                              <input class="govuk-input govuk-input--width-3" id="consumervulnerableammount" name="consumervulnerableammount" type="number" value="{{data.consumervulnerableammount}}">
+                            </div>
+                          </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="consumervulnerable-2" name="consumervulnerable" type="radio" value="No" {% if data.consumervulnerable == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumervulnerable-2">

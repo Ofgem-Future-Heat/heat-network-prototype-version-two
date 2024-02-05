@@ -80,15 +80,16 @@
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumerpsr-2" name="consumerpsr" type="radio" value="No" {% if data.consumerpsr == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumerpsr-2" name="consumerpsr" type="radio" value="No" data-aria-controls="psrconditional" {% if data.consumerpsr == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumerpsr-2">
                                 No
                             </label>
-                                 <div id="signIn-2-item-hint" class="govuk-hint govuk-radios__hint">
-                                  You will need to make sure you have one by 01/01/2026
-                                </div>
+  
+                          </div>
+                                                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="psrconditional">
+                                <p class="govuk-body">You will need to make sure you have one by [1 January 2026]</p>
+                            </div>
                         </div>
-                    </div>
 
 
                 </fieldset>
