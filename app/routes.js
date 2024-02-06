@@ -633,14 +633,6 @@ router.post('/v7/add-heat-network/location/address', function (req, res) {
         }
     }
 
-    if (!number) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.addressNumber = {
-            "anchor": "addressNumber",
-            "message": "Enter a building name or number",
-        }
-    }
-
     if (req.session.data.validationError == "true") {
         res.render('/v7/add-heat-network/location/address', {
             data: req.session.data

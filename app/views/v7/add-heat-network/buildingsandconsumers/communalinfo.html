@@ -87,7 +87,7 @@
                     {% for i in range(0, data.communalnetworks) -%}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
-                        <td class="govuk-table__cell">{{data.buildingcommunaltype}}</td>
+                        <td class="govuk-table__cell">{% if data.buildingcommunaltype %}{{data.buildingcommunaltype}}{% else %} - {% endif %}</td>
                         <td class="govuk-table__cell">
                             {% if data.buildingaddressPostcode %}
 {{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}

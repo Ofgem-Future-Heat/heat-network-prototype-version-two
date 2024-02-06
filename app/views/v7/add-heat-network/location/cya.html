@@ -43,7 +43,7 @@
                     Address of energy centre
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.addressNumber}} Grosvenor Road, Solihull, {{data.addressPostcode}}
+                    {% if data.addressNumber %}{{data.addressNumber}}{% else %}120{% endif %} Grosvenor Road, Solihull, {{data.addressPostcode}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>

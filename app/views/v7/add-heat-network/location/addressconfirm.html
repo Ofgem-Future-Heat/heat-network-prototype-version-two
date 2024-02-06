@@ -44,7 +44,7 @@
                         1 result found for {{data.addressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
                     </p>
                     <div class="govuk-inset-text">
-                        {{data.addressNumber}},<br />
+                        {% if data.addressNumber %}{{data.addressNumber}}{% else %}120{% endif %},<br />
                         Grosvenor Road,<br />
                         Solihull,<br />
                       {{data.addressPostcode}}
