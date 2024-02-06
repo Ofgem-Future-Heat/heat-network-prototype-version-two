@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Confirm this network's consumer protections" %}
+{% set title = "Is there a procedure in place for domestic consumers and microbusinesses to raise a complaint?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -71,33 +71,23 @@
                     </p>
                     {% endif %}
 
-                    <div class="govuk-checkboxes govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="protection" name="protection" type="checkbox" value="There is a procedure in place for domestic consumers and microbusinesses to raise a complaint." aria-describedby="protection-hint" {% for protection in data.protection %}{% if protection=='There is a procedure in place for domestic consumers and microbusinesses to raise a complaint.' %}checked{% endif %}{% endfor %}>
-                            <label class="govuk-label govuk-checkboxes__label" for="protection">
-                                There is a procedure in place for domestic consumers and microbusinesses to raise a complaint.
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="protection" name="protection" type="radio" value="Yes" {% if data.protection == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="protection">
+                                Yes
                             </label>
                         </div>
-                        {% if (data.consumertyperesidential=='Yes') %}
-
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="protection2" name="protection2" type="checkbox" value="There is a procedure in place to identify and support vulnerable domestic consumers." aria-describedby="protection2-hint" {% for protection2 in data.protection2 %}{% if protection2=='There is a procedure in place to identify and support vulnerable domestic consumers.' %}checked{% endif %}{% endfor %}>
-                            <label class="govuk-label govuk-checkboxes__label" for="protection2">
-                                There is a procedure in place to identify and support vulnerable domestic consumers.
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="protection-2" name="protection" type="radio" value="No" data-aria-controls="protectionconditional" {% if data.protection == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="protection-2">
+                                No
                             </label>
-                            <div id="protection2-hint" class="govuk-hint govuk-checkboxes__hint">
-                                Vulnerable consumers are either significantly less able to protect or represent their interests, or are more likely to suffer 'detriment' due to personal characteristics or their situation.
+                        </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="protectionconditional">
+                                <p class="govuk-body">You will need to make sure you have one by [date TBC]</p>
                             </div>
-                        </div>
-                        {% endif %}
-                        <div class="govuk-radios__divider">or</div>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="protection3" name="protection3" type="checkbox" value="These procedures are not yet in place, but will be available by 1 April 2026" aria-describedby="protection3-hint" {% for protection3 in data.protection3 %}{% if protection3=='These procedures are not yet in place, but will be available by 1 April 2026' %}checked{% endif %}{% endfor %}>
-                            <label class="govuk-label govuk-checkboxes__label" for="protection3">
-                                These procedures are not yet in place, but will be available by [1 April 2026]
-                            </label>
-                        </div>
                     </div>
 
                 </fieldset>

@@ -2162,6 +2162,39 @@ router.post('/v7/add-heat-network/billing/compare', function (req, res) {
     }
 });
 
+// Billing - available
+router.get('/v7/add-heat-network/billing/available', function (req, res) {
+    clearvalidation(req);
+    res.render('/v7/add-heat-network/billing/available', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/v7/add-heat-network/billing/available', function (req, res) {
+    clearvalidation(req);
+    var billingavailable = req.session.data['billingavailable']
+
+    if (!billingavailable) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingavailable = {
+            "anchor": "billingavailable",
+            "message": "Select at least one option",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/v7/add-heat-network/billing/available', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/v7/add-heat-network/billing/cya');
+    }
+});
+
 // Billing - other info
 router.get('/v7/add-heat-network/billing/otherinfo', function (req, res) {
     clearvalidation(req);
@@ -2191,7 +2224,7 @@ router.post('/v7/add-heat-network/billing/otherinfo', function (req, res) {
     //    });
     //}
     //else {
-        res.redirect('/v7/add-heat-network/billing/cya');
+        res.redirect('/v7/add-heat-network/billing/available');
 //    }
 });
 
