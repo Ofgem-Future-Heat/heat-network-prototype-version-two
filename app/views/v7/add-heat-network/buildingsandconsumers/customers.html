@@ -97,7 +97,7 @@
 
                         {% endif %}
                         {% if mixeduse and (building != "Industrial") %}
-                        <p class="govuk-hint">Include any living in {% if building == "Public" %}commercial or {% endif %}mixed-use buildings </p>
+                        <p class="govuk-hint">Include any working in {% if building == "Public" %}commercial or {% endif %}mixed-use buildings </p>
                         {% endif %}
 
                         <input class="govuk-input govuk-input--width-3" id="customers{{building}}" name="customers{{building}}" type="number" value="{{data['customers' + building]}}">
