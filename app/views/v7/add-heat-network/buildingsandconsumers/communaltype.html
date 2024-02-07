@@ -66,25 +66,19 @@
                         {{data.validationErrors.buildingcommunaltype.message}}
                     </p>
                     {% endif %}
+                                        <div class="govuk-radios" data-module="govuk-radios">
 
-
-
-
-
-                    <div class="govuk-radios" data-module="govuk-radios">
+                {% for buildingtype in data.buildingtype %}
+                    
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="buildingcommunaltype" name="buildingcommunaltype" type="radio" value="Residential building" aria-describedby="role-item-hint" {% if data.buildingcommunaltype == "Residential building" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="buildingcommunaltype">
-                                Residential building
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="buildingcommunaltype-2" name="buildingcommunaltype" type="radio" value="Commercial building" aria-describedby="role-2-item-hint" {% if data.buildingcommunaltype == "Commercial building" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="buildingcommunaltype-2">
-                                Commercial building
-                            </label>
-                        </div>
+                    <input class="govuk-radios__input" id="buildingcommunaltype{{buildingtype}}" name="buildingcommunaltype" type="radio" {% if data.buildingcommunaltype == buildingtype %}checked{% endif %} value="{{buildingtype}}">
+                    <label class="govuk-label govuk-radios__label" for="buildingcommunaltype{{buildingtype}}">
+                        {{buildingtype | replace("0", "-") | safe}} building
+                    </label>
                     </div>
+
+                {% endfor %}
+                </div>
                 </fieldset>
             </div>
             {{
