@@ -88,7 +88,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.techstorage}}
-                    {% if data.techstorage == "Yes" %}
+                    {% if data.techstoragecapacity %}
                     <br />{{data.techstoragecapacity}} m&#179;
                     {% endif %}
                 </dd>
@@ -102,7 +102,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.techelectricity}}
-                    {% if data.techstorage == "Yes" %}
+                    {% if data.techelectricitygeneration %}
                     <br />{{data.techelectricitygeneration}} kWh
                     {% endif %}
                 </dd>
