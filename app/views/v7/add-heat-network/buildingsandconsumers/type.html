@@ -91,7 +91,7 @@
                     {% for building, description in buildtypes %}
                     <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
                         <div class="govuk-{{inputtype}}__item">
-                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}"  {% for buildingitem in data.buildingtype %}{% if buildingitem == building %}checked{% endif %}{% endfor %}">
+                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}"  {% for buildingitem in data.buildingtype %}{% if buildingitem == building %}checked{% endif %}{% endfor %}>
                             <label class="govuk-label govuk-{{inputtype}}__label" for="buildingtype-{{building}}">
                                 {{building | replace("0", "-") | safe}} {% if data.building == "Yes" %}buildings{% else %}building{% endif %}
                             </label>

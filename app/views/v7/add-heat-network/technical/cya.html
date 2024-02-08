@@ -115,21 +115,17 @@
                     Technologies used for your heat network
                 </dt>
                 <dd class="govuk-summary-list__value">
+
+                    {% for technology, energysource, year in data.technologies %}
                     <strong>Technology:</strong>
-                    {% if data.techtechnology == "Other" %}
-                    {{data.techtechnologyother}}
-                    {% else %}
-                    {{data.techtechnology}}
-                    {% endif %}
-                    <br /><br />
+                    {{technology}}
+                    <br />
                     <strong>Energy source:</strong>
-                                {% if data.techenergysource == "Other" %}
-                    {{data.techenergysourceother}}
-                    {% else %}
-                    {{data.techenergysource}}
-                    {% endif %}
+                    {{energysource}}
+                    <br />
+                    <strong>Started:</strong> {{year}}
                     <br /><br />
-                    <strong>Started:</strong> {{data.techwhenmonth}} {{data.techwhenyear}}
+                    {% endfor %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="technology">Change<span class="govuk-visually-hidden"> supply</span></a>

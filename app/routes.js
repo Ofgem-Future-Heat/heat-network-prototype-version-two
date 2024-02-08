@@ -1138,16 +1138,18 @@ router.post('/v7/add-heat-network/technical/when', function (req, res) {
 // Tech - summary
 router.get('/v7/add-heat-network/technical/summary', function (req, res) {
     clearvalidation(req);
+
+
     res.render('/v7/add-heat-network/technical/summary', {
         data: req.session.data
     });
+
 });
 
 
 router.post('/v7/add-heat-network/technical/summary', function (req, res) {
     clearvalidation(req);
     var techsummaryother = req.session.data['techsummaryother']
-
 
     if (!techsummaryother) {
         req.session.data.validationError = "true"
@@ -1165,6 +1167,13 @@ router.post('/v7/add-heat-network/technical/summary', function (req, res) {
     }
 
     else {
+        req.session.data.technologies = req.session.data.technologies || []
+        req.session.data.technologies.push([
+            req.session.data['techtechnology'] || req.session.data['technologyother'],
+            req.session.data['techenergysource'] || req.session.data['techenergysourceother'],
+            req.session.data['techwhenyear']]
+        )
+
         if (techsummaryother == "No") {
             res.redirect('/v7/add-heat-network/technical/cya');
         } else {
@@ -1172,8 +1181,8 @@ router.post('/v7/add-heat-network/technical/summary', function (req, res) {
             req.session.data['technologyother'] = "";
             req.session.data['techenergysource'] = "";
             req.session.data['techenergysourceother'] = "";
-            req.session.data['techwhenmonth'] = "";
             req.session.data['techwhenyear'] = "";
+
             res.redirect('/v7/add-heat-network/technical/technology');
         }
 

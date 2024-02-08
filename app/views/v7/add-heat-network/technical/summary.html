@@ -66,6 +66,13 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
+    {% for technology, energysource, year in data.technologies %}
+          <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{technology}}</td>
+      <td class="govuk-table__cell">{{energysource}}</td>
+      <td class="govuk-table__cell">{{year}}</td>
+    </tr>
+    {% endfor %}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">{% if (data.techtechnology == "Other") %}{{data.techtechnologyother}}{% else %}{{data.techtechnology}}{% endif %}</td>
       <td class="govuk-table__cell">{% if (data.techenergysource == "Other") %}{{data.techenergysourceother}}{% else %}{{data.techenergysource}}{% endif %}</td>
@@ -89,14 +96,14 @@
                 {% endif %}
 <div class="govuk-radios govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="techsummaryother" name="techsummaryother" type="radio" value="Yes" {% if data.techsummaryother == "Yes" %}checked{% endif %} data-aria-controls="conditional-techsummaryother">
+        <input class="govuk-radios__input" id="techsummaryother" name="techsummaryother" type="radio" value="Yes" >
         <label class="govuk-label govuk-radios__label" for="techsummaryother">
           Yes
         </label>
       </div>
 
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="techsummaryother-2" name="techsummaryother" type="radio" value="No" {% if data.techsummaryother == "No" %}checked{% endif %}>
+        <input class="govuk-radios__input" id="techsummaryother-2" name="techsummaryother" type="radio" value="No" >
         <label class="govuk-label govuk-radios__label" for="techsummaryother-2">
           No
         </label>

@@ -41,7 +41,7 @@
             {% if data.building == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Include any connected communal networks that you control.
+                    How many of each building type are there?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if data.howmanyResidential >= 1 %}Residential - {{data.howmanyResidential}}<br />{% endif %}
@@ -58,7 +58,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    How many final consumers does network supply?
+                    How many customers are on the heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if data.customersResidential >= 1 %}Residential - {{data.customersResidential}}<br />{% endif %}
@@ -110,14 +110,24 @@
             {% else %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    How many final consumers does network supply?
+                    What type of building does the heat network supply?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.howmanyresidential >= 1 %}Residential - {{data.howmanyresidential}}<br />{% endif %}
-                    {% if data.howmanycommercial >= 1 %}Commercial - {{data.howmanycommercial}}<br />{% endif %}
-                    {% if data.howmanyindustrial >= 1 %}Industrial - {{data.howmanyindustrial}}<br />{% endif %}
-                    {% if data.howmanypublic >= 1 %}Public - {{data.howmanypublic}}<br />{% endif %}
-                    {% if data.howmanyother >= 1 %}Other - {{data.howmanyother}}<br />{% endif %}
+
+                        {{data.buildingtype}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many customers are on the heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.customerstotal}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
