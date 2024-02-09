@@ -40,16 +40,20 @@
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
+                {% if not data.locationaddressMPostcode %}
                     <p class="govuk-body">
-                        1 result found for {{data.addressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
+                        {% if data.locationAddressSelect == 0 %}1 result found for found for {{data.addressPostcode}} and {{data.addressNumber}}{% else %}{{data.locationAddressSelect.length}} results found for {{data.buildingaddressPostcode}}{% endif %}  . <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
                     </p>
+                {% endif %}
                     <div class="govuk-inset-text">
-                        {% if data.addressNumber %}{{data.addressNumber}}{% else %}120{% endif %},<br />
-                        Grosvenor Road,<br />
-                        Solihull,<br />
-                      {{data.addressPostcode}}
+
+
+                        {% set address = data.locationAddress.toString() %}
+                        {{address | replace(", ", ",<br />") | safe}}
+
                     </div>
 
+                                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
 
 
 

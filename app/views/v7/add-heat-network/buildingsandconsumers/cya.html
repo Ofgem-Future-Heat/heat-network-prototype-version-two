@@ -95,9 +95,10 @@
 
                         <p class="govuk-body">Connected communal network {{ i + 1 }}</p>
                     <p class="govuk-body">{{data.buildingcommunaltype}}</p>
-{{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
-                    <br />
-                            {{data.buildingaddressCustomers | float + i | float}}
+                    {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    <br /><br />
+                            Customers: {{data.buildingaddressCustomers | float + i | float}}
                     {%- endfor %}
                     {% endif %}
 

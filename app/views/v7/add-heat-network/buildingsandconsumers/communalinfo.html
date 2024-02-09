@@ -89,8 +89,10 @@
                         <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
                         <td class="govuk-table__cell">{% if data.buildingcommunaltype %}{{data.buildingcommunaltype}}{% else %} - {% endif %}</td>
                         <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
-{{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
+                            {% if data.buildinglocationAddress %}
+                        {% set address = data.buildinglocationAddress.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
                             {% else %}
                             -
                             {% endif %}

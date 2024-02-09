@@ -40,12 +40,23 @@
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
+                                {% if not data.buildingaddressMPostcode %}
+
+                                    <p class="govuk-body">
+                        {% if data.buildinglocationAddressSelect == 0 %}1 result found for found for {{data.buildingaddressPostcode}} and {{data.buildingaddressNumber}}{% else %}{{data.buildinglocationAddressSelect.length}} results found for {{data.buildingaddressPostcode}}{% endif %}  . <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
+                    </p>
+                {% endif %}
+
+
                     <div class="govuk-inset-text">
-{{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
+                        {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        
                     </div>
 
 
 
+                                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
 
 
 

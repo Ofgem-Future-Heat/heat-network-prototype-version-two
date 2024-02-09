@@ -58,7 +58,8 @@
                 {{title}}
             </h1>
             <div class="govuk-inset-text">
-                {{data.buildingaddressSelect  | replace(", ", "<br />") | safe}}
+                {% set address = data.buildinglocationAddress.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
             </div>
         </div>
 

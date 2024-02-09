@@ -43,7 +43,8 @@
                     Address of energy centre
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.addressNumber %}{{data.addressNumber}}{% else %}120{% endif %} Grosvenor Road, Solihull, {{data.addressPostcode}}
+                                            {% set address = data.locationAddress.toString() %}
+                        {{address | replace(", ", ",<br />") | safe}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>

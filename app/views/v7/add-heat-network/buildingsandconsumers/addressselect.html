@@ -62,7 +62,7 @@
             </h1>
 
                     <p class="govuk-body">
-                        3 result found for {{data.buildingaddressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
+                        {{data.buildinglocationAddressSelect.length}} result found for {{data.buildingaddressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
                     </p>
 
 
@@ -75,15 +75,20 @@
                         {{data.validationErrors.buildingaddressSelect.message}}
                     </p>
                     {% endif %}
-                    <select class="govuk-select" id="buildingaddressSelect" name="buildingaddressSelect">
-                        <option value="">Select an address</option>
+<div class="govuk-radios" data-module="govuk-radios">
+                            {% for address in data.buildinglocationAddressSelect %}
 
-                        <option {% if data.buildingaddressSelect == "Example building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}" %}selected{% endif %} value="Example building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}">Example building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}</option>
-                        <option {% if data.buildingaddressSelect == "Other building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}" %}selected{% endif %} value="Other building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}">Other building, {{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}</option>
-                        <option {% if data.buildingaddressSelect == "{{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}" %}selected{% endif %} value="{{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}">{{data.buildingaddressNumber}} Grosvenor Road, Solihull, {{data.buildingaddressPostcode}}</option>
-                    </select>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="{{address | replace (" ", "-") | safe}}" name="buildingaddressSelect" type="radio" value="{{address}}">
+        <label class="govuk-label govuk-radios__label" for="{{address | replace (" ", "-") | safe}}">
+          {{address}}
+        </label>
+      </div>
+                            {% endfor %}
+
+    </div>
+
                 </div>
-                <p class="govuk-body"><a href="address" class="govuk-link govuk-link--no-visited-state">The address is not listed</a></p>
     </fieldset>
 
 
@@ -93,6 +98,8 @@
                 })
     }}
     </form>
+                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
     <a href="cancel" class="govuk-link">Cancel</a>
 </div>
 
