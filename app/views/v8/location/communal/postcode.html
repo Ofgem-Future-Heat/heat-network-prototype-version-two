@@ -1,0 +1,79 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Enter the address of the building
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="address-result">
+
+    
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Enter the address of the building</h1>
+                <p>
+                    Enter the postcode of the communal building or block.
+                </p>
+                {{ govukInput({
+                label: {
+                text: "Postcode"
+                },
+                value: data['building-postcode'] if data['building-postcode'] else '',
+                classes: "govuk-!-width-two-thirds",
+                hint: {
+                text: "For example, AA3 1AB."
+                },
+                id: "building-postcode",
+                name: "building-postcode"
+                }) }}
+
+                
+
+                {{ govukButton({
+                text: "Find address"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+                
+                </div> 
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

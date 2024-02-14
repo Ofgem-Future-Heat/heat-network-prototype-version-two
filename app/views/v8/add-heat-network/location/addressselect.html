@@ -1,0 +1,110 @@
+{% extends 'layouts/main.html' %}
+    {% set title = "Select an address" %}
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group {% if data.validationErrors.locationAddressSelected %}govuk-form-group--error{% endif %}">
+
+                    <span class="govuk-caption-l">Add a heat network - location</span>
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="postcode">
+                            {{title}}
+                        </label>
+                    </h1>
+
+                    <p class="govuk-body">
+                        {{data.locationAddressSelect.length}} result found for {{data.addressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
+                    </p>
+
+
+
+
+
+                    {% if data.validationErrors.locationAddressSelected %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.locationAddressSelected.message}}
+                    </p>
+                    {% endif %}
+                    {{data.locationAddressSelected}}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        {% for address in data.locationAddressSelect %}
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="{{address | replace (" ", "-") | safe}}" name="locationAddressSelected" type="radio" value="{{address}}">
+                            <label class="govuk-label govuk-radios__label" for="{{address | replace (" ", "-") | safe}}">
+                                {{address}}
+                            </label>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+
+
+                </div>
+                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+            </fieldset>
+
+
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "How many buildings in the heat network are communally-heated?" %}
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <p class="govuk-body">We need to know how many buildings of each building type there are.</p>
+        <p class="govuk-body">You can leave fields blank if not relevant.</p>
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                {% if (data.howmanyresidential >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalresidential %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalresidential">
+                        Communally-heated residential buildings
+                    </label>
+                    {% if data.validationErrors.communalresidential %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalresidential.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalresidential %}govuk-input--error{% endif %} govuk-input--width-3" id="communalresidential" name="communalresidential" type="number" value="{{data.communalresidential}}">
+                </div>
+                {% endif %}
+
+                {% if (data.howmanycommercial >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalcommercial %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalcommercial">
+                        Communally-heated commercial buildings
+                    </label>
+                    {% if data.validationErrors.communalcommercial %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalcommercial.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalcommercial %}govuk-input--error{% endif %} govuk-input--width-3" id="communalcommercial" name="communalcommercial" type="number" value="{{data.communalcommercial}}">
+                </div>
+                {% endif %}
+
+                {% if (data.howmanyindustrial >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalindustrial %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalindustrial">
+                        Communally-heated industrial buildings
+                    </label>
+                    {% if data.validationErrors.communalindustrial %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalindustrial.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalindustrial %}govuk-input--error{% endif %} govuk-input--width-3" id="communalindustrial" name="communalindustrial" type="number" value="{{data.communalindustrial}}">
+                </div>
+                {% endif %}
+
+                
+                {% if (data.howmanypublic >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalpublic %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalpublic">
+                        Communally-heated public buildings
+                    </label>
+                    {% if data.validationErrors.communalpublic %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalpublic.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalpublic %}govuk-input--error{% endif %} govuk-input--width-3" id="communalpublic" name="communalpublic" type="number" value="{{data.communalpublic}}">
+                </div>
+                {% endif %}
+                
+                    {% if (data.howmanymixeduse >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalmixeduse %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalmixeduse">
+                        Communally-heated mixeduse buildings
+                    </label>
+
+                    {% if data.validationErrors.communalmixeduse %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalmixeduse.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalmixeduse %}govuk-input--error{% endif %} govuk-input--width-3" id="communalmixeduse" name="communalmixeduse" type="number" value="{{data.communalmixeduse}}">
+                </div>
+                {% endif %}
+
+
+                    {% if (data.howmanyother >= 1) %}
+                <div class="govuk-form-group {% if data.validationErrors.communalother %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="communalother">
+                        Communally-heated other buildings
+                    </label>
+
+                    {% if data.validationErrors.communalother %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.communalother.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input {% if data.validationErrors.communalother %}govuk-input--error{% endif %} govuk-input--width-3" id="communalother" name="communalother" type="number" value="{{data.communalother}}">
+                </div>
+                {% endif %}
+
+
+            </fieldset>
+
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

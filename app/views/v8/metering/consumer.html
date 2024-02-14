@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    How many final consumer meters are on the heat network?
+{% endblock %}
+
+{% block beforeContent %}
+
+{% if not data['meter-type'] | includes('Final consumer meters') %}
+    {{ 'cost' | redirect | safe }}
+{% endif %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="cost">
+
+                
+
+                
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                
+
+                
+
+                {{ govukInput({
+                label: {
+                  text: "How many final consumer meters are on the heat network?",
+                  classes: "govuk-label--l",
+                  isPageHeading: true
+                },
+                classes: "govuk-input--width-10",
+                hint: {
+                  text: "Final consumer meters are used to measure consumers' use, and to bill them."
+                },
+                id: "consumer-meters",
+                name: "consumer-meters",
+                inputmode: "numeric",
+                value: data['consumer-meters'] if data['consumer-meters'] else '',
+                spellcheck: false
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

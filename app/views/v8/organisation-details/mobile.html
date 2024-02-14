@@ -1,0 +1,63 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Enter a mobile telephone number
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="check">
+
+                <h1 class="govuk-heading-l">Enter a mobile telephone number</h1>
+
+                <p>
+                    This number will be used to send you a code to access your account next time.
+                </p>
+
+                {{ govukInput ({
+                    id: 'mobile',
+                    name: 'mobile',
+                    value: data['mobile'] if data['mobile'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Mobile telephone number',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+               
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

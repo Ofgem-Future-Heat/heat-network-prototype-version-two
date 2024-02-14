@@ -1,0 +1,113 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../../tasklist">
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Location
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        
+                        {
+                            key: {
+                                text: 'Do you know the address of your energy centre?'
+                            },
+                            value: {
+                                text: data['check-centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'address-check',
+                                        visuallyHiddenText: ' whether the energy centre has an address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Energy centre address'
+                            },
+                            value: {
+                                text: data['centre-address']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'postcode',
+                                        visuallyHiddenText: ' the energy centre address'
+                                    }
+                                ]
+                            }
+                        } if data['check-centre-address'] == 'Yes',
+                        {
+                            key: {
+                                text: 'Nearest postcode'
+                            },
+                            value: {
+                                text: data['nearest-postcode']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'nearest',
+                                        visuallyHiddenText: ' the nearest postcode'
+                                    }
+                                ]
+                            }
+                        } if data['check-centre-address'] == 'No'
+                        
+                    }
+                }) }}
+
+                <input type="hidden" name="section-location-district" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

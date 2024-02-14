@@ -1,0 +1,87 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    How many other consumers do you have?
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                {{ super() }}
+
+                {{ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                }) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="check">
+
+                
+
+                {% if data['choose-organisation-role'] == "Third party representative"%}
+                <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+                {% endif %}
+                <h1 class="govuk-heading-l">How many other consumers do you have?</h1>
+
+                {{ govukDetails({
+                  summaryText: "Help with 'other consumers'",
+                  text: "Enter the total number of final/end consumers currently served by the network that do not fall into any of the other classes."
+                }) }}
+
+                
+
+                
+
+                {{ govukInput({
+                label: {
+                  text: "",
+                  classes: "govuk-label--l",
+                  isPageHeading: true
+                },
+                classes: "govuk-input--width-10",
+                hint: {
+                  text: ""
+                },
+                id: "other-consumers",
+                name: "other-consumers",
+                inputmode: "numeric",
+                value: data['other-consumers'] if data['other-consumers'] else '',
+                spellcheck: false
+              }) }}
+
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

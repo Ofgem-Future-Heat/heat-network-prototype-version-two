@@ -1,0 +1,114 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Choose organisation type for the supplier/network operator
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="company-details">
+
+                <h1 class="govuk-heading-l">Choose organisation type for the supplier/network operator</h1>
+
+                {% set thirdCompanyNumberHTML %}
+
+                    {{ govukInput ({
+                        id: 'third-operator-ref-company',
+                        name: 'third-operator-ref-company',
+                        value: data['third-operator-ref-company'] if data['third-operator-ref-company'] else '',
+                        classes: 'govuk-input--width-20',
+                        label: {
+                            text: 'Companies House number',
+                            classes: 'govuk-input--width-20'
+                        }
+                    }) }}
+
+                {% endset %}
+
+                
+
+                {{ govukRadios ({
+                    idPrefix: 'third-operator-type',
+                    name: 'third-operator-type',
+                    fieldset: {
+                        legend: {
+                            text: '',
+                            isPageHeading: false
+                        }
+                    },
+                    items: [
+                        
+                        {
+                            text: 'A registered UK company',
+                            value: 'A registered UK company',
+                            checked: true if data['third-operator-type'] == 'A registered UK company',
+                            conditional: {
+                                html: thirdCompanyNumberHTML
+                            }
+                        },
+                        {
+                            text: 'A registered UK charity',
+                            value: 'A registered UK charity',
+                            checked: true if data['third-operator-type'] == 'A registered UK charity',
+                            conditional: {
+                                html: thirdCharityNumberHTML
+                            }
+                        },
+                        {
+                            text: 'A different type of UK organisation',
+                            value: 'A different type of UK organisation',
+                            checked: true if data['third-operator-type'] == 'A different type of UK organisation'
+                        },
+                        {
+                            text: 'A company or organisation registered overseas',
+                            value: 'A company or organisation registered overseas',
+                            checked: true if data['third-operator-type'] == 'A company or organisation registered overseas'
+                        },
+                        {
+                            text: 'An individual',
+                            value: 'An individual',
+                            checked: true if data['third-operator-type'] == 'An individual'
+                        }
+                    ]
+                }) }}
+
+               {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                
+
+                
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

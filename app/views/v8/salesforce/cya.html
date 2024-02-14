@@ -1,0 +1,96 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l">Add a heat network - introduction</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Supplies more than one building?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.building}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="building">Change<span class="govuk-visually-hidden"> building supply status</span></a>
+                </dd>
+            </div>
+            {% if data.building == "Yes" %} 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many connected communal networks? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.communalnetworks}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="communalnetworks">Change<span class="govuk-visually-hidden"> how many connected communal networks</span></a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Heat network name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.name}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> network name</span></a>
+                </dd>
+            </div>
+        </dl>
+                <form method="POST" novalidate>
+    <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
+    {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+    }}            </form>
+                    {% if data.introcomplete == "true" %} 
+
+            <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

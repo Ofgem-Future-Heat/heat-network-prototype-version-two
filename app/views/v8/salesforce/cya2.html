@@ -1,0 +1,143 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            {% if data.building == "Yes" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many of each building type are there?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.howmanyResidential >= 1 %}Residential - {{data.howmanyResidential}}<br />{% endif %}
+                    {% if data.howmanyCommercial >= 1 %}Commercial - {{data.howmanyCommercial}}<br />{% endif %}
+                    {% if data.howmanyIndustrial >= 1 %}Industrial - {{data.howmanyIndustrial}}<br />{% endif %}
+                    {% if data.howmanyPublic >= 1 %}Public - {{data.howmanyPublic}}<br />{% endif %}
+                    {% if data.howmanyMixed0use >= 1 %}Mixed-use - {{data.howmanyMixed0use}}<br />{% endif %}
+
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many customers are on the heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.customersResidential >= 1 %}Residential - {{data.customersResidential}}<br />{% endif %}
+                    {% if data.customersCommercial >= 1 %}Commercial - {{data.customersCommercial}}<br />{% endif %}
+                    {% if data.customersIndustrial >= 1 %}Industrial - {{data.customersIndustrial}}<br />{% endif %}
+                    {% if data.customersPublic >= 1 %}Public - {{data.customersPublic}}<br />{% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="customers">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Addresses of communally-heated buildings
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if (data.communalnetworks >= 1) %}
+                    {% for i in range(0, data.communalnetworks) -%}
+                                        {% if i != 0 %}
+                        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                    {% endif %}
+
+                        <p class="govuk-body">Connected communal network {{ i + 1 }}</p>
+                    <p class="govuk-body">{{data.buildingcommunaltype}}</p>
+                    {% if data.buildinglocationAddress %}
+                    {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                     {% endif %}
+                    <br /><br />
+                            Customers: {{data.buildingaddressCustomers | float + i | float}}
+                    {%- endfor %}
+                    {% endif %}
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="communalinfo">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            {% else %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What type of building does the heat network supply?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.buildingtype}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many customers are on the heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.customerstotal}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="howmany">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

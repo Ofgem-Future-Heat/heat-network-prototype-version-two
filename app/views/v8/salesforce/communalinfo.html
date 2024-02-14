@@ -1,0 +1,131 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "Information about connected communal networks" %}
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <p class="govuk-body">You've already told us that the heat network has {{data.communalnetworks}} connected communal networks. We need some more information about them before you can continue.</p>
+        </div>
+    </div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <div class="govuk-form-group {% if data.validationErrors.communalinfo %}govuk-form-group--error{% endif %}">
+            {% if data.validationErrors.communalinfo %}
+            <p class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span>
+                {{data.validationErrors.communalinfo.message}}
+            </p>
+            {% endif %}
+            <table class="govuk-table" id="communalinfo">
+                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">{{title}}</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Building</th>
+                        <th scope="col" class="govuk-table__header">Type</th>
+                        <th scope="col" class="govuk-table__header">Address</th>
+                        <th scope="col" class="govuk-table__header">Customers</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% if (data.communalnetworks >= 1) %}
+                    {% for i in range(0, data.communalnetworks) -%}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Connected communal network {{ i + 1 }}</td>
+                        <td class="govuk-table__cell">{% if data.buildingcommunaltype %}{{data.buildingcommunaltype}}{% else %} - {% endif %}</td>
+                        <td class="govuk-table__cell">
+                            {% if data.buildinglocationAddress %}
+                        {% set address = data.buildinglocationAddress.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td class="govuk-table__cell">
+                            {% if data.buildingaddressPostcode %}
+                            {{data.buildingaddressCustomers | float + i | float}}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td class="govuk-table__cell"><a href="communaltype" class="govuk-link">Add information</a></td>
+                    </tr>
+                    {%- endfor %}
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+        <form method="POST" novalidate>
+
+
+
+
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
