@@ -2982,7 +2982,7 @@ router.post('/' + version + '/salesforce/communalinfo', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.communalinfo = {
             "anchor": "communalinfo",
-            "message": "Fill in all address information before continuing",
+            "message": "You must add information about all connected communal networks before you can continue",
         }
     }
 
