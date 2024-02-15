@@ -45,3 +45,8 @@
 .hn-task-list__status {
 	min-width: 150px;
 }
+
+.hn-notification__red {
+	border: 5px solid $govuk-error-colour;
+	background: $govuk-error-colour
+}

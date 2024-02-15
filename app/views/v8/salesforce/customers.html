@@ -1,9 +1,18 @@
 {% extends 'layouts/main.html' %}
-{% if data.building == "Yes" %}
-    {% set title = "How many customers are on the heat network?" %}
-{% else %}
-    {% set title = "How many customers are in this building?" %}
-{% endif %}
+{% set title %}
+    {% if data.building == "Yes" %}
+        
+        {% if data.buildingtype | length == 1 %}
+            {% for type in data.buildingtype %}
+                How many customers in all the {{ type | lower }} buildings?
+            {% endfor %}
+        {% else %}
+        How many customers are on the heat network?
+        {% endif %}
+    {% else %}
+    How many customers are in this building?
+    {% endif %}
+{% endset %}
 
 
 
@@ -59,9 +68,18 @@
             <div class="govuk-form-group {% if data.validationErrors.customerstotal %}govuk-form-group--error{% endif %}">
 
                 <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
-                <h1 class="govuk-heading-l">
+                                    {% if data.buildingtype | length == 1 %}
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="customers{{building}}">
+                            {{title}}
+                        </label>
+                    </h1>
+                    {% else %}
+                    <h1 class="govuk-heading-l">
                     {{title}}
-                </h1>
+                    </h1>
+                    {% endif %}
+
 
 
                 <fieldset class="govuk-fieldset">
@@ -82,6 +100,7 @@
                     {% for building in customertypes.sort() %}
                     {% if building != "Mixed0use" %}
                     <div class="govuk-form-group {% if data.validationErrors[building] %}govuk-form-group--error{% endif %}">
+                        {% if data.buildingtype | length > 1 %}
                         <label class="govuk-label" for="customers{{building}}">
                             {% if building == "Public" %}
                             {{building}} sector customers
@@ -89,6 +108,7 @@
                             {{building}} customers
                             {% endif %}
                         </label>
+                        {% endif %}
                         {% if data.validationErrors[building] %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>

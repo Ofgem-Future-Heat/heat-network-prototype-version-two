@@ -1,5 +1,13 @@
 {% extends 'layouts/main.html' %}
-    {% set title = "How many of each building type are there?" %}
+    {% set title %}
+            {% if data.buildingtype | length == 1 %}
+{% for type in data.buildingtype %}
+    How many {{ type | lower }} buildings are there?
+{% endfor %}
+            {% else %}
+How many of each building type are there?
+{% endif %}
+{% endset %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -51,18 +59,31 @@
 
 
 
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
-        <h1 class="govuk-heading-l">
-            {{title}}
-        </h1>
+
 
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
+                <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+                    {% if data.buildingtype | length == 1 %}
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="howmany{{buildingtype}}">
+                            {{title}}
+                        </label>
+                    </h1>
+                    {% else %}
+                    <h1 class="govuk-heading-l">
+                    {{title}}
+                    </h1>
+                    {% endif %}
+
+
                 {% for buildingtype in data.buildingtype %}
                 <div class="govuk-form-group {% if data.validationErrors[buildingtype] %}govuk-form-group--error{% endif %}">
+                    {% if data.buildingtype | length > 1 %}
                     <label class="govuk-label" for="howmany{{buildingtype}}">
                         {{buildingtype | replace("0", "-") | safe}} buildings
                     </label>
+                    {% endif %}
                     {% if data.validationErrors[buildingtype] %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

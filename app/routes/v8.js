@@ -3241,3 +3241,29 @@ router.post('/' + version + '/salesforce/cya2', function (req, res) {
 });
 
 
+// Tasklist
+router.get('/' + version + '/salesforce/tasklist', function (req, res) {
+    res.render('/' + version + '/salesforce/tasklist', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/salesforce/tasklist', function (req, res) {
+    res.redirect('/' + version + '/salesforce/account-information');
+});
+
+// Account information
+router.get('/' + version + '/salesforce/account-information', function (req, res) {
+    res.render('/' + version + '/salesforce/account-information', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/salesforce/account-information', function (req, res) {
+    req.session.destroy();
+    res.redirect('/' + version + '/salesforce/building');
+});
+
+
+
+
