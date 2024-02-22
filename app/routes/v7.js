@@ -639,7 +639,7 @@ router.post('/' + version + '/add-heat-network/location/address', function (req,
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
         async function find(postcode, number) {
-            axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&key=' + apiKey, { httpsAgent })
+            axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
                     let parsed = JSON.parse(output).results;
@@ -648,7 +648,7 @@ router.post('/' + version + '/add-heat-network/location/address', function (req,
                     if (parsed != undefined) {
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
-                            locationaddresses.push(obj.DPA.ADDRESS);
+                            locationaddresses.push(obj.LPI.ADDRESS);
                         }
 
                         req.session.data.locationAddress = locationaddresses;
@@ -657,7 +657,7 @@ router.post('/' + version + '/add-heat-network/location/address', function (req,
                     }
                     else {
                         async function postcode(postcode) {
-                            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&key=' + apiKey, { httpsAgent })
+                            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                                 .then(function (response) {
                                     var output = JSON.stringify(response.data, null, 2);
                                     let parsed = JSON.parse(output).results;
@@ -665,7 +665,7 @@ router.post('/' + version + '/add-heat-network/location/address', function (req,
 
                                     for (var i = 0; i < parsed.length; i++) {
                                         let obj = parsed[i];
-                                        locationaddresses.push(obj.DPA.ADDRESS);
+                                        locationaddresses.push(obj.LPI.ADDRESS);
                                     }
 
                                     req.session.data.locationAddressSelect = locationaddresses;
@@ -1714,7 +1714,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
             async function find(postcode, number) {
-                axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&key=' + apiKey, { httpsAgent })
+                axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                     .then(function (response) {
                         var output = JSON.stringify(response.data, null, 2);
                         let parsed = JSON.parse(output).results;
@@ -1723,7 +1723,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
                         if (parsed != undefined) {
                             for (var i = 0; i < parsed.length; i++) {
                                 let obj = parsed[i];
-                                locationaddresses.push(obj.DPA.ADDRESS);
+                                locationaddresses.push(obj.LPI.ADDRESS);
                             }
 
                             req.session.data.buildinglocationAddress = locationaddresses;
@@ -1732,7 +1732,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
                         }
                         else {
                             async function postcode(postcode) {
-                                axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&key=' + apiKey, { httpsAgent })
+                                axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                                     .then(function (response) {
                                         var output = JSON.stringify(response.data, null, 2);
                                         let parsed = JSON.parse(output).results;
@@ -1740,7 +1740,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
 
                                         for (var i = 0; i < parsed.length; i++) {
                                             let obj = parsed[i];
-                                            locationaddresses.push(obj.DPA.ADDRESS);
+                                            locationaddresses.push(obj.LPI.ADDRESS);
                                         }
 
                                         req.session.data.buildinglocationAddressSelect = locationaddresses;
