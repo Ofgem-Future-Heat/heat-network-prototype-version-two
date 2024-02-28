@@ -80,16 +80,16 @@
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                           Number of buildings
                         </legend>
-                        {% if data.validationErrors.buildings %}
+                        {% if data.validationErrors.buildings2 %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.buildings.message}}
+                        {{data.validationErrors.buildings2.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-date-input" id="supply-date">
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <input class="govuk-input {% if data.validationErrors.buildings %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="buildings" name="buildings" type="text" inputmode="numeric" value="{{data.buildings}}">
+                                <input class="govuk-input {% if data.validationErrors.buildings2 %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="buildings" name="buildings2" type="text" inputmode="numeric" value="{{data.buildings2}}">
                             </div>
                         </div>
                     </div>

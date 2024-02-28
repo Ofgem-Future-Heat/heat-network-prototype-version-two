@@ -57,19 +57,21 @@
             <h1 class="govuk-heading-l">
                 {{title}}
             </h1>
+            {% if data.buildinglocationAddress %}
             <div class="govuk-inset-text">
                 {% set address = data.buildinglocationAddress.toString() %}
                 {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
             </div>
+            {% endif %}
         </div>
 
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
+                {% if data.buildingtype != "Mixed0use" %}
                 <div class="govuk-form-group {% if data.validationErrors.buildingaddressCustomers %}govuk-form-group--error{% endif %}">
                     <label class="govuk-label" for="buildingaddressCustomers">
                         Customers
                     </label>
-
                     {% if data.validationErrors.buildingaddressCustomers %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -78,6 +80,33 @@
                     {% endif %}
                     <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomers %}govuk-input--error{% endif %} " id="buildingaddressCustomers" name="buildingaddressCustomers" type="number" value="{{data.buildingaddressCustomers}}">
                 </div>
+                {% else %}
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="buildingaddressCustomersResidential">
+                        Residential customers
+                    </label>
+                    {% if data.validationErrors.buildingaddressCustomersResidential %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressCustomersResidential.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-input--error{% endif %} " id="buildingaddressCustomersResidential" name="buildingaddressCustomersResidential" type="number" value="{{data.buildingaddressCustomersResidential}}">
+                </div>
+
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressCustomersCommercial %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="buildingaddressCustomersCommercial">
+                        Commercial customers
+                    </label>
+                    {% if data.validationErrors.buildingaddressCustomersCommercial %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressCustomersCommercial.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersCommercial %}govuk-input--error{% endif %} " id="buildingaddressCustomersCommercial" name="buildingaddressCustomersCommercial" type="number" value="{{data.buildingaddressCustomersCommercial}}">
+                </div>
+                {% endif %}
             </fieldset>
 
             {{

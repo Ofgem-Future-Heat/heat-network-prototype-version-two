@@ -1,9 +1,6 @@
 {% extends 'layouts/main.html' %}
 
-    {% set title = "What type of building is this? " %}
-    {% set inputtype = "radios" %}
-    {% set inputtypeshort = "radio" %}
-
+    {% set title = "What class of building is this?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -55,7 +52,7 @@
 
 
         <form method="POST" novalidate>
-                                <div class="govuk-form-group {% if data.validationErrors.buildingtype %}govuk-form-group--error{% endif %}">
+                                <div class="govuk-form-group {% if data.validationErrors.buildingclass %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -65,6 +62,7 @@
                             {{title}}
                         </h1>
                     </legend>
+
                     {% if data.buildinglocationAddress %}
                     <div class="govuk-inset-text">
                         {% set address = data.buildinglocationAddress.toString() %}
@@ -72,36 +70,50 @@
                     </div>
                     {% endif %}
 
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with building classes
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            See <a href="https://www.legislation.gov.uk/uksi/2020/1221/regulation/4/made" target="_blank" rel="noreferrer noopener" class="govuk-link">section 2A of The Heat Network (Metering and Billing) (Amendment) Regulations 2020 (opens in new tab)</a>.
+                        </div>
+                    </details>
+
                     
-                    {% if data.validationErrors.buildingtype %}
+                    {% if data.validationErrors.buildingclass %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.buildingtype.message}}
+                        {{data.validationErrors.buildingclass.message}}
                     </p>
                     {% endif %}
 
-                     {% if data.building == "Yes" %}
-                    {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Commercial', 'For example, shops or offices'], ['Mixed0use', 'For example, residential and commercial'], ['Industrial', 'For example, factories or warehouses'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities']] %}
-                                {% else %}
-                    {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Commercial', 'For example, an office block'], ['Mixed0use', 'For example, residential and commercial'], ['Industrial', 'For example, a factory or warehouse'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility']] %}
-                                {% endif %}
-                                <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 
-                    {% for building, description in buildtypes %}
-                        <div class="govuk-{{inputtype}}__item">
-                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}"  {% if data.buildingtype == building %}checked{% endif %}>
-                            <label class="govuk-label govuk-{{inputtype}}__label" for="buildingtype-{{building}}">
-                                {{building | replace("0", "-") | safe}} building
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="buildingclass-open"  name="buildingclass" type="radio" value="Open"  {% if data.buildingclass == "Open" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="buildingclass-open">
+                                Open class
                             </label>
-                            <div id="buildingtype-hint" class="govuk-hint govuk-{{inputtype}}__hint">
-                                {{description}}
-                            </div>
                         </div>
-                    {% endfor %}
-                </div>
-
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="buildingclass-viable"  name="buildingclass" type="radio" value="Viable"  {% if data.buildingclass == "Viable" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="buildingclass-viable">
+                                Viable class
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="buildingclass-exempt"  name="buildingclass" type="radio" value="Exempt"  {% if data.buildingclass == "Exempt" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="buildingclass-exempt">
+                                Exempt class
+                            </label>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
+
 
                 {{
                 govukButton ({

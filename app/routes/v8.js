@@ -3409,7 +3409,7 @@ router.get('/' + version + '/add-heat-network/introduction-2/howmany', function 
 
 router.post('/' + version + '/add-heat-network/introduction-2/howmany', function (req, res) {
     clearvalidation(req);
-    var buildings = req.session.data['buildings']
+    var buildings = req.session.data['buildings2']
 
 
     if (!buildings) {
@@ -3733,5 +3733,142 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers-2/addressma
 });
 
 
+// Buildings & consumers 2 - Type
+router.get('/' + version + '/add-heat-network/buildingsandconsumers-2/type', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/type', {
+        data: req.session.data
+    });
+});
 
 
+router.post('/' + version + '/add-heat-network/buildingsandconsumers-2/type', function (req, res) {
+    clearvalidation(req);
+
+    var buildingtype = req.session.data['buildingtype']
+    req.session.data['buildingtypealt'] = req.session.data['buildingtype']
+
+    if (!buildingtype) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingtype = {
+            "anchor": "buildingtype",
+            "message": "Select a type of building"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/type', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers-2/class');
+    }
+});
+
+
+// Buildings & consumers 2 - Class
+router.get('/' + version + '/add-heat-network/buildingsandconsumers-2/class', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/class', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers-2/class', function (req, res) {
+    clearvalidation(req);
+
+    var buildingclass = req.session.data['buildingclass']
+
+    if (!buildingclass) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingclass = {
+            "anchor": "buildingclass",
+            "message": "Select a class of building"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/class', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers');
+    }
+});
+
+
+// Buildings & consumers - Address customers
+router.get('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers', function (req, res) {
+    clearvalidation(req);
+    var addresscustomers = req.session.data['buildingaddressCustomers']
+    var addresscustomersResidential = req.session.data['buildingaddressCustomersResidential']
+    var addresscustomersCommercial = req.session.data['buildingaddressCustomersCommercial']
+
+    var buildingtype = req.session.data['buildingtype']
+
+    if (buildingtype == "Mixed0use") {
+        if (!addresscustomersResidential) {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.buildingaddressCustomersResidential = {
+                "anchor": "buildingaddressCustomersResidential",
+                "message": "Enter the number of residential customers",
+            }
+        }
+
+        if (!addresscustomersCommercial) {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.buildingaddressCustomersCommercial = {
+                "anchor": "buildingaddressCustomersCommercial",
+                "message": "Enter the number of Commercial customers",
+            }
+        }
+    
+    
+        if (req.session.data.validationError == "true") {
+            res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers', {
+                data: req.session.data
+            });
+        }
+    
+        else {
+            req.session.data['buildingaddressCustomers'] = Number(addresscustomersResidential) + Number(addresscustomersCommercial)
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers-2/buildings');
+    
+        }
+    }
+    else {
+        if (!addresscustomers) {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.buildingaddressCustomers = {
+                "anchor": "buildingaddressCustomers",
+                "message": "Enter the number of final customers",
+            }
+        }
+    
+    
+        if (req.session.data.validationError == "true") {
+            res.render('/' + version + '/add-heat-network/buildingsandconsumers-2/addresscustomers', {
+                data: req.session.data
+            });
+        }
+    
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers-2/buildings');
+    
+        }
+    
+    }
+
+
+});

@@ -48,11 +48,12 @@
                 {% endif %}
 
 
-                    <div class="govuk-inset-text">
-                        {% set address = data.buildinglocationAddress.toString() %}
-                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-                        
-                    </div>
+                {% if data.buildinglocationAddress %}
+                <div class="govuk-inset-text">
+                    {% set address = data.buildinglocationAddress.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                </div>
+                {% endif %}
 
 
 
@@ -62,7 +63,7 @@
 
 
             </div>
-        <a href="addresscustomers" class="govuk-button">Use this address</a><br />
+        <a href="type" class="govuk-button">Use this address</a><br />
                 <a href="cancel" class="govuk-link">Cancel</a>
 
     </div>

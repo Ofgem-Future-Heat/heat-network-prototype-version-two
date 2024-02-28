@@ -97,16 +97,16 @@
                             -
                             {% endif %}
                         </td>
+
+                        <td class="govuk-table__cell">{% if data.buildingtype %}{{data.buildingtype}}{% else %} - {% endif %}</td>
+                        <td class="govuk-table__cell">{% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}</td>
                         <td class="govuk-table__cell">
-                            {% if data.buildingaddressPostcode %}
+                            {% if data.buildingaddressCustomers %}
                             {{data.buildingaddressCustomers | float + i | float}}
                             {% else %}
                             -
                             {% endif %}
                         </td>
-                        <td class="govuk-table__cell">{% if data.buildingcommunaltype %}{{data.buildingcommunaltype}}{% else %} - {% endif %}</td>
-                        <td class="govuk-table__cell">{% if data.buildingcommunalclass %}{{data.buildingcommunalclass}}{% else %} - {% endif %}</td>
-
                         <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
                     </tr>
                     {%- endfor %}
