@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Which activities does your organisation undertake on the heat network?" %}
+{% set title = "Which regulated activities does your organisation undertake on the heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -60,6 +60,8 @@
                         </h1>
 
                     </legend>
+
+                    <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating. If your organisation does not do any of the activities described, you can cancel adding the heat network.</p>
                     {% if data.validationErrors.role %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -78,7 +80,7 @@
                                 Heat supplier
                             </label>
                             <div id="role-item-hint" class="govuk-hint govuk-checkboxes__hint">
-                                Your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the customers on the network
+                                Your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the end users on the network.
                             </div>
                         </div>
                         <div class="govuk-checkboxes__item">
@@ -87,7 +89,7 @@
                                 Network operator
                             </label>
                             <div id="role-2-item-hint" class="govuk-hint govuk-checkboxes__hint">
-                                Your organisation has ultimate responsibility for the day-to-day operation and maintenance of some or all of the network and its infrastructure.
+                                Your organisation controls some or all of the network assets, for example its pipework, heat exchangers, substations or energy centres. This means it is responsible for repairing and upgrading these assets - either because it owns them or because it has a contractual obligation.
                             </div>
                         </div>
 

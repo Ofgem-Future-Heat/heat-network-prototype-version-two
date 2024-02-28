@@ -1,10 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are you adding this heat network on behalf of another organisation?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set title = "What year did the heat network start supplying thermal energy?" %}
 
 
 {% block pageTitle %}
-   {{title}}
+{{title}}
 {% endblock %}
 
 {% block beforeContent %}
@@ -30,7 +29,6 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
@@ -48,41 +46,40 @@
             </div>
         </div>
         {% endif %}
+        <form  method="POST" novalidate>
 
-        <form  method="POST" novalidate >
+            <div class="govuk-form-group {% if data.validationErrors.supplywhen %}govuk-form-group--error{% endif %}">
 
-            <div class="govuk-form-group {% if data.validationErrors.introbehalf %}govuk-form-group--error{% endif %}">
-
-                <fieldset class="govuk-fieldset" >
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
-                               {{title}}
+                            {{title}}
                         </h1>
 
-                        </legend>
-                    <p class="govuk-body">For example, you might be a metering and billing agent acting on behalf of the heat network operator.</p>
-                        {% if data.validationErrors.introbehalf %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.introbehalf.message}}
-                </p>
-                {% endif %}
-<div class="govuk-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introbehalf" name="introbehalf" type="radio" value="Yes" {% if data.introbehalf == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introbehalf">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introbehalf-2" name="introbehalf" type="radio" value="No" {% if data.introbehalf == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introbehalf-2">
-          No
-        </label>
-      </div>
-    </div>
+                    </legend>
+
+                    <div id="supply-date-hint" class="govuk-hint">
+                        For example, 2020
+                    </div>
+
+                                        {% if data.validationErrors.supplywhen %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.supplywhen.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-date-input" id="supply-date">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="supply-date-year">
+                                    Year
+                                </label>
+                                <input class="govuk-input {% if data.validationErrors.supplywhen %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="supply-date-year" name="supplywhen" type="text" inputmode="numeric" value="{{data.supplywhen}}">
+                            </div>
+                        </div>
+                    </div>
 
 
                 </fieldset>

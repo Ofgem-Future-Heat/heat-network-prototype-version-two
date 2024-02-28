@@ -3393,8 +3393,109 @@ if (req.session.data.validationError == "true") {
 }
 
 else {
-        res.redirect('/' + version + '/add-heat-network/introduction-2/changes');
+        res.redirect('/' + version + '/add-heat-network/introduction-2/supply20');
 }
+});
+
+
+// Supply 20 years
+router.get('/' + version + '/add-heat-network/introduction-2/supply20', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction-2/supply20', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction-2/supply20', function (req, res) {
+clearvalidation(req);
+var introsupply20 = req.session.data['introsupply20']
+
+if (!introsupply20) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.introsupply20 = {
+        "anchor": "introsupply20",
+        "message": "Select an option"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/introduction-2/supply20', {
+        data: req.session.data
+    });
+}
+
+else {
+    if (introsupply20 == "Yes") {
+        res.redirect('/' + version + '/add-heat-network/introduction-2/supplywhen');
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction-2/supplydecade');
+    }
+}
+});
+
+// Supply when
+router.get('/' + version + '/add-heat-network/introduction-2/supplywhen', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction-2/supplywhen', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction-2/supplywhen', function (req, res) {
+    clearvalidation(req);
+    var supplywhen = req.session.data['supplywhen']
+
+    if (!supplywhen) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplywhen = {
+            "anchor": "supplywhen",
+            "message": "Enter a year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction-2/supplywhen', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction-2/changes');
+    }
+});
+
+
+// Supply decade
+router.get('/' + version + '/add-heat-network/introduction-2/supplydecade', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction-2/supplydecade', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction-2/supplydecade', function (req, res) {
+    clearvalidation(req);
+    var introsupplydecade = req.session.data['introsupplydecade']
+
+    if (!introsupplydecade) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introsupplydecade = {
+            "anchor": "introsupplydecade",
+            "message": "Select a decade"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction-2/supplydecade', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction-2/changes');
+    }
 });
 
 
@@ -3468,7 +3569,40 @@ router.post('/' + version + '/add-heat-network/introduction-2/communalnetworks',
 
     else {
 
-            res.redirect('/' + version + '/add-heat-network/introduction/another');
+            res.redirect('/' + version + '/add-heat-network/introduction-2/sharedfacilities');
+    }
+
+});
+
+// Shared facilities
+router.get('/' + version + '/add-heat-network/introduction-2/sharedfacilities', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction-2/sharedfacilities', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction-2/sharedfacilities', function (req, res) {
+    clearvalidation(req);
+    var sharedfacilities = req.session.data['sharedfacilities']
+
+    if (!sharedfacilities) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.sharedfacilities = {
+            "anchor": "sharedfacilities",
+            "message": "Error text"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction-2/sharedfacilities', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction/another');
     }
 
 });

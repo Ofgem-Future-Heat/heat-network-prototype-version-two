@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the building have shared facilities?" %}
+{% set title = "Do any of these buildings have shared facilities that all occupants have to use?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,7 +62,7 @@
                         </h1>
                     </legend>
                     <p class="govuk-body">
-                        This means buildings with shared toilets, personal washing facilities or cooking facilities that all occupants have to use. For example, some houses in multiple occupation (HMO) or care homes.
+                        For example, shared toilets, personal washing facilities or cooking facilities.
                     </p>
 
                     {% if data.validationErrors.sharedfacilities %}
@@ -73,10 +73,18 @@
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %} data-aria-controls="conditional-sharedfacilities">
                             <label class="govuk-label govuk-radios__label" for="sharedfacilities">
                                 Yes
                             </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-sharedfacilities">
+                            <div class="govuk-form-group">
+                              <label class="govuk-label" for="sharedfacilities-howmany">
+                                How many buildings have shared facilities?
+                              </label>
+                              <input class="govuk-input govuk-input--width-4" id="sharedfacilities-howmany" name="sharedfacilities-howmany" type="number">
+                            </div>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
@@ -84,6 +92,7 @@
                                 No
                             </label>
                         </div>
+                      
                     </div>
 
 
