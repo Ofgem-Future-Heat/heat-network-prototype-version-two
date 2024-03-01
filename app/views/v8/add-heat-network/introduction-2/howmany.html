@@ -69,12 +69,21 @@
                           TBC
                         </div>
                       </details>
+                      {% if data.role == "Heat supplier" %}
+                      <p class="govuk-body">Include buildings where your organisation is contracted to supply heat (as a supplier)</p>
+
+                      {% elif data.role == "Network operator" %}
+                      <p class="govuk-body">Include buildings where your organisation controls the network infrastructure providing heat to or within a building (as an operator)</p>
+                      {% else %}
+                      
                     <p class="govuk-body">Include buildings where your organisation:</p>
                     <ul class="govuk-list govuk-list--bullet">
                         <li>is contracted to supply heat (as a supplier)</li>
                         <li>controls the network infrastructure providing heat to or within a building (as an operator)</li>
                     </ul>
-                    <p class="govuk-body">Remember to include buildings on the network that have multiple end users or premises in them ( 'connected communal networks').</p>
+                    {% endif %}
+
+                    <p class="govuk-body">Remember to include buildings on the network that have multiple end users or premises in them.</p>
                     <p class="govuk-body">Do not include any of the network's energy centres or thermal substations.</p>
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
