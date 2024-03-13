@@ -300,13 +300,29 @@ router.get('/' + version + '/add-heat-network/energycentre/address', function (r
 
 router.post('/' + version + '/add-heat-network/energycentre/address', function (req, res) {
     clearvalidation(req);
-    var userpostcode = req.session.data['ecaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2");
+    var userpostcode = req.session.data['ecaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
     if (!userpostcode) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.ecaddressPostcode = {
             "anchor": "ecaddressPostcode",
             "message": "Enter a postcode",
+        }
+    }
+
+    function validateUKPostcode(postcode) {
+        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+        return postcodeRegex.test(postcode);
+      }
+
+    if (!validateUKPostcode(userpostcode)) {
+        console.log(userpostcode)
+        console.log(validateUKPostcode(userpostcode))
+
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressPostcode = {
+            "anchor": "ecaddressPostcode",
+            "message": "Enter a valid postcode",
         }
     }
 
@@ -832,7 +848,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/address', fu
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', function (req, res) {
     clearvalidation(req);
-    var userpostcode = req.session.data['buildingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2");
+    var userpostcode = req.session.data['buildingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
     var usernumber = req.session.data['buildingaddressNumber']
 
     if (!userpostcode) {
@@ -842,6 +858,24 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
             "message": "Enter a postcode",
         }
     }
+
+    function validateUKPostcode(postcode) {
+        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+      
+        return postcodeRegex.test(postcode);
+      }
+
+    if (!validateUKPostcode(userpostcode)) {
+        console.log(userpostcode)
+        console.log(validateUKPostcode(userpostcode))
+
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressPostcode = {
+            "anchor": "buildingaddressPostcode",
+            "message": "Enter a valid postcode",
+        }
+    }
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
