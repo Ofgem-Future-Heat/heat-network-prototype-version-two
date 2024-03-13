@@ -1,7 +1,8 @@
-var version = "v8";
-
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
+
+
+var version = "v8";
 
 function clearvalidation(req) {
     req.session.data.validationErrors = {}

@@ -1,0 +1,102 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Account information
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% if data['choose-organisation-role'] == "Third party representative"%}
+      <h1 class="govuk-heading-l">EcoDynamo Solutions Ltd</h1>
+      {% else %}
+      <h1 class="govuk-heading-l">Radianteco Ltd</h1>
+      {% endif %}
+
+    
+      <h2 class="govuk-heading-m">Account information</h2>
+      
+      <div class="govuk-grid-row ds-grid-row">
+
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Organisation details</a></h3>
+      <p class="govuk-body">View, change and add organisation information.</p>
+      
+      
+        {{ govukTag({
+          id: 'organisation-status',  
+          text: "Completed"
+        }) }}
+
+    </div>
+ 
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="contact-details/admin-name" class="govuk-link govuk-!-font-weight-bold">Contact details</a></h3>
+      <p class="govuk-body">View, change and add contact information.</p>
+      
+      
+      {% if data['section-contact-details'] == 'complete' %}
+        {{ govukTag({
+          id: 'contact-status',  
+          text: "Completed"
+        }) }}
+      {% else %}
+        {{ govukTag({
+          id: 'contact-status',  
+          text: "Not started",
+          classes: 'govuk-tag--grey'
+        }) }}
+      {% endif %}
+    </div>
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="" class="govuk-link govuk-!-font-weight-bold">User management</a></h3>
+      <p class="govuk-body">View, change and add users.</p>
+    </div>
+    </div>
+
+</div></div>
+        <div class="govuk-grid-row govuk-!-margin-top-8">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+    <h2 class="govuk-heading-m">Your heat networks</h2>
+    <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
+    
+
+
+
+
+    {{ govukButton ({
+        text: "Add a new heat network",
+        href: "add-heat-network/introduction/intro"
+    }) }}
+
+    
+
+
+
+
+   </div>
+
+  </div>
+{% endblock %}

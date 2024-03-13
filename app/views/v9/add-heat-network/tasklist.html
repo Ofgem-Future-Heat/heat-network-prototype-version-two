@@ -1,0 +1,120 @@
+{% extends 'layouts/main.html' %}
+{% set title = data.name %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        <div class="govuk-breadcrumbs">
+            <ol class="govuk-breadcrumbs__list">
+                <li class="govuk-breadcrumbs__list-item">
+                    <a class="govuk-breadcrumbs__link" href="../account-information">Account home</a>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <ul class="govuk-task-list">
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-1-status">
+                        {% if data.introcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        {% if data.buildingcomplete == "true" %}
+                            <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% else %}
+                        {% if data.buildings2 > 1 %}
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/buildings" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/address" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        {% endif %}
+
+                        {% endif %}
+
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
+                        {% if data.buildingcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                {% if data.energycentre == "Yes" %}
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        {% if data.eccomplete == "true" %}
+                        <a class="govuk-link govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Energy centre{% if data.buildings2 > 1 %}s{% endif %}</a>
+                    {% else %}
+                        {% if data.buildings2 > 1 %}
+                        <a class="govuk-link govuk-task-list__link" href="energycentre/address" aria-describedby="company-details-3-hint company-details-3-status">Energy centres</a>
+                        {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="energycentre/type" aria-describedby="company-details-3-hint company-details-3-status">Energy centre</a>
+                        {% endif %}
+                    {% endif %}
+
+
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
+                        {% if data.eccomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+
+        </div>
+
+        <a href="confirmsubmit" class="govuk-button">Submit</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
