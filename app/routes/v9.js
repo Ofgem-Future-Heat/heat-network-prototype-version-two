@@ -981,19 +981,28 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresssele
     else {
         req.session.data.buildinglocationAddress = req.session.data['buildingaddressSelect']
 
-        if ((buildings > 1) && (role == "Network operator")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-        }
-        else if ((buildings = 1) && (role == "Network operator")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
-        }
+        console.log(buildings);
+        console.log(role)
+        if (buildings > 1) {
+            if (role == "Network operator"){
+                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+            }
 
-        else if ((buildings > 1) && (role != "Heat supplier")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
+            else if (role != "Heat supplier"){
+                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
+            }
+    
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-        }    
+            if (role == "Network operator"){
+                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+            }
+            
+            else {
+                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
+            }    
+    
+        }
     }
 });
 

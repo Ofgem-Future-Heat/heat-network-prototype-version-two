@@ -44,24 +44,29 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if (data.buildings2 > 1) %}<strong>Building 1</strong><br />{% endif %}
-                        {% if data.buildinglocationAddress %}
+                    {% if data.buildinglocationAddress %}
                 {% set address = data.buildinglocationAddress.toString() %}
         {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br /><br />
                     {% endif %}
-                    {% if (data.buildings2 > 1) and (data.role != "Heat supplier") %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
+                    {% if (data.buildings2 > 1) and (data.role != "Heat supplier") and (data.role != "Network operator")  %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
+                    {% if (data.role != "Network operator") %}
                     <strong>Type:</strong> {% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}<br />
                     <strong>Class:</strong> {% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}<br />
                     <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}
-                    {% if (data.buildings2 >= 1) %}
+                    {% endif %}
+
+                    {% if (data.buildings2 > 1) %}
                     {% for i in range(1, data.buildings2) -%}
                     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                     <strong>Building {{i + 1}}</strong><br />
                     -<br />
 
-                {% if (data.role != "Heat supplier") %}<strong>Contract with consumers:</strong> -<br />{% endif %}
+                {% if (data.role != "Heat supplier") and (data.role != "Network operator") %}<strong>Contract with consumers:</strong> -<br />{% endif %}
+                {% if (data.role != "Network operator") %}
                 <strong>Type:</strong> -<br />
                 <strong>Class:</strong> -<br />
                 <strong>Customers:</strong> -
+                {% endif %}
                 {% endfor %}
                 {% endif %}
                 </dd>
