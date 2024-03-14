@@ -980,12 +980,19 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresssele
 
     else {
         req.session.data.buildinglocationAddress = req.session.data['buildingaddressSelect']
-        if ((buildings > 1) && (role != "Heat supplier")){
+
+        if ((buildings > 1) && (role == "Network operator")){
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        }
+        else if ((buildings = 1) && (role == "Network operator")){
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+        }
+
+        else if ((buildings > 1) && (role != "Heat supplier")){
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-
         }    
     }
 });
@@ -1085,13 +1092,20 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addressmanu
 
     else {
         req.session.data.buildinglocationAddress = buildingaddressMLine1 + ', ' + buildingaddressMLine2 + ', ' + buildingaddressMTown + ', ' + buildingaddressMCounty + ', ' + buildingaddressMPostcode
-        if (buildings > 1){
+
+        if ((buildings > 1) && (role == "Network operator")){
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        }
+        else if ((buildings = 1) && (role == "Network operator")){
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+        }
+
+        else if ((buildings > 1) && (role != "Heat supplier")){
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-
-        }
+        }  
     }
 });
 
