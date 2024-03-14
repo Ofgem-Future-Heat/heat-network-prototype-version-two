@@ -65,10 +65,8 @@
               </label>
             </h1>
 
-                    <p class="govuk-body">
-                        {{data.buildinglocationAddressSelect.length}} result found for {{data.buildingaddressPostcode}}. <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
-                    </p>
 
+                    <p class="govuk-body">If the building has multiple premises in it, select the address for the whole building. If the list only contains premises within the building, select any of these.</p>
 
 
 
@@ -90,9 +88,14 @@
       </div>
                             {% endfor %}
 
+                            <p class="govuk-body govuk-!-margin-top-5"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">The address is not listed</a></p>
+
     </div>
 
                 </div>
+
+                
+
     </fieldset>
 
 
@@ -102,7 +105,6 @@
                 })
     }}
     </form>
-                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
 
     <a href="cancel" class="govuk-link">Cancel</a>
 </div>

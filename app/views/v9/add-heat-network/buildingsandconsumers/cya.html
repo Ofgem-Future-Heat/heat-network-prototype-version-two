@@ -48,7 +48,7 @@
                 {% set address = data.buildinglocationAddress.toString() %}
         {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br /><br />
                     {% endif %}
-                    {% if (data.buildings2 > 1) %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
+                    {% if (data.buildings2 > 1) and (data.role != "Heat supplier") %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
                     <strong>Type:</strong> {% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}<br />
                     <strong>Class:</strong> {% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}<br />
                     <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}
@@ -58,7 +58,7 @@
                     <strong>Building {{i + 1}}</strong><br />
                     -<br />
 
-                <strong>Contract with consumers:</strong> -<br />
+                {% if (data.role != "Heat supplier") %}<strong>Contract with consumers:</strong> -<br />{% endif %}
                 <strong>Type:</strong> -<br />
                 <strong>Class:</strong> -<br />
                 <strong>Customers:</strong> -

@@ -48,6 +48,7 @@
                         {% set address = data.ecAddress.toString() %}
                         {{address | replace(", ", ",<br />") | safe}}
                         {% endif %}
+                        {% if data.ecaddressnearest == "true" %}<br /><br />This is the address of the nearest building to the energy centre {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>

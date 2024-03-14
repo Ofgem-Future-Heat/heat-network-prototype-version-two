@@ -393,7 +393,7 @@ router.post('/' + version + '/add-heat-network/energycentre/addressselect', func
 
     else {
         req.session.data.ecAddress = req.session.data['ecaddressSelected']
-        res.redirect('/' + version + '/add-heat-network/energycentre/type');
+        res.redirect('/' + version + '/add-heat-network/energycentre/addressconfirm');
 
     }
 });
@@ -404,6 +404,10 @@ router.get('/' + version + '/add-heat-network/energycentre/addressconfirm', func
     res.render('/' + version + '/add-heat-network/energycentre/addressconfirm', {
         data: req.session.data
     });
+});
+
+router.post('/' + version + '/add-heat-network/energycentre/addressconfirm', function (req, res) {
+        res.redirect('/' + version + '/add-heat-network/energycentre/type');
 });
 
 
@@ -955,6 +959,8 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresssele
     clearvalidation(req);
     var addressselect = req.session.data['buildingaddressSelect']
     var buildings = req.session.data['buildings2']
+    var role = req.session.data['role']
+
 
 
     if (!addressselect) {
@@ -974,14 +980,13 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresssele
 
     else {
         req.session.data.buildinglocationAddress = req.session.data['buildingaddressSelect']
-        if (buildings > 1){
+        if ((buildings > 1) && (role != "Heat supplier")){
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
 
-        }
-
+        }    
     }
 });
 
@@ -1149,13 +1154,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/class', fun
         });
     }
     else {
-        console.log(supply)
-        if (supply == "Yes") {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers');
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-        }
     }
 });
 
