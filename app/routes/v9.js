@@ -1021,7 +1021,12 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/contract', 
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
+        if (buildingcontract == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        }
     }
 
 });
