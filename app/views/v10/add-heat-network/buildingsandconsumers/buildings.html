@@ -94,11 +94,11 @@
                         <th scope="col" class="govuk-table__header">Building</th>
                         <th scope="col" class="govuk-table__header">Address</th>
                         {% if data.role != "Network operator" %}
-                        {% if data.role != "Heat supplier" %}<th scope="col" class="govuk-table__header">Contract with end consumers?</th>{% endif %}
                         <th scope="col" class="govuk-table__header">Type</th>
                         <th scope="col" class="govuk-table__header">Class</th>
                         {% if data.introsupply == "Yes" %}<th scope="col" class="govuk-table__header">Customers</th>{% endif %}
                         {% endif %}
+                        <th scope="col" class="govuk-table__header">Shared facilities?</th>
                         <th scope="col" class="govuk-table__header"></th>
                     </tr>
 
@@ -117,7 +117,6 @@
                             {% endif %}
                             </td>
                             {% if data.role != "Network operator" %}
-                                {% if data.role != "Heat supplier" %}<td class="govuk-table__cell">{% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}</td>{% endif %}
                                 <td class="govuk-table__cell">{% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}</td>
                                 <td class="govuk-table__cell">{% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}</td>
                                 {% if data.introsupply == "Yes" %}
@@ -130,6 +129,9 @@
                                 </td>
                                 {% endif %}
                             {% endif %}
+                            <td class="govuk-table__cell">
+                                {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}{{data.sharedfacilities}}{% else %}-{% endif %}
+                            </td>
                         <td class="govuk-table__cell"><a href="address" class="govuk-link">{% if data.buildinglocationAddress %}Edit{% else %}Add information{% endif %}</a></td>
                     </tr>
 
@@ -140,7 +142,6 @@
                             -
                         </td>
                         {% if data.role != "Network operator" %}
-                            {% if data.role != "Heat supplier" %}<td class="govuk-table__cell">-</td>{% endif %}
                             <td class="govuk-table__cell">-</td>
                             <td class="govuk-table__cell">-</td>
                             {% if data.introsupply == "Yes" %}
@@ -149,7 +150,9 @@
                             </td>
                             {% endif %}
                         {% endif %}
-
+                        <td class="govuk-table__cell">
+                            -
+                        </td>
                         <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
                     </tr>
                     {% endfor %}

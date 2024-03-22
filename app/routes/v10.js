@@ -251,6 +251,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
         });
     }
     else {
+        req.session.data.supplywhen = introsupplydecade;
         res.redirect('/' + version + '/add-heat-network/introduction/changes');
     }
 });
@@ -345,7 +346,7 @@ router.post('/' + version + '/add-heat-network/introduction/howmany', function (
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildings = {
             "anchor": "buildings",
-            "message": "Enter the number of connected communal networks"
+            "message": "Enter the number of buildings"
         }
     }
 
@@ -357,7 +358,12 @@ router.post('/' + version + '/add-heat-network/introduction/howmany', function (
 
 
     else {
-        res.redirect(301, '/' + version + '/add-heat-network/introduction/sharedfacilities');
+        if (buildings == 1) {
+            res.redirect(301, '/' + version + '/add-heat-network/introduction/sharedfacilities');
+        }
+        else {
+            res.redirect(301, '/' + version + '/add-heat-network/introduction/selfsupply');
+        }
     }
 
 });
@@ -682,36 +688,6 @@ router.get('/' + version + '/add-heat-network/energycentre/addressmanual', funct
     });
 });
 
-// Energy centre - Capacity
-router.get('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/energycentre/capacity', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
-    clearvalidation(req);
-    var techcapacity = req.session.data['techcapacity']
-
-    if (!techcapacity) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techcapacity = {
-            "anchor": "techcapacity",
-            "message": "Enter a capcity"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/capacity', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/generation');
-    }
-});
 
 
 
@@ -748,38 +724,35 @@ router.post('/' + version + '/add-heat-network/energycentre/type', function (req
     }
 
 });
-
-// Energy capacity - generation
-router.get('/' + version + '/add-heat-network/energycentre/generation', function (req, res) {
+// Energy centre - Capacity
+router.get('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/energycentre/generation', {
+    res.render('/' + version + '/add-heat-network/energycentre/capacity', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/add-heat-network/energycentre/generation', function (req, res) {
+router.post('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
     clearvalidation(req);
-    var techgeneration = req.session.data['techgeneration']
+    var techcapacity = req.session.data['techcapacity']
 
-    if (!techgeneration) {
+    if (!techcapacity) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.techgeneration = {
-            "anchor": "techgeneration",
-            "message": "Enter the combined generation"
+        req.session.data.validationErrors.techcapacity = {
+            "anchor": "techcapacity",
+            "message": "Enter a capcity"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/generation', {
+        res.render('/' + version + '/add-heat-network/energycentre/capacity', {
             data: req.session.data
         });
     }
-
     else {
         res.redirect('/' + version + '/add-heat-network/energycentre/storage');
     }
-
 });
 
 
@@ -1429,7 +1402,6 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/class', fun
     clearvalidation(req);
 
     var buildingclass = req.session.data['buildingclass']
-    var supply = req.session.data['introsupply']
 
     if (!buildingclass) {
         req.session.data.validationError = "true"
@@ -1469,7 +1441,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
 
 
     var buildingtype = req.session.data['buildingtype']
-    var commercialcustomers = req.session.data['buildingaddressCustomersCommercial']
+
     var buildings = req.session.data['buildings']
 
     if (buildingtype == "Mixed0use") {
@@ -1492,10 +1464,15 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
         else {
             req.session.data['buildingaddressCustomers'] = Number(addresscustomersResidential) + Number(addresscustomersCommercial) + Number(addresscustomersIndustrial) + Number(addresscustomersPublic)
             if (buildings > 1){
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+                if (addresscustomersResidential >= 1) {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities');
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+                }
             }
             else {
-                if (commercialcustomers >= 1) {
+                if (addresscustomersCommercial >= 1) {
                     res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
                 }
                 else {
@@ -1524,8 +1501,12 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
     
         else {
             if (buildings > 1){
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-            }
+                if (buildingtype == "Residential" ) {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities');
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+                }            }
             else {
                 if (buildingtype == "Commercial" | commercialcustomers >= 1) {
                     res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
@@ -1543,7 +1524,41 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
 
 });
 
+// Introduction - Sharedfacilities
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities', {
+        data: req.session.data
+    });
+});
 
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities', function (req, res) {
+    clearvalidation(req);
+    var sharedfacilities = req.session.data['sharedfacilities']
+
+
+    if (!sharedfacilities) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.sharedfacilities = {
+            "anchor": "sharedfacilities",
+            "message": "Select if there are any shared facilities"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+
+    }
+
+});
 
 // Buildings & consumers -  Microbusinesses
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {

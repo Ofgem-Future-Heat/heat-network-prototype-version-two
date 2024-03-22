@@ -85,13 +85,9 @@
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.eccomplete == "true" %}
-                        <a class="govuk-link govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Energy centre{% if data.buildings > 1 %}s{% endif %}</a>
+                        <a class="govuk-link govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Energy centres</a>
                     {% else %}
-                        {% if data.buildings > 1 %}
                         <a class="govuk-link govuk-task-list__link" href="energycentre/address" aria-describedby="company-details-3-hint company-details-3-status">Energy centres</a>
-                        {% else %}
-                        <a class="govuk-link govuk-task-list__link" href="energycentre/type" aria-describedby="company-details-3-hint company-details-3-status">Energy centre</a>
-                        {% endif %}
                     {% endif %}
 
 

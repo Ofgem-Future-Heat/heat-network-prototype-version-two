@@ -54,6 +54,8 @@
                     <strong>Class:</strong> {% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}<br />
                     <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}
                     {% endif %}
+                    {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong> {{data.sharedfacilities}}{% endif %}
+
 
                     {% if (data.buildings > 1) %}
                     {% for i in range(1, data.buildings) -%}
@@ -67,6 +69,8 @@
                 <strong>Class:</strong> -<br />
                 <strong>Customers:</strong> -
                 {% endif %}
+                {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong>{% endif %}
+
                 {% endfor %}
                 {% endif %}
                 </dd>
