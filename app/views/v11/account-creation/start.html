@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "How the service works" %}
+{% set title = "Comply with heat network regulations" %}
 
 
 {% block pageTitle %}
@@ -30,31 +30,73 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-form-group ">
 
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
+                        <p class="govuk-body">Use this service to:</p>
                 <ul class="govuk-list govuk-list--number">
-                    <li>You must answer a short series of questions giving context for your heat network.</li>
-                    <li>We'll then let you know your specific obligations, and what further information we need.</li>
-                    <li>After this, you'll be able to save your progress at any point.</li>
-                    <li>You must then provide the remaining information for your heat network, and submit it to Ofgem for processing.</li>
+                    <li>get authorisation for existing and new heat networks</li>
+                    <li>apply for a license to upgrade or build new heat networks</li>
+                    <li>amend information about any heat networks you've already told us about</li>
+                    <li>submit mandatory reporting information on your organisation's heat networks </li>               
                 </ul>
 
-                    <h2 class="govuk-heading-m">Initial information you'll need</h2>
-                    <p class="govuk-body">To help us understand your specific obligations, you'll first need to tell us:</p>
+                    <h2 class="govuk-heading-m">Who this service is for</h2>
+                    <p class="govuk-body">You must use this service if your organisation undertakes regulated activities on a heat network as a:
+                    </p>
                                 <ul class="govuk-list govuk-list--bullet">
-                                    <li>if your organisation undertakes operator or supplier activities on the network</li>
-                                    <li>if the network is currently supplying customers, and - if so - the year it started supplying</li>
-                                    <li>if the network does or will supply more than one building</li>
-                                    <li>if the network is or will be a 'self-supply' network</li>
-                                    <li>if the network does or will supply microbusinesses</li>
+                                    <li>heat supplier</li>
+                                    <li>network operator</li>
+                                    <li>developer</li>
+                                    <li>third party acting on behalf of any of these</li>
                                 </ul>
-                                <p class="govuk-body">We'll provide definitions and guidance for any possibly unfamiliar concepts as you progress.</p>
-            </div>
-        <a href="one-login/start-onelogin" class="govuk-button">Continue</a>
+
+
+                                <details class="govuk-details">
+                                    <summary class="govuk-details__summary">
+                                      <span class="govuk-details__summary-text">
+                                        Help with 'regulated activities on a heat network'
+                                      </span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        If you're not sure about whether or not your organisation is responsible for a heat network, or whether its activities need to be regulated, see the <a href="https://gov.uk" class="govuk-link">heat network guidance</a>.
+                                    </div>
+                                  </details>
+
+                                  <h2 class="govuk-heading-m">How to sign in</h2>
+                                <h3 class="govuk-heading-s">If your organisation is not set up to use the heat network service</h3>
+                                <p class="govuk-body">You'll need to sign in with GOV.One Login, then create a heat network account for your organisation.</p>
+
+                                <p class="govuk-body">The person who creates the account must:</p>
+                                
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>have the legal authority to act on behalf of the business</li>
+                                <li>agree to be the business's 'regulatory contact' for the scheme</li>
+                                </ul>
+                                
+                                <p class="govuk-body">A 'regulatory contact' is Ofgem's first point of contact should we ever need to speak to someone about the account.</p>
+
+
+                                <h3 class="govuk-heading-s">If your organisation is already set up to use the service
+                                </h3>
+
+                                <p class="govuk-body">Unless you're the regulatory contact, you'll need an invitation to use the service, either from your organisation's regulatory contact or someone with user management privileges.
+                                </p>
+
+                                <h3 class="govuk-heading-s">If you've already been invited to use the service
+                                </h3>
+                                
+                                <p class="govuk-body">You can sign in to the service via GOV One Login, using the email address that the invitation was sent to.</p>
+                                
+                                <h3 class="govuk-heading-s">If you're not sure if you or your organisation are set up to use the service
+                                </h3>
+                                
+                                <p class="govuk-body">Continue with GOV One Login. We'll provide signposting along the way to let you know what to do.</p>
+
+
+
+        <a href="one-login/start-onelogin" class="govuk-button">Continue to GOV One Login</a>
     </div>
 </div>
 

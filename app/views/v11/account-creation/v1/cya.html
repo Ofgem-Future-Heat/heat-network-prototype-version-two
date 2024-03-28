@@ -31,7 +31,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Register for "Comply with heat network regulations"</span>
+        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -40,11 +40,10 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address of energy centre
+                    Organisation type
                 </dt>
                 <dd class="govuk-summary-list__value">
-                                            {% set address = data.locationAddress.toString() %}
-                        {{address | replace(", ", ",<br />") | safe}}
+                        {{data.accounttype}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
@@ -52,23 +51,44 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Control energy centre?
+                    Company details
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.addresscontrol}}
+                        Radianteco Ltd <br />
+                        19 Grosvenor Road <br />
+                        Solihull B91 3PU
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="control">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
                 </dd>
             </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are you the regulatory contact?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                        {{data.regcontact}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Your details
+                </dt>
+                <dd class="govuk-summary-list__value">
+                        {{data.firstname}} {{data.lastname}}<br />
+                        <strong>Email: </strong>{{data.oneloginemail}}<br />
+                        <strong>Telephone: </strong>{{data.telephone}}<br />
+                        <strong>Job title: </strong>{{data.jobtitle}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
         </dl>
-                <form method="POST" novalidate>
-    <input type="hidden" id="locationcomplete" name="locationcomplete" value="true" />
-    {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-    }}            </form>
+        <a href="account-created" class="govuk-button">Confirm and continue</a>
 
     </div>
 
