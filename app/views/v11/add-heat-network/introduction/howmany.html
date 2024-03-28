@@ -1,0 +1,122 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How many buildings on the heat network is your organisation responsible for?" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.buildings %}govuk-form-group--error{% endif %}">
+
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            What counts as a building?
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                          TBC
+                        </div>
+                      </details>
+                      {% if data.role == "Heat supplier" %}
+                      <p class="govuk-body">Include buildings where your organisation is contracted to supply heat (as a supplier)</p>
+
+                      {% elif data.role == "Network operator" %}
+                      <p class="govuk-body">Include buildings where your organisation controls the network infrastructure providing heat to or within a building (as an operator)</p>
+                      {% else %}
+                      
+                    <p class="govuk-body">Include buildings where your organisation:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>is contracted to supply heat (as a supplier)</li>
+                        <li>controls the network infrastructure providing heat to or within a building (as an operator)</li>
+                    </ul>
+                    {% endif %}
+
+                    <p class="govuk-body">Remember to include buildings on the network that have multiple end users or premises in them.</p>
+                    <p class="govuk-body">Do not include any of the network's energy centres or thermal substations.</p>
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                          Number of buildings
+                        </legend>
+                        {% if data.validationErrors.buildings %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildings.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-date-input" id="supply-date">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <input class="govuk-input {% if data.validationErrors.buildings %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="buildings" name="buildings" type="text" inputmode="numeric" value="{{data.buildings}}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

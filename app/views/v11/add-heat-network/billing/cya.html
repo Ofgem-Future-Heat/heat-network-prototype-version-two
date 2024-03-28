@@ -1,0 +1,124 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - billing</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How often do you send bills to customers?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.billingoften}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="often">Change</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Information on how customers' bills are calculated?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.billingcalculated}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="calculated">Change</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Information so customers can compare your charges
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.billingcompare}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="compare">Change</a>
+                </dd>
+            </div>
+            {% if data.billinginfo %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What other information is included with customers' billing information
+                </dt>
+                <dd class="govuk-summary-list__value">
+                     <ul class="govuk-list">
+                        {% for info in data.billinginfo %}
+                        <li>{{info}}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="otherinfo">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Billing options available to customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                     <ul class="govuk-list">
+                        {% for option in data.billingavailable %}
+                        <li>{{option}}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="available">Change</a>
+                </dd>
+            </div>
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="billingcomplete" name="billingcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        {% if data.billingcomplete == "true" %}
+
+        <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

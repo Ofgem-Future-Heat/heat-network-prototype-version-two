@@ -1,0 +1,136 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Your details" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Register for "Comply with heat network regulations"</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+
+
+                    <div class="govuk-form-group govuk-!-margin-top-4">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Email address</h3>
+                        <p class="govuk-body">{{data.oneloginemail}}</p>
+                    </div>
+                    <div class="govuk-form-group {% if data.validationErrors.firstname %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="firstname">
+                          First name
+                        </label>
+                        {% if data.validationErrors.firstname %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.firstname.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-10" id="firstname" name="firstname" type="text">
+                    </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.lastname %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="lastname">
+                          Last name
+                        </label>
+                        {% if data.validationErrors.lastname %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.lastname.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-10" id="lastname" name="lastname" type="text">
+                    </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.telephone %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="telephone">
+                          Telephone
+                        </label>
+                        {% if data.validationErrors.telephone %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.telephone.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-!-width-one-third" id="telephone" name="telephone" type="tel" autocomplete="tel" value="{{data.oneloginphone}}">
+                    </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.jobtitle %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="jobtitle">
+                          Job title
+                        </label>
+                        {% if data.validationErrors.jobtitle %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.jobtitle.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-10" id="jobtitle" name="jobtitle" type="text">
+                    </div>
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

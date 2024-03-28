@@ -1,0 +1,102 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What is the company number?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Register for "Comply with heat network regulations"</span>
+                        <label for="companynumber">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </label>
+
+                    </legend>
+
+                    <div class="govuk-body">
+                        You can find this in the <a href="https://find-and-update.company-information.service.gov.uk/" target="_blank" class="govuk-link">Companies House register</a>.
+
+                    </div>
+
+                            {% if data.validationErrors.companynumber %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.companynumber.message}}
+                    </p>
+                    {% endif %}
+
+                            <div class="govuk-form-group">
+                                    <div class="govuk-hint" id="companynumber-hint" >
+                                        For example, 00112233
+                                    </div>
+                                <input class="govuk-input {% if data.validationErrors.companynumber %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-10" id="companynumber" name="companynumber" type="text" inputmode="numeric" value="{{data.companynumber}}" aria-describedby="companynumber-hint">
+                            </div>
+
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

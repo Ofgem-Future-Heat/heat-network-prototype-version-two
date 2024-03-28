@@ -1,0 +1,104 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Are you sure you want to make these changes?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.confirmchange %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Authorisation for {{data.name}}</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">The changes you want to make could impact the other questions we need to ask about the heat network.</p>
+                    <p class="govuk-body">If you've already started answering these other questions you may lose the information that you've entered.</p>
+                    {% if data.validationErrors.confirmchange %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.confirmchange.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirmchange" name="confirmchange" type="radio" value="Yes" {% if data.confirmchange=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirmchange">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirmchange-2" name="confirmchange" type="radio" value="No" {% if data.confirmchange=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirmchange-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

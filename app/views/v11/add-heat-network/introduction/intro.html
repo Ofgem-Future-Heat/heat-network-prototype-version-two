@@ -1,0 +1,61 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How the service works" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                <ul class="govuk-list govuk-list--number">
+                    <li>You must answer a short series of questions giving context for your heat network.</li>
+                    <li>We'll then let you know your specific obligations, and what further information we need.</li>
+                    <li>After this, you'll be able to save your progress at any point.</li>
+                    <li>You must then provide the remaining information for your heat network, and submit it to Ofgem for processing.</li>
+                </ul>
+
+                    <h2 class="govuk-heading-m">Initial information you'll need</h2>
+                    <p class="govuk-body">To help us understand your specific obligations, you'll first need to tell us:</p>
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>if your organisation undertakes operator or supplier activities on the network</li>
+                                    <li>if the network is currently supplying customers, and - if so - the year it started supplying</li>
+                                    <li>if the network does or will supply more than one building</li>
+                                    <li>if the network is or will be a 'self-supply' network</li>
+                                    <li>if the network does or will supply microbusinesses</li>
+                                </ul>
+                                <p class="govuk-body">We'll provide definitions and guidance for any possibly unfamiliar concepts as you progress.</p>
+            </div>
+        <a href="behalf" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}
