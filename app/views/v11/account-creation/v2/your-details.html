@@ -1,4 +1,4 @@
-{% extends 'layouts/main.html' %}
+{% extends 'layouts/onelogin.html' %}
 {% set title = "Your details" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -105,7 +105,7 @@
                             {{data.validationErrors.jobtitle.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-input--width-10" id="jobtitle" name="jobtitle" type="text">
+                        <input class="govuk-input govuk-input--width-10" id="jobtitle" name="jobtitle" type="text" value="{{data.jobtitle}}">
                     </div>
                 </fieldset>
 

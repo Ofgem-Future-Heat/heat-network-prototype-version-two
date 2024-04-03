@@ -759,7 +759,7 @@ router.post('/' + version + '/account-creation/v2/regulatory-contact', function 
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/one-login-p1/id-screener');
+            res.redirect('/' + version + '/account-creation/v2/identity-halt');
     }
 
 });

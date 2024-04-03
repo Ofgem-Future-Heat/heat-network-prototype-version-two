@@ -1,5 +1,5 @@
 {% extends 'layouts/onelogin.html' %}
-{% set title = "Confirm this is the right company" %}
+{% set title = "Extra verification required" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -30,6 +30,7 @@
 {% block content %}
 
 <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
@@ -47,29 +48,22 @@
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+        <form method="POST" novalidate>
 
-                <fieldset class="govuk-fieldset" >
+            <div class="govuk-form-group {% if data.validationErrors.regcontact %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
+                        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
-
-                    <p class="govuk-body">
-                        Company number: {{data.companynumber}}<br />
-                        <a href="type" class="govuk-link govuk-link--no-visited-state">Change</a>
-                    </p>
-                    <p class="govuk-body">
-                        Radianteco Ltd <br />
-                        19 Grosvenor Road <br />
-                        Solihull B91 3PU
-                    </p>
+                    <p class="govuk-body">As regulatory contact for the 'Comply with heat network regulations' service, you'll need to provide proof of your identity.</p>
+                    <p class="govuk-body">You'll need your photo ID, such as a passport or driving licence.</p>
 
 
 
@@ -77,8 +71,10 @@
 
 
             </div>
-            <a href="company-create" class="govuk-button">Confirm and continue</a>
+            <a href="../one-login-p1/id-screener" class="govuk-button">Continue</a>
+
         </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 
 </div>
