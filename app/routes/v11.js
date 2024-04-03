@@ -103,6 +103,26 @@ router.post('/' + version + '/account-creation/one-login/check-your-email', func
 });
 
 
+/// Email sign in
+router.get('/' + version + '/account-creation/one-login/enter-email-sign-in', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login/enter-email-sign-in', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login/enter-email-sign-in', function (req, res) {
+    clearvalidation(req);
+
+
+
+            res.redirect('/' + version + '/account-creation/one-login/enter-password');
+
+
+});
+
+
 /// Create password
 router.get('/' + version + '/account-creation/one-login/create-password', function (req, res) {
     clearvalidation(req);
@@ -261,6 +281,25 @@ router.get('/' + version + '/account-creation/one-login-p1/check-your-email', fu
 router.post('/' + version + '/account-creation/one-login-p1/check-your-email', function (req, res) {
     clearvalidation(req);
             res.redirect('/' + version + '/account-creation/one-login-p1/create-password');
+
+});
+
+/// Email sign in
+router.get('/' + version + '/account-creation/one-login-p1/enter-email-sign-in', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/enter-email-sign-in', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/enter-email-sign-in', function (req, res) {
+    clearvalidation(req);
+
+
+
+            res.redirect('/' + version + '/account-creation/one-login-p1/enter-password');
+
 
 });
 
