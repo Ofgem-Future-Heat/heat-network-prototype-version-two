@@ -1,0 +1,114 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Which service do you want to add?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" servicetype="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.servicetype %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    {% if data.validationErrors.servicetype %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.servicetype.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="servicetype" name="servicetype" type="radio" value="Boiler Upgrade Scheme" {% if data.servicetype=="Boiler Upgrade Scheme" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="servicetype">
+                                Boiler Upgrade Scheme
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="servicetype-1" name="servicetype" type="radio" value="Comply with heat network regulations" {% if data.servicetype=="Comply with heat network regulations" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="servicetype-1">
+                                Comply with heat network regulations
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="servicetype-2" name="servicetype" type="radio" value="Green Gas Support Scheme" {% if data.servicetype=="Green Gas Support Scheme" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="servicetype-2">
+                                Green Gas Support Scheme
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Confirm and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

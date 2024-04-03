@@ -12,8 +12,44 @@ function clearvalidation(req) {
 }
 
 
-//////////////////////////////////////////////////// Account creation ////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
+/// V1 Start
+router.get('/' + version + '/account-creation/v1/start', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v1/start', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v1/start', function (req, res) {
+    req.session.destroy();
+    res.redirect('/' + version + '/account-creation/one-login/start-onelogin');
+
+});
+
+
+
+/// V1 Start
+router.get('/' + version + '/account-creation/v2/start', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/start', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/start', function (req, res) {
+    req.session.destroy();
+    res.redirect('/' + version + '/account-creation/one-login-p1/start-onelogin');
+
+});
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  ONE LOGIN  - P0 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 /// Email
 router.get('/' + version + '/account-creation/one-login/enter-email-create', function (req, res) {
     clearvalidation(req);
@@ -58,25 +94,11 @@ router.get('/' + version + '/account-creation/one-login/check-your-email', funct
 
 router.post('/' + version + '/account-creation/one-login/check-your-email', function (req, res) {
     clearvalidation(req);
-    var code = req.session.data['onelogincode']
 
-    if (!code) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.code = {
-            "anchor": "code",
-            "message": "Enter a security code"
-        }
-    }
 
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/account-creation/one-login/check-your-email', {
-            data: req.session.data
-        });
-    }
 
-    else {
             res.redirect('/' + version + '/account-creation/one-login/create-password');
-    }
+
 
 });
 
@@ -92,34 +114,8 @@ router.get('/' + version + '/account-creation/one-login/create-password', functi
 
 router.post('/' + version + '/account-creation/one-login/create-password', function (req, res) {
     clearvalidation(req);
-    var password = req.session.data['oneloginpassword']
-    var confirmpassword = req.session.data['oneloginpasswordconfirm']
 
-    if (!password) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.password = {
-            "anchor": "password",
-            "message": "Enter a password"
-        }
-    }
-
-    if (!confirmpassword) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.confirmpassword = {
-            "anchor": "password-confirmation",
-            "message": "Re-type a password"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/account-creation/one-login/create-password', {
-            data: req.session.data
-        });
-    }
-
-    else {
             res.redirect('/' + version + '/account-creation/one-login/get-security-codes');
-    }
 
 });
 
@@ -211,30 +207,210 @@ router.get('/' + version + '/account-creation/one-login/check-your-phone', funct
 
 router.post('/' + version + '/account-creation/one-login/check-your-phone', function (req, res) {
     clearvalidation(req);
-    var phonecode = req.session.data['oneloginphonecode']
 
-    if (!phonecode) {
+            res.redirect('/' + version + '/account-creation/one-login/account-created');
+
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  ONE LOGIN P1 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+/// Email
+router.get('/' + version + '/account-creation/one-login-p1/enter-email-create', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/enter-email-create', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/enter-email-create', function (req, res) {
+    clearvalidation(req);
+    var email = req.session.data['oneloginemail']
+
+    if (!email) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.phonecode = {
-            "anchor": "code",
-            "message": "Enter the security code"
+        req.session.data.validationErrors.email = {
+            "anchor": "email",
+            "message": "Enter an email address"
         }
     }
 
-
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/account-creation/one-login/check-your-phone', {
+        res.render('/' + version + '/account-creation/one-login-p1/enter-email-create', {
             data: req.session.data
         });
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/one-login/account-created');
+            res.redirect('/' + version + '/account-creation/one-login-p1/check-your-email');
+    }
+
+});
+
+/// Email
+router.get('/' + version + '/account-creation/one-login-p1/check-your-email', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/check-your-email', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/check-your-email', function (req, res) {
+    clearvalidation(req);
+            res.redirect('/' + version + '/account-creation/one-login-p1/create-password');
+
+});
+
+
+/// Create password
+router.get('/' + version + '/account-creation/one-login-p1/create-password', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/create-password', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/create-password', function (req, res) {
+    clearvalidation(req);
+
+            res.redirect('/' + version + '/account-creation/one-login-p1/get-security-codes');
+
+});
+
+
+/// Get security codes
+router.get('/' + version + '/account-creation/one-login-p1/get-security-codes', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/get-security-codes', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/get-security-codes', function (req, res) {
+    clearvalidation(req);
+    var authenticate = req.session.data['2faMethod']
+
+    if (!authenticate) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.authenticate = {
+            "anchor": "2faMethod",
+            "message": "Select a method of authentication"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/one-login-p1/get-security-codes', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if(authenticate == "sms") {
+            res.redirect('/' + version + '/account-creation/one-login-p1/enter-phone-number');
+        }
+        else {
+            res.redirect('/' + version + '/account-creation/one-login-p1/setup-authenticator-app');
+
+        }
     }
 
 });
 
 
+/// Enter phone number
+router.get('/' + version + '/account-creation/one-login-p1/enter-phone-number', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/enter-phone-number', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/enter-phone-number', function (req, res) {
+    clearvalidation(req);
+    var phone = req.session.data['oneloginphone']
+
+    if (!phone) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.phone = {
+            "anchor": "international-telephone-number",
+            "message": "Enter a phone number"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/one-login-p1/enter-phone-number', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/one-login-p1/check-your-phone');
+    }
+
+});
+
+
+/// Check your phone
+router.get('/' + version + '/account-creation/one-login-p1/check-your-phone', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/check-your-phone', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/check-your-phone', function (req, res) {
+    clearvalidation(req);
+
+            res.redirect('/' + version + '/account-creation/one-login-p1/account-created');
+
+});
+
+
+/// ID Screener
+router.get('/' + version + '/account-creation/one-login-p1/id-screener', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/one-login-p1/id-screener', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/one-login-p1/id-screener', function (req, res) {
+    clearvalidation(req);
+    var oneloginscreener = req.session.data['oneloginscreener']
+
+    if (!oneloginscreener) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.oneloginscreener = {
+            "anchor": "oneloginscreener",
+            "message": "Select an option"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/one-login-p1/id-screener', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/one-login-p1/continue');
+    }
+
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ACCOUNT CREATE V1 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /// V1 - Type
@@ -402,6 +578,253 @@ router.post('/' + version + '/account-creation/v1/your-details', function (req, 
     }
 
 });
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ACCOUNT CREATE V2 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/// v2 - Type
+router.get('/' + version + '/account-creation/v2/type', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/type', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/type', function (req, res) {
+    clearvalidation(req);
+    var accounttype = req.session.data['accounttype']
+
+    if (!accounttype) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.accounttype = {
+            "anchor": "accounttype",
+            "message": "Select a type of organisation"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/type', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/v2/company-number');
+    }
+
+});
+
+
+
+/// v2 - Company number
+router.get('/' + version + '/account-creation/v2/company-number', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/company-number', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/company-number', function (req, res) {
+    clearvalidation(req);
+    var companynumber = req.session.data['companynumber']
+
+    if (!companynumber) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.companynumber = {
+            "anchor": "companynumber",
+            "message": "Enter the company number"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/company-number', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/v2/company-confirm');
+    }
+
+});
+
+/// v2 - Company create
+router.get('/' + version + '/account-creation/v2/company-create', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/company-create', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/company-create', function (req, res) {
+    clearvalidation(req);
+    var companycreate = req.session.data['companycreate']
+
+    if (!companycreate) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.companycreate = {
+            "anchor": "companycreate",
+            "message": "Select whether you wish to create a company account"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/company-create', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/v2/services-home-new');
+    }
+
+});
+
+
+
+
+
+/// v2 - Service select
+router.get('/' + version + '/account-creation/v2/service-select', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/service-select', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/service-select', function (req, res) {
+    clearvalidation(req);
+    var servicetype = req.session.data['servicetype']
+
+    if (!servicetype) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.servicetype = {
+            "anchor": "servicetype",
+            "message": "Select a service"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/service-select', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/v2/regulatory-contact');
+    }
+
+});
+
+
+/// v2 - Reg contact
+router.get('/' + version + '/account-creation/v2/company-create', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/company-create', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/regulatory-contact', function (req, res) {
+    clearvalidation(req);
+    var regcontact = req.session.data['regcontact']
+
+    if (!regcontact) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.regcontact = {
+            "anchor": "regcontact",
+            "message": "Select if you are the regulatory contact"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/regulatory-contact', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/one-login-p1/id-screener');
+    }
+
+});
+
+
+/// v2 - You confirm
+router.get('/' + version + '/account-creation/v2/you-confirm', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/you-confirm', {
+        data: req.session.data
+    });
+});
+
+
+
+/// v2 - Your details
+router.get('/' + version + '/account-creation/v2/your-details', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/v2/your-details', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/v2/your-details', function (req, res) {
+    clearvalidation(req);
+    var firstname = req.session.data['firstname']
+    var lastname = req.session.data['lastname']
+    var telephone = req.session.data['telephone']
+    var jobtitle = req.session.data['jobtitle']
+
+    if (!telephone) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.telephone = {
+            "anchor": "telephone",
+            "message": "Enter your telephone number"
+        }
+    }
+
+    if (!jobtitle) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.jobtitle = {
+            "anchor": "jobtitle",
+            "message": "Enter your job title"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/v2/your-details', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/v2/cya');
+    }
+
+});
+
+
+
+
+
+
 
 
 
@@ -1009,7 +1432,7 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
         async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+            axios.get('https://api.os.uk/search/places/v2/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
                     let parsed = JSON.parse(output).results;

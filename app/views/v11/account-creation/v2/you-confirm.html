@@ -1,0 +1,78 @@
+{% extends 'layouts/main.html' %}
+{% set title = "We've found Joe Bloggs on the Companies House register as a director for Radianteco Ltd" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+
+                        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
+
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+
+                    <p class="govuk-body">
+                        To proceed, you must confirm that that this is you.
+                    </p>
+
+
+
+
+
+
+            </div>
+            <a href="your-details" class="govuk-button">Confirm and continue</a>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

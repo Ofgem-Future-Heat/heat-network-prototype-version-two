@@ -96,7 +96,15 @@
 
 
 
-        <a href="one-login/start-onelogin" class="govuk-button">Continue to GOV One Login</a>
+
+        <form  method="POST" novalidate>
+
+            {{
+                govukButton ({
+                    html: 'Continue to GOV One Login'
+                })
+            }}
+        </form>
     </div>
 </div>
 

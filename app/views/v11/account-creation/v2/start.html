@@ -1,0 +1,105 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Comply with heat network regulations" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Use this service to:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>get authorisation for existing and new heat networks</li>
+                    <li>apply for a license to upgrade or build new heat networks</li>
+                    <li>amend information about any heat networks you've already told us about</li>
+                    <li>submit mandatory reporting information on your organisation's heat networks </li>               
+                </ul>
+
+                    <h2 class="govuk-heading-m">Who this service is for</h2>
+                    <p class="govuk-body">You must use this service if your organisation undertakes regulated activities on a heat network as a:
+                    </p>
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat supplier</li>
+                                    <li>network operator</li>
+                                    <li>developer</li>
+                                    <li>third party acting on behalf of any of these</li>
+                                </ul>
+
+
+                                <details class="govuk-details">
+                                    <summary class="govuk-details__summary">
+                                      <span class="govuk-details__summary-text">
+                                        Help with 'regulated activities on a heat network'
+                                      </span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        If you're not sure about whether or not your organisation is responsible for a heat network, or whether its activities need to be regulated, see the <a href="https://gov.uk" class="govuk-link">heat network guidance</a>.
+                                    </div>
+                                  </details>
+
+                                  <h2 class="govuk-heading-m">How to access the service</h2>
+
+                                  <p class="govuk-body">You'll need:</p>
+                                            <ul class="govuk-list govuk-list--bullet">
+                                                <li>a GOV One Login account</li>
+                                                <li>an Ofgem account for your organisation</li>
+                                                <li>permission to use the heat network service on behalf of your organisation</li>
+                                            </ul>
+
+                                <p class="govuk-body">If you have all this, you can <a href="../one-login/start-onelogin" class="govuk-link govuk-link--no-visited-state">sign in with GOV One Login</a>.</p>
+
+                                <h3 class="govuk-heading-s">If you don't have a GOV One Login account</h3>
+                                <p class="govuk-body">You'll need sign up. Make sure you have your passport or driving license so we can prove your identity. You'll also need a mobile phone.</p>
+
+                                <h3 class="govuk-heading-s">If your organisation does not have an account with Ofgem</h3>
+                                <p class="govuk-body">We'll guide you through the process after you've signed in with GOV One Login.</p>
+
+                                
+
+
+                                <h3 class="govuk-heading-s">If you don't have permission to use the heat network service</h3>
+
+                                <p class="govuk-body">We'll show you how to request access. The first person at your organisation to gain permission will need to be the organisation's 'regulatory contact' for heat networks. For limited companies, this must be a director or company secretary listed on the Companies House register.</p>
+
+
+
+
+                                <form  method="POST" novalidate>
+
+                                    {{
+                                        govukButton ({
+                                            html: 'Continue to GOV One Login'
+                                        })
+                                    }}
+                                </form>
+                                </div>
+</div>
+
+{% endblock %}

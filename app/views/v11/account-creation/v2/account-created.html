@@ -1,0 +1,53 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Confirm this is the right company" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              Service added
+            </h1>
+            <div class="govuk-panel__body">
+              You are now the regulatory contact for the 'Comply with heat network regulations' service
+            </div>
+          </div>
+
+          
+          <p class="govuk-body">We have added you as the regulatory contact for Radianteco Ltd on the heat network service.</p>
+            <p class="govuk-body">You can now use the heat network service and invite others from your organisation to do the same.</p>
+
+        <a href="../../account-information" class="govuk-button">Go to heat network account home</a>
+        <p class="govuk-body"><a href="services-home-main" class="govuk-link">Return to Ofgem Services home</a></p>
+    </div>
+
+</div>
+
+{% endblock %}
