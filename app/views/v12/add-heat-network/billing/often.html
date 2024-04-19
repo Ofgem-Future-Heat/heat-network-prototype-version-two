@@ -1,0 +1,139 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How often do you send bills to customers?" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" billingoften="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.billingoften %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - billing</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    {% if data.validationErrors.billingoften %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.billingoften.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="Monthly" {% if data.billingoften == "Monthly" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                Monthly
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="Quarterly" {% if data.billingoften == "Quarterly" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                Quarterly
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="Every 6 months" {% if data.billingoften == "Every 6 months" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                Every 6 months
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="Annually" {% if data.billingoften == "Annually" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                Annually
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="None" {% if data.billingoften == "None" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                None
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="billingoften" name="billingoften" type="radio" value="Other" {% if data.billingoften == "Other" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="billingoften">
+                                Other
+                            </label>
+                        </div>
+                         <!--<div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="billingoften-conditional">
+                            <div class="govuk-form-group">
+                              <label class="govuk-label" for="billingoften-frequency">
+                                Billing frequency
+                              </label>
+                              <input class="govuk-input govuk-!-width-one-third" id="billingoften-frequency" name="billingoften-frequency" type="text">
+                            </div>
+                          </div>-->
+
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+                <a href="cancel" class="govuk-link">Cancel</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

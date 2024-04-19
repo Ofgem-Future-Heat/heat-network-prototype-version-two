@@ -1,0 +1,80 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Enter your email address" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <form  method="post" novalidate="">
+
+      <div class="govuk-form-group {% if data.validationErrors.email %}govuk-form-group--error{% endif %}">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label govuk-label--l" for="email">
+            Enter your email address
+          </label>
+        </h1>
+        {% if data.validationErrors.email %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.email.message}}
+        </p>
+        {% endif %}
+        <input class="govuk-input" id="email" name="oneloginemail" type="email" spellcheck="false" autocomplete="email" value="{{data.oneloginemail}}">
+
+      </div>
+
+      {{
+        govukButton ({
+            html: 'Continue'
+        })
+    }}
+
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+
+
+</script>
+{% endblock pageScripts %}

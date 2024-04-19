@@ -1,0 +1,49 @@
+{% extends 'layouts/blank.html' %}
+{% set title = "Invitation to be Ofgem's regulatory contact for your company's heat networks" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+
+          
+          <p class="govuk-body">{{data.directorfirstname}} {{data.directorlastname}} has invited you to become Ofgem's regulatory contact for Radianteco's heat networks.</p>
+
+          <h2 class="govuk-heading-m">The role of the regulatory contact</h2>
+          <p class="govuk-body">The regulatory contact is Ofgem's first point of contact should we ever need to speak to someone about your company and its activities on heat networks.</p>
+          <p class="govuk-body">They also have the ability to:</p>
+          <ul class="govuk-list govuk-list--bullet">
+              <li>invite colleagues to use the heat network service</li>
+              <li>edit or remove colleagues' access to the service</li>
+          </ul>
+          <h2 class="govuk-heading-m">Next steps</h2>
+          <p class="govuk-body">If you agree to be your organisation's regulatory contact, follow these steps.</p>
+          <ul class="govuk-list govuk-list--number">
+            <li>Use this email address to create an online account with 'GOV One Login'. </li>
+            <li>Follow the link to Ofgem's heat network service.</li>
+            <li>Start adding your organisation's heat networks or invite colleagues to join the service</li>
+        </ul>
+
+        <form  method="POST" novalidate>
+          <input type="hidden" id="inviteemailcomplete" name="inviteemailcomplete" value="true" />
+          {{
+              govukButton ({
+                  html: 'Continue to GOV One Login'
+              })
+          }}
+      </form>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -9,6 +9,7 @@ require('./routes/v8.js');
 require('./routes/v9.js');
 require('./routes/v10.js');
 require('./routes/v11.js');
+require('./routes/v12.js');
 
 
 

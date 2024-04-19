@@ -1,0 +1,166 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+{% if data.buildings2 > 1 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address of energy centre
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.ecAddress %}
+                        {% set address = data.ecAddress.toString() %}
+                        {{address | replace(", ", ",<br />") | safe}}
+                        {% endif %}
+                        {% if data.ecaddressnearest == "true" %}<br /><br />This is the address of the nearest building to the energy centre {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Which types of thermal energy does your organisation supply?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.service}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> type</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What is the combined heating and hot water capacity of the heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.techcapacity}} kW
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="capacity">Change<span class="govuk-visually-hidden"> capacity</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What is the combined heating and hot water generation of the heat network per calendar year?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.techgeneration}} kWh {% if data.techgenerationestimate=="yes" %}(estimated){% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="generation">Change<span class="govuk-visually-hidden"> generation</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Is the system capable of thermal storage?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.techstorage}}
+                    {% if data.techstoragecapacity %}
+                    <br />{{data.techstoragecapacity}} m&#179;
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="storage">Change<span class="govuk-visually-hidden"> supply</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does the system produce electricity?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.techelectricity}}
+                    {% if data.techelectricitygeneration %}
+                    <br />{{data.techelectricitygeneration}} kWh 
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="electricity">Change<span class="govuk-visually-hidden"> supply</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Technologies used for your heat network
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                    {% for technology, energysource, year in data.technologies %}
+                    <strong>Technology:</strong>
+                    {{technology}}
+                    <br />
+                    <strong>Energy source:</strong>
+                    {{energysource}}
+                    <br />
+                    <strong>Started:</strong> {{year}}
+                    <br /><br />
+                    {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="summary">Change<span class="govuk-visually-hidden"> supply</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does your organisation sell heat from this network to another organisation?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.techanother}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="another">Change<span class="govuk-visually-hidden"> supply</span></a>
+                </dd>
+            </div>
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="eccomplete" name="eccomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

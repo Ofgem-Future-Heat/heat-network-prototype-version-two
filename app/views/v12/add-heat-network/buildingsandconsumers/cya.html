@@ -1,0 +1,109 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Building{% if (data.buildings > 1) %}s{% endif %}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if (data.buildings > 1) %}<strong>Building 1</strong><br />{% endif %}
+                    {% if data.buildinglocationAddress %}
+                {% set address = data.buildinglocationAddress.toString() %}
+        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br /><br />
+                    {% endif %}
+                    {% if (data.buildings > 1) and (data.role != "Heat supplier") and (data.role != "Network operator")  %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
+                    {% if (data.role != "Network operator") %}
+                    <strong>Type:</strong> {% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}<br />
+                    <strong>Class:</strong> {% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}<br />
+                    <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}
+                    {% endif %}
+                    {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong> {{data.sharedfacilities}}{% endif %}
+
+
+                    {% if (data.buildings > 1) %}
+                    {% for i in range(1, data.buildings) -%}
+                    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                    <strong>Building {{i + 1}}</strong><br />
+                    -<br />
+
+                {% if (data.role != "Heat supplier") and (data.role != "Network operator") %}<strong>Contract with consumers:</strong> -<br />{% endif %}
+                {% if (data.role != "Network operator") %}
+                <strong>Type:</strong> -<br />
+                <strong>Class:</strong> -<br />
+                <strong>Customers:</strong> -
+                {% endif %}
+                {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong>{% endif %}
+
+                {% endfor %}
+                {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="buildings">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% if data.consumertypemicrobusiness %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are any of your commercial customers 'microbusinesses'?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.consumertypemicrobusiness}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+{% endif %}
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

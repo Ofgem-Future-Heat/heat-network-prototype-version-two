@@ -1,0 +1,63 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "You cannot continue" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <p class="govuk-body">
+                        Only directors or company secretaries can set up their company to use the heat network service.
+                    </p>
+                    <p class="govuk-body">Send this link to a director or company secretary: <br /><a href="https://heat-networks-e2d5ea288670.herokuapp.com/v12/account-creation/start" class="govuk-link">https://heat-networks.ofgem.gov.uk/start</a></p>
+
+
+
+                </fieldset>
+
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

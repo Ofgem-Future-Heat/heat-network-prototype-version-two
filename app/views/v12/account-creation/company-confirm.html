@@ -1,0 +1,87 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Confirm this is the right company" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <p class="govuk-body">
+                        Company number: {{data.companynumber}}<br />
+                        <a href="type" class="govuk-link govuk-link--no-visited-state">Change</a>
+                    </p>
+                    <p class="govuk-body">
+                        Radianteco Ltd <br />
+                        19 Grosvenor Road <br />
+                        Solihull B91 3PU
+                    </p>
+
+
+
+                </fieldset>
+
+
+            </div>
+            <a href="company-create" class="govuk-button">Confirm and continue</a>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

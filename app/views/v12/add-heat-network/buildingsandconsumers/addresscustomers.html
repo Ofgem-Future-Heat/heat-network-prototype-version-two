@@ -1,0 +1,143 @@
+{% extends 'layouts/main.html' %}
+{% if data.buildingtype == "Mixed0use" %}
+{% set title = "How many customers are in this building?" %}
+{% else %}
+{% set unformattedtitle = "How many " + data.buildingtype + " customers are in this building?" %}
+{% set title = unformattedtitle | capitalize %}
+
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <div class="govuk-form-group ">
+
+        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            
+            {% if data.buildinglocationAddress %}
+            <div class="govuk-inset-text">
+                {% set address = data.buildinglocationAddress.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+            </div>
+            {% endif %}
+        </div>
+        {% if data.buildingtype == "Mixed0use" %}
+        <p class="govuk-body">Leave fields blank if they're not relevant. </p>
+        {% endif %}
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                {% if data.buildingtype != "Mixed0use" %}
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressCustomers %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="buildingaddressCustomers">
+                        Customers
+                    </label>
+                    {% if data.validationErrors.buildingaddressCustomers %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressCustomers.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomers %}govuk-input--error{% endif %} " id="buildingaddressCustomers" name="buildingaddressCustomers" type="number" value="{{data.buildingaddressCustomers}}">
+                </div>
+                {% else %}
+                <div class="govuk-form-group {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-form-group--error{% endif %}">
+                    {% if data.validationErrors.buildingaddressCustomersResidential %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingaddressCustomersResidential.message}}
+                    </p>
+                    {% endif %}
+                <div class="govuk-form-group ">
+                    <label class="govuk-label" for="buildingaddressCustomersResidential">
+                        Residential customers
+                    </label>
+
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-input--error{% endif %} " id="buildingaddressCustomersResidential" name="buildingaddressCustomersResidential" type="number" value="{{data.buildingaddressCustomersResidential}}">
+                </div>
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="buildingaddressCustomersCommercial">
+                        Commercial customers
+                    </label>
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-input--error{% endif %} " id="buildingaddressCustomersCommercial" name="buildingaddressCustomersCommercial" type="number" value="{{data.buildingaddressCustomersCommercial}}">
+                </div>
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="buildingaddressCustomersIndustrial">
+                        Industrial customers
+                    </label>
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-input--error{% endif %} " id="buildingaddressCustomersIndustrial" name="buildingaddressCustomersIndustrial" type="number" value="{{data.buildingaddressCustomersIndustrial}}">
+                </div>
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="buildingaddressCustomersPublic">
+                        Public customers
+                    </label>
+                    <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingaddressCustomersResidential %}govuk-input--error{% endif %} " id="buildingaddressCustomersPublic" name="buildingaddressCustomersPublic" type="number" value="{{data.buildingaddressCustomersPublic}}">
+                </div>
+            </div>
+                {% endif %}
+            </fieldset>
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

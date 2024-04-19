@@ -1,0 +1,86 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Service
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    Comply with heat network regulations
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Will you be the regulatory contact?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                        {{data.regcontact}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="regulatory-contact">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Your details
+                </dt>
+                <dd class="govuk-summary-list__value">
+                        Joe Bloggs<br />
+                        <strong>Email: </strong>{{data.oneloginemail}}<br />
+                        <strong>Telephone: </strong>{{data.telephone}}<br />
+                        <strong>Job title: </strong>{{data.jobtitle}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="your-details">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                </dd>
+            </div>
+        </dl>
+        <a href="account-created" class="govuk-button">Confirm and continue</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
