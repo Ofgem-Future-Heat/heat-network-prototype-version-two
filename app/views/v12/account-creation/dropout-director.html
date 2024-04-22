@@ -8,6 +8,20 @@
 {% endblock %}
 
 
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+    </div>
+</div>
+
+{% endblock %}
 
 {% block content %}
 
@@ -36,7 +50,6 @@
                 <fieldset class="govuk-fieldset" >
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Comply with heat network regulations</span>
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
