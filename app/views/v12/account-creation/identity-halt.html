@@ -1,4 +1,4 @@
-{% extends 'layouts/onelogin.html' %}
+{% extends 'layouts/main.html' %}
 {% set title = "Extra verification required" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -56,14 +56,14 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Register for 'Comply with heat network regulations'</span>
+                        <span class="govuk-caption-l">Comply with heat network regulations</span>
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">For security, you'll need to pass an further level of identity checks on GOV One Login, so we can link you to information on the Companies House record.</p>
+                    <p class="govuk-body">For security, you'll need to pass a further level of identity checks on GOV One Login, so we can link you to information on the Companies House record.</p>
                     <p class="govuk-body">You'll need your photo ID, such as a passport or driving licence.</p>
 
 

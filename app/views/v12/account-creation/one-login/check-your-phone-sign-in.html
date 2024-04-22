@@ -47,10 +47,18 @@ href: "javascript:window.history.back()"
 
       </div>
 
+      {% if data.inviteemailcomplete == "true" %} 
+      <a href="../your-details" role="button"
+          draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+      </a>
+      {% else %}
       <a href="../type" role="button"
-            draggable="false" class="govuk-button" data-module="govuk-button">
-            Continue 
-        </a>
+          draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+      </a>
+
+      {% endif %}
 
     </form>
 

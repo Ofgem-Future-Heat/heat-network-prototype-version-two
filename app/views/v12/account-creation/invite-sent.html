@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "We've sent an invitation to" + data.regcontactemail %}
+{% set title = "We've sent an invitation to " + data.regcontactemail %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -31,6 +31,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Comply with heat network regulations</span>
+
             <h1 class="govuk-heading-l">
               {{title}}
             </h1>

@@ -1,4 +1,4 @@
-{% extends 'layouts/onelogin.html' %}
+{% extends 'layouts/main.html' %}
 {% set title = "Which service do you want to add?" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -55,6 +55,8 @@
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Comply with heat network regulations</span>
+
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
