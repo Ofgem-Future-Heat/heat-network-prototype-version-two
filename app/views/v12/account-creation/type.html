@@ -77,26 +77,50 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="accounttype" name="accounttype" type="radio" value="Company registered in the UK" {% if data.accounttype=="Company registered in the UK" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype">
-                                Company registered in the UK
+                                UK company registered with Companies House
                             </label>
+                            <div id="accounttype-hint" class="govuk-hint govuk-radios__hint">
+                                For example, limited company, limited partnership, limited liability partnership, community interest company
+                              </div>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-1" name="accounttype" type="radio" value="Charity registered in the UK" {% if data.accounttype=="Charity registered in the UK" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="accounttype-1" name="accounttype" type="radio" value="UK mutual society registered with the Financial Conduct Authority" {% if data.accounttype=="UK mutual society registered with the Financial Conduct Authority" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype-1">
-                                Charity registered in the UK
+                                UK mutual society registered with the Financial Conduct Authority
                             </label>
+                            <div id="accounttype-1-hint" class="govuk-hint govuk-radios__hint">
+                                For example, co-operative and community benefit society, credit union, building society, friendly society
+                              </div>
                         </div>
-
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-2" name="accounttype" type="radio" value="Local authority or other public sector organisation in the UK" {% if data.accounttype=="Local authority or other public sector organisation in the UK" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="accounttype-2" name="accounttype" type="radio" value="UK charity registered with the Charity Commission" {% if data.accounttype=="UK charity registered with the Charity Commission" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype-2">
-                                Local authority or other public sector organisation in the UK
+                                UK charity registered with the Charity Commission 
                             </label>
+                            <div id="accounttype-2-hint" class="govuk-hint govuk-radios__hint">
+                                For example, charitable incorporated organisation, charitable trust 
+                              </div>
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-3" name="accounttype" type="radio" value="Overseas organisation" {% if data.accounttype=="Overseas organisation" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="accounttype-3" name="accounttype" type="radio" value="UK public body" {% if data.accounttype=="UK public body" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype-3">
+                                UK public body
+                            </label>
+                            <div id="accounttype-3-hint" class="govuk-hint govuk-radios__hint">
+                                For example, local authority, central government organisation
+                              </div>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="accounttype-4" name="accounttype" type="radio" value="Other UK organisation" {% if data.accounttype=="Other UK organisation" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="accounttype-4">
+                                Other UK organisation
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="accounttype-5" name="accounttype" type="radio" value="Overseas organisation" {% if data.accounttype=="Overseas organisation" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="accounttype-5">
                                 Overseas organisation
                             </label>
                         </div>
