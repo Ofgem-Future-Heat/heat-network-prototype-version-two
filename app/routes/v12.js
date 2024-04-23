@@ -369,6 +369,280 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
 
 
+///Trading name
+router.get('/' + version + '/account-creation/trading-name', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/trading-name', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/trading-name', function (req, res) {
+    clearvalidation(req);
+    var tradingname = req.session.data['tradingname']
+    var tradingnamename = req.session.data['tradingnamename']
+
+
+    if (!tradingname) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingname = {
+            "anchor": "tradingname",
+            "message": "Select whether you wish to add a trading name"
+        }
+    }
+
+    if (tradingname == "Yes" && !tradingnamename) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingnamename = {
+            "anchor": "tradingnamename",
+            "message": "Enter a trading name"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/trading-name', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/account-creation/trading-address');
+
+    }
+
+
+});
+
+
+///Trading address
+router.get('/' + version + '/account-creation/trading-address', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/trading-address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/trading-address', function (req, res) {
+    clearvalidation(req);
+    var tradingaddress = req.session.data['tradingaddress']
+
+
+    if (!tradingaddress) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddress = {
+            "anchor": "tradingaddress",
+            "message": "Select a trading address"
+        }
+    }
+
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/trading-address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (tradingaddress == "Current address") {
+            res.redirect('/' + version + '/account-creation/regulatory-contact');
+        }
+        else {
+            res.redirect('/' + version + '/account-creation/address');
+        }
+
+    }
+
+
+});
+
+
+
+
+// Trading Address Postcode
+router.get('/' + version + '/account-creation/address', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/address', function (req, res) {
+    clearvalidation(req);
+    var userpostcode = req.session.data['tradingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
+    var usernumber = req.session.data['tradingaddressNumber']
+
+    if (!userpostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressPostcode = {
+            "anchor": "tradingaddressPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    function validateUKPostcode(postcode) {
+        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+      
+        return postcodeRegex.test(postcode);
+      }
+
+    if (!validateUKPostcode(userpostcode)) {
+        console.log(userpostcode)
+        console.log(validateUKPostcode(userpostcode))
+
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressPostcode = {
+            "anchor": "tradingaddressPostcode",
+            "message": "Enter a valid postcode",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        const axios = require('axios');
+        const https = require('https');
+
+        const httpsAgent = new https.Agent({
+            rejectUnauthorized: false
+        })
+
+        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
+
+        async function postcode(postcode) {
+            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+                .then(function (response) {
+                    var output = JSON.stringify(response.data, null, 2);
+                    let parsed = JSON.parse(output).results;
+
+                    let locationaddresses = [];
+
+                    if (parsed != undefined) {
+                        for (var i = 0; i < parsed.length; i++) {
+                            let obj = parsed[i];
+                            locationaddresses.push(obj.LPI.ADDRESS);
+                        }
+                    }
+
+                    req.session.data.buildinglocationAddressSelect = locationaddresses;
+                    res.redirect('/' + version + '/account-creation/addressselect');
+                });
+
+        }
+        postcode(userpostcode);
+
+        }
+
+
+});
+
+
+// Trading Address select
+router.get('/' + version + '/account-creation/addressselect', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/addressselect', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/addressselect', function (req, res) {
+    clearvalidation(req);
+    var addressselect = req.session.data['tradingaddressSelect']
+
+
+
+    if (!addressselect) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressSelect = {
+            "anchor": "tradingaddressSelect",
+            "message": "Select an address",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/addressselect', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data.tradingSelectedAddress = req.session.data['tradingaddressSelect']
+            
+            res.redirect('/' + version + '/account-creation/regulatory-contact');
+    
+    }
+});
+
+
+// Trading address manual
+router.get('/' + version + '/account-creation/addressmanual', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/addressmanual', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/addressmanual', function (req, res) {
+    clearvalidation(req);
+    var tradingaddressMLine1 = req.session.data['tradingaddressMLine1']
+    var tradingaddressMLine2 = req.session.data['tradingaddressMLine2']
+    var tradingaddressMTown = req.session.data['tradingaddressMTown']
+    var tradingaddressMCounty = req.session.data['tradingaddressMCounty']
+
+    var tradingaddressMPostcode = req.session.data['tradingaddressMPostcode']
+    var tradings = req.session.data['tradings']
+
+
+    if (!tradingaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressMLine1 = {
+            "anchor": "tradingaddressMLine1",
+            "message": "Enter the first line of the address",
+        }
+    }
+
+
+    if (!tradingaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressMTown = {
+            "anchor": "tradingaddressMTown",
+            "message": "Enter a town or city",
+        }
+    }
+
+    if (!tradingaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.tradingaddressMPostcode = {
+            "anchor": "tradingaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/addressmanual', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data.tradingSelectedAddress = tradingaddressMLine1 + ', ' + tradingaddressMLine2 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode
+
+            res.redirect('/' + version + '/account-creation/regulatory-contact');
+    }
+});
+
 
 
 ///Service select
