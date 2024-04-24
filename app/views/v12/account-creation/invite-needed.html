@@ -1,0 +1,47 @@
+{% extends 'layouts/main.html' %}
+{% set title = "We've sent an invitation to " + data.regcontactemail %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+
+          
+          <p class="govuk-body">Your organisation can start using the service once the regulatory contact has accepted the invitation and signed in to the service.</p>
+
+        <a href="../account-information" class="govuk-button">Go to heat network account home</a>
+    </div>
+
+</div>
+
+{% endblock %}

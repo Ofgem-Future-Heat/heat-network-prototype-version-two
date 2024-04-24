@@ -716,7 +716,7 @@ router.post('/' + version + '/account-creation/regulatory-contact', function (re
         }
         else {
             if (!regcontactemail) {
-                res.redirect('/' + version + '/account-information');
+                res.redirect('/' + version + '/account-creation/invite-needed');
             }
             else {
                 res.redirect('/' + version + '/account-creation/invite-sent');
@@ -770,7 +770,6 @@ router.post('/' + version + '/account-creation/your-details', function (req, res
         }
     }
 
-
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/account-creation/your-details', {
             data: req.session.data
@@ -794,7 +793,12 @@ router.get('/' + version + '/account-creation/invite-email', function (req, res)
 
 
 router.post('/' + version + '/account-creation/invite-email', function (req, res) {
+    req.session.data['firstname'] = "";
+    req.session.data['lastname'] = "";
+    req.session.data['telephone'] = "";
+    req.session.data['directorjobtitle'] = "";
     res.redirect('/' + version + '/account-creation/one-login/start-onelogin');
+
 });
 
 
