@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "We've sent an invitation to " + data.regcontactemail %}
+{% set title = "We've created your organisational account for the heat network service" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -36,8 +36,15 @@
               {{title}}
             </h1>
 
-          
-          <p class="govuk-body">Your organisation can start using the service once the regulatory contact has accepted the invitation and signed in to the service.</p>
+            <div class="govuk-warning-text">
+              <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+              <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">Warning</span>
+                Your organisation cannot start using this service until you've added a regulatory contact for heat networks.
+              </strong>
+            </div>
+
+          <p class="govuk-body">You can add a regulatory contact, and other users, from your heat network account home.</p>
 
         <a href="../account-information" class="govuk-button">Go to heat network account home</a>
     </div>
