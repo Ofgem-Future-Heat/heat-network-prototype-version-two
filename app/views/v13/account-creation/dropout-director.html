@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You've rejected " + data.yourfirstname + " " + data.yourlastname + "'s request to create an organisation account on Ofgem's heat network service" %}
+{% set title = "You've rejected " + data.yourfirstname + " " + data.yourlastname + "'s request" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -58,7 +58,7 @@
                     </legend>
 
                     <p class="govuk-body">
-                        We've let {{data.yourfirstname}} {{data.yourlastname}} know by email.
+                        We've let them know by email.
                     </p>
 
 
