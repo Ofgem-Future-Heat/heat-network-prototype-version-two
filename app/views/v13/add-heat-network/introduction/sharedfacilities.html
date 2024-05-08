@@ -1,0 +1,133 @@
+{% extends 'layouts/main.html' %}
+{% if data.buildings > 1 %}
+{% set title = "Do any of these buildings have shared facilities that all occupants have to use?" %}
+{% else %}
+{% set title = "Does the building have shared facilities?" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.sharedfacilities %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">
+                        {% if data.buildings > 1 %}
+                        This means buildings with shared toilets, personal washing facilities or cooking facilities that all occupants have to use. For example, some houses in multiple occupation (HMO) or care homes.
+                        {% else %}
+                        For example, shared toilets, personal washing facilities or cooking facilities.
+                        {% endif %}
+                    </p>
+
+                    {% if data.validationErrors.sharedfacilities %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.sharedfacilities.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %} {% if data.buildings > 1 %}data-aria-controls="conditional-sharedfacilities"{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sharedfacilities">
+                                Yes
+                            </label>
+                        </div>
+                        {% if data.buildings > 1 %}
+
+
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-sharedfacilities">
+                            
+                            <div class="govuk-form-group {% if data.validationErrors.sharedfacilitieshowmany %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="sharedfacilities-howmany">
+                                How many buildings have shared facilities?
+                              </label>
+                              {% if data.validationErrors.sharedfacilitieshowmany %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.sharedfacilitieshowmany.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input govuk-input--width-4" id="sharedfacilitieshowmany" name="sharedfacilitieshowmany" type="number" value="{{data.sharedfacilitieshowmany}}">
+                            </div>
+                    </div>
+                        {% endif %}
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sharedfacilities-2">
+                                No
+                            </label>
+                        </div>
+                      
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
