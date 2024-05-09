@@ -424,17 +424,10 @@ router.get('/' + version + '/account-creation/director-details-check', function 
 
 router.post('/' + version + '/account-creation/director-details-check', function (req, res) {
     clearvalidation(req);
-    var email = req.session.data['directoremail']
     var firstname = req.session.data['directorfirstname']
     var lastname = req.session.data['directorlastname']
 
-    if (!email) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.directoremail = {
-            "anchor": "directoremail",
-            "message": "Enter director email"
-        }
-    }
+
 
 
     if (!firstname) {
