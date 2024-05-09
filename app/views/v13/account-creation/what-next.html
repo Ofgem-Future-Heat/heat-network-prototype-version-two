@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title = "What happens next" %}
-{% set _inError = data.validationError == "true"  %}
+{% set _inError = data.validationError == "true" %}
 
 
 {% block pageTitle %}
@@ -15,10 +15,10 @@
 
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
         }}
 
     </div>
@@ -47,11 +47,12 @@
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
+        <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" >
+                <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
@@ -62,10 +63,14 @@
                     </legend>
 
                     <p class="govuk-body">
-                        We've sent an email to {{data.directoremail}}, asking them to approve the creation of an organisation account for Radianteco Ltd.
+                        We've sent an email to {{data.directoremail}}, asking them to approve the creation of an
+                        organisation account for Radianteco Ltd.
                     </p>
                     <p class="govuk-body">
-                        You'll receive an email when they've approved the account. You will not be able to use the heat network service until this is done. 
+                        You'll need to tell them to expect an email from heat-networks@notifications.service.
+                    </p>
+                    <p class="govuk-body">
+                        We'll let you know when they've approved the account. In the meantime, you will not be able to use the heat network service.
                     </p>
 
 
