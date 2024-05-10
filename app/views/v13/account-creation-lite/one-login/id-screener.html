@@ -1,0 +1,129 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Tell us if you have one of the following types of photo ID" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+
+
+
+                        <p class="govuk-body">
+                            This will help us find the best way for you to prove your identity.
+                        </p>
+                        <ul class="govuk-list" role="list">
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">UK photocard driving licence</h2>
+                              <p class="govuk-body govuk-!-margin-bottom-2">You can use a full or provisional UK driving licence if it:</p>
+                              <ul class="govuk-list govuk-list--bullet ">
+                                <li>is a plastic photocard, not a paper licence</li>
+                                <li>has not expired</li>
+                              </ul>
+                            </li>
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">UK passport</h2>
+                              <p class="govuk-body">You can use any UK passport if it has not expired.</p>
+                            </li>
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">Non-UK passport with a biometric chip</h2>
+                              <p class="govuk-body govuk-!-margin-bottom-2">You can use a non-UK passport if it:</p>
+                              <ul class="govuk-list  govuk-list--bullet">
+                                <li>has a biometric chip</li>
+                                <li>has not expired</li>
+                              </ul>
+                              <p class="govuk-body">To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.</p>
+                              <picture>
+                                <source srcset="https://assets.integration.account.gov.uk/core-front/public/images/passport-icon.svg">
+                                <img width="174" height="121" loading="lazy" src="https://assets.integration.account.gov.uk/core-front/public/images/passport-icon-1x.png" srcset="https://assets.integration.account.gov.uk/core-front/public/images/passport-icon-2x.png 2x" alt="The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.">
+                              </picture>
+                            </li>
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">UK biometric residence permit (BRP)</h2>
+                              <p class="govuk-body">You can use a UK biometric resident permit (BRP) that has not expired. You might have a BRP if you have a visa for longer than 6 months or indefinite leave to remain.</p>
+                            </li>
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">UK biometric residence card (BRC)</h2>
+                              <p class="govuk-body">This is also called a UK residence card. You can use a BRC that has not expired. You might have a BRC if you’re in the UK as a family member of a citizen from a European Economic Area (EEA) country.</p>
+                            </li>
+                            <li>
+                              <h2 class="govuk-heading-m govuk-!-margin-top-7">UK Frontier Worker permit (FWP)</h2>
+                              <p class="govuk-body">You can use an FWP that has not expired. You might have an FWP if you work in the UK but live in another country.</p>
+                            </li>
+                            </ul>
+    
+                    <div class="govuk-form-group {% if data.validationErrors.oneloginscreener %}govuk-form-group--error{% endif %}">
+
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                Do you have one of these types of photo ID?
+                              </legend>
+                    {% if data.validationErrors.oneloginscreener %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.oneloginscreener.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="oneloginscreener" name="oneloginscreener" type="radio" value="Yes" {% if data.oneloginscreener == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="oneloginscreener">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="oneloginscreener-2" name="oneloginscreener" type="radio" value="No" {% if data.oneloginscreener == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="oneloginscreener-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
