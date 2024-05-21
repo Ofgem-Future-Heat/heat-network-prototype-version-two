@@ -1,0 +1,83 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Comply with heat network regulations" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Use this service to:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>get authorisation for existing and new heat networks</li>
+                    <li>apply for a license to upgrade or build new heat networks</li>
+                    <li>amend information about any heat networks you've already told us about</li>
+                    <li>submit mandatory reporting information on your organisation's heat networks </li>               
+                </ul>
+
+                    <h2 class="govuk-heading-m">Who this service is for</h2>
+                    <p class="govuk-body">You must use this service if your organisation undertakes regulated activities on a heat network as a:
+                    </p>
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat supplier</li>
+                                    <li>network operator</li>
+                                    <li>developer</li>
+                                    <li>third party acting on behalf of any of these</li>
+                                </ul>
+
+
+                                <details class="govuk-details">
+                                    <summary class="govuk-details__summary">
+                                      <span class="govuk-details__summary-text">
+                                        Help with 'regulated activities on a heat network'
+                                      </span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        If you're not sure about whether or not your organisation is responsible for a heat network, or whether its activities need to be regulated, see the <a href="https://gov.uk" class="govuk-link">heat network guidance</a>.
+                                    </div>
+                                  </details>
+
+                                  <h2 class="govuk-heading-m">How to access the service</h2>
+                                <p class="govuk-body">Continue to sign up or sign in and we'll guide you through the process. </p>
+                                <div class="govuk-inset-text">Use your work email address to sign up. Do not use a shared mailbox email address.</div>
+                                <h3 class="govuk-heading-s">If your organisation has never used this service before</h3>
+                                <p class="govuk-body">After you've signed up, you'll also need to create an account for your organisation. When you're finished, someone with 'legal authority' to act on behalf of the organisation will need to approve the account.</p>
+
+                                <details class="govuk-details">
+                                  <summary class="govuk-details__summary">
+                                    <span class="govuk-details__summary-text">
+                                      Help with 'legal authority'
+                                    </span>
+                                  </summary>
+                                  <div class="govuk-details__text">
+                                    <p class="govuk-body">This must be someone we can verify as a legal representative of an organisation. For example:</p>
+                                    <ul class="govuk-list govuk-list--bullet">
+                                      <li>for companies, a director or company secretary</li> 
+                                      <li>for charities, a trustee</li>
+                                      <li>for local authorities, an executive officer</li>
+                                    </ul>
+                                  </div>
+                                </details>
+
+                                  <form  method="POST" novalidate>
+                                    <input type="hidden" id="inviteemailcomplete" name="inviteemailcomplete" value="false" />
+
+                                    {{
+                                        govukButton ({
+                                            html: 'Sign up or sign in'
+                                        })
+                                    }}
+                                </form>
+                                </div>
+</div>
+
+{% endblock %}

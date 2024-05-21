@@ -1,0 +1,145 @@
+{% extends 'layouts/main.html' %}
+{% if (data.buildings > 1) %}
+{% set title = "Building 1: Enter address" %}
+{% else %}
+{% set title = "Enter building address" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+
+
+            <div class="govuk-form-group ">
+
+
+
+
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="buildingaddressMLine1">
+                            Address line 1
+                        </label>
+                        {% if data.validationErrors.buildingaddressMLine1 %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.buildingaddressMLine1.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input" id="buildingaddressMLine1" name="buildingaddressMLine1" type="text" autocomplete="address-line1" value="{{data.buildingaddressMLine1}}">
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="buildingaddressMLine2">
+                            Address line 2 (optional)
+                        </label>
+                        <input class="govuk-input" id="buildingaddressMLine2" name="buildingaddressMLine2" type="text" autocomplete="address-line2" value="{{data.buildingaddressMLine2}}">
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="buildingaddressMTown">
+                            Town or city
+                        </label>
+                            {% if data.validationErrors.buildingaddressMTown %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.buildingaddressMTown.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="buildingaddressMTown" name="buildingaddressMTown" type="text" autocomplete="address-level2" value="{{data.buildingaddressMTown}}">
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="buildingaddressMCounty">
+                            County (optional)
+                        </label>
+                        <input class="govuk-input govuk-!-width-two-thirds" id="buildingaddressMCounty" name="buildingaddressMCounty" type="text" value="{{data.buildingaddressMCounty}}">
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="buildingaddressMPostcode">
+                            Postcode
+                        </label>
+                        {% if data.validationErrors.buildingaddressMTown %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.buildingaddressMPostcode.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-10" id="buildingaddressMPostcode" name="buildingaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.buildingaddressMPostcode}}">
+                    </div>
+                </fieldset>
+
+
+
+
+
+
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

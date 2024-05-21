@@ -1,0 +1,116 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Which regulated activities does your organisation undertake on the heat network?" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.role %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating. If your organisation does not do any of the activities described, you can cancel adding the heat network.</p>
+                    <div class="govuk-hint">Select all that apply.</div>
+
+                    {% if data.validationErrors.role %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.role.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="role" name="role" type="checkbox" value="Heat supplier" aria-describedby="role-item-hint" {% for role in data.role %}{% if role == "Heat supplier" %}checked{% endif %}{% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="role">
+                                Heat supplier
+                            </label>
+                            <div id="role-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                                Your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the end users on the network.
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="role-2" name="role" type="checkbox" value="Network operator" aria-describedby="role-2-item-hint" {% for role in data.role %}{% if role == "Network operator" %}checked{% endif %}{% endfor %}>
+                            <label class="govuk-label govuk-checkboxes__label" for="role-2">
+                                Network operator
+                            </label>
+                            <div id="role-2-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                                Your organisation controls some or all of the network assets, for example its pipework, heat exchangers, substations or energy centres. This means it is responsible for repairing and upgrading these assets - either because it owns them or because it has a contractual obligation.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+                <a href="cancel" class="govuk-link">Cancel</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Confirm address" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="POST" novalidate>
+
+
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        {% if data.ecAddress %}
+                        <div class="govuk-inset-text">
+                            {% set address = data.ecAddress.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        </div>
+                        {% endif %}
+
+                        <div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+
+
+                              <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                  <input class="govuk-checkboxes__input" id="ecaddressnearest" name="ecaddressnearest" type="checkbox" value="true" {% if data.ecaddressnearest == "true" %} checked {% endif %}>
+                                  <label class="govuk-label govuk-checkboxes__label" for="ecaddressnearest">
+                                    This is the address of the nearest building to the energy centre
+                                  </label>
+                                </div>
+                              </div>
+                            </fieldset>
+                          </div>
+
+
+
+
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Use this address'
+                })
+            }}
+        </form>
+        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} main page</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
