@@ -27,7 +27,7 @@
       {% if data['choose-organisation-role'] == "Third party representative"%}
       <h1 class="govuk-heading-l">EcoDynamo Solutions Ltd</h1>
       {% else %}
-      <h1 class="govuk-heading-l">Radianteco Ltd</h1>
+      <h1 class="govuk-heading-l">Randianteco</h1>
       {% endif %}
 
     
@@ -40,10 +40,9 @@
       <p class="govuk-body">View, change and add organisation information.</p>
       
       
-        {{ govukTag({
-          id: 'organisation-status',  
-          text: "Completed"
-        }) }}
+      <strong class="govuk-tag govuk-tag--red">
+       Incomplete
+      </strong>
 
     </div>
  
@@ -84,12 +83,7 @@
     {% if (data.director == 'Someone else') and (data.inviteemailcomplete != "true") %}
       <p class="govuk-body">Your organisation cannot start using this service until the account has been approved by someone with legal authority to act on behalf of the organisation. To check the status of a pending review go to <a href="" class="govuk-link">Organisation details</a></p>
     {% else %}
-      <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
-
-      {{ govukButton ({
-          text: "Add a new heat network",
-          href: "add-heat-network/introduction/intro"
-      }) }}
+      <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
 
     {% endif %}
 

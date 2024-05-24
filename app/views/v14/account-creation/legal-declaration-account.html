@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you approve " + data.yourfirstname + " " + data.yourlastname + "'s request to create an organisation account for Randianteco on Ofgem's heat network service?" %}
+{% set title = "Legal declaration" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -30,7 +30,6 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
@@ -48,7 +47,7 @@
             </div>
         </div>
         {% endif %}
-
+       
         <form method="POST" novalidate>
 
 
@@ -61,42 +60,26 @@
                     </h1>
 
                 </legend>
+                <p class="govuk-body">Tick to confirm:</p>
 
+                    <div class="govuk-form-group govuk-!-margin-top-4 {% if data.validationErrors.creatorlegaldeclaration %}govuk-form-group--error{% endif %}">
 
-                    <div class="govuk-form-group govuk-!-margin-top-4 {% if data.validationErrors.confirmauthority %}govuk-form-group--error{% endif %}">
-
-                    {% if data.validationErrors.confirmauthority %}
+                    {% if data.validationErrors.creatorlegaldeclaration %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.confirmauthority.message}}
+                        {{data.validationErrors.creatorlegaldeclaration.message}}
                     </p>
                     {% endif %}
                     <fieldset class="govuk-fieldset">
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirmauthority" name="confirmauthority" type="radio" value="Yes" {% if data.confirmauthority == "Yes" %}checked{% endif %}>
-                                <label class="govuk-label govuk-radios__label" for="confirmauthority">
-                                    Yes
-                                </label>
-                                <div id="confirmauthority-hint" class="govuk-hint govuk-radios__hint">
-                                    By approving, you confirm you have the legal authority to act on behalf of the organisation
-                                    {% if data.accounttype == "Company registered in the UK" %}
-                                     - as either a director or company secretary.
-                                    {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-                                    .
-                                    {% else %}
-                                     - as a trustee.
-                                    {% endif %}
-                                    
-                                  </div>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirmauthority-2" name="confirmauthority" type="radio" value="No" {% if data.confirmauthority == "No" %}checked{% endif %}>
-                                <label class="govuk-label govuk-radios__label" for="confirmauthority-2">
-                                    No
-                                </label>
-                            </div>
-                        </div>                      </fieldset>
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                          <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="creatorlegaldeclaration" name="creatorlegaldeclaration" type="checkbox" value="true">
+                            <label class="govuk-label govuk-checkboxes__label" for="creatorlegaldeclaration">
+                                The details I am going to provide about myself and my business will be accurate to the best of my knowledge and belief.
+                            </label>
+                          </div>
+                        </div>
+                      </fieldset>
                     </div>
 
 

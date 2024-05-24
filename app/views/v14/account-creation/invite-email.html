@@ -1,5 +1,5 @@
 {% extends 'layouts/blank.html' %}
-{% set title = "Request to approve your organisation's account for Ofgem's heat network service " %}
+{% set title = "Request to approve your organisation's account for Ofgem's heat network service" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -17,7 +17,18 @@
             </h1>
 
           
-          <p class="govuk-body">{{data.yourfirstname}} {{data.yourlastname}} has told us you are a director or company secretary for Radianteco Ltd.</p>
+          <p class="govuk-body">{{data.yourfirstname}} {{data.yourlastname}} has told us you  
+            {% if data.accounttype == "Company registered in the UK" %}
+            are a director or company secretary for 
+            {% elif data.accounttype == "UK charity registered with the Charity Commission" %}
+            are a trustee for 
+            {% else %}
+            have legal authority to act on behalf of 
+            {% endif %}
+
+             
+            
+            Randianteco.</p>
 
           <p class="govuk-body">As someone with legal authority to act on behalf of your organisation, you must approve the creation of an organisation account to use Ofgem's heat network service.</p>
           <p class="govuk-body">Once approved, your organisation will be able to use the service to:

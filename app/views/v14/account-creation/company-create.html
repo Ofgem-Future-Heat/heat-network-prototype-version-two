@@ -1,5 +1,11 @@
 {% extends 'layouts/main.html' %}
+{% if data.accounttype == "Company registered in the UK" %}
 {% set title = "Are you the director or company secretary for this company?" %}
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+{% set title = "Do you have legal authority to act on behalf of this organisation's members?" %}
+{% else %}
+{% set title = "Are you a trustee for this charity?" %}
+{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -67,7 +73,7 @@
 
                     <div class="govuk-inset-text govuk-!-margin-top-2">
                         <p class="govuk-body">
-                            Radianteco Ltd <br />
+                            Randianteco <br />
                             19 Grosvenor Road <br />
                             Solihull B91 3PU
                         </p>

@@ -1,10 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% if data.accounttype == "Company registered in the UK" %}
-{% set title = "Confirm this is the right company" %}
-{% else %}
-{% set title = "Confirm this is the right organisation" %}
-{% endif %}
-
+{% set title = "Sorry, there is a problem with the service" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -12,23 +7,10 @@
 {{title}}
 {% endblock %}
 
+
 {% block beforeContent %}
 
-<div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
-
-
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
-
-    </div>
-
-</div>
 
 {% endblock %}
 
@@ -66,30 +48,19 @@
 
                     </legend>
 
-                    <p class="govuk-body">
-                        {% if data.accounttype == "Company registered in the UK" %}
-                        Company number:
-                        {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-                        Registration number:
-                        {% else %}
-                        Charity number:
-                        {% endif %}
-                         {{data.companynumber}}<br />
-                        <a href="type" class="govuk-link govuk-link--no-visited-state">Change</a>
-                    </p>
-                    <p class="govuk-body">
-                        Randianteco <br />
-                        19 Grosvenor Road <br />
-                        Solihull B91 3PU
-                    </p>
+                    
 
+
+                    <p class="govuk-body">
+                        Try again later.
+                    </p>
+                    <p class="govuk-body">Contact <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a> if you continue to experience issues.</p>
 
 
                 </fieldset>
 
 
             </div>
-            <a href="company-create" class="govuk-button">Confirm and continue</a>
         </form>
     </div>
 

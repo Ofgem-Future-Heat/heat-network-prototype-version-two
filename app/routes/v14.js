@@ -223,6 +223,39 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 
 
 
+///Legal declaration
+router.get('/' + version + '/account-creation/legal-declaration-account', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/legal-declaration-account', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/legal-declaration-account', function (req, res) {
+    clearvalidation(req);
+    var confirmauthority = req.session.data['creatorlegaldeclaration']
+
+    if (!confirmauthority) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.creatorlegaldeclaration = {
+            "anchor": "creatorlegaldeclaration",
+            "message": "You must tick to confirm that the details you’re going to provide will be accurate"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/legal-declaration-account', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/account-creation/your-details');
+        }
+
+});
 
 
 ///Type
@@ -254,7 +287,12 @@ router.post('/' + version + '/account-creation/type', function (req, res) {
     }
 
     else {
+        if (accounttype == "UK public body" || accounttype == "Other UK organisation" || accounttype == "Overseas organisation" || accounttype == "None, I'm a sole trader") {
+            res.redirect('/' + version + '/account-creation/company-name');
+        }
+        else {
             res.redirect('/' + version + '/account-creation/company-number');
+        }
     }
 
 });
@@ -273,12 +311,30 @@ router.get('/' + version + '/account-creation/company-number', function (req, re
 router.post('/' + version + '/account-creation/company-number', function (req, res) {
     clearvalidation(req);
     var companynumber = req.session.data['companynumber']
+    var accounttype = req.session.data['accounttype']
+
+    
 
     if (!companynumber) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.companynumber = {
-            "anchor": "companynumber",
-            "message": "Enter the company number"
+        if (accounttype == "Company registered in the UK") {
+            req.session.data.validationErrors.companynumber = {
+                "anchor": "companynumber",
+                "message": "Enter a company number"
+            }
+        }
+        else if (accounttype == "UK mutual society registered with the Financial Conduct Authority") {
+            req.session.data.validationErrors.companynumber = {
+                "anchor": "companynumber",
+                "message": "Enter a registration number"
+            }
+        }
+        else {
+            req.session.data.validationErrors.companynumber = {
+                "anchor": "companynumber",
+                "message": "Enter a charity number"
+            }
+
         }
     }
 
@@ -454,7 +510,7 @@ router.post('/' + version + '/account-creation/director-details-check', function
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/account-created');
+            res.redirect('/' + version + '/account-creation/confirm-director-authority');
     }
 
 });
@@ -528,7 +584,7 @@ router.post('/' + version + '/account-creation/confirm-director-authority', func
             res.redirect('/' + version + '/account-creation/dropout-director');
         }
         else {
-            res.redirect('/' + version + '/account-creation/director-details-check');
+            res.redirect('/' + version + '/account-creation/account-created');
         }
         }
 

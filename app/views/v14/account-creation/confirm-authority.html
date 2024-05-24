@@ -76,7 +76,12 @@
                           <div class="govuk-checkboxes__item">
                             <input class="govuk-checkboxes__input" id="confirmauthority" name="confirmauthority" type="checkbox" value="true">
                             <label class="govuk-label govuk-checkboxes__label" for="confirmauthority">
-                                I confirm that I want to create an organisation account for my organisation to use the heat network service, and I have the legal authority - as a director or company secretary - to do so.
+                                I confirm that I want to create an organisation account for my organisation to use the heat network service, and I have the legal authority 
+                                {% if data.accounttype == "Company registered in the UK" %}
+                                - as a director or company secretary - 
+                                {% elif data.accounttype == "UK charity registered with the Charity Commission" %}
+                                - as a trustee - 
+                                {% endif %}to do so.
                             </label>
                           </div>
                         </div>
