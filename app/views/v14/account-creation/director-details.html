@@ -1,5 +1,12 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Details of director or company secretary" %}
+{% if data.accounttype == "UK charity registered with the Charity Commission" %}
+{% set title = "Trustee details" %}
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+{% set title = "Member details" %}
+{% else %}
+{% set title = "Director or company secretary details" %}
+{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,11 +69,11 @@
                     </legend>
                     <p class="govuk-body">We'll send an email asking them to approve the creation of an organisation account for Randianteco</p>
 
-                    <p class="govuk-body">They must be listed on the Companies House register.</p>
+                    {% if data.directorselect != "Other" %}
+                    <p class="govuk-body"><strong>First name:</strong> {{data.directorfirstname}}</p>
+                    <p class="govuk-body"><strong>Last name:</strong> {{data.directorlastname}}</p>
 
-
-
-
+                    {% else %}
                     <div class="govuk-form-group {% if data.validationErrors.directorfirstname %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label govuk-label--s" for="directorfirstname">
                           First name
@@ -93,6 +100,9 @@
                         {% endif %}
                         <input class="govuk-input govuk-!-width-one-third" id="directorlastname" name="directorlastname" type="text" value="{{data.directorlastname}}">
                     </div>
+
+                    {% endif %}
+
 
 
                     <div class="govuk-form-group {% if data.validationErrors.directoremail %}govuk-form-group--error{% endif %}">

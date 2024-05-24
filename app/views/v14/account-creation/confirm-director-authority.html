@@ -79,14 +79,16 @@
                                     Yes
                                 </label>
                                 <div id="confirmauthority-hint" class="govuk-hint govuk-radios__hint">
-                                    By approving, you confirm you have the legal authority to act on behalf of the organisation
+                                    By approving, you confirm you have the legal authority
                                     {% if data.accounttype == "Company registered in the UK" %}
-                                     - as either a director or company secretary.
+                                     - as either a director or company secretary - 
                                     {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-                                    .
+                                    
                                     {% else %}
-                                     - as a trustee.
+                                     - as a truste - 
                                     {% endif %}
+
+                                    to act on behalf of the organisation.
                                     
                                   </div>
                             </div>

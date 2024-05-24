@@ -413,6 +413,70 @@ router.post('/' + version + '/account-creation/your-details', function (req, res
 
 });
 
+///Director select
+router.get('/' + version + '/account-creation/director-select', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/director-select', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/director-select', function (req, res) {
+    clearvalidation(req);
+    var directorselect = req.session.data['directorselect']
+    var accounttype = req.session.data['accounttype']
+
+    
+
+    if (!directorselect) {
+        req.session.data.validationError = "true"
+        if (accounttype == "UK charity registered with the Charity Commission") {
+            req.session.data.validationErrors.directorselect = {
+                "anchor": "directorselect",
+                "message": "Select a trustee"
+            }
+        }
+        else {
+            req.session.data.validationErrors.directorselect = {
+                "anchor": "directorselect",
+                "message": "Select a director"
+            }
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/director-select', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (directorselect == "John Smith") {
+           req.session.data['directorfirstname'] = "John"
+           req.session.data['directorlastname'] = "Smith"
+           res.redirect('/' + version + '/account-creation/director-details');
+
+        }
+        else if (directorselect == "Jane Smith") {
+            req.session.data['directorfirstname'] = "Jane"
+            req.session.data['directorlastname'] = "Smith"
+            res.redirect('/' + version + '/account-creation/director-details');
+
+         }
+         else {
+            req.session.data['directorfirstname'] = ""
+            req.session.data['directorlastname'] = ""
+
+            res.redirect('/' + version + '/account-creation/director-details');
+
+         }
+
+    }
+
+});
+
 
 ///Director details
 router.get('/' + version + '/account-creation/director-details', function (req, res) {
