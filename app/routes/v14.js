@@ -686,7 +686,7 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
     else {
         if (companycreate == "No") {
-            res.redirect('/' + version + '/account-creation/director-details');
+            res.redirect('/' + version + '/account-creation/director-select');
         }
         else {
 
