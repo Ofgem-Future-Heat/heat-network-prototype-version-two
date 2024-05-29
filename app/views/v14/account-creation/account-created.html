@@ -42,12 +42,12 @@
 
           
           {% if data.inviteemailcomplete == "true" %} 
-          <p class="govuk-body">We have set up Randianteco to use the heat network service, and sent an email confirmation to you and the account creator.</p>
+          <p class="govuk-body">We have set up {{data.companyname}} to use the heat network service, and sent an email confirmation to you and the account creator.</p>
 
           <p class="govuk-body">Both you and the account creator, can now use the service and invite others from your organisation to do the same.</p>
 
           {% else %}
-          <p class="govuk-body">We have set up Randianteco to use the heat network service, and sent you an email confirmation.</p>
+          <p class="govuk-body">We have set up {{data.companyname}} to use the heat network service, and sent you an email confirmation.</p>
 
           <p class="govuk-body">As account creator, you can now use the service and invite others from your organisation to do the same.</p>
 

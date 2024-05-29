@@ -71,16 +71,20 @@
                         Company number:
                         {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
                         Registration number:
-                        {% else %}
+                        {% elif data.accounttype == "UK charity registered with the Charity Commission" %}
                         Charity number:
                         {% endif %}
                          {{data.companynumber}}<br />
                     </p>
                     <p class="govuk-body">
-                        Randianteco <br />
+                        {{data.companyname}}<br/>
+                        {% if data.orgaddressSelect %} 
+                        {% set address = data.orgaddressSelect.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        {% else %}
                         19 Grosvenor Road <br />
                         Solihull B91 3PU
-
+{% endif %}
 
                     </p>
                 <p class="govuk-body">                                                

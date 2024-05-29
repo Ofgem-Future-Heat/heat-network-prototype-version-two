@@ -1,11 +1,12 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Details of director or company secretary" %}
 {% if data.accounttype == "UK charity registered with the Charity Commission" %}
 {% set title = "Trustee details" %}
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
 {% set title = "Member details" %}
-{% else %}
+{% elif data.accounttype == "Company registered in the UK" %}
 {% set title = "Director or company secretary details" %}
+{% else %}
+{% set title = "Details of person with legal authority" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 

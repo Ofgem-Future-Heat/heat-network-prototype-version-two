@@ -3,8 +3,13 @@
 {% set title = "Are you the director or company secretary for this company?" %}
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
 {% set title = "Do you have legal authority to act on behalf of this organisation's members?" %}
-{% else %}
+{% elif data.accounttype == "UK charity registered with the Charity Commission" %}
 {% set title = "Are you a trustee for this charity?" %}
+{% elif data.accounttype == "UK public body" %}
+{% set title = "Are you an executive officer for this public body?" %}
+
+{% else %}
+{% set title = "Do you have legal authority to act on behalf of this organisation?" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -68,14 +73,21 @@
 
                 </legend>
 
-
+                {% if (data.accounttype == "Other UK organisation") or (data.accounttype == "Overseas organisation") or (data.accounttype == "None, I'm a sole trader") %}
+                <p class="govuk-body">This means you have ultimate authority and responsibility for running the business.</p>
+                {% endif %}
 
 
                     <div class="govuk-inset-text govuk-!-margin-top-2">
                         <p class="govuk-body">
-                            Randianteco <br />
+                            {{data.companyname}}<br/>
+                            {% if data.orgaddressSelect %} 
+                            {% set address = data.orgaddressSelect.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                            {% else %}
                             19 Grosvenor Road <br />
                             Solihull B91 3PU
+    {% endif %}
                         </p>
     
                     </div>

@@ -296,7 +296,47 @@ router.post('/' + version + '/account-creation/type', function (req, res) {
     }
 
 });
+///Company name
+router.get('/' + version + '/account-creation/company-name', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/company-name', {
+        data: req.session.data
+    });
+});
 
+
+router.post('/' + version + '/account-creation/company-name', function (req, res) {
+    clearvalidation(req);
+    var companyname = req.session.data['companyname']
+    var accounttype = req.session.data['accounttype']
+    
+
+    if (!companyname) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.companyname = {
+                "anchor": "companyname",
+                "message": "Enter a name for your organisation"
+            }
+
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/company-name', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (accounttype == "Overseas organisation") {
+            res.redirect('/' + version + '/account-creation/addressmanual');
+        }
+        else {
+            res.redirect('/' + version + '/account-creation/address');
+        }
+    }
+
+});
 
 
 ///Company number
@@ -346,7 +386,9 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/company-confirm');
+        req.session.data.companyname = "Radianteco Ltd";
+        req.session.data.orgaddressSelect = "";
+        res.redirect('/' + version + '/account-creation/company-confirm');
     }
 
 });
@@ -668,6 +710,7 @@ router.get('/' + version + '/account-creation/company-create', function (req, re
 router.post('/' + version + '/account-creation/company-create', function (req, res) {
     clearvalidation(req);
     var companycreate = req.session.data['companycreate']
+    var accounttype = req.session.data['accounttype']
 
     if (!companycreate) {
         req.session.data.validationError = "true"
@@ -686,7 +729,12 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
     else {
         if (companycreate == "No") {
-            res.redirect('/' + version + '/account-creation/director-select');
+            if (accounttype == "Company registered in the UK" || accounttype == "UK mutual society registered with the Financial Conduct Authority" || accounttype == "UK charity registered with the Charity Commission") {
+                res.redirect('/' + version + '/account-creation/director-select');
+            }
+            else {
+                res.redirect('/' + version + '/account-creation/director-details');
+            }
         }
         else {
 
@@ -715,6 +763,217 @@ router.post('/' + version + '/account-creation/invite-email', function (req, res
     req.session.data['directorjobtitle'] = "";
     res.redirect('/' + version + '/account-creation/one-login/start-onelogin');
 
+});
+
+
+// Company - Address
+router.get('/' + version + '/account-creation/address', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/address', function (req, res) {
+    clearvalidation(req);
+    var userpostcode = req.session.data['orgaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
+    var usernumber = req.session.data['orgaddressNumber']
+
+    if (!userpostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressPostcode = {
+            "anchor": "orgaddressPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    function validateUKPostcode(postcode) {
+        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+      
+        return postcodeRegex.test(postcode);
+      }
+
+    if (!validateUKPostcode(userpostcode)) {
+        console.log(userpostcode)
+        console.log(validateUKPostcode(userpostcode))
+
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressPostcode = {
+            "anchor": "orgaddressPostcode",
+            "message": "Enter a valid postcode",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        const axios = require('axios');
+        const https = require('https');
+
+        const httpsAgent = new https.Agent({
+            rejectUnauthorized: false
+        })
+
+        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
+
+            async function find(postcode, number) {
+                axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+                    .then(function (response) {
+                        var output = JSON.stringify(response.data, null, 2);
+                        let parsed = JSON.parse(output).results;
+                        let locationaddresses = [];
+
+                        if (parsed != undefined) {
+                            for (var i = 0; i < parsed.length; i++) {
+                                let obj = parsed[i];
+                                locationaddresses.push(obj.LPI.ADDRESS);
+                            }
+
+                            req.session.data.buildinglocationAddress = locationaddresses;
+                            req.session.data.buildinglocationAddressSelect = [];
+                            res.redirect('/' + version + '/account-creation/addressconfirm');
+                        }
+                        else {
+                            async function postcode(postcode) {
+                                axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+                                    .then(function (response) {
+                                        var output = JSON.stringify(response.data, null, 2);
+                                        let parsed = JSON.parse(output).results;
+                                        let locationaddresses = [];
+
+                                        for (var i = 0; i < parsed.length; i++) {
+                                            let obj = parsed[i];
+                                            locationaddresses.push(obj.LPI.ADDRESS);
+                                        }
+
+                                        req.session.data.buildinglocationAddressSelect = locationaddresses;
+                                        res.redirect('/' + version + '/account-creation/addressselect');
+                                    });
+
+                            }
+                            postcode(userpostcode);
+
+                        }
+                    });
+            }
+
+            find(userpostcode, usernumber)
+
+        }
+
+
+});
+
+
+// Company - Address select
+router.get('/' + version + '/account-creation/addressselect', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/addressselect', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/addressselect', function (req, res) {
+    clearvalidation(req);
+    var addressselect = req.session.data['orgaddressSelect']
+
+
+
+    if (!addressselect) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressSelect = {
+            "anchor": "orgaddressSelect",
+            "message": "Select an address",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/addressselect', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/account-creation/company-confirm');
+    }    
+});
+
+
+// Company - Address manual
+router.get('/' + version + '/account-creation/addressmanual', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/addressmanual', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/account-creation/addressmanual', function (req, res) {
+    clearvalidation(req);
+    var orgaddressMLine1 = req.session.data['orgaddressMLine1']
+    var orgaddressMLine2 = req.session.data['orgaddressMLine2']
+    var orgaddressMTown = req.session.data['orgaddressMTown']
+    var orgaddressMCounty = req.session.data['orgaddressMCounty']
+    var orgaddressMCountry = req.session.data['orgaddressMCountry']
+    var accounttype = req.session.data['accounttype']
+
+    var orgaddressMPostcode = req.session.data['orgaddressMPostcode']
+
+
+    if (!orgaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressMLine1 = {
+            "anchor": "orgaddressMLine1",
+            "message": "Enter the first line of the address",
+        }
+    }
+
+
+    if (!orgaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressMTown = {
+            "anchor": "orgaddressMTown",
+            "message": "Enter a town or city",
+        }
+    }
+
+    if (!orgaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressMPostcode = {
+            "anchor": "orgaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/account-creation/addressmanual', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (accounttype == "Overseas organisation") {
+            if(orgaddressMLine2) {
+                req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMLine2 + ', ' + orgaddressMTown + ', ' + orgaddressMPostcode + ', ' + orgaddressMCountry
+            }
+            else {
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMPostcode + ', ' + orgaddressMCountry
+            }
+        } else {
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMLine2 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode
+        }
+
+        
+            res.redirect('/' + version + '/account-creation/company-confirm');
+    }
 });
 
 
