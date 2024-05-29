@@ -795,9 +795,6 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
       }
 
     if (!validateUKPostcode(userpostcode)) {
-        console.log(userpostcode)
-        console.log(validateUKPostcode(userpostcode))
-
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgaddressPostcode = {
             "anchor": "orgaddressPostcode",
@@ -846,14 +843,29 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
                                         var output = JSON.stringify(response.data, null, 2);
                                         let parsed = JSON.parse(output).results;
                                         let locationaddresses = [];
+                                        if (parsed != undefined) {
 
-                                        for (var i = 0; i < parsed.length; i++) {
-                                            let obj = parsed[i];
-                                            locationaddresses.push(obj.LPI.ADDRESS);
+                                            for (var i = 0; i < parsed.length; i++) {
+                                                let obj = parsed[i];
+                                                locationaddresses.push(obj.LPI.ADDRESS);
+                                            }
+    
+                                            req.session.data.buildinglocationAddressSelect = locationaddresses;
+                                            res.redirect('/' + version + '/account-creation/addressselect');
                                         }
 
-                                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                                        res.redirect('/' + version + '/account-creation/addressselect');
+                                        else {
+                                            req.session.data.validationError = "true"
+                                            req.session.data.validationErrors.orgaddressPostcode = {
+                                                "anchor": "orgaddressPostcode",
+                                                "message": "Enter a valid postcode",
+                                            }
+
+                                            res.render('/' + version + '/account-creation/address', {
+                                                data: req.session.data
+                                            });
+                                        }
+
                                     });
 
                             }
@@ -1588,14 +1600,29 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
                     var output = JSON.stringify(response.data, null, 2);
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
+                    if (parsed != undefined) {
+                        for (var i = 0; i < parsed.length; i++) {
+                            let obj = parsed[i];
+                            locationaddresses.push(obj.LPI.ADDRESS);
+                        }
+    
+                        req.session.data.ecAddressSelect = locationaddresses;
+                        res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+                            }
 
-                    for (var i = 0; i < parsed.length; i++) {
-                        let obj = parsed[i];
-                        locationaddresses.push(obj.LPI.ADDRESS);
+                    else {
+                        req.session.data.validationError = "true"
+                        req.session.data.validationErrors.ecaddressPostcode = {
+                            "anchor": "ecaddressPostcode",
+                            "message": "Enter a valid postcode",
+                        }
+                                
+                        res.render('/' + version + '/add-heat-network/energycentre/address', {
+                            data: req.session.data
+                        });
                     }
 
-                    req.session.data.ecAddressSelect = locationaddresses;
-                    res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+
                 });
 
         }
@@ -2130,13 +2157,29 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
                                         let parsed = JSON.parse(output).results;
                                         let locationaddresses = [];
 
-                                        for (var i = 0; i < parsed.length; i++) {
-                                            let obj = parsed[i];
-                                            locationaddresses.push(obj.LPI.ADDRESS);
+                                        if (parsed != undefined) {
+                                            for (var i = 0; i < parsed.length; i++) {
+                                                let obj = parsed[i];
+                                                locationaddresses.push(obj.LPI.ADDRESS);
+                                            }
+    
+                                            req.session.data.buildinglocationAddressSelect = locationaddresses;
+                                            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addressselect');
+                                            }
+
+                                        else {
+                                            req.session.data.validationError = "true"
+                                            req.session.data.validationErrors.buildingaddressPostcode = {
+                                                "anchor": "buildingaddressPostcode",
+                                                "message": "Enter a valid postcode",
+                                            }
+                                    
+                                            res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
+                                                data: req.session.data
+                                            });
                                         }
 
-                                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                                        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addressselect');
+
                                     });
 
                             }

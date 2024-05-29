@@ -617,13 +617,27 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
 
-                    for (var i = 0; i < parsed.length; i++) {
-                        let obj = parsed[i];
-                        locationaddresses.push(obj.LPI.ADDRESS);
-                    }
+                    if (parsed != undefined) {
+                        for (var i = 0; i < parsed.length; i++) {
+                            let obj = parsed[i];
+                            locationaddresses.push(obj.LPI.ADDRESS);
+                        }
+    
+                        req.session.data.ecAddressSelect = locationaddresses;
+                        res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+                            }
 
-                    req.session.data.ecAddressSelect = locationaddresses;
-                    res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+                    else {
+                        req.session.data.validationError = "true"
+                        req.session.data.validationErrors.ecaddressPostcode = {
+                            "anchor": "ecaddressPostcode",
+                            "message": "Enter a valid postcode",
+                        }
+                                
+                        res.render('/' + version + '/add-heat-network/energycentre/address', {
+                            data: req.session.data
+                        });
+                    }
                 });
 
         }
@@ -1158,13 +1172,29 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
                                         let parsed = JSON.parse(output).results;
                                         let locationaddresses = [];
 
-                                        for (var i = 0; i < parsed.length; i++) {
-                                            let obj = parsed[i];
-                                            locationaddresses.push(obj.LPI.ADDRESS);
+                                        if (parsed != undefined) {
+                                            for (var i = 0; i < parsed.length; i++) {
+                                                let obj = parsed[i];
+                                                locationaddresses.push(obj.LPI.ADDRESS);
+                                            }
+    
+                                            req.session.data.buildinglocationAddressSelect = locationaddresses;
+                                            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addressselect');
+                                            }
+
+                                        else {
+                                            req.session.data.validationError = "true"
+                                            req.session.data.validationErrors.buildingaddressPostcode = {
+                                                "anchor": "buildingaddressPostcode",
+                                                "message": "Enter a valid postcode",
+                                            }
+                                    
+                                            res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
+                                                data: req.session.data
+                                            });
                                         }
 
-                                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                                        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addressselect');
+
                                     });
 
                             }

@@ -68,9 +68,9 @@
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">We'll send an email asking them to approve the creation of an organisation account for Randianteco</p>
+                    <p class="govuk-body">We'll send an email asking them to approve the creation of an organisation account for {{data.companyname}}</p>
 
-                    {% if data.directorselect != "Other" %}
+                    {% if (data.directorselect == "John Smith") or (data.directorselect == "Jane Smith") %}
                     <p class="govuk-body"><strong>First name:</strong> {{data.directorfirstname}}</p>
                     <p class="govuk-body"><strong>Last name:</strong> {{data.directorlastname}}</p>
 
