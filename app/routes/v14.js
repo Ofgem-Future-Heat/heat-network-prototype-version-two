@@ -819,64 +819,34 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
-            async function find(postcode, number) {
-                axios.get('https://api.os.uk/search/places/v1/find?maxresults=1&minmatch=0.4&query=' + number + ',' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                    .then(function (response) {
-                        var output = JSON.stringify(response.data, null, 2);
-                        let parsed = JSON.parse(output).results;
-                        let locationaddresses = [];
+        async function postcode(postcode) {
+            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+                .then(function (response) {
+                    var output = JSON.stringify(response.data, null, 2);
+                    let parsed = JSON.parse(output).results;
+                    let locationaddresses = [];
+                    if (parsed != undefined) {
 
-                        if (parsed != undefined) {
-                            for (var i = 0; i < parsed.length; i++) {
-                                let obj = parsed[i];
-                                locationaddresses.push(obj.LPI.ADDRESS);
-                            }
-
-                            req.session.data.buildinglocationAddress = locationaddresses;
-                            req.session.data.buildinglocationAddressSelect = [];
-                            res.redirect('/' + version + '/account-creation/addressconfirm');
+                        for (var i = 0; i < parsed.length; i++) {
+                            let obj = parsed[i];
+                            locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        else {
-                            async function postcode(postcode) {
-                                axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                                    .then(function (response) {
-                                        var output = JSON.stringify(response.data, null, 2);
-                                        let parsed = JSON.parse(output).results;
-                                        let locationaddresses = [];
-                                        if (parsed != undefined) {
 
-                                            for (var i = 0; i < parsed.length; i++) {
-                                                let obj = parsed[i];
-                                                locationaddresses.push(obj.LPI.ADDRESS);
-                                            }
-    
-                                            req.session.data.buildinglocationAddressSelect = locationaddresses;
-                                            res.redirect('/' + version + '/account-creation/addressselect');
-                                        }
+                        req.session.data.buildinglocationAddressSelect = locationaddresses;
+                        res.redirect('/' + version + '/account-creation/addressselect');
+                    }
 
-                                        else {
-                                            req.session.data.validationError = "true"
-                                            req.session.data.validationErrors.orgaddressPostcode = {
-                                                "anchor": "orgaddressPostcode",
-                                                "message": "Enter a valid postcode",
-                                            }
+                    else {
+                        req.session.data.buildinglocationAddressSelect = locationaddresses;
+                        res.render('/' + version + '/account-creation/addressselect', {
+                            data: req.session.data
+                        });
+                    }
 
-                                            res.render('/' + version + '/account-creation/address', {
-                                                data: req.session.data
-                                            });
-                                        }
+                });
 
-                                    });
-
-                            }
-                            postcode(userpostcode);
-
-                        }
-                    });
-            }
-
-            find(userpostcode, usernumber)
-
+        }
+        postcode(userpostcode);
         }
 
 
