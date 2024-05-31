@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What type of organisation do you work for? " %}
+{% set title = "Which type of organisation do you work for?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -111,6 +111,16 @@
                                 A local or central government body, or an organisation owned or operated by government, including some schools, universities, libraries, museums, hospitals and prisons 
                               </div>
                         </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="accounttype-11" name="accounttype" type="radio" value="None, I'm a sole trader" {% if data.accounttype=="None, I'm a sole trader" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="accounttype-11">
+                                UK sole trader
+                            </label>
+                            <div id="accounttype-11-hint" class="govuk-hint govuk-radios__hint">
+                                For example, you're self-employed
+                              </div>
+
+                        </div>
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="accounttype-4" name="accounttype" type="radio" value="Other UK organisation" {% if data.accounttype=="Other UK organisation" %}checked{% endif %}>
@@ -125,13 +135,7 @@
                             </label>
                         </div>
 
-                        <div class="govuk-radios__divider">or</div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-11" name="accounttype" type="radio" value="None, I'm a sole trader" {% if data.accounttype=="None, I'm a sole trader" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="accounttype-11">
-                                None, I'm a sole trader
-                            </label>
-                        </div>
+
                     </div>
 
 

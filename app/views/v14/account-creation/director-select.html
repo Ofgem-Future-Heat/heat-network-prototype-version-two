@@ -1,10 +1,10 @@
 {% extends 'layouts/main.html' %}
 {% if data.accounttype == "UK charity registered with the Charity Commission" %}
-{% set title = "Which trustee can approve the creation of your organisation's account? " %}
+{% set title = "Which trustee do you want to approve the creation of your organisation account?" %}
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-{% set title = "Which member can approve the creation of your organisation's account?" %}
+{% set title = "Which member do you want to approve the creation of your organisation account?" %}
 {% else %}
-{% set title = "Which director or company secretary can approve the creation of your organisation's account?" %}
+{% set title = "Which director do you want to approve the creation of your organisation account?" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -97,7 +97,7 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="directorselect-3" name="directorselect" type="radio" value="Other" {% if data.directorselect=="Other" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="directorselect-3">
-                                A different {% if data.accounttype == "UK charity registered with the Charity Commission" %}trustee{% else %}director{% endif %}
+                                A different {% if data.accounttype == "UK charity registered with the Charity Commission" %}trustee{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}member{% else %}director{% endif %}
                             </label>
                         </div>
                     </div>

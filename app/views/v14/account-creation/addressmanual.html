@@ -66,6 +66,11 @@
                             {{title}}
                         </h1>
                     </legend>
+                    {% if data.orgaddressesnotfound %}
+                    <p class="govuk-body">
+                        No results
+                    </p>
+                    {% endif %}
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="orgaddressMLine1">
                             Address line 1

@@ -275,7 +275,7 @@ router.post('/' + version + '/account-creation/type', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.accounttype = {
             "anchor": "accounttype",
-            "message": "Select a type of organisation"
+            "message": "Select which type of organisation you work for"
         }
     }
 
@@ -833,12 +833,14 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
                         }
 
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
+                        req.session.data.orgaddressnotfound = "";
                         res.redirect('/' + version + '/account-creation/addressselect');
                     }
 
                     else {
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        res.render('/' + version + '/account-creation/addressselect', {
+                        req.session.data.orgaddressnotfound = true;
+                        res.render('/' + version + '/account-creation/addressmanual', {
                             data: req.session.data
                         });
                     }
