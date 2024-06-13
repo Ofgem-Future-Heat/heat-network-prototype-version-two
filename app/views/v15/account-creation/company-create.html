@@ -1,0 +1,130 @@
+{% extends 'layouts/main.html' %}
+{% if data.accounttype == "Company registered in the UK" %}
+{% set title = "Are you the director or company secretary for this company?" %}
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+{% set title = "Do you have legal authority to act on behalf of this organisation's members?" %}
+{% elif data.accounttype == "UK charity registered with the Charity Commission" %}
+{% set title = "Are you a trustee for this charity?" %}
+{% elif data.accounttype == "UK public body" %}
+{% set title = "Are you an executive officer for this public body?" %}
+
+{% else %}
+{% set title = "Do you have legal authority to act on behalf of this organisation?" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                    <h1 class="govuk-fieldset__heading">
+                        {{title}}
+                    </h1>
+
+                </legend>
+
+                <p class="govuk-body">Before we can create this account, we'll need someone with legal authority to act on behalf of the organisation to approve it. </p>
+                <p class="govuk-body">This means someone with ultimate authority and responsibility for running the organisation.</p>
+
+                    <div class="govuk-inset-text govuk-!-margin-top-2">
+                        <p class="govuk-body">
+                            {{data.companyname}}<br/>
+                            {% if data.orgaddressSelect %} 
+                            {% set address = data.orgaddressSelect.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                            {% else %}
+                            19 Grosvenor Road <br />
+                            Solihull B91 3PU
+    {% endif %}
+                        </p>
+    
+                    </div>
+                    <div class="govuk-form-group {% if data.validationErrors.companycreate %}govuk-form-group--error{% endif %}">
+
+                    {% if data.validationErrors.companycreate %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.companycreate.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="companycreate" name="companycreate" type="radio" value="Yes" {% if data.companycreate == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="companycreate">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="companycreate-2" name="companycreate" type="radio" value="No" {% if data.companycreate == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="companycreate-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

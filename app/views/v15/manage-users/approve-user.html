@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Are you sure you wish to approve this user?" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <div class="govuk-inset-text">
+      <p class="govuk-body">Full Name: Jane Smith</p>
+      <p class="govuk-body">Email: j.smith@ofgem.gov.uk</p>
+      <p class="govuk-body">Telephone: 01234567890</p>
+      <p class="govuk-body">Job title: Director</p>
+    </div>
+
+    <p class="govuk-body">Approving Jane Smith would allow them to submit Heat Network registrations on behalf of your organisation.</p>
+
+
+    <div class="govuk-button-group">
+      <a class="govuk-button" href="approve-user-confirm">
+        Approve user
+      </a>
+      <a class="govuk-link govuk-link--no-visited-state" href="../manage-users">Cancel</a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

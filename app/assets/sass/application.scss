@@ -45,3 +45,8 @@
 	border: 5px solid $govuk-error-colour;
 	background: $govuk-error-colour
 }
+
+.link-red {
+	@extend .govuk-link;
+	color: $govuk-error-colour !important;
+}

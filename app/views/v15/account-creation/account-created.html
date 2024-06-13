@@ -1,0 +1,48 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Organisation account created" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              {{title}}
+            </h1>
+            <div class="govuk-panel__body">
+              Account ID: AC1234567
+            </div>
+          </div>
+          {% if data.inviteemailcomplete == "true" %} 
+          <p class="govuk-body">We have: </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>set up {{data.companyname}} to use the heat network service</li>
+            <li>sent an email confirmation, with the account ID, to your email address ({{data.directoremail}}) and the account creator.</li>
+          </ul>
+          <p class="govuk-body">Both you and the account creator, can now use the service and invite others from your organisation to do the same.</p>
+
+          {% else %}
+          <p class="govuk-body">We have: </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>set up {{data.companyname}} to use the heat network service</li>
+            <li>sent an email confirmation, with the account ID, to {{data.accountcreatoremail}}</li>
+          </ul>
+          <p class="govuk-body">As account creator, you can now use the service and invite others from your organisation to do the same.</p>
+
+    
+          {% endif %}
+    
+
+        <a href="../account-information" class="govuk-button">Go to heat network account home</a>
+    </div>
+
+</div>
+
+{% endblock %}

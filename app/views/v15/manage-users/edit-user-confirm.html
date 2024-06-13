@@ -1,0 +1,52 @@
+{% extends 'layouts/main.html' %}
+{% set title = "User succesfully updated" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <div class="govuk-inset-text">
+      <p class="govuk-body"><strong>Email:</strong> j.smith@ofgem.gov.uk</p>
+      <p class="govuk-body"><strong>Full Name:</strong> {{data.edituserfirstname}} {{data.edituserlastname}}</p>
+      <p class="govuk-body"><strong>Telephone:</strong> {{data.editusertelephone}}</p>
+      <p class="govuk-body"><strong>Job title:</strong> {{data.edituserjobtitle}}</p>
+      <p class="govuk-body"><strong>Roles:</strong> {%if data.edituserroles %}{% for role in data.edituserroles %}{{role}}{% if not loop.last %}, {% endif %} {% endfor %}{% else %} Standard user {% endif %}</p>
+    </div>
+    <a class="govuk-button" href="../manage-users">
+      Continue
+    </a>
+
+
+  </div>
+</div>
+
+{% endblock %}

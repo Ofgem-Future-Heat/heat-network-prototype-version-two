@@ -1,0 +1,94 @@
+{% extends 'layouts/main.html' %}
+
+    {% set title = "Energy centre location" %}
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <p class="govuk-body">If your organisation operates more than one energy centre on the heat network, tell us about the one that supplies the most energy.</p>
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group {% if data.validationErrors.ecaddressPostcode %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label govuk-label--m" for="address-postcode">
+                        What is the energy centre's postcode?
+                    </label>
+                    <p class="govuk-body">If you do not know the postcode of the energy centre, give the postcode of the nearest building.</p>
+                    <div class="govuk-hint">For example, AA3 1AB</div>
+                    {% if data.validationErrors.ecaddressPostcode %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.ecaddressPostcode.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.ecaddressPostcode %}govuk-input--error{% endif %}" id="ecaddressPostcode" name="ecaddressPostcode" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.ecaddressPostcode}}">
+                </div>
+
+            </fieldset>
+            
+
+            {{
+                govukButton ({
+                    html: 'Find address'
+                })
+            }}
+        </form>
+        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} main page</a>
+    </div>
+
+</div>
+
+{% endblock %}

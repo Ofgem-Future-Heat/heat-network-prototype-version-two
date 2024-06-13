@@ -1,0 +1,101 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What is the combined heating and hot water capacity of the heat network?" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.techcapacity %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                  <p class="govuk-body">The capacity is the maximum combined output of all heating and hot water sources on the network.</p>
+                  <p class="govuk-body">The capacity in kilowatts (kW) is usually written on the boiler(s) or pumps, or in the technical documentation. If not, ask your service engineer to give you this information.</p>
+
+                                        {% if data.validationErrors.techcapacity %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.techcapacity.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-date-input" id="supply-date">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-input__label" for="techcapacity">
+                                    Combined capacity
+                                </label>
+                                <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techcapacity %}govuk-input--error{% endif %} govuk-input--width-5" id="techcapacity" name="techcapacity" type="number" spellcheck="false" value="{{data.techcapacity}}">
+    <div class="govuk-input__suffix" aria-hidden="true">kW</div>
+  </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

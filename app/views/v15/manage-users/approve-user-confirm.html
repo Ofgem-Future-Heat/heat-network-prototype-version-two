@@ -1,0 +1,49 @@
+{% extends 'layouts/main.html' %}
+{% set title = "User approved" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <p class="govuk-body">Jane Smith has been granted access to submit Heat Networks on behalf of your organisation.</p>
+    <p class="govuk-body">An email has been sent to j.smith@ofgem.gov.uk to inform them of this decision.</p>
+
+    <p class="govuk-body">You can grant them additional permissions by <a href="edit-user" class="govuk-link">editing the user</a>. </p>
+    <a class="govuk-button" href="../manage-users">
+      Continue
+    </a>
+
+
+  </div>
+</div>
+
+{% endblock %}
