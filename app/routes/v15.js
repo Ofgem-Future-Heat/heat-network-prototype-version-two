@@ -148,6 +148,26 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 });
 
+/// Start
+router.get('/' + version + '/manage-users', function (req, res) {
+    clearvalidation(req);
+    req.session.data['edituserfirstname'] = ""
+    req.session.data['edituserlastname'] = ""
+    req.session.data['editusertelephone'] = ""
+    req.session.data['edituserjobtitle'] = ""
+    req.session.data['useremail'] = ""
+    req.session.data['userfirstname'] = ""
+    req.session.data['userlastname'] = ""
+    req.session.data['usertelephone'] = ""
+    req.session.data['userjobtitle'] = ""
+
+    res.render('/' + version + '/manage-users/index', {
+        data: req.session.data
+    });
+});
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 

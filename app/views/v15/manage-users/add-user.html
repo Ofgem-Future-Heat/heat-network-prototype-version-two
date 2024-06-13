@@ -122,7 +122,7 @@
 
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles" name="userroles" type="checkbox" value="User manager" {% for role in data.userroles %}{% if role == "User manager"" %}checked{% endif %}{% endfor %}>
+              <input class="govuk-checkboxes__input" id="userroles" name="userroles" type="checkbox" value="User manager" {% for role in data.userroles %}{% if role == "User manager" %}checked{% endif %}{% endfor %}>
               <label class="govuk-label govuk-checkboxes__label" for="userroles">
                 User manager
               </label>
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles-2" name="userroles" type="checkbox" value="Legal Authority" {% for role in data.userroles %}{% if role == "Legal Authority"" %}checked{% endif %}{% endfor %}>
+              <input class="govuk-checkboxes__input" id="userroles-2" name="userroles" type="checkbox" value="Legal Authority" {% for role in data.userroles %}{% if role == "Legal Authority" %}checked{% endif %}{% endfor %}>
               <label class="govuk-label govuk-checkboxes__label" for="userroles-2">
                 Legal authority
               </label>
@@ -141,7 +141,7 @@
 
             </div>
             <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles-3" name="userroles" type="checkbox" value="Account owner" {% for role in data.userroles %}{% if role == "Account owner"" %}checked{% endif %}{% endfor %}>
+              <input class="govuk-checkboxes__input" id="userroles-3" name="userroles" type="checkbox" value="Account owner" {% for role in data.userroles %}{% if role == "Account owner" %}checked{% endif %}{% endfor %}>
               <label class="govuk-label govuk-checkboxes__label" for="userroles-3">
                 Account owner
               </label>
@@ -151,11 +151,15 @@
             </div>
           </div>
         </fieldset>
-      </div>      {{
-        govukButton ({
-            html: 'Save'
-        })
-    }}
+      </div>
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Save'
+          })
+        }}
+        <a class="govuk-link govuk-link--no-visited-state" href="../manage-users">Cancel</a>
+      </div>
 </form>
 
   </div>
