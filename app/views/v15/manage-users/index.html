@@ -55,7 +55,7 @@
                             </tr>
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell">Donald Smith (d.smith@ofgem.gov.uk)</th>
-                              <td class="govuk-table__cell">User admin</td>
+                              <td class="govuk-table__cell">    {% if data.edituserroles %}{% if "Legal Authority" not in data.edituserroles %}Legal Authority, {% endif %}{% endif %}User admin</td>
                               <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/edit-user" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-5">Edit</a><a href="manage-users/delete-user" class="link-red">Delete</a></td>
                             </tr>
  
