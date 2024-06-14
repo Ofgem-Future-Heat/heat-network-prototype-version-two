@@ -155,11 +155,14 @@ router.get('/' + version + '/manage-users', function (req, res) {
     req.session.data['edituserlastname'] = ""
     req.session.data['editusertelephone'] = ""
     req.session.data['edituserjobtitle'] = ""
+    req.session.data['edituserroles'] = ""
     req.session.data['useremail'] = ""
     req.session.data['userfirstname'] = ""
     req.session.data['userlastname'] = ""
     req.session.data['usertelephone'] = ""
-    req.session.data['userjobtitle'] = ""
+    req.session.data['userjobtitle'] = ""        
+    req.session.data['userroles'] = ""
+
 
     res.render('/' + version + '/manage-users/index', {
         data: req.session.data
