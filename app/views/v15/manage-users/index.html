@@ -48,8 +48,8 @@
                           </thead>
                           <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell">John Smith (j.smith@ofgem.gov.uk)</th>
-                              <td class="govuk-table__cell">Account creator, Legal Authority, User manager</td>
+                              <td class="govuk-table__cell">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %} (j.smith@ofgem.gov.uk)</th>
+                              <td class="govuk-table__cell">{%if data.edituserroles %}{% for role in data.edituserroles %}{{role}}{% if not loop.last %}, {% endif %} {% endfor %}{% else %}Account creator, Legal Authority, User manager{% endif %}</td>
 
                               <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/edit-user" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-5">Edit</a><a href="manage-users/delete-user" class="link-red">Delete</a></td>
                             </tr>

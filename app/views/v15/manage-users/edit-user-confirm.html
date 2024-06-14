@@ -41,6 +41,13 @@
       <p class="govuk-body"><strong>Job title:</strong> {{data.edituserjobtitle}}</p>
       <p class="govuk-body"><strong>Roles:</strong> {%if data.edituserroles %}{% for role in data.edituserroles %}{{role}}{% if not loop.last %}, {% endif %} {% endfor %}{% else %} Standard user {% endif %}</p>
     </div>
+    {% if data.edituserroles %}
+    {% if "Legal Authority" not in data.edituserroles %}
+    <p class="govuk-body">The person with legal authority for this organisation has been changed to <strong>Donald Smith</strong> (d.smith@ofgem.gov.uk)</p>
+    {% endif %}
+    {% else %}
+    <p class="govuk-body">The person with legal authority for this organisation has been changed to <strong>Donald Smith</strong> (d.smith@ofgem.gov.uk)</p>
+    {% endif %}
     <a class="govuk-button" href="../manage-users">
       Continue
     </a>

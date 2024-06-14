@@ -101,6 +101,8 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     var edituserlastname = req.session.data['edituserlastname']
     var editusertelephone = req.session.data['editusertelephone']
     var edituserjobtitle = req.session.data['edituserjobtitle']
+    var edituserroles = req.session.data['edituserroles']
+
 
 
     if (!edituserfirstname) {
@@ -142,20 +144,20 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     }
 
     else {
-        res.redirect('/' + version + '/manage-users/edit-user-confirm');
+        if (!edituserroles || edituserroles.indexOf("Legal Authority") == -1 ) {
+            res.redirect('/' + version + '/manage-users/edit-user-legal-change');
+        }
+        else {
+            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+        }
     }
 
 
 });
 
-/// Start
+/// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     clearvalidation(req);
-    req.session.data['edituserfirstname'] = ""
-    req.session.data['edituserlastname'] = ""
-    req.session.data['editusertelephone'] = ""
-    req.session.data['edituserjobtitle'] = ""
-    req.session.data['edituserroles'] = ""
     req.session.data['useremail'] = ""
     req.session.data['userfirstname'] = ""
     req.session.data['userlastname'] = ""
