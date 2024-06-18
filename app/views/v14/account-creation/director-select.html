@@ -97,7 +97,7 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="directorselect-3" name="directorselect" type="radio" value="Other" {% if data.directorselect=="Other" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="directorselect-3">
-                                A different {% if data.accounttype == "UK charity registered with the Charity Commission" %}trustee{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}member{% else %}director{% endif %}
+                                A different {% if data.accounttype == "UK charity registered with the Charity Commission" %}trustee{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}member{% else %}director or company secretary{% endif %}
                             </label>
                         </div>
                     </div>

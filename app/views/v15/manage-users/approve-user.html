@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are you sure you wish to approve this user?" %}
+{% set title = "Approve Jane Smith's request?" %}
 
 
 {% block pageTitle %}
@@ -31,25 +31,52 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-l">
-      {{title}}
-    </h1>
-    <div class="govuk-inset-text">
-      <p class="govuk-body">Full Name: Jane Smith</p>
-      <p class="govuk-body">Email: j.smith@ofgem.gov.uk</p>
-      <p class="govuk-body">Telephone: 01234567890</p>
-      <p class="govuk-body">Job title: Director</p>
+    <form  method="POST" novalidate>
+
+
+    <div class="govuk-form-group">
+      
+      <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            {{title}}
+          </h1>
+        </legend>
+        <div class="govuk-inset-text">
+          <p class="govuk-body">Full Name: Jane Smith</p>
+          <p class="govuk-body">Email: j.smith@ofgem.gov.uk</p>
+          <p class="govuk-body">Telephone: 01234567890</p>
+          <p class="govuk-body">Job title: Director</p>
+        </div>
+    
+        <p class="govuk-body">Approving Jane Smith would give them access to your organisations heat networks account.</p>
+
+
+        <div class="govuk-radios " data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="approveuser" name="approveuser" type="radio" value="yes">
+            <label class="govuk-label govuk-radios__label" for="approveuser">
+              Yes
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="approveuser-2" name="approveuser" type="radio" value="no">
+            <label class="govuk-label govuk-radios__label" for="approveuser-2">
+              No
+            </label>
+          </div>
+        </div>
+      </fieldset>
     </div>
-
-    <p class="govuk-body">Approving Jane Smith would allow them to submit Heat Network registrations on behalf of your organisation.</p>
-
-
     <div class="govuk-button-group">
-      <a class="govuk-button" href="approve-user-confirm">
-        Approve user
-      </a>
+      {{
+        govukButton ({
+            html: 'Continue'
+        })
+      }}
       <a class="govuk-link govuk-link--no-visited-state" href="../manage-users">Cancel</a>
     </div>
+</form>
 
   </div>
 </div>

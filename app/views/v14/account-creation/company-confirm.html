@@ -1,6 +1,8 @@
 {% extends 'layouts/main.html' %}
 {% if data.accounttype == "Company registered in the UK" %}
 {% set title = "Confirm this is the right company" %}
+{% elif data.accounttype == "UK charity registered with the Charity Commission" %}
+{% set title = "Confirm this is the right charity" %}
 {% else %}
 {% set title = "Confirm this is the right organisation" %}
 {% endif %}

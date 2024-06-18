@@ -155,6 +155,56 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 });
 
+
+
+/// Edit user
+router.get('/' + version + '/manage-users/edit-user', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/edit-user', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/edit-user', function (req, res) {
+    clearvalidation(req);
+
+    var edituserfirstname = req.session.data['edituserfirstname']
+
+    if (!editusertelephone) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.editusertelephone = {
+            "anchor": "editusertelephone",
+            "message": "Enter a telephone number"
+        }
+    }
+
+    if (!edituserjobtitle) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.edituserjobtitle = {
+            "anchor": "edituserjobtitle",
+            "message": "Enter a job title"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/edit-user', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (!edituserroles || edituserroles.indexOf("Legal Authority") == -1 ) {
+            res.redirect('/' + version + '/manage-users/edit-user-legal-change');
+        }
+        else {
+            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+        }
+    }
+
+
+});
+
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     clearvalidation(req);

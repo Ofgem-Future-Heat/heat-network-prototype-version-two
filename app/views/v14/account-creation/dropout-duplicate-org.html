@@ -1,0 +1,25 @@
+{% extends 'layouts/main.html' %}
+{% set title = "This organisation already has an account to use Ofgem’s heat network service" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+    
+
+        <p class="govuk-body"><a href="../invite-sent" class="govuk-link  govuk-link--no-visited-state">Request an invitation to be added to the account</a></p>
+    </div>
+
+</div>
+
+{% endblock %}
