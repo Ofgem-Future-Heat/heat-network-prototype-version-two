@@ -4,7 +4,7 @@
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
 {% set title = "Which member do you want to approve the creation of your organisation account?" %}
 {% else %}
-{% set title = "Which director do you want to approve the creation of your organisation account?" %}
+{% set title = "Which director or company secretary do you want to approve the creation of your organisation account?" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -56,7 +56,7 @@
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.accounttype %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.directorselect %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -68,10 +68,10 @@
 
                     </legend>
 
-                    {% if data.validationErrors.accounttype %}
+                    {% if data.validationErrors.directorselect %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.accounttype.message}}
+                        {{data.validationErrors.directorselect.message}}
                     </p>
                     {% endif %}
 

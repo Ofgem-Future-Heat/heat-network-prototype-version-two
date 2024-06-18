@@ -71,8 +71,14 @@
                     <p class="govuk-body">We'll send an email asking them to approve the creation of an organisation account for {{data.companyname}}</p>
 
                     {% if (data.directorselect == "John Smith") or (data.directorselect == "Jane Smith") %}
-                    <p class="govuk-body"><strong>First name:</strong> {{data.directorfirstname}}</p>
-                    <p class="govuk-body"><strong>Last name:</strong> {{data.directorlastname}}</p>
+                    <div class="govuk-form-group govuk-!-margin-top-4">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">First name</h3>
+                        <p class="govuk-body">{{data.directorfirstname}}</p>
+                    </div>
+                    <div class="govuk-form-group govuk-!-margin-top-4">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Last name</h3>
+                        <p class="govuk-body">{{data.directorlastname}}</p>
+                    </div>
 
                     {% else %}
                     <div class="govuk-form-group {% if data.validationErrors.directorfirstname %}govuk-form-group--error{% endif %}">

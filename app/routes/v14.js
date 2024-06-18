@@ -482,7 +482,7 @@ router.post('/' + version + '/account-creation/director-select', function (req, 
         else {
             req.session.data.validationErrors.directorselect = {
                 "anchor": "directorselect",
-                "message": "Select a director"
+                "message": "Select the director or company secretary"
             }
         }
     }
