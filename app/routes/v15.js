@@ -157,48 +157,62 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
 
-/// Edit user
-router.get('/' + version + '/manage-users/edit-user', function (req, res) {
+
+
+///Approve user permissions
+router.get('/' + version + '/manage-users/approve-user-permissions', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/manage-users/edit-user', {
+    res.render('/' + version + '/manage-users/approve-user-permissions', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/manage-users/edit-user', function (req, res) {
+router.post('/' + version + '/manage-users/approve-user-permissions', function (req, res) {
     clearvalidation(req);
 
-    var edituserfirstname = req.session.data['edituserfirstname']
 
-    if (!editusertelephone) {
+            res.redirect('/' + version + '/manage-users/approve-user-confirm');
+
+
+
+
+});
+
+/// Approve user
+router.get('/' + version + '/manage-users/approve-user', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/approve-user', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/approve-user', function (req, res) {
+    clearvalidation(req);
+
+    var approveuser = req.session.data['approveuser']
+
+    if (!approveuser) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephone = {
+        req.session.data.validationErrors.approveuser = {
             "anchor": "editusertelephone",
-            "message": "Enter a telephone number"
-        }
-    }
-
-    if (!edituserjobtitle) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserjobtitle = {
-            "anchor": "edituserjobtitle",
-            "message": "Enter a job title"
+            "message": "Select an option"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/manage-users/edit-user', {
+        res.render('/' + version + '/manage-users/approve-user', {
             data: req.session.data
         });
     }
 
     else {
-        if (!edituserroles || edituserroles.indexOf("Legal Authority") == -1 ) {
-            res.redirect('/' + version + '/manage-users/edit-user-legal-change');
+        if (approveuser == "no" ) {
+            res.redirect('/' + version + '/manage-users/reject-user-confirm');
         }
         else {
-            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+            res.redirect('/' + version + '/manage-users/approve-user-permissions');
         }
     }
 

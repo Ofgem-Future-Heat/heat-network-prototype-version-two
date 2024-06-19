@@ -1,0 +1,133 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Select permissions for Jane Smith" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <div class="govuk-inset-text">
+      <p class="govuk-body">Full Name: Jane Smith</p>
+      <p class="govuk-body">Email: j.smith@ofgem.gov.uk</p>
+      <p class="govuk-body">Telephone: 01234567890</p>
+      <p class="govuk-body">Job title: Director</p>
+    </div>
+    <form method="post" novalidate>
+
+    
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h1 class="govuk-fieldset__heading">
+              Permissions
+            </h1>
+            <div id="event-name-hint" class="govuk-hint">
+              If no options are selected the user will default to view only.
+            </div>
+          </legend>
+
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="userroles-3" name="edituserroles" type="checkbox" value="Account owner" >
+              <label class="govuk-label govuk-checkboxes__label" for="userroles-3">
+                Heat network manager
+              </label>
+              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
+                Can add and updated heat networks registered by your organisation
+              </div>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="userroles" name="edituserroles" type="checkbox" value="User manager" >
+              <label class="govuk-label govuk-checkboxes__label" for="userroles">
+                User manager
+              </label>
+              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
+                Can add, edit and remove standard users.
+              </div>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="userroles-2" name="edituserroles" type="checkbox" value="Legal Authority"  >
+              <label class="govuk-label govuk-checkboxes__label" for="userroles-2">
+                Legal authority
+              </label>
+              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
+                Has ultimate authority and responsibility for running the organisation.
+              </div>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="userroles-3" name="edituserroles" type="checkbox" value="Account owner" >
+              <label class="govuk-label govuk-checkboxes__label" for="userroles-3">
+                Account owner
+              </label>
+              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
+                Responsible for managing the Heat Networks organisation account.
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>  
+
+
+
+
+    <div class="govuk-button-group">
+      {{
+        govukButton ({
+            html: 'Save'
+        })
+      }}
+      <a class="govuk-link govuk-link--no-visited-state" href="../manage-users">Cancel</a>
+    </div>
+</form>
+
+  </div>
+</div>
+
+{% endblock %}
