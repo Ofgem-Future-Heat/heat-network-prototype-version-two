@@ -71,7 +71,7 @@
                           </thead>
                           <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell"><a href="manage-users/edit-user" class="govuk-link govuk-link--no-visited-state">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %} (j.smith@ofgem.gov.uk)</a></th>
+                              <td class="govuk-table__cell"><a href="manage-users/user-profile" class="govuk-link govuk-link--no-visited-state">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %} (j.smith@ofgem.gov.uk)</a></th>
                               <td class="govuk-table__cell">{%if data.edituserroles %}{% for role in data.edituserroles %}{{role}}{% if not loop.last %}, {% endif %} {% endfor %}{% else %}Account creator, Legal Authority, User manager{% endif %}</td>
                               <td class="govuk-table__cell"><span class="govuk-tag--green">Active</span></td>
                             </tr>
