@@ -6,26 +6,6 @@
 {{title}}
 {% endblock %}
 
-{% block beforeContent %}
-
-<div class="govuk-grid-row">
-
-  <div class="govuk-grid-column-full">
-
-
-    {{
-    govukBackLink ({
-    text: 'Back',
-    href: 'javascript:history.back()'
-    })
-    }}
-
-  </div>
-
-</div>
-
-{% endblock %}
-
 {% block content %}
 
 <div class="govuk-grid-row">
@@ -35,11 +15,18 @@
       {{title}}
     </h1>
     <div class="govuk-inset-text">
-      <p class="govuk-body"><strong>Email:</strong> {{data.useremail}}</p>
-      <p class="govuk-body"><strong>Full Name:</strong> {{data.userfirstname}} {{data.userlastname}}</p>
-      <p class="govuk-body"><strong>Telephone:</strong> {{data.usertelephone}}</p>
-      <p class="govuk-body"><strong>Job title:</strong> {{data.userjobtitle}}</p>
-      <p class="govuk-body"><strong>Roles:</strong> {%if data.userroles %}{% for role in data.userroles %}{{role}}{% if not loop.last %}, {% endif %} {% endfor %}{% else %} Standard user {% endif %}</p>
+      <p class="govuk-body"><strong>Email</strong><br />{{data.useremail}}</p>
+      <p class="govuk-body"><strong>Full Name</strong><br />{{data.userfirstname}} {{data.userlastname}}</p>
+      <p class="govuk-body"><strong>Telephone</strong><br />{{data.usertelephone}}</p>
+      <p class="govuk-body"><strong>Job title</strong><br />{{data.userjobtitle}}</p>
+      <p class="govuk-body"><strong>Additional permissions</strong> <br />
+        {%if (not data.adduserpermissionsregistration) and (not data.adduserpermissionsmonitoring) and (not data.adduserpermissionsusermanagement) and (not data.adduserpermissionsrightsandpowers) and (not data.adduserpermissionstransfer) %}No additional permissions<br />{% endif %}
+        {%if data.adduserpermissionsregistration %}{{data.adduserpermissionsregistration}}<br /> {% endif %}
+        {%if data.adduserpermissionsmonitoring %}{{data.adduserpermissionsmonitoring}}<br /> {% endif %}
+        {%if data.adduserpermissionsusermanagement %}{{data.adduserpermissionsusermanagement}}<br /> {% endif %}
+        {%if data.adduserpermissionsrightsandpowers %}{{data.adduserpermissionsrightsandpowers}}<br /> {% endif %}
+        {%if data.adduserpermissionstransfer %}{{data.adduserpermissionstransfer}}<br /> {% endif %}
+  </p>
     </div>
 
     <p class="govuk-body">An email has been sent to {{data.useremail}} asking them to create an account and sign in to the service.</p>

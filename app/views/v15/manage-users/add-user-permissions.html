@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Select permissions for Jane Smith" %}
+{% set title = "Select permissions for " + data.userfirstname + " " + data.userlastname %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -50,16 +50,7 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <div class="govuk-inset-text">
-      <p class="govuk-body"><strong>Email</strong><br /> j.smith@ofgem.gov.uk</p>
-
-      <p class="govuk-body"><strong>Full Name</strong><br />Jane Smith</p>
-      <p class="govuk-body"><strong>Telephone</strong><br /> 01234567890</p>
-      <p class="govuk-body"><strong>Job title</strong><br /> Director</p>
-    </div>
-
-    <form method="post" novalidate>
-
+    <form  method="POST" novalidate>
 
       <p class="govuk-body">Every user will have read access to all the information in your organisation's heat network account.</p>
       <p class="govuk-body">Select which additional permisions the user needs to have:</p>
@@ -82,14 +73,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-registration-1" name="approveuserpermissionsregistration" type="radio" value="Registration and authorisation" {% if data.approveuserpermissionsregistration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-registration-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Registration and authorisation" {% if data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-registration-2" name="approveuserpermissionsregistration" type="radio" value="" {% if not data.approveuserpermissionsregistration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-registration-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-2" name="adduserpermissionsregistration" type="radio" value="" {% if not data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-2">
                       No
                     </label>
                   </div>                
@@ -105,14 +96,14 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-monitoring-1" name="approveuserpermissionsmonitoring" type="radio" value="Monitoring and reporting" {% if data.approveuserpermissionsmonitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-monitoring-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Monitoring and reporting" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-monitoring-2" name="approveuserpermissionsmonitoring" type="radio" value="" {% if not data.approveuserpermissionsmonitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-monitoring-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-2" name="adduserpermissionsmonitoring" type="radio" value="" {% if not data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-2">
                       No
                     </label>
                   </div>                
@@ -130,14 +121,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-usermanagement-1" name="approveuserpermissionsusermanagement" type="radio" value="User management" {% if data.approveuserpermissionsusermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-usermanagement-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-1" name="adduserpermissionsusermanagement" type="radio" value="User management" {% if data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-usermanagement-2" name="approveuserpermissionsusermanagement" type="radio" value="" {% if not data.approveuserpermissionsusermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-usermanagement-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-2" name="adduserpermissionsusermanagement" type="radio" value="" {% if not data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-2">
                       No
                     </label>
                   </div>                
@@ -155,14 +146,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-rightsandpowers-1" name="approveuserpermissionsrightsandpowers" type="radio" value="Rights and powers" {% if data.approveuserpermissionsrightsandpowers %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-rightsandpowers-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-rightsandpowers-1" name="adduserpermissionsrightsandpowers" type="radio" value="Rights and powers" {% if data.adduserpermissionsrightsandpowers %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-rightsandpowers-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="approveuserpermissions-rightsandpowers-2" name="approveuserpermissionsrightsandpowers" type="radio" value="" {% if not data.approveuserpermissionsrightsandpowers %}checked{% endif %} >
-                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-rightsandpowers-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-rightsandpowers-2" name="adduserpermissionsrightsandpowers" type="radio" value="" {% if not data.adduserpermissionsrightsandpowers %}checked{% endif %} >
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-rightsandpowers-2">
                       No
                     </label>
                   </div>                
@@ -178,14 +169,14 @@
               <td class="govuk-table__cell govuk-!-width-one-third">
                   <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="approveuserpermissions-transfer-1" name="approveuserpermissionstransfer" type="radio" value="Transfer of ownership" {% if data.approveuserpermissionstransfer %}checked{% endif %}>
-                      <label class="govuk-label govuk-radios__label" for="approveuserpermissions-transfer-1">
+                      <input class="govuk-radios__input" id="adduserpermissions-transfer-1" name="adduserpermissionstransfer" type="radio" value="Transfer of ownership" {% if data.adduserpermissionstransfer %}checked{% endif %}>
+                      <label class="govuk-label govuk-radios__label" for="adduserpermissions-transfer-1">
                         Yes
                       </label>
                     </div>
                     <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="approveuserpermissions-transfer-2" name="approveuserpermissionstransfer" type="radio" value="" {% if not data.approveuserpermissionstransfer %}checked{% endif %}>
-                      <label class="govuk-label govuk-radios__label" for="approveuserpermissions-transfer-2">
+                      <input class="govuk-radios__input" id="adduserpermissions-transfer-2" name="adduserpermissionstransfer" type="radio" value="" {% if not data.adduserpermissionstransfer %}checked{% endif %}>
+                      <label class="govuk-label govuk-radios__label" for="adduserpermissions-transfer-2">
                         No
                       </label>
                     </div>                
@@ -198,18 +189,17 @@
       </table>
 
 
-    
 
 
 
-
-    <div class="govuk-button-group">
-      {{
-        govukButton ({
-            html: 'Save'
-        })
-      }}
-    </div>
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Save'
+          })
+        }}
+        <a class="govuk-link govuk-link--no-visited-state" href="../manage-users">Cancel</a>
+      </div>
 </form>
 
   </div>

@@ -112,46 +112,7 @@
         <input class="govuk-input govuk-!-width-two-thirds" id="job-title" name="userjobtitle" type="text" value="{{data.userjobtitle}}">
       </div>
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h1 class="govuk-fieldset__heading">
-              Additional permissions
-            </h1>
-          </legend>
 
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles" name="userroles" type="checkbox" value="User manager" {% for role in data.userroles %}{% if role == "User manager" %}checked{% endif %}{% endfor %}>
-              <label class="govuk-label govuk-checkboxes__label" for="userroles">
-                User manager
-              </label>
-              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
-                Can add, edit and remove standard users.
-              </div>
-            </div>
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles-2" name="userroles" type="checkbox" value="Legal Authority" {% for role in data.userroles %}{% if role == "Legal Authority" %}checked{% endif %}{% endfor %}>
-              <label class="govuk-label govuk-checkboxes__label" for="userroles-2">
-                Legal authority
-              </label>
-              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
-                Has ultimate authority and responsibility for running the organisation.
-              </div>
-
-            </div>
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="userroles-3" name="userroles" type="checkbox" value="Account owner" {% for role in data.userroles %}{% if role == "Account owner" %}checked{% endif %}{% endfor %}>
-              <label class="govuk-label govuk-checkboxes__label" for="userroles-3">
-                Account owner
-              </label>
-              <div id="waste-hint" class="govuk-hint govuk-checkboxes__hint">
-                Responsible for managing the Heat Networks organisation account.
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
       <div class="govuk-button-group">
         {{
           govukButton ({

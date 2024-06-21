@@ -14,14 +14,16 @@
   <div class="govuk-grid-column-full">
 
 
-    {{
-    govukBackLink ({
-    text: 'Back',
-    href: 'javascript:history.back()'
-    })
-    }}
-
-  </div>
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../account-information">Radienteco Ltd</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
+        </li>
+      </ol>
+    </div>  </div>
 
 </div>
 
@@ -78,18 +80,25 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Permissions
+          Additional permissions
         </dt>
         <dd class="govuk-summary-list__value">
           <p class="govuk-body">
+            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}No additional permissions<br />{% endif %}
+            {%if data.edituserpermissionsregistration %}{{data.edituserpermissionsregistration}}<br /> {% endif %}
+            {%if data.edituserpermissionsmonitoring %}{{data.edituserpermissionsmonitoring}}<br /> {% endif %}
             {%if data.edituserpermissionsusermanagement %}{{data.edituserpermissionsusermanagement}}<br /> {% endif %}
             {%if data.edituserpermissionsrightsandpowers %}{{data.edituserpermissionsrightsandpowers}}<br /> {% endif %}
+            {%if data.edituserpermissionstransfer %}{{data.edituserpermissionstransfer}}<br /> {% endif %}
+
           </p>
         </dd>
       </div>
     </dl>
     <div class="govuk-button-group">
       <a href="edit-user" class="govuk-link govuk-link--no-visited-state">Edit user</a>
+      <a href="edit-user-permissions" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
+
       <a href="delete-user" class="link-red">Delete user</a>    
     </div>
 

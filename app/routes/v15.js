@@ -79,9 +79,25 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
     }
 
     else {
-        res.redirect('/' + version + '/manage-users/add-user-confirm');
+        res.redirect('/' + version + '/manage-users/add-user-permissions');
     }
 
+
+});
+
+/// Add user permissions
+router.get('/' + version + '/manage-users/add-user-permissions', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/add-user-permissions', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
+    clearvalidation(req);
+
+        res.redirect('/' + version + '/manage-users/add-user-confirm');
 
 });
 
@@ -144,17 +160,30 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     }
 
     else {
-        if (!edituserroles || edituserroles.indexOf("Legal Authority") == -1 ) {
-            res.redirect('/' + version + '/manage-users/edit-user-legal-change');
-        }
-        else {
             res.redirect('/' + version + '/manage-users/edit-user-confirm');
-        }
     }
 
 
 });
 
+
+/// Edit user permissions
+router.get('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/edit-user-permissions', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
+    clearvalidation(req);
+
+            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+
+
+
+});
 
 
 
