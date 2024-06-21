@@ -57,7 +57,7 @@
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          {{data.edituserfirstname}} {{data.edituserlastname}}
+          {% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith {% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -65,7 +65,7 @@
           Telephone
         </dt>
         <dd class="govuk-summary-list__value">
-          {{data.editusertelephone}}
+          {% if data.editusertelephone %}{{data.editusertelephone}}{% else %}07999 888 777 {% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -73,7 +73,7 @@
           Job title
         </dt>
         <dd class="govuk-summary-list__value">
-          {{data.edituserjobtitle}}
+          {% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}Director{% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -81,7 +81,10 @@
           Permissions
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">{%if data.edituserroles %}{% for role in data.edituserroles %}{{role}}{% if not loop.last %}<br /> {% endif %} {% endfor %}{% else %}Account creator, Legal Authority, User manager{% endif %}</p>
+          <p class="govuk-body">
+            {%if data.edituserpermissionsusermanagement %}{{data.edituserpermissionsusermanagement}}<br /> {% endif %}
+            {%if data.edituserpermissionsrightsandpowers %}{{data.edituserpermissionsrightsandpowers}}<br /> {% endif %}
+          </p>
         </dd>
       </div>
     </dl>
