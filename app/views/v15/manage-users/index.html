@@ -42,8 +42,8 @@
                           <caption class="govuk-table__caption govuk-table__caption--m">Access requests</caption>
                           <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
-                              <th scope="col" class="govuk-table__header">Name</th>
-                              <th scope="col" class="govuk-table__header">Role</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email</th>
                               <th scope="col" class="govuk-table__header">Status</th>
                               <th scope="col" class="govuk-table__header"></th>
                             </tr>
@@ -51,10 +51,10 @@
                           <tbody class="govuk-table__body">
 
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell">Jane Smith (j.smith@gmail.com)</th>
-                              <td class="govuk-table__cell">Standard user</td>
-                              <td class="govuk-table__cell"><span class="govuk-tag--red">Pending approval</span></td>
-                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/approve-user" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-5">View request</a></td>
+                              <td class="govuk-table__cell">Jane Smith</th>
+                              <td class="govuk-table__cell">j.smith@gmail.com</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--red">Pending approval</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/approve-user" class="govuk-link govuk-link--no-visited-state ">View <span class="govuk-visually-hidden">request</span></a></td>
                             </tr>
  
 
@@ -64,27 +64,43 @@
                           <caption class="govuk-table__caption govuk-table__caption--m">Users</caption>
                           <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
-                              <th scope="col" class="govuk-table__header">Name</th>
-                              <th scope="col" class="govuk-table__header">Role</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email</th>
                               <th scope="col" class="govuk-table__header">Status</th>
+                              <th scope="col" class="govuk-table__header "></th>
+
                             </tr>
                           </thead>
                           <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell"><a href="manage-users/user-profile" class="govuk-link govuk-link--no-visited-state">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %} (j.smith@ofgem.gov.uk)</a></th>
-                              <td class="govuk-table__cell">Regulatory contact</td>
-                              <td class="govuk-table__cell"><span class="govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell">Helen Smith<br /> 
+                                <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
+                                (Regulatory contact)
+                              </p></th>
+                              <td class="govuk-table__cell">h.smith@ofgem.gov.uk</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile-reg" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a><br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
                             </tr>
-                            <tr class="govuk-table__row">
-                              <td class="govuk-table__cell"><a href="#" class="govuk-link govuk-link--no-visited-state">Donald Smith (d.smith@ofgem.gov.uk)</a></th>
-                              <td class="govuk-table__cell">User</td>                             
-                              <td class="govuk-table__cell"><span class="govuk-tag--green">Active</span></td>
 
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %}<br /> 
+                                <td class="govuk-table__cell">j.smith@ofgem.gov.uk</td>                             
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
+                            </tr>
+                            
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">Donald Smith</th>
+                              <td class="govuk-table__cell">d.smith@ofgem.gov.uk</td>                             
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
                             </tr>
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell"><a href="#" class="govuk-link govuk-link--no-visited-state">Bob Smith (b.smith@ofgem.gov.uk)</a></th>
-                              <td class="govuk-table__cell">User</td>
-                              <td class="govuk-table__cell"><span class="govuk-tag--grey">Invite sent</span></td>
+                              <td class="govuk-table__cell">Bob Smith</th>
+                              <td class="govuk-table__cell">b.smith@ofgem.gov.uk</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey">Invite sent</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
+
                             </tr>
 
 

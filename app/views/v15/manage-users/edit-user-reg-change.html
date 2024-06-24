@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Select a new legal authority" %}
+{% set title = "Select a new regulatory contact" %}
 
 
 {% block pageTitle %}
@@ -34,18 +34,18 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <p class="govuk-body">There must be at least one user with legal authority assigned to your organisation.</p>
-    <p class="govuk-body">You will need to assign legal authority to a different user.</p>
+    <p class="govuk-body">There must be a regulatory contact assigned to your organisation.</p>
+    <p class="govuk-body">You will need to assign the role of regulatory contact to a different user.</p>
     <div class="govuk-form-group">
       <label class="govuk-label govuk-label--s" for="sort">
-        New legal authority
+        New regulatory contact
       </label>
       <select class="govuk-select" id="sort" name="sort">
         <option value="choose" selected>Select a user</option>
         <option value="published">Donald Smith (d.smith@ofgem.gov.uk)</option>
       </select>
     </div>
-    <a class="govuk-button" href="edit-user-confirm">
+    <a class="govuk-button" href="../manage-users?deleted">
       Continue
     </a>
 

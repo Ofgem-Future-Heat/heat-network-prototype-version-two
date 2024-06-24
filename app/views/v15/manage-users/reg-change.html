@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "User succesfully deleted" %}
+{% set title = "Select a new regulatory contact" %}
 
 
 {% block pageTitle %}
@@ -31,11 +31,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-l">
-      {{title}}
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--l" for="postcode">
+        {{title}}
+      </label>
     </h1>
-    <p class="govuk-body">John Smith (j.smith@ofgem.gov.uk) will no longer be able to access the service.</p>
-    <p class="govuk-body">We have informed them via email that their account has been removed from Randianteco Ltd</p>
+    <div class="govuk-form-group">
+
+      <select class="govuk-select" id="sort" name="sort">
+        <option value="choose" selected>Select a user</option>
+        <option value="published">Donald Smith (d.smith@ofgem.gov.uk)</option>
+      </select>
+    </div>
     <a class="govuk-button" href="../manage-users">
       Continue
     </a>

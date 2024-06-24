@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "John Smith" %}
+{% set title = "Helen Smith" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,6 +51,8 @@
     {% endif %}
     <h1 class="govuk-heading-l">
       {{title}}
+      <span class="govuk-caption-l govuk-!-margin-">Regulatory contact</span>
+
     </h1>
 
     <dl class="govuk-summary-list">
@@ -59,7 +61,7 @@
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith {% endif %}
+          Helen Smith
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -67,7 +69,7 @@
           Telephone
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.editusertelephone %}{{data.editusertelephone}}{% else %}07999 888 777 {% endif %}
+          07999 888 777
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -75,7 +77,7 @@
           Job title
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}Director{% endif %}
+          Director
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -84,28 +86,18 @@
         </dt>
         <dd class="govuk-summary-list__value">
           <p class="govuk-body">
-            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}No additional permissions<br />{% endif %}
-            {%if data.edituserpermissionsregistration %}{{data.edituserpermissionsregistration}}<br /> {% endif %}
-            {%if data.edituserpermissionsmonitoring %}{{data.edituserpermissionsmonitoring}}<br /> {% endif %}
-            {%if data.edituserpermissionsusermanagement %}{{data.edituserpermissionsusermanagement}}<br /> {% endif %}
-            {%if data.edituserpermissionsrightsandpowers %}{{data.edituserpermissionsrightsandpowers}}<br /> {% endif %}
-            {%if data.edituserpermissionstransfer %}{{data.edituserpermissionstransfer}}<br /> {% endif %}
+            
+            Registration and authorisation<br> 
+            Monitoring and reporting<br> 
+            User management<br> 
+            Rights and powers<br> 
+            Transfer of ownership<br> 
 
           </p>
-        </dd>
+                </dd>
       </div>
     </dl>
-    <ul class="govuk-summary-list__actions-list">
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user" class="govuk-link govuk-link--no-visited-state">Edit user</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-permissions" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="delete-user" class="link-red">Delete user</a>    
-      </li>
-    </ul>
+
 
 
 

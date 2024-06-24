@@ -97,7 +97,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
     clearvalidation(req);
 
-        res.redirect('/' + version + '/manage-users/add-user-confirm');
+        res.redirect('/' + version + '/manage-users');
 
 });
 
@@ -160,7 +160,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     }
 
     else {
-            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+            res.redirect('/' + version + '/manage-users/user-profile');
     }
 
 
@@ -179,7 +179,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
 
-            res.redirect('/' + version + '/manage-users/edit-user-confirm');
+            res.redirect('/' + version + '/manage-users/user-profile');
 
 
 
@@ -201,7 +201,7 @@ router.post('/' + version + '/manage-users/approve-user-permissions', function (
     clearvalidation(req);
 
 
-            res.redirect('/' + version + '/manage-users/approve-user-confirm');
+            res.redirect('/' + version + '/manage-users');
 
 
 
@@ -238,7 +238,7 @@ router.post('/' + version + '/manage-users/approve-user', function (req, res) {
 
     else {
         if (approveuser == "no" ) {
-            res.redirect('/' + version + '/manage-users/reject-user-confirm');
+            res.redirect('/' + version + '/manage-users');
         }
         else {
             res.redirect('/' + version + '/manage-users/approve-user-permissions');

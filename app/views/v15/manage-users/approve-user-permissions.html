@@ -7,25 +7,7 @@
 {{title}}
 {% endblock %}
 
-{% block beforeContent %}
 
-<div class="govuk-grid-row">
-
-  <div class="govuk-grid-column-full">
-
-
-    {{
-    govukBackLink ({
-    text: 'Back',
-    href: 'javascript:history.back()'
-    })
-    }}
-
-  </div>
-
-</div>
-
-{% endblock %}
 
 {% block content %}
 
@@ -47,17 +29,23 @@
         </div>
     </div>
     {% endif %}
+
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          Training outcome recorded and trainee withdrawn
+        </h3>
+        <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p>
+      </div>
+    </div>
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <div class="govuk-inset-text">
-      <p class="govuk-body"><strong>Email</strong><br /> j.smith@ofgem.gov.uk</p>
-
-      <p class="govuk-body"><strong>Full Name</strong><br />Jane Smith</p>
-      <p class="govuk-body"><strong>Telephone</strong><br /> 01234567890</p>
-      <p class="govuk-body"><strong>Job title</strong><br /> Director</p>
-    </div>
-
     <form method="post" novalidate>
 
 
