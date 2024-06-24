@@ -1,5 +1,8 @@
 {% extends 'layouts/main.html' %}
-{% set title = "John Smith" %}
+{% set name %}{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith{% endif %}{% endset %}
+{% set title = name %}
+
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -33,6 +36,30 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
+
+    {% if data.manageusersnotification %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if data.manageusersnotification == 'edituser' %}
+          You have saved {{name}}'s details.
+          {% elif data.manageusersnotification == 'editpermissions' %}
+          You have saved {{name}}'s permissions.
+          {% endif %}
+        </h3>
+        <p class="govuk-body">We've let them know via email.</p>
+      </div>
+    </div>
+{% endif %}
+
+
+
     {% if _inError %}
     <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
         <h2 class="govuk-error-summary__title" id="error-summary-title">
@@ -71,7 +98,7 @@
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith {% endif %}
+          {{name}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">

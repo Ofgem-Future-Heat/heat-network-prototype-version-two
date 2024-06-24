@@ -31,8 +31,47 @@
 
 {% block content %}
 
+
+
+      {% if data.manageusersnotification %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            {% if data.manageusersnotification == 'deleted' %}
+            You've removed John Smith from this heat networks account.
+            
+            {% elif data.manageusersnotification == 'adduserpermissions' %}
+            You've saved additional permissions for {{data.userfirstname}} {{data.userlastname}}.
+
+            {% elif data.manageusersnotification == 'permissions' %}
+            You've saved additional permissions for Jane Smith.
+            {% elif data.manageusersnotification == 'approvalrejected' %}
+            You've rejected Jane Smith's request for access to this heat networks account.
+            {% elif data.manageusersnotification == 'regchange' %}
+            You've made Donald Smith the regulatory contact for this heat networks account. 
+            {% endif %}
+          </h3>
+          <p class="govuk-body">We've let them know via email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
+
+
+
+
+
                         <span class="govuk-caption-l">
                           {% if data.companyname %}
                           {{data.companyname}}
@@ -80,12 +119,17 @@
                           <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell">{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}<br /> 
+                                {% if data.manageusersnotification != 'regchange' %}
                                 <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
                                 (Regulatory contact)
-                              </p></th>
+                              </p>
+                              {% endif %}
                               <td class="govuk-table__cell">{% if data.oneloginemail %}{{data.oneloginemail}}{% else %}h.smith@gmail.com{% endif %}</td>
                               <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
-                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile-reg" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a><br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile-reg" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                {% if data.manageusersnotification != 'regchange' %}
+                                <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
+                                {% endif %}
                             </tr>
 
                             <tr class="govuk-table__row">
@@ -96,10 +140,22 @@
                             </tr>
                             
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell">Donald Smith</th>
+                              <td class="govuk-table__cell">Donald Smith
+                                {% if data.manageusersnotification == 'regchange' %}
+                                <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
+                                (Regulatory contact)
+                              </p>
+                              {% endif %}
+
+                              </td>
                               <td class="govuk-table__cell">d.smith@ofgem.gov.uk</td>                             
                               <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
-                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                {% if data.manageusersnotification == 'regchange' %}
+                                <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
+                                {% endif %}
+
+                              </td>
                             </tr>
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell">Bob Smith</th>
@@ -114,12 +170,19 @@
                         </table>
 
 
-                        <a class="govuk-button" href="manage-users/add-user">Add new user</a>
+
+                        <form  method="POST" novalidate>
+
+
+                        <div class="govuk-button-group">
+                          {{
+                            govukButton ({
+                                html: 'Add new user'
+                            })
+                          }}
+                        </div>
+                  </form>
+                  
                   </div>
 </div>
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('notification');
-  console.log (myParam);
-</script>
 {% endblock %}

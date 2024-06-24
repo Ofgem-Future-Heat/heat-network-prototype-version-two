@@ -13,6 +13,10 @@ function clearvalidation(req) {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 /// Add user
 router.get('/' + version + '/manage-users/add-user', function (req, res) {
     clearvalidation(req);
@@ -97,7 +101,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
     clearvalidation(req);
 
-        res.redirect('/' + version + '/manage-users');
+        res.redirect('/' + version + '/manage-users?notification=adduserpermissions');
 
 });
 
@@ -160,7 +164,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     }
 
     else {
-            res.redirect('/' + version + '/manage-users/user-profile');
+            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser');
     }
 
 
@@ -179,7 +183,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
 
-            res.redirect('/' + version + '/manage-users/user-profile');
+            res.redirect('/' + version + '/manage-users/user-profile?notification=editpermissions');
 
 
 
@@ -201,7 +205,7 @@ router.post('/' + version + '/manage-users/approve-user-permissions', function (
     clearvalidation(req);
 
 
-            res.redirect('/' + version + '/manage-users');
+            res.redirect('/' + version + '/manage-users?notification=permissions');
 
 
 
@@ -238,7 +242,7 @@ router.post('/' + version + '/manage-users/approve-user', function (req, res) {
 
     else {
         if (approveuser == "no" ) {
-            res.redirect('/' + version + '/manage-users');
+            res.redirect('/' + version + '/manage-users?notification=approvalrejected');
         }
         else {
             res.redirect('/' + version + '/manage-users/approve-user-permissions');
@@ -251,15 +255,40 @@ router.post('/' + version + '/manage-users/approve-user', function (req, res) {
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     clearvalidation(req);
-    req.session.data['useremail'] = ""
-    req.session.data['userfirstname'] = ""
-    req.session.data['userlastname'] = ""
-    req.session.data['usertelephone'] = ""
-    req.session.data['userjobtitle'] = ""        
-    req.session.data['userroles'] = ""
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
 
 
     res.render('/' + version + '/manage-users/index', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users', function (req, res) {
+    clearvalidation(req);
+    req.session.data['userfirstname'] = "";
+    req.session.data['userlastname'] = "";
+
+    req.session.data['usertelephone'] = "";
+    req.session.data['useremail'] = "";
+    req.session.data['userjobtitle'] = ""
+
+
+            res.redirect('/' + version + '/manage-users/add-user');
+
+
+});
+
+
+/// User profile
+router.get('/' + version + '/manage-users/user-profile', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
+    res.render('/' + version + '/manage-users/user-profile', {
         data: req.session.data
     });
 });
