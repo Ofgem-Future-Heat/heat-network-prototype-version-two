@@ -33,7 +33,13 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-
+                        <span class="govuk-caption-l">
+                          {% if data.companyname %}
+                          {{data.companyname}}
+                          {% else %}
+                          Radienteco Ltd
+                          {% endif %}
+                        </span>
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
@@ -43,7 +49,7 @@
                           <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                               <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
-                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email address</th>
                               <th scope="col" class="govuk-table__header">Status</th>
                               <th scope="col" class="govuk-table__header"></th>
                             </tr>
@@ -53,7 +59,7 @@
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell">Jane Smith</th>
                               <td class="govuk-table__cell">j.smith@gmail.com</td>
-                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--red">Pending approval</span></td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--red">Needs approval</span></td>
                               <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/approve-user" class="govuk-link govuk-link--no-visited-state ">View <span class="govuk-visually-hidden">request</span></a></td>
                             </tr>
  
@@ -65,7 +71,7 @@
                           <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                               <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
-                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email address</th>
                               <th scope="col" class="govuk-table__header">Status</th>
                               <th scope="col" class="govuk-table__header "></th>
 
@@ -73,11 +79,11 @@
                           </thead>
                           <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell">Helen Smith<br /> 
+                              <td class="govuk-table__cell">{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}<br /> 
                                 <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
                                 (Regulatory contact)
                               </p></th>
-                              <td class="govuk-table__cell">h.smith@ofgem.gov.uk</td>
+                              <td class="govuk-table__cell">{% if data.oneloginemail %}{{data.oneloginemail}}{% else %}h.smith@gmail.com{% endif %}</td>
                               <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
                               <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile-reg" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a><br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
                             </tr>
@@ -111,5 +117,9 @@
                         <a class="govuk-button" href="manage-users/add-user">Add new user</a>
                   </div>
 </div>
-
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('notification');
+  console.log (myParam);
+</script>
 {% endblock %}

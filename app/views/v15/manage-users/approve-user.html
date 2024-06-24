@@ -53,24 +53,28 @@
       
       <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <span class="govuk-caption-l">
+            {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+          </span>
+
           <h1 class="govuk-fieldset__heading">
             {{title}}
           </h1>
         </legend>
         <div class="govuk-inset-text">
-          <p class="govuk-body"><strong>Email</strong><br /> j.smith@ofgem.gov.uk</p>
+          <p class="govuk-body"><strong>Email address</strong><br /> j.smith@ofgem.gov.uk</p>
 
-          <p class="govuk-body"><strong>Full Name</strong><br />Jane Smith</p>
+          <p class="govuk-body"><strong>Full name</strong><br />Jane Smith</p>
           <p class="govuk-body"><strong>Telephone</strong><br /> 01234567890</p>
           <p class="govuk-body"><strong>Job title</strong><br /> Director</p>
         </div>
     
-        <p class="govuk-body">Approving Jane Smith would give them access to your organisations heat networks account.</p>
-
+        <p class="govuk-body">Approving this request will allow Jane Smith to view all information on {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks account.</p>
+        <p class="gouk-body">You can set additional permissions for them the next screen.</p>
         <div class="govuk-form-group {% if data.validationErrors.approveuser %}govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              Approve Jane Smith's request?
+              Approve request?
             </legend>
         {% if data.validationErrors.approveuser %}
         <p class="govuk-error-message">

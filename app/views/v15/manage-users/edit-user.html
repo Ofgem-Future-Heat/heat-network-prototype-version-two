@@ -47,6 +47,10 @@
         </div>
     </div>
     {% endif %}
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>

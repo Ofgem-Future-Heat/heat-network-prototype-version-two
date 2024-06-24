@@ -17,7 +17,7 @@
     <div class="govuk-breadcrumbs">
       <ol class="govuk-breadcrumbs__list">
         <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="../account-information">Radienteco Ltd</a>
+          <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
         </li>
         <li class="govuk-breadcrumbs__list-item">
           <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
@@ -49,11 +49,23 @@
         </div>
     </div>
     {% endif %}
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
 
     <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          j.smith@ofgem.gov.uk
+        </dd>
+      </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Name

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Select permissions for Jane Smith" %}
+{% set title = "Select additional permissions for Jane Smith" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -38,19 +38,21 @@
       </div>
       <div class="govuk-notification-banner__content">
         <h3 class="govuk-notification-banner__heading">
-          Training outcome recorded and trainee withdrawn
-        </h3>
-        <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p>
+          You've approved Jane Smith's request for access to this heat networks account.        </h3>
       </div>
     </div>
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
     <form method="post" novalidate>
 
 
-      <p class="govuk-body">Every user will have read access to all the information in your organisation's heat network account.</p>
-      <p class="govuk-body">Select which additional permisions the user needs to have:</p>
+      <p class="govuk-body">Every user has read access to all the information in your organisation's heat network account.</p>
+      <p class="govuk-body">Select which additional permissions Jane Smith needs to have:</p>
 
       <table class="govuk-table">
         <thead class="govuk-table__head govuk-visually-hidden">
@@ -63,7 +65,7 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Registration and authorisation 
-              <div class="govuk-hint">Add, edit and submit data to Ofgem about your organisation's heat networks</div>
+              <div class="govuk-hint">Can add, edit and submit data to Ofgem about your organisation's heat networks</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
@@ -88,7 +90,7 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Monitoring and reporting 
-              <div class="govuk-hint">Submit regular updates to Ofgem about your organisation's heat networks</div>
+              <div class="govuk-hint">Can submit regular updates to Ofgem about your organisation's heat networks</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
@@ -111,11 +113,9 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">User management
-              <div class="govuk-hint">Add new users, edit user permissions, remove users from the account</div>
+              <div class="govuk-hint">Can add new users, edit user permissions, remove users from the account</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
-   
-
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="approveuserpermissions-usermanagement-1" name="approveuserpermissionsusermanagement" type="radio" value="User management" {% if data.approveuserpermissionsusermanagement %}checked{% endif %}>
@@ -131,12 +131,13 @@
                   </div>                
                 </div>
             </td>
+
           </fieldset>
           </tr>
           <tr class="govuk-table__row">
           <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Rights and powers
-              <div class="govuk-hint">Apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks</div>
+              <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
@@ -161,7 +162,7 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
               <th scope="row" class="govuk-table__header">Transfer of ownership
-                <div class="govuk-hint">Inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks</div>
+                <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks</div>
               </th>
               <td class="govuk-table__cell govuk-!-width-one-third">
                   <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
