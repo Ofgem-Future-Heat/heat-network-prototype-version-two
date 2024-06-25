@@ -535,7 +535,7 @@ router.post('/' + version + '/account-creation/check-answers', function (req, re
     }
 
     else {
-            res.redirect('/' + version + '/account-information');
+            res.redirect('/' + version + '/account-creation/account-created');
         }
 
 });
