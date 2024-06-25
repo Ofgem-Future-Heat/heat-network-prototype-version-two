@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Helen Smith" %}
+{% set title %}
+{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
