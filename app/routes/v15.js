@@ -999,7 +999,7 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
         req.session.data.validationError = "true"
         req.session.data.validationErrors.companycreate = {
             "anchor": "companycreate",
-            "message": "Select whether you wish to create a company account"
+            "message": "Select whether you are the regulatory contact"
         }
     }
 

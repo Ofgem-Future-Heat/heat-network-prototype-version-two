@@ -98,36 +98,22 @@
                                 UK charity registered with the Charity Commission or OSCR
                             </label>
                             <div id="accounttype-2-hint" class="govuk-hint govuk-radios__hint">
-                                For example, charitable incorporated organisation, charitable trust 
+                                For example, charitable incorporated organisation, charitable trust
                               </div>
                         </div>
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-3" name="accounttype" type="radio" value="UK public body" {% if data.accounttype=="UK public body" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="accounttype-3">
-                                UK public body
-                            </label>
-                            <div id="accounttype-3-hint" class="govuk-hint govuk-radios__hint">
-                                A local or central government body, or an organisation owned or operated by government, including some schools, universities, libraries, museums, hospitals and prisons
-                              </div>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="accounttype-11" name="accounttype" type="radio" value="None, I'm a sole trader" {% if data.accounttype=="None, I'm a sole trader" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="accounttype-11">
-                                UK sole trader
-                            </label>
-                            <div id="accounttype-11-hint" class="govuk-hint govuk-radios__hint">
-                                For example, you're self-employed
-                              </div>
-
-                        </div>
+ 
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="accounttype-4" name="accounttype" type="radio" value="Other UK organisation" {% if data.accounttype=="Other UK organisation" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype-4">
                                 Other UK organisation
                             </label>
+                            <div id="accounttype-4-hint" class="govuk-hint govuk-radios__hint">
+                                For example, local authority or other publicly-funded organisation, sole trader
+                              </div>
                         </div>
+                        <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="accounttype-5" name="accounttype" type="radio" value="Overseas organisation" {% if data.accounttype=="Overseas organisation" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="accounttype-5">
