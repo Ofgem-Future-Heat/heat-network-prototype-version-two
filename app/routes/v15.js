@@ -507,15 +507,15 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 
 
 ///Legal declaration
-router.get('/' + version + '/account-creation/legal-declaration-account', function (req, res) {
+router.get('/' + version + '/account-creation/check-answers', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/account-creation/legal-declaration-account', {
+    res.render('/' + version + '/account-creation/check-answers', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/account-creation/legal-declaration-account', function (req, res) {
+router.post('/' + version + '/account-creation/check-answers', function (req, res) {
     clearvalidation(req);
     var confirmauthority = req.session.data['creatorlegaldeclaration']
 
@@ -523,19 +523,19 @@ router.post('/' + version + '/account-creation/legal-declaration-account', funct
         req.session.data.validationError = "true"
         req.session.data.validationErrors.creatorlegaldeclaration = {
             "anchor": "creatorlegaldeclaration",
-            "message": "You must tick to confirm that the details you're going to provide will be accurate"
+            "message": "You must tick to confirm that the details you've provided will be accurate"
         }
     }
 
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/account-creation/legal-declaration-account', {
+        res.render('/' + version + '/account-creation/check-answers', {
             data: req.session.data
         });
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/your-details');
+            res.redirect('/' + version + '/account-information');
         }
 
 });
@@ -733,7 +733,7 @@ router.post('/' + version + '/account-creation/your-details', function (req, res
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/type');
+            res.redirect('/' + version + '/account-creation/check-answers');
     }
 
 });
@@ -1012,16 +1012,11 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
     else {
         if (companycreate == "No") {
-            if (accounttype == "Company registered in the UK" || accounttype == "UK mutual society registered with the Financial Conduct Authority" || accounttype == "UK charity registered with the Charity Commission") {
-                res.redirect('/' + version + '/account-creation/director-select');
-            }
-            else {
-                res.redirect('/' + version + '/account-creation/director-details');
-            }
+                res.redirect('/' + version + '/account-creation/dropout-regcontact');
         }
         else {
 
-            res.redirect('/' + version + '/account-creation/confirm-authority');
+            res.redirect('/' + version + '/account-creation/your-details');
         }
     }
 

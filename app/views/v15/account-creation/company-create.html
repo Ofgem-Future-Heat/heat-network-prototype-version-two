@@ -1,16 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% if data.accounttype == "Company registered in the UK" %}
-{% set title = "Are you the director or company secretary for this company?" %}
-{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-{% set title = "Do you have legal authority to act on behalf of this organisation's members?" %}
-{% elif data.accounttype == "UK charity registered with the Charity Commission" %}
-{% set title = "Are you a trustee for this charity?" %}
-{% elif data.accounttype == "UK public body" %}
-{% set title = "Are you an executive officer for this public body?" %}
-
-{% else %}
-{% set title = "Do you have legal authority to act on behalf of this organisation?" %}
-{% endif %}
+{% set title %}
+Are you {{data.companyname}}'s regulatory contact for heat networks?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -72,23 +63,25 @@
                     </h1>
 
                 </legend>
-
-                <p class="govuk-body">Before we can create this account, we'll need someone with legal authority to act on behalf of the organisation to approve it. </p>
-                <p class="govuk-body">This means someone with ultimate authority and responsibility for running the organisation.</p>
-
-                    <div class="govuk-inset-text govuk-!-margin-top-2">
-                        <p class="govuk-body">
-                            {{data.companyname}}<br/>
-                            {% if data.orgaddressSelect %} 
-                            {% set address = data.orgaddressSelect.toString() %}
-                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-                            {% else %}
-                            19 Grosvenor Road <br />
-                            Solihull B91 3PU
-    {% endif %}
-                        </p>
-    
+                <details class="govuk-details">
+                    <summary class="govuk-details__summary">
+                      <span class="govuk-details__summary-text">
+                        Help with 'regulatory contact'
+                      </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        This is Ofgem’s main point of contact for any questions they may have about your organisation and its heat networks. 
                     </div>
+                  </details>
+                <p class="govuk-body">As regulatory contact, you will:</p>
+                  <ul class="govuk-list govuk-list--bullet">
+                    <li>have full access to all features in the account, for example managing users, submitting heat network information</li>
+                    <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                  </ul>
+
+                  <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
+
+
                     <div class="govuk-form-group {% if data.validationErrors.companycreate %}govuk-form-group--error{% endif %}">
 
                     {% if data.validationErrors.companycreate %}

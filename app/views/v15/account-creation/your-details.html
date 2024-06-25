@@ -103,7 +103,7 @@
                             {{data.validationErrors.yourtelephone.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-one-third" id="yourtelephone" name="yourtelephone" type="tel" autocomplete="tel" value="{{data.oneloginphone}}">
+                        <input class="govuk-input govuk-!-width-one-third" id="yourtelephone" name="yourtelephone" type="tel" autocomplete="tel" value="{% if data.yourtelephone %}{{data.yourtelephone}}{% else %}{{data.oneloginphone}}{% endif %}">
                     </div>
 
                     <div class="govuk-form-group {% if data.validationErrors.yourjobtitle %}govuk-form-group--error{% endif %}">
