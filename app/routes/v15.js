@@ -280,6 +280,34 @@ router.post('/' + version + '/manage-users', function (req, res) {
 
 });
 
+/// Manage users basic
+router.get('/' + version + '/manage-users/basic', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
+    res.render('/' + version + '/manage-users/basic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/basic', function (req, res) {
+    clearvalidation(req);
+    req.session.data['userfirstname'] = "";
+    req.session.data['userlastname'] = "";
+
+    req.session.data['usertelephone'] = "";
+    req.session.data['useremail'] = "";
+    req.session.data['userjobtitle'] = ""
+
+
+            res.redirect('/' + version + '/manage-users/add-user');
+
+
+});
+
 
 /// User profile
 router.get('/' + version + '/manage-users/user-profile', function (req, res) {
