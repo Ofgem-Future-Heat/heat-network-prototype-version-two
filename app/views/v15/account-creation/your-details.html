@@ -77,7 +77,7 @@
                             {{data.validationErrors.yourfirstname.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-one-third" id="yourfirstname" name="yourfirstname" type="text" value="{{data.yourfirstname}}">
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourfirstname" name="yourfirstname" type="text" value="{{data.yourfirstname}}">
                     </div>
 
                     <div class="govuk-form-group {% if data.validationErrors.yourlastname %}govuk-form-group--error{% endif %}">
@@ -90,7 +90,7 @@
                             {{data.validationErrors.yourlastname.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-one-third" id="yourlastname" name="yourlastname" type="text" value="{{data.yourlastname}}">
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourlastname" name="yourlastname" type="text" value="{{data.yourlastname}}">
                     </div>
 
                     <div class="govuk-form-group {% if data.validationErrors.yourtelephone %}govuk-form-group--error{% endif %}">
@@ -103,7 +103,7 @@
                             {{data.validationErrors.yourtelephone.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-one-third" id="yourtelephone" name="yourtelephone" type="tel" autocomplete="tel" value="{% if data.yourtelephone %}{{data.yourtelephone}}{% else %}{{data.oneloginphone}}{% endif %}">
+                        <input class="govuk-input govuk-input--width-10" id="yourtelephone" name="yourtelephone" type="tel" autocomplete="tel" value="{% if data.yourtelephone %}{{data.yourtelephone}}{% else %}{{data.oneloginphone}}{% endif %}">
                     </div>
 
                     <div class="govuk-form-group {% if data.validationErrors.yourjobtitle %}govuk-form-group--error{% endif %}">
@@ -116,7 +116,7 @@
                             {{data.validationErrors.yourjobtitle.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-input--width-10" id="yourjobtitle" name="yourjobtitle" type="text" value="{{data.yourjobtitle}}">
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourjobtitle" name="yourjobtitle" type="text" value="{{data.yourjobtitle}}">
                     </div>
                 </fieldset>
 
