@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Edit John Smith" %}
+{% set name %}{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith{% endif %}{% endset %}
+
+{% set title %}
+ Edit {{name}}
+ {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 

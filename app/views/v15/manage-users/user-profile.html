@@ -122,15 +122,17 @@
           Additional permissions
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">
-            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}No additional permissions<br />{% endif %}
-            {%if data.edituserpermissionsregistration %}{{data.edituserpermissionsregistration}}<br /> {% endif %}
-            {%if data.edituserpermissionsmonitoring %}{{data.edituserpermissionsmonitoring}}<br /> {% endif %}
-            {%if data.edituserpermissionsusermanagement %}{{data.edituserpermissionsusermanagement}}<br /> {% endif %}
-            {%if data.edituserpermissionsrightsandpowers %}{{data.edituserpermissionsrightsandpowers}}<br /> {% endif %}
-            {%if data.edituserpermissionstransfer %}{{data.edituserpermissionstransfer}}<br /> {% endif %}
+            <ul class="govuk-list">
+            
+  
+            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}</li>No additional permissions</li>{% endif %}
+            {%if data.edituserpermissionsregistration %}<li>{{data.edituserpermissionsregistration}}</li> {% endif %}
+            {%if data.edituserpermissionsmonitoring %}<li>{{data.edituserpermissionsmonitoring}}</li> {% endif %}
+            {%if data.edituserpermissionsusermanagement %}<li>{{data.edituserpermissionsusermanagement}}</li> {% endif %}
+            {%if data.edituserpermissionsrightsandpowers %}<li>{{data.edituserpermissionsrightsandpowers}}</li> {% endif %}
+            {%if data.edituserpermissionstransfer %}<li>{{data.edituserpermissionstransfer}}</li> {% endif %}
 
-          </p>
+            </ul>
         </dd>
       </div>
     </dl>
