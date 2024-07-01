@@ -1,0 +1,128 @@
+{% extends 'layouts/main.html' %}
+{% set title = "In which decade did the heat network start supplying thermal energy?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+            <div class="govuk-form-group {% if data.validationErrors.introsupplydecade %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+                        {% if data.validationErrors.introsupplydecade %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.introsupplydecade.message}}
+                </p>
+                {% endif %}
+<div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade" name="introsupplydecade" type="radio" value="1950s" {% if data.introsupplydecade == "1950s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade">
+            1950s
+        </label>
+      </div>
+
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade-2" name="introsupplydecade" type="radio" value="1960s" {% if data.introsupplydecade == "1960s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade-2">
+            1960s
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade-3" name="introsupplydecade" type="radio" value="1970s" {% if data.introsupplydecade == "1970s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade-3">
+            1970s
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade-4" name="introsupplydecade" type="radio" value="1980s" {% if data.introsupplydecade == "1980s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade-4">
+            1980s
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade-5" name="introsupplydecade" type="radio" value="1990s" {% if data.introsupplydecade == "1990s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade-5">
+            1990s
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introsupplydecade-6" name="introsupplydecade" type="radio" value="2000s" {% if data.introsupplydecade == "2000s" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introsupplydecade-6">
+            2000s
+        </label>
+      </div>
+
+    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

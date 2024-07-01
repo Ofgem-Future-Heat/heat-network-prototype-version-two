@@ -1,0 +1,156 @@
+{% extends 'layouts/main.html' %}
+{% set name %}{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith{% endif %}{% endset %}
+{% set title = name %}
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
+        </li>
+      </ol>
+    </div>  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+    {% if data.manageusersnotification %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if data.manageusersnotification == 'edituser' %}
+          You have saved {{name}}'s details.
+          {% elif data.manageusersnotification == 'editpermissions' %}
+          You have saved {{name}}'s permissions.
+          {% endif %}
+        </h3>
+        <p class="govuk-body">We've let them know via email.</p>
+      </div>
+    </div>
+{% endif %}
+
+
+
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          j.smith@ofgem.gov.uk
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{name}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.editusertelephone %}{{data.editusertelephone}}{% else %}07999 888 777 {% endif %}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Job title
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}Director{% endif %}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Additional permissions
+        </dt>
+        <dd class="govuk-summary-list__value">
+            <ul class="govuk-list">
+            
+  
+            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}</li>No additional permissions</li>{% endif %}
+            {%if data.edituserpermissionsregistration %}<li>{{data.edituserpermissionsregistration}}</li> {% endif %}
+            {%if data.edituserpermissionsmonitoring %}<li>{{data.edituserpermissionsmonitoring}}</li> {% endif %}
+            {%if data.edituserpermissionsusermanagement %}<li>{{data.edituserpermissionsusermanagement}}</li> {% endif %}
+            {%if data.edituserpermissionsrightsandpowers %}<li>{{data.edituserpermissionsrightsandpowers}}</li> {% endif %}
+            {%if data.edituserpermissionstransfer %}<li>{{data.edituserpermissionstransfer}}</li> {% endif %}
+
+            </ul>
+        </dd>
+      </div>
+    </dl>
+    <ul class="govuk-summary-list__actions-list">
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user" class="govuk-link govuk-link--no-visited-state">Edit user</a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user-permissions" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="delete-user" class="link-red">Delete user</a>    
+      </li>
+    </ul>
+
+
+
+  </div>
+</div>
+
+{% endblock %}

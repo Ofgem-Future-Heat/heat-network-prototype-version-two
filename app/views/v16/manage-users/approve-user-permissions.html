@@ -1,0 +1,210 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Select additional permissions for Jane Smith" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          You've approved Jane Smith's request for access to this heat networks account.        
+        </h3>
+        <p class="govuk-body">We've let them know via email.</p>
+
+      </div>
+    </div>
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <form method="post" novalidate>
+
+
+      <p class="govuk-body">Every user has read access to all the information in your organisation's heat network account.</p>
+      <p class="govuk-body">Select which additional permissions Jane Smith needs to have:</p>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head govuk-visually-hidden">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Permission</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <fieldset class="govuk-fieldset">
+            <th scope="row" class="govuk-table__header">Add or edit heat network information 
+              <div class="govuk-hint">Can enter information about the organisation's heat networks into the account, for the purposes of authorisation, amendment or ongoing reporting.</div>
+            </th>
+            <td class="govuk-table__cell govuk-!-width-one-third">
+   
+
+                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-registration-1" name="approveuserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if data.approveuserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-registration-1">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-registration-2" name="approveuserpermissionsregistration" type="radio" value="" {% if not data.approveuserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-registration-2">
+                      No
+                    </label>
+                  </div>                
+                </div>
+            </td>
+          </fieldset>
+          </tr>
+          <tr class="govuk-table__row">
+            <fieldset class="govuk-fieldset">
+            <th scope="row" class="govuk-table__header">Submit heat network information
+              <div class="govuk-hint">Can send heat network information to Ofgem to comply with the regulations on authorisation, amendments and ongoing reporting.</div>
+            </th>
+            <td class="govuk-table__cell govuk-!-width-one-third">
+                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-monitoring-1" name="approveuserpermissionsmonitoring" type="radio" value="Submit heat network information" {% if data.approveuserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-monitoring-1">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-monitoring-2" name="approveuserpermissionsmonitoring" type="radio" value="" {% if not data.approveuserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-monitoring-2">
+                      No
+                    </label>
+                  </div>                
+                </div>
+            </td>
+          </fieldset>
+          </tr>
+          <tr class="govuk-table__row">
+            <fieldset class="govuk-fieldset">
+            <th scope="row" class="govuk-table__header">Manage users
+              <div class="govuk-hint">Can add new users, edit user permissions or remove users from the account.</div>
+            </th>
+            <td class="govuk-table__cell govuk-!-width-one-third">
+                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-usermanagement-1" name="approveuserpermissionsusermanagement" type="radio" value="User management" {% if data.approveuserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-usermanagement-1">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-usermanagement-2" name="approveuserpermissionsusermanagement" type="radio" value="" {% if not data.approveuserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-usermanagement-2">
+                      No
+                    </label>
+                  </div>                
+                </div>
+            </td>
+
+          </fieldset>
+          </tr>
+          <tr class="govuk-table__row">
+          <fieldset class="govuk-fieldset">
+            <th scope="row" class="govuk-table__header">Apply for rights and powers licence
+              <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks</div>
+            </th>
+            <td class="govuk-table__cell govuk-!-width-one-third">
+   
+
+                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-rightsandpowers-1" name="approveuserpermissionsrightsandpowers" type="radio" value="Rights and powers" {% if data.approveuserpermissionsrightsandpowers %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-rightsandpowers-1">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="approveuserpermissions-rightsandpowers-2" name="approveuserpermissionsrightsandpowers" type="radio" value="" {% if not data.approveuserpermissionsrightsandpowers %}checked{% endif %} >
+                    <label class="govuk-label govuk-radios__label" for="approveuserpermissions-rightsandpowers-2">
+                      No
+                    </label>
+                  </div>                
+                </div>
+            </td>
+          </fieldset>
+          </tr>
+          <tr class="govuk-table__row">
+            <fieldset class="govuk-fieldset">
+              <th scope="row" class="govuk-table__header">Initiate transfer of ownership
+                <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks</div>
+              </th>
+              <td class="govuk-table__cell govuk-!-width-one-third">
+                  <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="approveuserpermissions-transfer-1" name="approveuserpermissionstransfer" type="radio" value="Transfer of ownership" {% if data.approveuserpermissionstransfer %}checked{% endif %}>
+                      <label class="govuk-label govuk-radios__label" for="approveuserpermissions-transfer-1">
+                        Yes
+                      </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="approveuserpermissions-transfer-2" name="approveuserpermissionstransfer" type="radio" value="" {% if not data.approveuserpermissionstransfer %}checked{% endif %}>
+                      <label class="govuk-label govuk-radios__label" for="approveuserpermissions-transfer-2">
+                        No
+                      </label>
+                    </div>                
+                  </div>
+              </td>
+            </fieldset>
+            </tr>            
+              
+        </tbody>
+      </table>
+
+
+    
+
+
+
+
+    <div class="govuk-button-group">
+      {{
+        govukButton ({
+            html: 'Save'
+        })
+      }}
+    </div>
+</form>
+
+  </div>
+</div>
+
+{% endblock %}

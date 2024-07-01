@@ -1,0 +1,188 @@
+{% extends 'layouts/main.html' %}
+{% set title = "User management" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+      <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+          <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="account-information">Home</a>
+          </li>
+          <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="manage-users">Manage users</a>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+      {% if data.manageusersnotification %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            {% if data.manageusersnotification == 'deleted' %}
+            You've removed John Smith from this heat networks account.
+            
+            {% elif data.manageusersnotification == 'adduserpermissions' %}
+            You've saved additional permissions for {{data.userfirstname}} {{data.userlastname}}.
+
+            {% elif data.manageusersnotification == 'permissions' %}
+            You've saved additional permissions for Jane Smith.
+            {% elif data.manageusersnotification == 'approvalrejected' %}
+            You've rejected Jane Smith's request for access to this heat networks account.
+            {% elif data.manageusersnotification == 'regchange' %}
+            You've made Donald Smith the regulatory contact for this heat networks account. 
+            {% endif %}
+          </h3>
+          <p class="govuk-body">We've let them know via email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+
+
+
+
+                        <span class="govuk-caption-l">
+                          {% if data.companyname %}
+                          {{data.companyname}}
+                          {% else %}
+                          Radienteco Ltd
+                          {% endif %}
+                        </span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        <table class="govuk-table">
+                          <caption class="govuk-table__caption govuk-table__caption--m">Access requests</caption>
+                          <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email address</th>
+                              <th scope="col" class="govuk-table__header">Status</th>
+                              <th scope="col" class="govuk-table__header"></th>
+                            </tr>
+                          </thead>
+                          <tbody class="govuk-table__body">
+
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">Jane Smith</th>
+                              <td class="govuk-table__cell">j.smith@gmail.com</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--red">Needs approval</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/approve-user" class="govuk-link govuk-link--no-visited-state ">View <span class="govuk-visually-hidden">request</span></a></td>
+                            </tr>
+ 
+
+                          </tbody>
+                        </table>
+                        <table class="govuk-table">
+                          <caption class="govuk-table__caption govuk-table__caption--m">Users</caption>
+                          <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
+                              <th scope="col" class="govuk-table__header govuk-!-width-one-third">Email address</th>
+                              <th scope="col" class="govuk-table__header">Status</th>
+                              <th scope="col" class="govuk-table__header "></th>
+
+                            </tr>
+                          </thead>
+                          <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}<br /> 
+                                {% if data.manageusersnotification != 'regchange' %}
+                                <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
+                                (Regulatory contact)
+                              </p>
+                              {% endif %}
+                              <td class="govuk-table__cell">{% if data.oneloginemail %}{{data.oneloginemail}}{% else %}h.smith@gmail.com{% endif %}</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile-reg" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                {% if data.manageusersnotification != 'regchange' %}
+                                <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
+                                {% endif %}
+                            </tr>
+
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">{% if data.edituserfirstname and data.edituserlastname %}{{data.edituserfirstname}} {{data.edituserlastname}}{% else %}John Smith{% endif %}<br /> 
+                                <td class="govuk-table__cell">j.smith@ofgem.gov.uk</td>                             
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="manage-users/user-profile" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
+                            </tr>
+                            
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">Donald Smith
+                                {% if data.manageusersnotification == 'regchange' %}
+                                <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-1">
+                                (Regulatory contact)
+                              </p>
+                              {% endif %}
+
+                              </td>
+                              <td class="govuk-table__cell">d.smith@ofgem.gov.uk</td>                             
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green">Active</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                {% if data.manageusersnotification == 'regchange' %}
+                                <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state ">Reassign regulatory contact</a></td>
+                                {% endif %}
+
+                              </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell">{% if data.userfirstname and data.userlastname %}{{data.userfirstname}} {{data.userlastname}}{% else %}Bob Smith{% endif %}</th>
+                              <td class="govuk-table__cell">{% if data.useremail %}{{data.useremail}} {% else %}b.smith@ofgem.gov.uk{% endif %}</td>
+                              <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey">Invite sent</span></td>
+                              <td class="govuk-table__cell govuk-table__cell--numeric"><a href="#" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a></td>
+
+                            </tr>
+
+
+                          </tbody>
+                        </table>
+
+
+
+                        <form  method="POST" novalidate>
+
+
+                        <div class="govuk-button-group">
+                          {{
+                            govukButton ({
+                                html: 'Add new user'
+                            })
+                          }}
+                        </div>
+                  </form>
+                  
+                  </div>
+</div>
+{% endblock %}

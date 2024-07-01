@@ -1,0 +1,51 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Are you sure you want to remove John Smith?" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <p class="govuk-body">John Smith (j.smith@ofgem.gov.uk) will no longer be able to access the service.</p>
+    <p class="govuk-body">If you wish to re-instate this user you'll have to reinvite them.</p>
+    <a class="govuk-button govuk-button--warning" href="../manage-users?notification=deleted">
+      Remove user
+    </a>
+
+
+  </div>
+</div>
+
+{% endblock %}

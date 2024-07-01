@@ -13,3 +13,4 @@ require('./routes/v12.js');
 require('./routes/v13.js');
 require('./routes/v14.js');
 require('./routes/v15.js');
+require('./routes/v16.js');

@@ -1,0 +1,129 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
+        </li>
+      </ol>
+    </div>  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+      <br /><strong class="govuk-tag">
+        Regulatory contact
+      </strong>
+
+    </h1>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.oneloginemail %}{{data.oneloginemail}}{% else %}h.smith@gmail.com{% endif %}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}
+          
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.yourtelephone %}{{data.yourtelephone}}{% else %}07999 888 777{% endif %}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Job title
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if data.yourjobtitle %}{{data.yourjobtitle}}{% else %}Director{% endif %}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Additional permissions
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <ul class="govuk-list">
+            
+            <li>Add or edit heat network information</li>
+            <li>Submit heat network information</li>
+            <li>Manage users</li>
+            <li>Apply for rights and powers licence</li>
+            <li>Initiate transfer of ownership</li>
+
+          </ul>
+                </dd>
+      </div>
+    </dl>
+    <ul class="govuk-summary-list__actions-list">
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
+      </li>
+    </ul>
+
+
+
+
+  </div>
+</div>
+
+{% endblock %}
