@@ -1,7 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title %}
-{% if data.yourfirstname %}{{data.yourfirstname}} {{data.yourlastname}}{% else %}Helen Smith{% endif %}
-{% endset %}
+{% set title = "Helen Smith" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -102,15 +100,15 @@
           Additional permissions
         </dt>
         <dd class="govuk-summary-list__value">
-          <ul class="govuk-list">
+          <p class="govuk-body">
             
-            <li>Add or edit heat network information</li>
-            <li>Submit heat network information</li>
-            <li>Manage users</li>
-            <li>Apply for rights and powers licence</li>
-            <li>Initiate transfer of ownership</li>
+            Registration and authorisation<br> 
+            Monitoring and reporting<br> 
+            User management<br> 
+            Rights and powers<br> 
+            Transfer of ownership<br> 
 
-          </ul>
+          </p>
                 </dd>
       </div>
     </dl>
