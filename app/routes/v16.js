@@ -12,9 +12,23 @@ function clearvalidation(req) {
 }
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+function clearaddeduser(req) {
+    req.session.data['userfirstname'] = "";
+    req.session.data['userlastname'] = "";
+    req.session.data['usertelephone'] = "";
+    req.session.data['useremail'] = "";
+    req.session.data['userjobtitle'] = ""
+    req.session.data['addeduser'] = ""
+    req.session.data['adduserpermissionstransfer'] = ""
+    req.session.data['adduserpermissionsrightsandpowers'] = ""
+    req.session.data['adduserpermissionsusermanagement'] = ""
+    req.session.data['adduserpermissionsmonitoring'] = ""
+    req.session.data['adduserpermissionsregistration'] = ""
+}
 
 
 /// Add user
@@ -28,6 +42,7 @@ router.get('/' + version + '/manage-users/add-user', function (req, res) {
 
 router.post('/' + version + '/manage-users/add-user', function (req, res) {
     clearvalidation(req);
+
 
     var useremail = req.session.data['useremail']
     var userfirstname = req.session.data['userfirstname']
@@ -83,6 +98,21 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
     }
 
     else {
+        if (req.session.data.usertotal) {
+            req.session.data.usertotal = req.session.data.usertotal + 1
+        } 
+        else {
+            req.session.data.usertotal = 2
+        }
+
+        req.session.data['useremail' + req.session.data['usertotal']] = req.session.data['useremail']
+        req.session.data['userfirstname' + req.session.data['usertotal']] = req.session.data['userfirstname']
+        req.session.data['userlastname' + req.session.data['usertotal']] = req.session.data['userlastname']
+        req.session.data['usertelephone' + req.session.data['usertotal']] = req.session.data['usertelephone']
+        req.session.data['userjobtitle' + req.session.data['usertotal']] = req.session.data['userjobtitle']
+    
+
+
         res.redirect('/' + version + '/manage-users/add-user-permissions');
     }
 
@@ -100,15 +130,21 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
     clearvalidation(req);
-
-        res.redirect('/' + version + '/manage-users?notification=adduserpermissions');
+    req.session.data['adduserpermissionstransfer' + req.session.data['usertotal']] = req.session.data['adduserpermissionstransfer']
+    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['usertotal']] = req.session.data['adduserpermissionsrightsandpowers']
+    req.session.data['adduserpermissionsusermanagement' + req.session.data['usertotal']] = req.session.data['adduserpermissionsusermanagement']
+    req.session.data['adduserpermissionsmonitoring' + req.session.data['usertotal']] = req.session.data['adduserpermissionsmonitoring']
+    req.session.data['adduserpermissionsregistration' + req.session.data['usertotal']] = req.session.data['adduserpermissionsregistration']
+    res.redirect('/' + version + '/manage-users?notification=adduserpermissions');
 
 });
 
 /// Edit user
 router.get('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/manage-users/edit-user', {
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+        res.render('/' + version + '/manage-users/edit-user', {
         data: req.session.data
     });
 });
@@ -117,15 +153,15 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
 router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
 
-    var edituserfirstname = req.session.data['edituserfirstname']
-    var edituserlastname = req.session.data['edituserlastname']
-    var editusertelephone = req.session.data['editusertelephone']
-    var edituserjobtitle = req.session.data['edituserjobtitle']
-    var edituserroles = req.session.data['edituserroles']
+    var userfirstname = req.session.data['edituserfirstname']
+    var userlastname = req.session.data['edituserlastname']
+    var usertelephone = req.session.data['editusertelephone']
+    var userjobtitle = req.session.data['edituserjobtitle']
+    var userroles = req.session.data['edituserroles']
 
 
 
-    if (!edituserfirstname) {
+    if (!userfirstname) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.edituserfirstname = {
             "anchor": "edituserfirstname",
@@ -133,7 +169,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         }
     }
 
-    if (!edituserlastname) {
+    if (!userlastname) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.edituserlastname = {
             "anchor": "edituserlastname",
@@ -141,7 +177,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         }
     }
 
-    if (!editusertelephone) {
+    if (!usertelephone) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.editusertelephone = {
             "anchor": "editusertelephone",
@@ -149,7 +185,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         }
     }
 
-    if (!edituserjobtitle) {
+    if (!userjobtitle) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.edituserjobtitle = {
             "anchor": "edituserjobtitle",
@@ -163,8 +199,16 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         });
     }
 
+
+
+
     else {
-            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser');
+        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['edituserfirstname']
+        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['edituserlastname']
+        req.session.data['usertelephone' + req.session.data['userid']] = req.session.data['editusertelephone']
+        req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
+    
+            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser&id='+ req.session.data['userid']);
     }
 
 
@@ -174,6 +218,9 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 /// Edit user permissions
 router.get('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
     res.render('/' + version + '/manage-users/edit-user-permissions', {
         data: req.session.data
     });
@@ -182,72 +229,88 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
+    req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = req.session.data['edituserpermissionstransfer']
+    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = req.session.data['edituserpermissionsrightsandpowers']
+    req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']
+    req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = req.session.data['edituserpermissionsmonitoring']
+    req.session.data['adduserpermissionsregistration' + req.session.data['userid']] = req.session.data['edituserpermissionsregistration']
 
-            res.redirect('/' + version + '/manage-users/user-profile?notification=editpermissions');
+    res.redirect('/' + version + '/manage-users/user-profile?notification=editpermissions&id='+ req.session.data['userid']);
 
 
 
 });
 
 
-
-
-///Approve user permissions
-router.get('/' + version + '/manage-users/approve-user-permissions', function (req, res) {
+/// Reg change
+router.get('/' + version + '/manage-users/reg-change', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/manage-users/approve-user-permissions', {
+    res.render('/' + version + '/manage-users/reg-change', {
         data: req.session.data
     });
 });
 
-
-router.post('/' + version + '/manage-users/approve-user-permissions', function (req, res) {
+router.post('/' + version + '/manage-users/reg-change', function (req, res) {
     clearvalidation(req);
+    var regchange = req.session.data['regchange']
 
-
-            res.redirect('/' + version + '/manage-users?notification=permissions');
-
-
-
-
-});
-
-/// Approve user
-router.get('/' + version + '/manage-users/approve-user', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/manage-users/approve-user', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/manage-users/approve-user', function (req, res) {
-    clearvalidation(req);
-
-    var approveuser = req.session.data['approveuser']
-
-    if (!approveuser) {
+    if (regchange == "") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.approveuser = {
-            "anchor": "editusertelephone",
-            "message": "Select an option"
+        req.session.data.validationErrors.email = {
+            "anchor": "regchange",
+            "message": "Select a new regulatory contact"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/manage-users/approve-user', {
+        res.render('/' + version + '/manage-users/reg-change', {
             data: req.session.data
         });
     }
 
     else {
-        if (approveuser == "no" ) {
-            res.redirect('/' + version + '/manage-users?notification=approvalrejected');
-        }
-        else {
-            res.redirect('/' + version + '/manage-users/approve-user-permissions');
-        }
-    }
+        req.session.data['regcontactname'] = req.session.data['userfirstname' + regchange] + " " + req.session.data['userlastname' + regchange];
+        req.session.data['regcontactemail'] = req.session.data['useremail' + regchange];
+
+        res.redirect('/' + version + '/manage-users?notification=regchange');
+        }            
+
+
+});
+
+/// Delete user
+router.get('/' + version + '/manage-users/delete-user', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
+    res.render('/' + version + '/manage-users/delete-user', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/delete-user', function (req, res) {
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+    clearvalidation(req);
+    req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
+
+    req.session.data['userfirstname' + req.session.data['userid']] = null;
+    req.session.data['userlastname' + req.session.data['userid']] = null;
+    req.session.data['usertelephone' + req.session.data['userid']] = null;
+    req.session.data['useremail' + req.session.data['userid']] = null;
+    req.session.data['userjobtitle' + req.session.data['userid']] = null;
+    req.session.data['addeduser' + req.session.data['userid']] = null;
+    req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = null;
+    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = null;
+    req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = null;
+    req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = null;
+    req.session.data['adduserpermissionsregistration' + req.session.data['userid']] = null;
+
+    res.redirect('/' + version + '/manage-users?notification=deleted');
 
 
 });
@@ -267,45 +330,8 @@ router.get('/' + version + '/manage-users', function (req, res) {
 
 router.post('/' + version + '/manage-users', function (req, res) {
     clearvalidation(req);
-    req.session.data['userfirstname'] = "";
-    req.session.data['userlastname'] = "";
-
-    req.session.data['usertelephone'] = "";
-    req.session.data['useremail'] = "";
-    req.session.data['userjobtitle'] = ""
-
-
-            res.redirect('/' + version + '/manage-users/add-user');
-
-
-});
-
-/// Manage users basic
-router.get('/' + version + '/manage-users/basic', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.notification;
-    req.session.data['manageusersnotification'] = urlParams;
-
-
-    res.render('/' + version + '/manage-users/basic', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/manage-users/basic', function (req, res) {
-    clearvalidation(req);
-    req.session.data['userfirstname'] = "";
-    req.session.data['userlastname'] = "";
-
-    req.session.data['usertelephone'] = "";
-    req.session.data['useremail'] = "";
-    req.session.data['userjobtitle'] = ""
-
-
-            res.redirect('/' + version + '/manage-users/add-user');
-
-
+    clearaddeduser(req);
+    res.redirect('/' + version + '/manage-users/add-user');
 });
 
 
@@ -314,9 +340,24 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
     clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
 
 
     res.render('/' + version + '/manage-users/user-profile', {
+        data: req.session.data
+    });
+});
+
+/// User profile self
+router.get('/' + version + '/manage-users/user-profile-self', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
+    res.render('/' + version + '/manage-users/user-profile-self', {
         data: req.session.data
     });
 });
@@ -532,8 +573,6 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ACCOUNT CREATE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 ///Legal declaration
 router.get('/' + version + '/account-creation/check-answers', function (req, res) {
     clearvalidation(req);
@@ -563,9 +602,26 @@ router.post('/' + version + '/account-creation/check-answers', function (req, re
     }
 
     else {
-            res.redirect('/' + version + '/account-creation/account-created');
-        }
+        req.session.data['userfirstname1'] = req.session.data['yourfirstname'];
+        req.session.data['userlastname1'] = req.session.data['yourlastname'];
+        req.session.data['usertelephone1'] = req.session.data['yourtelephone'];
+        req.session.data['useremail1'] = req.session.data['oneloginemail'];
+        req.session.data['userjobtitle1'] = req.session.data['yourjobtitle'];
+        req.session.data['addeduser1'] = "true";
+        req.session.data['adduserpermissionstransfer1'] = "Initiate transfer of ownership";
+        req.session.data['adduserpermissionsrightsandpowers1'] = "Apply for rights and powers licence";
+        req.session.data['adduserpermissionsusermanagement1'] = "Manage users";
+        req.session.data['adduserpermissionsmonitoring1'] = "Submit heat network information";
+        req.session.data['adduserpermissionsregistration1'] = "Add or edit heat network information";
+        req.session.data['regchange'] = "1";
+        req.session.data['currentuserid'] = "1";
+        req.session.data['regcontactname'] = req.session.data['yourfirstname'] + " " + req.session.data['yourlastname'];
+        req.session.data['regcontactemail'] = req.session.data['oneloginemail'];
 
+
+        res.redirect('/' + version + '/account-creation/account-created');
+        }
+        
 });
 
 

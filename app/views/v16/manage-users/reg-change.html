@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Select a new regulatory contact" %}
+{% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
@@ -31,11 +32,29 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
     <h1 class="govuk-label-wrapper">
       <label class="govuk-label govuk-label--l" for="postcode">
         {{title}}
       </label>
     </h1>
+    <form method="post" novalidate>
 
     <p class="govuk-body">This is Ofgem’s main point of contact for any questions they may have about your organisation and its heat networks. Ideally, they are the most senior member of staff with responsibility for heat networks. </p>
 
@@ -44,15 +63,42 @@
 <p class="govuk-body">If you cannot find the person you need, you'll need to add them first.</p>
     <div class="govuk-form-group">
 
-      <select class="govuk-select" id="sort" name="sort">
-        <option value="choose" selected>Select a user</option>
-        <option value="published">Donald Smith (d.smith@ofgem.gov.uk)</option>
+      <select class="govuk-select" id="sort" name="regchange">
+        <option value="" selected>Select a user</option>
+
+        {% set users = [] %}
+
+        {% for i in range(1, 100) %}
+            {% set users = users.concat([{
+                "added": data["addeduser" ~ i],
+                "firstname": data["userfirstname" ~ i],
+                "lastname": data["userlastname" ~ i],
+                "email": data["useremail" ~ i],
+                "id": i
+            }]) %}
+        {% endfor %}
+        
+      
+        {% for user in users %}
+        {% if (data.regchange != user.id) %}
+
+        {% if user.added == "true" %}
+        <option value="{{user.id}}"> {{user.firstname}} {{user.lastname}}
+          ({{user.email}})</option>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+
       </select>
     </div>
-    <a class="govuk-button" href="../manage-users?notification=regchange">
-      Save
-    </a>
-
+    <div class="govuk-button-group">
+      {{
+        govukButton ({
+            html: 'Save'
+        })
+      }}
+    </div>
+</form>
 
   </div>
 </div>

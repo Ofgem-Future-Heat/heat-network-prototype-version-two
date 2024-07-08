@@ -1,9 +1,4 @@
 {% extends 'layouts/main.html' %}
-{% set name %}{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith{% endif %}{% endset %}
-
-{% set title %}
- Edit {{name}}
- {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -33,6 +28,23 @@
 
 {% block content %}
 
+{% set users = [] %}
+
+{% for i in range(data.userid, data.userid + 1) %}
+    {% set users = users.concat([{
+        "email": data["useremail" ~ i],
+        "firstname": data["userfirstname" ~ i],
+        "lastname": data["userlastname" ~ i],
+        "telephone": data["usertelephone" ~ i],
+        "jobtitle": data["userjobtitle" ~ i],
+        "id": i
+  }]) %}
+{% endfor %}
+
+{% for user in users %}
+{% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+{% set title = "Edit " + name %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     {% if _inError %}
@@ -58,57 +70,61 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <p class="govuk-body"><strong>Email address:</strong> j.smith@ofgem.gov.uk</p>
     <form method="post" novalidate>
 
-      <div class="govuk-form-group {% if data.validationErrors.edituserfirstname %}govuk-form-group--error{% endif %}">
+
+
+    <p class="govuk-body"><strong>Email address:</strong> {{user.email}}</p>
+
+
+      <div class="govuk-form-group {% if data.validationErrors.userfirstname %}govuk-form-group--error{% endif %}">
         <label class="govuk-label" for="first-name">
           First name
         </label>
-        {% if data.validationErrors.edituserfirstname %}
+        {% if data.validationErrors.userfirstname %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.edituserfirstname.message}}
+            {{data.validationErrors.userfirstname.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="edituserfirstname" type="text" value="{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John{% endif %}">
+        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="edituserfirstname" type="text" value="{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}{{user.firstname}}{% endif %}">
         
       </div>
-      <div class="govuk-form-group {% if data.validationErrors.edituserlastname %}govuk-form-group--error{% endif %}">
+      <div class="govuk-form-group {% if data.validationErrors.userlastname %}govuk-form-group--error{% endif %}">
         <label class="govuk-label" for="last-name">
           Last name
         </label>
-        {% if data.validationErrors.edituserlastname %}
+        {% if data.validationErrors.userlastname %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.edituserlastname.message}}
+            {{data.validationErrors.userlastname.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="last-name" name="edituserlastname" type="text" value="{% if data.edituserlastname %}{{data.edituserlastname}}{% else %}Smith{% endif %}"> 
+        <input class="govuk-input govuk-!-width-two-thirds" id="last-name" name="edituserlastname" type="text" value="{% if data.edituserlastname %}{{data.edituserlastname}}{% else %}{{user.lastname}}{% endif %}"> 
       </div>
-      <div class="govuk-form-group {% if data.validationErrors.editusertelephone %}govuk-form-group--error{% endif %}">
+      <div class="govuk-form-group {% if data.validationErrors.usertelephone %}govuk-form-group--error{% endif %}">
         <label class="govuk-label" for="telephonenumber">
           Telephone number
         </label>
-        {% if data.validationErrors.editusertelephone %}
+        {% if data.validationErrors.usertelephone %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.editusertelephone.message}}
+            {{data.validationErrors.usertelephone.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-input--width-10" id="telephonenumber" name="editusertelephone" type="tel" value="{% if data.editusertelephone %}{{data.editusertelephone}}{% else %}07999888777{% endif %}">
+        <input class="govuk-input govuk-input--width-10" id="telephonenumber" name="editusertelephone" type="tel" value="{% if data.editusertelephone %}{{data.editusertelephone}}{% else %}{{user.telephone}}{% endif %}">
       </div>
-      <div class="govuk-form-group {% if data.validationErrors.edituserjobtitle %}govuk-form-group--error{% endif %}">
+      <div class="govuk-form-group {% if data.validationErrors.userjobtitle %}govuk-form-group--error{% endif %}">
         <label class="govuk-label" for="job-title">
           Job title
         </label>
-        {% if data.validationErrors.edituserjobtitle %}
+        {% if data.validationErrors.userjobtitle %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.edituserjobtitle.message}}
+            {{data.validationErrors.userjobtitle.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="job-title" name="edituserjobtitle" type="text" value="{% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}Director{% endif %}">
+        <input class="govuk-input govuk-!-width-two-thirds" id="job-title" name="edituserjobtitle" type="text" value="{% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}{{user.jobtitle}}{% endif %}">
       </div>
 
 
@@ -124,5 +140,6 @@
 
   </div>
 </div>
+      {% endfor %}
 
 {% endblock %}

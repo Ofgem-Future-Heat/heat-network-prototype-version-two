@@ -1,6 +1,4 @@
 {% extends 'layouts/main.html' %}
-{% set name %}{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}John {% endif %}{% if data.edituserlastname %} {{data.edituserlastname}}{% else %}Smith{% endif %}{% endset %}
-{% set title = name %}
 
 
 {% set _inError = data.validationError == "true"  %}
@@ -37,7 +35,29 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+    {% set users = [] %}
 
+    {% for i in range(data.userid, data.userid + 1) %}
+        {% set users = users.concat([{
+            "email": data["useremail" ~ i],
+            "firstname": data["userfirstname" ~ i],
+            "lastname": data["userlastname" ~ i],
+            "telephone": data["usertelephone" ~ i],
+            "jobtitle": data["userjobtitle" ~ i],
+            "id": i,
+            "permissions": [
+            data["adduserpermissionstransfer" ~ i],
+            data["adduserpermissionsrightsandpowers" ~ i],
+            data["adduserpermissionsusermanagement" ~ i],
+            data["adduserpermissionsmonitoring" ~ i],
+            data["adduserpermissionsregistration" ~ i]
+        ]
+      }]) %}
+    {% endfor %}
+  
+  {% for user in users %}
+  {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+{% set title = name %}
     {% if data.manageusersnotification %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
@@ -48,9 +68,9 @@
       <div class="govuk-notification-banner__content">
         <h3 class="govuk-notification-banner__heading">
           {% if data.manageusersnotification == 'edituser' %}
-          You have saved {{name}}'s details.
+          You have updated {{name}}'s details.
           {% elif data.manageusersnotification == 'editpermissions' %}
-          You have saved {{name}}'s permissions.
+          You have updated {{name}}'s permissions.
           {% endif %}
         </h3>
         <p class="govuk-body">We've let them know via email.</p>
@@ -80,9 +100,14 @@
       {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
     </span>
 
+
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+    
+
+
+ 
 
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
@@ -90,7 +115,7 @@
           Email address
         </dt>
         <dd class="govuk-summary-list__value">
-          j.smith@ofgem.gov.uk
+          {{user.email}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -98,7 +123,7 @@
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          {{name}}
+          {{user.firstname}} {{user.lastname}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -106,7 +131,7 @@
           Telephone
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.editusertelephone %}{{data.editusertelephone}}{% else %}07999 888 777 {% endif %}
+          {{user.telephone}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -114,7 +139,7 @@
           Job title
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}Director{% endif %}
+          {{user.jobtitle}}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -123,31 +148,54 @@
         </dt>
         <dd class="govuk-summary-list__value">
             <ul class="govuk-list">
-            
-  
-            {%if (not data.edituserpermissionsregistration) and (not data.edituserpermissionsmonitoring) and (not data.edituserpermissionsusermanagement) and (not data.edituserpermissionsrightsandpowers) and (not data.edituserpermissionstransfer) %}</li>No additional permissions</li>{% endif %}
-            {%if data.edituserpermissionsregistration %}<li>{{data.edituserpermissionsregistration}}</li> {% endif %}
-            {%if data.edituserpermissionsmonitoring %}<li>{{data.edituserpermissionsmonitoring}}</li> {% endif %}
-            {%if data.edituserpermissionsusermanagement %}<li>{{data.edituserpermissionsusermanagement}}</li> {% endif %}
-            {%if data.edituserpermissionsrightsandpowers %}<li>{{data.edituserpermissionsrightsandpowers}}</li> {% endif %}
-            {%if data.edituserpermissionstransfer %}<li>{{data.edituserpermissionstransfer}}</li> {% endif %}
+              {% if (data.regchange == user.id) %}
+              <li>Add or edit heat network information</li>
+              <li>Submit heat network information</li>
+              <li>Manage users</li>
+              <li>Apply for rights and powers licence</li>
+              <li>Initiate transfer of ownership</li>
 
+              {% else %}
+
+              {% if user.permissions == ",,,," %}
+              No additional permissions
+
+            {% else %}
+            {% for permission in user.permissions %}
+            {% if permission %}{{permission}}<br />{% endif %}
+            {% endfor %}
+
+            {% endif %}
+            {% endif %}
             </ul>
         </dd>
       </div>
     </dl>
-    <ul class="govuk-summary-list__actions-list">
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user" class="govuk-link govuk-link--no-visited-state">Edit user</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-permissions" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="delete-user" class="link-red">Delete user</a>    
-      </li>
-    </ul>
 
+    <ul class="govuk-summary-list__actions-list">
+      {% if (data.regchange == user.id) and (data.currentuserid == user.id) %}
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
+      </li>
+      {% elif (data.regchange == user.id) and (data.currentuserid != user.id)  %}
+
+
+    {% elif (data.currentuserid != user.id) %}
+
+
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit user</a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="delete-user?id={{user.id}}" class="link-red">Delete user</a>    
+      </li>
+
+    {% endif %}
+  </ul>
+{% endfor %}
 
 
   </div>

@@ -23,12 +23,17 @@ href: "javascript:window.history.back()"
 
         <p class="govuk-body">Now continue to use the service.</p>
 
-
+        {% if data.inviteemailcomplete == "true" %} 
+        <a href="../../account-information" role="button"
+        draggable="false" class="govuk-button" data-module="govuk-button">
+        Continue
+    </a>
+        {% else %}
         <a href="../type" role="button"
             draggable="false" class="govuk-button" data-module="govuk-button">
             Continue
         </a>
-
+        {% endif %}
 
     </div>
 </div>

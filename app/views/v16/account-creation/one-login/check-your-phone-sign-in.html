@@ -46,12 +46,17 @@ href: "javascript:window.history.back()"
           autocomplete="one-time-code" inputmode="numeric" maxlength="8">
 
       </div>
-
+      {% if data.inviteemailcomplete == "true" %} 
+      <a href="../../account-information" role="button"
+      draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+  </a>
+      {% else %}
       <a href="../type" role="button"
           draggable="false" class="govuk-button" data-module="govuk-button">
           Continue
       </a>
-
+      {% endif %}
 
     </form>
 

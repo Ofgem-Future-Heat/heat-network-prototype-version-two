@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are you sure you want to remove John Smith?" %}
+
 
 
 {% block pageTitle %}
@@ -35,14 +35,35 @@
     </span>
 
 
+    {% set users = [] %}
+
+    {% for i in range(data.userid, data.userid + 1) %}
+        {% set users = users.concat([{
+            "email": data["useremail" ~ i],
+            "firstname": data["userfirstname" ~ i],
+            "lastname": data["userlastname" ~ i],
+            "telephone": data["usertelephone" ~ i],
+            "jobtitle": data["userjobtitle" ~ i],
+            "id": i
+      }]) %}
+    {% endfor %}
+    
+    {% for user in users %}
+    {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+    {% set title = "Are you sure you want to remove " + name %}
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <p class="govuk-body">John Smith (j.smith@ofgem.gov.uk) will no longer be able to access the service.</p>
+    <p class="govuk-body">{{name}} ({{user.email}}) will no longer be able to access the service.</p>
     <p class="govuk-body">If you wish to re-instate this user you'll have to reinvite them.</p>
-    <a class="govuk-button govuk-button--warning" href="../manage-users?notification=deleted">
-      Remove user
-    </a>
+    <form method="post" novalidate>
+      <div class="govuk-button-group">
+      <button class="govuk-button govuk-button--warning">
+        Remove user
+      </button>
+      </div>
+</form>
+{% endfor %}
 
 
   </div>
