@@ -201,8 +201,6 @@
       <li class="govuk-summary-list__actions-list-item">
         <a href="delete-user?id={{user.id}}" class="link-red">Delete user</a>    
       </li>
-      {% elif (data.currentuserid == user.id) %}
-      <p class="govuk-body-s">You cannot edit your own details or permissions through user management.<br />To update your personal details go to <a href="#" class="govuk-link">your profile</a>.</p>
 
     {% endif %}
   </ul>

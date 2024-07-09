@@ -76,7 +76,7 @@
     <form method="post" novalidate>
 
       <p class="govuk-body">By default, every user on the account has read access to all the information in it.</p>
-      <p class="govuk-body">Select which additional permissions you want John Smith to have:</p>
+      <p class="govuk-body">Select which additional permissions you want {{user.firstname}} {{user.lastname}} to have:</p>
 
       <table class="govuk-table">
         <thead class="govuk-table__head govuk-visually-hidden">
@@ -166,7 +166,7 @@
       <tr class="govuk-table__row">
         <fieldset class="govuk-fieldset">
           <th scope="row" class="govuk-table__header">Apply for rights and powers licence
-            <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks</div>
+            <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks.</div>
           </th>
           <td class="govuk-table__cell govuk-!-width-one-third">
  
@@ -191,7 +191,7 @@
         <tr class="govuk-table__row">
           <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Initiate transfer of ownership
-              <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks</div>
+              <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
@@ -255,7 +255,7 @@
         </table>
 
         <p class="govuk-body">
-          If {{data.userfirstname}} {{data.userlastname}} needs to do these things, speak to your organisation's regulatory contact for heat networks first: {{data.regcontactname}} ({{data.regcontactemail}}) 
+          If {{user.firstname}} {{user.lastname}} needs to do these things, speak to your organisation's regulatory contact for heat networks first: {{data.regcontactname}} ({{data.regcontactemail}}) 
         </p>
           {% endif %}
 
