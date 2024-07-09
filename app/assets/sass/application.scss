@@ -50,3 +50,20 @@
 	@extend .govuk-link;
 	color: $govuk-error-colour !important;
 }
+
+.account-link {
+	display: inline-block;
+	margin-left: 10px;
+	@include govuk-responsive-margin(0, "bottom");	
+
+	&s-container {
+		float: right;
+		margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+}
+
+.govuk-breadcrumbs {
+	display: inline-block;
+}

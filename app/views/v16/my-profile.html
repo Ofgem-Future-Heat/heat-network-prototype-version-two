@@ -9,22 +9,17 @@
 {% endblock %}
 
 {% block beforeContent %}
-
 <div class="govuk-grid-row">
 
   <div class="govuk-grid-column-full">
 
 
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
-        </li>
-      </ol>
-    </div>  
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: '/' + data.version + '/account-information'
+    })
+    }}
     {% include data.version + "/_partials/headerlinks.html" %}
 
   </div>
@@ -40,7 +35,7 @@
 
     {% set users = [] %}
 
-    {% for i in range(data.userid, data.userid + 1) %}
+    {% for i in range(data.currentuserid, data.currentuserid + 1) %}
         {% set users = users.concat([{
             "email": data["useremail" ~ i],
             "firstname": data["userfirstname" ~ i],
@@ -71,9 +66,7 @@
       <div class="govuk-notification-banner__content">
         <h3 class="govuk-notification-banner__heading">
           {% if data.manageusersnotification == 'edituser' %}
-          You have updated {{name}}'s details.
-          {% elif data.manageusersnotification == 'editpermissions' %}
-          You have updated {{name}}'s permissions.
+          You have updated your details.
           {% endif %}
         </h3>
         <p class="govuk-body">We've let them know via email.</p>
@@ -106,7 +99,7 @@
 
     <h1 class="govuk-heading-l">
       {{title}}
-      {% if (data.regchange == user.id) %}
+      {% if (data.regchange == data.currentuserid) %}
       <br/>
       <strong class="govuk-tag">
         Regulatory contact
@@ -182,29 +175,9 @@
     </dl>
 
     <ul class="govuk-summary-list__actions-list">
-      {% if (data.regchange == user.id) and (data.currentuserid == user.id) %}
       <li class="govuk-summary-list__actions-list-item">
-        <a href="reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
+        <a href="manage-users/edit-user?id={{data.currentuserid}}&source=myprofile" class="govuk-link govuk-link--no-visited-state">Edit your details</a>
       </li>
-      {% elif (data.regchange == user.id) and (data.currentuserid != user.id)  %}
-
-
-    {% elif (data.currentuserid != user.id) %}
-
-
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit user</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
-      </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="delete-user?id={{user.id}}" class="link-red">Delete user</a>    
-      </li>
-      {% elif (data.currentuserid == user.id) %}
-      <p class="govuk-body-s">You cannot edit your own details or permissions through user management.<br />To update your personal details go to <a href="#" class="govuk-link">your profile</a>.</p>
-
-    {% endif %}
   </ul>
 {% endfor %}
 

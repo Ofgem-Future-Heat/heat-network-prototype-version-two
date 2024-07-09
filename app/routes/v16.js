@@ -8,6 +8,7 @@ function clearvalidation(req) {
     req.session.data.validationErrors = {}
     req.session.data.validationError = "false"
     req.session.data.includeValidation = req.query.iv || req.session.data.includeValidation
+    req.session.data['version'] = version
 
 }
 
@@ -28,6 +29,13 @@ function clearaddeduser(req) {
     req.session.data['adduserpermissionsusermanagement'] = ""
     req.session.data['adduserpermissionsmonitoring'] = ""
     req.session.data['adduserpermissionsregistration'] = ""
+}
+
+function clearediteduser(req) {
+    req.session.data['edituserfirstname'] = "";
+    req.session.data['edituserlastname'] = "";
+    req.session.data['editusertelephone'] = "";
+    req.session.data['edituserjobtitle'] = ""
 }
 
 
@@ -144,6 +152,7 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
+
         res.render('/' + version + '/manage-users/edit-user', {
         data: req.session.data
     });
@@ -152,12 +161,12 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
 
 router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
+    var source = req.query.source;
 
     var userfirstname = req.session.data['edituserfirstname']
     var userlastname = req.session.data['edituserlastname']
     var usertelephone = req.session.data['editusertelephone']
     var userjobtitle = req.session.data['edituserjobtitle']
-    var userroles = req.session.data['edituserroles']
 
 
 
@@ -207,8 +216,12 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         req.session.data['userlastname' + req.session.data['userid']] = req.session.data['edituserlastname']
         req.session.data['usertelephone' + req.session.data['userid']] = req.session.data['editusertelephone']
         req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
-    
+        if (source == "myprofile") {
+            res.redirect('/' + version + '/my-profile?notification=edituser');
+        }
+        else {
             res.redirect('/' + version + '/manage-users/user-profile?notification=edituser&id='+ req.session.data['userid']);
+        }
     }
 
 
@@ -342,7 +355,7 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
     req.session.data['manageusersnotification'] = urlParams;
     const userid = req.query.id;
     req.session.data['userid'] = userid;
-
+    clearediteduser(req)
 
 
     res.render('/' + version + '/manage-users/user-profile', {
@@ -351,13 +364,14 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
 });
 
 /// User profile self
-router.get('/' + version + '/manage-users/user-profile-self', function (req, res) {
+router.get('/' + version + '/my-profile', function (req, res) {
     clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
+    clearediteduser(req)
 
 
-    res.render('/' + version + '/manage-users/user-profile-self', {
+    res.render('/' + version + '/my-profile', {
         data: req.session.data
     });
 });
