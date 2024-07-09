@@ -1279,7 +1279,6 @@ router.get('/' + version + '/account-creation/addressmanual', function (req, res
 router.post('/' + version + '/account-creation/addressmanual', function (req, res) {
     clearvalidation(req);
     var orgaddressMLine1 = req.session.data['orgaddressMLine1']
-    var orgaddressMLine2 = req.session.data['orgaddressMLine2']
     var orgaddressMTown = req.session.data['orgaddressMTown']
     var orgaddressMCounty = req.session.data['orgaddressMCounty']
     var orgaddressMCountry = req.session.data['orgaddressMCountry']
@@ -1292,7 +1291,7 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgaddressMLine1 = {
             "anchor": "orgaddressMLine1",
-            "message": "Enter the first line of the address",
+            "message": "Enter the street address",
         }
     }
 
@@ -1301,7 +1300,7 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgaddressMTown = {
             "anchor": "orgaddressMTown",
-            "message": "Enter a town or city",
+            "message": "Enter the town or city",
         }
     }
 
@@ -1321,14 +1320,9 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
 
     else {
         if (accounttype == "Overseas organisation") {
-            if(orgaddressMLine2) {
-                req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMLine2 + ', ' + orgaddressMTown + ', ' + orgaddressMPostcode + ', ' + orgaddressMCountry
-            }
-            else {
             req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMPostcode + ', ' + orgaddressMCountry
-            }
         } else {
-            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMLine2 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode
         }
 
         

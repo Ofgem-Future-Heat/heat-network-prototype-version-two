@@ -73,7 +73,7 @@
                     {% endif %}
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="orgaddressMLine1">
-                            Address line 1
+                            Street address
                         </label>
                         {% if data.validationErrors.orgaddressMLine1 %}
                         <p class="govuk-error-message">
@@ -82,12 +82,6 @@
                         </p>
                         {% endif %}
                         <input class="govuk-input" id="orgaddressMLine1" name="orgaddressMLine1" type="text" autocomplete="address-line1" value="{{data.orgaddressMLine1}}">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="orgaddressMLine2">
-                            Address line 2 (optional)
-                        </label>
-                        <input class="govuk-input" id="orgaddressMLine2" name="orgaddressMLine2" type="text" autocomplete="address-line2" value="{{data.orgaddressMLine2}}">
                     </div>
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="orgaddressMTown">

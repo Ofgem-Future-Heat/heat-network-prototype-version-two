@@ -1,9 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% if (data.buildings >= 1) %}
-{% set title = "Building 1: Select an address" %}
-{% else %}
-{% set title = "Select an address" %}
-{% endif %}
+
+{% set title = "Select your organisation’s address" %}
+
 
 
 {% set _inError = data.validationError == "true"  %}
@@ -86,7 +84,7 @@
       </div>
                             {% endfor %}
 
-                            <p class="govuk-body govuk-!-margin-top-5"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">The address is not listed</a></p>
+                            <p class="govuk-body govuk-!-margin-top-5"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">The address is not on the list</a></p>
 
     </div>
 

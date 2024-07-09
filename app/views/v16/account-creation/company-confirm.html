@@ -68,13 +68,12 @@
 
                     <p class="govuk-body">
                         {% if data.accounttype == "Company registered in the UK" %}
-                        Company number:
+                        Company number: {{data.companynumber}}
                         {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-                        Registration number:
+                        Registration number: {{data.companynumber}}
                         {% elif data.accounttype == "UK charity registered with the Charity Commission" %}
-                        Charity number:
+                        Charity number: {{data.companynumber}}
                         {% endif %}
-                         {{data.companynumber}}<br />
                     </p>
                     <p class="govuk-body">
                         {{data.companyname}}<br/>
@@ -83,7 +82,7 @@
                         {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
                         {% else %}
                         19 Grosvenor Road <br />
-                        Solihull B91 3PU
+                        Solihull <br />B91 3PU
 {% endif %}
 
                     </p>
