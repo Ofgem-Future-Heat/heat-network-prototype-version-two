@@ -1,0 +1,155 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Do you have a customer supply continuity plan (CSCP) in place?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.financialplan %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - financial resilience</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <p class="govuk-body">This should detail key steps for maintaining heat supply, particularly interim measures in the event that heat is lost suddenly.</p>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with CSCPs
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">At a minimum these should include:</p>
+                            <h2 class="govuk-heading-m">Supplier information</h2>
+                            <p class="govuk-body">To help reduce disruption to customers during the onboarding process, in the event of a step-in:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>details of arrangements with third-party service providers to ensure continuity of services</li>
+                                <li>billing system information</li>
+                                <li>customer numbers and information about their payment methods</li>
+                                <li>Priority Services Register (PSR) customer list</li>
+                            </ul>
+
+                            <h2 class="govuk-heading-m">Key contacts</h2>
+                            <p class="govuk-body">To ensure individuals are aware of their responsibilities in the event of supplier failure:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>details of key staff, including directors, heads of teams and senior officers</li>
+                                <li>details of key contacts at service providers</li>
+                            </ul>
+
+                            <h2 class="govuk-heading-m">Customer account information</h2>
+                            <p class="govuk-body">To ensure, that a potential new supplier is aware of critical customer account information, in the event of a step-in:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>details of the processes that would be followed to prepare a summary of customer debt information and customer account balances</li>
+                            </ul>
+
+                            <h2 class="govuk-heading-m">Data</h2>
+                            <p class="govuk-body">To ensure there's a smooth transition for customers to a new supplier, in the event of a step-in:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>details of how to access data sets, and where data sets are held</li>
+                                <li>details of how the supplier proposes to keep its data sets up to date</li>
+                                <li>details of methodologies for handing over information and customer data</li>
+                            </ul>
+
+                            <h2 class="govuk-heading-m">Assets</h2>
+                            <p class="govuk-body">Details of the key physical and contractual assets.</p>
+                        </div>
+                    </details>
+
+
+
+
+
+
+
+
+                    {% if data.validationErrors.financialplan %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.financialplan.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="financialplan" name="financialplan" type="radio" value="Yes" {% if data.financialplan == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="financialplan">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="financialplan-2" name="financialplan" type="radio" value="No" {% if data.financialplan == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="financialplan-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

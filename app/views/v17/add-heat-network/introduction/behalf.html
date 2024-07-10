@@ -1,0 +1,103 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Are you adding this heat network on behalf of another organisation?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+            <div class="govuk-form-group {% if data.validationErrors.introbehalf %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+                    <p class="govuk-body">For example, you might be a metering and billing agent acting on behalf of the heat network operator.</p>
+                        {% if data.validationErrors.introbehalf %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.introbehalf.message}}
+                </p>
+                {% endif %}
+<div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introbehalf" name="introbehalf" type="radio" value="Yes" {% if data.introbehalf == "Yes" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introbehalf">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="introbehalf-2" name="introbehalf" type="radio" value="No" {% if data.introbehalf == "No" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introbehalf-2">
+          No
+        </label>
+      </div>
+    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

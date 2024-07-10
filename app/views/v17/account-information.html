@@ -1,0 +1,90 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Account information
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% if data['choose-organisation-role'] == "Third party representative"%}
+      <h1 class="govuk-heading-l">EcoDynamo Solutions Ltd</h1>
+      {% else %}
+      <h1 class="govuk-heading-l">
+      {% if data.companyname %}
+      {{data.companyname}}
+      {% else %}
+      Radienteco Ltd
+      {% endif %}
+    </h1>
+      {% endif %}
+
+    
+      <h2 class="govuk-heading-m">Account information</h2>
+      
+      <div class="govuk-grid-row ds-grid-row">
+
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/check" class="govuk-link govuk-!-font-weight-bold">Organisation details</a></h3>
+      <p class="govuk-body">View, change and add organisation information.</p>
+      
+      
+      <strong class="govuk-tag govuk-tag--red">
+       Incomplete
+      </strong>
+
+    </div>
+ 
+
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold">
+
+        <a href="manage-users" class="govuk-link  govuk-link--no-visited-state govuk-!-font-weight-bold">Manage users</a>
+      </h3>
+      <p class="govuk-body">Add and remove users; edit user permissions.</p>
+    </div>
+    </div>
+
+</div></div>
+        <div class="govuk-grid-row govuk-!-margin-top-8">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+    <h2 class="govuk-heading-m">Heat networks</h2>
+
+    {% if (data.director == 'Someone else') and (data.inviteemailcomplete != "true") %}
+      <p class="govuk-body">Your organisation cannot start using this service until the account has been reviewed by someone with legal authority to act on behalf of the organisation. To check the status of a pending review go to <a href="" class="govuk-link">Organisation details</a></p>
+    {% else %}
+      <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
+
+    {% endif %}
+
+
+    
+
+
+
+
+   </div>
+
+  </div>
+{% endblock %}

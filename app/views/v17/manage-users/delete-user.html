@@ -1,0 +1,73 @@
+{% extends 'layouts/main.html' %}
+
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+
+    {% set users = [] %}
+
+    {% for i in range(data.userid, data.userid + 1) %}
+        {% set users = users.concat([{
+            "email": data["useremail" ~ i],
+            "firstname": data["userfirstname" ~ i],
+            "lastname": data["userlastname" ~ i],
+            "telephone": data["usertelephone" ~ i],
+            "jobtitle": data["userjobtitle" ~ i],
+            "id": i
+      }]) %}
+    {% endfor %}
+    
+    {% for user in users %}
+    {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+    {% set title = "Are you sure you want to remove " + name %}
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <p class="govuk-body">{{name}} ({{user.email}}) will no longer be able to access the service.</p>
+    <p class="govuk-body">If you wish to re-instate this user you'll have to reinvite them.</p>
+    <form method="post" novalidate>
+      <div class="govuk-button-group">
+      <button class="govuk-button govuk-button--warning">
+        Remove user
+      </button>
+      </div>
+</form>
+{% endfor %}
+
+
+  </div>
+</div>
+
+{% endblock %}

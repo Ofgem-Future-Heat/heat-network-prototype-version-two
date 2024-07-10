@@ -1,0 +1,65 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What to include" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">When providing your answers, include information about all parts of the network that you're ultimately responsible for, either as an operator, a supplier, or both.</p>
+                        <h2 class="govuk-heading-m">Common examples</h2>
+                        <h3 class="govuk-heading-s">1. A communal heat network</h2>
+                        <img src="/public/images/Heat-Network-Diagram-1.png" style="max-width: 300px;" class="govuk-!-margin-bottom-3"/>
+                        <p class="govuk-body">We would expect the organisation to do one submission for this heat network.</p>
+                        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                        <h3 class="govuk-heading-s">2. A district network</h2>
+                        <img src="/public/images/Heat-Network-Diagram-2.png" style="max-width: 350px" class="govuk-!-margin-bottom-3" />
+                        <p class="govuk-body">We would expect the organisation to do one submission for this heat network.</p>
+                        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                        <h3 class="govuk-heading-s">3. A district network with a connected building that has multiple customers</h2>
+                        <img src="/public/images/Heat-Network-Diagram-3.png" style="max-width: 350px;" class="govuk-!-margin-bottom-3"/>
+                        <div class="govuk-inset-text">If the network is a district network, include communal blocks or buildings that have multiple customers or premises in them.</div>
+                        <p class="govuk-body">We would expect the organisation to do one submission for these heat networks.</p>
+                        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                        <h3 class="govuk-heading-s">4. A district network with connected communal blocks and a bulk supply arrangement between two organisations</h2>
+                        <img src="/public/images/Heat-Network-Diagram-4.png" style="max-width: 350px;" class="govuk-!-margin-bottom-3"/>
+                        <p class="govuk-body">We would expect two submissions for these heat networks - one from organisation A and another from organisation B.</p>
+
+    
+            </div>
+        <a href="supply" class="govuk-button">Continue</a><br />
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+</div>
+
+{% endblock %}

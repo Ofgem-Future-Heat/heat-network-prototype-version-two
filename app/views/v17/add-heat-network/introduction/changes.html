@@ -1,0 +1,54 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How to handle heat network information that changes over time" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Some of your answers to the upcoming questions will likely change over time.</p>
+                        <p class="govuk-body">We need you to give answers that reflect the current state of the heat network.</p>
+                        <p class="govuk-body">For information on how to report changes to the heat network, see <a href="#" class="govuk-link">Guidance on monitoring, reporting and amendments (opens in a new window or tab)</a></p>
+
+    
+            </div>
+                <a href="role" class="govuk-button">Continue</a><br />
+                <a href="cancel" class="govuk-link">Cancel</a>
+
+
+        
+    </div>
+    
+</div>
+
+{% endblock %}

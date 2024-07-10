@@ -1,0 +1,122 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Do you have a contract to supply thermal energy to end consumers in this building?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+            <div class="govuk-form-group {% if data.validationErrors.buildingcontract %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                      <span class="govuk-caption-l">Add a heat network - energy centre</span>
+                      <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+
+                        {% if data.buildinglocationAddress %}
+                        <div class="govuk-inset-text">
+                            {% set address = data.buildinglocationAddress.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        </div>
+                        {% endif %}
+
+                        <details class="govuk-details">
+                          <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                              Help with 'end consumers'
+                            </span>
+                          </summary>
+                          <div class="govuk-details__text">
+                            These are customers in the building who purchase thermal energy for their own consumption.
+                          </div>
+                        </details>
+
+
+                        {% if data.validationErrors.buildingcontract %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.buildingcontract.message}}
+                </p>
+                {% endif %}
+<div class="govuk-radios govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="buildingcontract" name="buildingcontract" type="radio" value="Yes" {% if data.buildingcontract == "Yes" %}checked{% endif %} >
+        <label class="govuk-label govuk-radios__label" for="buildingcontract">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="buildingcontract-2" name="buildingcontract" type="radio" value="No" {% if data.buildingcontract == "No" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="buildingcontract-2">
+          No
+        </label>
+      </div>
+    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
