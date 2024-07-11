@@ -54,19 +54,7 @@
 
                 <h2 class="govuk-heading-m">Organisation details</h2>
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                  {% if data.companynumber %}
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                          Company number
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                          {{data.companynumber}}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                          <a class="govuk-link" href="company-number">Change<span class="govuk-visually-hidden"> type</span></a>
-                        </dd>
-                      </div>
-                      {% endif %}
+
                       <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                           Organisation type
@@ -78,6 +66,19 @@
                           <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> type</span></a>
                         </dd>
                       </div>
+                      {% if data.companynumber %}
+                      <div class="govuk-summary-list__row">
+                          <dt class="govuk-summary-list__key">
+                            Company number
+                          </dt>
+                          <dd class="govuk-summary-list__value">
+                            {{data.companynumber}}
+                          </dd>
+                          <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="company-number">Change<span class="govuk-visually-hidden"> type</span></a>
+                          </dd>
+                        </div>
+                        {% endif %}
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                       Organisation name and address
