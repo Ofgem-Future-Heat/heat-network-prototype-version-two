@@ -63,10 +63,16 @@ Are you {{data.companyname}}'s regulatory contact for heat networks?
                     </h1>
 
                 </legend>
-                <p class="govuk-body">The regulatory contact is your organisation’s most senior member of staff responsible for heat networks.</p>
-                <p class="govuk-body">They’re Ofgem’s main point of contact for any regulatory and compliance matters.</p>
+                <p class="govuk-body">This is your organisation’s most senior member of staff responsible for heat networks.</p>
+                <p class="govuk-body">As regulatory contact, you'll:</p>
 
-                  <!-- <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p> -->
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
+                    <li>have full access to all features in the account, for example managing users and submitting heat network information</li>
+                    <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                </ul>
+
+                  <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
 
 
                     <div class="govuk-form-group {% if data.validationErrors.companycreate %}govuk-form-group--error{% endif %}">
