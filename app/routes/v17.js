@@ -1243,14 +1243,14 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
 
 ///Invite email
-router.get('/' + version + '/account-creation/invite-email', function (req, res) {
-    res.render('/' + version + '/account-creation/invite-email', {
+router.get('/' + version + '/emails/service-invite', function (req, res) {
+    res.render('/' + version + '/emails/service-invite', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/account-creation/invite-email', function (req, res) {
+router.post('/' + version + '/emails/service-invite', function (req, res) {
     req.session.data['firstname'] = "";
     req.session.data['lastname'] = "";
     req.session.data['telephone'] = "";

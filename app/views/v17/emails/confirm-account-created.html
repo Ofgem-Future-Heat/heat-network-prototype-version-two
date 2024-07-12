@@ -1,0 +1,44 @@
+{% extends 'layouts/email.html' %}
+{% set companyname %}
+{% if data.companyname %}
+{{data.companyname }}
+{% else %}
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title = companyname + " has been set up to use Ofgem’s heat network service" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+            <p class="govuk-body">{{companyname}}'s account ID is AC1234567</p>
+            <p class="govuk-body">We've also made you the regulatory contact for your organisation’s heat networks.</p>
+            <p class="govuk-body">As regulatory contact, you can now:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>access the service</li>
+              <li>add team members to the account</li>
+              <li>decide what your team members can and cannot do on the account by setting their permission levels</li>
+            </ul>
+            <h2 class="govuk-heading-m">Before you start providing your heat network information</h2>
+<p class="govuk-body">You’ll need to access the account and provide further information about your organisation. After this, the account will be fully unlocked.</p>
+          </ul>
+          <p class="govuk-body">
+          <a class="govuk-button" href="../account-information">Go to your heat networks account home</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
