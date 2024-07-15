@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 
-{% set _inError = data.validationError == "true"  %}
+{% set _inError = data.validationError == "true" %}
 
 
 {% block pageTitle %}
@@ -24,7 +24,7 @@
           <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
         </li>
       </ol>
-    </div>  
+    </div>
     {% include data.version + "/_partials/headerlinks.html" %}
 
   </div>
@@ -41,31 +41,33 @@
     {% set users = [] %}
 
     {% for i in range(data.userid, data.userid + 1) %}
-        {% set users = users.concat([{
-            "email": data["useremail" ~ i],
-            "firstname": data["userfirstname" ~ i],
-            "lastname": data["userlastname" ~ i],
-            "telephonetype": data["usertelephone" ~ i],
-            "telephonelandline": data["usertelephonelandline" ~ i],
-            "telephonelandlineext": data["usertelephonelandlineext" ~ i],
-            "telephonemobile": data["usertelephonemobile" ~ i],
-            "jobtitle": data["userjobtitle" ~ i],
-            "id": i,
-            "permissions": [
-            data["adduserpermissionstransfer" ~ i],
-            data["adduserpermissionsrightsandpowers" ~ i],
-            data["adduserpermissionsusermanagement" ~ i],
-            data["adduserpermissionsmonitoring" ~ i],
-            data["adduserpermissionsregistration" ~ i]
-        ]
-      }]) %}
+    {% set users = users.concat([{
+    "email": data["useremail" ~ i],
+    "firstname": data["userfirstname" ~ i],
+    "lastname": data["userlastname" ~ i],
+    "telephonetype": data["usertelephone" ~ i],
+    "telephonelandline": data["usertelephonelandline" ~ i],
+    "telephonelandlineext": data["usertelephonelandlineext" ~ i],
+    "telephonemobile": data["usertelephonemobile" ~ i],
+    "jobtitle": data["userjobtitle" ~ i],
+    "id": i,
+    "deleted": data["isdeleted" ~ i],
+    "permissions": [
+    data["adduserpermissionstransfer" ~ i],
+    data["adduserpermissionsrightsandpowers" ~ i],
+    data["adduserpermissionsusermanagement" ~ i],
+    data["adduserpermissionsmonitoring" ~ i],
+    data["adduserpermissionsregistration" ~ i]
+    ]
+    }]) %}
     {% endfor %}
-  
-  {% for user in users %}
-  {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-{% set title = name %}
+
+    {% for user in users %}
+    {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+    {% set title = name %}
     {% if data.manageusersnotification %}
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+      aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
         <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
           Success
@@ -82,24 +84,24 @@
         <p class="govuk-body">We've let them know via email.</p>
       </div>
     </div>
-{% endif %}
+    {% endif %}
 
 
 
     {% if _inError %}
     <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
-        <h2 class="govuk-error-summary__title" id="error-summary-title">
-            There is a problem
-        </h2>
-        <div class="govuk-error-summary__body">
-            <ul class="govuk-list govuk-error-summary__list">
-                {% for name, item in data.validationErrors %}
-                <li>
-                    <a href="#{{item.anchor}}">{{item.message}}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+      <h2 class="govuk-error-summary__title" id="error-summary-title">
+        There is a problem
+      </h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          {% for name, item in data.validationErrors %}
+          <li>
+            <a href="#{{item.anchor}}">{{item.message}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
     {% endif %}
     <span class="govuk-caption-l">
@@ -110,16 +112,22 @@
     <h1 class="govuk-heading-l">
       {{title}}
       {% if (data.regchange == user.id) %}
-      <br/>
+      <br />
       <strong class="govuk-tag">
         Regulatory contact
       </strong>
       {% endif %}
+      {% if user.deleted == true %}
+      <br />
+      <strong class="govuk-tag govuk-tag--red">
+        Deactivated
+      </strong>
+      {% endif %}
     </h1>
-    
 
 
- 
+
+
 
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
@@ -143,7 +151,9 @@
           Telephone
         </dt>
         <dd class="govuk-summary-list__value">
-          {% if user.telephonetype == "Landline" %}{{user.telephonelandline}} {% if user.telephonelandlineext %}<br />Ext {{user.telephonelandlineext}}{% endif %}{% elif user.telephonetype == "Mobile" %}{{user.telephonemobile}}{% endif %}
+          {% if user.telephonetype == "Landline" %}{{user.telephonelandline}} {% if user.telephonelandlineext
+          %}<br />Ext {{user.telephonelandlineext}}{% endif %}{% elif user.telephonetype == "Mobile"
+          %}{{user.telephonemobile}}{% endif %}
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -159,18 +169,18 @@
           Additional permissions
         </dt>
         <dd class="govuk-summary-list__value">
-            <ul class="govuk-list">
-              {% if (data.regchange == user.id) %}
-              <li>Add or edit heat network information</li>
-              <li>Submit heat network information</li>
-              <li>Manage users</li>
-              <li>Apply for rights and powers licence</li>
-              <li>Initiate transfer of ownership</li>
+          <ul class="govuk-list">
+            {% if (data.regchange == user.id) %}
+            <li>Add or edit heat network information</li>
+            <li>Submit heat network information</li>
+            <li>Manage users</li>
+            <li>Apply for rights and powers licence</li>
+            <li>Initiate transfer of ownership</li>
 
-              {% else %}
+            {% else %}
 
-              {% if user.permissions == ",,,," %}
-              No additional permissions
+            {% if user.permissions == ",,,," %}
+            No additional permissions
 
             {% else %}
             {% for permission in user.permissions %}
@@ -179,35 +189,34 @@
 
             {% endif %}
             {% endif %}
-            </ul>
+          </ul>
         </dd>
       </div>
     </dl>
 
     <ul class="govuk-summary-list__actions-list">
-      {% if (data.regchange == user.id) and (data.currentuserid == user.id) %}
+      {% if (data.regchange == user.id) and (data.currentuserid == user.id) and (data.usertotal > 1) %}
       <li class="govuk-summary-list__actions-list-item">
         <a href="reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
       </li>
-      {% elif (data.regchange == user.id) and (data.currentuserid != user.id)  %}
 
-
-    {% elif (data.currentuserid != user.id) %}
-
-
+      {% elif (data.currentuserid != user.id) %}
+      {% if user.deleted == true %}
       <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit user</a>
+        <a href="reactivate-user?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Reactivate user</a>
+      </li>
+      {% else %}
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit
+          permissions</a>
       </li>
       <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit permissions</a>
+        <a href="delete-user?id={{user.id}}" class="link-red">Deactivate user</a>
       </li>
-      <li class="govuk-summary-list__actions-list-item">
-        <a href="delete-user?id={{user.id}}" class="link-red">Delete user</a>    
-      </li>
-
-    {% endif %}
-  </ul>
-{% endfor %}
+      {% endif %}
+      {% endif %}
+    </ul>
+    {% endfor %}
 
 
   </div>

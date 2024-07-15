@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% if data.accounttype == "Company registered in the UK" %}
+{% if data.accounttype == "UK organisation registered with Companies House" %}
 {% set title = "What is the company number?" %}
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
 {% set title = "What is the organisation's registration number?" %}
@@ -71,7 +71,7 @@
                     </legend>
 
                     <div class="govuk-body">
-                        {% if data.accounttype == "Company registered in the UK" %}
+                        {% if data.accounttype == "UK organisation registered with Companies House" %}
                         You can find this in the <a href="https://find-and-update.company-information.service.gov.uk/" target="_blank" class="govuk-link govuk-link--no-visited-state">Companies House register (opens in new tab)</a>.
 {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
 You can find this on the <a href="https://mutuals.fca.org.uk/" target="_blank" class="govuk-link govuk-link--no-visited-state">FCA Mutuals Public Register (opens in new tab)</a>.
@@ -91,7 +91,7 @@ You can find this on the <a href="https://register-of-charities.charitycommissio
 
                             <div class="govuk-form-group">
                                     <div class="govuk-hint" id="companynumber-hint" >
-                                        {% if data.accounttype == "Company registered in the UK" %}
+                                        {% if data.accounttype == "UK organisation registered with Companies House" %}
                                         For example, 00112233 or SC123456
                                         {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
                                         For example, 12345R 

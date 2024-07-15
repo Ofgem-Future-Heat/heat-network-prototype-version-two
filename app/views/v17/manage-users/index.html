@@ -44,8 +44,11 @@
         <div class="govuk-notification-banner__content">
           <h3 class="govuk-notification-banner__heading">
             {% if data.manageusersnotification == 'deleted' %}
-            You've removed {{data.deletedusername}} from this heat networks account.
+            You've deactivated {{data.deletedusername}} on this heat networks account.
             
+            {% elif data.manageusersnotification == 'reactivated' %}
+            You've reactivated {{data.deletedusername}} on this heat networks account.
+
             {% elif data.manageusersnotification == 'adduserpermissions' %}
             You've saved additional permissions for {{data.userfirstname}} {{data.userlastname}}.
 
@@ -94,7 +97,8 @@
                                     "firstname": data["userfirstname" ~ i],
                                     "lastname": data["userlastname" ~ i],
                                     "email": data["useremail" ~ i],
-                                    "id": i
+                                    "id": i,
+                                    "deleted": data["isdeleted" ~ i]
                                 }]) %}
                             {% endfor %}
                             
@@ -116,7 +120,7 @@
                                       </td>
                                       <td class="govuk-table__cell govuk-table__cell--numeric">
                                           <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
-                                          {% if (data.currentuserid == user.id) %}
+                                          {% if (data.currentuserid == user.id) and (data.usertotal > 1) %}
                                           <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
                                           {% endif %}
                                       </td>
@@ -134,11 +138,11 @@
                                 </td>
                                   <td class="govuk-table__cell">{{ user.email }}</td>
                                   <td class="govuk-table__cell">
-                                      {% if (data.inviteemailcomplete == "true") or (user.id == 1) %}
+                                    {%if user.deleted == true %}
+                                    <span class="govuk-tag govuk-tag--red">Deactivated</span>
+                                    {% else %}
                                           <span class="govuk-tag govuk-tag--green">Active</span>
-                                      {% else %}
-                                          <span class="govuk-tag govuk-tag--grey">Invite sent</span>
-                                      {% endif %}
+                                          {% endif %}
                                   </td>
                                   <td class="govuk-table__cell govuk-table__cell--numeric">
                                       <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>

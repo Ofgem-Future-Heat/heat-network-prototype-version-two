@@ -361,20 +361,34 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
     clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
 
-    req.session.data['userfirstname' + req.session.data['userid']] = null;
-    req.session.data['userlastname' + req.session.data['userid']] = null;
-    req.session.data['usertelephone' + req.session.data['userid']] = null;
-    req.session.data['useremail' + req.session.data['userid']] = null;
-    req.session.data['userjobtitle' + req.session.data['userid']] = null;
-    req.session.data['addeduser' + req.session.data['userid']] = null;
-    req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = null;
-    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = null;
-    req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = null;
-    req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = null;
-    req.session.data['adduserpermissionsregistration' + req.session.data['userid']] = null;
-
+    req.session.data['isdeleted' + req.session.data['userid']] = true;
     res.redirect('/' + version + '/manage-users?notification=deleted');
 
+});
+
+
+/// Reactivate user
+router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
+    res.render('/' + version + '/manage-users/reactivate-user', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/reactivate-user', function (req, res) {
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+    clearvalidation(req);
+    req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
+
+    req.session.data['isdeleted' + req.session.data['userid']] = false;
+    res.redirect('/' + version + '/manage-users?notification=reactivated');
 
 });
 
