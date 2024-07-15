@@ -668,32 +668,39 @@ router.get('/' + version + '/account-creation/select-org', function (req, res) {
 
 router.post('/' + version + '/account-creation/select-org', function (req, res) {
     clearvalidation(req);
+    var orgtotal = req.session.data['orgtotal']
     var orgselect = req.session.data['orgselect']
-
-    if (!orgselect) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgselect = {
-            "anchor": "orgselect",
-            "message": "Select which organisation you want to access"
+    if(orgtotal > 1) {
+        if (!orgselect) {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.orgselect = {
+                "anchor": "orgselect",
+                "message": "Select which organisation you want to access"
+            }
         }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/account-creation/select-org', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (orgselect == "New") {
-            res.redirect('/' + version + '/account-creation/type');
+    
+    
+        if (req.session.data.validationError == "true") {
+            res.render('/' + version + '/account-creation/select-org', {
+                data: req.session.data
+            });
         }
+    
         else {
-            req.session.data['companyname'] = orgselect;
-            res.redirect('/' + version + '/account-information');
+            if (orgselect == "New") {
+                res.redirect('/' + version + '/account-creation/type');
+            }
+            else {
+                req.session.data['companyname'] = orgselect;
+                res.redirect('/' + version + '/account-information');
+            }
         }
     }
+    else {
+        res.redirect('/' + version + '/account-creation/type');
+ 
+    }
+
 
 });
 

@@ -39,28 +39,20 @@ Switch to a different organisation
             </div>
         </div>
         {% endif %}
-        <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.orgselect %}govuk-form-group--error{% endif %}">
-
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                        <h1 class="govuk-fieldset__heading">
+                        <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
 
-                    </legend>
                     {% if data.orgtotal > 1 %}
                     <p class="govuk-body">You are linked to {{data.orgtotal}} organisations that are set up to use the heat network service. </p>
-                    <p class="govuk-body">You can access one of these, or you can add a new organisation to the heat network service. </p>
+                    <p class="govuk-body">You can access either of these, or you can add a new organisation to the heat network service. </p>
                     <p class="govuk-body">To add a new organisation, you must be your organisation’s regulatory contact for heat networks.</p>
 
                     {% else %}
                     <p class="govuk-body">You are not currently linked to any other organisations that are set up to use the heat network service. </p>
                     <p class="govuk-body">If you need to access another organisation that already has an account, you’ll need to ask one of their heat network team to invite you.</p>
-                    <p class="govuk-body">Otherwise, you can <a href="type" class="govuk-link govuk-link--no-visited-state">add a new organisation to the heat network service</a>. You must be your organisation’s regulatory contact for heat networks to do this.</p>
+                    <p class="govuk-body">Otherwise, you can add a new organisation to the heat network service. You must be your organisation’s regulatory contact for heat networks to do this.</p>
                     {% endif %}
 
                     <details class="govuk-details">
@@ -80,17 +72,22 @@ Switch to a different organisation
                           <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
                         </div>
                       </details>
-                    {% if data.validationErrors.orgselect %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.orgselect.message}}
-                    </p>
-                    {% endif %}
+                      <form method="POST" novalidate>
+                        {% if data.orgtotal > 1 %}
 
-                    {% if data.orgtotal > 1 %}
-
-
-
+                        <div class="govuk-form-group {% if data.validationErrors.orgselect %}govuk-form-group--error{% endif %}">
+                        
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            Which account do you want to access?
+                        </legend>
+                        {% if data.validationErrors.orgselect %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.orgselect.message}}
+                        </p>
+                        {% endif %}
+    
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
@@ -118,13 +115,13 @@ Switch to a different organisation
 
 
                     </div>
-                    {% endif %}
 
 
                 </fieldset>
 
-
             </div>
+            {% endif %}
+
             {% if data.orgtotal > 1 %}
 
             {{
@@ -132,6 +129,12 @@ Switch to a different organisation
             html: 'Continue'
             })
             }}
+            {% else %}
+            {{
+                govukButton ({
+                html: 'Add new organisation'
+                })
+                }}
             {% endif %}
 
         </form>
