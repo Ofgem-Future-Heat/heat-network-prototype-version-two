@@ -24,18 +24,15 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-
-      {% if data['choose-organisation-role'] == "Third party representative"%}
-      <h1 class="govuk-heading-l">EcoDynamo Solutions Ltd</h1>
-      {% else %}
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-1">
       {% if data.companyname %}
       {{data.companyname}}
       {% else %}
       Radienteco Ltd
       {% endif %}
     </h1>
-      {% endif %}
+    <p class="govuk-body-s govuk-!-margin-top-0"><a href="account-creation/select-org" class="govuk-link govuk-link--no-visited-state">Switch to a different organisation</a></p>
+
 
     
       <h2 class="govuk-heading-m">Account information</h2>

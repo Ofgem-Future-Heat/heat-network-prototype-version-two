@@ -137,7 +137,7 @@
                       Preferred contact number for work
                     </dt>
                     <dd class="govuk-summary-list__value">
-                      {% if data.yourtelephone == "Landline" %}{{data.yourtelephonelandline}} {% if data.yourtelephonelandlineext %}<br /> Extension {{data.yourtelephonelandlineext}}{% endif %} {% elif data.yourtelephone == "Mobile" %}{{data.yourtelephonemobile}} {% endif %}
+                      {% if data.yourtelephone == "Landline" %}{{data.yourtelephonelandline}} {% if data.yourtelephonelandlineext %}<br /> Extension: {{data.yourtelephonelandlineext}}{% endif %} {% elif data.yourtelephone == "Mobile" %}{{data.yourtelephonemobile}} {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                       <a class="govuk-link" href="your-details">Change<span class="govuk-visually-hidden"> telephone number</span></a>
