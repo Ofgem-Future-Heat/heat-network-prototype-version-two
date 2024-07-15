@@ -655,6 +655,11 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 ///Select org
 router.get('/' + version + '/account-creation/select-org', function (req, res) {
     clearvalidation(req);
+    const orgtotal = req.query.orgtotal;
+    if (orgtotal) {
+        req.session.data['orgtotal'] = orgtotal;
+    }
+
     res.render('/' + version + '/account-creation/select-org', {
         data: req.session.data
     });
@@ -741,6 +746,12 @@ router.post('/' + version + '/account-creation/check-answers', function (req, re
         req.session.data['regcontactname'] = req.session.data['yourfirstname'] + " " + req.session.data['yourlastname'];
         req.session.data['regcontactemail'] = req.session.data['oneloginemail'];
 
+        if (req.session.data.orgtotal) {
+            req.session.data.orgtotal = req.session.data.orgtotal + 1
+        } 
+        else {
+            req.session.data.orgtotal = 1
+        }
 
         res.redirect('/' + version + '/account-creation/account-created');
         }

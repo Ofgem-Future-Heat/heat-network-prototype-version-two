@@ -1,6 +1,12 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Which organisation account do you want to access?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set title %}
+{% if data.orgtotal > 1 %}
+Select your organisation’s account 
+{% else %}
+Switch to a different organisation
+{% endif %}
+{% endset %}
+{% set _inError = data.validationError == "true" %}
 
 
 {% block pageTitle %}
@@ -17,7 +23,8 @@
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" orgselect="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" orgselect="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -45,7 +52,34 @@
                         </h1>
 
                     </legend>
-<p class="govuk-body">Your email address is associated with more than one organisation that’s set up to use the heat network service.</p>
+                    {% if data.orgtotal > 1 %}
+                    <p class="govuk-body">You are linked to {{data.orgtotal}} organisations that are set up to use the heat network service. </p>
+                    <p class="govuk-body">You can access one of these, or you can add a new organisation to the heat network service. </p>
+                    <p class="govuk-body">To add a new organisation, you must be your organisation’s regulatory contact for heat networks.</p>
+
+                    {% else %}
+                    <p class="govuk-body">You are not currently linked to any other organisations that are set up to use the heat network service. </p>
+                    <p class="govuk-body">If you need to access another organisation that already has an account, you’ll need to ask one of their heat network team to invite you.</p>
+                    <p class="govuk-body">Otherwise, you can <a href="type" class="govuk-link govuk-link--no-visited-state">add a new organisation to the heat network service</a>. You must be your organisation’s regulatory contact for heat networks to do this.</p>
+                    {% endif %}
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            Help with 'regulatory contact'
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                          <p class="govuk-body"> This is your organisation’s most senior member of staff responsible for heat networks.</p>
+                          <p class="govuk-body">As regulatory contact, you'll:</p>
+                          <ul class="govuk-list govuk-list--bullet">
+                            <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
+                            <li>have full access to all features in the account, for example managing users and submitting heat network information</li> 
+                            <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                          </ul>
+                          <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
+                        </div>
+                      </details>
                     {% if data.validationErrors.orgselect %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -53,28 +87,30 @@
                     </p>
                     {% endif %}
 
+                    {% if data.orgtotal > 1 %}
 
 
 
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio" value="Radienteco Ltd" >
+                            <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio"
+                                value="Radienteco Ltd">
                             <label class="govuk-label govuk-radios__label" for="orgselect">
-                                Radienteco Ltd
+                                {% if data.companyname %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
                             </label>
                         </div>
-
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="orgselect-4" name="orgselect" type="radio" value="Heating Co">
+                            <input class="govuk-radios__input" id="orgselect-4" name="orgselect" type="radio"
+                                value="Heating Co">
                             <label class="govuk-label govuk-radios__label" for="orgselect-4">
                                 Heating Co
                             </label>
-
                         </div>
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="orgselect-5" name="orgselect" type="radio" value="New" >
+                            <input class="govuk-radios__input" id="orgselect-5" name="orgselect" type="radio"
+                                value="New">
                             <label class="govuk-label govuk-radios__label" for="orgselect-5">
                                 Add a different organisation
                             </label>
@@ -82,17 +118,22 @@
 
 
                     </div>
+                    {% endif %}
 
 
                 </fieldset>
 
 
             </div>
+            {% if data.orgtotal > 1 %}
+
             {{
-                govukButton ({
-                    html: 'Continue'
-                })
+            govukButton ({
+            html: 'Continue'
+            })
             }}
+            {% endif %}
+
         </form>
 
     </div>
