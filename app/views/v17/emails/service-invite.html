@@ -16,7 +16,6 @@
               {{title}}
             </h1>
             <p class="govuk-body">{{data.userfirstname1}} {{data.userlastname1}} has invited you to {{data.companyname}}'s account for Ofgem's heat networks service</p>
-            <h2 class="govuk-heading-m">Your permissions</h2>
 
             {% set users = [] %}
 
@@ -39,22 +38,6 @@
             {% endfor %}
           
           {% for user in users %}
-          <p class="govuk-body">You've been granted the ability to:</p>
-
-          <ul class="govuk-list govuk-list--bullet">
-            <li>read all information in {{data.companyname}}'s heat networks account</li>
-            {% if user.permissions == ",,,," %}
-
-          {% else %}
-          {% for permission in user.permissions %}
-          {% if permission %}<li>{{permission | lower}}</li>{% endif %}
-          {% endfor %}
-
-          {% endif %}
-
-          </ul>
-
-
           <h2 class="govuk-heading-m">Next steps</h2>
           <p class="govuk-body">Use {{user.email}} to sign up or sign in by creating an account with 'GOV One Login'. </p>
           {% endfor %}
