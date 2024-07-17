@@ -11,8 +11,15 @@ function clearvalidation(req) {
     req.session.data['version'] = version
 
 }
+///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
-
+router.get('/' + version + '/account-information', function (req, res) {
+    clearvalidation(req);
+    generateuser(req)
+    res.render('/' + version + '/account-information', {
+        data: req.session.data
+    });
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +39,31 @@ function clearaddeduser(req) {
     req.session.data['adduserpermissionsusermanagement'] = ""
     req.session.data['adduserpermissionsmonitoring'] = ""
     req.session.data['adduserpermissionsregistration'] = ""
+}
+
+function generateuser(req){
+
+    var useradded = req.session.data['addeduser1']
+    if (useradded != "true" ) {
+    req.session.data['userfirstname1'] = "John";
+    req.session.data['userlastname1'] = "Smith";
+    req.session.data['usertelephone1'] = "Landline";
+    req.session.data['usertelephonelandline1'] = "01234567891";
+    req.session.data['usertelephonelandlineext1'] = "123";
+    req.session.data['useremail1'] = "john.smith@radienteco.org";
+    req.session.data['userjobtitle1'] = "Director";
+    req.session.data['addeduser1'] = "true";
+    req.session.data['adduserpermissionstransfer1'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers1'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement1'] = "Manage users";
+    req.session.data['adduserpermissionsmonitoring1'] = "Submit heat network information";
+    req.session.data['adduserpermissionsregistration1'] = "Add or edit heat network information";
+    req.session.data['regchange'] = "1";
+    req.session.data['currentuserid'] = "1";
+    req.session.data['regcontactname'] = "John Smith";
+    req.session.data['regcontactemail'] = "john.smith@radienteco.org";
+}
+
 }
 
 function clearediteduser(req) {
