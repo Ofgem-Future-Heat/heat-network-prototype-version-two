@@ -50,9 +50,9 @@ Switch to a different organisation
                     <p class="govuk-body">To add a new organisation, you must be your organisation’s regulatory contact for heat networks.</p>
 
                     {% else %}
-                    <p class="govuk-body">You are not currently linked to any other organisations that are set up to use the heat network service. </p>
-                    <p class="govuk-body">If you need to access another organisation that already has an account, you’ll need to ask one of their heat network team to invite you.</p>
-                    <p class="govuk-body">Otherwise, you can add a new organisation to the heat network service. You must be your organisation’s regulatory contact for heat networks to do this.</p>
+                    <p class="govuk-body">You're not currently linked to any other organisations that are enabled for the heat network service.</p>
+                    <p class="govuk-body">To access another organisation that's been enabled for the service, you’ll need to ask one of its heat network team to invite you.</p>
+                    <p class="govuk-body">Otherwise, you can add a new organisation. You must be its regulatory contact for heat networks to do this.</p>
                     {% endif %}
 
                     <details class="govuk-details">
@@ -62,12 +62,12 @@ Switch to a different organisation
                           </span>
                         </summary>
                         <div class="govuk-details__text">
-                          <p class="govuk-body"> This is your organisation’s most senior member of staff responsible for heat networks.</p>
+                          <p class="govuk-body">This is your organisation’s most senior member of staff responsible for heat networks.</p>
                           <p class="govuk-body">As regulatory contact, you'll:</p>
                           <ul class="govuk-list govuk-list--bullet">
                             <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
-                            <li>have full access to all features in the account, for example managing users and submitting heat network information</li> 
-                            <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                            <li>have full access to all features in the heat network service, for example managing users and submitting heat network information</li> 
+                            <li>be initially responsible for inviting other users into the service and setting their permissions</li>
                           </ul>
                           <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
                         </div>
@@ -79,7 +79,7 @@ Switch to a different organisation
                         
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            Which account do you want to access?
+                            Which organisation do you want to access?
                         </legend>
                         {% if data.validationErrors.orgselect %}
                         <p class="govuk-error-message">
@@ -94,7 +94,7 @@ Switch to a different organisation
                             <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio"
                                 value="Radienteco Ltd">
                             <label class="govuk-label govuk-radios__label" for="orgselect">
-                                {% if data.companyname %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
+                                {% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
                             </label>
                         </div>
                         <div class="govuk-radios__item">

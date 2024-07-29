@@ -65,7 +65,7 @@
 
                     <div class="govuk-form-group govuk-!-margin-top-4">
                         <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Email address</h3>
-                        <p class="govuk-body">{{data.oneloginemail}}</p>
+                        <p class="govuk-body">{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}</p>
                     </div>
                     <div class="govuk-form-group {% if data.validationErrors.yourfirstname %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label govuk-label--s" for="yourfirstname">

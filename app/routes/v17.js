@@ -722,6 +722,10 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
             if (orgselect == "New") {
                 res.redirect('/' + version + '/account-creation/type');
             }
+            if (orgselect == "Heating Co") {
+                req.session.data.companyname = "Heating Co"
+                res.redirect('/' + version + '/account-creation/company-create');
+            }
             else {
                 req.session.data['companyname'] = orgselect;
                 res.redirect('/' + version + '/account-information');
@@ -754,7 +758,7 @@ router.post('/' + version + '/account-creation/check-answers', function (req, re
         req.session.data.validationError = "true"
         req.session.data.validationErrors.creatorlegaldeclaration = {
             "anchor": "creatorlegaldeclaration",
-            "message": "You must tick to confirm that the details you've provided will be accurate"
+            "message": "You must tick to confirm that you comply with the conditions for enabling your organisation for the heat network service"
         }
     }
 

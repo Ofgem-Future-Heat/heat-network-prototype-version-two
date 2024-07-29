@@ -54,34 +54,10 @@
 
                 <h2 class="govuk-heading-m">Organisation details</h2>
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-
-                      <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                          Organisation type
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                          {{data.accounttype}}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                          <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> type</span></a>
-                        </dd>
-                      </div>
-                      {% if data.companynumber %}
-                      <div class="govuk-summary-list__row">
-                          <dt class="govuk-summary-list__key">
-                            Company number
-                          </dt>
-                          <dd class="govuk-summary-list__value">
-                            {{data.companynumber}}
-                          </dd>
-                          <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="company-number">Change<span class="govuk-visually-hidden"> type</span></a>
-                          </dd>
-                        </div>
-                        {% endif %}
+                  {% if (data.companyname == "Heating Co") %}
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                      Organisation name and address
+                      Organisation
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.companyname}} <br />
@@ -90,10 +66,56 @@
                         {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
                         {% else %}
                         19 Grosvenor Road <br />
-                        Solihull B91 3PU
+                        Solihull <br />B91 3PU
                         {% endif %} 
                     </dd>
+                    <dd class="govuk-summary-list__actions">
+                      <a class="govuk-link" href="select-org">Change<span class="govuk-visually-hidden"> organisation</span></a>
+                    </dd>
                   </div>
+                  {% else %}
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Organisation type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {{data.accounttype}}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                      <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> type</span></a>
+                    </dd>
+                  </div>
+                  {% if data.companynumber %}
+                  <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Company number
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{data.companynumber}}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="company-number">Change<span class="govuk-visually-hidden"> type</span></a>
+                      </dd>
+                    </div>
+                    {% endif %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Organisation name and address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.companyname}} <br />
+                    {% if data.orgaddressSelect %} 
+                    {% set address = data.orgaddressSelect.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    {% else %}
+                    19 Grosvenor Road <br />
+                    Solihull <br />
+                    B91 3PU
+                    {% endif %} 
+                </dd>
+              </div>
+                  {% endif %}
+
 
                 </dl>
                 <h2 class="govuk-heading-m">Your details</h2>
@@ -176,13 +198,10 @@
                             <label class="govuk-label govuk-checkboxes__label" for="creatorlegaldeclaration">
                               <p class="govuk-body">I confirm that:</p>
                               <ul class="govuk-list govuk-list--bullet">
-                                <li>I have due authority to create this account for my organisation</li>
-
+                                <li>I have due authority to enable my organisation for the heat network service</li>
                                 <li>I have read and understood the digital form and the guidance for it, currently published on the GOV.UK website</li>
-
-                                  <li>to the best of my knowledge and belief, all the details provided in this digital form are true and complete </li>
-
-                                <li>I understand that knowingly or recklessly making a false, incomplete or misleading statement in support of this account request may lead to the account being revoked</li>
+                                <li>to the best of my knowledge and belief, all the details provided in this digital form are true and complete </li>
+                                <li>I understand that knowingly or recklessly making a false, incomplete or misleading statement in support of this request may lead to service access being revoked</li>
                               </ul>
                             </label>
                           </div>
@@ -194,7 +213,7 @@
 
             {{
                 govukButton ({
-                    html: 'Confirm and create account'
+                    html: 'Accept and send'
                 })
             }}
         </form>
