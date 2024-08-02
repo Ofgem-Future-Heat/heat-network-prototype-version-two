@@ -1,5 +1,11 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does " + data.userfirstname + " " + data.userlastname + " works for another organisation acting on behalf of " + data.companyname %}
+{% set title %}
+Does {{data.userfirstname}} {{data.userlastname}} work for another organisation acting on behalf of {% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd
+{% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
