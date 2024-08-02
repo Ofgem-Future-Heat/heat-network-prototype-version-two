@@ -15,3 +15,4 @@ require('./routes/v14.js');
 require('./routes/v15.js');
 require('./routes/v16.js');
 require('./routes/v17.js');
+require('./routes/v18.js');

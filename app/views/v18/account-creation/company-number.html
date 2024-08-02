@@ -1,0 +1,122 @@
+{% extends 'layouts/main.html' %}
+{% if data.accounttype == "UK organisation registered with Companies House" %}
+{% set title = "What is the company number?" %}
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+{% set title = "What is the organisation's registration number?" %}
+{% else %}
+{% set title = "What is the charity number?" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                        <label for="companynumber">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </label>
+
+                    </legend>
+
+                    <div class="govuk-body">
+                        {% if data.accounttype == "UK organisation registered with Companies House" %}
+                        You can find this in the <a href="https://find-and-update.company-information.service.gov.uk/" target="_blank" class="govuk-link govuk-link--no-visited-state">Companies House register (opens in new tab)</a>.
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+You can find this on the <a href="https://mutuals.fca.org.uk/" target="_blank" class="govuk-link govuk-link--no-visited-state">FCA Mutuals Public Register (opens in new tab)</a>.
+{% else %}
+You can find this on the <a href="https://register-of-charities.charitycommission.gov.uk/charity-search" target="_blank" class="govuk-link govuk-link--no-visited-state">Charity Commission register (opens in new tab)</a> or the <a href="https://www.oscr.org.uk/search" target="_blank" class="govuk-link govuk-link--no-visited-state">OSCR register (opens in new tab)</a>.
+{% endif %}
+                        
+
+                    </div>
+
+                            {% if data.validationErrors.companynumber %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.companynumber.message}}
+                    </p>
+                    {% endif %}
+
+                            <div class="govuk-form-group">
+                                    <div class="govuk-hint" id="companynumber-hint" >
+                                        {% if data.accounttype == "UK organisation registered with Companies House" %}
+                                        For example, 00112233 or SC123456
+                                        {% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+                                        For example, 12345R 
+                                        {% else %}
+                                        For example, 12345678 or SC012345
+                                        {% endif %}
+                                        
+                                    </div>
+                                <input class="govuk-input {% if data.validationErrors.companynumber %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-10" id="companynumber" name="companynumber" type="text" inputmode="numeric" value="{{data.companynumber}}" aria-describedby="companynumber-hint">
+                            </div>
+
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

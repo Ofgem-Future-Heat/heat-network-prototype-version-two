@@ -1,0 +1,194 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - financial resilience</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+            {% if ((data.buildingclass or []).indexOf('Viable') > -1) %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many buildings in the viable class have final customer meters?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringmeters}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="viable">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if ((data.buildingclass or []).indexOf('Open') > -1) %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of open class buildings where you have determined that its cost-effective to install heat metering devices
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringopen1}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="open">Change</a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of open class buildings that have final customer meters
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringopen2}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="open">Change</a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of open class buildings that have heat cost allocators
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringopen3}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="open">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            {% if data.meteringexempt %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Reason why some buildings on the heat network are in the exempt class
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringexempt}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="exempt">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+                <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you use an agent to deal with metering and billing?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent">Change</a>
+                </dd>
+            </div>
+            {% if data.meteringagent == "Yes" %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Who is the metering and billing agent?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagentname}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent-name">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Which types of meter do you have on your heat network
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <ul class="govuk-list">
+                        {% for type in data.metertype %}
+                        <li>{{type}} - {% if type == "Building level meters" %}{{data.meteringlevel}}{% elif type == "Final consumer meters" %}{{data.meteringconsumer}}{% elif type == "Final consumer heat cost allocators" %}{{data.meteringcost}}{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type-check">Change</a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are smart pre-payment meters available?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringsmart}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="exempt">Change</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Is electrical sub-metering available?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringelectrical}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="exempt">Change</a>
+                </dd>
+            </div>
+
+
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="meteringcomplete" name="meteringcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        {% if data.meteringcomplete == "true" %}
+
+        <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
