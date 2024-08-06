@@ -1,0 +1,198 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Organistion details
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+       
+        <span class="govuk-caption-l">{% if data.companyname %}
+          {{data.companyname}}
+          {% else %}
+          Radienteco Ltd
+          {% endif %}</span>
+
+            <h1 class="govuk-heading-l">{{title}}</h1>
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if data.companyname %}
+          {{data.companyname}}
+          {% else %}
+          Radienteco Ltd
+          {% endif %}
+                    </dd>
+
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                     Type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if data.accounttype %}
+                      {{data.accounttype}}
+                      {% else %}
+                      UK organisation registered with Companies House
+                      {% endif %}
+                    </dd>
+
+                  </div>
+                  {% if data.accounttype == "UK organisation registered with Companies House" %}
+                  <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Company number
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if data.companynumber %}
+                        {{data.companynumber}}
+                        {% else %}
+                        1241241
+                        {% endif %}
+                        
+                      </dd>
+                    </div>
+                    {% endif %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.orgaddressSelect %} 
+                    {% set address = data.orgaddressSelect.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    {% else %}
+                    19 Grosvenor Road <br />
+                    Solihull <br />
+                    B91 3PU
+                    {% endif %} 
+                </dd>
+              </div>
+              {% if data.orgdetailscomplete %}
+
+              {% if data.orgtradingname %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Trading name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgtradingname}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="trading-name">Change<span class="govuk-visually-hidden"> trading name</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.tradingaddressSelect %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Trading address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.tradingaddressSelect}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="trading-address">Change<span class="govuk-visually-hidden"> trading address</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.orgaccounts %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Accounts for last financial period
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgaccounts}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.orgprofit %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  For profit organisation
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgprofit}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="profit">Change<span class="govuk-visually-hidden"> organisation profit</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.orgsubtype %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Organisation description
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsubtype}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="what">Change<span class="govuk-visually-hidden"> organisation description</span></a>
+                </dd>
+              </div>
+              {% endif %}
+
+            </dl>
+
+              {% else %}
+            </dl>
+            <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information.</p>
+            <a href="trading-name" class="govuk-button">Add further information</a>
+
+              {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Which best describes your organisation?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+          <form method="post" novalidate>
+            <span class="govuk-caption-l">
+                {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+              </span>
+            <div class="govuk-form-group {% if data.validationErrors.orgsubtype %}govuk-form-group--error{% endif %}">
+              <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <h1 class="govuk-fieldset__heading">
+                    {{title}}
+                  </h1>
+                </legend>
+                <p class="govuk-body">Choose the label that best fits the work your organisation does.</p>
+                {% if data.validationErrors.orgsubtype %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.orgsubtype.message}}
+                </p>
+                {% endif %}
+                <div class="govuk-radios" data-module="govuk-radios">
+                  {% if data.orgprofit == "Yes" %}
+                  <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="orgsubtype" name="orgsubtype" type="radio" value="Property developer" {% if data.orgsubtype=="Property developer" %}checked{% endif %}>
+                      <label class="govuk-label govuk-radios__label" for="orgsubtype">
+                          Property developer
+                      </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-2" name="orgsubtype" type="radio" value="Property managment company" {% if data.orgsubtype=="Property managment company" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-2">
+                        Property managment company
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-3" name="orgsubtype" type="radio" value="Private property owner or private landlord" {% if data.orgsubtype=="Private property owner or private landlord" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-3">
+                        Private property owner or private landlord
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-4" name="orgsubtype" type="radio" value="Metering or billing agent" {% if data.orgsubtype=="Metering or billing agent" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-4">
+                        Metering or billing agent
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-5" name="orgsubtype" type="radio" value="Industry" {% if data.orgsubtype=="Industry" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-5">
+                        Industry
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-6" name="orgsubtype" type="radio" value="Energy service company (ESCo)" {% if data.orgsubtype=="Energy service company (ESCo)" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-6">
+                        Energy service company (ESCo)
+                    </label>
+                  </div>
+
+                  {% else %}
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype" name="orgsubtype" type="radio" value="Resident-owned property management company" {% if data.orgsubtype=="Resident-owned property management company" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype">
+                        Resident-owned property management company
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="orgsubtype-2" name="orgsubtype" type="radio" value="Housing association" {% if data.orgsubtype=="Housing association" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="orgsubtype-2">
+                      Housing association
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="orgsubtype-3" name="orgsubtype" type="radio" value="Other social housing provider" {% if data.orgsubtype=="Other social housing provider" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="orgsubtype-3">
+                      Other social housing provider
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="orgsubtype-4" name="orgsubtype" type="radio" value="Local authority" {% if data.orgsubtype=="Local authority" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="orgsubtype-4">
+                      Local authority
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="orgsubtype-5" name="orgsubtype" type="radio" value="Central government body" {% if data.orgsubtype=="Central government body" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="orgsubtype-5">
+                      Central government body
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="orgsubtype-6" name="orgsubtype" type="radio" value="Other public sector body" {% if data.orgsubtype=="Other public sector body" %}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="orgsubtype-6">
+                      Other public sector body
+                  </label>
+                </div>
+                  {% endif %}
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-7" name="orgsubtype" type="radio" value="Other" data-aria-controls="conditional-orgsubtype" {% if data.orgsubtype=="Other" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-7">
+                        Other (sepcify)
+                    </label>
+                  </div>
+
+                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-orgsubtype">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="orgsubtypeother">
+                        Organisation description
+                      </label>
+                      {% if data.validationErrors.orgsubtypeother %}
+                      <p class="govuk-error-message">
+                          <span class="govuk-visually-hidden">Error:</span>
+                          {{data.validationErrors.orgsubtypeother.message}}
+                      </p>
+                      {% endif %}
+                      <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.orgsubtypeother %}govuk-input--error{% endif %}" id="orgsubtypeother" name="orgsubtypeother" type="text" value="{{data.orgsubtypeother}}">        
+                    </div>
+                  </div>
+
+              </div>
+              </fieldset>
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+      </form>
+      
+      
+    </div>
+
+</div>
+
+{% endblock %}
