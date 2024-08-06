@@ -59,7 +59,7 @@ router.post('/' + version + '/organisation-details/trading-name', function (req,
 
     if ((orghastradingname == "Yes") && !orgtradingname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.userorgname = {
+        req.session.data.validationErrors.orgtradingname = {
             "anchor": "orgtradingname",
             "message": "Enter an trading name"
         }
@@ -419,7 +419,7 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgparent = {
             "anchor": "orgparent",
-            "message": "Select whether your organisation operates for profit"
+            "message": "Confirm your organisation structure"
         }
     }
 
@@ -458,7 +458,7 @@ router.post('/' + version + '/organisation-details/parent-name', function (req, 
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentname = {
             "anchor": "parentname",
-            "message": "Select whether your organisation operates for profit"
+            "message": "Enter a parent organisation name"
         }
     }
 
