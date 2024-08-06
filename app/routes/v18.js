@@ -106,16 +106,15 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
             "anchor": "orgtradingpostcode",
             "message": "Enter a postcode"
         }
-    }
-
+    }    
 
     function validateUKPostcode(postcode) {
         const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
       
         return postcodeRegex.test(postcode);
       }
-
-    if (!validateUKPostcode(userpostcode)) {
+      
+    if ((orghastradingaddress == "Yes") && !validateUKPostcode(userpostcode)) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -131,6 +130,13 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
     }
 
     else {
+    if (orghastradingaddress == "Yes") {
+
+
+
+
+
+
         const axios = require('axios');
         const https = require('https');
 
@@ -169,6 +175,11 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
         postcode(userpostcode);
         }
 
+    else {
+        res.redirect('/' + version + '/organisation-details/accounts');
+
+    }
+}
 
 });
 
@@ -322,7 +333,7 @@ router.post('/' + version + '/organisation-details/profit', function (req, res) 
 
     if (!orgprofit) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaccounts = {
+        req.session.data.validationErrors.orgprofit = {
             "anchor": "orgprofit",
             "message": "Select whether your organisation operates for profit"
         }
@@ -384,8 +395,148 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         }
         req.session.data['orgdetailscomplete'] = true;
 
-        res.redirect('/' + version + '/organisation-details/organisation-details');
+        res.redirect('/' + version + '/organisation-details/structure');
     }
+
+});
+
+/// Org details - Structure
+router.get('/' + version + '/organisation-details/structure', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/structure', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/structure', function (req, res) {
+    clearvalidation(req);
+    var orgparent = req.session.data['orgparent']
+
+
+
+    if (!orgparent) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgparent = {
+            "anchor": "orgparent",
+            "message": "Select whether your organisation operates for profit"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/structure', {
+            data: req.session.data
+        });
+    }
+    else {
+        if(orgparent == "Yes") {
+            res.redirect('/' + version + '/organisation-details/parent-name');
+        }
+        else {
+            res.redirect('/' + version + '/organisation-details/organisation-details');
+        }
+    }
+
+});
+
+/// Org details - Parent name
+router.get('/' + version + '/organisation-details/parent-name', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-name', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-name', function (req, res) {
+    clearvalidation(req);
+    var parentname = req.session.data['parentname']
+
+
+
+    if (!parentname) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentname = {
+            "anchor": "parentname",
+            "message": "Select whether your organisation operates for profit"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-name', {
+            data: req.session.data
+        });
+    }
+    else {
+
+            res.redirect('/' + version + '/organisation-details/parent-address');
+    }
+
+});
+
+// Org details - Parent address
+router.get('/' + version + '/organisation-details/parent-address', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-address', function (req, res) {
+    clearvalidation(req);
+    var parentaddressMLine1 = req.session.data['parentaddressMLine1']
+    var parentaddressMTown = req.session.data['parentaddressMTown']
+    var parentaddressMCountry = req.session.data['parentaddressMCountry']
+    var parentaddressMPostcode = req.session.data['parentaddressMPostcode']
+
+
+    if (!parentaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentaddressMLine1 = {
+            "anchor": "parentaddressMLine1",
+            "message": "Enter the street address",
+        }
+    }
+
+
+    if (!parentaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentaddressMTown = {
+            "anchor": "parentaddressMTown",
+            "message": "Enter the town or city",
+        }
+    }
+
+    if (!parentaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentaddressMPostcode = {
+            "anchor": "parentaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (!parentaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentaddressMCountry = {
+            "anchor": "parentaddressMCountry",
+            "message": "Enter a country",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            req.session.data.parentaddressSelect = parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
+            res.redirect('/' + version + '/organisation-details/organisation-details');
+
+        }
+
+        
 
 });
 
