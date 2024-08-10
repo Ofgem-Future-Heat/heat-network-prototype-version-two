@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the building have shared facilities that all occupants have to use?" %}
+{% set title = "Is this building exempt from the metering regulations?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,7 +51,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.sharedfacilities %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.meteringregulations %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -60,47 +60,50 @@
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </legend>
-                    <p class="govuk-body">
-                        This means buildings with shared toilets, personal washing facilities or cooking facilities. For example, some houses in multiple occupation (HMO) or care homes.
-                    </p>
 
-                    {% if data.validationErrors.sharedfacilities %}
+                    </legend>
+
+                    {% if data.buildinglocationAddress %}
+                    <div class="govuk-inset-text">
+                        {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    </div>
+                    {% endif %}
+                    {% if data.validationErrors.meteringregulations %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.sharedfacilities.message}}
+                        {{data.validationErrors.meteringregulations.message}}
                     </p>
                     {% endif %}
+
+
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities">
+                            <input class="govuk-radios__input" id="meteringregulations" name="meteringregulations" type="radio" value="Yes" {% if data.meteringregulations == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringregulations">
                                 Yes
                             </label>
                         </div>
-
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities-2">
+                            <input class="govuk-radios__input" id="meteringregulations-2" name="meteringregulations" type="radio" value="No" {% if data.meteringregulations == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringregulations-2">
                                 No
                             </label>
                         </div>
-                      
                     </div>
 
+            </fieldset>
 
-                </fieldset>
 
-
-            </div>
-            {{
+    </div>
+    {{
                 govukButton ({
                     html: 'Continue'
                 })
-            }}
-        </form>
-        <a href="cancel" class="govuk-link">Cancel</a>
-    </div>
+    }}
+    </form>
+    <a href="cancel" class="govuk-link">Cancel</a>
+</div>
 
 </div>
 

@@ -65,7 +65,7 @@
           </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -95,10 +95,9 @@
                         <th scope="col" class="govuk-table__header">Address</th>
                         {% if data.role != "Network operator" %}
                         <th scope="col" class="govuk-table__header">Type</th>
-                        <th scope="col" class="govuk-table__header">Class</th>
-                        {% if data.introsupply == "Yes" %}<th scope="col" class="govuk-table__header">Customers</th>{% endif %}
+                        <th scope="col" class="govuk-table__header">Customers</th>
+                        <th scope="col" class="govuk-table__header">Metering</th>
                         {% endif %}
-                        <th scope="col" class="govuk-table__header">Shared facilities?</th>
                         <th scope="col" class="govuk-table__header"></th>
                     </tr>
 
@@ -118,7 +117,6 @@
                             </td>
                             {% if data.role != "Network operator" %}
                                 <td class="govuk-table__cell">{% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}</td>
-                                <td class="govuk-table__cell">{% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}</td>
                                 {% if data.introsupply == "Yes" %}
                                 <td class="govuk-table__cell">
                                     {% if data.buildingaddressCustomers %}
@@ -130,9 +128,20 @@
                                 {% endif %}
                             {% endif %}
                             <td class="govuk-table__cell">
-                                {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}{{data.sharedfacilities}}{% else %}-{% endif %}
+                            {% if data.meteringregulations != "Yes" %}
+                            Building level meter: {{data.buildinglevelmeter}}
+                            {% if data.finalconsumermeters == "Yes" %}<br />Final consumer meters: {{data.finalconsumermetersnumber}}{% endif %}
+                            {% if data.heatcostallocators == "Yes" %}<br />Heat cost allocators: {{data.heatcostallocatorsnumber}}{% endif %}
+                            {% if data.prepaymentmeters == "Yes" %}<br />Pre-payment meters: {{data.prepaymentmetersnumber}}{% endif %}
+                            {% if data.smartdisplaymeters == "Yes" %}<br />Smart display meters: {{data.smartdisplaymetersnumber}}{% endif %}
+
+                            {% else %}
+                            Exempt
+                            {% endif %}
                             </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">{% if data.buildinglocationAddress %}Edit{% else %}Add information{% endif %}</a></td>
+    
+
+                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">{% if data.buildinglocationAddress %}Edit{% else %}Add information{% endif %}</a></td>
                     </tr>
 
                     {% for i in range(1, data.buildings) -%}
@@ -150,10 +159,8 @@
                             </td>
                             {% endif %}
                         {% endif %}
-                        <td class="govuk-table__cell">
-                            -
-                        </td>
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link">Add information</a></td>
+
+                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">Add information</a></td>
                     </tr>
                     {% endfor %}
                     {% endif %}

@@ -40,13 +40,57 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Completing on behalf of another organisation?
+                    Is the network a 'relevant heat network'? 
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.introbehalf}}
+                    {{data.introrelevant}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="behalf">Change<span class="govuk-visually-hidden"> whether you are completeing on behalf of another organisation</span></a>
+                    <a class="govuk-link" href="relevant">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Role on network
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.role == "Network operator" %} 
+                    {{data.role}}
+                    {% elif data.role == "Energy supplier" %}
+                    {{data.role}}
+                    {% else %}
+                    Network operator and energy supplier
+                    {% endif %}
+                    
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your role on network</span></a>
+                </dd>
+            </div>
+            {% if data.role == "Network operator" %} 
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many suppliers do you have a bulk supply agreement with?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsuppliers}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are you the only {%if data.role == "Network operator" %}operator{% else %}operator and supplier{% endif %} on this heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introonly}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
 
@@ -74,19 +118,21 @@
                     <a class="govuk-link" href="supply20" >Change<span class="govuk-visually-hidden"> year started supplying customers</span></a>
                 </dd>
             </div>
-            {% endif %}
-
+            {% else %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Role on network
+                    Will the heat network be commissioned before 1 January 2027?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.role}}
+                    {{data.introcommissioned}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your role on network</span></a>
+                    <a class="govuk-link" href="supply20" >Change<span class="govuk-visually-hidden"> year started supplying customers</span></a>
                 </dd>
             </div>
+            {% endif %}
+
+  
 
             {% if data.energycentre %}
             <div class="govuk-summary-list__row">
@@ -114,36 +160,8 @@
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="howmany">Change<span class="govuk-visually-hidden"> how many connected communal networks</span></a>
                 </dd>
-            </div>
-
-
-
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Heat network has shared facilities?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.sharedfacilities}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="sharedfacilities">Change<span class="govuk-visually-hidden"> self supply status</span></a>
-                </dd>
-            </div>
-            
-            {% if data.sharedfacilitieshowmany %} 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Number of shared facilities
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.sharedfacilitieshowmany}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="sharedfacilities">Change<span class="govuk-visually-hidden"> self supply status</span></a>
-                </dd>
-            </div>
-            {% endif %}
+            </div>            
+            {% if data.buildings > 1 %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Self-supply network?
@@ -155,7 +173,7 @@
                     <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> self supply status</span></a>
                 </dd>
             </div>
-
+            {% endif %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Heat network name

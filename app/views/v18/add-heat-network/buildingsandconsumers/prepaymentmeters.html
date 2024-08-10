@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are any of your commercial customers 'microbusinesses'?" %}
+{% set title = "Do any dwellings in this building have pre-payment meters installed?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,7 +51,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.consumertypemicrobusiness %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.prepaymentmeters %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -62,32 +62,45 @@
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">These are businesses that either:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>consume less than 247,000 kWh of heat per year</li>
-                        <li>have less than 10 full-time employees</li>
-                        <li>turn over less than &pound;2 million per year</li>
-                    </ul>
-                    <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
 
-                    {% if data.validationErrors.consumertypemicrobusiness %}
+                    {% if data.buildinglocationAddress %}
+                    <div class="govuk-inset-text">
+                        {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    </div>
+                    {% endif %}
+                    {% if data.validationErrors.prepaymentmeters %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.consumertypemicrobusiness.message}}
+                        {{data.validationErrors.prepaymentmeters.message}}
                     </p>
                     {% endif %}
 
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness" name="consumertypemicrobusiness" type="radio" value="Yes" {% if data.consumertypemicrobusiness == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness">
+                            <input class="govuk-radios__input" id="prepaymentmeters" name="prepaymentmeters" type="radio" value="Yes" {% if data.prepaymentmeters == "Yes" %}checked{% endif %} data-aria-controls="conditional-prepaymentmeters">
+                            <label class="govuk-label govuk-radios__label" for="prepaymentmeters">
                                 Yes
                             </label>
                         </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-prepaymentmeters">
+                            <div class="govuk-form-group {% if data.validationErrors.prepaymentmetersnumber %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="prepaymentmetersnumber">
+                                How many?
+                              </label>
+                              {% if data.validationErrors.prepaymentmetersnumber %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.prepaymentmetersnumber.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input {% if data.validationErrors.prepaymentmetersnumber %}govuk-input--error{% endif %} govuk-!-width-one-third" id="prepaymentmetersnumber" name="prepaymentmetersnumber" type="text" spellcheck="false"  value="{{data.prepaymentmetersnumber}}">
+                            </div>
+                          </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness-2" name="consumertypemicrobusiness" type="radio" value="No" {% if data.consumertypemicrobusiness == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness-2">
+                            <input class="govuk-radios__input" id="prepaymentmeters-2" name="prepaymentmeters" type="radio" value="No" {% if data.prepaymentmeters == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="prepaymentmeters-2">
                                 No
                             </label>
                         </div>

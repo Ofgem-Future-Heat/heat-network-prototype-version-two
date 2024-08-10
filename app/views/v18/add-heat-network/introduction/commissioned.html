@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are you adding this heat network on behalf of another organisation?" %}
+{% set title = "Will the heat network be commissioned before 1 January 2027?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,7 +51,7 @@
 
         <form  method="POST" novalidate >
 
-            <div class="govuk-form-group {% if data.validationErrors.introbehalf %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.introcommissioned %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" >
 
@@ -62,23 +62,22 @@
                         </h1>
 
                         </legend>
-                    <p class="govuk-body">For example, you might be a metering and billing agent acting on behalf of the heat network operator.</p>
-                        {% if data.validationErrors.introbehalf %}
+                        {% if data.validationErrors.introcommissioned %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.introbehalf.message}}
+                    {{data.validationErrors.introcommissioned.message}}
                 </p>
                 {% endif %}
 <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introbehalf" name="introbehalf" type="radio" value="Yes" {% if data.introbehalf == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introbehalf">
+        <input class="govuk-radios__input" id="introcommissioned" name="introcommissioned" type="radio" value="Yes" {% if data.introcommissioned == "Yes" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introcommissioned">
           Yes
         </label>
       </div>
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introbehalf-2" name="introbehalf" type="radio" value="No" {% if data.introbehalf == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introbehalf-2">
+        <input class="govuk-radios__input" id="introcommissioned-2" name="introcommissioned" type="radio" value="No" {% if data.introcommissioned == "No" %}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="introcommissioned-2">
           No
         </label>
       </div>

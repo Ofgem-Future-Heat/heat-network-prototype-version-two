@@ -63,7 +63,7 @@
                             <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
                         {% else %}
                         {% if data.buildings > 1 %}
-                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/buildings" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/buildings" aria-describedby="company-details-3-hint company-details-3-status">{% if data.role == "Network operator" %}Buildings{% else %}Buildings, customers and metering{% endif %}</a>
                         {% else %}
                         <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/address" aria-describedby="company-details-3-hint company-details-3-status">Buildings and consumers</a>
                         {% endif %}
@@ -103,31 +103,8 @@
                     </div>
                 </li>
                 {% endif %}
-                {% if data.buildingcomplete == "true" %}
-                <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
-                        {% if data.meteringcomplete == "true" %}
-                        <a class="govuk-link govuk-task-list__link" href="metering/cya" aria-describedby="company-details-5-status">Metering</a>
-                        {% else %}
-                        <a class="govuk-link govuk-task-list__link" {% if ((data.buildingclass or []).indexOf('Viable') > -1) %} href="metering/viable" {% elif ((data.buildingclass or []).indexOf('Open') > -1) %} href="metering/open" {% else %} href="metering/exempt" {% endif %} aria-describedby="company-details-5-status">Metering</a>
-                        {% endif %}
-                        <div id="company-details-5-hint" class="govuk-task-list__hint">
-                            Number of building-level meters, final consumer meters and heat cost allocators; details of any metering agents
-                        </div>
 
-                    </div>
-                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-5-status">
-                        {% if data.meteringcomplete == "true" %}
-                        Completed
-                        {% else %}
-                        <strong class="govuk-tag govuk-tag--blue">
-                            Not yet started
-                        </strong>
-                        {% endif %}
-                    </div>
-                </li>
-                {% endif %}
-                {% if ((data.metertype or []).indexOf('Final consumer meters') > -1) or ((data.metertype or []).indexOf('Final consumer heat cost allocators') > -1)  %}
+                {% if (data.finalconsumermeters  == "Yes") or (data.heatcostallocators == "Yes")  %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.billingcomplete == "true" %}

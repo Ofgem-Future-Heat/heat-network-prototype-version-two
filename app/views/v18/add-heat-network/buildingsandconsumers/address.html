@@ -56,7 +56,7 @@
 
 
 
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>

@@ -32,7 +32,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
+        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -48,13 +48,23 @@
                 {% set address = data.buildinglocationAddress.toString() %}
         {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br /><br />
                     {% endif %}
-                    {% if (data.buildings > 1) and (data.role != "Heat supplier") and (data.role != "Network operator")  %}<strong>Contract with consumers:</strong> {% if data.buildingcontract %}{{data.buildingcontract }}{% else %} - {% endif %}<br />{% endif %}
                     {% if (data.role != "Network operator") %}
                     <strong>Type:</strong> {% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}<br />
-                    <strong>Class:</strong> {% if data.buildingclass %}{{data.buildingclass}}{% else %} - {% endif %}<br />
-                    <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}
+                    <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}<br />
+                    <strong>Metering</strong>
+                    {% if data.meteringregulations == "Yes" %}
+                    : Exempt
+                    {% else %}
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>Building level meter: {{data.buildinglevelmeter}}</li>
+                        {% if data.finalconsumermeters == "Yes" %}<li>Final consumer meters: {{data.finalconsumermetersnumber}}</li>{% endif %}
+                        {% if data.heatcostallocators == "Yes" %}<li>Heat cost allocators: {{data.heatcostallocatorsnumber}}</li>{% endif %}
+                        {% if data.prepaymentmeters == "Yes" %}<li>Pre-payment meters: {{data.prepaymentmetersnumber}}</li>{% endif %}
+                        {% if data.smartdisplaymeters == "Yes" %}<li>Smart display meters: {{data.smartdisplaymetersnumber}}</li>{% endif %}
+    
+                    </ul>
                     {% endif %}
-                    {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong> {{data.sharedfacilities}}{% endif %}
+                    {% endif %}
 
 
                     {% if (data.buildings > 1) %}
@@ -63,14 +73,12 @@
                     <strong>Building {{i + 1}}</strong><br />
                     -<br />
 
-                {% if (data.role != "Heat supplier") and (data.role != "Network operator") %}<strong>Contract with consumers:</strong> -<br />{% endif %}
                 {% if (data.role != "Network operator") %}
                 <strong>Type:</strong> -<br />
-                <strong>Class:</strong> -<br />
-                <strong>Customers:</strong> -
-                {% endif %}
-                {% if data.sharedfacilities and (data.buildingaddressCustomersResidential >= 1 or data.buildingtype == "Residential") %}<br /><strong>Shared facilities:</strong>{% endif %}
+                <strong>Customers:</strong> -<br />
+                <strong>Metering:</strong> -
 
+                {% endif %}
                 {% endfor %}
                 {% endif %}
                 </dd>
@@ -88,10 +96,49 @@
                         {{data.consumertypemicrobusiness}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
-{% endif %}
+            {% endif %}
+            {% if data.smallmediumbusinesses %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does HN serve small and medium-sized businesses (SMEs)?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.smallmediumbusinesses}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="smallmediumbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you use an agent to deal with metering and billing?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent">Change</a>
+                </dd>
+            </div>
+            {% if data.meteringagent == "Yes" %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Who is the metering and billing agent?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagentname}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent-name">Change</a>
+                </dd>
+            </div>
+            {% endif %}
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />

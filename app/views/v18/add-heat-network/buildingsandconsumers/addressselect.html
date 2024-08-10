@@ -58,8 +58,8 @@
             <fieldset class="govuk-fieldset">
                                 <div class="govuk-form-group {% if data.validationErrors.buildingaddressSelect %}govuk-form-group--error{% endif %}">
 
-        <span class="govuk-caption-l">Add a heat network - buildings and consumers</span>
-            <h1 class="govuk-label-wrapper">
+                                    <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+                                    <h1 class="govuk-label-wrapper">
               <label class="govuk-label govuk-label--l" for="postcode">
                 {{title}}
               </label>

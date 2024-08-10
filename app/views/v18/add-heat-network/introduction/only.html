@@ -1,6 +1,8 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the building have shared facilities that all occupants have to use?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set title %}
+Are you the only {%if data.role == "Network operator" %}operator{% else %}operator and supplier{% endif %} on this heat network?
+{% endset %}
+{% set _inError = data.validationError == "true" %}
 
 
 {% block pageTitle %}
@@ -15,10 +17,10 @@
 
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
         }}
 
     </div>
@@ -51,41 +53,41 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.sharedfacilities %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.introonly %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </legend>
-                    <p class="govuk-body">
-                        This means buildings with shared toilets, personal washing facilities or cooking facilities. For example, some houses in multiple occupation (HMO) or care homes.
-                    </p>
 
-                    {% if data.validationErrors.sharedfacilities %}
+                    </legend>
+
+
+                    {% if data.validationErrors.introonly %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.sharedfacilities.message}}
+                        {{data.validationErrors.introonly.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities" name="sharedfacilities" type="radio" value="Yes" {% if data.sharedfacilities == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities">
+                            <input class="govuk-radios__input" id="introonly" name="introonly" type="radio"
+                                value="Yes" {% if data.introonly=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introonly">
                                 Yes
                             </label>
                         </div>
-
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sharedfacilities-2" name="sharedfacilities" type="radio" value="No"  {% if data.sharedfacilities == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sharedfacilities-2">
+                            <input class="govuk-radios__input" id="introonly-2" name="introonly" type="radio"
+                                value="No" {% if data.introonly=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introonly-2">
                                 No
                             </label>
                         </div>
-                      
                     </div>
 
 
@@ -94,9 +96,9 @@
 
             </div>
             {{
-                govukButton ({
-                    html: 'Continue'
-                })
+            govukButton ({
+            html: 'Continue'
+            })
             }}
         </form>
         <a href="cancel" class="govuk-link">Cancel</a>
