@@ -24,9 +24,10 @@ router.get('/' + version + '/account-information', function (req, res) {
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
 ///Org details
-router.get('/' + version + '/orgniastion-details/orgniastion-details', function (req, res) {
+router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/orgniastion-details/orgniastion-details', {
+
+    res.render('/' + version + '/organisation-details/organisation-details', {
         data: req.session.data
     });
 });
