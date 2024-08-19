@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you have accounts for the last financial period of 12 consecutive months?" %}
+{% set title = "Is organisation solvent for the next 12 months?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -52,7 +52,7 @@
             <span class="govuk-caption-l">
                 {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
               </span>
-            <div class="govuk-form-group {% if data.validationErrors.orgaccounts %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.orgsolvent %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -60,24 +60,24 @@
                     {{title}}
                   </h1>
                 </legend>
-                <p class="govuk-body">You must be able to provide these, if requested.</p>
-                {% if data.validationErrors.orgaccounts %}
+                <p class="govuk-body">???</p>
+                {% if data.validationErrors.orgsolvent %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.orgaccounts.message}}
+                    {{data.validationErrors.orgsolvent.message}}
                 </p>
                 {% endif %}
                 <div class="govuk-radios" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgaccounts" name="orgaccounts" type="radio" value="Yes" {% if data.orgaccounts == "Yes" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgaccounts">
+                    <input class="govuk-radios__input" id="orgsolvent" name="orgsolvent" type="radio" value="Yes" {% if data.orgsolvent == "Yes" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsolvent">
                       Yes
                     </label>
                   </div>
 
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgaccounts-2" name="orgaccounts" type="radio" value="No" {% if data.orgaccounts == "No" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgaccounts-2">
+                    <input class="govuk-radios__input" id="orgsolvent-2" name="orgsolvent" type="radio" value="No" {% if data.orgsolvent == "No" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsolvent-2">
                       No
                     </label>
                   </div>

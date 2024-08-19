@@ -60,6 +60,19 @@
                     {{title}}
                   </h1>
                 </legend>
+                <p class="govuk-body">
+                Registered address:<br/>
+                  {% if data.orgaddressSelect %} 
+                  {% set address = data.orgaddressSelect.toString() %}
+                  {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                  {% else %}
+                  19 Grosvenor Road <br />
+                  Solihull <br />B91 3PU
+{% endif %}
+
+              </p>
+          <p class="gov
+                <p class="govuk-body">Let us know if your organisation runs its day-to-day business from an address that's different from its registered address.  </p>
                 {% if data.validationErrors.orghastradingaddress %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>

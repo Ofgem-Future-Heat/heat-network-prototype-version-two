@@ -1,10 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.parenttotal > 1 %}
-What is the name of parent organisation {{data.parentsentered}}?
-{% else %}
-What is the name of the parent organisation?
-{% endif %}
+How many parent companies have combined to set up {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -55,13 +51,13 @@ What is the name of the parent organisation?
         {% endif %}
         <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.parentname %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.parenttotal %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-                        <label for="parentname">
+                        <label for="parenttotal">
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -70,16 +66,16 @@ What is the name of the parent organisation?
 
                     </legend>
 
-                    {% if data.validationErrors.parentname %}
+                    {% if data.validationErrors.parenttotal %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.parentname.message}}
+                        {{data.validationErrors.parenttotal.message}}
                     </p>
                     {% endif %}
 
                             <div class="govuk-form-group">
 
-                                <input class="govuk-input {% if data.validationErrors.parentname %}govuk-input--error{% endif %}" id="parentname" name="parentname" type="text" value="{{data.parentname}}" >
+                                <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.parenttotal %}govuk-input--error{% endif %}" id="parenttotal" name="parenttotal" type="text" value="{{data.parenttotal}}" >
                             </div>
 
 
