@@ -98,7 +98,7 @@
       <div class="govuk-form-group {% if data.validationErrors.usertelephone %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend">
-                <strong>Preferred contact number for work</strong>
+                <strong>What is their work contact number?</strong>
               </legend>
           <div id="contact-hint" class="govuk-hint">
             Ofgem will only use this if we need to contact them about your organisation's heat networks. For international numbers, include the country code.
@@ -119,7 +119,7 @@
             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2">
               <div class="govuk-form-group {% if data.validationErrors.usertelephonelandline %}govuk-form-group--error{% endif %}">
                 <label class="govuk-label" for="contact-by-phone">
-                  Landline phone number
+                  Landline number
                 </label>
                 {% if data.validationErrors.usertelephonelandline %}
                 <p class="govuk-error-message">
@@ -146,7 +146,7 @@
             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
               <div class="govuk-form-group {% if data.validationErrors.usertelephonemobile %}govuk-form-group--error{% endif %}">
                 <label class="govuk-label" for="contact-by-text">
-                  Mobile phone number
+                  Mobile number
                 </label>
                 {% if data.validationErrors.usertelephonemobile %}
                 <p class="govuk-error-message">
