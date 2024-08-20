@@ -80,7 +80,7 @@
           {% if data.manageusersnotification == 'edituser' %}
           You have updated {{name}}'s details.
           {% elif data.manageusersnotification == 'editpermissions' %}
-          You have updated {{name}}'s permissions.
+          You changed {{name}}'s additional permissions
           {% endif %}
         </h3>
         <p class="govuk-body">We've let them know via email.</p>
@@ -161,7 +161,7 @@
         </dt>
         <dd class="govuk-summary-list__value">
           {% if user.telephonetype == "Landline" %}{{user.telephonelandline}} {% if user.telephonelandlineext
-          %}<br />Ext {{user.telephonelandlineext}}{% endif %}{% elif user.telephonetype == "Mobile"
+          %}<br />Extension {{user.telephonelandlineext}}{% endif %}{% elif user.telephonetype == "Mobile"
           %}{{user.telephonemobile}}{% endif %}
         </dd>
       </div>

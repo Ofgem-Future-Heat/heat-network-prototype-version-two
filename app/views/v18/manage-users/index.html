@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "User management" %}
+{% set title = "Manage users" %}
 {% block pageTitle %}
 {{title}}
 {% endblock %}
@@ -41,16 +41,16 @@
         <div class="govuk-notification-banner__content">
           <h3 class="govuk-notification-banner__heading">
             {% if data.manageusersnotification == 'deleted' %}
-            You've deactivated {{data.deletedusername}} on this heat networks account.
+            {{data.deletedusername}} has been deactivated from the heat networks service for this organisation
             
             {% elif data.manageusersnotification == 'reactivated' %}
-            You've reactivated {{data.deletedusername}} on this heat networks account.
+           {{data.deletedusername}} has been reactivated for the heat networks service for this organisation
 
             {% elif data.manageusersnotification == 'adduserpermissions' %}
-            You've saved additional permissions for {{data.userfirstname}} {{data.userlastname}}.
+            You've changed {{data.userfirstname}} {{data.userlastname}}'s additional permissions
 
             {% elif data.manageusersnotification == 'regchange' %}
-            You've made {{data.regcontactname}} the regulatory contact for this heat networks account. 
+            You've made {{data.regcontactname}} the regulatory contact for this organisations heat networks
             {% endif %}
           </h3>
           <p class="govuk-body">We've let them know via email.</p>
