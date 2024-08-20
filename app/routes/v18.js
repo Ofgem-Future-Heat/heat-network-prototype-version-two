@@ -876,6 +876,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
     clearvalidation(req);
+    req.session.data['adduserpermissionsview' + req.session.data['usertotal']] = req.session.data['adduserpermissionsview']
     req.session.data['adduserpermissionstransfer' + req.session.data['usertotal']] = req.session.data['adduserpermissionstransfer']
     req.session.data['adduserpermissionsrightsandpowers' + req.session.data['usertotal']] = req.session.data['adduserpermissionsrightsandpowers']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['usertotal']] = req.session.data['adduserpermissionsusermanagement']
@@ -1004,6 +1005,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
+    req.session.data['adduserpermissionsview' + req.session.data['userid']] = req.session.data['edituserpermissionsview']
     req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = req.session.data['edituserpermissionstransfer']
     req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = req.session.data['edituserpermissionsrightsandpowers']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']

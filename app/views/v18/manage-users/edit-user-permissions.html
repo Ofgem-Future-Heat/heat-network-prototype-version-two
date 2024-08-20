@@ -36,11 +36,14 @@
         "firstname": data["userfirstname" ~ i],
         "lastname": data["userlastname" ~ i],
         "id": i,
+        "thirdparty": data["userthirdparty" ~ i],
         "transfer": data["adduserpermissionstransfer" ~ i],
         "rightsandpowers": data["adduserpermissionsrightsandpowers" ~ i],
         "usermanagement": data["adduserpermissionsusermanagement" ~ i],
         "monitoring": data["adduserpermissionsmonitoring" ~ i],
-        "registration": data["adduserpermissionsregistration" ~ i]
+        "registration": data["adduserpermissionsregistration" ~ i],
+        "view": data["adduserpermissionsview" ~ i]
+
   }]) %}
 {% endfor %}
 
@@ -75,10 +78,13 @@
     </h1>
     <form method="post" novalidate>
 
-      <p class="govuk-body">By default, every user on the account has read access to all the information in it.</p>
-      <p class="govuk-body">Select which additional permissions you want {{user.firstname}} {{user.lastname}} to have:</p>
 
-      <table class="govuk-table">
+      {% if user.thirdparty == "Yes" %}
+      <p class="govuk-body">By default, every third party user on the account only has access to information that they have personally added.</p>
+      {% else %}
+      <p class="govuk-body">By default, every user on the account has read access to all the information in it.</p>
+      {% endif %}
+      <p class="govuk-body">Select which additional permissions you want {{user.firstname}} {{user.lastname}} to have:</p>      <table class="govuk-table">
         <thead class="govuk-table__head govuk-visually-hidden">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Permission</th>
@@ -86,6 +92,35 @@
           </tr>
         </thead>
         <tbody class="govuk-table__body">
+          {% if user.thirdparty == "Yes" %}
+
+          <tr class="govuk-table__row">
+            <fieldset class="govuk-fieldset">
+            <th scope="row" class="govuk-table__header">View all heat network information
+              <div class="govuk-hint">Can view all heat network information added and submitted for this organisation.</div>
+            </th>
+            <td class="govuk-table__cell govuk-!-width-one-third">
+   
+
+                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="edituserpermissions-view-1" name="edituserpermissionsview" type="radio" value="View all heat network information" {% if user.view != "" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-1">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="edituserpermissions-view-2" name="edituserpermissionsview" type="radio" value="" {% if user.view == "" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-2">
+                      No
+                    </label>
+                  </div>                
+                </div>
+            </td>
+          </fieldset>
+          </tr>          
+          {% endif %}
+
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Add or edit heat network information 

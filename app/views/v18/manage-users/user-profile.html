@@ -55,11 +55,12 @@
     "id": i,
     "deleted": data["isdeleted" ~ i],
     "permissions": [
-    data["adduserpermissionstransfer" ~ i],
-    data["adduserpermissionsrightsandpowers" ~ i],
-    data["adduserpermissionsusermanagement" ~ i],
+    data["adduserpermissionsview" ~ i],
+    data["adduserpermissionsregistration" ~ i],
     data["adduserpermissionsmonitoring" ~ i],
-    data["adduserpermissionsregistration" ~ i]
+    data["adduserpermissionsusermanagement" ~ i],
+    data["adduserpermissionsrightsandpowers" ~ i],
+    data["adduserpermissionstransfer" ~ i]
     ]
     }]) %}
     {% endfor %}
@@ -206,7 +207,13 @@
 
             {% else %}
             {% for permission in user.permissions %}
+            {% if permission == "View all heat network information" %} 
+            {% if user.thirdparty == "Yes" %}
             {% if permission %}{{permission}}<br />{% endif %}
+            {% endif %}
+            {% else %}
+            {% if permission %}{{permission}}<br />{% endif %}
+            {% endif %}
             {% endfor %}
 
             {% endif %}
