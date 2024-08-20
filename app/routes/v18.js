@@ -26,6 +26,8 @@ router.get('/' + version + '/account-information', function (req, res) {
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
     clearvalidation(req);
+    const urlParams = req.query.notification;
+    req.session.data['orgdetailsnotification'] = urlParams;
 
     res.render('/' + version + '/organisation-details/organisation-details', {
         data: req.session.data
@@ -481,7 +483,7 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
             res.redirect('/' + version + '/organisation-details/parent-total');
         }
         else if(orgstructure == "Neither of these") {
-            res.redirect('/' + version + '/organisation-details/organisation-details');
+            res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
             res.redirect('/' + version + '/organisation-details/parent-name');
@@ -627,7 +629,7 @@ router.post('/' + version + '/organisation-details/parent-address', function (re
         if (req.session.data.parentsentered) {
             req.session.data['parentaddressSelect' + req.session.data['parentsentered']] =  parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
             if (parenttotal == parentsentered) {
-                res.redirect('/' + version + '/organisation-details/organisation-details');
+                res.redirect('/' + version + '/organisation-details/cya');
             }
             else {
                 clearparentdata(req);
@@ -638,7 +640,7 @@ router.post('/' + version + '/organisation-details/parent-address', function (re
         } 
         else {
             req.session.data.parentaddressSelect = parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
-            res.redirect('/' + version + '/organisation-details/organisation-details');
+            res.redirect('/' + version + '/organisation-details/cya');
         }
 
         }
@@ -647,6 +649,23 @@ router.post('/' + version + '/organisation-details/parent-address', function (re
 
 });
 
+
+///CYA
+router.get('/' + version + '/organisation-details/cya', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/organisation-details/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/cya', function (req, res) {
+    clearvalidation(req);
+    req.session.data['organisationdetails'] = 'Submitted';
+    res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
 
