@@ -129,7 +129,7 @@
                             {% endif %}
                             <td class="govuk-table__cell">
                             {% if data.meteringregulations != "Yes" %}
-                            Building level meter: {{data.buildinglevelmeter}}
+                            {% if data.buildinglevelmeter %}Building level meter: {{data.buildinglevelmeter}}{% else %} - {% endif %}
                             {% if data.finalconsumermeters == "Yes" %}<br />Final consumer meters: {{data.finalconsumermetersnumber}}{% endif %}
                             {% if data.heatcostallocators == "Yes" %}<br />Heat cost allocators: {{data.heatcostallocatorsnumber}}{% endif %}
                             {% if data.prepaymentmeters == "Yes" %}<br />Pre-payment meters: {{data.prepaymentmetersnumber}}{% endif %}
