@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does your orgnisation have a trading name?" %}
+{% set title %}
+ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} trade using a different name?
+ {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 

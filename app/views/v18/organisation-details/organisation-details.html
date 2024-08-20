@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Organistion details
+Organisation details
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -154,7 +154,7 @@ Organistion details
               {% if data.orgaccounts %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Accounts for last financial period
+                  Accounts for last financial period?
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {{data.orgaccounts}}
@@ -180,7 +180,7 @@ Organistion details
               {% if data.orgprofit %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  For profit organisation
+                  For profit organisation?
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {{data.orgprofit}}
@@ -224,12 +224,7 @@ Organistion details
               {% if data.parenttotal %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  How many parent companies have 
-                  combined to set up {% if data.companyname %}
-                  {{data.companyname}}
-                  {% else %}
-                  Radienteco Ltd
-                  {% endif %}
+                  Number of parent companies?
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {{data.parenttotal}}

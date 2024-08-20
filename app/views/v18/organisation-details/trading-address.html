@@ -1,6 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does your orgnisation have a trading address?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set title %}
+ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} Ltd trade using a different address? 
+ {% endset %}
+ 
+ {% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
@@ -60,8 +63,10 @@
                     {{title}}
                   </h1>
                 </legend>
+                <p class="govuk-body">Let us know if your organisation runs its day-to-day business from an address that's different from its registered address.  </p>
+                <h2 class="govuk-heading-s govuk-!-margin-bottom-0">Registered address:</h2>
+
                 <p class="govuk-body">
-                Registered address:<br/>
                   {% if data.orgaddressSelect %} 
                   {% set address = data.orgaddressSelect.toString() %}
                   {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
@@ -71,14 +76,14 @@
 {% endif %}
 
               </p>
-          <p class="gov
-                <p class="govuk-body">Let us know if your organisation runs its day-to-day business from an address that's different from its registered address.  </p>
+
                 {% if data.validationErrors.orghastradingaddress %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
                     {{data.validationErrors.orghastradingaddress.message}}
                 </p>
                 {% endif %}
+                
                 <div class="govuk-radios" data-module="govuk-radios">
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="orghastradingaddress" name="orghastradingaddress" type="radio" value="Yes" data-aria-controls="conditional-orghastradingaddress" {% if data.orghastradingaddress == "Yes" %} checked{% endif %}>

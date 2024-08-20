@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is organisation solvent for the next 12 months?" %}
+{% set title %}
+Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} financiaily solvent for the next 12 months?  
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 

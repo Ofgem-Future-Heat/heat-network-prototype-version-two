@@ -1,6 +1,8 @@
 {% extends 'layouts/main.html' %}
 
-{% set title = "Select your organisation’s trading address" %}
+{% set title %}
+ Select {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s trading address
+ {% endset %}
 
 
 
@@ -84,7 +86,7 @@
       </div>
                             {% endfor %}
 
-                            <p class="govuk-body govuk-!-margin-top-5"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">The address is not on the list</a></p>
+                            <p class="govuk-body govuk-!-margin-top-5"><a href="trading-address-manual" class="govuk-link govuk-link--no-visited-state">The address is not on the list</a></p>
 
     </div>
 

@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does your organisation operate for profit?" %}
+{% set title %}
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} operate for profit?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 

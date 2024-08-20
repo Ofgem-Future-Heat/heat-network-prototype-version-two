@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Which best describes your organisation?" %}
+{% set title %}
+Which option best describes the work {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} does?  
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -60,7 +62,6 @@
                     {{title}}
                   </h1>
                 </legend>
-                <p class="govuk-body">Choose the label that best fits the work your organisation does.</p>
                 {% if data.validationErrors.orgsubtype %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
