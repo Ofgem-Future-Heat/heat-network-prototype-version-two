@@ -1015,6 +1015,10 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
     clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
+    const urlParams = req.query.notification;
+    req.session.data['manageusersnotification'] = urlParams;
+
+
 
     res.render('/' + version + '/manage-users/edit-user-permissions', {
         data: req.session.data
@@ -1093,7 +1097,12 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
 
     clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
-
+    req.session.data['adduserpermissionsview' + req.session.data['userid']] = ""
+    req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = ""
+    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = ""
+    req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = ""
+    req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = ""
+    req.session.data['adduserpermissionsregistration' + req.session.data['userid']] = ""
     req.session.data['isdeleted' + req.session.data['userid']] = true;
     res.redirect('/' + version + '/manage-users?notification=deleted');
 
@@ -1121,7 +1130,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
 
     req.session.data['isdeleted' + req.session.data['userid']] = false;
-    res.redirect('/' + version + '/manage-users?notification=reactivated');
+    res.redirect('/' + version + '/manage-users/edit-user-permissions?id=' + userid + '&notification=reactivated');
 
 });
 

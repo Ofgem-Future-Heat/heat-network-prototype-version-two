@@ -191,102 +191,10 @@
           </tr>
 
 
-          {% if (data.regchange == data.currentuserid) %}
-          <tr class="govuk-table__row">
-          <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Apply for rights and powers licence
-              <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks.</div>
-            </th>
-            <td class="govuk-table__cell govuk-!-width-one-third">
-   
-
-                <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
-                  <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-rightsandpowers-1" name="adduserpermissionsrightsandpowers" type="radio" value="Rights and powers" {% if data.adduserpermissionsrightsandpowers %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-rightsandpowers-1">
-                      Yes
-                    </label>
-                  </div>
-                  <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-rightsandpowers-2" name="adduserpermissionsrightsandpowers" type="radio" value="" {% if not data.adduserpermissionsrightsandpowers %}checked{% endif %} >
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-rightsandpowers-2">
-                      No
-                    </label>
-                  </div>                
-                </div>
-            </td>
-          </fieldset>
-          </tr>
-          <tr class="govuk-table__row">
-            <fieldset class="govuk-fieldset">
-              <th scope="row" class="govuk-table__header">Initiate transfer of ownership
-                <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks.</div>
-              </th>
-              <td class="govuk-table__cell govuk-!-width-one-third">
-                  <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
-                    <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="adduserpermissions-transfer-1" name="adduserpermissionstransfer" type="radio" value="Transfer of ownership" {% if data.adduserpermissionstransfer %}checked{% endif %}>
-                      <label class="govuk-label govuk-radios__label" for="adduserpermissions-transfer-1">
-                        Yes
-                      </label>
-                    </div>
-                    <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="adduserpermissions-transfer-2" name="adduserpermissionstransfer" type="radio" value="" {% if not data.adduserpermissionstransfer %}checked{% endif %}>
-                      <label class="govuk-label govuk-radios__label" for="adduserpermissions-transfer-2">
-                        No
-                      </label>
-                    </div>                
-                  </div>
-              </td>
-            </fieldset>
-            </tr> 
-          </tbody>
-        </table>
-            {% else %}
-          </tbody>
-        </table>
-            <h3 class="govuk-heading-m">Other permissions</h3>
-            <p class="govuk-body">You do not have the ability to grant these permissions:</p>
-
-            <table class="govuk-table">
-              <thead class="govuk-table__head govuk-visually-hidden">
-                <tr class="govuk-table__row">
-                  <th scope="col" class="govuk-table__header">Permission</th>
-                  <th scope="col" class="govuk-table__header">Status</th>
-                </tr>
-              </thead>
-              <tbody class="govuk-table__body">
-      
-            <tr class="govuk-table__row">
-              <fieldset class="govuk-fieldset">
-                <th scope="row" class="govuk-table__header">Apply for rights and powers licence
-                  <div class="govuk-hint">Can apply for a licence that permits your organisation to do things such as access land, undertake street works and carry out permitted development to develop and manage heat networks</div>
-                </th>
-                <td class="govuk-table__cell govuk-!-width-one-third">
-       
-    
-
-                </td>
-              </fieldset>
-              </tr>
-              <tr class="govuk-table__row">
-                <fieldset class="govuk-fieldset">
-                  <th scope="row" class="govuk-table__header">Initiate transfer of ownership
-                    <div class="govuk-hint">Can inform Ofgem that another organisation will carry on the operation or supply of one of your organisation's heat networks</div>
-                  </th>
-                  <td class="govuk-table__cell govuk-!-width-one-third">
-
-                  </td>
-                </fieldset>
-                </tr> 
               </tbody>
             </table>
 
-            <p class="govuk-body">
-              If {{data.userfirstname}} {{data.userlastname}} needs to do these things, speak to your organisation's regulatory contact for heat networks first: {{data.regcontactname}} ({{data.regcontactemail}}) 
-            </p>
-              {% endif %}
-
+    
 
 
       <input type="hidden" id="addeduser" name="addeduser{{data.usertotal}}" value="true" />
