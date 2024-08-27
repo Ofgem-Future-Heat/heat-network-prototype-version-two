@@ -274,7 +274,6 @@ router.post('/' + version + '/organisation-details/trading-address-manual', func
     }
 
     else {
-        console.log("success");
             req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode;
             res.redirect('/' + version + '/organisation-details/trading-address-confirm');
 
@@ -3030,7 +3029,6 @@ router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', f
                     res.redirect('/' + version + '/add-heat-network/introduction/dropout');
                 }
                 else {
-                    console.log(buildings, sharednumnber)
                     res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
                 }    
             }
@@ -3200,9 +3198,6 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
       }
 
     if (!validateUKPostcode(userpostcode)) {
-        console.log(userpostcode)
-        console.log(validateUKPostcode(userpostcode))
-
         req.session.data.validationError = "true"
         req.session.data.validationErrors.ecaddressPostcode = {
             "anchor": "ecaddressPostcode",
@@ -3739,9 +3734,6 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', f
       }
 
     if (!validateUKPostcode(userpostcode)) {
-        console.log(userpostcode)
-        console.log(validateUKPostcode(userpostcode))
-
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildingaddressPostcode = {
             "anchor": "buildingaddressPostcode",
@@ -3866,8 +3858,6 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresssele
     else {
         req.session.data.buildinglocationAddress = req.session.data['buildingaddressSelect']
 
-        console.log(buildings);
-        console.log(role)
         if (buildings > 1) {
             if (role == "Network operator"){
                 res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
