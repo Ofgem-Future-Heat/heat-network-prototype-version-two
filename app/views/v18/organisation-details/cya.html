@@ -10,28 +10,19 @@ Check your answers
 {% endblock %}
 
 {% block beforeContent %}
-
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
 
-      <div class="govuk-grid-column-full">
 
-        <div class="govuk-breadcrumbs">
-          <ol class="govuk-breadcrumbs__list">
-            <li class="govuk-breadcrumbs__list-item">
-              <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item">
-              <a class="govuk-breadcrumbs__link" href="../organisation-details/organisation-details">Organisation details</a>
-            </li>
-          </ol>
-        </div>
-  
-        {% include data.version + "/_partials/headerlinks.html" %}
-      </div>
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
 
-    </div>
+  </div>
 
 </div>
 
@@ -175,32 +166,6 @@ Check your answers
                 </dd>
               </div>
               {% endif %}
-              {% if data.orgaccounts %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Accounts for last financial period?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  {{data.orgaccounts}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
-                </dd>
-              </div>
-              {% endif %}
-              {% if data.orgsolvent %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Solvent for the next 12 months?  
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  {{data.orgsolvent}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
-                </dd>
-              </div>
-              {% endif %}
               {% if data.orgprofit %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -227,7 +192,159 @@ Check your answers
                 </dd>
               </div>
               {% endif %}
+              {% if (data.orgsubtype != "Housing association") or (data.orgsubtype != "Local authority") or (data.orgsubtype != "Other social housing provider") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Start and end of financial year?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Start: {{data.orgfinancialstartday}}/{{data.orgfinancialstartmonth}}<br />
+                  End: {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="date">Change<span class="govuk-visually-hidden"> end date</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.orgaccounts %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Accounts for last financial period?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgaccounts}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if data.orgaccounts == "No" %}
+              {% if data.orgsolvent %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Solvent for the next 12 months?  
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsolvent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="solvent">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if data.orgsolvent == "No" %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  How long is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} solvent for?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsolventmonths}} months
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="solvent-months">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% endif %}
+              {% if data.orgaccounts == "Yes" %}
+
+
+
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Net profit or loss for the most recent financial year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialprofit}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-profit">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Total liquid assets
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialliquid}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-liquid">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} exceed it's liabilities?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialexceed}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-exceed">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Did the average monthly cash needs meet the fixed costs?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialneeds}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-needs">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Able to meet its costs as they fall due within the next 12 months
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialauthorised}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-authorised">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Percentage of energy needs that are hedged
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialpercentage}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-percentage">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  How long are energy needs hedged for?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financiallength}} months
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-percentage">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+              {% endif %}
               {% if data.orgstructure %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">

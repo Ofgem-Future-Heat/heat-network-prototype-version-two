@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} projected to be financially solvent for at least the next 12 months?  
+Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s assets exceed its liabilities at the end of the most recent financial year?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -54,7 +54,7 @@ Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif
             <span class="govuk-caption-l">
                 {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
               </span>
-            <div class="govuk-form-group {% if data.validationErrors.orgsolvent %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.financialexceed %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -63,23 +63,23 @@ Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif
                   </h1>
                 </legend>
                 <!-- <p class="govuk-body">???</p> -->
-                {% if data.validationErrors.orgsolvent %}
+                {% if data.validationErrors.financialexceed %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.orgsolvent.message}}
+                    {{data.validationErrors.financialexceed.message}}
                 </p>
                 {% endif %}
                 <div class="govuk-radios" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgsolvent" name="orgsolvent" type="radio" value="Yes" {% if data.orgsolvent == "Yes" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgsolvent">
+                    <input class="govuk-radios__input" id="financialexceed" name="financialexceed" type="radio" value="Yes" {% if data.financialexceed == "Yes" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="financialexceed">
                       Yes
                     </label>
                   </div>
 
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgsolvent-2" name="orgsolvent" type="radio" value="No" {% if data.orgsolvent == "No" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgsolvent-2">
+                    <input class="govuk-radios__input" id="financialexceed-2" name="financialexceed" type="radio" value="No" {% if data.financialexceed == "No" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="financialexceed-2">
                       No
                     </label>
                   </div>

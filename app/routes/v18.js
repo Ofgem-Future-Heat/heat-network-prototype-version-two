@@ -179,7 +179,7 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
         }
 
     else {
-        res.redirect('/' + version + '/organisation-details/accounts');
+        res.redirect('/' + version + '/organisation-details/profit');
 
     }
 }
@@ -314,7 +314,59 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/solvent');
+        if (orgaccounts == "Yes") {
+            res.redirect('/' + version + '/organisation-details/financial-profit');
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/solvent');
+        }
+    }
+
+});
+
+
+/// Org details - Financial year date
+router.get('/' + version + '/organisation-details/date', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/date', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/date', function (req, res) {
+    clearvalidation(req);
+    var financialendday = req.session.data['orgfinancialendday']
+    var financialendmonth = req.session.data['orgfinancialendmonth']
+    var financialstartday = req.session.data['orgfinancialstartday']
+    var financialstartmonth = req.session.data['orgfinancialstartmonth']
+
+
+
+    if (!financialstartday || !financialstartmonth) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialstartdate = {
+            "anchor": "orgfinancialstartday",
+            "message": "Enter an start date for financial year"
+        }
+    }
+
+    if (!financialendday || !financialendmonth) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialenddate = {
+            "anchor": "orgfinancialendday",
+            "message": "Enter an end date for financial year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/date', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/accounts');
     }
 
 });
@@ -348,10 +400,50 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/profit');
+        if (orgsolvent == "Yes") {
+            res.redirect('/' + version + '/organisation-details/structure');
+        }
+        else {
+            res.redirect('/' + version + '/organisation-details/solvent-months');
+        }
     }
 
 });
+
+/// Org details - Solvent months
+router.get('/' + version + '/organisation-details/solvent-months', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/solvent-months', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/solvent-months', function (req, res) {
+    clearvalidation(req);
+    var orgsolventmonths = req.session.data['orgsolventmonths']
+
+
+
+    if (!orgsolventmonths) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsolventmonths = {
+            "anchor": "orgsolventmonths",
+            "message": "Enter how many months the organisation is solvent for"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/solvent-months', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/structure');
+    }
+
+});
+
 
 /// Org details - Profit
 router.get('/' + version + '/organisation-details/profit', function (req, res) {
@@ -430,9 +522,15 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
         }
-        req.session.data['orgdetailscomplete'] = true;
 
-        res.redirect('/' + version + '/organisation-details/structure');
+        if (orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other social housing provider" ) {
+            res.redirect('/' + version + '/organisation-details/accounts');
+        }
+        else {
+            res.redirect('/' + version + '/organisation-details/date');
+
+        }
+
     }
 
 });
@@ -649,6 +747,223 @@ router.post('/' + version + '/organisation-details/parent-address', function (re
 
 });
 
+
+
+/// Org details - Financial protfit
+router.get('/' + version + '/organisation-details/financial-profit', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-profit', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-profit', function (req, res) {
+    clearvalidation(req);
+    var financialprofit = req.session.data['financialprofit']
+
+
+
+    if (!financialprofit) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialprofit = {
+            "anchor": "financialprofit",
+            "message": "Enter the profit or loss for the last financial year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-profit', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/financial-liquid');
+    }
+
+});
+
+
+
+/// Org details - Financial protfit
+router.get('/' + version + '/organisation-details/financial-liquid', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-liquid', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-liquid', function (req, res) {
+    clearvalidation(req);
+    var financialliquid = req.session.data['financialliquid']
+
+
+
+    if (!financialliquid) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialliquid = {
+            "anchor": "financialliquid",
+            "message": "Enter the total amount of liquid assets"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-liquid', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/financial-exceed');
+    }
+
+});
+
+/// Org details - Financial exceed
+router.get('/' + version + '/organisation-details/financial-exceed', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-exceed', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-exceed', function (req, res) {
+    clearvalidation(req);
+    var financialexceed = req.session.data['financialexceed']
+
+
+
+    if (!financialexceed) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialexceed = {
+            "anchor": "financialexceed",
+            "message": "Select whether assets exceeded liabilities"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-exceed', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/financial-needs');
+    }
+
+});
+
+
+/// Org details - Financial needs
+router.get('/' + version + '/organisation-details/financial-needs', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-needs', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-needs', function (req, res) {
+    clearvalidation(req);
+    var financialneeds = req.session.data['financialneeds']
+
+
+
+    if (!financialneeds) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialneeds = {
+            "anchor": "financialneeds",
+            "message": "Select average monthly cash needs met fixed costs"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-needs', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/financial-authorised');
+    }
+
+});
+
+
+/// Org details - Financial authorised
+router.get('/' + version + '/organisation-details/financial-authorised', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-authorised', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-authorised', function (req, res) {
+    clearvalidation(req);
+    var financialauthorised = req.session.data['financialauthorised']
+
+
+
+    if (!financialauthorised) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialauthorised = {
+            "anchor": "financialauthorised",
+            "message": "Confirm whether the authorised entity is satisfied"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-authorised', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/financial-percentage');
+    }
+
+});
+
+/// Org details - Financial percentage
+router.get('/' + version + '/organisation-details/financial-percentage', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-percentage', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
+    clearvalidation(req);
+    var financialpercentage = req.session.data['financialpercentage']
+    var financiallength = req.session.data['financiallength']
+
+
+    if (!financialpercentage) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialpercentage = {
+            "anchor": "financialpercentage",
+            "message": "Confirm whether the percentage entity is satisfied"
+        }
+    }
+
+    if (!financiallength) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financiallength = {
+            "anchor": "financiallength",
+            "message": "Enter the number of months"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-percentage', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/structure');
+    }
+
+});
 
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
@@ -2902,6 +3217,8 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
     }
 
     else {
+
+
         const axios = require('axios');
         const https = require('https');
 
@@ -2910,34 +3227,29 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
         })
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
+
         async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v2/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
+
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-    
                         req.session.data.ecAddressSelect = locationaddresses;
+                        req.session.data.ectradingaddressesnotfound = "";
                         res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
-                            }
-
-                    else {
-                        req.session.data.validationError = "true"
-                        req.session.data.validationErrors.ecaddressPostcode = {
-                            "anchor": "ecaddressPostcode",
-                            "message": "Enter a valid postcode",
-                        }
-                                
-                        res.render('/' + version + '/add-heat-network/energycentre/address', {
-                            data: req.session.data
-                        });
                     }
 
+                    else {
+                        req.session.data.ecAddressSelect = locationaddresses;
+                        req.session.data.ecaddressesnotfound = true;
+                        res.redirect('/' + version + '/add-heat-network/energycentre/addressmanual');
+                    }
 
                 });
 
@@ -2946,6 +3258,12 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
 
     }
 });
+
+
+
+
+
+
 
 // Energy center - Address select
 router.get('/' + version + '/add-heat-network/energycentre/addressselect', function (req, res) {

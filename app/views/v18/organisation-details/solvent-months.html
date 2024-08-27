@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-How many parent organisations have combined to set up {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}?
+For how many months do you project organisation will be solvent for?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -50,14 +50,14 @@ How many parent organisations have combined to set up {% if data.companyname %}{
         </div>
         {% endif %}
         <form  method="POST" novalidate>
+            <div class="govuk-form-group {% if data.validationErrors.orgsolventmonths %}govuk-form-group--error{% endif %}">
 
-            <div class="govuk-form-group {% if data.validationErrors.parenttotal %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-                        <label for="parenttotal">
+                        <label for="orgsolventmonths">
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -66,16 +66,18 @@ How many parent organisations have combined to set up {% if data.companyname %}{
 
                     </legend>
 
-                    {% if data.validationErrors.parenttotal %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.parenttotal.message}}
-                    </p>
-                    {% endif %}
 
-                            <div class="govuk-form-group">
 
-                                <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.parenttotal %}govuk-input--error{% endif %}" id="parenttotal" name="parenttotal" type="text" value="{{data.parenttotal}}" >
+                                    {% if data.validationErrors.orgsolventmonths %}
+                                    <p class="govuk-error-message">
+                                        <span class="govuk-visually-hidden">Error:</span>
+                                        {{data.validationErrors.orgsolventmonths.message}}
+                                    </p>
+                                    {% endif %}
+                                    <div class="govuk-input__wrapper">
+                                      <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.orgsolventmonths %}govuk-input--error{% endif %}" id="orgsolventmonths" name="orgsolventmonths"  type="text" spellcheck="false" value="{{data.orgsolventmonths}}">
+                                      <div class="govuk-input__suffix" aria-hidden="true">months</div>
+                                    </div>
                             </div>
 
 
@@ -83,7 +85,6 @@ How many parent organisations have combined to set up {% if data.companyname %}{
                 </fieldset>
 
 
-            </div>
             {{
                 govukButton ({
                     html: 'Continue'

@@ -43,8 +43,7 @@
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
       
-      {% if data.orgdetailscomplete %}
-      {% else %}
+      {% if data.organisationdetails != "Submitted" %}
       <strong class="govuk-tag govuk-tag--red">
        Incomplete
       </strong>
@@ -69,7 +68,7 @@
 
     <h2 class="govuk-heading-m">Heat networks</h2>
 
-    {% if data.orgdetailscomplete %}
+    {% if data.organisationdetails == "Submitted" %}
     <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
 
     {{ govukButton ({
