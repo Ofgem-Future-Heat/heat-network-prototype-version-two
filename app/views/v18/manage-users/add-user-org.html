@@ -53,7 +53,7 @@ Does {{data.userfirstname}} {{data.userlastname}} work for another organisation 
 
 
     <span class="govuk-caption-l">
-      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+      Add new user
     </span>
     <form method="post" novalidate>
 
@@ -64,6 +64,7 @@ Does {{data.userfirstname}} {{data.userlastname}} work for another organisation 
               {{title}}
             </h1>
           </legend>
+          <p class="govuk-body">Indicate whether this user works for a third party, like a metering and billing or managing agent. </p>
           {% if data.validationErrors.userthirdparty %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>
@@ -72,24 +73,12 @@ Does {{data.userfirstname}} {{data.userlastname}} work for another organisation 
           {% endif %}
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="userthirdparty" name="userthirdparty" type="radio" value="Yes" data-aria-controls="conditional-userthirdparty" {% if data.userthirdparty == "Yes" %} checked{% endif %}>
+              <input class="govuk-radios__input" id="userthirdparty" name="userthirdparty" type="radio" value="Yes" {% if data.userthirdparty == "Yes" %} checked{% endif %}>
               <label class="govuk-label govuk-radios__label" for="userthirdparty">
                 Yes
               </label>
             </div>
-            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-userthirdparty">
-              <div class="govuk-form-group">
-                <label class="govuk-label" for="userorgname">
-                  Organisation name
-                </label>
-                {% if data.validationErrors.userorgname %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.userorgname.message}}
-                </p>
-                {% endif %}
-                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.userorgname %}govuk-input--error{% endif %}" id="userorgname" name="userorgname" type="text" value="{{data.userorgname}}">              </div>
-            </div>
+
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="userthirdparty-2" name="userthirdparty" type="radio" value="No" data-aria-controls="conditional-userthirdparty-2" {% if data.userthirdparty == "No" %} checked{% endif %}>
               <label class="govuk-label govuk-radios__label" for="userthirdparty-2">

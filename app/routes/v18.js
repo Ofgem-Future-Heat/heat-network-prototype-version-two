@@ -1049,12 +1049,6 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 
     var useremail = req.session.data['useremail']
-    var userfirstname = req.session.data['userfirstname']
-    var userlastname = req.session.data['userlastname']
-    var usertelephone = req.session.data['usertelephone']
-    var usertelephonemobile = req.session.data['usertelephonemobile']
-    var usertelephonelandline = req.session.data['usertelephonelandline']
-    var userjobtitle = req.session.data['userjobtitle']
 
 
     if (!useremail) {
@@ -1064,6 +1058,52 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
             "message": "Enter an email address"
         }
     }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/add-user', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (req.session.data.usertotal) {
+            req.session.data.usertotal = req.session.data.usertotal + 1
+        } 
+        else {
+            req.session.data.usertotal = 2
+        }
+
+        req.session.data['useremail' + req.session.data['usertotal']] = req.session.data['useremail']
+        res.redirect('/' + version + '/manage-users/add-user-details');
+
+
+    }
+
+
+});
+
+
+/// Add user details
+router.get('/' + version + '/manage-users/add-user-details', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/add-user-details', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/add-user-details', function (req, res) {
+    clearvalidation(req);
+
+
+    var userfirstname = req.session.data['userfirstname']
+    var userlastname = req.session.data['userlastname']
+    var usertelephone = req.session.data['usertelephone']
+    var usertelephonemobile = req.session.data['usertelephonemobile']
+    var usertelephonelandline = req.session.data['usertelephonelandline']
+    var userjobtitle = req.session.data['userjobtitle']
+
+
 
     if (!userfirstname) {
         req.session.data.validationError = "true"
@@ -1110,28 +1150,18 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/manage-users/add-user', {
+        res.render('/' + version + '/manage-users/add-user-details', {
             data: req.session.data
         });
     }
 
     else {
-        if (req.session.data.usertotal) {
-            req.session.data.usertotal = req.session.data.usertotal + 1
-        } 
-        else {
-            req.session.data.usertotal = 2
-        }
-
-        req.session.data['useremail' + req.session.data['usertotal']] = req.session.data['useremail']
         req.session.data['userfirstname' + req.session.data['usertotal']] = req.session.data['userfirstname']
         req.session.data['userlastname' + req.session.data['usertotal']] = req.session.data['userlastname']
         req.session.data['usertelephone' + req.session.data['usertotal']] = req.session.data['usertelephone']
         req.session.data['usertelephonelandline' + req.session.data['usertotal']] = req.session.data['usertelephonelandline']
         req.session.data['usertelephonelandlineext' + req.session.data['usertotal']] = req.session.data['usertelephonelandlineext']
         req.session.data['usertelephonemobile' + req.session.data['usertotal']] = req.session.data['usertelephonemobile']
-
-
         res.redirect('/' + version + '/manage-users/add-user-org');
 
 
@@ -1139,6 +1169,11 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 
 });
+
+
+
+
+
 
 
 /// Add user - third party
@@ -1163,15 +1198,6 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationErrors.userthirdparty = {
             "anchor": "userthirdparty",
             "message": "Select whether the user is a third party"
-        }
-    }
-
-
-    if ((userthirdparty == "Yes") && !userorgname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.userorgname = {
-            "anchor": "userorgname",
-            "message": "Enter an organisation name"
         }
     }
 
@@ -1372,7 +1398,7 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.email = {
             "anchor": "regchange",
-            "message": "Select a new regulatory contact"
+            "message": "You must select someone to be the new regulatory contact"
         }
     }
 

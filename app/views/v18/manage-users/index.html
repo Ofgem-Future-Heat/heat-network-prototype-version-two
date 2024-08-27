@@ -41,16 +41,16 @@
         <div class="govuk-notification-banner__content">
           <h3 class="govuk-notification-banner__heading">
             {% if data.manageusersnotification == 'deleted' %}
-            {{data.deletedusername}} has been deactivated from the heat networks service for this organisation
+            {{data.deletedusername}} has been deactivated from the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
             
             {% elif data.manageusersnotification == 'reactivated' %}
-           {{data.deletedusername}} has been reactivated for the heat networks service for this organisation
+           {{data.deletedusername}} has been reactivated for the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
             {% elif data.manageusersnotification == 'adduserpermissions' %}
             You've changed {{data.userfirstname}} {{data.userlastname}}'s additional permissions
 
             {% elif data.manageusersnotification == 'regchange' %}
-            You've made {{data.regcontactname}} the regulatory contact for this organisations heat networks
+            You've made {{data.regcontactname}} the regulatory contact for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks
             {% endif %}
           </h3>
           <p class="govuk-body">We've let them know via email.</p>
@@ -111,12 +111,7 @@
                                     </td>
                                       <td class="govuk-table__cell">{{ user.email }}</td>
                                       <td class="govuk-table__cell">
-                                          {% if (data.inviteemailcomplete == "true") or (user.id == 1) %}
                                               <span class="govuk-tag govuk-tag--green">Active</span>
-                                             
-                                          {% else %}
-                                              <span class="govuk-tag govuk-tag--grey">Invite sent</span>
-                                          {% endif %}
                                       </td>
                                       <td class="govuk-table__cell govuk-table__cell--numeric">
                                           <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>

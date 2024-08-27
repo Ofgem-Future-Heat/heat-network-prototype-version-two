@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Select permissions for " + data.userfirstname + " " + data.userlastname %}
+{% set title = "Select additional permissions for " + data.userfirstname + " " + data.userlastname %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -65,7 +65,7 @@
     </div>
 
     <span class="govuk-caption-l">
-      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+      Add new user
     </span>
 
     <h1 class="govuk-heading-l">
@@ -74,7 +74,7 @@
     <form method="post" novalidate>
 
       {% if data.userthirdparty == "Yes" %}
-      <p class="govuk-body">By default, every third party user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} only has access to information that they have personally added.</p>
+      <p class="govuk-body">By default, every third party user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} only has access to the information they’ve added.</p>
       {% else %}
       <p class="govuk-body">By default, every user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} has read access to all the organisation's heat network information</p>
       {% endif %}
@@ -120,7 +120,7 @@
 
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Add or edit heat network information 
+            <th scope="row" class="govuk-table__header">Add or edit all heat network information 
               <div class="govuk-hint">Can enter - but not submit - information about the {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks into this service, for the purposes of authorisation, amendment or ongoing reporting.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
@@ -128,7 +128,7 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit all heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
                       Yes
                     </label>
@@ -145,13 +145,13 @@
           </tr>
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Submit heat network information
+            <th scope="row" class="govuk-table__header">Submit all heat network information
               <div class="govuk-hint">Can send {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information to Ofgem to comply with the regulations on authorisation, amendments and ongoing reporting.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Submit heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Submit all heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
                       Yes
                     </label>

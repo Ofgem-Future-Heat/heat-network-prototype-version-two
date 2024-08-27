@@ -55,7 +55,7 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <p class="govuk-body">{{name}} ({{user.email}}) will no longer be able to access the service.</p>
+    <p class="govuk-body">{{name}} ({{user.email}}) no longer be able to access the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</p>
     <p class="govuk-body">If you wish to re-instate this user you'll have to reactivate them.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">

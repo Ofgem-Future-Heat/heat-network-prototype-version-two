@@ -77,9 +77,7 @@
       </div>
       <div class="govuk-notification-banner__content">
         <h3 class="govuk-notification-banner__heading">
-          {% if data.manageusersnotification == 'edituser' %}
-          You have updated {{name}}'s details.
-          {% elif data.manageusersnotification == 'editpermissions' %}
+          {% if data.manageusersnotification == 'editpermissions' %}
           You changed {{name}}'s additional permissions
           {% endif %}
         </h3>
@@ -157,7 +155,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Telephone
+          Telephone number
         </dt>
         <dd class="govuk-summary-list__value">
           {% if user.telephonetype == "Landline" %}{{user.telephonelandline}} {% if user.telephonelandlineext
@@ -165,17 +163,7 @@
           %}{{user.telephonemobile}}{% endif %}
         </dd>
       </div>
-      {% if (user.thirdparty == "Yes") %}
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Organisation name
-        </dt>
-        <dd class="govuk-summary-list__value">
-          {{user.orgname}}
-        </dd>
-      </div>
-
-      {% else %}
+      {% if (user.thirdparty == "No") %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Job title
@@ -193,8 +181,8 @@
         <dd class="govuk-summary-list__value">
           <ul class="govuk-list">
             {% if (data.regchange == user.id) %}
-            <li>Add or edit heat network information</li>
-            <li>Submit heat network information</li>
+            <li>Add or edit all heat network information</li>
+            <li>Submit all heat network information</li>
             <li>Manage users</li>
 
             {% else %}
