@@ -2685,15 +2685,12 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
 
     else {
         if (role == "Heat supplier") {
-            res.redirect(301, '/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
 
         }
-        if (role == "Network operator") {
-            res.redirect(301, '/' + version + '/add-heat-network/introduction/suppliers');
 
-        }
         else {
-            res.redirect(301, '/' + version + '/add-heat-network/introduction/only');
+            res.redirect('/' + version + '/add-heat-network/introduction/only');
 
         }
     }
@@ -2726,14 +2723,8 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
         });
     }
     else {
-        if (introsuppliers > 1) {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-
-        }
-        else {
-            res.redirect(301, '/' + version + '/add-heat-network/introduction/only');
-  
-        }
+            res.redirect(301, '/' + version + '/add-heat-network/introduction/supply');
+        
     }
 });
 
@@ -2754,20 +2745,12 @@ router.post('/' + version + '/add-heat-network/introduction/only', function (req
 
     if (!introonly) {
         req.session.data.validationError = "true"
-        if (role == "Network operator") {
             req.session.data.validationErrors.introonly = {
                 "anchor": "introonly",
                 "message": "Select whether you are the only operator"
             }
         }
-        else {
-            req.session.data.validationErrors.introonly = {
-                "anchor": "introonly",
-                "message": "Select whether you are the only operator and supplier"
-            }
-        }
 
-    }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/introduction/only', {
@@ -2777,7 +2760,12 @@ router.post('/' + version + '/add-heat-network/introduction/only', function (req
 
     else {
         if (introonly == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/supply');
+            if (role != "Network operator") {
+                res.redirect('/' + version + '/add-heat-network/introduction/onlysupply');
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
+            }
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout');
@@ -2785,6 +2773,47 @@ router.post('/' + version + '/add-heat-network/introduction/only', function (req
         }
     }
 });
+
+// Introduction - Only supplier
+router.get('/' + version + '/add-heat-network/introduction/onlysupply', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/onlysupply', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/onlysupply', function (req, res) {
+    clearvalidation(req);
+    var introonlysupply = req.session.data['introonlysupply']
+    var role = req.session.data['role']
+
+    if (!introonlysupply) {
+        req.session.data.validationError = "true"
+            req.session.data.validationErrors.introonlysupply = {
+                "anchor": "introonlysupply",
+                "message": "Select whether you are the only supplier"
+            }
+        }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/onlysupply', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introonlysupply == "Yes") {
+                res.redirect('/' + version + '/add-heat-network/introduction/supply');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
+ 
+        }
+    }
+});
+
 
 
 

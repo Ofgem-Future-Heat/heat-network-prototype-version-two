@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Are you the only operator on this heat network?
+Are you the only supplier on this heat network?
 {% endset %}
 {% set _inError = data.validationError == "true" %}
 
@@ -54,7 +54,7 @@ Are you the only operator on this heat network?
         <form method="POST" novalidate>
 
             <div
-                class="govuk-form-group {% if data.validationErrors.introonly %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.introonlysupply %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -67,24 +67,24 @@ Are you the only operator on this heat network?
                     </legend>
 
 
-                    {% if data.validationErrors.introonly %}
+                    {% if data.validationErrors.introonlysupply %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introonly.message}}
+                        {{data.validationErrors.introonlysupply.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introonly" name="introonly" type="radio"
-                                value="Yes" {% if data.introonly=="Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introonly">
+                            <input class="govuk-radios__input" id="introonlysupply" name="introonlysupply" type="radio"
+                                value="Yes" {% if data.introonlysupply=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introonlysupply">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introonly-2" name="introonly" type="radio"
-                                value="No" {% if data.introonly=="No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introonly-2">
+                            <input class="govuk-radios__input" id="introonlysupply-2" name="introonlysupply" type="radio"
+                                value="No" {% if data.introonlysupply=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introonlysupply-2">
                                 No
                             </label>
                         </div>
