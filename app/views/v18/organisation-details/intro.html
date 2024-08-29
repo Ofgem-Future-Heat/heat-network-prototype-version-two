@@ -1,0 +1,60 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Additional organisation details" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">
+                    {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+                  </span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                <ul class="govuk-list govuk-list--number">
+                    <li>You must answer a short series of questions giving additional information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</li>
+                    <li>You will need all the requested information below before you proceed</li>
+                    <li>You must provide this information about your organisation before you can submit any Heat Network information to Ofgem for processing.</li>
+                </ul>
+
+                    <h2 class="govuk-heading-m">Initial information you'll need</h2>
+                    <p class="govuk-body">To help us understand more about your organisation, you'll first need to tell us:</p>
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>if your organisation acts under any other names or addresses</li>
+                                    <li>detailed financial information about your organisation including financial year, solvency, profits, liabilities, cash flow and hedging.</li>
+                                    <li>whether the organisation is part of a joint venture or special purpose vehicle and the details of the parent organisations</li>
+                                </ul>
+                                <p class="govuk-body">We'll provide definitions and guidance for any possibly unfamiliar concepts as you progress.</p>
+            </div>
+        <a href="trading-name" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}
