@@ -1,10 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.parenttotal > 1 %}
-What is the name of parent organisation {{data.parentsentered}}?
-{% else %}
-What is the name of the parent organisation?
-{% endif %}
+What was the average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks for the previous financial year?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -54,15 +50,16 @@ What is the name of the parent organisation?
         </div>
         {% endif %}
         <form  method="POST" novalidate>
-            <div class="govuk-form-group {% if data.validationErrors.parentname %}govuk-form-group--error{% endif %}">
+            
+            <div class="govuk-form-group {% if data.validationErrors.financialmonthly %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-
+      
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">
                             Organisation details
                           </span>
-                        <label for="parentname">
+                        <label for="financialmonthly">
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -71,17 +68,20 @@ What is the name of the parent organisation?
 
                     </legend>
 
-                    {% if data.validationErrors.parentname %}
+                    {% if data.validationErrors.financialmonthly %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.parentname.message}}
+                        {{data.validationErrors.financialmonthly.message}}
                     </p>
                     {% endif %}
 
                             <div class="govuk-form-group">
+                                <div class="govuk-input__wrapper">
+                                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
 
-                                <input class="govuk-input {% if data.validationErrors.parentname %}govuk-input--error{% endif %}" id="parentname" name="parentname" type="text" value="{{data.parentname}}" >
+                                <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.financialmonthly %}govuk-input--error{% endif %}" id="financialmonthly" name="financialmonthly" type="text" value="{{data.financialmonthly}}" >
                             </div>
+                        </div>
 
 
 

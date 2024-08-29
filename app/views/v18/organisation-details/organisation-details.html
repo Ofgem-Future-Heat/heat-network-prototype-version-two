@@ -146,7 +146,6 @@ Organisation details
           </div>
 
           {% if data.organisationdetails == "Submitted" %}
-          
           {% if data.orghastradingname %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -155,9 +154,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orghastradingname}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="trading-name">Change<span class="govuk-visually-hidden"> trading name</span></a>
-            </dd>
+
           </div>
           {% endif %}
           {% if data.orgtradingname %}
@@ -168,9 +165,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgtradingname}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="trading-name">Change<span class="govuk-visually-hidden"> trading name</span></a>
-            </dd>
+  
           </div>
           {% endif %}
           {% if data.orghastradingaddress %}
@@ -181,9 +176,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orghastradingaddress}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="trading-address">Change<span class="govuk-visually-hidden"> trading address</span></a>
-            </dd>
+
           </div>
           {% endif %}
           {% if data.tradingaddressSelect %}
@@ -195,9 +188,7 @@ Organisation details
               {% set address = data.tradingaddressSelect.toString() %}
                 {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="trading-address">Change<span class="govuk-visually-hidden"> trading address</span></a>
-            </dd>
+
           </div>
           {% endif %}
           {% if data.orgprofit %}
@@ -208,9 +199,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgprofit}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="profit">Change<span class="govuk-visually-hidden"> organisation profit</span></a>
-            </dd>
+  
           </div>
           {% endif %}
           {% if data.orgsubtype %}
@@ -221,22 +210,20 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgsubtype}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="what">Change<span class="govuk-visually-hidden"> organisation description</span></a>
-            </dd>
+
           </div>
           {% endif %}
           {% if (data.orgsubtype != "Housing association") or (data.orgsubtype != "Local authority") or (data.orgsubtype != "Other social housing provider") %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Financial year end date
+              Start and end of financial year?
             </dt>
             <dd class="govuk-summary-list__value">
-              {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
+              Start: {{data.orgfinancialstartday}}/{{data.orgfinancialstartmonth}}<br />
+              End: {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
+
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="date">Change<span class="govuk-visually-hidden"> end date</span></a>
-            </dd>
+  
           </div>
           {% endif %}
           {% if data.orgaccounts %}
@@ -247,11 +234,11 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgaccounts}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
-            </dd>
+
           </div>
           {% endif %}
+
+          {% if data.orgaccounts == "No" %}
           {% if data.orgsolvent %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -260,9 +247,111 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgsolvent}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+
+          </div>
+          {% endif %}
+          {% if data.orgsolvent == "No" %}
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              How long is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} solvent for?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgsolventmonths}} months
             </dd>
+
+          </div>
+          {% endif %}
+
+          {% endif %}
+          {% if data.orgaccounts == "Yes" %}
+
+
+
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Net profit or loss for the most recent financial year
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialprofit}}
+            </dd>
+ 
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Total liquid assets
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialliquid}}
+            </dd>
+
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} exceed it's liabilities?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialexceed}}
+            </dd>
+
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialmonthly}}
+            </dd>
+
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Average monthly income for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialincome}}
+            </dd>
+    
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Able to meet its costs as they fall due within the next 12 months
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialauthorised}}
+            </dd>
+  
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Percentage of energy needs that are hedged
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialpercentage}}%
+            </dd>
+
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              How long are energy needs hedged for?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financiallength}} months
+            </dd>
+ 
           </div>
           {% endif %}
           
@@ -278,9 +367,7 @@ Organisation details
              No parent company
               {% endif %}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="structure">Change<span class="govuk-visually-hidden"> organisation description</span></a>
-            </dd>
+
           </div>
           {% if data.orgstructure != "Neither of these" %}
           {% if data.parenttotal %}
@@ -291,9 +378,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.parenttotal}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="parent-total">Change<span class="govuk-visually-hidden"> organisation description</span></a>
-            </dd>
+
           </div>
           {% set parents = [] %}
 
@@ -318,9 +403,7 @@ Organisation details
             {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
 
           </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link govuk-link--no-visited-state" href="parent-total">Change<span class="govuk-visually-hidden"> parent name</span></a>
-          </dd>
+
         </div>
         {% endif %}
         {% endfor %}
@@ -333,9 +416,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.parentname}}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="parent-name">Change<span class="govuk-visually-hidden"> parent name</span></a>
-            </dd>
+
           </div>
 
           <div class="govuk-summary-list__row">
@@ -347,9 +428,7 @@ Organisation details
               {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
 
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="parent-address">Change<span class="govuk-visually-hidden"> parent address</span></a>
-            </dd>
+
           </div>
           {% endif %}
           {% endif %}

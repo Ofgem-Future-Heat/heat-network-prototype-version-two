@@ -50,13 +50,15 @@ What was the net profit or loss for the most recent financial year?
         </div>
         {% endif %}
         <form  method="POST" novalidate>
-
+            
             <div class="govuk-form-group {% if data.validationErrors.financialprofit %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
+                        <span class="govuk-caption-l">
+                            Organisation details
+                          </span>
                         <label for="financialprofit">
 
                         <h1 class="govuk-fieldset__heading">

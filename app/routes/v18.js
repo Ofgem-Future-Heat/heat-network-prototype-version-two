@@ -523,7 +523,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         }
 
         if (orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other social housing provider" ) {
-            res.redirect('/' + version + '/organisation-details/accounts');
+            res.redirect('/' + version + '/organisation-details/structure');
         }
         else {
             res.redirect('/' + version + '/organisation-details/date');
@@ -782,9 +782,78 @@ router.post('/' + version + '/organisation-details/financial-profit', function (
 
 });
 
+/// Org details - Financial monthly
+router.get('/' + version + '/organisation-details/financial-monthly', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-monthly', {
+        data: req.session.data
+    });
+});
 
 
-/// Org details - Financial protfit
+router.post('/' + version + '/organisation-details/financial-monthly', function (req, res) {
+    clearvalidation(req);
+    var financialmonthly = req.session.data['financialmonthly']
+
+
+
+    if (!financialmonthly) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialmonthly = {
+            "anchor": "financialmonthly",
+            "message": "Enter the average monthly costs for the previous financial year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-monthly', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/financial-income');
+    }
+
+});
+
+/// Org details - Financial income
+router.get('/' + version + '/organisation-details/financial-income', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-income', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-income', function (req, res) {
+    clearvalidation(req);
+    var financialincome = req.session.data['financialincome']
+
+
+
+    if (!financialincome) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialincome = {
+            "anchor": "financialincome",
+            "message": "Enter the average monthly income for the previous financial year"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-income', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/financial-authorised');
+    }
+
+});
+
+
+
+
+/// Org details - Financial liquid
 router.get('/' + version + '/organisation-details/financial-liquid', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-liquid', {
@@ -847,7 +916,7 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-needs');
+        res.redirect('/' + version + '/organisation-details/financial-monthly');
     }
 
 });
@@ -917,7 +986,7 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-percentage');
+        res.redirect('/' + version + '/organisation-details/financial-hedged');
     }
 
 });
@@ -934,8 +1003,6 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
     clearvalidation(req);
     var financialpercentage = req.session.data['financialpercentage']
-    var financiallength = req.session.data['financiallength']
-
 
     if (!financialpercentage) {
         req.session.data.validationError = "true"
@@ -944,6 +1011,31 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
             "message": "Confirm whether the percentage entity is satisfied"
         }
     }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-percentage', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/structure');
+    }
+
+});
+
+/// Org details - Financial percentage
+router.get('/' + version + '/organisation-details/financial-hedged', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-hedged', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
+    clearvalidation(req);
+    var financiallength = req.session.data['financiallength']
 
     if (!financiallength) {
         req.session.data.validationError = "true"
@@ -954,12 +1046,12 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/financial-percentage', {
+        res.render('/' + version + '/organisation-details/financial-hedged', {
             data: req.session.data
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/structure');
+        res.redirect('/' + version + '/organisation-details/financial-percentage');
     }
 
 });

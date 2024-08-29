@@ -51,13 +51,14 @@ How is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% e
         {% endif %}
 
           <form method="post" novalidate>
-            <span class="govuk-caption-l">
-                {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
-              </span>
+
             <div class="govuk-form-group {% if data.validationErrors.orgstructure %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <span class="govuk-caption-l">
+                    Organisation details
+                  </span>
                   <h1 class="govuk-fieldset__heading">
                     {{title}}
                   </h1>

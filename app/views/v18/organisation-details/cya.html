@@ -298,13 +298,25 @@ govukBackLink ({
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Did the average monthly cash needs meet the fixed costs?
+                  Average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {{data.financialneeds}}
+                  £{{data.financialmonthly}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="financial-needs">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-monthly">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Average monthly income for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialincome}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-income">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
                 </dd>
               </div>
 
@@ -326,7 +338,7 @@ govukBackLink ({
                   Percentage of energy needs that are hedged
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {{data.financialpercentage}}
+                  {{data.financialpercentage}}%
                 </dd>
                 <dd class="govuk-summary-list__actions">
                   <a class="govuk-link govuk-link--no-visited-state" href="financial-percentage">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>

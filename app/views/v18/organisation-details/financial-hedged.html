@@ -1,10 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.parenttotal > 1 %}
-What is the name of parent organisation {{data.parentsentered}}?
-{% else %}
-What is the name of the parent organisation?
-{% endif %}
+How many months ahead does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -54,33 +50,39 @@ What is the name of the parent organisation?
         </div>
         {% endif %}
         <form  method="POST" novalidate>
-            <div class="govuk-form-group {% if data.validationErrors.parentname %}govuk-form-group--error{% endif %}">
+
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
                         <span class="govuk-caption-l">
                             Organisation details
                           </span>
-                        <label for="parentname">
+                          <label for="financiallength">
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-                    </label>
+                        </label>
 
                     </legend>
 
-                    {% if data.validationErrors.parentname %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.parentname.message}}
-                    </p>
-                    {% endif %}
 
-                            <div class="govuk-form-group">
+                            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
 
-                                <input class="govuk-input {% if data.validationErrors.parentname %}govuk-input--error{% endif %}" id="parentname" name="parentname" type="text" value="{{data.parentname}}" >
+
+                  
+                                    {% if data.validationErrors.financiallength %}
+                                    <p class="govuk-error-message">
+                                        <span class="govuk-visually-hidden">Error:</span>
+                                        {{data.validationErrors.financiallength.message}}
+                                    </p>
+                                    {% endif %}
+                                    <div class="govuk-input__wrapper">
+                                      <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.financiallength %}govuk-input--error{% endif %}" id="financiallength" name="financiallength"  type="text" spellcheck="false" value="{{data.financiallength}}">
+                                      <div class="govuk-input__suffix" aria-hidden="true">months</div>
+                                    </div>
                             </div>
 
 
@@ -88,7 +90,6 @@ What is the name of the parent organisation?
                 </fieldset>
 
 
-            </div>
             {{
                 govukButton ({
                     html: 'Continue'

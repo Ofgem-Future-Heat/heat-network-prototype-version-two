@@ -51,13 +51,14 @@ Which option best describes the work {% if data.companyname %}{{data.companyname
         {% endif %}
 
           <form method="post" novalidate>
-            <span class="govuk-caption-l">
-                {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
-              </span>
+            
             <div class="govuk-form-group {% if data.validationErrors.orgsubtype %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
-
+                
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <span class="govuk-caption-l">
+                    Organisation details
+                  </span>
                   <h1 class="govuk-fieldset__heading">
                     {{title}}
                   </h1>

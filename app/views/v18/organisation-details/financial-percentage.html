@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-What percentage of your energy needs are hedged, and for how long?
+What percentage volume of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s' costs are hedged? 
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -56,10 +56,15 @@ What percentage of your energy needs are hedged, and for how long?
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
+                        <span class="govuk-caption-l">
+                            Organisation details
+                          </span>
+                          <label for="financialpercentage">
+                            <h1 class="govuk-fieldset__heading">
+                                {{title}}
+                            </h1>
+                          </label>
+                      
 
                     </legend>
 
@@ -67,9 +72,7 @@ What percentage of your energy needs are hedged, and for how long?
                             <div class="govuk-form-group {% if data.validationErrors.financialpercentage %}govuk-form-group--error{% endif %}">
 
 
-                                    <label class="govuk-label" for="financialpercentage">
-                                      Percentage of energy needs hedged
-                                    </label>
+        
                                     {% if data.validationErrors.financialpercentage %}
                                     <p class="govuk-error-message">
                                         <span class="govuk-visually-hidden">Error:</span>
@@ -82,23 +85,7 @@ What percentage of your energy needs are hedged, and for how long?
                                     </div>
                             </div>
 
-                            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
-
-
-                                    <label class="govuk-label" for="financiallength">
-                                      How long are your energy needs hedged for?
-                                    </label>
-                                    {% if data.validationErrors.financiallength %}
-                                    <p class="govuk-error-message">
-                                        <span class="govuk-visually-hidden">Error:</span>
-                                        {{data.validationErrors.financiallength.message}}
-                                    </p>
-                                    {% endif %}
-                                    <div class="govuk-input__wrapper">
-                                      <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.financiallength %}govuk-input--error{% endif %}" id="financiallength" name="financiallength"  type="text" spellcheck="false" value="{{data.financiallength}}">
-                                      <div class="govuk-input__suffix" aria-hidden="true">months</div>
-                                    </div>
-                            </div>
+   
 
 
 
