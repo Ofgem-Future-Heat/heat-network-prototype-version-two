@@ -2777,7 +2777,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
 
     else {
         if (role == "Heat supplier") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout-supplier');
 
         }
 
