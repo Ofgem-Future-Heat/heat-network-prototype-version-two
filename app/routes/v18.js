@@ -1473,6 +1473,55 @@ router.post('/' + version + '/manage-users/edit-user-permissions', function (req
 
 });
 
+/// Edit user - third party
+router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
+    clearvalidation(req);
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+    res.render('/' + version + '/manage-users/edit-user-org', {
+        data: req.session.data
+    });
+    
+});
+
+
+router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
+    clearvalidation(req);
+    var edituserthirdparty = req.session.data['edituserthirdparty']
+    var edituserjobtitle = req.session.data['edituserjobtitle']
+
+
+
+    if (!edituserthirdparty) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.edituserthirdparty = {
+            "anchor": "edituserthirdparty",
+            "message": "Select whether the user is a third party"
+        }
+    }
+
+    if ((edituserthirdparty == "No") && !edituserjobtitle) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.edituserjobtitle = {
+            "anchor": "edituserjobtitle",
+            "message": "Enter a job title"
+        }
+    }
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/edit-user-org', {
+            data: req.session.data
+        });
+    }
+    else {
+        req.session.data['userthirdparty' + req.session.data['userid']] = req.session.data['edituserthirdparty']
+        req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
+
+        res.redirect('/' + version + '/manage-users/edit-user-permissions?notification=editthirdparty&id=' + req.session.data['userid']);
+    }
+
+});
+
 
 /// Reg change
 router.get('/' + version + '/manage-users/reg-change', function (req, res) {
