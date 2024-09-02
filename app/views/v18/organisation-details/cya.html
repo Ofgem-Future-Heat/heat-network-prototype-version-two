@@ -49,11 +49,7 @@ govukBackLink ({
         </div>
         {% endif %}
        
-        <span class="govuk-caption-l">{% if data.companyname %}
-          {{data.companyname}}
-          {% else %}
-          Radienteco Ltd
-          {% endif %}</span>
+        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
             <h1 class="govuk-heading-l">{{title}}</h1>
                 <dl class="govuk-summary-list">

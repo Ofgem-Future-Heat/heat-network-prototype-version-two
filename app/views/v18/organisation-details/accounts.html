@@ -51,9 +51,8 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
         {% endif %}
 
           <form method="post" novalidate>
-            <span class="govuk-caption-l">
-                {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
-              </span>
+            <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
             <div class="govuk-form-group {% if data.validationErrors.orgaccounts %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
 

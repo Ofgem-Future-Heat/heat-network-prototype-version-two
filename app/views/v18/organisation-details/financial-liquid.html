@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-What is the total value of liquid assets that you control or have unrestricted access to?
+What is the total value of liquid assets that {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} controls or has unrestricted access to?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Additional organisation details" %}
+{% set title %} Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 
 {% block pageTitle %}

@@ -52,14 +52,13 @@ Does {{data.userfirstname}} {{data.userlastname}} work for another organisation 
     {% endif %}
 
 
-    <span class="govuk-caption-l">
-      Add new user
-    </span>
     <form method="post" novalidate>
 
       <div class="govuk-form-group {% if data.validationErrors.userthirdparty %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
             <h1 class="govuk-fieldset__heading">
               {{title}}
             </h1>

@@ -2831,7 +2831,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
         }
 
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/only');
+            res.redirect('/' + version + '/account-information');
 
         }
     }
