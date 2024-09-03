@@ -2628,8 +2628,7 @@ router.get('/' + version + '/account-creation/address', function (req, res) {
 
 router.post('/' + version + '/account-creation/address', function (req, res) {
     clearvalidation(req);
-    var userpostcode = req.session.data['tradingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-    var usernumber = req.session.data['tradingaddressNumber']
+    var userpostcode = req.session.data['orgaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
     if (!userpostcode) {
         req.session.data.validationError = "true"
