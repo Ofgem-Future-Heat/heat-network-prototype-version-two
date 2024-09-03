@@ -90,20 +90,20 @@ router.get('/' + version + '/organisation-details/trading-address', function (re
 
 router.post('/' + version + '/organisation-details/trading-address', function (req, res) {
     clearvalidation(req);
-    var orghastradingaddress = req.session.data['orghastradingaddress']
+    var orghasorgaddress = req.session.data['orghasorgaddress']
     var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
 
-    if (!orghastradingaddress) {
+    if (!orghasorgaddress) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghastradingaddress = {
-            "anchor": "orghastradingaddress",
+        req.session.data.validationErrors.orghasorgaddress = {
+            "anchor": "orghasorgaddress",
             "message": "Select whether your organisation has a trading address"
         }
     }
 
 
-    if ((orghastradingaddress == "Yes") && !userpostcode) {
+    if ((orghasorgaddress == "Yes") && !userpostcode) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -117,7 +117,7 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
         return postcodeRegex.test(postcode);
       }
       
-    if ((orghastradingaddress == "Yes") && !validateUKPostcode(userpostcode)) {
+    if ((orghasorgaddress == "Yes") && !validateUKPostcode(userpostcode)) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -133,7 +133,7 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
     }
 
     else {
-    if (orghastradingaddress == "Yes") {
+    if (orghasorgaddress == "Yes") {
 
 
 
@@ -161,14 +161,14 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.tradingAddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = "";
+                        req.session.data.orgaddressSelect = locationaddresses;
+                        req.session.data.orgaddressesnotfound = "";
                         res.redirect('/' + version + '/organisation-details/trading-address-select');
                     }
 
                     else {
-                        req.session.data.tradingAddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = true;
+                        req.session.data.orgaddressSelect = locationaddresses;
+                        req.session.data.orgaddressesnotfound = true;
                         res.redirect('/' + version + '/organisation-details/trading-address-manual');
                     }
 
@@ -199,14 +199,14 @@ router.get('/' + version + '/organisation-details/trading-address-select', funct
 
 router.post('/' + version + '/organisation-details/trading-address-select', function (req, res) {
     clearvalidation(req);
-    var addressselect = req.session.data['tradingaddressSelect']
+    var addressselect = req.session.data['orgaddressSelect']
 
 
 
     if (!addressselect) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressSelect = {
-            "anchor": "tradingaddressSelect",
+        req.session.data.validationErrors.orgaddressSelect = {
+            "anchor": "orgaddressSelect",
             "message": "Select an address",
         }
     }
@@ -235,34 +235,34 @@ router.get('/' + version + '/organisation-details/trading-address-manual', funct
 
 router.post('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
     clearvalidation(req);
-    var tradingaddressMLine1 = req.session.data['tradingaddressMLine1']
-    var tradingaddressMTown = req.session.data['tradingaddressMTown']
-    var tradingaddressMCounty = req.session.data['tradingaddressMCounty']
+    var orgaddressMLine1 = req.session.data['orgaddressMLine1']
+    var orgaddressMTown = req.session.data['orgaddressMTown']
+    var orgaddressMCounty = req.session.data['orgaddressMCounty']
 
-    var tradingaddressMPostcode = req.session.data['tradingaddressMPostcode']
+    var orgaddressMPostcode = req.session.data['orgaddressMPostcode']
 
 
-    if (!tradingaddressMLine1) {
+    if (!orgaddressMLine1) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMLine1 = {
-            "anchor": "tradingaddressMLine1",
+        req.session.data.validationErrors.orgaddressMLine1 = {
+            "anchor": "orgaddressMLine1",
             "message": "Enter the street address",
         }
     }
 
 
-    if (!tradingaddressMTown) {
+    if (!orgaddressMTown) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMTown = {
-            "anchor": "tradingaddressMTown",
+        req.session.data.validationErrors.orgaddressMTown = {
+            "anchor": "orgaddressMTown",
             "message": "Enter the town or city",
         }
     }
 
-    if (!tradingaddressMPostcode) {
+    if (!orgaddressMPostcode) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMPostcode = {
-            "anchor": "tradingaddressMPostcode",
+        req.session.data.validationErrors.orgaddressMPostcode = {
+            "anchor": "orgaddressMPostcode",
             "message": "Enter a postcode",
         }
     }
@@ -274,7 +274,7 @@ router.post('/' + version + '/organisation-details/trading-address-manual', func
     }
 
     else {
-            req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode;
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode;
             res.redirect('/' + version + '/organisation-details/trading-address-confirm');
 
         }
@@ -2632,8 +2632,8 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
     if (!userpostcode) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressPostcode = {
-            "anchor": "tradingaddressPostcode",
+        req.session.data.validationErrors.orgaddressPostcode = {
+            "anchor": "orgaddressPostcode",
             "message": "Enter a postcode",
         }
     }
@@ -2646,8 +2646,8 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
     if (!validateUKPostcode(userpostcode)) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressPostcode = {
-            "anchor": "tradingaddressPostcode",
+        req.session.data.validationErrors.orgaddressPostcode = {
+            "anchor": "orgaddressPostcode",
             "message": "Enter a valid postcode",
         }
     }
@@ -2683,13 +2683,13 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
                         }
 
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        req.session.data.tradingaddressnotfound = "";
+                        req.session.data.orgaddressnotfound = "";
                         res.redirect('/' + version + '/account-creation/addressselect');
                     }
 
                     else {
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        req.session.data.tradingaddressnotfound = true;
+                        req.session.data.orgaddressnotfound = true;
                         res.render('/' + version + '/account-creation/addressmanual', {
                             data: req.session.data
                         });
@@ -2716,14 +2716,14 @@ router.get('/' + version + '/account-creation/addressselect', function (req, res
 
 router.post('/' + version + '/account-creation/addressselect', function (req, res) {
     clearvalidation(req);
-    var addressselect = req.session.data['tradingaddressSelect']
+    var addressselect = req.session.data['orgaddressSelect']
 
 
 
     if (!addressselect) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressSelect = {
-            "anchor": "tradingaddressSelect",
+        req.session.data.validationErrors.orgaddressSelect = {
+            "anchor": "orgaddressSelect",
             "message": "Select an address",
         }
     }
@@ -2752,36 +2752,36 @@ router.get('/' + version + '/account-creation/addressmanual', function (req, res
 
 router.post('/' + version + '/account-creation/addressmanual', function (req, res) {
     clearvalidation(req);
-    var tradingaddressMLine1 = req.session.data['tradingaddressMLine1']
-    var tradingaddressMTown = req.session.data['tradingaddressMTown']
-    var tradingaddressMCounty = req.session.data['tradingaddressMCounty']
-    var tradingaddressMCountry = req.session.data['tradingaddressMCountry']
+    var orgaddressMLine1 = req.session.data['orgaddressMLine1']
+    var orgaddressMTown = req.session.data['orgaddressMTown']
+    var orgaddressMCounty = req.session.data['orgaddressMCounty']
+    var orgaddressMCountry = req.session.data['orgaddressMCountry']
     var accounttype = req.session.data['accounttype']
 
-    var tradingaddressMPostcode = req.session.data['tradingaddressMPostcode']
+    var orgaddressMPostcode = req.session.data['orgaddressMPostcode']
 
 
-    if (!tradingaddressMLine1) {
+    if (!orgaddressMLine1) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMLine1 = {
-            "anchor": "tradingaddressMLine1",
+        req.session.data.validationErrors.orgaddressMLine1 = {
+            "anchor": "orgaddressMLine1",
             "message": "Enter the street address",
         }
     }
 
 
-    if (!tradingaddressMTown) {
+    if (!orgaddressMTown) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMTown = {
-            "anchor": "tradingaddressMTown",
+        req.session.data.validationErrors.orgaddressMTown = {
+            "anchor": "orgaddressMTown",
             "message": "Enter the town or city",
         }
     }
 
-    if (!tradingaddressMPostcode) {
+    if (!orgaddressMPostcode) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMPostcode = {
-            "anchor": "tradingaddressMPostcode",
+        req.session.data.validationErrors.orgaddressMPostcode = {
+            "anchor": "orgaddressMPostcode",
             "message": "Enter a postcode",
         }
     }
@@ -2794,9 +2794,9 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
 
     else {
         if (accounttype == "Overseas organisation") {
-            req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMPostcode + ', ' + tradingaddressMCountry
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMPostcode + ', ' + orgaddressMCountry
         } else {
-            req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode
+            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode
         }
 
         
@@ -3529,7 +3529,7 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
                         req.session.data.ecAddressSelect = locationaddresses;
-                        req.session.data.ectradingaddressesnotfound = "";
+                        req.session.data.ecorgaddressesnotfound = "";
                         res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
                     }
 
