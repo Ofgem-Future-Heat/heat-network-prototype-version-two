@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-For how many months do you project organisation will be solvent for?
+For how many months do you project {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} will be solvent for?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
