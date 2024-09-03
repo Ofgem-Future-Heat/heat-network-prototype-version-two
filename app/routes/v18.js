@@ -2085,12 +2085,12 @@ router.get('/' + version + '/account-creation/company-number', function (req, re
 
 router.post('/' + version + '/account-creation/company-number', function (req, res) {
     clearvalidation(req);
-    var companynumber = req.session.data['companynumber']
+    var orgcompanynumber = req.session.data['companynumber']
     var accounttype = req.session.data['accounttype']
 
     
 
-    if (!companynumber) {
+    if (!orgcompanynumber) {
         req.session.data.validationError = "true"
         if (accounttype == "Company registered in the UK") {
             req.session.data.validationErrors.companynumber = {
@@ -2121,9 +2121,82 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
     }
 
     else {
-        req.session.data.companyname = "Radianteco Ltd";
-        req.session.data.tradingaddressSelect = "";
-        res.redirect('/' + version + '/account-creation/company-confirm');
+
+        (async () => {
+            // Dynamically import 'node-fetch' for CommonJS
+            const fetch = (await import('node-fetch')).default;
+          
+            const API_KEY = 'b38e31d7-61af-448c-8955-425028c1a088'; // Replace with your actual Companies House API key
+          
+            async function getCompanyDetails(companyNumber) {
+              // Concatenate the API key with a colon (:) for Basic Auth
+              const apiKeyWithColon = API_KEY + ':';
+              
+              // Base64 encode the result
+              const encodedKey = Buffer.from(apiKeyWithColon).toString('base64');
+          
+              // Set the headers for the request
+              const headers = new Headers({
+                'Authorization': 'Basic ' + encodedKey
+              });
+          
+          
+              const requestOptions = {
+                method: 'GET',
+                headers: headers
+              };
+          
+              try {
+                const response = await fetch(`https://api.company-information.service.gov.uk/company/${companyNumber}`, requestOptions);
+          
+                // Log the response status
+                console.log(`Response Status: ${response.status} ${response.statusText}`);
+          
+                if (!response.ok) {
+                    req.session.data.validationErrors.companynumber = {
+                        "anchor": "companynumber",
+                        "message": "Enter a valid company number"
+                    }
+
+                    res.render('/' + version + '/account-creation/company-number', {
+                        data: req.session.data
+                    });
+                }
+          
+                const companyData = await response.json();
+
+          
+                // Extracting company name and registered office address
+                const companyName = companyData.company_name;
+                const address = companyData.registered_office_address;
+          
+                // Format the address into a readable format
+                const formattedAddress = `${address.address_line_1}, ${address.address_line_2 || ''}, ${address.locality}, ${address.region || ''}, ${address.postal_code}, ${address.country || ''}`.replace(/, ,/g, ',').replace(/, $/, '');
+          
+                req.session.data.companyname = companyName;
+                req.session.data.orgaddressSelect = formattedAddress;
+
+                
+
+                // Returning as a JSON object
+                return {
+                  companyName: companyName,
+                  address: formattedAddress
+                };
+              } catch (error) {
+                console.error('Error fetching company details:', error);
+                return { error: error.message };
+              }
+            }
+          
+            // Example usage
+            getCompanyDetails(orgcompanynumber)
+              .then(() => res.redirect('/' + version + '/account-creation/company-confirm'))
+              .catch((error) => console.error('Error:', error));
+          })();
+
+          
+
     }
 
 });
