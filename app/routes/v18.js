@@ -2092,25 +2092,11 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
 
     if (!orgcompanynumber) {
         req.session.data.validationError = "true"
-        if (accounttype == "Company registered in the UK") {
             req.session.data.validationErrors.companynumber = {
                 "anchor": "companynumber",
                 "message": "Enter a company number"
             }
-        }
-        else if (accounttype == "UK mutual society registered with the Financial Conduct Authority") {
-            req.session.data.validationErrors.companynumber = {
-                "anchor": "companynumber",
-                "message": "Enter a registration number"
-            }
-        }
-        else {
-            req.session.data.validationErrors.companynumber = {
-                "anchor": "companynumber",
-                "message": "Enter a charity number"
-            }
-
-        }
+     
     }
 
 

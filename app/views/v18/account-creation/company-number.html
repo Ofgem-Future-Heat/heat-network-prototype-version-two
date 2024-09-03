@@ -1,11 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% if data.accounttype == "UK organisation registered with Companies House" %}
 {% set title = "What is the company number?" %}
-{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
-{% set title = "What is the organisation's registration number?" %}
-{% else %}
-{% set title = "What is the charity number?" %}
-{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 
