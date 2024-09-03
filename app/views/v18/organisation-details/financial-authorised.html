@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Confirm whether the authorised entity is satisfied that it is able to meet its costs as they fall due within the next 12 months?
+Are you satisfied that {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} can meet its costs as they fall due within the next 12 months?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
