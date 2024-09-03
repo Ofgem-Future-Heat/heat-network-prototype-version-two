@@ -1024,7 +1024,8 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
 
 });
 
-/// Org details - Financial percentage
+
+/// Org details - Financial hedged
 router.get('/' + version + '/organisation-details/financial-hedged', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-hedged', {
@@ -1034,6 +1035,44 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
+    clearvalidation(req);
+    var financialhedged = req.session.data['financialhedged']
+
+    if (!financialhedged) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialhedged = {
+            "anchor": "financialhedged",
+            "message": "Enter the number of months"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-hedged', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (financialhedged == "Yes") {
+            res.redirect('/' + version + '/organisation-details/financial-hedged-months');
+
+        }
+        else {
+            res.redirect('/' + version + '/organisation-details/structure');
+        }
+    }
+
+});
+
+/// Org details - Financial hedged months
+router.get('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-hedged-months', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
     clearvalidation(req);
     var financiallength = req.session.data['financiallength']
 
@@ -1046,7 +1085,7 @@ router.post('/' + version + '/organisation-details/financial-hedged', function (
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/financial-hedged', {
+        res.render('/' + version + '/organisation-details/financial-hedged-months', {
             data: req.session.data
         });
     }

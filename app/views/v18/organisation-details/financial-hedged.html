@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-How many months ahead does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -49,51 +49,49 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
+        <form method="post" novalidate>
+            
+            <div class="govuk-form-group {% if data.validationErrors.financialhedged %}govuk-form-group--error{% endif %}">
+              <fieldset class="govuk-fieldset">
+                
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+                  <h1 class="govuk-fieldset__heading">
+                    {{title}}
+                  </h1>
+                </legend>
+                <!-- <p class="govuk-body">???</p> -->
+                {% if data.validationErrors.financialhedged %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.financialhedged.message}}
+                </p>
+                {% endif %}
+                <div class="govuk-radios" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="financialhedged" name="financialhedged" type="radio" value="Yes" {% if data.financialhedged == "Yes" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="financialhedged">
+                      Yes
+                    </label>
+                  </div>
 
-
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financiallength">
-
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
-                        </label>
-
-                    </legend>
-
-
-                            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
-
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="financialhedged-2" name="financialhedged" type="radio" value="No" {% if data.financialhedged == "No" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="financialhedged-2">
+                      No
+                    </label>
+                  </div>
 
                   
-                                    {% if data.validationErrors.financiallength %}
-                                    <p class="govuk-error-message">
-                                        <span class="govuk-visually-hidden">Error:</span>
-                                        {{data.validationErrors.financiallength.message}}
-                                    </p>
-                                    {% endif %}
-                                    <div class="govuk-input__wrapper">
-                                      <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.financiallength %}govuk-input--error{% endif %}" id="financiallength" name="financiallength"  type="text" spellcheck="false" value="{{data.financiallength}}">
-                                      <div class="govuk-input__suffix" aria-hidden="true">months</div>
-                                    </div>
-                            </div>
-
-
-
-                </fieldset>
-
-
+                </div>
+              </fieldset>
+            </div>
             {{
                 govukButton ({
-                    html: 'Continue'
+                    html: 'Save and continue'
                 })
             }}
-        </form>
+      </form>
     </div>
 
 </div>

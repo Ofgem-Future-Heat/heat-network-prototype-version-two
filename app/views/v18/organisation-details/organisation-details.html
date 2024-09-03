@@ -336,23 +336,35 @@ Organisation details
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Percentage of energy needs that are hedged
+              Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{data.financialpercentage}}%
+              {{data.financialhedged}}
             </dd>
-
           </div>
+            {% if data.financialhedged == "Yes" %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                How long are energy needs hedged for?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{data.financiallength}} months
+              </dd>
+            </div>
 
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              How long are energy needs hedged for?
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{data.financiallength}} months
-            </dd>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Percentage of energy needs that are hedged
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{data.financialpercentage}}%
+              </dd>
+            </div>
+
+
+            {% endif %}
  
-          </div>
+          
           {% endif %}
           
           {% if data.orgstructure %}
