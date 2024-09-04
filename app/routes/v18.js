@@ -90,20 +90,20 @@ router.get('/' + version + '/organisation-details/trading-address', function (re
 
 router.post('/' + version + '/organisation-details/trading-address', function (req, res) {
     clearvalidation(req);
-    var orghasorgaddress = req.session.data['orghasorgaddress']
+    var orghastradingaddress = req.session.data['orghastradingaddress']
     var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
 
-    if (!orghasorgaddress) {
+    if (!orghastradingaddress) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghasorgaddress = {
-            "anchor": "orghasorgaddress",
+        req.session.data.validationErrors.orghastradingaddress = {
+            "anchor": "orghastradingaddress",
             "message": "Select whether your organisation has a trading address"
         }
     }
 
 
-    if ((orghasorgaddress == "Yes") && !userpostcode) {
+    if ((orghastradingaddress == "Yes") && !userpostcode) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -117,7 +117,7 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
         return postcodeRegex.test(postcode);
       }
       
-    if ((orghasorgaddress == "Yes") && !validateUKPostcode(userpostcode)) {
+    if ((orghastradingaddress == "Yes") && !validateUKPostcode(userpostcode)) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -133,8 +133,8 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
     }
 
     else {
-    if (orghasorgaddress == "Yes") {
-
+    if (orghastradingaddress == "Yes") {
+        console.log(userpostcode)
 
 
 
@@ -161,14 +161,14 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.orgaddressSelect = locationaddresses;
-                        req.session.data.orgaddressesnotfound = "";
+                        req.session.data.tradingaddressSelect = locationaddresses;
+                        req.session.data.tradingaddressesnotfound = "";
                         res.redirect('/' + version + '/organisation-details/trading-address-select');
                     }
 
                     else {
-                        req.session.data.orgaddressSelect = locationaddresses;
-                        req.session.data.orgaddressesnotfound = true;
+                        req.session.data.tradingaddressSelect = locationaddresses;
+                        req.session.data.tradingaddressesnotfound = true;
                         res.redirect('/' + version + '/organisation-details/trading-address-manual');
                     }
 
@@ -199,14 +199,14 @@ router.get('/' + version + '/organisation-details/trading-address-select', funct
 
 router.post('/' + version + '/organisation-details/trading-address-select', function (req, res) {
     clearvalidation(req);
-    var addressselect = req.session.data['orgaddressSelect']
+    var addressselect = req.session.data['tradingaddressSelect']
 
 
 
     if (!addressselect) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressSelect = {
-            "anchor": "orgaddressSelect",
+        req.session.data.validationErrors.tradingaddressSelect = {
+            "anchor": "tradingaddressSelect",
             "message": "Select an address",
         }
     }
@@ -2195,13 +2195,16 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
                 const companyName = companyData.company_name;
                 const address = companyData.registered_office_address;
           
-                // Format the address into a readable format
+                if (!address) {
+                    req.session.data.companyname = companyName;
+                    res.redirect('/' + version + '/account-creation/addressmanual')
+                }
+
+                else {
                 const formattedAddress = `${address.address_line_1}, ${address.address_line_2 || ''}, ${address.locality}, ${address.region || ''}, ${address.postal_code}, ${address.country || ''}`.replace(/, ,/g, ',').replace(/, $/, '');
-          
                 req.session.data.companyname = companyName;
                 req.session.data.orgaddressSelect = formattedAddress;
-
-                
+                }
 
                 // Returning as a JSON object
                 return {
@@ -2215,7 +2218,7 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
             }
           
             // Example usage
-            getCompanyDetails(orgcompanynumber)
+            getCompanyDetails(orgcompanynumber.toUpperCase())
               .then(() => res.redirect('/' + version + '/account-creation/company-confirm'))
               .catch((error) => console.error('Error:', error));
           })();

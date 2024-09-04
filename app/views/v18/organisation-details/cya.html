@@ -188,7 +188,7 @@ govukBackLink ({
                 </dd>
               </div>
               {% endif %}
-              {% if (data.orgsubtype != "Housing association") or (data.orgsubtype != "Local authority") or (data.orgsubtype != "Other social housing provider") %}
+              {% if (data.orgsubtype != "Housing association") and (data.orgsubtype != "Local authority") and (data.orgsubtype != "Other social housing provider") %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Start and end of financial year?
