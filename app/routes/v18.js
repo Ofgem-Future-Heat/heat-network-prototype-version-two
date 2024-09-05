@@ -1656,6 +1656,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
 
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
+    generateuser(req);
     clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
@@ -1691,6 +1692,7 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
 
 /// User profile self
 router.get('/' + version + '/my-profile', function (req, res) {
+    generateuser(req);
     clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
