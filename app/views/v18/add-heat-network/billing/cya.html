@@ -88,21 +88,7 @@
                 </dd>
             </div>
             {% endif %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Billing options available to customers
-                </dt>
-                <dd class="govuk-summary-list__value">
-                     <ul class="govuk-list">
-                        {% for option in data.billingavailable %}
-                        <li>{{option}}</li>
-                        {% endfor %}
-                    </ul>
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="available">Change</a>
-                </dd>
-            </div>
+
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="billingcomplete" name="billingcomplete" value="true" />

@@ -5481,7 +5481,7 @@ router.post('/' + version + '/add-heat-network/billing/otherinfo', function (req
     //    });
     //}
     //else {
-        res.redirect('/' + version + '/add-heat-network/billing/available');
+        res.redirect('/' + version + '/add-heat-network/billing/cya');
 //    }
 });
 
