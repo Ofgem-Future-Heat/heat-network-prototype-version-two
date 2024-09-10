@@ -2115,6 +2115,7 @@ router.post('/' + version + '/account-creation/company-name', function (req, res
 });
 
 
+
 ///Company number
 router.get('/' + version + '/account-creation/company-number', function (req, res) {
     clearvalidation(req);
@@ -2678,10 +2679,10 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
+                    let totalResults = response.data.header.totalresults;
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
-
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
@@ -2689,15 +2690,19 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
                         req.session.data.orgaddressnotfound = "";
-                        res.redirect('/' + version + '/account-creation/addressselect');
+                        if (totalResults > 99) {
+                            res.redirect('/' + version + '/account-creation/addresserror?reason=toomany');
+                        }
+                        else {
+                            res.redirect('/' + version + '/account-creation/addressselect');
+                        }
                     }
 
                     else {
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
                         req.session.data.orgaddressnotfound = true;
-                        res.render('/' + version + '/account-creation/addressmanual', {
-                            data: req.session.data
-                        });
+                        res.redirect('/' + version + '/account-creation/addresserror');
+
                     }
 
                 });
@@ -2708,6 +2713,18 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
 
 });
+
+///Address error
+router.get('/' + version + '/account-creation/addresserror', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.reason;
+    req.session.data['addresserrorreason'] = urlParams;
+
+    res.render('/' + version + '/account-creation/addresserror', {
+        data: req.session.data
+    });
+});
+
 
 
 // Company - Address select
