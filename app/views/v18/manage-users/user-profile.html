@@ -220,11 +220,17 @@
       </li>
       {% else %}
       <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit
-          permissions</a>
+        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Change permissions</a>
       </li>
       <li class="govuk-summary-list__actions-list-item">
-        <a href="edit-user-org?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Edit third party status</a>
+        <a href="edit-user-org?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">
+          {% if (user.thirdparty == "Yes") %}
+          Change third party status    
+          {% else %}
+          Make user a third party
+          {% endif %}
+          
+        </a>
       </li>
       <li class="govuk-summary-list__actions-list-item">
         <a href="delete-user?id={{user.id}}" class="link-red">Deactivate user</a>

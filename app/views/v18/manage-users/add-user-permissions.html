@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Select additional permissions for " + data.userfirstname + " " + data.userlastname %}
+{% set title = "Permissions for " + data.userfirstname + " " + data.userlastname %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -70,15 +70,18 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+    <h2 class="govuk-heading-m">Default permissions</h2>
     <form method="post" novalidate>
 
       {% if data.userthirdparty == "Yes" %}
-      <p class="govuk-body">By default, every third party user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} only has access to the information they’ve added.</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added.</p>
       {% else %}
-      <p class="govuk-body">By default, every user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} has read access to all the organisation's heat network information</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
-      <p class="govuk-body">Select which additional permissions you want {{data.userfirstname}} {{data.userlastname}} to have:</p>
+
+
       <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Select additional permissions permissions</caption>
         <thead class="govuk-table__head govuk-visually-hidden">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Permission</th>
@@ -90,8 +93,8 @@
 
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">View all heat network information 
-              <div class="govuk-hint">Can view all heat network information added and submitted for this organisation.</div>
+            <th scope="row" class="govuk-table__header">View all heat network information
+              <div class="govuk-hint">Can view all heat network information for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
@@ -119,8 +122,8 @@
 
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Add or edit all heat network information 
-              <div class="govuk-hint">Can enter - but not submit - information about the {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks into this service, for the purposes of authorisation, amendment or ongoing reporting.</div>
+            <th scope="row" class="govuk-table__header">Add or edit heat network information
+              <div class="govuk-hint">Can enter - but not send - information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
@@ -144,8 +147,8 @@
           </tr>
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Submit all heat network information
-              <div class="govuk-hint">Can send {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information to Ofgem to comply with the regulations on authorisation, amendments and ongoing reporting.</div>
+            <th scope="row" class="govuk-table__header">Send heat network information
+              <div class="govuk-hint">Can send {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information to Ofgem.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">

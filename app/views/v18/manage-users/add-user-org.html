@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Does {{data.userfirstname}} {{data.userlastname}} work for another organisation acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}?
+Does {{data.userfirstname}} {{data.userlastname}} work for a different organisation?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,7 +63,7 @@ Does {{data.userfirstname}} {{data.userlastname}} work for another organisation 
               {{title}}
             </h1>
           </legend>
-          <p class="govuk-body">Indicate whether this user works for a third party, like a metering and billing or managing agent. </p>
+          <p class="govuk-body">Indicate whether this user works for a third party, like a metering and billing or managing agent, that is acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
           {% if data.validationErrors.userthirdparty %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Email address" %}
+{% set title = "What is the new user’s email address?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -79,7 +79,7 @@
       <div class="govuk-button-group">
         {{
           govukButton ({
-              html: 'Save and continue'
+              html: 'Continue'
           })
         }}
       </div>
