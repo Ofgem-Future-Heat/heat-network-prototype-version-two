@@ -50,12 +50,12 @@
     
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-    {% set title = "Are you sure you want to deactivate " + name %}
+    {% set title = "Are you sure you want to deactivate " + name + "?" %}
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <p class="govuk-body">{{name}} ({{user.email}}) no longer be able to access the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</p>
-    <p class="govuk-body">If you wish to re-instate this user you'll have to reactivate them.</p>
+    <p class="govuk-body">{{name}} will no longer be able to access the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</p>
+    <p class="govuk-body">If you wish to reinstate this user, you'll have to reactivate them.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">
       <button class="govuk-button govuk-button--warning">

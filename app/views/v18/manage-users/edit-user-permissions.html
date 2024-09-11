@@ -51,7 +51,7 @@
 
 {% for user in users %}
 {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-{% set title = "Edit permissions for " + name %}
+{% set title = "Permissions for " + name %}
 
 {% if data.manageusersnotification %}
 <div class="govuk-grid-row">
@@ -106,15 +106,17 @@
       {{title}}
     </h1>
     <form method="post" novalidate>
+      <h2 class="govuk-heading-m">Default permissions</h2>
 
 
       {% if user.thirdparty == "Yes" %}
-      <p class="govuk-body">By default, every third party user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} only has access to the information they’ve added.</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added.</p>
       {% else %}
-      <p class="govuk-body">By default, every user added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} has read access to all the organisation's heat network information</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
-      <p class="govuk-body">Edit the additional permissions you want {{data.userfirstname}} {{data.userlastname}} to have:</p>
       <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Change additional permissions</caption>
+
         <thead class="govuk-table__head govuk-visually-hidden">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Permission</th>
@@ -127,21 +129,21 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">View all heat network information
-              <div class="govuk-hint">Can view all heat network information added and submitted for this organisation.</div>
+              <div class="govuk-hint">Can view all heat network information for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-view-1" name="edituserpermissionsview" type="radio" value="View all heat network information" {% if user.view != "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-view-1" name="adduserpermissionsview" type="radio" value="View all heat network information" {% if data.adduserpermissionsview %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-view-2" name="edituserpermissionsview" type="radio" value="" {% if user.view == "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-view-2" name="adduserpermissionsview" type="radio" value="" {% if not data.adduserpermissionsview %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-2">
                       No
                     </label>
                   </div>                
@@ -150,25 +152,27 @@
           </fieldset>
           </tr>          
           {% endif %}
+    
+
 
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Add or edit all heat network information
-              <div class="govuk-hint">Can enter - but not submit - information about the organisation's heat networks into the account, for the purposes of authorisation, amendment or ongoing reporting.</div>
+            <th scope="row" class="govuk-table__header">Add or edit heat network information
+              <div class="govuk-hint">Can enter - but not send - information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
    
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-registration-1" name="edituserpermissionsregistration" type="radio" value="Add or edit all heat network information" {% if user.registration != "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit all heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-registration-2" name="edituserpermissionsregistration" type="radio" value="" {% if user.registration == "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-2" name="adduserpermissionsregistration" type="radio" value="" {% if not data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-2">
                       No
                     </label>
                   </div>                
@@ -178,20 +182,20 @@
           </tr>
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
-            <th scope="row" class="govuk-table__header">Submit all heat network information
-              <div class="govuk-hint">Can send heat network information to Ofgem to comply with the regulations on authorisation, amendments and ongoing reporting.</div>
+            <th scope="row" class="govuk-table__header">Send heat network information
+              <div class="govuk-hint">Can send {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information to Ofgem.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-1" name="edituserpermissionsmonitoring" type="radio" value="Submit all heat network information" {% if user.monitoring != "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Submit all heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-2" name="edituserpermissionsmonitoring" type="radio" value="" {% if user.monitoring == "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-2" name="adduserpermissionsmonitoring" type="radio" value="" {% if not data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-2">
                       No
                     </label>
                   </div>                
@@ -202,25 +206,24 @@
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
             <th scope="row" class="govuk-table__header">Manage users
-              <div class="govuk-hint">Can add new users, edit user permissions or remove users from the account.</div>
+              <div class="govuk-hint">Can add new users, edit user permissions or remove users from the service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</div>
             </th>
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-1" name="edituserpermissionsusermanagement" type="radio" value="Manage users" {% if user.usermanagement != "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-1" name="adduserpermissionsusermanagement" type="radio" value="User management" {% if data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-2" name="edituserpermissionsusermanagement" type="radio" value="" {% if user.usermanagement == "" %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-2" name="adduserpermissionsusermanagement" type="radio" value="" {% if not data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-2">
                       No
                     </label>
                   </div>                
                 </div>
             </td>
-
           </fieldset>
           </tr>
         </tbody>

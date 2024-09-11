@@ -78,15 +78,31 @@
     {% endfor %}
 
     <form method="post" novalidate>
-{% if count == 0 %}
-<p class="govuk-body">Before you can reassign the regulatory contact role to someone else, you'll need to add them to this account.</p>
-<p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="add-user">Add another user</a></p>
-{% else %}
-    <p class="govuk-body">This is Ofgem’s main point of contact for any questions they may have about your organisation and its heat networks. Ideally, they are the most senior member of staff with responsibility for heat networks.</p>
 
-<p class="govuk-body">They will have full access to all features in the account, for example managing users, submitting heat network information.</p>
+<p class="govuk-body">Before you assign this role to someone else, the new regulatory contact must understand the responsibilities of the role and agree to fulfil them.</p>
 
-<p class="govuk-body">If you cannot find the right person, you'll need to add them first.</p>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Help with 'regulatory contact'
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+   <p class="govuk-body">
+    This is typically your organisation’s most senior member of staff with responsibility for heat networks.
+   </p>
+   <p class="govuk-body">
+    As regulatory contact, they’ll:
+   </p>
+   <ul class="govuk-list govuk-list--bullet">
+    <li>be Ofgem’s main point of contact for any regulatory and compliance matters in relation to your organisation’s heat networks</li>
+    <li>have full access to all features in Ofgem’s digital heat networks service, for example managing users and submitting heat network information</li>
+   </ul>
+  </div>
+</details>
+
+    <p class="govuk-body">If you cannot find the right person in the drop-down list, you'll need to add them to the service first.</p>
+
 
     <div class="govuk-form-group">
 
@@ -104,7 +120,7 @@
         {% if user.added == "true" %}
         
         <option value="{{user.id}}"> {{user.firstname}} {{user.lastname}}
-          ({{user.email}}){{loop.index}}</option>
+          ({{user.email}})</option>
           {% endif %}
           {% endif %}
           {% endfor %}
@@ -118,7 +134,6 @@
         })
       }}
     </div>
-    {% endif %}
 </form>
 
   </div>
