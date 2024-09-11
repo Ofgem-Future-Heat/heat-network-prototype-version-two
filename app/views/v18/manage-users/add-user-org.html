@@ -16,8 +16,13 @@ Does {{data.userfirstname}} {{data.userlastname}} work for a different organisat
   <div class="govuk-grid-column-full">
 
 
-
-    {% include data.version + "/_partials/headerlinks.html" %}
+    {{
+      govukBackLink ({
+      text: 'Back',
+      href: 'javascript:history.back()'
+      })
+      }}
+      {% include data.version + "/_partials/headerlinks.html" %}
 
   </div>
 
@@ -58,7 +63,7 @@ Does {{data.userfirstname}} {{data.userlastname}} work for a different organisat
               {{title}}
             </h1>
           </legend>
-          <p class="govuk-body">Indicate whether this user works for a third party, like a metering and billing or managing agent, that is acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
+          <p class="govuk-body">Tell us whether this user works for a third party, like a metering and billing or managing agent, that is acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
           {% if data.validationErrors.userthirdparty %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>
