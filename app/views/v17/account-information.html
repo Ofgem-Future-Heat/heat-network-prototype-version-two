@@ -11,9 +11,9 @@
         <div class="govuk-grid-column-full">
 
             {{ super() }}
-
+            {% if data.currentversion != "dev" %}
             {% include data.version + "/_partials/headerlinks.html" %}
-
+          {% endif %}
 
         </div>
 
@@ -34,8 +34,8 @@
     <p class="govuk-body-s govuk-!-margin-top-0"><a href="account-creation/select-org" class="govuk-link govuk-link--no-visited-state">Switch to a different organisation</a></p>
 
 
-    
-      <h2 class="govuk-heading-m">Account information</h2>
+    {% if data.currentversion != "dev" %}
+      <h2 class="govuk-heading-m">Your organisation</h2>
       
       <div class="govuk-grid-row ds-grid-row">
 
@@ -59,8 +59,11 @@
       <p class="govuk-body">Add and remove users; edit user permissions.</p>
     </div>
     </div>
+    {% endif %}
+</div>
 
-</div></div>
+
+</div>
         <div class="govuk-grid-row govuk-!-margin-top-8">
 
     <div class="govuk-grid-column-two-thirds">

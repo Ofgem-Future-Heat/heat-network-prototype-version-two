@@ -16,6 +16,9 @@ function clearvalidation(req) {
 router.get('/' + version + '/account-information', function (req, res) {
     clearvalidation(req);
     generateuser(req)
+    const urlParams = req.query.v;
+    req.session.data['currentversion'] = urlParams;
+
     res.render('/' + version + '/account-information', {
         data: req.session.data
     });

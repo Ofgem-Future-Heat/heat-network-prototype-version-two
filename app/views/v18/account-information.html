@@ -28,7 +28,7 @@
       {% if data.companyname %}
       {{data.companyname}}
       {% else %}
-      Radienteco Ltd
+      Radienteco Ltd 
       {% endif %}
     </h1>
     <p class="govuk-body-s govuk-!-margin-top-0"><a href="account-creation/select-org" class="govuk-link govuk-link--no-visited-state">Switch to a different organisation</a></p>
@@ -38,6 +38,7 @@
       <h2 class="govuk-heading-m">Your organisation</h2>
       
       <div class="govuk-grid-row ds-grid-row">
+        {% if data.currentversion != "dev" %}
 
       <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
@@ -53,6 +54,7 @@
        </strong>
       {% endif %}
     </div>
+    {% endif %}
  
 
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
