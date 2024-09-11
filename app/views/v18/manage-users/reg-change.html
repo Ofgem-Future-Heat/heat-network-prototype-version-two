@@ -78,8 +78,13 @@
     {% endfor %}
 
     <form method="post" novalidate>
-
-<p class="govuk-body">Before you assign this role to someone else, the new regulatory contact must understand the responsibilities of the role and agree to fulfil them.</p>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Before you assign this role to someone else, the new regulatory contact must understand the responsibilities of the role and agree to fulfil them.
+        </strong>
+      </div>
 
 <details class="govuk-details">
   <summary class="govuk-details__summary">
@@ -104,8 +109,13 @@
     <p class="govuk-body">If you cannot find the right person in the drop-down list, you'll need to add them to the service first.</p>
 
 
-    <div class="govuk-form-group">
-
+    <div class="govuk-form-group {% if data.validationErrors.regchange %}govuk-form-group--error{% endif %}">
+      {% if data.validationErrors.regchange %}
+      <p class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span>
+          {{data.validationErrors.regchange.message}}
+      </p>
+      {% endif %}
       <select class="govuk-select" id="sort" name="regchange">
         <option value="" selected>Select a user</option>
 

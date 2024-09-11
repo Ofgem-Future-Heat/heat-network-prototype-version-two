@@ -39,8 +39,6 @@
         "lastname": data["userlastname" ~ i],
         "id": i,
         "thirdparty": data["userthirdparty" ~ i],
-        "transfer": data["adduserpermissionstransfer" ~ i],
-        "rightsandpowers": data["adduserpermissionsrightsandpowers" ~ i],
         "usermanagement": data["adduserpermissionsusermanagement" ~ i],
         "monitoring": data["adduserpermissionsmonitoring" ~ i],
         "registration": data["adduserpermissionsregistration" ~ i],
@@ -110,7 +108,7 @@
 
 
       {% if user.thirdparty == "Yes" %}
-      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added.</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added to the service.</p>
       {% else %}
       <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
@@ -136,14 +134,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-view-1" name="adduserpermissionsview" type="radio" value="View all heat network information" {% if data.adduserpermissionsview %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-1">
+                    <input class="govuk-radios__input" id="edituserpermissions-view-1" name="edituserpermissionsview" type="radio" value="View all heat network information" {% if user.view %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-view-2" name="adduserpermissionsview" type="radio" value="" {% if not data.adduserpermissionsview %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-2">
+                    <input class="govuk-radios__input" id="edituserpermissions-view-2" name="edituserpermissionsview" type="radio" value="" {% if not user.view %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-2">
                       No
                     </label>
                   </div>                
@@ -165,14 +163,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit all heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
+                    <input class="govuk-radios__input" id="edituserpermissions-registration-1" name="edituserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if user.registration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-registration-2" name="adduserpermissionsregistration" type="radio" value="" {% if not data.adduserpermissionsregistration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-2">
+                    <input class="govuk-radios__input" id="edituserpermissions-registration-2" name="edituserpermissionsregistration" type="radio" value="" {% if not user.registration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-2">
                       No
                     </label>
                   </div>                
@@ -188,14 +186,14 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Submit all heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
+                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-1" name="edituserpermissionsmonitoring" type="radio" value="Send heat network information" {% if user.monitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-2" name="adduserpermissionsmonitoring" type="radio" value="" {% if not data.adduserpermissionsmonitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-2">
+                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-2" name="edituserpermissionsmonitoring" type="radio" value="" {% if not user.monitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-2">
                       No
                     </label>
                   </div>                
@@ -211,14 +209,14 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-1" name="adduserpermissionsusermanagement" type="radio" value="User management" {% if data.adduserpermissionsusermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-1">
+                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-1" name="edituserpermissionsusermanagement" type="radio" value="User management" {% if user.usermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-2" name="adduserpermissionsusermanagement" type="radio" value="" {% if not data.adduserpermissionsusermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-2">
+                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-2" name="edituserpermissionsusermanagement" type="radio" value="" {% if not user.usermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-2">
                       No
                     </label>
                   </div>                

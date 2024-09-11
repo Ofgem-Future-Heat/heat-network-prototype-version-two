@@ -14,12 +14,7 @@
   <div class="govuk-grid-column-full">
 
 
-    {{
-    govukBackLink ({
-    text: 'Back',
-    href: 'javascript:history.back()'
-    })
-    }}
+
     {% include data.version + "/_partials/headerlinks.html" %}
 
   </div>
@@ -74,7 +69,7 @@
     <form method="post" novalidate>
 
       {% if data.userthirdparty == "Yes" %}
-      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added.</p>
+      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added to the service.</p>
       {% else %}
       <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
@@ -130,7 +125,7 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit all heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
                       Yes
                     </label>
@@ -153,7 +148,7 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Submit all heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Send heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
                       Yes
                     </label>

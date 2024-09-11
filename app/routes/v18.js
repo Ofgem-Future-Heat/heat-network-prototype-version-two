@@ -1321,6 +1321,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
     var userorgname = req.session.data['userorgname']
     var userthirdparty = req.session.data['userthirdparty']
     var userjobtitle = req.session.data['userjobtitle']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
 
@@ -1328,7 +1329,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.userthirdparty = {
             "anchor": "userthirdparty",
-            "message": "Select whether the user is a third party"
+            "message": "Select whether this user works for another organisation acting on behalf of " + companyname
         }
     }
 
@@ -1500,8 +1501,6 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
     clearvalidation(req);
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = req.session.data['edituserpermissionsview']
-    req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = req.session.data['edituserpermissionstransfer']
-    req.session.data['adduserpermissionsrightsandpowers' + req.session.data['userid']] = req.session.data['edituserpermissionsrightsandpowers']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']
     req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = req.session.data['edituserpermissionsmonitoring']
     req.session.data['adduserpermissionsregistration' + req.session.data['userid']] = req.session.data['edituserpermissionsregistration']
@@ -1529,14 +1528,14 @@ router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
     clearvalidation(req);
     var edituserthirdparty = req.session.data['edituserthirdparty']
     var edituserjobtitle = req.session.data['edituserjobtitle']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
     if (!edituserthirdparty) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.edituserthirdparty = {
             "anchor": "edituserthirdparty",
-            "message": "Select whether the user is a third party"
+            "message": "Select whether this user works for another organisation acting on behalf of " + companyname
         }
     }
 
@@ -1544,7 +1543,7 @@ router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.edituserjobtitle = {
             "anchor": "edituserjobtitle",
-            "message": "Enter a job title"
+            "message": "Enter the user’s job title"
         }
     }
     if (req.session.data.validationError == "true") {
@@ -1576,7 +1575,7 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
 
     if (regchange == "") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.email = {
+        req.session.data.validationErrors.regchange = {
             "anchor": "regchange",
             "message": "You must select someone to be the new regulatory contact"
         }

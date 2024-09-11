@@ -186,14 +186,13 @@
 
             {% else %}
 
-            {% if user.permissions == ",,,," %}
+            {% if (user.permissions == ",,,,")  or (user.permissions == ",,,") %}
             No additional permissions
-
             {% else %}
             {% for permission in user.permissions %}
             {% if permission == "View all heat network information" %} 
             {% if user.thirdparty == "Yes" %}
-            {% if permission %}{{permission}}<br />{% endif %}
+            {{permission}}<br />
             {% endif %}
             {% else %}
             {% if permission %}{{permission}}<br />{% endif %}
