@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 
-{% set title = "Information about buildings that your organisation is responsible for" %}
+{% set title = "Information about energy centres that your organisation is responsible for" %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,12 +65,12 @@
           </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+        <span class="govuk-caption-l">Add a heat network - energy centres</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
 
-        <p class="govuk-body">We need some more information about these buildings before you can continue.</p>
+        <p class="govuk-body">We need some more information about these energycentres before you can continue.</p>
         </div>
     </div>
 <div class="govuk-grid-row">
@@ -91,70 +91,64 @@
                 <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">{{title}}</caption>
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Building</th>
+                        <th scope="col" class="govuk-table__header">Energy centre</th>
                         <th scope="col" class="govuk-table__header">Address</th>
-                        {% if data.role != "Network operator" %}
-                        <th scope="col" class="govuk-table__header">Type</th>
-                        <th scope="col" class="govuk-table__header">Customers</th>
-                        <th scope="col" class="govuk-table__header">Metering</th>
-                        {% endif %}
+                        <th scope="col" class="govuk-table__header">Energy type</th>
+                        <th scope="col" class="govuk-table__header">Capacity</th>
+
+                        <th scope="col" class="govuk-table__header">Technology</th>
                         <th scope="col" class="govuk-table__header"></th>
                     </tr>
 
                 </thead>
                 <tbody class="govuk-table__body">
-                    {% if (data.buildings >= 1) %}
+                    {% if (data.energycentres >= 1) %}
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Building 1</td>
+                        <td class="govuk-table__cell">Energy centre 1</td>
                         <td class="govuk-table__cell">
-                            {% if data.buildinglocationAddress %}
-                            {% set address = data.buildinglocationAddress.toString() %}
+                            {% if data.ecaddressSelected %}
+                            {% set address = data.ecaddressSelected.toString() %}
                             {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
 
                             {% else %}
                             -
                             {% endif %}
                             </td>
-                                <td class="govuk-table__cell">{% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}</td>
-                                <td class="govuk-table__cell">
-                                    {% if data.buildingaddressCustomers %}
-                                    {{data.buildingaddressCustomers}}
-                                    {% else %}
-                                    -
-                                    {% endif %}
-                                </td>
-                            <td class="govuk-table__cell">
-                            {% if data.meteringregulations != "Yes" %}
-                            {% if data.buildinglevelmeter %}Building level meter: {{data.buildinglevelmeter}}{% else %} - {% endif %}
-                            {% if data.finalconsumermeters == "Yes" %}<br />Final consumer meters: {{data.finalconsumermetersnumber}}{% endif %}
-                            {% if data.heatcostallocators == "Yes" %}<br />Heat cost allocators: {{data.heatcostallocatorsnumber}}{% endif %}
-                            {% if data.prepaymentmeters == "Yes" %}<br />Pre-payment meters: {{data.prepaymentmetersnumber}}{% endif %}
-                            {% if data.smartdisplaymeters == "Yes" %}
-                            <br />Smart display meters: {{data.smartdisplaymetersnumber}}
-                            <br />Smart technologies:{% if data.smarttechnologies.length > 1 %}<br />{% endif %} {% for technology in data.smarttechnologies %}{{technology}} <br />{% endfor %}
-                            {% endif %}
+                                <td class="govuk-table__cell">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% else %} - {% endif %}</td>
 
+                                <td class="govuk-table__cell">{% if data.techcapacity or data.techcoolingcapacity %}{% if data.techcapacity %}Heating: {{data.techcapacity}}KW <br />{% endif %}{% if data.techcoolingcapacity %}Cooling: {{data.techcoolingcapacity}}KW {% endif %}{% else %} - {% endif %}</td>
+
+                            <td class="govuk-table__cell">                   
+                                {% if data.technologies %} {% for technology, energysource, year in data.technologies %}
+                                {{technology}}
+                                <br />
+                                Source:
+                                {{energysource}}
+                                <br />
+                                Started: {{year}}
+                                <br /><br />
+                                {% endfor %}
                             {% else %}
-                            Exempt
-                            {% endif %}
-                            </td>
-    
+                        -
+                    {% endif %}</td>
 
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">{% if data.buildinglocationAddress %}Edit{% else %}Add information{% endif %}</a></td>
+
+                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">{% if data.ecaddressSelected %}Edit{% else %}Add information{% endif %}</a></td>
                     </tr>
 
-                    {% for i in range(1, data.buildings) -%}
+                    {% for i in range(1, data.energycentres) -%}
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Building {{ i + 1 }}</td>
+                        <td class="govuk-table__cell">Energy centre {{ i + 1 }}</td>
                         <td class="govuk-table__cell">
                             -
                         </td>
                         {% if data.role != "Network operator" %}
                             <td class="govuk-table__cell">-</td>
                             <td class="govuk-table__cell">-</td>
-                            <td class="govuk-table__cell">-</td>
 
-
+                            <td class="govuk-table__cell">
+                                -
+                            </td>
                         {% endif %}
 
                         <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">Add information</a></td>

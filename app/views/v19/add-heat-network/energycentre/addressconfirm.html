@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
+{% if (data.energycentres > 1) %}
+{% set title = "Energy centre 1: Confirm address " %}
+{% else %}
 {% set title = "Confirm address" %}
+{% endif %}
 
 
 {% block pageTitle %}

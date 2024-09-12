@@ -1,6 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the combined heating and hot water capacity of the energy centre?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set title = "How many energycentres on the heat network does your organisation operate?" %}
 
 
 {% block pageTitle %}
@@ -49,36 +48,43 @@
         {% endif %}
         <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.techcapacity %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.energycentres %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" >
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            What counts as an energy centre?
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                          TBC
+                        </div>
+                      </details>
 
-                  <p class="govuk-body">The capacity is the maximum combined output of all heating and hot water sources on the network.</p>
-                  <p class="govuk-body">The capacity in kilowatts (kW) is usually written on the boiler(s) or pumps, or in the technical documentation. If not, ask your service engineer to give you this information.</p>
-
-                                        {% if data.validationErrors.techcapacity %}
+                    <p class="govuk-body">Remember to include energycentres on the network blah blah blah.</p>
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                          Number of energycentres
+                        </legend>
+                        {% if data.validationErrors.energycentres %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.techcapacity.message}}
+                        {{data.validationErrors.energycentres.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-date-input" id="supply-date">
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-input__label" for="techcapacity">
-                                    Combined capacity
-                                </label>
-                                <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techcapacity %}govuk-input--error{% endif %} govuk-input--width-5" id="techcapacity" name="techcapacity" type="number" spellcheck="false" value="{{data.techcapacity}}">
-    <div class="govuk-input__suffix" aria-hidden="true">kW</div>
-  </div>
+                                <input class="govuk-input {% if data.validationErrors.energycentres %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="energycentres" name="energycentres" type="text" inputmode="numeric" value="{{data.energycentres}}">
                             </div>
                         </div>
                     </div>
@@ -90,7 +96,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
         </form>

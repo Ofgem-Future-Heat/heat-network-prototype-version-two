@@ -1,7 +1,10 @@
 {% extends 'layouts/main.html' %}
 
-    {% set title = "Energy centre location" %}
-
+{% if (data.energycentres > 1) %}
+{% set title = "Energy centre 1: Find address " %}
+{% else %}
+{% set title = "Find energy centre address" %}
+{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 

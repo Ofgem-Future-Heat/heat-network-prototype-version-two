@@ -3502,6 +3502,82 @@ router.post('/' + version + '/add-heat-network/confirmchange', function (req, re
 
 });
 
+// Energy centre - How many
+router.get('/' + version + '/add-heat-network/energycentre/howmany', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/energycentre/howmany', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/howmany', function (req, res) {
+    clearvalidation(req);
+    var energycentres = req.session.data['energycentres']
+
+
+    if (!energycentres) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildings = {
+            "anchor": "energycentres",
+            "message": "Enter the number of energy centres"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/howmany', {
+            data: req.session.data
+        });
+    }
+
+
+    else {
+        if (energycentres == 1) {
+            res.redirect('/' + version + '/add-heat-network/energycentre/address');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/energycentre/energycentres');
+        }
+    }
+
+});
+
+
+// Buildings & consumers - Buildings
+router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
+    clearvalidation(req);
+    var ecaddressSelected = req.session.data['ecaddressSelected']
+
+    if (!ecaddressSelected) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildings = {
+            "anchor": "buildings",
+            "message": "Fill in all energy centre information before continuing",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/energycentre/cya');
+    }
+});
+
+
+
 
 
 
@@ -3664,12 +3740,12 @@ router.get('/' + version + '/add-heat-network/energycentre/type', function (req,
 
 router.post('/' + version + '/add-heat-network/energycentre/type', function (req, res) {
     clearvalidation(req);
-    var services = req.session.data['service']
+    var energytypes = req.session.data['energytype']
 
-    if (!services) {
+    if (!energytypes) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.services = {
-            "anchor": "services",
+        req.session.data.validationErrors.energytypes = {
+            "anchor": "energytypes",
             "message": "Select a thermal energy type",
         }
     }
@@ -3680,8 +3756,13 @@ router.post('/' + version + '/add-heat-network/energycentre/type', function (req
         });
     }
 
-    else {
+    else {    
+        if (energytypes == "Cooling" ) {
+            res.redirect('/' + version + '/add-heat-network/energycentre/coolingcapacity');
+        }
+        else {
         res.redirect('/' + version + '/add-heat-network/energycentre/capacity');
+        }
 
     }
 
@@ -3698,6 +3779,7 @@ router.get('/' + version + '/add-heat-network/energycentre/capacity', function (
 router.post('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
     clearvalidation(req);
     var techcapacity = req.session.data['techcapacity']
+    var energytype = req.session.data['energytype']
 
     if (!techcapacity) {
         req.session.data.validationError = "true"
@@ -3713,41 +3795,87 @@ router.post('/' + version + '/add-heat-network/energycentre/capacity', function 
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/storage');
+
+ if (Array.isArray(energytype) && energytype.includes("Cooling")) {
+    res.redirect('/' + version + '/add-heat-network/energycentre/coolingcapacity');
+} else {
+        res.redirect('/' + version + '/add-heat-network/energycentre/meters');
+    }
+
+
     }
 });
 
 
-// Energy centre - storage
-router.get('/' + version + '/add-heat-network/energycentre/storage', function (req, res) {
+// Energy centre - coolingcapacity
+router.get('/' + version + '/add-heat-network/energycentre/coolingcapacity', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/energycentre/storage', {
+    res.render('/' + version + '/add-heat-network/energycentre/coolingcapacity', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/add-heat-network/energycentre/storage', function (req, res) {
+router.post('/' + version + '/add-heat-network/energycentre/coolingcapacity', function (req, res) {
     clearvalidation(req);
-    var techstorage = req.session.data['techstorage']
+    var techcoolingcapacity = req.session.data['techcoolingcapacity']
+    var services = req.session.data['service']
 
-
-    if (!techstorage) {
+    if (!techcoolingcapacity) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.techstorage = {
-            "anchor": "techstorage",
-            "message": "Select if the system is capable of thermal storage"
+        req.session.data.validationErrors.techcoolingcapacity = {
+            "anchor": "techcoolingcapacity",
+            "message": "Enter a cooling capcity"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/storage', {
+        res.render('/' + version + '/add-heat-network/energycentre/coolingcapacity', {
+            data: req.session.data
+        });
+    }
+    else {
+
+
+        res.redirect('/' + version + '/add-heat-network/energycentre/meters');
+
+
+
+    }
+});
+
+
+
+// Energy centre - meters
+router.get('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/energycentre/meters', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
+    clearvalidation(req);
+    var techmeters = req.session.data['techmeters']
+
+
+    if (!techmeters) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.techmeters = {
+            "anchor": "techmeters",
+            "message": "Select if the system is capable of thermal meters"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/meters', {
             data: req.session.data
         });
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/electricity');
+        res.redirect('/' + version + '/add-heat-network/energycentre/technology');
     }
 
 });
@@ -3909,6 +4037,7 @@ router.get('/' + version + '/add-heat-network/energycentre/summary', function (r
 router.post('/' + version + '/add-heat-network/energycentre/summary', function (req, res) {
     clearvalidation(req);
     var techsummaryother = req.session.data['techsummaryother']
+    var energycentres = req.session.data['energycentres']
 
     if (!techsummaryother) {
         req.session.data.validationError = "true"
@@ -3934,7 +4063,14 @@ router.post('/' + version + '/add-heat-network/energycentre/summary', function (
         )
 
         if (techsummaryother == "No") {
-            res.redirect('/' + version + '/add-heat-network/energycentre/another');
+            if (energycentres > 1) {
+                res.redirect('/' + version + '/add-heat-network/energycentre/energycentres');
+
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/energycentre/cya');
+
+            }
         } else {
             req.session.data['techtechnology'] = "";
             req.session.data['technologyother'] = "";
@@ -3950,40 +4086,40 @@ router.post('/' + version + '/add-heat-network/energycentre/summary', function (
 });
 
 
-// Energy centre - Another
-router.get('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/energycentre/another', {
-        data: req.session.data
-    });
-});
+// // Energy centre - Another
+// router.get('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
+//     clearvalidation(req);
+//     res.render('/' + version + '/add-heat-network/energycentre/another', {
+//         data: req.session.data
+//     });
+// });
 
 
-router.post('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
-    clearvalidation(req);
-    var techanother = req.session.data['techanother']
+// router.post('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
+//     clearvalidation(req);
+//     var techanother = req.session.data['techanother']
 
 
-    if (!techanother) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techanother = {
-            "anchor": "techanother",
-            "message": "Select if the system is capable of thermal electricity"
-        }
-    }
+//     if (!techanother) {
+//         req.session.data.validationError = "true"
+//         req.session.data.validationErrors.techanother = {
+//             "anchor": "techanother",
+//             "message": "Select if the system is capable of thermal electricity"
+//         }
+//     }
 
 
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/another', {
-            data: req.session.data
-        });
-    }
+//     if (req.session.data.validationError == "true") {
+//         res.render('/' + version + '/add-heat-network/energycentre/another', {
+//             data: req.session.data
+//         });
+//     }
 
-    else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/cya');
-    }
+//     else {
+//         res.redirect('/' + version + '/add-heat-network/energycentre/cya');
+//     }
 
-});
+// });
 
 // Energy centre - cya
 router.get('/' + version + '/add-heat-network/energycentre/cya', function (req, res) {
@@ -4465,23 +4601,8 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
     
         else {
             req.session.data['buildingaddressCustomers'] = Number(addresscustomersResidential) + Number(addresscustomersCommercial) + Number(addresscustomersIndustrial) + Number(addresscustomersPublic)
-            if (buildings > 1){
-                if (addresscustomersResidential >= 1) {
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities');
-                }
-                else {
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-                }
-            }
-            else {
-                if (addresscustomersCommercial >= 1) {
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
-                }
-                else {
                     res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
-                }   
-            }
-    
+      
         }
     }
 
@@ -4735,11 +4856,104 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
     }
 
     else {
+        if (smartdisplaymeters == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies');
+        }
+        else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        }
 
-            
+
     }
 });
+
+
+
+// Buildings & consumers -  Smart display meters
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
+    clearvalidation(req);
+    var smartdisplaymeters = req.session.data['smartdisplaymeters']
+    var smartdisplaymetersnumber = req.session.data['smartdisplaymetersnumber']
+
+
+    if (!smartdisplaymeters) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smartdisplaymeters = {
+            "anchor": "smartdisplaymeters",
+            "message": "Select whether any dwellings have smart display meters",
+        }
+    }
+
+    if (smartdisplaymeters == "Yes" && !smartdisplaymetersnumber) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smartdisplaymetersnumber = {
+            "anchor": "smartdisplaymetersnumber",
+            "message": "Enter how many dwellings have smart display meters",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (smartdisplaymeters == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        }
+
+
+    }
+});
+
+
+
+// Buildings & consumers -  Smart display meters technologies
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', function (req, res) {
+    clearvalidation(req);
+    var smarttechnologies = req.session.data['smarttechnologies']
+
+
+    if (!smarttechnologies) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smarttechnologies = {
+            "anchor": "smarttechnologies",
+            "message": "Select which technologies are offered.",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+    }
+});
+
 
 // Buildings & consumers -  Building level meters
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', function (req, res) {
@@ -4935,6 +5149,40 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/agent', fun
     }
 });
 
+// Metering - agentservices services
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', function (req, res) {
+    clearvalidation(req);
+    var meteringagentservices = req.session.data['meteringagentservices']
+
+    if (!meteringagentservices) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.meteringagentservices = {
+            "anchor": "meteringagentservices",
+            "message": "Select  which services you use your metering and billing agent for?",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+    }
+});
+
 // Metering - agent name
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/agent-name', function (req, res) {
     clearvalidation(req);
@@ -4966,7 +5214,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/agent-name'
     }
     else {
 
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agentservices');
 
 
     }

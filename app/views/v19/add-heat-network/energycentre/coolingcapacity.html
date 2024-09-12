@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the combined heating and hot water capacity of the energy centre?" %}
+{% set title = "What is the cooling capacity of the energy centre?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -49,7 +49,7 @@
         {% endif %}
         <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.techcapacity %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.techcoolingcapacity %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" >
 
@@ -64,19 +64,19 @@
                   <p class="govuk-body">The capacity is the maximum combined output of all heating and hot water sources on the network.</p>
                   <p class="govuk-body">The capacity in kilowatts (kW) is usually written on the boiler(s) or pumps, or in the technical documentation. If not, ask your service engineer to give you this information.</p>
 
-                                        {% if data.validationErrors.techcapacity %}
+                                        {% if data.validationErrors.techcoolingcapacity %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.techcapacity.message}}
+                        {{data.validationErrors.techcoolingcapacity.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-date-input" id="supply-date">
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-input__label" for="techcapacity">
+                                <label class="govuk-label govuk-input__label" for="techcoolingcapacity">
                                     Combined capacity
                                 </label>
-                                <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techcapacity %}govuk-input--error{% endif %} govuk-input--width-5" id="techcapacity" name="techcapacity" type="number" spellcheck="false" value="{{data.techcapacity}}">
+                                <div class="govuk-input__wrapper"><input class="govuk-input {% if data.validationErrors.techcoolingcapacity %}govuk-input--error{% endif %} govuk-input--width-5" id="techcoolingcapacity" name="techcoolingcapacity" type="number" spellcheck="false" value="{{data.techcoolingcapacity}}">
     <div class="govuk-input__suffix" aria-hidden="true">kW</div>
   </div>
                             </div>

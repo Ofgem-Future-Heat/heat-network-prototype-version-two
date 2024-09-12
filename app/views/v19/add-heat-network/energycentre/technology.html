@@ -1,5 +1,10 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Which technology in your network provides the largest proportion of the heat energy?" %}
+{% if data.technologies %}
+{% set title = "Which additional technology provides heat energy in this energy centre?" %}
+
+{% else %}
+{% set title = "Which technology provides the largest proportion of the heat energy in this energy centre?" %}
+{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}

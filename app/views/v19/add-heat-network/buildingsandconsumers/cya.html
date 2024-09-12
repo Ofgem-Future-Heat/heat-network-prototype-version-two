@@ -125,6 +125,18 @@
                     <a class="govuk-link" href="agent-name">Change</a>
                 </dd>
             </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Which services does the metering and billing agent provide?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for service in data.meteringagentservices %}{{service}} <br />{% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent-name">Change</a>
+                </dd>
+            </div>
             {% endif %}
         </dl>
         <form method="POST" novalidate>

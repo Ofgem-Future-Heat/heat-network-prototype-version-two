@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What types of thermal energy does the heat network supply to customers?" %}
+
+{% set title = "What types of thermal energy does the energy centre supply to customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,7 +52,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.services %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.energytypes %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -64,44 +65,44 @@
                     </legend>
                     <p class="govuk-body">Select all that apply:</p>
 
-                    {% if data.validationErrors.services %}
+                    {% if data.validationErrors.energytypes %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.services.message}}
+                        {{data.validationErrors.energytypes.message}}
                     </p>
                     {% endif %}
 
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="service" name="service" type="checkbox" value="Space heating" aria-describedby="service-hint" {% for service in data.service %}{% if service=='Space heating' %}checked{% endif %}{% endfor %}>
-                            <label class="govuk-label govuk-checkboxes__label" for="service">
+                            <input class="govuk-checkboxes__input" id="energytype" name="energytype" type="checkbox" value="Space heating" aria-describedby="energytype-hint" {% for energytype in data.energytype %}{% if energytype=='Space heating' %}checked{% endif %}{% endfor %}>
+                            <label class="govuk-label govuk-checkboxes__label" for="energytype">
                                 Space heating
                             </label>
-                            <div id="service1-hint" class="govuk-hint govuk-checkboxes__hint">
+                            <div id="energytype1-hint" class="govuk-hint govuk-checkboxes__hint">
                                 For example, heat that's used to increase the ambient temperature of a domestic or office space
                             </div>
                         </div>
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="service2" name="service" type="checkbox" value="Process heating" aria-describedby="service2-hint" {% for service in data.service %}{% if service=='Process heating' %}checked{% endif %}{% endfor %} >
-                            <label class="govuk-label govuk-checkboxes__label" for="service2">
+                            <input class="govuk-checkboxes__input" id="energytype2" name="energytype" type="checkbox" value="Process heating" aria-describedby="energytype2-hint" {% for energytype in data.energytype %}{% if energytype=='Process heating' %}checked{% endif %}{% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="energytype2">
                                 Process heating
                             </label>
-                            <div id="service2-hint" class="govuk-hint govuk-checkboxes__hint">
+                            <div id="energytype2-hint" class="govuk-hint govuk-checkboxes__hint">
                                For example, heat that's used for industrial processes
                             </div>
                         </div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service3" name="service" type="checkbox" value="Hot water" aria-describedby="service3-hint" {% for service in data.service %}{% if service=='Hot water' %}checked{% endif %}{% endfor %}>
-                        <label class="govuk-label govuk-checkboxes__label" for="service3">
+                        <input class="govuk-checkboxes__input" id="energytype3" name="energytype" type="checkbox" value="Hot water" aria-describedby="energytype3-hint" {% for energytype in data.energytype %}{% if energytype=='Hot water' %}checked{% endif %}{% endfor %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="energytype3">
                             Hot water
                         </label>
                     </div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="service4" name="service" type="checkbox" value="Cooling" aria-describedby="service4-hint" {% for service in data.service %}{% if service=='Cooling' %}checked{% endif %}{% endfor %}>
-                        <label class="govuk-label govuk-checkboxes__label" for="service4">
+                        <input class="govuk-checkboxes__input" id="energytype4" name="energytype" type="checkbox" value="Cooling" aria-describedby="energytype4-hint" {% for energytype in data.energytype %}{% if energytype=='Cooling' %}checked{% endif %}{% endfor %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="energytype4">
                             Cooling
                         </label>
-                            <div id="service4-hint" class="govuk-hint govuk-checkboxes__hint">
+                            <div id="energytype4-hint" class="govuk-hint govuk-checkboxes__hint">
                                Do not include cooling systems that rely on local compressors, purely ducted air, or variable refrigerant volume or flow (VRV/VRF)
                             </div>
 

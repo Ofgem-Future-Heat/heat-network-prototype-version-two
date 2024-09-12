@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What energy source does your " + data.techtechnology.toLowerCase() + " use?" %}
+{% set title %} 
+What energy source does your energy centre's {% if data.techtechnology %} {{data.techtechnology | lower }} {% endif %} use? 
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}

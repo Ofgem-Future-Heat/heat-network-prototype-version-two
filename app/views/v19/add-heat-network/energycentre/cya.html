@@ -38,117 +38,54 @@
 
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-{% if data.buildings2 > 1 %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address of energy centre
+                    Energy centre {% if (data.energycentres > 1) %}1{% endif %}
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.ecAddress %}
-                        {% set address = data.ecAddress.toString() %}
-                        {{address | replace(", ", ",<br />") | safe}}
-                        {% endif %}
-                        {% if data.ecaddressnearest == "true" %}<br /><br />This is the address of the nearest building to the energy centre {% endif %}
+                    {% if data.ecaddressSelected %}
+                    {% set address = data.ecaddressSelected.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    {% endif %}
+                    <br /><br />
+                    <strong>Energy type{% if data.energytype.length > 1 %}s: <br />{% else %}:{% endif %}</strong>{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% endif %}
+                    <br />
+                    <strong>Capacity:</strong>{% if data.techcapacity and data.techcoolingcapacity %}<br />{% endif %}{% if data.techcapacity or data.techcoolingcapacity %}{% if data.techcapacity %}Heating: {{data.techcapacity}}kW <br />{% endif %}{% if data.techcoolingcapacity %}Cooling: {{data.techcoolingcapacity}}kW {% endif %}{% endif %}
+                    <br /><br />
+                    <strong>{% if data.technologies.length > 1 %}Technolgies{% else %}Technolgy{% endif %}:</strong><br />
+                    {% if data.technologies %} {% for technology, energysource, year in data.technologies %}
+                    {% if data.technologies.length > 1 %}Technology {{loop.index}}: {% endif %}{{technology}}
+                                <br />
+                                Source:
+                                {{energysource}}
+                                <br />
+                                Started: {{year}}
+                                <br /><br />
+                                {% endfor %}
+                    {% endif %}
+
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> energy centre address</span></a>
+                    <a class="govuk-link" href="energycentres">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
-            {% endif %}
+            {% if (data.energycentres > 1) %}
+            {% for i in range(1, data.energycentres) -%}
+ 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Which types of thermal energy does your organisation supply?
+                    Energy centre {{ i + 1}}
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.service}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> type</span></a>
+                    <a class="govuk-link" href="energycentres">Change<span class="govuk-visually-hidden"> type</span></a>
                 </dd>
             </div>
+        {% endfor %}
+        {% endif %}
 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    What is the combined heating and hot water capacity of the heat network?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.techcapacity}} kW
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="capacity">Change<span class="govuk-visually-hidden"> capacity</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    What is the combined heating and hot water generation of the heat network per calendar year?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.techgeneration}} kWh {% if data.techgenerationestimate=="yes" %}(estimated){% endif %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="generation">Change<span class="govuk-visually-hidden"> generation</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Is the system capable of thermal storage?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.techstorage}}
-                    {% if data.techstoragecapacity %}
-                    <br />{{data.techstoragecapacity}} m&#179;
-                    {% endif %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="storage">Change<span class="govuk-visually-hidden"> supply</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Does the system produce electricity?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.techelectricity}}
-                    {% if data.techelectricitygeneration %}
-                    <br />{{data.techelectricitygeneration}} kWh 
-                    {% endif %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="electricity">Change<span class="govuk-visually-hidden"> supply</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Technologies used for your heat network
-                </dt>
-                <dd class="govuk-summary-list__value">
-
-                    {% for technology, energysource, year in data.technologies %}
-                    <strong>Technology:</strong>
-                    {{technology}}
-                    <br />
-                    <strong>Energy source:</strong>
-                    {{energysource}}
-                    <br />
-                    <strong>Started:</strong> {{year}}
-                    <br /><br />
-                    {% endfor %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="summary">Change<span class="govuk-visually-hidden"> supply</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Does your organisation sell heat from this network to another organisation?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.techanother}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="another">Change<span class="govuk-visually-hidden"> supply</span></a>
-                </dd>
-            </div>
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="eccomplete" name="eccomplete" value="true" />
