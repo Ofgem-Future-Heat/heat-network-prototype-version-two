@@ -1,18 +1,19 @@
 {% extends 'layouts/main.html' %}
+{% set title = "Permissions for " + data.userfirstname + " " + data.userlastname %}
 {% set _inError = data.validationError == "true"  %}
 
 
-
+{% block pageTitle %}
+{{title}}
+{% endblock %}
 
 {% block beforeContent %}
-
-
-
-
 
 <div class="govuk-grid-row">
 
   <div class="govuk-grid-column-full">
+
+
 
     {% include data.version + "/_partials/headerlinks.html" %}
 
@@ -23,54 +24,6 @@
 {% endblock %}
 
 {% block content %}
-
-{% set users = [] %}
-
-{% for i in range(data.userid, data.userid + 1) %}
-    {% set users = users.concat([{
-        "firstname": data["userfirstname" ~ i],
-        "lastname": data["userlastname" ~ i],
-        "id": i,
-        "thirdparty": data["userthirdparty" ~ i],
-        "usermanagement": data["adduserpermissionsusermanagement" ~ i],
-        "monitoring": data["adduserpermissionsmonitoring" ~ i],
-        "registration": data["adduserpermissionsregistration" ~ i],
-        "view": data["adduserpermissionsview" ~ i]
-
-  }]) %}
-{% endfor %}
-
-{% for user in users %}
-{% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-{% set title = "Permissions for " + name %}
-
-{% if data.manageusersnotification %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Success
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-    <h3 class="govuk-notification-banner__heading">
-      
-      {% if data.manageusersnotification == 'reactivated' %}
-     {{data.deletedusername}} has been reactivated for the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
-
-      {% endif %}
-      {% if data.manageusersnotification == 'editthirdparty' %}
-      {{user.firstname}} {{user.lastname}}'s third party status has been changed for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
-
-      {% endif %}
-    </h3>
-    <p class="govuk-body">We've let them know via email.</p>
-  </div>
-</div>
-</div>
-</div>
-{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -90,24 +43,40 @@
         </div>
     </div>
     {% endif %}
+
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {{data.userfirstname}} {{data.userlastname}} has been added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+        </h3>
+        <p class="govuk-body">We've let them know via email.</p>
+
+      </div>
+    </div>
+
     <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+    <h2 class="govuk-heading-m">Default permissions</h2>
     <form method="post" novalidate>
-      <h2 class="govuk-heading-m">Default permissions</h2>
 
-
-      {% if user.thirdparty == "Yes" %}
+      {% if data.userthirdparty == "Yes" %}
       <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added to the service.</p>
       {% else %}
       <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Change additional permissions</caption>
 
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Select additional permissions</caption>
         <thead class="govuk-table__head govuk-visually-hidden">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Permission</th>
@@ -115,7 +84,7 @@
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-          {% if user.thirdparty == "Yes" %}
+          {% if data.userthirdparty == "Yes" %}
 
           <tr class="govuk-table__row">
             <fieldset class="govuk-fieldset">
@@ -127,14 +96,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-view-1" name="edituserpermissionsview" type="radio" value="View all heat network information" {% if user.view %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-view-1" name="adduserpermissionsview" type="radio" value="View all heat network information" {% if data.adduserpermissionsview %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-view-2" name="edituserpermissionsview" type="radio" value="" {% if not user.view %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-view-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-view-2" name="adduserpermissionsview" type="radio" value="" {% if not data.adduserpermissionsview %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-view-2">
                       No
                     </label>
                   </div>                
@@ -156,14 +125,14 @@
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-registration-1" name="edituserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if user.registration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-1" name="adduserpermissionsregistration" type="radio" value="Add or edit heat network information" {% if data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-registration-2" name="edituserpermissionsregistration" type="radio" value="" {% if not user.registration %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-registration-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-registration-2" name="adduserpermissionsregistration" type="radio" value="" {% if not data.adduserpermissionsregistration %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-registration-2">
                       No
                     </label>
                   </div>                
@@ -179,14 +148,14 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-1" name="edituserpermissionsmonitoring" type="radio" value="Send heat network information" {% if user.monitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-1" name="adduserpermissionsmonitoring" type="radio" value="Send heat network information" {% if data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-monitoring-2" name="edituserpermissionsmonitoring" type="radio" value="" {% if not user.monitoring %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-monitoring-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-monitoring-2" name="adduserpermissionsmonitoring" type="radio" value="" {% if not data.adduserpermissionsmonitoring %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-monitoring-2">
                       No
                     </label>
                   </div>                
@@ -202,14 +171,14 @@
             <td class="govuk-table__cell govuk-!-width-one-third">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-1" name="edituserpermissionsusermanagement" type="radio" value="User management" {% if user.usermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-1">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-1" name="adduserpermissionsusermanagement" type="radio" value="User management" {% if data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-1">
                       Yes
                     </label>
                   </div>
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="edituserpermissions-usermanagement-2" name="edituserpermissionsusermanagement" type="radio" value="" {% if not user.usermanagement %}checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="edituserpermissions-usermanagement-2">
+                    <input class="govuk-radios__input" id="adduserpermissions-usermanagement-2" name="adduserpermissionsusermanagement" type="radio" value="" {% if not data.adduserpermissionsusermanagement %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="adduserpermissions-usermanagement-2">
                       No
                     </label>
                   </div>                
@@ -217,8 +186,16 @@
             </td>
           </fieldset>
           </tr>
-        </tbody>
-      </table>
+
+
+              </tbody>
+            </table>
+
+    
+
+
+      <input type="hidden" id="addeduser" name="addeduser{{data.usertotal}}" value="true" />
+
 
 
       <div class="govuk-button-group">
@@ -227,11 +204,10 @@
               html: 'Save'
           })
         }}
-    </div>
+      </div>
 </form>
 
   </div>
 </div>
-{% endfor %}
-{% endblock %}
 
+{% endblock %}

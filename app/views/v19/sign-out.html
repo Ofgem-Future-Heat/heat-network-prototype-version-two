@@ -1,0 +1,65 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You have signed out of the service" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block beforeContent %}
+
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <p class="govuk-body">
+                        Some text here please
+                    </p>
+
+
+                </fieldset>
+
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

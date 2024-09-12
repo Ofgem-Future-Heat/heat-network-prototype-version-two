@@ -1,0 +1,127 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What types of thermal energy does the heat network supply to customers?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.services %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">Select all that apply:</p>
+
+                    {% if data.validationErrors.services %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.services.message}}
+                    </p>
+                    {% endif %}
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="service" name="service" type="checkbox" value="Space heating" aria-describedby="service-hint" {% for service in data.service %}{% if service=='Space heating' %}checked{% endif %}{% endfor %}>
+                            <label class="govuk-label govuk-checkboxes__label" for="service">
+                                Space heating
+                            </label>
+                            <div id="service1-hint" class="govuk-hint govuk-checkboxes__hint">
+                                For example, heat that's used to increase the ambient temperature of a domestic or office space
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="service2" name="service" type="checkbox" value="Process heating" aria-describedby="service2-hint" {% for service in data.service %}{% if service=='Process heating' %}checked{% endif %}{% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="service2">
+                                Process heating
+                            </label>
+                            <div id="service2-hint" class="govuk-hint govuk-checkboxes__hint">
+                               For example, heat that's used for industrial processes
+                            </div>
+                        </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="service3" name="service" type="checkbox" value="Hot water" aria-describedby="service3-hint" {% for service in data.service %}{% if service=='Hot water' %}checked{% endif %}{% endfor %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="service3">
+                            Hot water
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="service4" name="service" type="checkbox" value="Cooling" aria-describedby="service4-hint" {% for service in data.service %}{% if service=='Cooling' %}checked{% endif %}{% endfor %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="service4">
+                            Cooling
+                        </label>
+                            <div id="service4-hint" class="govuk-hint govuk-checkboxes__hint">
+                               Do not include cooling systems that rely on local compressors, purely ducted air, or variable refrigerant volume or flow (VRV/VRF)
+                            </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+
+    </div>
+    {{
+                govukButton ({
+                    html: 'Continue'
+                })
+    }}
+    </form>
+    <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} main page</a>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Give this heat network a name" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group ">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <p class="govuk-body">This can be any name that makes sense to you. It will be added to a public list of authorised heat networks in Great Britain.</p>
+
+                    <p class="govuk-body">We will also give you a unique ID for the heat network after you submit your information.</p>
+
+                            <div class="govuk-form-group {% if data.validationErrors.name %}govuk-form-group--error{% endif %}">
+                                <label class="govuk-label govuk-label--s" for="name">
+                                    Heat network name
+                                </label>
+                                
+                    {% if data.validationErrors.name %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.name.message}}
+                    </p>
+                    {% endif %}
+                            <input class="govuk-input {% if data.validationErrors.name %}govuk-input--error{% endif %}  govuk-input--width-8" id="name" name="name" type="text" value="{{data.name}}">
+                        </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

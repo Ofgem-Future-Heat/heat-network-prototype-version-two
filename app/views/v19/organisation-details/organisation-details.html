@@ -1,0 +1,469 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Organisation details
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+      <div class="govuk-grid-column-full">
+
+        <div class="govuk-breadcrumbs">
+          <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+              <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
+            </li>
+
+          </ol>
+        </div>
+  
+        {% include data.version + "/_partials/headerlinks.html" %}
+      </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if data.orgdetailsnotification %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      {% if data.orgdetailsnotification == 'submitted' %}
+      Organisation details for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have been saved
+      {% endif %}
+    </h3>
+  </div>
+</div>
+</div>
+</div>
+{% endif %}
+
+
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+       
+        <span class="govuk-caption-l">{% if data.companyname %}
+          {{data.companyname}}
+          {% else %}
+          Radienteco Ltd
+          {% endif %}</span>
+
+            <h1 class="govuk-heading-l">{{title}}</h1>
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if data.companyname %}
+      {{data.companyname}}
+      {% else %}
+      Radienteco Ltd
+      {% endif %}
+                </dd>
+
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                 Type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if data.accounttype %}
+                  {{data.accounttype}}
+                  {% else %}
+                  UK company registered with Companies House
+                  {% endif %}
+                </dd>
+
+              </div>
+              {% if data.accounttype == "UK company registered with Companies House" %}
+              <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Company number
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {% if data.companynumber %}
+                    {{data.companynumber}}
+                    {% else %}
+                    1241241
+                    {% endif %}
+                    
+                  </dd>
+                </div>
+                {% endif %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Address
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {% if data.orgaddressSelect %} 
+                {% set address = data.orgaddressSelect.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                {% else %}
+                19 Grosvenor Road <br />
+                Solihull <br />
+                B91 3PU
+                {% endif %} 
+            </dd>
+          </div>
+
+          {% if data.organisationdetails == "Submitted" %}
+          {% if data.orghastradingname %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Organisation trades using a different name?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orghastradingname}}
+            </dd>
+
+          </div>
+          {% endif %}
+          {% if data.orgtradingname %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Trading name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgtradingname}}
+            </dd>
+  
+          </div>
+          {% endif %}
+          {% if data.orghastradingaddress %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Organisation uses a different address?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orghastradingaddress}}
+            </dd>
+
+          </div>
+          {% endif %}
+          {% if data.tradingaddressSelect %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Trading address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% set address = data.tradingaddressSelect.toString() %}
+                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+            </dd>
+
+          </div>
+          {% endif %}
+          {% if data.orgprofit %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              For profit organisation?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgprofit}}
+            </dd>
+  
+          </div>
+          {% endif %}
+          {% if data.orgsubtype %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Organisation description
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgsubtype}}
+            </dd>
+
+          </div>
+          {% endif %}
+          {% if (data.orgsubtype != "Housing association") or (data.orgsubtype != "Local authority") or (data.orgsubtype != "Other social housing provider") %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Start and end of financial year?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Start: {{data.orgfinancialstartday}}/{{data.orgfinancialstartmonth}}<br />
+              End: {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
+
+            </dd>
+  
+          </div>
+          {% endif %}
+          {% if data.orgaccounts %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Accounts for last financial period?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgaccounts}}
+            </dd>
+
+          </div>
+          {% endif %}
+
+          {% if data.orgaccounts == "No" %}
+          {% if data.orgsolvent %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Solvent for the next 12 months?  
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgsolvent}}
+            </dd>
+
+          </div>
+          {% endif %}
+          {% if data.orgsolvent == "No" %}
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              How long is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} solvent for?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgsolventmonths}} months
+            </dd>
+
+          </div>
+          {% endif %}
+
+          {% endif %}
+          {% if data.orgaccounts == "Yes" %}
+
+
+
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Net profit or loss for the most recent financial year
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialprofit}}
+            </dd>
+ 
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Total liquid assets
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialliquid}}
+            </dd>
+
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} exceed it's liabilities?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialexceed}}
+            </dd>
+
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialmonthly}}
+            </dd>
+
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Average monthly income for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialincome}}
+            </dd>
+    
+          </div>
+
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Able to meet its costs as they fall due within the next 12 months
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialauthorised}}
+            </dd>
+  
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.financialhedged}}
+            </dd>
+          </div>
+            {% if data.financialhedged == "Yes" %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                How long are energy needs hedged for?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{data.financiallength}} months
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Percentage of energy needs that are hedged
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{data.financialpercentage}}%
+              </dd>
+            </div>
+
+
+            {% endif %}
+ 
+          
+          {% endif %}
+          
+          {% if data.orgstructure %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Organisation structure
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if data.orgstructure != "Neither of these" %}
+              {{data.orgstructure}}
+              {% else %}
+             No parent company
+              {% endif %}
+            </dd>
+
+          </div>
+          {% if data.orgstructure != "Neither of these" %}
+          {% if data.parenttotal %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Number of parent companies?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.parenttotal}}
+            </dd>
+
+          </div>
+          {% set parents = [] %}
+
+          {% for i in range(1, 100) %}
+              {% set parents = parents.concat([{
+                  "id": i,
+                  "name": data["parentname" ~ i],
+                  "address": data["parentaddressSelect" ~ i]
+              }]) %}
+          {% endfor %}
+          
+        {% for parent in parents %}
+        {% if (parent.id <= data.parenttotal) and parent.name %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Parent organisation {{parent.id}}
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{parent.name}}<br />
+            {{parent.address}}
+            {% set parentaddress = parent.address.toString() %}
+            {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+          </dd>
+
+        </div>
+        {% endif %}
+        {% endfor %}
+          {% else %}
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Parent organisation name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.parentname}}
+            </dd>
+
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Parent organisation address
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% set parentaddress = data.parentaddressSelect.toString() %}
+              {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+            </dd>
+
+          </div>
+          {% endif %}
+          {% endif %}
+          {% endif %}
+        </dl>
+
+        </dl>
+
+            
+            <ul class="govuk-summary-list__actions-list">
+              <li class="govuk-summary-list__actions-list-item">
+                <a href="cya" class="govuk-link govuk-link--no-visited-state">Edit organisation details</a>
+              </li>
+            </ul>
+                      {% else %}
+            </dl>
+            <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information.</p>
+            <a href="intro" class="govuk-button">Add further information</a>
+
+              {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

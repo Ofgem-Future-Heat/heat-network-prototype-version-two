@@ -1,0 +1,103 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Declarations" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+                                <div class="govuk-form-group {% if data.validationErrors.declaration %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+                    <p class="govuk-body">Tick to confirm:</p>
+
+                        {% if data.validationErrors.declaration %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.declaration.message}}
+                </p>
+                {% endif %}
+
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="declaration" name="declaration" type="checkbox" value="declaration1">
+                    <label class="govuk-label govuk-checkboxes__label" for="declaration">
+                       I am authorised by Jane Bloggs (Radianteco's regulatory contact for heat networks) to tell Ofgem about our heat networks.
+                    </label>
+                  </div>
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="declaration-2" name="declaration" type="checkbox" value="declaration2">
+                    <label class="govuk-label govuk-checkboxes__label" for="declaration-2">
+                       I understand that I only need to provide information about heat networks that Radianteco is responsible for.
+                    </label>
+                  </div>
+                </div>
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Confirm and continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

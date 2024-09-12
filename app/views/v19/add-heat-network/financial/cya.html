@@ -1,0 +1,84 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - financial resilience</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you have a customer supply continuity plan (CSCP) in place?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.financialplan}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="plan">Change</a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you have a contractual arrangement with another entity to step in?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.financialarrangement}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="arrangement">Change</a>
+                </dd>
+            </div>
+
+
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="financialcomplete" name="financialcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+        {% if data.financialcomplete == "true" %}
+
+        <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'layouts/email.html' %}
+{% set title = "Invitation to join Ofgem's heat network service" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+            <p class="govuk-body">{{data.userfirstname1}} {{data.userlastname1}} has invited you to {{data.companyname}}'s account for Ofgem's heat networks service</p>
+
+            {% set users = [] %}
+
+            {% for i in range(data.usertotal, data.usertotal + 1) %}
+                {% set users = users.concat([{
+                    "email": data["useremail" ~ i],
+                    "firstname": data["userfirstname" ~ i],
+                    "lastname": data["userlastname" ~ i],
+                    "telephone": data["usertelephone" ~ i],
+                    "jobtitle": data["userjobtitle" ~ i],
+                    "id": i,
+                    "permissions": [
+                    data["adduserpermissionstransfer" ~ i],
+                    data["adduserpermissionsrightsandpowers" ~ i],
+                    data["adduserpermissionsusermanagement" ~ i],
+                    data["adduserpermissionsmonitoring" ~ i],
+                    data["adduserpermissionsregistration" ~ i]
+                ]
+              }]) %}
+            {% endfor %}
+          
+          {% for user in users %}
+          <h2 class="govuk-heading-m">Next steps</h2>
+          <p class="govuk-body">Use {{user.email}} to sign up or sign in by creating an account with 'GOV One Login'. </p>
+          {% endfor %}
+        <form  method="POST" novalidate>
+          <input type="hidden" id="inviteemailcomplete" name="inviteemailcomplete" value="true" />
+          <input type="hidden" id="currentuserid" name="currentuserid" value="{{data.usertotal}}" />
+
+          
+          {{
+              govukButton ({
+                  html: 'Continue to GOV One Login'
+              })
+          }}
+      </form>
+    </div>
+
+</div>
+
+{% endblock %}
