@@ -3555,12 +3555,13 @@ router.get('/' + version + '/add-heat-network/energycentre/energycentres', funct
 
 router.post('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     clearvalidation(req);
-    var ecaddressSelected = req.session.data['ecaddressSelected']
+    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
 
-    if (!ecaddressSelected) {
+
+    if (!ecaddressHasPostcode) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildings = {
-            "anchor": "buildings",
+        req.session.data.validationErrors.ecaddressHasPostcode = {
+            "anchor": "",
             "message": "Fill in all energy centre information before continuing",
         }
     }
@@ -5013,28 +5014,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnol
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', function (req, res) {
-    clearvalidation(req);
-    var smarttechnologies = req.session.data['smarttechnologies']
-
-
-    if (!smarttechnologies) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smarttechnologies = {
-            "anchor": "smarttechnologies",
-            "message": "Select which technologies are offered.",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', {
-            data: req.session.data
-        });
-    }
-
-    else {
-
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-    }
+    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
 });
 
 
@@ -5918,13 +5898,47 @@ router.post('/' + version + '/add-heat-network/financial/plan', function (req, r
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialplan = {
             "anchor": "financialplan",
-            "message": "Tell us whether you have a continuity plan in place",
+            "message": "Tell us whether you have an operation continuity plan in place",
         }
     }
 
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/financial/plan', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/financial/supply');
+    }
+});
+
+
+// Financial - supply
+router.get('/' + version + '/add-heat-network/financial/supply', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/financial/supply', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/' + version + '/add-heat-network/financial/supply', function (req, res) {
+    clearvalidation(req);
+    var financialsupply = req.session.data['financialsupply']
+
+    if (!financialsupply) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialsupply = {
+            "anchor": "financialsupply",
+            "message": "Tell us whether you have a supply continuity plan in place",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/financial/supply', {
             data: req.session.data
         });
     }

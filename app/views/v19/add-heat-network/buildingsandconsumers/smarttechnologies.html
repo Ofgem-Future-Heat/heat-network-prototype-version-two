@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 
-    {% set title = "Which smart technologies are offered in this building?" %}
+    {% set title = "Which smart technologies do you provide so customers in this building can check their real-time energy usage?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -71,7 +71,9 @@
                     {% endif %}
 
 
-
+                    <div id="smarttechnologies-hint" class="govuk-hint">
+                        Select all that apply.
+                      </div>
                     
                     {% if data.validationErrors.smarttechnologies %}
                     <p class="govuk-error-message">
@@ -85,29 +87,22 @@
                             <div class="govuk-checkboxes__item">
                               <input class="govuk-checkboxes__input" id="smarttechnologies" name="smarttechnologies" type="checkbox" value="Technology 1"  {% for technology in data.smarttechnologies %}{% if technology == "Technology 1" %}checked{% endif %} {% endfor %}>
                               <label class="govuk-label govuk-checkboxes__label" for="smarttechnologies">
-                                Technology 1
+                                Website app
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
                               <input class="govuk-checkboxes__input" id="smarttechnologies-2" name="smarttechnologies" type="checkbox" value="Technology 2" {% for technology in data.smarttechnologies %}{% if technology == "Technology 2" %}checked{% endif %} {% endfor %}>
                               <label class="govuk-label govuk-checkboxes__label" for="smarttechnologies-2">
-                                Technology 2
+                                Mobile app
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
                               <input class="govuk-checkboxes__input" id="smarttechnologies-3" name="smarttechnologies" type="checkbox" value="Technology 3" {% for technology in data.smarttechnologies %}{% if technology == "Technology 3" %}checked{% endif %} {% endfor %}>
                               <label class="govuk-label govuk-checkboxes__label" for="smarttechnologies-3">
-                                Technology 3
+                                In-home digital display
                               </label>
                             </div>
 
-                            <div class="govuk-checkboxes__divider">or</div>
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="smarttechnologies-3" name="smarttechnologies" type="checkbox" value="None" data-behaviour="exclusive" {% for technology in data.smarttechnologies %}{% if technology == "None" %}checked{% endif %} {% endfor %}>
-                                <label class="govuk-label govuk-checkboxes__label" for="smarttechnologies-3">
-                                  None of the above
-                                </label>
-                              </div>
                             </div>
 
                 </fieldset>

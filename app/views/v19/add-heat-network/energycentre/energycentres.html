@@ -70,7 +70,7 @@
             {{title}}
         </h1>
 
-        <p class="govuk-body">We need some more information about these energycentres before you can continue.</p>
+        <p class="govuk-body">We need some more information about these energy centres before you can continue.</p>
         </div>
     </div>
 <div class="govuk-grid-row">
@@ -107,8 +107,6 @@
                         <td class="govuk-table__cell">Energy centre 1</td>
                         <td class="govuk-table__cell">
                             {% if data.ecaddressHasPostcode == "Yes" and data.ecaddressSelected %}
-
-                            
                             {% set address = data.ecaddressSelected.toString() %}
                             {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
                             {% elif data.ecaddresslatitude %}

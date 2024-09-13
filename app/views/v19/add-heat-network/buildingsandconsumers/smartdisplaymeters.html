@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do any dwellings in this building have smart display meters installed?" %}
+{% set title = "Do you provide any customers in this building with smart technology so they can check their real-time energy usage?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,7 +62,7 @@
                         </h1>
 
                     </legend>
-
+                    <p class="govuk-body">This could be via a website app, a mobile app or an in-home digital display.</p>
                     {% if data.buildinglocationAddress %}
                     <div class="govuk-inset-text">
                         {% set address = data.buildinglocationAddress.toString() %}
@@ -87,7 +87,7 @@
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-smartdisplaymeters">
                             <div class="govuk-form-group {% if data.validationErrors.smartdisplaymetersnumber %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="smartdisplaymetersnumber">
-                                How many?
+                                How many customers?
                               </label>
                               {% if data.validationErrors.smartdisplaymetersnumber %}
                               <p class="govuk-error-message">

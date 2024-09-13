@@ -43,9 +43,12 @@
                     Energy centre {% if (data.energycentres > 1) %}1{% endif %}
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.ecaddressSelected %}
+                    {% if data.ecaddressHasPostcode == "Yes" and data.ecaddressSelected %}
                     {% set address = data.ecaddressSelected.toString() %}
                     {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    {% elif data.ecaddresslatitude %}
+                    <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                        <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
                     {% endif %}
                     <br /><br />
                     <strong>Energy type{% if data.energytype.length > 1 %}s: <br />{% else %}:{% endif %}</strong>{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% endif %}

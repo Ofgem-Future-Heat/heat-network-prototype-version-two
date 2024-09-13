@@ -1,9 +1,9 @@
 {% extends 'layouts/main.html' %}
 
 {% if (data.energycentres > 1) %}
-{% set title = "Does energy centre 1 have a postcode" %}
+{% set title = "Does energy centre 1 have a postcode?" %}
 {% else %}
-{% set title = "Does the energy centre have a postcode" %}
+{% set title = "Does the energy centre have a postcode?" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
