@@ -50,7 +50,7 @@
         </div>
         {% endif %}
 
-        {% if data.buildinglocationAddress %}
+        {% if data.ecaddressHasPostcode %}
         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
             <div class="govuk-notification-banner__header">
               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -59,7 +59,7 @@
             </div>
             <div class="govuk-notification-banner__content">
               <h3 class="govuk-notification-banner__heading">
-                You've added information about building 1
+                You've added information about energy centre 1
               </h3>
             </div>
           </div>
@@ -92,7 +92,7 @@
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Energy centre</th>
-                        <th scope="col" class="govuk-table__header">Address</th>
+                        <th scope="col" class="govuk-table__header">Location</th>
                         <th scope="col" class="govuk-table__header">Energy type</th>
                         <th scope="col" class="govuk-table__header">Capacity</th>
 
@@ -106,13 +106,18 @@
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Energy centre 1</td>
                         <td class="govuk-table__cell">
-                            {% if data.ecaddressSelected %}
+                            {% if data.ecaddressHasPostcode == "Yes" and data.ecaddressSelected %}
+
+                            
                             {% set address = data.ecaddressSelected.toString() %}
                             {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-
+                            {% elif data.ecaddresslatitude %}
+                            <p class="govuk-body">Latitude: {{data.ecaddresslatitude}}<br />
+                                Longitude: {{data.ecaddresslongitude}}</p>
                             {% else %}
                             -
                             {% endif %}
+
                             </td>
                                 <td class="govuk-table__cell">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% else %} - {% endif %}</td>
 
@@ -124,8 +129,6 @@
                                 <br />
                                 Source:
                                 {{energysource}}
-                                <br />
-                                Started: {{year}}
                                 <br /><br />
                                 {% endfor %}
                             {% else %}
@@ -133,7 +136,7 @@
                     {% endif %}</td>
 
 
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">{% if data.ecaddressSelected %}Edit{% else %}Add information{% endif %}</a></td>
+                        <td class="govuk-table__cell"><a href="addresspostcode" class="govuk-link govuk-link--no-visited-state">{% if data.ecaddressSelected %}Edit{% else %}Add information{% endif %}</a></td>
                     </tr>
 
                     {% for i in range(1, data.energycentres) -%}
@@ -151,7 +154,7 @@
                             </td>
                         {% endif %}
 
-                        <td class="govuk-table__cell"><a href="address" class="govuk-link govuk-link--no-visited-state">Add information</a></td>
+                        <td class="govuk-table__cell"><a href="addresspostcode" class="govuk-link govuk-link--no-visited-state">Add information</a></td>
                     </tr>
                     {% endfor %}
                     {% endif %}

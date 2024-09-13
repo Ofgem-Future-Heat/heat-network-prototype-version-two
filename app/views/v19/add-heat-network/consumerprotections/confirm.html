@@ -51,39 +51,39 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.protection %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.consumerconfirm %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - consumer protections</span>
+                        <span class="govuk-caption-l">Add a heat network - consumer consumerconfirms</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
 
-                    {% if data.validationErrors.protections %}
+                    {% if data.validationErrors.consumerconfirm %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.protection.message}}
+                        {{data.validationErrors.consumerconfirm.message}}
                     </p>
                     {% endif %}
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="protection" name="protection" type="radio" value="Yes" {% if data.protection == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="protection">
+                            <input class="govuk-radios__input" id="consumerconfirm" name="consumerconfirm" type="radio" value="Yes" {% if data.consumerconfirm == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="consumerconfirm">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="protection-2" name="protection" type="radio" value="No" data-aria-controls="protectionconditional" {% if data.protection == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="protection-2">
+                            <input class="govuk-radios__input" id="consumerconfirm-2" name="consumerconfirm" type="radio" value="No" data-aria-controls="consumerconfirmconditional" {% if data.consumerconfirm == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="consumerconfirm-2">
                                 No
                             </label>
                         </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="protectionconditional">
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="consumerconfirmconditional">
                                 <p class="govuk-body">You will need to make sure you have one by [date TBC]</p>
                             </div>
 
@@ -94,7 +94,6 @@
             </div>
                             <p class="govuk-body">We may request this from you in the future.</p>
 
-                        <input type="hidden" id="protectionscomplete" name="protectionscomplete" value="true" />
 
             {{
                 govukButton ({

@@ -1,10 +1,20 @@
 {% extends 'layouts/main.html' %}
+{% set title %}
 {% if (data.energycentres > 1) %}
-{% set title = "Energy centre 1: Confirm address " %}
-{% else %}
-{% set title = "Confirm address" %}
-{% endif %}
 
+{% if data.ecaddressHasPostcode == "Yes" %}
+Energy centre 1: Confirm address
+{% else %}
+Energy centre 1: Confirm co-ordinates
+{% endif %}
+{% else %}
+{% if data.ecaddressHasPostcode == "Yes" %}
+Confirm address
+{% else %}
+Confirm co-ordinates
+{% endif %}
+{% endif %}
+{% endset %}
 
 {% block pageTitle %}
 {{title}}
@@ -46,27 +56,16 @@
                             {{title}}
                         </h1>
 
-                        {% if data.ecAddress %}
+                        {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
                         <div class="govuk-inset-text">
                             {% set address = data.ecAddress.toString() %}
                             {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
                         </div>
+                        {% else %}
+                        <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                            <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
                         {% endif %}
 
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-
-
-                              <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                                <div class="govuk-checkboxes__item">
-                                  <input class="govuk-checkboxes__input" id="ecaddressnearest" name="ecaddressnearest" type="checkbox" value="true" {% if data.ecaddressnearest == "true" %} checked {% endif %}>
-                                  <label class="govuk-label govuk-checkboxes__label" for="ecaddressnearest">
-                                    This is the address of the nearest building to the energy centre
-                                  </label>
-                                </div>
-                              </div>
-                            </fieldset>
-                          </div>
 
 
 
@@ -74,11 +73,20 @@
 
 
             </div>
+            {% if data.ecaddressHasPostcode == "Yes" %}
             {{
                 govukButton ({
                     html: 'Use this address'
                 })
             }}
+{% else %}
+{{
+    govukButton ({
+        html: 'Use these coordinates'
+    })
+}}
+{% endif %}
+
         </form>
         <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} main page</a>
 

@@ -3533,7 +3533,7 @@ router.post('/' + version + '/add-heat-network/energycentre/howmany', function (
 
     else {
         if (energycentres == 1) {
-            res.redirect('/' + version + '/add-heat-network/energycentre/address');
+            res.redirect('/' + version + '/add-heat-network/energycentre/addresspostcode');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/energycentre/energycentres');
@@ -3543,7 +3543,7 @@ router.post('/' + version + '/add-heat-network/energycentre/howmany', function (
 });
 
 
-// Buildings & consumers - Buildings
+// Energy centre - Energy Centres
 router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     clearvalidation(req);
 
@@ -3576,6 +3576,89 @@ router.post('/' + version + '/add-heat-network/energycentre/energycentres', func
     }
 });
 
+
+
+// Energy centre - Has postcode
+router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/add-heat-network/energycentre/addresspostcode', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
+    clearvalidation(req);
+    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
+
+    if (!ecaddressHasPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressHasPostcode = {
+            "anchor": "ecaddressHasPostcode",
+            "message": "Tell us whether the energy centre has a postcode",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/addresspostcode', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (ecaddressHasPostcode == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/energycentre/address');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/energycentre/addresscoords');
+        }
+    }
+});
+
+
+// Energy centre - Coordinates
+router.get('/' + version + '/add-heat-network/energycentre/addresscoords', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/add-heat-network/energycentre/addresscoords', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/addresscoords', function (req, res) {
+    clearvalidation(req);
+    var ecaddresslatitude = req.session.data['ecaddresslatitude']
+    var ecaddresslongitude = req.session.data['ecaddresslongitude']
+
+
+    if (!ecaddresslatitude) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddresslatitude = {
+            "anchor": "ecaddresslatitude",
+            "message": "Enter the latitude for the energy centre",
+        }
+    }
+
+    if (!ecaddresslongitude) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddresslongitude = {
+            "anchor": "ecaddresslongitude",
+            "message": "Enter the longitude for the energy centre",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/addresscoords', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/add-heat-network/energycentre/addressconfirm');
+    }
+});
 
 
 
@@ -4003,7 +4086,7 @@ router.post('/' + version + '/add-heat-network/energycentre/energysource', funct
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/when');
+        res.redirect('/' + version + '/add-heat-network/energycentre/summary');
     }
 });
 
@@ -4601,7 +4684,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscust
     
         else {
             req.session.data['buildingaddressCustomers'] = Number(addresscustomersResidential) + Number(addresscustomersCommercial) + Number(addresscustomersIndustrial) + Number(addresscustomersPublic)
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/metering');
       
         }
     }
@@ -5069,7 +5152,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
 
     }
 });
@@ -5980,9 +6063,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/psr', functio
 
     }
 });
-
-
-// Consumer - procedure
+// Consumer - confirm
 router.get('/' + version + '/add-heat-network/consumerprotections/confirm', function (req, res) {
     res.render('/' + version + '/add-heat-network/consumerprotections/confirm', {
         data: req.session.data
@@ -5990,6 +6071,68 @@ router.get('/' + version + '/add-heat-network/consumerprotections/confirm', func
 });
 
 router.post('/' + version + '/add-heat-network/consumerprotections/confirm', function (req, res) {
-    res.redirect('/' + version + '/add-heat-network/tasklist');
+    clearvalidation(req);
+    var consumerconfirm = req.session.data['consumerconfirm']
+
+    if (!consumerconfirm) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerconfirm = {
+            "anchor": "consumerconfirm",
+            "message": "Tell us whether you have a proecdure in place",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/confirm', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/consumerprotections/difficulties');
+    }
 });
 
+// Consumer - difficulties
+router.get('/' + version + '/add-heat-network/consumerprotections/difficulties', function (req, res) {
+    res.render('/' + version + '/add-heat-network/consumerprotections/difficulties', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/consumerprotections/difficulties', function (req, res) {
+    clearvalidation(req);
+    var consumerdifficulties = req.session.data['consumerdifficulties']
+
+    if (!consumerdifficulties) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerdifficulties = {
+            "anchor": "consumerdifficulties",
+            "message": "Tell us whether you have a process for dealing with customers",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/difficulties', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/consumerprotections/cya');
+    }
+});
+
+
+
+// Consumer - cya
+router.get('/' + version + '/add-heat-network/consumerprotections/cya', function (req, res) {
+    res.render('/' + version + '/add-heat-network/consumerprotections/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/consumerprotections/cya', function (req, res) {
+    res.redirect('/' + version + '/add-heat-network/tasklist');
+});

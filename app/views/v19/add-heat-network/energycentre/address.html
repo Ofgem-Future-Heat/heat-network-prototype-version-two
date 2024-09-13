@@ -1,9 +1,9 @@
 {% extends 'layouts/main.html' %}
 
 {% if (data.energycentres > 1) %}
-{% set title = "Energy centre 1: Find address " %}
+{% set title = "What is energy centre 1's postcode?" %}
 {% else %}
-{% set title = "Find energy centre address" %}
+{% set title = "What is the energy centre's postcode?" %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,23 +53,21 @@
         </div>
         {% endif %}
 
-
-
-        <span class="govuk-caption-l">Add a heat network - energy centres</span>
-        <h1 class="govuk-heading-l">
-            {{title}}
-        </h1>
-
-
-        <p class="govuk-body">If your organisation operates more than one energy centre on the heat network, tell us about the one that supplies the most energy.</p>
-
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
                 <div class="govuk-form-group {% if data.validationErrors.ecaddressPostcode %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label govuk-label--m" for="address-postcode">
-                        What is the energy centre's postcode?
-                    </label>
-                    <p class="govuk-body">If you do not know the postcode of the energy centre, give the postcode of the nearest building.</p>
+
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                        <h1 class="govuk-fieldset__heading">
+                                 {{title}}
+                          </h1>
+          
+                          </legend>
+
+
+
                     <div class="govuk-hint">For example, AA3 1AB</div>
                     {% if data.validationErrors.ecaddressPostcode %}
                     <p class="govuk-error-message">
