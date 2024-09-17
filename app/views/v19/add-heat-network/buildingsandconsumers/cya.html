@@ -61,7 +61,7 @@
                         {% if data.heatcostallocators == "Yes" %}<li>Heat cost allocators: {{data.heatcostallocatorsnumber}}</li>{% endif %}
                         {% if data.prepaymentmeters == "Yes" %}<li>Pre-payment meters: {{data.prepaymentmetersnumber}}</li>{% endif %}
                         {% if data.smartdisplaymeters == "Yes" %}
-                        <br />Smart display meters: {{data.smartdisplaymetersnumber}}
+                        <li>Smart display meters: {{data.smartdisplaymetersnumber}}</li>
                         <br />Smart technologies:{% if data.smarttechnologies.length > 1 %}<br />{% endif %} {% for technology in data.smarttechnologies %}{{technology}} <br />{% endfor %}
                         {% endif %}
 
