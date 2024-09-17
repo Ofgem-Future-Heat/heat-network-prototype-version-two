@@ -2878,7 +2878,6 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
 function setupheatnetwork(req) {
     req.session.data['role'] = "Heat supplier,Network operator";
-    req.session.data['buildings'] = "3";
     req.session.data['energycentre'] = "Yes";
 }
 
@@ -4277,7 +4276,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildings',
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildings = {
             "anchor": "buildings",
-            "message": "Fill in all address information before continuing",
+            "message": "Fill in all building information before continuing",
         }
     }
 

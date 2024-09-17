@@ -62,7 +62,44 @@
                         </h1>
 
                     </legend>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            SME definition 1
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">An organisation that either:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>uses no more than 200,000 kWh of electricity per year; or,</li>
+                                <li>uses no more than 500,000 kWh of gas per year</li>
+                                <li>has fewer than 50 employees (or their full-time equivalent) and an annual turnover no greater than £6.5 million or balance sheet total no greater than £5 million</li>
+                            </ul>
+                        </div>
+                      </details>
 
+                      <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            SME definition 2
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">Any organisation larger than a microbusiness that has fewer than 250 employees and a turnover of less than €50 million.</p>
+                        </div>
+                      </details>
+
+                      <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            SME definition 3
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">An organisation that is larger than a microbusiness that has fewer than 250 staff and a turnover of an amount less than or equal to £44 million, or a balance sheet total of an amount less than or equal to £38 million</p>
+
+                        </div>
+                      </details>
                     {% if data.validationErrors.smallmediumbusinesses %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
