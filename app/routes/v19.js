@@ -339,8 +339,6 @@ router.get('/' + version + '/organisation-details/date', function (req, res) {
 
 router.post('/' + version + '/organisation-details/date', function (req, res) {
     clearvalidation(req);
-    var financialendday = req.session.data['orgfinancialendday']
-    var financialendmonth = req.session.data['orgfinancialendmonth']
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
 
@@ -351,14 +349,6 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
         req.session.data.validationErrors.financialstartdate = {
             "anchor": "orgfinancialstartday",
             "message": "Enter an start date for financial year"
-        }
-    }
-
-    if (!financialendday || !financialendmonth) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialenddate = {
-            "anchor": "orgfinancialendday",
-            "message": "Enter an end date for financial year"
         }
     }
 

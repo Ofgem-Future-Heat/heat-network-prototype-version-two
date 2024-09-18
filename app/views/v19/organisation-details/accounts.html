@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for the last financial period of 12 consecutive months?  
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for the last financial period?  
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,6 +61,8 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
                     {{title}}
                   </h1>
                 </legend>
+                <p class="govuk-body">This should be a minimum of 12 months.</p>
+
                 <p class="govuk-body">You must be able to provide these, if requested.</p>
                 {% if data.validationErrors.orgaccounts %}
                 <p class="govuk-error-message">
