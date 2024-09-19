@@ -477,6 +477,7 @@ router.get('/' + version + '/my-profile', function (req, res) {
 
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
@@ -886,6 +887,7 @@ router.post('/' + version + '/account-creation/company-name', function (req, res
 });
 
 
+
 ///Company number
 router.get('/' + version + '/account-creation/company-number', function (req, res) {
     clearvalidation(req);
@@ -897,32 +899,18 @@ router.get('/' + version + '/account-creation/company-number', function (req, re
 
 router.post('/' + version + '/account-creation/company-number', function (req, res) {
     clearvalidation(req);
-    var companynumber = req.session.data['companynumber']
+    var orgcompanynumber = req.session.data['companynumber']
     var accounttype = req.session.data['accounttype']
 
     
 
-    if (!companynumber) {
+    if (!orgcompanynumber) {
         req.session.data.validationError = "true"
-        if (accounttype == "Company registered in the UK") {
             req.session.data.validationErrors.companynumber = {
                 "anchor": "companynumber",
                 "message": "Enter a company number"
             }
-        }
-        else if (accounttype == "UK mutual society registered with the Financial Conduct Authority") {
-            req.session.data.validationErrors.companynumber = {
-                "anchor": "companynumber",
-                "message": "Enter a registration number"
-            }
-        }
-        else {
-            req.session.data.validationErrors.companynumber = {
-                "anchor": "companynumber",
-                "message": "Enter a charity number"
-            }
-
-        }
+     
     }
 
 
@@ -933,9 +921,85 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
     }
 
     else {
-        req.session.data.companyname = "Radianteco Ltd";
-        req.session.data.orgaddressSelect = "";
-        res.redirect('/' + version + '/account-creation/company-confirm');
+
+        (async () => {
+            // Dynamically import 'node-fetch' for CommonJS
+            const fetch = (await import('node-fetch')).default;
+          
+            const API_KEY = 'b38e31d7-61af-448c-8955-425028c1a088'; // Replace with your actual Companies House API key
+          
+            async function getCompanyDetails(companyNumber) {
+              // Concatenate the API key with a colon (:) for Basic Auth
+              const apiKeyWithColon = API_KEY + ':';
+              
+              // Base64 encode the result
+              const encodedKey = Buffer.from(apiKeyWithColon).toString('base64');
+          
+              // Set the headers for the request
+              const headers = new Headers({
+                'Authorization': 'Basic ' + encodedKey
+              });
+          
+          
+              const requestOptions = {
+                method: 'GET',
+                headers: headers
+              };
+          
+              try {
+                const response = await fetch(`https://api.company-information.service.gov.uk/company/${companyNumber}`, requestOptions);
+          
+                // Log the response status
+                console.log(`Response Status: ${response.status} ${response.statusText}`);
+          
+                if (!response.ok) {
+                    req.session.data.validationErrors.companynumber = {
+                        "anchor": "companynumber",
+                        "message": "Enter a valid company number"
+                    }
+
+                    res.render('/' + version + '/account-creation/company-number', {
+                        data: req.session.data
+                    });
+                }
+          
+                const companyData = await response.json();
+
+          
+                // Extracting company name and registered office address
+                const companyName = companyData.company_name;
+                const address = companyData.registered_office_address;
+          
+                if (!address) {
+                    req.session.data.companyname = companyName;
+                    res.redirect('/' + version + '/account-creation/addressmanual')
+                }
+
+                else {
+                const formattedAddress = `${address.address_line_1}, ${address.address_line_2 || ''}, ${address.locality}, ${address.region || ''}, ${address.postal_code}, ${address.country || ''}`.replace(/, ,/g, ',').replace(/, $/, '');
+                req.session.data.companyname = companyName;
+                req.session.data.orgaddressSelect = formattedAddress;
+                }
+
+                // Returning as a JSON object
+                return {
+                  companyName: companyName,
+                  address: formattedAddress
+                };
+              } catch (error) {
+                console.error('Error fetching company details:', error);
+                return { error: error.message };
+              }
+            }
+          
+            // Example usage
+            getCompanyDetails(orgcompanynumber.toUpperCase())
+              .then(() => res.redirect('/' + version + '/account-creation/company-confirm'))
+              .catch((error) => console.error('Error:', error));
+          })();
+
+          
+
     }
 
 });
@@ -1343,7 +1407,6 @@ router.get('/' + version + '/account-creation/address', function (req, res) {
 router.post('/' + version + '/account-creation/address', function (req, res) {
     clearvalidation(req);
     var userpostcode = req.session.data['orgaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-    var usernumber = req.session.data['orgaddressNumber']
 
     if (!userpostcode) {
         req.session.data.validationError = "true"
@@ -1384,30 +1447,56 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
+
+
+        const customSort = (a, b) => {
+            const extractNumber = (str) => {
+              const match = str.match(/^\d+/); // Extracts the leading number from the string
+              return match ? parseInt(match[0], 10) : NaN; // Converts the extracted number to integer
+            };
+          
+            const numA = extractNumber(a);
+            const numB = extractNumber(b);
+          
+            if (!isNaN(numA) && isNaN(numB)) {
+              return -1;
+            } else if (isNaN(numA) && !isNaN(numB)) {
+              return 1;
+            } else if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB; // Compare the numbers if both are numbers
+            } else {
+              return a.localeCompare(b); // Compare as strings if neither is a number
+            }
+          };
+
         async function postcode(postcode) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
+                    let totalResults = response.data.header.totalresults;
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
-
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
 
-                        req.session.data.buildinglocationAddressSelect = locationaddresses;
+                        req.session.data.buildinglocationAddressSelect = locationaddresses.sort(customSort);
                         req.session.data.orgaddressnotfound = "";
-                        res.redirect('/' + version + '/account-creation/addressselect');
+                        if (totalResults > 99) {
+                            res.redirect('/' + version + '/account-creation/addresserror?reason=toomany');
+                        }
+                        else {
+                            res.redirect('/' + version + '/account-creation/addressselect');
+                        }
                     }
 
                     else {
                         req.session.data.buildinglocationAddressSelect = locationaddresses;
                         req.session.data.orgaddressnotfound = true;
-                        res.render('/' + version + '/account-creation/addressmanual', {
-                            data: req.session.data
-                        });
+                        res.redirect('/' + version + '/account-creation/addresserror');
+
                     }
 
                 });
@@ -1418,6 +1507,18 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
 
 });
+
+///Address error
+router.get('/' + version + '/account-creation/addresserror', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.reason;
+    req.session.data['addresserrorreason'] = urlParams;
+
+    res.render('/' + version + '/account-creation/addresserror', {
+        data: req.session.data
+    });
+});
+
 
 
 // Company - Address select
@@ -1501,6 +1602,14 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
         }
     }
 
+    if ((accounttype == "Overseas organisation") && !orgaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressMCountry = {
+            "anchor": "orgaddressMCountry",
+            "message": "Enter a country",
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/account-creation/addressmanual', {
             data: req.session.data
@@ -1518,6 +1627,7 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
             res.redirect('/' + version + '/account-creation/company-confirm');
     }
 });
+
 
 
 
