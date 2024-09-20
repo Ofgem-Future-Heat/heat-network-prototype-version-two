@@ -95,13 +95,7 @@ Switch to a different organisation
     
 
                     <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio"
-                                value="Radienteco Ltd">
-                            <label class="govuk-label govuk-radios__label" for="orgselect">
-                                {% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
-                            </label>
-                        </div>
+
                         {% if data.orgtotal > 1 %}
 
                         <div class="govuk-radios__item">
@@ -112,10 +106,19 @@ Switch to a different organisation
                             </label>
                         </div>
                         {% endif %}
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio"
+                                value="{% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}">
+                            <label class="govuk-label govuk-radios__label" for="orgselect">
+                                {% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
+                            </label>
+                        </div>
+     
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="orgselect-5" name="orgselect" type="radio"
-                                value="New">
+                                value="new">
                             <label class="govuk-label govuk-radios__label" for="orgselect-5">
                                 Add a new organisation
                             </label>

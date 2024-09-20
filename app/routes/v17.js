@@ -704,7 +704,6 @@ router.get('/' + version + '/account-creation/select-org', function (req, res) {
 
 router.post('/' + version + '/account-creation/select-org', function (req, res) {
     clearvalidation(req);
-    var orgtotal = req.session.data['orgtotal']
     var orgselect = req.session.data['orgselect']
         if (!orgselect) {
             req.session.data.validationError = "true"
@@ -722,17 +721,23 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
         }
     
         else {
-            if (orgselect == "New") {
-                res.redirect('/' + version + '/account-creation/type');
-            }
-            if (orgselect == "Heating Co") {
-                req.session.data.companyname = "Heating Co"
-                res.redirect('/' + version + '/account-creation/company-create');
-            }
-            else {
+            if (orgselect != "new" && orgselect != "Heating Co") {
                 req.session.data['companyname'] = orgselect;
                 res.redirect('/' + version + '/account-information');
             }
+
+            else {
+                if (orgselect == "new") {
+                    res.redirect('/' + version + '/account-creation/type');
+                }
+                if (orgselect == "Heating Co") {
+                    req.session.data.companyname = "Heating Co"
+                    res.redirect('/' + version + '/account-creation/company-create');
+                }
+    
+            }
+
+
         }
 
 
