@@ -706,7 +706,6 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
     clearvalidation(req);
     var orgtotal = req.session.data['orgtotal']
     var orgselect = req.session.data['orgselect']
-    if(orgtotal > 1) {
         if (!orgselect) {
             req.session.data.validationError = "true"
             req.session.data.validationErrors.orgselect = {
@@ -735,11 +734,7 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
                 res.redirect('/' + version + '/account-information');
             }
         }
-    }
-    else {
-        res.redirect('/' + version + '/account-creation/type');
- 
-    }
+
 
 
 });
