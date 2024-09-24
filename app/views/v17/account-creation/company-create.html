@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Are you {{data.companyname}}'s regulatory contact for heat networks?
+Are you {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s regulatory contact for heat networks?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -50,32 +50,30 @@ Are you {{data.companyname}}'s regulatory contact for heat networks?
             </div>
         </div>
         {% endif %}
-
-        <form method="POST" novalidate>
-
-
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                    <h1 class="govuk-fieldset__heading">
-                        {{title}}
-                    </h1>
-
-                </legend>
-                <p class="govuk-body">This is your organisation’s most senior member of staff responsible for heat networks.</p>
+        <h1 class="govuk-heading-l">{{title}}</h1>
+                <p class="govuk-body">This is typically your organisation’s most senior member of staff with responsibility for heat networks.</p>
                 <p class="govuk-body">As regulatory contact, you'll:</p>
 
                 <ul class="govuk-list govuk-list--bullet">
-                    <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
-                    <li>have full access to all features in the account, for example managing users and submitting heat network information</li>
-                    <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                    <li>be Ofgem’s main point of contact for any regulatory and compliance matters in relation to your organisation’s heat networks</li>
+                    <li>have full access to all features in Ofgem’s digital heat networks service, for example managing users and submitting heat network information</li>
+                    <li>be initially responsible for inviting other users into the account and setting their permissions, so they can help your organisation fulfil its regulatory duties</li>
                 </ul>
 
                   <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
 
+                  <form method="POST" novalidate>
+
 
                     <div class="govuk-form-group {% if data.validationErrors.companycreate %}govuk-form-group--error{% endif %}">
+
+
+                
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                Are you the regulatory contact?
+                            </legend>
+                
 
                     {% if data.validationErrors.companycreate %}
                     <p class="govuk-error-message">
@@ -97,10 +95,11 @@ Are you {{data.companyname}}'s regulatory contact for heat networks?
                             </label>
                         </div>
                     </div>
+                </fieldset>
                     </div>
 
 
-                </fieldset>
+
 
 
             {{
