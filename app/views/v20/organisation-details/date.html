@@ -1,0 +1,112 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+When is the start of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s financial year?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+
+    
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+
+
+                    <div class="govuk-form-group {% if data.validationErrors.financialstartdate %}govuk-form-group--error{% endif %}">
+
+
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="financialstarthint">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            Start of financial year
+                        </legend>
+    
+                          <div id="financialstarthint" class="govuk-hint">
+                            For example, 1 12
+                          </div>
+
+                          {% if data.validationErrors.financialstartdate %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.financialstartdate.message}}
+                          </p>
+                          {% endif %}
+                          <div class="govuk-date-input" id="financialstart">
+                            <div class="govuk-date-input__item">
+                              <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="orgfinancialstartday">
+                                  Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="orgfinancialstartday" name="orgfinancialstartday" type="text" inputmode="numeric" value="{{data.orgfinancialstartday}}">
+                              </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                              <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="orgfinancialstartmonth">
+                                  Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="orgfinancialstartmonth" name="orgfinancialstartmonth" type="text" inputmode="numeric" value="{{data.orgfinancialstartmonth}}">
+                              </div>
+                            </div>
+                          </div>
+    
+                </fieldset>
+                </div>
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
