@@ -328,33 +328,11 @@ govukBackLink ({
                   <a class="govuk-link govuk-link--no-visited-state" href="financial-authorised">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
                 </dd>
               </div>
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  {{data.financialhedged}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="financial-hedged">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
-                </dd>
-              </div>
-                {% if data.financialhedged == "Yes" %}
-                <div class="govuk-summary-list__row">
-                  <dt class="govuk-summary-list__key">
-                    How long are energy needs hedged for?
-                  </dt>
-                  <dd class="govuk-summary-list__value">
-                    {{data.financiallength}} months
-                  </dd>
-                  <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link govuk-link--no-visited-state" href="financial-hedged-months">Change<span class="govuk-visually-hidden"> organisation accounts</span></a>
-                  </dd>
-                </div>
+
 
                 <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                    Percentage of energy needs that are hedged
+                    Percentage volume of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s energy procurement costs that are hedged 
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {{data.financialpercentage}}%
@@ -365,7 +343,6 @@ govukBackLink ({
                 </div>
 
 
-                {% endif %}
               {% endif %}
               {% if data.orgstructure %}
               <div class="govuk-summary-list__row">

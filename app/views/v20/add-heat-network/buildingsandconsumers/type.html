@@ -81,9 +81,9 @@
                     {% endif %}
 
                      {% if data.building == "Yes" %}
-                    {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Commercial', 'For example, shops or offices'], ['Mixed0use', 'For example, residential and commercial'], ['Industrial', 'For example, factories or warehouses'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities']] %}
+                    {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses'], ['Mixed0use', 'For example, residential and commercial']] %}
                                 {% else %}
-                    {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Commercial', 'For example, an office block'], ['Mixed0use', 'For example, residential and commercial'], ['Industrial', 'For example, a factory or warehouse'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility']] %}
+                    {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse'], ['Mixed0use', 'For example, residential and commercial']] %}
                                 {% endif %}
                                 <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 
@@ -97,6 +97,7 @@
                                 {{description}}
                             </div>
                         </div>
+
                     {% endfor %}
                 </div>
 

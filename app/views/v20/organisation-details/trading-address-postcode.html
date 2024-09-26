@@ -1,8 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-What percentage volume of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s energy procurement costs are hedged?  
-{% endset %}
-{% set _inError = data.validationError == "true"  %}
+ Enter the postcode for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s trading address? 
+ {% endset %}
+ 
+ {% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
@@ -49,49 +50,48 @@ What percentage volume of {% if data.companyname %}{{data.companyname}}{% else %
             </div>
         </div>
         {% endif %}
-        <form method="post" novalidate>
+
+          <form method="post" novalidate>
             
-            <div class="govuk-form-group {% if data.validationErrors.financialhedged %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.orgtradingpostcode %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
-                
+
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                   <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+                  <label  for="orgtradingpostcode">
+
                   <h1 class="govuk-fieldset__heading">
                     {{title}}
                   </h1>
+                  </label>
                 </legend>
-                <!-- <p class="govuk-body">???</p> -->
-                {% if data.validationErrors.financialhedged %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.financialhedged.message}}
-                </p>
-                {% endif %}
-                <div class="govuk-radios" data-module="govuk-radios">
-                  <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="financialhedged" name="financialhedged" type="radio" value="Yes" {% if data.financialhedged == "Yes" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="financialhedged">
-                      Yes
-                    </label>
-                  </div>
-
-                  <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="financialhedged-2" name="financialhedged" type="radio" value="No" {% if data.financialhedged == "No" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="financialhedged-2">
-                      No
-                    </label>
-                  </div>
-
-                  
+                <div class="govuk-form-group">
+                  {% if data.validationErrors.orgtradingpostcode %}
+                  <p class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span>
+                      {{data.validationErrors.orgtradingpostcode.message}}
+                  </p>
+                  {% endif %}
+                  <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.orgtradingpostcode %}govuk-input--error{% endif %}" id="orgtradingpostcode" name="orgtradingpostcode" type="text" value="{{data.orgtradingpostcode}}">        
                 </div>
+
+
+                
+
               </fieldset>
             </div>
+
             {{
                 govukButton ({
                     html: 'Save and continue'
                 })
             }}
+
+            <p class="govuk-body"><a href="trading-address-manual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
       </form>
+      
+      
     </div>
 
 </div>

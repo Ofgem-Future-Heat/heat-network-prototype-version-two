@@ -17,3 +17,4 @@ require('./routes/v16.js');
 require('./routes/v17.js');
 require('./routes/v18.js');
 require('./routes/v19.js');
+require('./routes/v20.js');

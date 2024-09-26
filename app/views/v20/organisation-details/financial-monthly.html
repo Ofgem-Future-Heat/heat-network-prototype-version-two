@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-What was the average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks for the previous financial year?
+What were {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s average monthly fixed costs for running its heat networks for the previous financial year?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,6 +65,7 @@ What was the average monthly fixed costs for {% if data.companyname %}{{data.com
                     </label>
 
                     </legend>
+                    <p class="govuk-body">Only include costs from parts of the business that deal with your organisation's heat networks.</p>
 
                     {% if data.validationErrors.financialmonthly %}
                     <p class="govuk-error-message">

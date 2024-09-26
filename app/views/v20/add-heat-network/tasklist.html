@@ -56,27 +56,6 @@
                         {% endif %}
                     </div>
                 </li> -->
-
-                <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
-                        {% if data.buildingcomplete == "true" %}
-                            <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings customers and metering</a>
-                        {% else %}
-                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/howmany" aria-describedby="company-details-3-hint company-details-3-status">Buildings, customers and metering</a>
-
-                        {% endif %}
-
-                    </div>
-                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
-                        {% if data.buildingcomplete == "true" %}
-                        Completed
-                        {% else %}
-                        <strong class="govuk-tag govuk-tag--blue">
-                            Not yet started
-                        </strong>
-                        {% endif %}
-                    </div>
-                </li>
                 {% if data.energycentre == "Yes" %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
@@ -99,6 +78,27 @@
                     </div>
                 </li>
                 {% endif %}
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        {% if data.buildingcomplete == "true" %}
+                            <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings customers and metering</a>
+                        {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="buildingsandconsumers/howmany" aria-describedby="company-details-3-hint company-details-3-status">Buildings, customers and metering</a>
+
+                        {% endif %}
+
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
+                        {% if data.buildingcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+
 
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">

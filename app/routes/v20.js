@@ -94,7 +94,6 @@ router.get('/' + version + '/organisation-details/trading-address', function (re
 router.post('/' + version + '/organisation-details/trading-address', function (req, res) {
     clearvalidation(req);
     var orghastradingaddress = req.session.data['orghastradingaddress']
-    var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
 
     if (!orghastradingaddress) {
@@ -106,7 +105,40 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
     }
 
 
-    if ((orghastradingaddress == "Yes") && !userpostcode) {
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/trading-address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+    if (orghastradingaddress == "Yes") {
+        res.redirect('/' + version + '/organisation-details/trading-address-postcode');
+    }
+
+    else {
+        res.redirect('/' + version + '/organisation-details/profit');
+
+    }
+}
+
+});
+
+/// Org details - Trading address postcode
+router.get('/' + version + '/organisation-details/trading-address-postcode', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/trading-address-postcode', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/trading-address-postcode', function (req, res) {
+    clearvalidation(req);
+    var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
+
+
+    if (!userpostcode) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -120,7 +152,7 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
         return postcodeRegex.test(postcode);
       }
       
-    if ((orghastradingaddress == "Yes") && !validateUKPostcode(userpostcode)) {
+    if (!validateUKPostcode(userpostcode)) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgtradingpostcode = {
             "anchor": "orgtradingpostcode",
@@ -130,18 +162,12 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
 
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address', {
+        res.render('/' + version + '/organisation-details/trading-address-postcode', {
             data: req.session.data
         });
     }
 
     else {
-    if (orghastradingaddress == "Yes") {
-        console.log(userpostcode)
-
-
-
-
 
         const axios = require('axios');
         const https = require('https');
@@ -179,15 +205,11 @@ router.post('/' + version + '/organisation-details/trading-address', function (r
 
         }
         postcode(userpostcode);
-        }
 
-    else {
-        res.redirect('/' + version + '/organisation-details/profit');
-
-    }
 }
 
 });
+
 
 
 
@@ -341,6 +363,31 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
     clearvalidation(req);
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
+    var financialendday = req.session.data['orgfinancialendday']
+    var financialendmonth = req.session.data['orgfinancialendmonth']
+
+
+    // Helper function to calculate the number of days between two dates
+    function calculateDaysBetweenDates(startDay, startMonth, endDay, endMonth) {
+        const currentYear = new Date().getFullYear();
+
+        // Create the start date using current year
+        const startDate = new Date(currentYear, startMonth - 1, startDay);
+        
+        // Create the end date using current year, adjusting if it wraps to the next year
+        let endDate = new Date(currentYear, endMonth - 1, endDay);
+        if (endDate < startDate) {
+            // If end date is before start date, add one year to the end date
+            endDate = new Date(currentYear + 1, endMonth - 1, endDay);
+        }
+
+        // Calculate the difference in time and convert to days
+        const timeDifference = endDate - startDate;
+        const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+        return daysDifference;
+    }
+
 
 
 
@@ -348,7 +395,15 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialstartdate = {
             "anchor": "orgfinancialstartday",
-            "message": "Enter an start date for financial year"
+            "message": "Enter an start date for accounting period"
+        }
+    }
+
+    if (!financialendday || !financialendmonth) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialenddate = {
+            "anchor": "orgfinancialendday",
+            "message": "Enter an end date for accounting period"
         }
     }
 
@@ -358,6 +413,14 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
         });
     }
     else {
+        const days = calculateDaysBetweenDates(
+            parseInt(financialstartday), 
+            parseInt(financialstartmonth), 
+            parseInt(financialendday), 
+            parseInt(financialendmonth)
+        );
+        console.log(days)
+        req.session.data['financiallength'] = days;
         res.redirect('/' + version + '/organisation-details/accounts');
     }
 
@@ -979,7 +1042,7 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-hedged');
+        res.redirect('/' + version + '/organisation-details/financial-percentage');
     }
 
 });
