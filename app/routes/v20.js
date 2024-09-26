@@ -420,7 +420,7 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
             parseInt(financialendmonth)
         );
         console.log(days)
-        req.session.data['financiallength'] = days;
+        req.session.data['financialdays'] = days;
         res.redirect('/' + version + '/organisation-details/accounts');
     }
 
@@ -1042,7 +1042,7 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-percentage');
+        res.redirect('/' + version + '/organisation-details/financial-hedged');
     }
 
 });

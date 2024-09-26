@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.financiallength > 363 %}
+{% if data.financialdays > 363 %}
 Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for its last accounting period?  
 {% else %}
 Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for its most recent accounting periods?  
@@ -65,7 +65,7 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
                     {{title}}
                   </h1>
                 </legend>
-                {% if data.financiallength > 363 %}
+                {% if data.financialdays > 363 %}
 
                 <p class="govuk-body">These must cover a period of at least 12 months.</p>
                 {% else %}
