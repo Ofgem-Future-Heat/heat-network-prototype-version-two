@@ -39,7 +39,6 @@
       
       <div class="govuk-grid-row ds-grid-row">
         {% if data.currentversion != "dev" %}
-
       <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
@@ -58,11 +57,32 @@
         Completed
        </strong>
       {% endif %}
-
-
       {% endif %}
     </div>
     {% endif %}
+
+    {% if data.currentversion != "dev" %}
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">SMRI declaration</a></h3>
+    <p class="govuk-body">View, change and add persons with significant managerial responsbility or influence (SMRI)</p>
+    {% if data.currentversion == "ur" %}
+    <strong class="govuk-tag govuk-tag--green">
+      Completed
+     </strong>
+     {% else %}
+
+    {% if data.smrideclaration != "true" %}
+    <strong class="govuk-tag govuk-tag--red">
+     Not started
+    </strong>
+    {% else %}
+    <strong class="govuk-tag govuk-tag--green">
+      Completed
+     </strong>
+    {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
  
 
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">

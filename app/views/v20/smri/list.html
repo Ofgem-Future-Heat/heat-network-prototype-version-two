@@ -1,0 +1,181 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "People with significant managerial responsibility or influence (SMRI)" %}
+
+{% set _inError = data.validationError == "true"  %}
+{% set company %}
+{% if data.companyname %}
+            {{data.companyname}}
+            {% else %}
+            Radienteco Ltd
+            {% endif %}
+{% endset %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data.buildinglocationAddress %}
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+              <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+              </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+              <h3 class="govuk-notification-banner__heading">
+                You've added information about building 1
+              </h3>
+            </div>
+          </div>
+        {% endif %}
+
+        <span class="govuk-caption-l">{{company}}</span>
+  
+              <h1 class="govuk-heading-l">{{title}}</h1>
+        <p class="govuk-body">We need some more information about people who have significant  managerial responsibility or influence (SMRI) at {{company}}.</p>
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                Help with SMRI
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p class="govuk-body">SMRI means where a person plays a role in either</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>the making of decisions about how the whole or a substantial part of an authorised person’s activities are to be managed or organised</li>
+                    <li>the actual managing or organising of the whole or a substantial part of those activities; </li>
+                    </ul>
+                
+            </div>
+          </details>
+        </div>
+    </div>
+<div class="govuk-grid-row govuk-!-margin-top-5">
+    <div class="govuk-grid-column-full">
+
+        <div class="govuk-form-group {% if data.validationErrors.communalinfo %}govuk-form-group--error{% endif %}">
+            {% if data.validationErrors.communalinfo %}
+            <p class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span>
+                {{data.validationErrors.communalinfo.message}}
+            </p>
+            {% endif %}
+
+
+
+
+            <table class="govuk-table" id="communalinfo">
+                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">People with significant managerial responsibility or influence</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Name</th>
+                        <th scope="col" class="govuk-table__header">Date of birth</th>
+                        <th scope="col" class="govuk-table__header">Role</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+
+                </thead>
+                <tbody class="govuk-table__body">
+
+                    {% set smris = [] %}
+
+                    {% for i in range(1, 100) %}
+                        {% set smris = smris.concat([{
+                            "added": data["addedsmri" ~ i],
+                            "firstname": data["smrifirstname" ~ i],
+                            "lastname": data["smrilastname" ~ i],
+                            "dob": data["smridobday" ~ i] + " " +  data["smridobmonth" ~ i] + " " +  data["smridobyear" ~ i] ,
+                            "id": i,
+                            "role": data["smrirole" ~ i],
+                            "thirdparty": data["smrithirdparty" ~ i],
+                            "orgname": data["smriorgname" ~ i]
+                        }]) %}
+                    {% endfor %}
+                    
+
+                  {% for smri in smris %}
+
+                  {% if smri.added == "true" %}
+                        <tr class="govuk-table__row">
+                          <td class="govuk-table__cell">{{smri.firstname}} {{smri.lastname}}</td>
+                          <td class="govuk-table__cell">{{smri.dob}}</td>
+                          <td class="govuk-table__cell">{{smri.role}}</td>
+                          <td class="govuk-table__cell govuk-table__cell--numeric">
+                              <a href="cya?id={{ smri.id }}" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-2">Edit <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
+                              <a href="remove?id={{ smri.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
+                          </td>
+                      </tr>
+                  {% endif %}
+
+              {% endfor %}
+
+
+                  </tbody>
+    </table>
+            <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Add a person</a></p>
+
+        </div>
+
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        {% if data.smritotal > 0 %}
+        <p class="govuk-body">Ensure all people with significant managerial responsibility or influence have been added before submitting your SMRI delcaration.</p>
+
+
+        <form method="POST" novalidate>
+            {{
+                govukButton ({
+                    html: 'Submit SMRI declaration'
+                })
+            }}
+        </form>
+        {% else %}
+        <p class="govuk-body">You'll need to add any people with significant managerial responsibility or influence, before you can submit your SMRI delcaration.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
