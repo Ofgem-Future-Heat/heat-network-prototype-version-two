@@ -92,7 +92,29 @@
           </details>
         </div>
     </div>
-<div class="govuk-grid-row govuk-!-margin-top-5">
+    <div class="govuk-grid-row">
+
+    {% set smris = [] %}
+
+    {% for i in range(1, 100) %}
+        {% set smris = smris.concat([{
+            "added": data["addedsmri" ~ i],
+            "firstname": data["smrifirstname" ~ i],
+            "lastname": data["smrilastname" ~ i],
+            "dob": data["smridobday" ~ i] + " " +  data["smridobmonth" ~ i] + " " +  data["smridobyear" ~ i] ,
+            "id": i,
+            "role": data["smrirole" ~ i],
+            "thirdparty": data["smrithirdparty" ~ i],
+            "orgname": data["smriorgname" ~ i]
+        }]) %}
+    {% endfor %}
+    {% set smriCount = 0 %}
+    {% for smri in smris %}
+    {% if smri.added == "true" %}
+    {% set smriCount = smriCount + 1 %}
+    {% endif %}
+    {% endfor %}
+    {% if smriCount > 0 %}
     <div class="govuk-grid-column-full">
 
         <div class="govuk-form-group {% if data.validationErrors.communalinfo %}govuk-form-group--error{% endif %}">
@@ -102,7 +124,6 @@
                 {{data.validationErrors.communalinfo.message}}
             </p>
             {% endif %}
-
 
 
 
@@ -119,20 +140,7 @@
                 </thead>
                 <tbody class="govuk-table__body">
 
-                    {% set smris = [] %}
-
-                    {% for i in range(1, 100) %}
-                        {% set smris = smris.concat([{
-                            "added": data["addedsmri" ~ i],
-                            "firstname": data["smrifirstname" ~ i],
-                            "lastname": data["smrilastname" ~ i],
-                            "dob": data["smridobday" ~ i] + " " +  data["smridobmonth" ~ i] + " " +  data["smridobyear" ~ i] ,
-                            "id": i,
-                            "role": data["smrirole" ~ i],
-                            "thirdparty": data["smrithirdparty" ~ i],
-                            "orgname": data["smriorgname" ~ i]
-                        }]) %}
-                    {% endfor %}
+    
                     
 
                   {% for smri in smris %}
@@ -154,13 +162,16 @@
 
                   </tbody>
     </table>
-            <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Add a person</a></p>
+    <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Add another person</a></p>
+
+
 
         </div>
 
     </div>
+    {% endif %}
     <div class="govuk-grid-column-two-thirds">
-        {% if data.smritotal > 0 %}
+        {% if smriCount > 0 %}
         <p class="govuk-body">Ensure all people with significant managerial responsibility or influence have been added before submitting your SMRI delcaration.</p>
 
 
@@ -173,6 +184,7 @@
         </form>
         {% else %}
         <p class="govuk-body">You'll need to add any people with significant managerial responsibility or influence, before you can submit your SMRI delcaration.</p>
+        <a href="name" class="govuk-button">Add a person with SMRI</a>
         {% endif %}
     </div>
 

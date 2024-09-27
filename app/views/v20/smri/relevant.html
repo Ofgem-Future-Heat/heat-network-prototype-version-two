@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been a relevant person in respect of premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987? 
+Has {{data.smrifirstname}} {{data.smrilastname}} been a relevant person regarding premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?  
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,7 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been a relevant person in respe
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">For example, as a landlord they’ve not met their obligations to their tenants and an independent manager has been brought in to manage the property.  </p>
   <div class="govuk-form-group {% if data.validationErrors.smrirelevant %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrirelevant %}

@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been owned on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?
+Has {{data.smrifirstname}} {{data.smrilastname}} owned or managed premises that have been the subject of a Relevant Order under the Housing Act 2004?  
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,16 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been owned on a database of rog
       {{title}}
     </h1>
   </label>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with ‘Relevant Order’
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">Content</p>        
+    </div>
+  </details>
   <div class="govuk-form-group {% if data.validationErrors.smriowned %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriowned %}

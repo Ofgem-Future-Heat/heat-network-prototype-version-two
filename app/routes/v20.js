@@ -6215,7 +6215,17 @@ function setSMRIUser(req, id) {
     req.session.data['smridobday'] = req.session.data['smridobday' + id]
     req.session.data['smridobmonth'] = req.session.data['smridobmonth' + id]
     req.session.data['smridobyear'] = req.session.data['smridobyear' + id]
-
+    req.session.data['smrirole'] = req.session.data['smrirole' + id]
+    req.session.data['smrimisconduct'] = req.session.data['smrimisconduct' + id]
+    req.session.data['smriconvictions'] = req.session.data['smriconvictions' + id]
+    req.session.data['smriinsolvency'] = req.session.data['smriinsolvency' + id]
+    req.session.data['smridisqualified'] = req.session.data['smridisqualified' + id]
+    req.session.data['smrisignificant'] = req.session.data['smrisignificant' + id]
+    req.session.data['smrisignificant2'] = req.session.data['smrisignificant2' + id]
+    req.session.data['smrirelevant'] = req.session.data['smrirelevant' + id]
+    req.session.data['smriidentified'] = req.session.data['smriidentified' + id]
+    req.session.data['smriowned'] = req.session.data['smriowned' + id]
+    req.session.data['smrirevoked'] = req.session.data['smrirevoked' + id]
 }
 
 function clearSMRIUser(req) {
@@ -6225,6 +6235,37 @@ function clearSMRIUser(req) {
     req.session.data['smridobday'] = ""
     req.session.data['smridobmonth'] = ""
     req.session.data['smridobyear'] = ""
+    req.session.data['smrirole'] = ""
+    req.session.data['smrimisconduct'] = ""
+    req.session.data['smriconvictions'] = ""
+    req.session.data['smriinsolvency'] = ""
+    req.session.data['smridisqualified'] = ""
+    req.session.data['smrisignificant'] = ""
+    req.session.data['smrisignificant2'] = ""
+    req.session.data['smrirelevant'] = ""
+    req.session.data['smriidentified'] = ""
+    req.session.data['smriowned'] = ""
+    req.session.data['smrirevoked'] = ""
+}
+
+function removeSMRIUser(req, id) {
+    req.session.data['addedsmri' + id] = ""
+    req.session.data['smrifirstname' + id] = ""
+    req.session.data['smrilastname' + id] = ""
+    req.session.data['smridob' + id] = ""
+    req.session.data['smridobday' + id] = ""
+    req.session.data['smridobmonth' + id] = ""
+    req.session.data['smridobyear' + id] = ""
+    req.session.data['smrirole' + id] = ""
+    req.session.data['smrimisconduct' + id] = ""
+    req.session.data['smriconvictions' + id] = ""
+    req.session.data['smriinsolvency' + id] = ""
+    req.session.data['smridisqualified' + id] = ""
+    req.session.data['smrisignificant' + id] = ""
+    req.session.data['smrisignificant2' + id] = ""
+    req.session.data['smrirelevant' + id] = ""
+    req.session.data['smriidentified' + id] = ""
+    req.session.data['smriowned' + id] = ""
 }
 
 /// SMRI List
@@ -6441,7 +6482,7 @@ router.post('/' + version + '/smri/misconduct', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrimisconduct = {
             "anchor": "smrimisconduct",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has facilitated any misconduct"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious misconduct or mismanagement while carrying out a regulated activity"
         }
     }
 
@@ -6476,7 +6517,7 @@ router.post('/' + version + '/smri/convictions', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriconvictions = {
             "anchor": "smriconvictions",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has upspent convictions"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any relevant unspent criminal convictions"
         }
     }
 
@@ -6512,7 +6553,7 @@ router.post('/' + version + '/smri/insolvency', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriinsolvency = {
             "anchor": "smriinsolvency",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has upspent insolvency"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any insolvency history"
         }
     }
 
@@ -6547,7 +6588,7 @@ router.post('/' + version + '/smri/disqualified', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smridisqualified = {
             "anchor": "smridisqualified",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has ever been disqualified"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been disqualified from acting as a director of a company?"
         }
     }
 
@@ -6583,7 +6624,7 @@ router.post('/' + version + '/smri/significant', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrisignificant = {
             "anchor": "smrisignificant",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has been a person with Significant Managerial Responsibility or Influence at a current or former authorised person, a Gas Supplier, or an Electricity Supplier"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Last Resort Supply Direction"
         }
     }
 
@@ -6618,7 +6659,7 @@ router.post('/' + version + '/smri/significant2', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrisignificant2 = {
             "anchor": "smrisignificant2",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has been a person with significant2 Managerial Responsibility or Influence at a current or former authorised person or Relevant Energy Licensee"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Special Administration Order"
         }
     }
 
@@ -6653,7 +6694,7 @@ router.post('/' + version + '/smri/relevant', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrirelevant = {
             "anchor": "smrirelevant",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has been a relevant person in respect of premises"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been a relevant person regarding premises to which a tribunal has appointed a manager"
         }
     }
 
@@ -6688,7 +6729,7 @@ router.post('/' + version + '/smri/identified', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriidentified = {
             "anchor": "smriidentified",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " has been identified on a database of rogue landlords and property agents "
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been identified on a database of rogue landlords or property agents"
         }
     }
 
@@ -6725,7 +6766,7 @@ router.post('/' + version + '/smri/owned', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriowned = {
             "anchor": "smriowned",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " owned or managed premises made the subject of a Relevant Order"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has owned or managed premises made the subject of a Relevant Order"
         }
     }
 
@@ -6764,7 +6805,7 @@ router.post('/' + version + '/smri/revoked', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrirevoked = {
             "anchor": "smrirevoked",
-            "message": "Tell us whether " + smrifirstname + " " + smrilastname + " been refused, had revoked, restricted or terminated any form of authorisation"
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been refused, had revoked, restricted or terminated any form of authorisation"
         }
     }
 
@@ -6798,4 +6839,47 @@ router.post('/' + version + '/smri/cya', function (req, res) {
 
 
         res.redirect('/' + version + '/smri/list');
+});
+
+
+/// SMRI remove
+router.get('/' + version + '/smri/remove', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        setSMRIUser(req, urlParams);
+    }
+    res.render('/' + version + '/smri/remove', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/remove', function (req, res) {
+    clearvalidation(req);
+    clearSMRIUser(req)
+    const urlParams = req.query.id;
+
+    var smriremove = req.session.data['smriremove']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+
+
+    if (!smriremove ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smriremove = {
+            "anchor": "smriremove",
+            "message": "Select whether you wish to remove " + smrifirstname + " " + smrilastname
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/remove', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        removeSMRIUser(req, urlParams)
+        res.redirect('/' + version + '/smri/list');
+    }
 });

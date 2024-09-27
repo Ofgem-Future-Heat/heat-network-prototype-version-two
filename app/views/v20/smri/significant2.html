@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been a person with Significant Managerial Responsibility or Influence at a current or former authorised person or Relevant Energy Licensee in relation to whom a Special Administration Order has been made?
+Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with significant managerial responsibility or influence at a heat network supplier or operator that received a Special Administration Order from Ofgem?  
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,17 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been a person with Significant 
       {{title}}
     </h1>
   </label>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with Special Administration Order
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">Content</p>        
+    </div>
+  </details>
+
   <div class="govuk-form-group {% if data.validationErrors.smrisignificant2 %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrisignificant2 %}

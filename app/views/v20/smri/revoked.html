@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been refused, had revoked (in whole or in part), restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction whether as an individual, or in relation to a business in which that person held Significant Managerial Responsibility or Influence?      
+Has {{data.smrifirstname}} {{data.smrilastname}} been refused, had revoked, restricted or terminated any form of authorisation?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,7 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been refused, had revoked (in w
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">This includes full or partial revocation.</p>
   <div class="govuk-form-group {% if data.validationErrors.smrirevoked %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrirevoked %}

@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been a person with Significant Managerial Responsibility or Influence at a current or former authorised person, a Gas Supplier, or an Electricity Supplier in respect of whose Customers’ or Consumer’s premises the Authority issued a [Last Resort Supply Direction]?
+Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with significant managerial responsibility or influence at a heat network supplier that received a Last Resort Supply Direction from Ofgem?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,19 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been a person with Significant 
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">
+    Include where the person with SMRI worked for the supplier in the 12 months prior to the Last Resort Supply Direction being issued.
+  </p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with Last Resort Supply Direction
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">Content</p>        
+    </div>
+  </details>
   <div class="govuk-form-group {% if data.validationErrors.smrisignificant %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrisignificant %}

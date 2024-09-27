@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?
+Has {{data.smrifirstname}} {{data.smrilastname}} been identified on a database of rogue landlords and property agents?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,6 +67,7 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been identified on a database o
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">These are databases managed by local authorities, established under section 28 of the Housing and Planning Act 2016.  </p>
   <div class="govuk-form-group {% if data.validationErrors.smriidentified %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriidentified %}

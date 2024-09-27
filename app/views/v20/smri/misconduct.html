@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} been responsible for, contributed to or facilitated any serious misconduct or mismanagement?
+Has {{data.smrifirstname}} {{data.smrilastname}} been responsible for, contributed to or facilitated any serious misconduct or mismanagement while carrying out a regulated activity?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -68,6 +68,22 @@ Has {{data.smrifirstname}} {{data.smrilastname}} been responsible for, contribut
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">This applies whether the action was unlawful or not. </p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with ‘regulated activity’
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">This is either:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>operation of a heat network or supply of heat on a heat network</li>
+          <li>any other activity that is regulated by Ofgem, for example as a gas or electricity licence holder</li>
+            </ul>
+        
+    </div>
+  </details>
   <div class="govuk-form-group {% if data.validationErrors.smrimisconduct %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrimisconduct %}
