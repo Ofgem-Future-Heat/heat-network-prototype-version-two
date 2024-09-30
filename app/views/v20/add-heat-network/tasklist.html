@@ -100,6 +100,31 @@
                 </li>
 
 
+                {% if data.role == "Network operator" or ((data.role != "Heat supplier" or data.role != "Network operator") and data.introonlysupplier == "No") %}
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        {% if data.suplliercomplete == "true" %}
+                        <a class="govuk-link govuk-task-list__link" href="suppliers/cya" aria-describedby="company-details-3-hint company-details-3-status">Suppliers</a>
+                    {% else %}
+                        <a class="govuk-link govuk-task-list__link" href="suppliers/intro" aria-describedby="company-details-3-hint company-details-3-status">Suppliers</a>
+                    {% endif %}
+
+
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
+                        {% if data.suplliercomplete == "true" %}
+                        Completed
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Not yet started
+                        </strong>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+
+
+
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">

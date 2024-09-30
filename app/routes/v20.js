@@ -21,6 +21,8 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
+        req.session.data['buildingcomplete'] = "true";
+        req.session.data['eccomplete'] = "true";        
     }
 
     res.render('/' + version + '/account-information', {
@@ -2934,7 +2936,6 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 // Tasklist
 
 function setupheatnetwork(req) {
-    req.session.data['role'] = "Heat supplier,Network operator";
     req.session.data['energycentre'] = "Yes";
 }
 
@@ -6245,6 +6246,86 @@ router.get('/' + version + '/add-heat-network/consumerprotections/cya', function
 
 router.post('/' + version + '/add-heat-network/consumerprotections/cya', function (req, res) {
     res.redirect('/' + version + '/add-heat-network/tasklist');
+});
+
+
+
+////////// SUPPLIERS /////////////
+
+
+// Suppliers - How many
+router.get('/' + version + '/add-heat-network/suppliers/howmany', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/suppliers/howmany', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req, res) {
+    clearvalidation(req);
+    var suppliershowmany = req.session.data['suppliershowmany']
+
+
+    if (!suppliershowmany) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.suppliershowmany = {
+            "anchor": "suppliershowmany",
+            "message": "Enter the number of suppliers"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/howmany', {
+            data: req.session.data
+        });
+    }
+
+
+    else {
+        if (suppliershowmany == 1) {
+            res.redirect('/' + version + '/add-heat-network/suppliers/search');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+        }
+    }
+
+});
+
+
+// Supliers - List
+router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
+    clearvalidation(req);
+    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
+
+
+    if (!ecaddressHasPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressHasPostcode = {
+            "anchor": "",
+            "message": "Fill in all energy centre information before continuing",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/suppliers/cya');
+    }
 });
 
 

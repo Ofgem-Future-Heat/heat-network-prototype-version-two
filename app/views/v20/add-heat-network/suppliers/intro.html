@@ -1,0 +1,53 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How the service works" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - suppliers</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Content here please</p>
+                <ul class="govuk-list govuk-list--number">
+                    <li>more content</li>
+                    <li>more content</li>
+                    <li>more content</li>
+                    <li>more content</li>
+                    <li>more content</li>
+                </ul>
+
+            </div>
+        <a href="howmany" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}
