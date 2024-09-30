@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 Does {{data.smrifirstname}} {{data.smrilastname}} have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering? 
 {% endset %}
@@ -60,7 +55,7 @@ Does {{data.smrifirstname}} {{data.smrilastname}} have any relevant unspent crim
     <form  method="POST" novalidate>
 
         
-    <span class="govuk-caption-l">Add a person with SMRI</span>
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
     <label for="smriconvictions">
 

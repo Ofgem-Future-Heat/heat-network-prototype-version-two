@@ -1,13 +1,8 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
-SMRI Declaration
+Are you sure you want to submit the SMRI declarations?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -67,8 +62,7 @@ SMRI Declaration
     <form method="POST" novalidate>
 
 
-      <h3 class="govuk-heading-m">Declaration</h3>
-      <p class="govuk-body">Tick to confirm:</p>
+      <p class="govuk-body">Only do this when you’re sure you’ve added all declarations from everyone with SMRI at {{company}}</p>
 
           <div class="govuk-form-group govuk-!-margin-top-4 {% if data.validationErrors.smrideclaration %}govuk-form-group--error{% endif %}">
 
@@ -78,29 +72,28 @@ SMRI Declaration
               {{data.validationErrors.smrideclaration.message}}
           </p>
           {% endif %}
-          <fieldset class="govuk-fieldset">
-              <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input" id="smrideclaration" name="smrideclaration" type="checkbox" value="true">
-                  <label class="govuk-label govuk-checkboxes__label" for="smrideclaration">
-                    <p class="govuk-body">I confirm that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                      <li>I have due authority to enable my organisation for the heat network service</li>
-                      <li>I have read and understood the digital form and the guidance for it, currently published on the GOV.UK website</li>
-                      <li>to the best of my knowledge and belief, all the details provided in this digital form are true and complete </li>
-                      <li>I understand that knowingly or recklessly making a false, incomplete or misleading statement in support of this request may lead to service access being revoked</li>
-                    </ul>
-                  </label>
-                </div>
-              </div>
-            </fieldset>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="smrideclaration" name="smrideclaration" type="radio" value="Yes" {% if data.smrideclaration == "Yes" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="smrideclaration">
+                    Yes
+                </label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="smrideclaration-2" name="smrideclaration" type="radio" value="No" {% if data.smrideclaration == "No" %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="smrideclaration-2">
+                    No
+                </label>
+            </div>
+        </div>
+        </div>
 
 
 
 
   {{
       govukButton ({
-          html: 'Accept and send'
+          html: 'Save and continue'
       })
   }}
 </form>

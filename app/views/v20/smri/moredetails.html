@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
-Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with significant managerial responsibility or influence at a heat network supplier or operator that received a Special Administration Order from Ofgem?  
+If you answered ‘Yes’ to any of the previous questions, please provide further details
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -54,49 +54,25 @@ Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with signifi
     <form  method="POST" novalidate>
 
         
-    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+    <span class="govuk-caption-l">Add a person with relevant managerial responsibility or influence</span>
 
-    <label for="smrisignificant2">
+    <label for="smrimoredetails">
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
   </label>
-  <details class="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        Help with Special Administration Order
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-        <p class="govuk-body">Content</p>        
-    </div>
-  </details>
+  <div class="govuk-form-group {% if data.validationErrors.smrimoredetails %}govuk-form-group--error{% endif %}">
 
-  <div class="govuk-form-group {% if data.validationErrors.smrisignificant2 %}govuk-form-group--error{% endif %}">
-
-        {% if data.validationErrors.smrisignificant2 %}
+        {% if data.validationErrors.smrimoredetails %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.smrisignificant2.message}}
+            {{data.validationErrors.smrimoredetails.message}}
         </p>
         {% endif %}
 
 
-        <div class="govuk-radios" data-module="govuk-radios">
-          <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="smrisignificant2" name="smrisignificant2" type="radio" value="Yes" {% if data.smrisignificant2 == "Yes" %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="smrisignificant2">
-                  Yes
-              </label>
-          </div>
-          <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="smrisignificant2-2" name="smrisignificant2" type="radio" value="No" {% if data.smrisignificant2 == "No" %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="smrisignificant2-2">
-                  No
-              </label>
-          </div>
-      </div>
+        <textarea class="govuk-textarea" id="smrimoredetails" name="smrimoredetails" rows="5"></textarea>
 
       </div>
 

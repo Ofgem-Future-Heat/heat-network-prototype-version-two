@@ -19,6 +19,10 @@ router.get('/' + version + '/account-information', function (req, res) {
     const urlParams = req.query.v;
     req.session.data['currentversion'] = urlParams;
 
+    if (urlParams == "ur") {
+        req.session.data['organisationdetails'] = "Submitted";
+    }
+
     res.render('/' + version + '/account-information', {
         data: req.session.data
     });
@@ -6226,6 +6230,7 @@ function setSMRIUser(req, id) {
     req.session.data['smriidentified'] = req.session.data['smriidentified' + id]
     req.session.data['smriowned'] = req.session.data['smriowned' + id]
     req.session.data['smrirevoked'] = req.session.data['smrirevoked' + id]
+    req.session.data['smrimoredetails'] = req.session.data['smrimoredetails' + id]
 }
 
 function clearSMRIUser(req) {
@@ -6246,6 +6251,7 @@ function clearSMRIUser(req) {
     req.session.data['smriidentified'] = ""
     req.session.data['smriowned'] = ""
     req.session.data['smrirevoked'] = ""
+    req.session.data['smrimoredetails'] = ""    
 }
 
 function removeSMRIUser(req, id) {
@@ -6266,6 +6272,7 @@ function removeSMRIUser(req, id) {
     req.session.data['smrirelevant' + id] = ""
     req.session.data['smriidentified' + id] = ""
     req.session.data['smriowned' + id] = ""
+    req.session.data['smrimoredetails' + id] = ""    
 }
 
 /// SMRI List
@@ -6277,10 +6284,6 @@ router.get('/' + version + '/smri/list', function (req, res) {
     });
 });
 
-router.post('/' + version + '/smri/list', function (req, res) {
-    res.redirect('/' + version + '/smri/declaration');
-
-});
 
 /// SMRI declaration
 router.get('/' + version + '/smri/declaration', function (req, res) {
@@ -6295,11 +6298,11 @@ router.post('/' + version + '/smri/declaration', function (req, res) {
     var smrideclaration = req.session.data['smrideclaration']
 
 
-    if (smrideclaration != "true" ) {
+    if (!smrideclaration ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrideclaration = {
             "anchor": "smrideclaration",
-            "message": "Check the declaration"
+            "message": "Select whether you want to submit the SMRI declarations "
         }
     }
 
@@ -6310,7 +6313,8 @@ router.post('/' + version + '/smri/declaration', function (req, res) {
     }
 
     else {
-        res.redirect('/' + version + '/smri/complete');
+        
+        res.redirect('/' + version + '/account-information');
     }
 });
 
@@ -6371,7 +6375,6 @@ router.post('/' + version + '/smri/name', function (req, res) {
     }
         req.session.data['smrifirstname' + req.session.data['smritotal']] = req.session.data['smrifirstname']
         req.session.data['smrilastname' + req.session.data['smritotal']] = req.session.data['smrilastname']
-        req.session.data['addedsmri' + req.session.data['smritotal']] = "true"
         res.redirect('/' + version + '/smri/dob');
     }
 });
@@ -6817,9 +6820,60 @@ router.post('/' + version + '/smri/revoked', function (req, res) {
 
     else {
         req.session.data['smrirevoked' + req.session.data['smritotal']] = req.session.data['smrirevoked']
+
+        if (req.session.data['smrimisconduct'] == "Yes" ||
+            req.session.data['smriconvictions']  == "Yes" ||
+            req.session.data['smriinsolvency']  == "Yes" ||
+            req.session.data['smridisqualified']  == "Yes" ||
+            req.session.data['smrisignificant']  == "Yes" ||
+            req.session.data['smrisignificant2']  == "Yes" ||
+            req.session.data['smrirelevant']  == "Yes" ||
+            req.session.data['smriidentified']  == "Yes" ||
+            req.session.data['smriowned']  == "Yes" ||
+            req.session.data['smrirevoked']  == "Yes")
+            {
+                res.redirect('/' + version + '/smri/moredetails');
+            }
+            else {
+                res.redirect('/' + version + '/smri/cya');
+            }
+    }
+});
+
+
+/// SMRI more details
+router.get('/' + version + '/smri/moredetails', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/moredetails', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/moredetails', function (req, res) {
+    clearvalidation(req);
+    var smrimoredetails = req.session.data['smrimoredetails']
+
+
+    if (!smrimoredetails ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smrimoredetails = {
+            "anchor": "smrimoredetails",
+            "message": "Provide further details"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/moredetails', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data['smrimoredetails' + req.session.data['smritotal']] = req.session.data['smrimoredetails']
         res.redirect('/' + version + '/smri/cya');
     }
 });
+
 
 /// SMRI cya
 router.get('/' + version + '/smri/cya', function (req, res) {
@@ -6836,6 +6890,7 @@ router.get('/' + version + '/smri/cya', function (req, res) {
 router.post('/' + version + '/smri/cya', function (req, res) {
     clearvalidation(req);
     clearSMRIUser(req)
+    req.session.data['addedsmri' + req.session.data['smritotal']] = "true"
 
 
         res.redirect('/' + version + '/smri/list');

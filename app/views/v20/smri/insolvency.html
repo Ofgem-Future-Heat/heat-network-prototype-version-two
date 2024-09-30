@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 Does {{data.smrifirstname}} {{data.smrilastname}} have any insolvency history, including undischarged bankruptcy, debt judgements and county court judgements?
 {% endset %}
@@ -59,7 +54,7 @@ Does {{data.smrifirstname}} {{data.smrilastname}} have any insolvency history, i
     <form  method="POST" novalidate>
 
         
-    <span class="govuk-caption-l">Add a person with SMRI</span>
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
     <label for="smriinsolvency">
 

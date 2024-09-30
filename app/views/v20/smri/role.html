@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-  {{data.companyname}}
-{% else %}
-  Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 What is {{data.smrifirstname}} {{data.smrilastname}}'s role at {{company}} ?
 {% endset %}
@@ -61,7 +56,7 @@ What is {{data.smrifirstname}} {{data.smrilastname}}'s role at {{company}} ?
 
       <div class="govuk-form-group {% if data.validationErrors.smrirole %}govuk-form-group--error{% endif %}">
         
-    <span class="govuk-caption-l">Add a person with SMRI</span>
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
     <label for="smrirole">
 

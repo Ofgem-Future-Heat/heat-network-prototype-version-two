@@ -3,13 +3,8 @@
 {% set title = "People with significant managerial responsibility or influence (SMRI)" %}
 
 {% set _inError = data.validationError == "true"  %}
-{% set company %}
-{% if data.companyname %}
-            {{data.companyname}}
-            {% else %}
-            Radienteco Ltd
-            {% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 
 {% block pageTitle %}
 {{title}}
@@ -74,7 +69,10 @@
         <span class="govuk-caption-l">{{company}}</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-        <p class="govuk-body">We need some more information about people who have significant  managerial responsibility or influence (SMRI) at {{company}}.</p>
+        <p class="govuk-body">We need to know that all the people who have significant managerial responsibility or influence at {{company}} are fit and proper to run the business.</p>
+        <div class="govuk-inset-text">
+            You will not be able to send heat network information on behalf of {{company}} until you have completed a fit and proper declaration on behalf of every person with SMRI.
+        </div>
         <details class="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
@@ -82,11 +80,47 @@
               </span>
             </summary>
             <div class="govuk-details__text">
-                <p class="govuk-body">SMRI means where a person plays a role in either</p>
+                <p class="govuk-body">A person with SMRI is someone who plays a role in either:</p>
                 <ul class="govuk-list govuk-list--bullet">
-                    <li>the making of decisions about how the whole or a substantial part of an authorised person’s activities are to be managed or organised</li>
-                    <li>the actual managing or organising of the whole or a substantial part of those activities; </li>
+                    <li>the making of decisions about how the whole, or a substantial part, of {{company}} is to be managed or organised</li>
+                    <li>the actual managing or organising of the whole, or a substantial part of, {{compamy}}’s activities</li>
                     </ul>
+                
+            </div>
+          </details>
+
+
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                What questions are asked as part of the declaration?
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p class="govuk-body">You should circulate these questions to all anyone with SMRI so they can provide their response:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>Has the person with SMRI been responsible for, contributed to or facilitated any serious misconduct or mismanagement while carrying out a regulated activity?
+                    </li>
+                    <li>Does the person with SMRI have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?
+                    </li>
+                    <li>Does the person with SMRI have any insolvency history, including undischarged bankruptcy, debt judgements and county court judgements?
+                    </li>
+                    <li>Has the person with SMRI ever been disqualified from acting as a director of a company?
+                    </li>
+                    <li>Has the person with SMRI ever been a person with SMRI at a heat network supplier that received a Last Resort Supply Direction from Ofgem?
+                    </li>
+                    <li>Has the person with SMRI ever been a person with SMRI at a heat network supplier or operator that received a Special Administration Order from Ofgem?
+                    </li>
+                    <li>Has the person with SMRI been a relevant person regarding premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?
+                    </li>
+                    <li>Has the person with SMRI been identified on a database of rogue landlords and property agents?
+                    </li>
+                    <li>Has the person with SMRI owned or managed premises that have been the subject of a Relevant Order under the Housing Act 2004?
+                    </li>
+                    <li>Has the person with SMRI been refused, had revoked, restricted or terminated any form of authorisation?
+                    </li>
+                    <li>Has the person with SMRI had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction? </li>
+                </ul>
                 
             </div>
           </details>
@@ -162,7 +196,6 @@
 
                   </tbody>
     </table>
-    <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Add another person</a></p>
 
 
 
@@ -171,20 +204,11 @@
     </div>
     {% endif %}
     <div class="govuk-grid-column-two-thirds">
-        {% if smriCount > 0 %}
-        <p class="govuk-body">Ensure all people with significant managerial responsibility or influence have been added before submitting your SMRI delcaration.</p>
-
-
-        <form method="POST" novalidate>
-            {{
-                govukButton ({
-                    html: 'Submit SMRI declaration'
-                })
-            }}
-        </form>
-        {% else %}
-        <p class="govuk-body">You'll need to add any people with significant managerial responsibility or influence, before you can submit your SMRI delcaration.</p>
         <a href="name" class="govuk-button">Add a person with SMRI</a>
+
+        {% if smriCount > 0 %}
+        <p class="govuk-body"><a href="declaration" class="govuk-link govuk-link--no-visited-state">Submit all completed declarations</a></p> 
+
         {% endif %}
     </div>
 

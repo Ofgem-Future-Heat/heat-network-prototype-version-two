@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with significant managerial responsibility or influence at a heat network supplier that received a Last Resort Supply Direction from Ofgem?
 {% endset %}
@@ -59,7 +54,7 @@ Has {{data.smrifirstname}} {{data.smrilastname}} ever been a person with signifi
     <form  method="POST" novalidate>
 
         
-    <span class="govuk-caption-l">Add a person with SMRI</span>
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
     <label for="smrisignificant">
 

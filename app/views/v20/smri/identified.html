@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 Has {{data.smrifirstname}} {{data.smrilastname}} been identified on a database of rogue landlords and property agents?
 {% endset %}

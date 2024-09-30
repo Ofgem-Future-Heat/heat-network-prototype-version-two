@@ -63,15 +63,11 @@
 
     {% if data.currentversion != "dev" %}
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
-    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">SMRI declaration</a></h3>
-    <p class="govuk-body">View, change and add persons with significant managerial responsbility or influence (SMRI)</p>
-    {% if data.currentversion == "ur" %}
-    <strong class="govuk-tag govuk-tag--green">
-      Completed
-     </strong>
-     {% else %}
+    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">People with SMRI</a></h3>
+    <p class="govuk-body">Add and edit all people with significant managerial responsibility or influence (SMRI).</p>
 
-    {% if data.smrideclaration != "true" %}
+
+    {% if data.smrideclaration != "Yes" %}
     <strong class="govuk-tag govuk-tag--red">
      Not started
     </strong>
@@ -79,7 +75,6 @@
     <strong class="govuk-tag govuk-tag--green">
       Completed
      </strong>
-    {% endif %}
     {% endif %}
   </div>
   {% endif %}
@@ -102,7 +97,7 @@
 
     <h2 class="govuk-heading-m">Heat networks</h2>
 
-      {% if (data.organisationdetails == "Submitted") or (data.currentversion == "ur") %}
+      {% if ((data.organisationdetails == "Submitted") and (data.smrideclaration == "Yes")) %}
       <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
 
       {{ govukButton ({

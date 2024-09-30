@@ -1,11 +1,6 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
 Has {{data.smrifirstname}} {{data.smrilastname}} been a relevant person regarding premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?  
 {% endset %}

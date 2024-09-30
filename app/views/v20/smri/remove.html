@@ -1,13 +1,8 @@
 {% extends 'layouts/main.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
 {% set title %}
-Are you sure you wish to remove {{data.smrifirstname}} {{data.smrilastname}} as a person with SMRI for {{company}}?
+Are you sure you want to remove {{data.smrifirstname}} {{data.smrilastname}} as a person with SMRI for {{company}}?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
