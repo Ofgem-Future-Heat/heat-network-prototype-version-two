@@ -2991,46 +2991,6 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
 
 
 
-// Introduction - Role
-router.get('/' + version + '/add-heat-network/introduction/role', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/introduction/role', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/role', function (req, res) {
-    clearvalidation(req);
-    var role = req.session.data['role']
-
-    if (!role) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.role = {
-            "anchor": "role",
-            "message": "Select an activity"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/role', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (role == "Heat supplier") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout-supplier');
-
-        }
-
-        else {
-            res.redirect('/' + version + '/account-information');
-
-        }
-    }
-});
-
 // Introduction - Suppliers
 router.get('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
     clearvalidation(req);
@@ -3493,7 +3453,87 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/tasklist');
+        res.redirect('/' + version + '/add-heat-network/introduction/role');
+
+    }
+});
+
+
+
+// Introduction - Role
+router.get('/' + version + '/add-heat-network/introduction/role', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/role', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/role', function (req, res) {
+    clearvalidation(req);
+    var role = req.session.data['role']
+
+    if (!role) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.role = {
+            "anchor": "role",
+            "message": "Select an activity"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/role', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (role == "Heat supplier") {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout-supplier');
+
+        }
+
+        else if (role == "Network operator") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/othersuppliers');
+
+        }
+    }
+});
+
+// Introduction - Only Supplier
+router.get('/' + version + '/add-heat-network/introduction/othersuppliers', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/othersuppliers', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/othersuppliers', function (req, res) {
+    clearvalidation(req);
+    var introonlysupplier = req.session.data['introonlysupplier']
+
+    if (!introonlysupplier) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introonlysupplier = {
+            "anchor": "introonlysupplier",
+            "message": "Select whether there are other suppliers on this heat network"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/introonlysupplier', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
 
     }
 });
@@ -6230,6 +6270,7 @@ function setSMRIUser(req, id) {
     req.session.data['smriidentified'] = req.session.data['smriidentified' + id]
     req.session.data['smriowned'] = req.session.data['smriowned' + id]
     req.session.data['smrirevoked'] = req.session.data['smrirevoked' + id]
+    req.session.data['smridisciplinary'] = req.session.data['smridisciplinary' + id]
     req.session.data['smrimoredetails'] = req.session.data['smrimoredetails' + id]
 }
 
@@ -6251,6 +6292,7 @@ function clearSMRIUser(req) {
     req.session.data['smriidentified'] = ""
     req.session.data['smriowned'] = ""
     req.session.data['smrirevoked'] = ""
+    req.session.data['smridisciplinary'] = ""
     req.session.data['smrimoredetails'] = ""    
 }
 
@@ -6272,6 +6314,8 @@ function removeSMRIUser(req, id) {
     req.session.data['smrirelevant' + id] = ""
     req.session.data['smriidentified' + id] = ""
     req.session.data['smriowned' + id] = ""
+    req.session.data['smrirevoked'] = ""
+    req.session.data['smridisciplinary'] = ""
     req.session.data['smrimoredetails' + id] = ""    
 }
 
@@ -6786,9 +6830,6 @@ router.post('/' + version + '/smri/owned', function (req, res) {
 });
 
 
-
-
-
 /// SMRI revoked
 router.get('/' + version + '/smri/revoked', function (req, res) {
     clearvalidation(req);
@@ -6821,6 +6862,43 @@ router.post('/' + version + '/smri/revoked', function (req, res) {
     else {
         req.session.data['smrirevoked' + req.session.data['smritotal']] = req.session.data['smrirevoked']
 
+                res.redirect('/' + version + '/smri/disciplinary');
+    }
+});
+
+
+/// SMRI disciplinary
+router.get('/' + version + '/smri/disciplinary', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/disciplinary', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/disciplinary', function (req, res) {
+    clearvalidation(req);
+    var smridisciplinary = req.session.data['smridisciplinary']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+
+
+    if (!smridisciplinary ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smridisciplinary = {
+            "anchor": "smridisciplinary",
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/disciplinary', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data['smridisciplinary' + req.session.data['smritotal']] = req.session.data['smridisciplinary']
+
         if (req.session.data['smrimisconduct'] == "Yes" ||
             req.session.data['smriconvictions']  == "Yes" ||
             req.session.data['smriinsolvency']  == "Yes" ||
@@ -6830,7 +6908,8 @@ router.post('/' + version + '/smri/revoked', function (req, res) {
             req.session.data['smrirelevant']  == "Yes" ||
             req.session.data['smriidentified']  == "Yes" ||
             req.session.data['smriowned']  == "Yes" ||
-            req.session.data['smrirevoked']  == "Yes")
+            req.session.data['smrirevoked']  == "Yes" ||
+            req.session.data['smridisciplinary']  == "Yes")
             {
                 res.redirect('/' + version + '/smri/moredetails');
             }
