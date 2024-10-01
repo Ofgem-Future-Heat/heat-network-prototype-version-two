@@ -204,10 +204,15 @@
     </div>
     {% endif %}
     <div class="govuk-grid-column-two-thirds">
-        <a href="name" class="govuk-button">Add a person with SMRI</a>
 
         {% if smriCount > 0 %}
-        <p class="govuk-body"><a href="declaration" class="govuk-link govuk-link--no-visited-state">Submit all completed declarations</a></p> 
+        <div class="govuk-button-group">
+        <a href="name" class="govuk-button govuk-button--secondary">Add a person with SMRI</a>
+        <a href="declaration" class="govuk-button">Submit all completed declarations</a>
+
+            </div>
+        {% else %}
+        <a href="name" class="govuk-button">Add a person with SMRI</a>
 
         {% endif %}
     </div>

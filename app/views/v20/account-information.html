@@ -97,7 +97,7 @@
 
     <h2 class="govuk-heading-m">Heat networks</h2>
 
-      {% if ((data.organisationdetails == "Submitted") and (data.smrideclaration == "Yes")) %}
+      {% if (data.organisationdetails == "Submitted") %}
       <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
 
       {{ govukButton ({
