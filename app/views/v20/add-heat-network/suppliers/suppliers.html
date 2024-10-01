@@ -54,7 +54,18 @@
         <span class="govuk-caption-l">Add a heat network - energy centres</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-        <p class="govuk-body">All {{data.buildings.length}} buildings on your heat network will need an allocated supplier.</p>
+
+              {% set buildingCount = 0 %}
+              {% for building in data.buildings %}
+              {% if building.supplied != 0 %}
+              {% set buildingCount = buildingCount + 1 %}
+              {% endif %}
+              {% endfor %}
+          
+
+
+
+        <p class="govuk-body">You've allocated a supplier to {{buildingCount}} out of {{data.buildings.length}} buildings on your heat network.</p>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -95,7 +106,7 @@
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Name</th>
-                        <th scope="col" class="govuk-table__header">Address</th>
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-half">Address</th>
                         <th scope="col" class="govuk-table__header">Buildings supplied</th>
 
                         <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"></th>
@@ -134,14 +145,26 @@
 
     </div>
     {% endif %}
+
+    <form  method="POST" novalidate>
+
     <div class="govuk-grid-column-two-thirds">
-        <a href="name" class="govuk-button">Add a supplier</a>
+
+        <div class="govuk-button-group">
+            <a href="name" class="govuk-button govuk-button--secondary">Add a supplier</a>
+
+            {{
+                govukButton ({
+                    html: 'Submit suppliers'
+                })
+              }}
+          </div>
 
         {% if supplierCount > 0 %}
-        <p class="govuk-body"><a href="cya" class="govuk-link govuk-link--no-visited-state">Submit suppliers</a></p> 
 
         {% endif %}
     </div>
+    </form>
 
 </div>
 

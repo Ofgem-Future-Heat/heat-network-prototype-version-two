@@ -6270,6 +6270,7 @@ function clearSupplier(req) {
     req.session.data['addedsupplier'] = ""
     req.session.data['supplierbuildings'] = ""
     req.session.data['supplierid'] = ""
+    req.session.data['supplierremove'] = ""
 
 }
 
@@ -6279,7 +6280,17 @@ function removeSupplier(req, id) {
     req.session.data['supplieraddressselected' + id] = ""
     req.session.data['addedsupplier' + id] = ""
     req.session.data['supplierbuildings' + id] = ""
+    var buildings = req.session.data['buildings']
+    buildings.forEach((building) => {
+        if (building.supplied == id) {
+            console.log(building.supplied)
+            building.supplied = 0 
+        }
+    })
+    req.session.data['buildings'] = buildings
+
 }
+
 
 
 
@@ -6330,7 +6341,7 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
     var buildings = req.session.data['buildings']
     clearSupplier(req)
 
-    if (!buildings) {
+    if (!buildings || buildings.length == 0) {
         const buildings = [];
 
         for (let i = 1; i <= 8; i++) {
@@ -6353,13 +6364,22 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
 
 router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
-    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode'];
+    console.log("posting");
+    var buildings = req.session.data['buildings']
 
-    if (!ecaddressHasPostcode) {
+    let allSupplied = true;
+    buildings.forEach((building) => {
+        if (building.supplied === 0) {
+            allSupplied = false; 
+            console.log("all not supplied")
+        }
+    });
+
+    if (!allSupplied) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.ecaddressHasPostcode = {
+        req.session.data.validationErrors.suppliers = {
             "anchor": "",
-            "message": "Fill in all energy centre information before continuing",
+            "message": "All buildings must have an allocated supplier before you can continue",
         }
     }
 
@@ -6395,7 +6415,7 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
             req.session.data['supplierid'] = req.session.data.suppliertotal
         }
     }
-    
+
     res.render('/' + version + '/add-heat-network/suppliers/name', {
         data: req.session.data
     });
@@ -6563,6 +6583,68 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
         res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
       }
   });
+
+
+  // Suppliers - cya
+router.get('/' + version + '/add-heat-network/suppliers/cya', function (req, res) {
+    res.render('/' + version + '/add-heat-network/suppliers/cya', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/suppliers/cya', function (req, res) {
+    res.redirect('/' + version + '/add-heat-network/tasklist');
+});
+
+
+
+/// supplier remove
+router.get('/' + version + '/add-heat-network/suppliers/remove', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        setSupplier(req, urlParams)
+    }
+    res.render('/' + version + '/add-heat-network/suppliers/remove', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/suppliers/remove', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+
+    var supplierremove = req.session.data['supplierremove']
+    var suppliername = req.session.data['suppliername']
+
+
+    if (!supplierremove ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplierremove = {
+            "anchor": "supplierremove",
+            "message": "Select whether you wish to remove " + suppliername
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/remove', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (supplierremove == "Yes") {
+            clearSupplier(req)
+            removeSupplier(req, urlParams)
+            res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+        }
+
+        else {
+            clearSupplier(req)
+            res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+        }
+    }
+});
 
 
 

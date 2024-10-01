@@ -1,7 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
-{% set title = "Find a supplier" %}
+{% set title %}
+Are you sure you want to remove {{data.suppliernameselected}} as a supplier for this heat network?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -49,26 +51,42 @@
         </div>
     </div>
     {% endif %}
+    <form  method="POST" novalidate>
 
-    <span class="govuk-caption-l">Add a heat network - suppliers</span>
+        
+      <span class="govuk-caption-l">Add a heat network - suppliers</span>
 
+    <label for="supplierremove">
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <form  method="POST" novalidate>
+  </label>
+  <div class="govuk-form-group {% if data.validationErrors.supplierremove %}govuk-form-group--error{% endif %}">
 
-      <div class="govuk-form-group {% if data.validationErrors.suppliername %}govuk-form-group--error{% endif %}">
-        <label class="govuk-label govuk-label--s" for="first-name">
-          Supplier name
-        </label>
-        {% if data.validationErrors.suppliername %}
+        {% if data.validationErrors.supplierremove %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.suppliername.message}}
+            {{data.validationErrors.supplierremove.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="suppliername" type="text" value="{{data.suppliername}}">
+
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="supplierremove" name="supplierremove" type="radio" value="Yes" {% if data.supplierremove == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="supplierremove">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="supplierremove-2" name="supplierremove" type="radio" value="No" {% if data.supplierremove == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="supplierremove-2">
+                  No
+              </label>
+          </div>
+      </div>
+
       </div>
 
 
@@ -82,7 +100,6 @@
       </div>
 </form>
 
-  </div>
 </div>
 
 {% endblock %}

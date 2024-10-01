@@ -1,0 +1,139 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - billing</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+
+        {% set suppliers = [] %}
+
+        {% for i in range(1, 100) %}
+            {% set suppliers = suppliers.concat([{
+                "added": data["addedsupplier" ~ i],
+                "name": data["suppliernameselected" ~ i],
+                "id": i,
+                "address": data["supplieraddressselected" ~ i],
+                "buildings": data["supplierbuildings" ~ i]
+    
+            }]) %}
+        {% endfor %}
+        {% set supplierCount = 0 %}
+
+    
+       
+    
+
+    
+        
+                        
+    
+                      {% for supplier in suppliers %}
+    
+                      {% if supplier.added == "true" %}
+                      {% set supplierCount = supplierCount + 1 %}
+
+                      <h2 class="govuk-heading-m">Supplier {{supplierCount}}</h2>
+                      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Name
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{supplier.name}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="often">Change</a>
+                        </dd>
+                    </div>
+
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Address
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{supplier.address| replace(", ",",<br />")| safe}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="often">Change</a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Buildings supplied
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <ul class="govuk-list">
+                            {% for building in data.buildings %}
+                            {% if building.supplied == supplier.id %}
+                            <li class="govuk-!-margin-bottom-3">{{building.address}}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="often">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+
+                      {% endif %}
+    
+                  {% endfor %}
+    
+        
+
+
+
+
+
+        <form method="POST" novalidate>
+            <input type="hidden" id="suppliercomplete" name="suppliercomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
