@@ -54,7 +54,7 @@
         <span class="govuk-caption-l">Add a heat network - energy centres</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-        <p class="govuk-body">We need to know that all the people who have significant managerial responsibility or influence at {{company}} are fit and proper to run the business.</p>
+        <p class="govuk-body">All {{data.buildings.length}} buildings on your heat network will need an allocated supplier.</p>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -64,9 +64,9 @@
     {% for i in range(1, 100) %}
         {% set suppliers = suppliers.concat([{
             "added": data["addedsupplier" ~ i],
-            "name": data["suppliername" ~ i],
+            "name": data["suppliernameselected" ~ i],
             "id": i,
-            "address": data["supplieraddress" ~ i]
+            "address": data["supplieraddressselected" ~ i]
         }]) %}
     {% endfor %}
     {% set supplierCount = 0 %}
@@ -94,7 +94,7 @@
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Name</th>
                         <th scope="col" class="govuk-table__header">Address</th>
-                        <th scope="col" class="govuk-table__header"></th>
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"></th>
                     </tr>
 
                 </thead>

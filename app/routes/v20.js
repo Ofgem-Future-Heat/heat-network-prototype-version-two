@@ -6297,6 +6297,22 @@ router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req
 // Supliers - List
 router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
+    var buildings = req.session.data['buildings']
+
+    if (!buildings) {
+        const buildings = [];
+
+        for (let i = 1; i <= 8; i++) {
+            buildings.push({
+                name: 'Building ' + i,
+                id: i,
+                address: (i * 2) + ' Fake Street, London, SW14 1BB',
+                supplied: 0,
+            });
+        }
+        req.session.data['buildings'] = buildings
+    }
+
 
     res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
         data: req.session.data
@@ -6327,6 +6343,174 @@ router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (r
         res.redirect('/' + version + '/add-heat-network/suppliers/cya');
     }
 });
+
+
+
+// Suppliers - Name
+router.get('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/suppliers/name', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
+    clearvalidation(req);
+    var suppliername = req.session.data['suppliername']
+
+    if (!suppliername) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.suppliername = {
+            "anchor": "suppliername",
+            "message": "Enter the number of suppliers"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/name', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        const fs = require('fs');
+        const path = require('path');
+
+    // Read the orgs.json file
+    fs.readFile(path.join(__dirname, '../data/orgs.json'), 'utf-8', (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: 'Unable to read the data file' });
+      }
+  
+      // Parse the JSON file
+      const orgs = JSON.parse(data);
+  
+      // Filter the orgs based on the search query (case-insensitive search)
+      const filteredOrgs = orgs.filter(org =>
+        org.Name.toLowerCase().includes(suppliername.toLowerCase())
+      );
+  
+      // Return the filtered results
+      if (filteredOrgs.length > 0) {
+        req.session.data.supplierresults = filteredOrgs;
+        res.redirect('/' + version + '/add-heat-network/suppliers/results');
+      }
+
+      else {
+        res.redirect('/' + version + '/add-heat-network/suppliers/noresults');
+      }
+    })}
+  });
+
+// Suppliers - Results
+router.get('/' + version + '/add-heat-network/suppliers/results', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/suppliers/results', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/suppliers/results', function (req, res) {
+    clearvalidation(req);
+    var suppliernameselected = req.session.data['suppliernameselected']
+
+if (!suppliernameselected) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.suppliernameselected = {
+        "anchor": "suppliernameselected",
+        "message": "Select a name"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/suppliers/results', {
+        data: req.session.data
+    });
+}
+
+
+else {
+    res.redirect('/' + version + '/add-heat-network/suppliers/confirm');
+}
+});
+
+
+// Suppliers - Confirm supplier
+router.get('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/suppliers/confirm', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
+    clearvalidation(req);
+
+    if (req.session.data.suppliertotal) {
+        req.session.data.suppliertotal = req.session.data.suppliertotal + 1
+    } 
+    else {
+        req.session.data.suppliertotal = 1
+    }
+    req.session.data['suppliernameselected' + req.session.data['suppliertotal']] = req.session.data['suppliernameselected']
+    req.session.data['supplieraddressselected' + req.session.data['suppliertotal']] = req.session.data['supplieraddressselected']
+    req.session.data['addedsupplier' + req.session.data['suppliertotal']] = "true"
+
+
+    res.redirect('/' + version + '/add-heat-network/suppliers/buildings');
+});
+
+
+
+// Suppliers - Buildings
+router.get('/' + version + '/add-heat-network/suppliers/buildings', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/suppliers/buildings', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/buildings', function (req, res) {
+    clearvalidation(req);
+    var buildings = req.session.data['buildings']
+    var supplierbuildings = req.session.data['supplierbuildings']
+
+
+    if (!supplierbuildings) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplierbuildings = {
+            "anchor": "supplierbuildings",
+            "message": "Select at least one building"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/buildings', {
+            data: req.session.data
+        });
+    }
+
+    else {
+    // Check if supplierbuildings is an array
+    if (Array.isArray(supplierbuildings)) {
+        // Loop through the supplierbuildings array
+        supplierbuildings.forEach((supplierbuilding) => {
+            // Find the building with the matching id
+            const building = buildings.find(b => b.id == supplierbuilding);
+
+            // If a matching building is found, set supplied to true
+            if (building) {
+                building.supplied = req.session.data['suppliertotal'];
+            }
+        });
+    } else {
+        console.log('supplierbuildings is not an array');
+    }
+            // res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+      }
+  });
 
 
 
