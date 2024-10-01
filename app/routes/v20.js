@@ -425,7 +425,6 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
             parseInt(financialendday), 
             parseInt(financialendmonth)
         );
-        console.log(days)
         req.session.data['financialdays'] = days;
         res.redirect('/' + version + '/organisation-details/accounts');
     }
@@ -2239,7 +2238,6 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
                 const response = await fetch(`https://api.company-information.service.gov.uk/company/${companyNumber}`, requestOptions);
           
                 // Log the response status
-                console.log(`Response Status: ${response.status} ${response.statusText}`);
           
                 if (!response.ok) {
                     req.session.data.validationErrors.companynumber = {
@@ -6283,7 +6281,6 @@ function removeSupplier(req, id) {
     var buildings = req.session.data['buildings']
     buildings.forEach((building) => {
         if (building.supplied == id) {
-            console.log(building.supplied)
             building.supplied = 0 
         }
     })
@@ -6364,14 +6361,12 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
 
 router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
-    console.log("posting");
     var buildings = req.session.data['buildings']
 
     let allSupplied = true;
     buildings.forEach((building) => {
         if (building.supplied === 0) {
             allSupplied = false; 
-            console.log("all not supplied")
         }
     });
 
@@ -6576,7 +6571,6 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
             }
         });
     } else {
-        console.log('supplierbuildings is not an array');
     }
     req.session.data['supplierbuildings' + req.session.data['supplierid']] = req.session.data['supplierbuildings']
 
