@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
-Are you sure you want to remove {{data.suppliernameselected}} as a supplier for this heat network?
+Are you sure you want to remove {{data.suppliernameselected}}?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -62,6 +62,7 @@ Are you sure you want to remove {{data.suppliernameselected}} as a supplier for 
       {{title}}
     </h1>
   </label>
+  <p class="govuk-body">You’ll need to reallocate any buildings associated with this supplier.</p>
   <div class="govuk-form-group {% if data.validationErrors.supplierremove %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.supplierremove %}

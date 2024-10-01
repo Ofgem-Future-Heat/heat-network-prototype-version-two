@@ -51,7 +51,7 @@
         </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+        <span class="govuk-caption-l">Add a heat network - suppliers</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
 
@@ -61,11 +61,17 @@
               {% set buildingCount = buildingCount + 1 %}
               {% endif %}
               {% endfor %}
+
+              {% set remaningbuildings = (data.buildings.length - buildingCount) %}
           
 
+        {% if buildingCount == 0 %}
+        <p class="govuk-body">You must allocate <strong>{{data.buildings.length}}</strong> buildings on your heat network to a supplier.</p>
+        {% else %}
+            <p class="govuk-body">You've allocated <strong>{{buildingCount}}</strong> of <strong>{{data.buildings.length}}</strong> buildings on your heat network to a supplier.</p>
 
+        {% endif %}
 
-        <p class="govuk-body">You've allocated a supplier to {{buildingCount}} out of {{data.buildings.length}} buildings on your heat network.</p>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -151,6 +157,9 @@
     <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-button-group">
+            {% if buildingCount == 0 %}
+            <a href="name" class="govuk-button">Add a supplier</a>
+            {% else %}
             <a href="name" class="govuk-button govuk-button--secondary">Add a supplier</a>
 
             {{
@@ -159,8 +168,6 @@
                 })
               }}
           </div>
-
-        {% if supplierCount > 0 %}
 
         {% endif %}
     </div>

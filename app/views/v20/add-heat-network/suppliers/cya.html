@@ -50,52 +50,37 @@
     
             }]) %}
         {% endfor %}
-        {% set supplierCount = 0 %}
 
     
        
     
 
     
-        
+        <dl class="govuk-summary-list">
+   
                         
     
                       {% for supplier in suppliers %}
     
                       {% if supplier.added == "true" %}
-                      {% set supplierCount = supplierCount + 1 %}
 
-                      <h2 class="govuk-heading-m">Supplier {{supplierCount}}</h2>
-                      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
                       <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Name
+                            Supplier
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {{supplier.name}}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="often">Change</a>
-                        </dd>
-                    </div>
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Address
-                        </dt>
-                        <dd class="govuk-summary-list__value">
                             {{supplier.address| replace(", ",",<br />")| safe}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
                             <a class="govuk-link" href="often">Change</a>
                         </dd>
-                    </div>
+                        </div>
+                        <div class="govuk-summary-list__row">
 
-                    <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Buildings supplied
+                            Which buildings does {{supplier.name}} supply?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             <ul class="govuk-list">
@@ -110,13 +95,13 @@
                             <a class="govuk-link" href="often">Change</a>
                         </dd>
                     </div>
-                </dl>
 
                       {% endif %}
     
                   {% endfor %}
     
-        
+                </dl>
+    
 
 
 

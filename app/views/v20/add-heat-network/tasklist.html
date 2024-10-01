@@ -100,7 +100,7 @@
                 </li>
 
 
-                {% if data.role == "Network operator" or ((data.role != "Heat supplier" or data.role != "Network operator") and data.introonlysupplier == "No") %}
+                {% if data.role == "Network operator" or ((data.role != "Heat supplier" or data.role != "Network operator") and data.introonlysupplier == "No") or data.suppliercomplete == "true"  %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.suppliercomplete == "true" %}
