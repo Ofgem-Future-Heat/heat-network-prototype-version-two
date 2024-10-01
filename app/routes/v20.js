@@ -6253,6 +6253,36 @@ router.post('/' + version + '/add-heat-network/consumerprotections/cya', functio
 ////////// SUPPLIERS /////////////
 
 
+
+function setSupplier(req, id) {
+    req.session.data['suppliername'] = req.session.data['suppliername' + id]
+    req.session.data['suppliernameselected'] = req.session.data['suppliernameselected' + id]
+    req.session.data['supplieraddressselected'] = req.session.data['supplieraddressselected' + id]
+    req.session.data['addedsupplier'] = req.session.data['addedsupplier' + id]
+    req.session.data['supplierbuildings'] = req.session.data['supplierbuildings' + id]
+    req.session.data['supplierid'] = id
+}
+
+function clearSupplier(req) {
+    req.session.data['suppliername'] = ""
+    req.session.data['suppliernameselected'] = ""
+    req.session.data['supplieraddressselected'] = ""
+    req.session.data['addedsupplier'] = ""
+    req.session.data['supplierbuildings'] = ""
+    req.session.data['supplierid'] = ""
+
+}
+
+function removeSupplier(req, id) {
+    req.session.data['suppliername' + id] = ""
+    req.session.data['suppliernameselected' + id] = ""
+    req.session.data['supplieraddressselected' + id] = ""
+    req.session.data['addedsupplier' + id] = ""
+    req.session.data['supplierbuildings' + id] = ""
+}
+
+
+
 // Suppliers - How many
 router.get('/' + version + '/add-heat-network/suppliers/howmany', function (req, res) {
     clearvalidation(req);
@@ -6298,6 +6328,7 @@ router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req
 router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
     var buildings = req.session.data['buildings']
+    clearSupplier(req)
 
     if (!buildings) {
         const buildings = [];
@@ -6322,8 +6353,7 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
 
 router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
-    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
-
+    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode'];
 
     if (!ecaddressHasPostcode) {
         req.session.data.validationError = "true"
@@ -6349,6 +6379,23 @@ router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (r
 // Suppliers - Name
 router.get('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
     clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        setSupplier(req, urlParams)
+
+    }
+
+    else {
+        if (req.session.data.suppliertotal) {
+            req.session.data.suppliertotal = req.session.data.suppliertotal + 1
+            req.session.data['supplierid'] = req.session.data.suppliertotal
+        } 
+        else {
+            req.session.data.suppliertotal = 1
+            req.session.data['supplierid'] = req.session.data.suppliertotal
+        }
+    }
+    
     res.render('/' + version + '/add-heat-network/suppliers/name', {
         data: req.session.data
     });
@@ -6358,6 +6405,7 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
 router.post('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
     clearvalidation(req);
     var suppliername = req.session.data['suppliername']
+
 
     if (!suppliername) {
         req.session.data.validationError = "true"
@@ -6374,6 +6422,11 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
     }
 
     else {
+
+
+        req.session.data['suppliername' + req.session.data['supplierid']] = req.session.data['suppliername']
+
+
         const fs = require('fs');
         const path = require('path');
 
@@ -6447,15 +6500,12 @@ router.get('/' + version + '/add-heat-network/suppliers/confirm', function (req,
 router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
     clearvalidation(req);
 
-    if (req.session.data.suppliertotal) {
-        req.session.data.suppliertotal = req.session.data.suppliertotal + 1
-    } 
-    else {
-        req.session.data.suppliertotal = 1
-    }
-    req.session.data['suppliernameselected' + req.session.data['suppliertotal']] = req.session.data['suppliernameselected']
-    req.session.data['supplieraddressselected' + req.session.data['suppliertotal']] = req.session.data['supplieraddressselected']
-    req.session.data['addedsupplier' + req.session.data['suppliertotal']] = "true"
+
+    
+
+    req.session.data['suppliernameselected' + req.session.data['supplierid']] = req.session.data['suppliernameselected']
+    req.session.data['supplieraddressselected' + req.session.data['supplierid']] = req.session.data['supplieraddressselected']
+    req.session.data['addedsupplier' + req.session.data['supplierid']] = "true"
 
 
     res.redirect('/' + version + '/add-heat-network/suppliers/buildings');
@@ -6502,13 +6552,15 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
 
             // If a matching building is found, set supplied to true
             if (building) {
-                building.supplied = req.session.data['suppliertotal'];
+                building.supplied = req.session.data['supplierid'];
             }
         });
     } else {
         console.log('supplierbuildings is not an array');
     }
-            // res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+    req.session.data['supplierbuildings' + req.session.data['supplierid']] = req.session.data['supplierbuildings']
+
+        res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
       }
   });
 

@@ -109,17 +109,16 @@
 
 {% block pageScripts %}
 <script>
-    // Get the radio buttons and the hidden input field
-    const supplierRadioButtons = document.querySelectorAll('input[name="suppliernameselected"]');
-    const supplierAddressInput = document.getElementById('supplieraddressselected');
 
-    // Add a change event listener to each radio button
-    supplierRadioButtons.forEach(radio => {
-        radio.addEventListener('change', function() {
-            // Check if the radio is checked
-            if (this.checked) {
-                // Update the hidden input with the data-address value
-                supplierAddressInput.value = this.getAttribute('data-address');
-            }
-        });
-    });    </script>{% endblock %}
+document.addEventListener('DOMContentLoaded', function() {
+    const orgForm = document.getElementById('supplierresutls');
+    const supplieraddressselected = document.getElementById('supplieraddressselected');
+
+    orgForm.addEventListener('submit', function(event) {
+        const selectedOrg = document.querySelector('input[name="suppliernameselected"]:checked');
+        if (selectedOrg) {
+            supplieraddressselected.value = selectedOrg.getAttribute('data-address');
+        }
+    });
+});
+ </script>{% endblock %}
