@@ -1,8 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
+{% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
 {% set title %}
-If you answered ‘Yes’ to any of the previous questions, please provide further details
+Explain why {{name}} does not meet some of the fit and proper requirements
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -62,6 +63,24 @@ If you answered ‘Yes’ to any of the previous questions, please provide furth
       {{title}}
     </h1>
   </label>
+
+  <p class="govuk-body">You answered 'yes' to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% if data.smrimisconduct == "Yes" %}<li>Has {{name}} been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector (or, providing a service elsewhere, which, if provided in Great Britain, would be such a regulated activity)?</li>{% endif %}
+    {% if data.smriconvictions == "Yes" %}<li>Does {{name}} have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?</li>{% endif %}
+    {% if data.smriinsolvency == "Yes" %}<li>Does {{name}} have any insolvency history, including undischarged bankruptcy debt judgements and county court judgements?</li>{% endif %}
+    {% if data.smridisqualified == "Yes" %}<li>Has {{name}} been disqualified from acting as a director of a company?</li>{% endif %}
+    {% if data.smrisignificant == "Yes" %}<li>Has {{name}} been a person with significant managerial responsibility or influence at a current or former authorised person, a gas supplier, or an electricity supplier in respect of whose customers’ or consumers' premises the authority issued a Last Resort Supply Direction (including where they were a person with significant managerial responsibility or influence at that supplier within the 12 months prior to the Last Resort Supply Direction being issued)?</li>{% endif %}
+    {% if data.smrisignificant2 == "Yes" %}<li>Has {{name}} been a person with significant managerial responsibility or influence at a current or former authorised person or relevant energy licensee in relation to whom a Special Administration Order has been made?</li>{% endif %}
+    {% if data.smrirelevant == "Yes" %}<li>Has {{name}} been a relevant person in respect of premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?</li>{% endif %}
+    {% if data.smriidentified == "Yes" %}<li>Has {{name}} been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?</li>{% endif %}
+    {% if data.smriowned == "Yes" %}<li>Has {{name}} owned or managed premises made the subject of a Relevant Order under the Housing Act 2004?</li>{% endif %}
+    {% if data.smrirevoked == "Yes" %}<li>Has {{name}} been refused, had revoked (in whole or in part), restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction whether as an individual, or in relation to a business in which that person held significant managerial responsibility or influence?</li>{% endif %}
+
+  </ul>
+
+
+
   <div class="govuk-form-group {% if data.validationErrors.smrimoredetails %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrimoredetails %}
@@ -81,7 +100,7 @@ If you answered ‘Yes’ to any of the previous questions, please provide furth
       <div class="govuk-button-group">
         {{
           govukButton ({
-              html: 'Continue'
+              html: 'Save and continue'
           })
         }}
       </div>

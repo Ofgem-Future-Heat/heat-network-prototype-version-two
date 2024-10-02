@@ -47,7 +47,7 @@
                     {{data.smrifirstname}} {{data.smrilastname}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="name">Change</a>
+                    <a class="govuk-link" href="personal">Change</a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -58,20 +58,10 @@
                     {{data.smridobday}} {{data.smridobmonth}} {{data.smridobyear}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="dob">Change</a>
+                    <a class="govuk-link" href="personal">Change</a>
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Role
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {{data.smrirole}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="role">Change</a>
-                </dd>
-            </div>
+
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
                 Serious misconduct or mismanagement?
@@ -80,7 +70,7 @@
                   {{data.smrimisconduct}}
               </dd>
               <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="misconduct">Change</a>
+                  <a class="govuk-link" href="fitandproper">Change</a>
               </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -91,7 +81,7 @@
                 {{data.smriconvictions}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="convictions">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
           <div class="govuk-summary-list__row">
@@ -102,7 +92,7 @@
                 {{data.smriinsolvency}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="insolvency">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -113,7 +103,7 @@
                 {{data.smridisqualified}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="disqualified">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -124,7 +114,7 @@
                 {{data.smrisignificant}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="significant">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -135,7 +125,7 @@
                 {{data.smrisignificant2}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="significant2">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -146,7 +136,7 @@
                 {{data.smrirelevant}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="relevant">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -157,7 +147,7 @@
                 {{data.smriidentified}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="identified">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -168,7 +158,7 @@
                 {{data.smriowned}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="owned">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
         <div class="govuk-summary-list__row">
@@ -179,21 +169,10 @@
                 {{data.smrirevoked}}
             </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="revoked">Change</a>
+                <a class="govuk-link" href="fitandproper">Change</a>
             </dd>
         </div>
 
-        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-                Any disciplinary, compliance, enforcement or regulatory actions taken by a regulatory body?
-            </dt>
-            <dd class="govuk-summary-list__value">
-                {{data.smridisciplinary}}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="disciplinary">Change</a>
-            </dd>
-        </div>
         {% if data.smrimoredetails %}
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">

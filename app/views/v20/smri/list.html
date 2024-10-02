@@ -69,10 +69,10 @@
         <span class="govuk-caption-l">{{company}}</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-        <p class="govuk-body">We need to know that all the people who have significant managerial responsibility or influence at {{company}} are fit and proper to run the business.</p>
-        <div class="govuk-inset-text">
-            You will not be able to send heat network information on behalf of {{company}} until you have completed a fit and proper declaration on behalf of every person with SMRI.
-        </div>
+        <p class="govuk-body">You must submit a fit and proper declaration on behalf of each person at {{company}} who has SMRI. </p>
+        <p class="govuk-body">
+            No one at {{company}} will be able to send heat network information to us until you've done this.
+        </p>
         <details class="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
@@ -167,7 +167,6 @@
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Name</th>
                         <th scope="col" class="govuk-table__header">Date of birth</th>
-                        <th scope="col" class="govuk-table__header">Role</th>
                         <th scope="col" class="govuk-table__header"></th>
                     </tr>
 
@@ -183,7 +182,6 @@
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell">{{smri.firstname}} {{smri.lastname}}</td>
                           <td class="govuk-table__cell">{{smri.dob}}</td>
-                          <td class="govuk-table__cell">{{smri.role}}</td>
                           <td class="govuk-table__cell govuk-table__cell--numeric">
                               <a href="cya?id={{ smri.id }}" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-2">Edit <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
                               <a href="remove?id={{ smri.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
@@ -207,12 +205,12 @@
 
         {% if smriCount > 0 %}
         <div class="govuk-button-group">
-        <a href="name" class="govuk-button govuk-button--secondary">Add a person with SMRI</a>
+        <a href="personal" class="govuk-button govuk-button--secondary">Add a person with SMRI</a>
         <a href="declaration" class="govuk-button">Submit all completed declarations</a>
 
             </div>
         {% else %}
-        <a href="name" class="govuk-button">Add a person with SMRI</a>
+        <a href="personal" class="govuk-button">Add a person with SMRI</a>
 
         {% endif %}
     </div>

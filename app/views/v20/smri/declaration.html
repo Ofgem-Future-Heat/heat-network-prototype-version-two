@@ -62,10 +62,20 @@ Are you sure you want to submit the SMRI declarations?
     <form method="POST" novalidate>
 
 
-      <p class="govuk-body">Only do this when you’re sure you’ve added all declarations from everyone with SMRI at {{company}}</p>
-
+      <p class="govuk-body">OOnly do this when you’re sure you’ve added accurate and up-to-date declarations on behalf of each person with SMRI at {{company}}</p>
+      <p class="govuk-body">You cannot change this information after you've submitted it.</p>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Ofgem will carry out checks on this data. It also has the power to check your organisation has robust processes, systems and governance in place to ensure that any person with SMRI is fit and proper to fulfil their role.
+        </strong>
+      </div>
           <div class="govuk-form-group govuk-!-margin-top-4 {% if data.validationErrors.smrideclaration %}govuk-form-group--error{% endif %}">
-
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                Submit declarations?
+              </legend>
           {% if data.validationErrors.smrideclaration %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>
@@ -86,6 +96,7 @@ Are you sure you want to submit the SMRI declarations?
                 </label>
             </div>
         </div>
+        </fieldset>
         </div>
 
 
