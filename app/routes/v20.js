@@ -6947,7 +6947,7 @@ router.post('/' + version + '/smri/fitandproper', function (req, res) {
                 res.redirect('/' + version + '/smri/moredetails');
             }
             else {
-                res.redirect('/' + version + '/smri/list');
+                res.redirect('/' + version + '/smri/cya');
             }    }
 });
 
