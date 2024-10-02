@@ -912,6 +912,18 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
             }
      
     }
+else {
+    const orgregex = /^[A-Za-z0-9]{8}$/;
+
+    if (!orgregex.test(orgcompanynumber)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrors.companynumber = {
+            "anchor": "companynumber",
+            "message": "Company number must have exactly 8 characters, comprising numbers and letters only"
+        };
+    }
+}
+
 
 
     if (req.session.data.validationError == "true") {
@@ -955,7 +967,7 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
                 if (!response.ok) {
                     req.session.data.validationErrors.companynumber = {
                         "anchor": "companynumber",
-                        "message": "Enter a valid company number"
+                        "message": "Cannot find a company with this number"
                     }
 
                     res.render('/' + version + '/account-creation/company-number', {
