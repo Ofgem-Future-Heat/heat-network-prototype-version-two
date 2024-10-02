@@ -6411,6 +6411,25 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
         }
     }
 
+
+    var buildings = req.session.data['buildings']
+
+    if (!buildings || buildings.length == 0) {
+        const buildings = [];
+
+        for (let i = 1; i <= 8; i++) {
+            buildings.push({
+                name: 'Building ' + i,
+                id: i,
+                address: (i * 2) + ' Fake Street, London, SW14 1BB',
+                supplied: 0,
+            });
+        }
+        req.session.data['buildings'] = buildings
+    }
+
+
+
     res.render('/' + version + '/add-heat-network/suppliers/name', {
         data: req.session.data
     });
