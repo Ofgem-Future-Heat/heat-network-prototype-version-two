@@ -21,8 +21,8 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
-        req.session.data['buildingcomplete'] = "true";
-        req.session.data['eccomplete'] = "true";        
+        // req.session.data['buildingcomplete'] = "true";
+        // req.session.data['eccomplete'] = "true";        
     }
 
     res.render('/' + version + '/account-information', {
@@ -6338,21 +6338,6 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
     var buildings = req.session.data['buildings']
     clearSupplier(req)
 
-    if (!buildings || buildings.length == 0) {
-        const buildings = [];
-
-        for (let i = 1; i <= 8; i++) {
-            buildings.push({
-                name: 'Building ' + i,
-                id: i,
-                address: (i * 2) + ' Fake Street, London, SW14 1BB',
-                supplied: 0,
-            });
-        }
-        req.session.data['buildings'] = buildings
-    }
-
-
     res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
         data: req.session.data
     });
@@ -6411,25 +6396,6 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
         }
     }
 
-
-    var buildings = req.session.data['buildings']
-
-    if (!buildings || buildings.length == 0) {
-        const buildings = [];
-
-        for (let i = 1; i <= 8; i++) {
-            buildings.push({
-                name: 'Building ' + i,
-                id: i,
-                address: (i * 2) + ' Fake Street, London, SW14 1BB',
-                supplied: 0,
-            });
-        }
-        req.session.data['buildings'] = buildings
-    }
-
-
-
     res.render('/' + version + '/add-heat-network/suppliers/name', {
         data: req.session.data
     });
@@ -6456,6 +6422,41 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
     }
 
     else {
+
+        var buildingssetup = req.session.data['buildingssetup'] 
+    
+        if (buildingssetup != true) {
+            var buildingnumber = req.session.data['buildings']
+            console.log(buildingnumber);
+            const buildings = [];
+    
+            let buildingCount = (buildingnumber && buildingnumber > 0) ? buildingnumber : 8
+            console.log(buildingCount);
+
+            for (let i = 1; i <= 1; i++) {
+                buildings.push({
+                    name: 'Building ' + i,
+                    id: i,
+                    address: req.session.data['buildinglocationAddress'],
+                    supplied: 0,
+                });
+            }
+    
+            for (let i = 2; i <= buildingCount; i++) {
+                buildings.push({
+                    name: 'Building ' + i,
+                    id: i,
+                    address: (i * 2) + ' Fake Street, London, SW14 1BB',
+                    supplied: 0,
+                });
+            }
+    
+            req.session.data['buildings'] = buildings
+    
+            req.session.data['buildingssetup'] = true
+    
+        }
+    
 
 
         req.session.data['suppliername' + req.session.data['supplierid']] = req.session.data['suppliername']
