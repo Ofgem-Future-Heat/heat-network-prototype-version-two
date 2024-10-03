@@ -21,8 +21,8 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
-        req.session.data['buildingcomplete'] = "true";
-        req.session.data['eccomplete'] = "true";        
+        // req.session.data['buildingcomplete'] = "true";
+        // req.session.data['eccomplete'] = "true";        
     }
 
     res.render('/' + version + '/account-information', {
