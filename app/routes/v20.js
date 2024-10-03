@@ -6405,7 +6405,7 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
 router.post('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
     clearvalidation(req);
     var suppliername = req.session.data['suppliername']
-
+    var buildinglocationAddress = req.session.data['buildinglocationAddress']
 
     if (!suppliername) {
         req.session.data.validationError = "true"
@@ -6432,24 +6432,39 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
     
             let buildingCount = (buildingnumber && buildingnumber > 0) ? buildingnumber : 8
             console.log(buildingCount);
+            if (buildinglocationAddress) {
+                for (let i = 1; i <= 1; i++) {
+                    buildings.push({
+                        name: 'Building ' + i,
+                        id: i,
+                        address: buildinglocationAddress,
+                        supplied: 0,
+                    });
+                }
+                for (let i = 2; i <= buildingCount; i++) {
+                    buildings.push({
+                        name: 'Building ' + i,
+                        id: i,
+                        address: (i * 2) + ' Fake Street, London, SW14 1BB',
+                        supplied: 0,
+                    });
+                }
+    
+    
+            }
 
-            for (let i = 1; i <= 1; i++) {
-                buildings.push({
-                    name: 'Building ' + i,
-                    id: i,
-                    address: req.session.data['buildinglocationAddress'],
-                    supplied: 0,
-                });
+            else {
+                for (let i = 1; i <= buildingCount; i++) {
+                    buildings.push({
+                        name: 'Building ' + i,
+                        id: i,
+                        address: (i * 2) + ' Fake Street, London, SW14 1BB',
+                        supplied: 0,
+                    });
+                }
+    
             }
     
-            for (let i = 2; i <= buildingCount; i++) {
-                buildings.push({
-                    name: 'Building ' + i,
-                    id: i,
-                    address: (i * 2) + ' Fake Street, London, SW14 1BB',
-                    supplied: 0,
-                });
-            }
     
             req.session.data['buildings'] = buildings
     
