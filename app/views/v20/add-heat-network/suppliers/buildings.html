@@ -91,7 +91,7 @@ Which buildings does {{data.suppliernameselected}} supply
             <div class="govuk-checkboxes__item">
               <input class="govuk-checkboxes__input" id="supplierbuildings{{building.id}}" name="supplierbuildings" type="checkbox" value="{{building.id}}" {% if (building.supplied == data.supplierid) %}checked {% endif %}>
               <label class="govuk-label govuk-checkboxes__label" for="supplierbuildings{{building.id}}">
-                {{building.address}}
+                {{building.address}}{{building.supplier}}
               </label>
             </div>
             {% endif %}

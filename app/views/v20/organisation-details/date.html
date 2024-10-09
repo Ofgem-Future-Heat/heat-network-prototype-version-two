@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-When is the start of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s accounting period?
+What are the start and end dates of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s accounting period?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -52,7 +52,8 @@ When is the start of {% if data.companyname %}{{data.companyname}}{% else %}Radi
         <form  method="POST" novalidate>
 
 
-    
+          <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
                 <h1 class="govuk-heading-l">
                     {{title}}
                 </h1>

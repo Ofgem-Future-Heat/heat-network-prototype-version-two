@@ -6565,6 +6565,8 @@ router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req
 
 // Suppliers - Buildings
 router.get('/' + version + '/add-heat-network/suppliers/buildings', function (req, res) {
+    req.session.data['initialsupplierbuildings'] = req.session.data['supplierbuildings']
+
     clearvalidation(req);
     res.render('/' + version + '/add-heat-network/suppliers/buildings', {
         data: req.session.data
@@ -6576,7 +6578,7 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
     clearvalidation(req);
     var buildings = req.session.data['buildings']
     var supplierbuildings = req.session.data['supplierbuildings']
-
+    var initialsupplierbuildings = req.session.data['initialsupplierbuildings'] 
 
     if (!supplierbuildings) {
         req.session.data.validationError = "true"
@@ -6593,17 +6595,24 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
     }
 
     else {
+
+    const removedbuildings = initialsupplierbuildings.filter(item => !supplierbuildings.includes(item));
+
     // Check if supplierbuildings is an array
     if (Array.isArray(supplierbuildings)) {
         // Loop through the supplierbuildings array
         supplierbuildings.forEach((supplierbuilding) => {
             // Find the building with the matching id
             const building = buildings.find(b => b.id == supplierbuilding);
-
+            const removedbuilding = buildings.find(b => b.id == removedbuildings);
             // If a matching building is found, set supplied to true
             if (building) {
                 building.supplied = req.session.data['supplierid'];
             }
+            if (removedbuilding) {
+                console.log(removedbuilding);
+            }
+
         });
     } else {
     }
