@@ -1,0 +1,117 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
+
+{% set title %}
+Has {{name}} been a person with significant managerial responsibility or influence at a current or former authorised person or relevant energy licensee in relation to whom a Special Administration Order has been made?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <form  method="POST" novalidate>
+
+        
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+    <label for="smrisignificant2">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+  </label>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with Special Administration Order
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">Content</p>        
+    </div>
+  </details>
+
+  <div class="govuk-form-group {% if data.validationErrors.smrisignificant2 %}govuk-form-group--error{% endif %}">
+
+        {% if data.validationErrors.smrisignificant2 %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.smrisignificant2.message}}
+        </p>
+        {% endif %}
+
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrisignificant2" name="smrisignificant2" type="radio" value="Yes" {% if data.smrisignificant2 == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrisignificant2">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrisignificant2-2" name="smrisignificant2" type="radio" value="No" {% if data.smrisignificant2 == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrisignificant2-2">
+                  No
+              </label>
+          </div>
+      </div>
+
+      </div>
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+            html: 'Continue'
+          })
+        }}
+      </div>
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
+{% set title %}
+Has {{name}} been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector (or, providing a service elsewhere, which, if provided in Great Britain, would be such a regulated activity)?{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <form  method="POST" novalidate>
+
+        
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+    <label for="smrimisconduct">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+  </label>
+  <p class="govuk-body">This applies whether the action was unlawful or not. </p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with ‘regulated activity’
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+        <p class="govuk-body">This is either:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>operation of a heat network or supply of heat on a heat network</li>
+          <li>any other activity that is regulated by Ofgem, for example as a gas or electricity licence holder</li>
+            </ul>
+        
+    </div>
+  </details>
+  <div class="govuk-form-group {% if data.validationErrors.smrimisconduct %}govuk-form-group--error{% endif %}">
+
+        {% if data.validationErrors.smrimisconduct %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.smrimisconduct.message}}
+        </p>
+        {% endif %}
+
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrimisconduct" name="smrimisconduct" type="radio" value="Yes" {% if data.smrimisconduct == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrimisconduct">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrimisconduct-2" name="smrimisconduct" type="radio" value="No" {% if data.smrimisconduct == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrimisconduct-2">
+                  No
+              </label>
+          </div>
+      </div>
+
+      </div>
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Continue'
+          })
+        }}
+      </div>
+</form>
+
+</div>
+
+{% endblock %}

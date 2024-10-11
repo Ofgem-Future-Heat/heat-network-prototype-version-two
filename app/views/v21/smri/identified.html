@@ -1,0 +1,107 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
+
+{% set title %}
+Has {{name}} been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <form  method="POST" novalidate>
+
+        
+     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+    <label for="smriidentified">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+  </label>
+  <p class="govuk-body">These are databases managed by local authorities, established under section 28 of the Housing and Planning Act 2016.  </p>
+  <div class="govuk-form-group {% if data.validationErrors.smriidentified %}govuk-form-group--error{% endif %}">
+
+        {% if data.validationErrors.smriidentified %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.smriidentified.message}}
+        </p>
+        {% endif %}
+
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smriidentified" name="smriidentified" type="radio" value="Yes" {% if data.smriidentified == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smriidentified">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smriidentified-2" name="smriidentified" type="radio" value="No" {% if data.smriidentified == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smriidentified-2">
+                  No
+              </label>
+          </div>
+      </div>
+
+      </div>
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+            html: 'Continue'
+          })
+        }}
+      </div>
+</form>
+
+</div>
+
+{% endblock %}
