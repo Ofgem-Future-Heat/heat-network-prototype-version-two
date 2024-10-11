@@ -109,6 +109,20 @@ govukBackLink ({
                     {% endif %} 
                 </dd>
               </div>
+
+              {% if data.orgemailaddress %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Alternative email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgemailaddress}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="email-address">Change<span class="govuk-visually-hidden"> trading name</span></a>
+                </dd>
+              </div>
+              {% endif %}
               {% if data.orghastradingname %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">

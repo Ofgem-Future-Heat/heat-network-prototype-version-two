@@ -43,6 +43,50 @@ router.get('/' + version + '/organisation-details/organisation-details', functio
     });
 });
 
+/// Org details - Email address
+router.get('/' + version + '/organisation-details/email-address', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/email-address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/email-address', function (req, res) {
+    clearvalidation(req);
+    var orghasemailaddress = req.session.data['orghasemailaddress']
+    var orgemailaddress = req.session.data['orgemailaddress']
+
+
+
+    if (!orghasemailaddress) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orghasemailaddress = {
+            "anchor": "orghasemailaddress",
+            "message": "Select whether your organisation has an alternative email address"
+        }
+    }
+
+
+    if ((orghasemailaddress == "Yes") && !orgemailaddress) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgemailaddress = {
+            "anchor": "orgemailaddress",
+            "message": "Enter an email address"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/email-address', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/organisation-details/trading-name');
+    }
+
+});
+
 
 /// Org details - Trading name
 router.get('/' + version + '/organisation-details/trading-name', function (req, res) {
