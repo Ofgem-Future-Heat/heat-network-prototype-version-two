@@ -1,10 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.financialdays > 363 %}
-Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for its last accounting period?  
-{% else %}
-Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have accounts for its most recent accounting periods?  
-{% endif %}
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have signed-off account for its most recent accounting periods?
+
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,12 +62,11 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
                     {{title}}
                   </h1>
                 </legend>
-                {% if data.financialdays > 363 %}
 
-                <p class="govuk-body">These must cover a period of at least 12 months.</p>
-                {% else %}
-                <p class="govuk-body">Combined, these accounts must cover a period of at least 12 months.</p>
-                {% endif %}
+                <p class="govuk-body">The accounting period must cover 12 months or more.</p>
+
+                <p class="govuk-body">If it does not, you can combine it with the accounts that immediately precede it. Together, they must cover a period of at least 12 months.</p>
+
 
 
                 <p class="govuk-body">You must be able to provide these, if requested.</p>
