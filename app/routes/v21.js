@@ -3364,7 +3364,7 @@ router.post('/' + version + '/add-heat-network/introduction/only', function (req
 
     else {
         if (introonly == "No") {
-                res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+                res.redirect('/' + version + '/add-heat-network/introduction/supply');
 
         }
         else {
@@ -3376,7 +3376,37 @@ router.post('/' + version + '/add-heat-network/introduction/only', function (req
 
 
 
+// Introduction - Supply
+router.get('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/supply', {
+        data: req.session.data
+    });
+});
 
+
+router.post('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
+clearvalidation(req);
+var introsupply = req.session.data['introsupply']
+
+if (!introsupply) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.introsupply = {
+        "anchor": "introsupply",
+        "message": "Error text"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/introduction/supply', {
+        data: req.session.data
+    });
+}
+
+else {
+        res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+}
+});
 
 
 
@@ -3501,42 +3531,7 @@ router.post('/' + version + '/add-heat-network/introduction/onlysupply', functio
 
 
 
-// Introduction - Supply
-router.get('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/introduction/supply', {
-        data: req.session.data
-    });
-});
 
-
-router.post('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
-clearvalidation(req);
-var introsupply = req.session.data['introsupply']
-
-if (!introsupply) {
-    req.session.data.validationError = "true"
-    req.session.data.validationErrors.introsupply = {
-        "anchor": "introsupply",
-        "message": "Error text"
-    }
-}
-
-if (req.session.data.validationError == "true") {
-    res.render('/' + version + '/add-heat-network/introduction/supply', {
-        data: req.session.data
-    });
-}
-
-else {
-    if (introsupply == "Yes") {
-        res.redirect('/' + version + '/add-heat-network/introduction/supply20');
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/introduction/commissioned');
-    }
-}
-});
 
 
 

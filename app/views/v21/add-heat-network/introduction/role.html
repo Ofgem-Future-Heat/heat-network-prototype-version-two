@@ -1,5 +1,14 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Which regulated activities does your organisation undertake on the heat network?" %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+{% set title %}
+Which regulated activities does {{company}} undertake on the heat network?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -61,7 +70,6 @@
 
                     </legend>
                     <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating. If your organisation does not do any of the activities described, you can cancel adding the heat network.</p>
-                    <div class="govuk-hint">Select all that apply.</div>
 
                     {% if data.validationErrors.role %}
                     <p class="govuk-error-message">
@@ -78,7 +86,7 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="role" name="role" type="radio" value="Heat supplier" aria-describedby="role-item-hint" {% for role in data.role %}{% if role == "Heat supplier" %}checked{% endif %}{% endfor %} >
                             <label class="govuk-label govuk-radios__label" for="role">
-                                Heat supplier
+                                Supply only
                             </label>
                             <div id="role-item-hint" class="govuk-hint govuk-radios__hint">
                                 Your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the end users on the network.
@@ -87,7 +95,7 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Network operator" aria-describedby="role-2-item-hint" {% for role in data.role %}{% if role == "Network operator" %}checked{% endif %}{% endfor %}>
                             <label class="govuk-label govuk-radios__label" for="role-2">
-                                Network operator
+                                Network operator only
                             </label>
                             <div id="role-2-item-hint" class="govuk-hint govuk-radios__hint">
                                 Your organisation owns some or all of the assets on the heat network (for example the pipework, heat exchangers, substations or energy centres) or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs and maintenance to support its continued operation.

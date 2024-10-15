@@ -1,6 +1,19 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the heat network currently supplying thermal energy?" %}
-{% set _inError = data.validationError == "true"  %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+{% set title %}
+
+{% if (data.introcommunal == "Yes") or (data.introconnectedcommunal == "Yes") %}
+Does {{company}} have a contract to supply all end consumers on these networks?
+{% else %}
+Does {{company}} have a contract to supply all end consumers on this network?
+{% endif %}
+{% endset %}{% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
