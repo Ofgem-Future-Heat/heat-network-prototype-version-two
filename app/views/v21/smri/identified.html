@@ -63,7 +63,22 @@ Has {{name}} been identified on a database of rogue landlords and property agent
       {{title}}
     </h1>
   </label>
-  <p class="govuk-body">These are databases managed by local authorities, established under section 28 of the Housing and Planning Act 2016.  </p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        Help with database of rogue landlords and property agents
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body">Local housing authorities use the database to keep track of people who committed a banning order offence at a time when they were a residential landlord or property agent.</p>
+      <p class="govuk-body">To be added to the database, the person must have either:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>been convicted of the banning order offence</li>
+        <li>received 2 or more financial penalties (in respect of a banning order offence) within a 12-month period</li>
+      </ul>
+      <a href="https://www.legislation.gov.uk/ukpga/2016/22/section/28" target="_blank" class="govuk-link govuk-link--no-visited-state">View section 28 of The Housing and Planning Act 2016 (opens in new tab). </a>
+      </div>
+  </details>  
   <div class="govuk-form-group {% if data.validationErrors.smriidentified %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriidentified %}

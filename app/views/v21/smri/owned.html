@@ -62,6 +62,7 @@ Has {{name}} owned or managed premises made the subject of a Relevant Order unde
       {{title}}
     </h1>
   </label>
+
   <details class="govuk-details">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
@@ -69,9 +70,22 @@ Has {{name}} owned or managed premises made the subject of a Relevant Order unde
       </span>
     </summary>
     <div class="govuk-details__text">
-        <p class="govuk-body">Content</p>        
+      <p class="govuk-body">Relevant Orders in the Housing Act 2004 include: </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>prohibition orders under section 20 or 21</li>
+        <li>demolition orders under section 46</li>
+        <li>interim management orders under section 102</li>
+        <li>final management orders under section 103</li>
+      </ul>
+      
+      <p class="govuk-body"><a href="https://www.legislation.gov.uk/ukpga/2004/34/contents" target="_blank" class="govuk-link govuk-link--no-visited-state">View the Housing Act 2004 (opens in new tab). </a></p>
+      
+      
+        
     </div>
   </details>
+
   <div class="govuk-form-group {% if data.validationErrors.smriowned %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriowned %}
