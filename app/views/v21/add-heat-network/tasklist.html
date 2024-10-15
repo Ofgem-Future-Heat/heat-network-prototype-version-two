@@ -166,17 +166,16 @@
                     </div>
                 </li>
                 
-                {% if (data.buildingaddressCustomersResidential) or (data.consumertypemicrobusiness == 'Yes') or (data.smallmediumbusinesses == 'Yes') %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        {% if data.buildingaddressCustomersResidential %}
+                        <!-- {% if data.buildingaddressCustomersResidential %} -->
                         <a class="govuk-link govuk-task-list__link" href="consumerprotections/vulnerable" aria-describedby="company-details-8-status">Consumer protections</a>
-
+<!-- 
                         {% else %}
                         <a class="govuk-link govuk-task-list__link" href="consumerprotections/confirm" aria-describedby="company-details-8-status">Consumer protections</a>
 
-                        {% endif %}
+                        {% endif %} -->
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-8-status">
                       {% if data.protectionscomplete == "true" %}
@@ -189,7 +188,6 @@
 
                     </div>
                 </li>
-                {% endif %}
             </ul>
 
 
