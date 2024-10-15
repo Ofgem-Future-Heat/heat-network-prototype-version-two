@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Does this network have any connected communal networks?
+Does this heat network supply any communal networks?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,6 +72,7 @@ Does this network have any connected communal networks?
                             {{title}}
                         </h1>
                     </legend>
+                    <p class="govuk-body">For instance, it provides heat to a block of flats.</p>
 
 
                     {% if data.validationErrors.introconnectedcommunal %}
@@ -92,7 +93,7 @@ Does this network have any connected communal networks?
                             
                             <div class="govuk-form-group {% if data.validationErrors.introconnectedcommunalhowmany %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="introconnectedcommunalhowmany">
-                                How many does it operate?
+                                How many communal networks?
                               </label>
                               {% if data.validationErrors.introconnectedcommunalhowmany %}
                               <p class="govuk-error-message">
