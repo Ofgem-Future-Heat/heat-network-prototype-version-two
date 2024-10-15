@@ -2935,7 +2935,51 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Register a Heat Network ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Cancel
+function clearRegIntro(req) {
+    req.session.data['introrelevant'] = ""
+    req.session.data['role'] = ""
+    req.session.data['introcommunal'] = ""
+    req.session.data['introenergycentre'] = ""
+    req.session.data['introprimary'] = ""
+    req.session.data['introcommunalnetworks'] = ""
+    req.session.data['introconnectedcommunal'] = ""
+    req.session.data['introconnectedcommunalhowmany'] = ""
+    req.session.data['introcontrol'] = ""
+    req.session.data['introcontrolhowmany'] = ""
+    req.session.data['introonly'] = ""
+    req.session.data['introsupply'] = ""
+}
+
+
+
+// Introduction - Initial
+router.get('/' + version + '/add-heat-network/introduction/initial', function (req, res) {
+    clearvalidation(req);
+    clearRegIntro(req);
+    res.render('/' + version + '/add-heat-network/introduction/initial', {
+        data: req.session.data
+    });
+});
+
+
+// Tasklist
+function setupheatnetwork(req) {
+    req.session.data['energycentre'] = "Yes";
+}
+
+router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
+    setupheatnetwork(req);
+    clearvalidation(req);
+    
+    res.render('/' + version + '/add-heat-network/tasklist', {
+        data: req.session.data
+    });
+});
+
+
+// Add Heat Network - Intro
+
+// Introduction - Intro
 router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
     clearvalidation(req);
     req.session.data['cancels'] = "";
@@ -2975,23 +3019,7 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
 });
 
-// Tasklist
 
-function setupheatnetwork(req) {
-    req.session.data['energycentre'] = "Yes";
-}
-
-router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
-    setupheatnetwork(req);
-    clearvalidation(req);
-    
-    res.render('/' + version + '/add-heat-network/tasklist', {
-        data: req.session.data
-    });
-});
-
-
-// Add Heat Network - Intro
 
 // Introduction - Relevant
 router.get('/' + version + '/add-heat-network/introduction/relevant', function (req, res) {

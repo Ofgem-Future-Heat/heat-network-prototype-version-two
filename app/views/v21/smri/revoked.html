@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
 {% set title %}
-Has {{name}} been refused, had revoked (in whole or in part), restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction whether as an individual, or in relation to a business in which that person held significant managerial responsibility or influence?
+Has {{name}} been refused, had revoked (in whole or in part), restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction whether as an individual, or in relation to a business in which that person held SMRI?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
