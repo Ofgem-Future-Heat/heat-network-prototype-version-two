@@ -809,10 +809,45 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
         });
     }
     else {
+        res.redirect('/' + version + '/organisation-details/financial-costs');
+    }
+
+});
+
+/// Org details - Financial costs
+router.get('/' + version + '/organisation-details/financial-costs', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-costs', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-costs', function (req, res) {
+    clearvalidation(req);
+    var financialcosts = req.session.data['financialcosts']
+
+
+
+    if (!financialcosts) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialcosts = {
+            "anchor": "financialcosts",
+            "message": "Enter the total running costs"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-costs', {
+            data: req.session.data
+        });
+    }
+    else {
         res.redirect('/' + version + '/organisation-details/financial-monthly');
     }
 
 });
+
 
 
 /// Org details - Financial needs
