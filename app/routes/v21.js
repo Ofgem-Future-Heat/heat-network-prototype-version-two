@@ -4201,7 +4201,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/changes');
+        res.redirect('/' + version + '/add-heat-network/introduction/name');
     }
 });
 
@@ -4361,7 +4361,7 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/role');
+        res.redirect('/' + version + '/add-heat-network/introduction/moreinfo');
 
     }
 });
