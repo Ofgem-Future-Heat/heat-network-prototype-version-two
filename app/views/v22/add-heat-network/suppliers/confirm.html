@@ -1,0 +1,65 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Confirm supplier
+ {% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+                    
+            <span class="govuk-caption-l">Add a heat network - suppliers</span>
+
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+          <div class="govuk-inset-text">
+            {{data.suppliernameselected}}<br />
+            {{data.supplieraddressselected | replace(", ",",<br />")| safe}}
+
+          </div>
+
+          <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Change supplier</a></p>
+
+
+
+
+          <form method="POST" novalidate>
+          <div class="govuk-button-group">
+            {{
+              govukButton ({
+                  html: 'Confirm and continue'
+              })
+            }}
+          </div>
+    </form>
+
+    </div>
+</div>
+
+{% endblock %}

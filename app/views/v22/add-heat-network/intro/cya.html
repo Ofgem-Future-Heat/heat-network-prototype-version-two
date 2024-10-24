@@ -1,0 +1,205 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - introduction</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Is the network a 'relevant heat network'? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introrelevant}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="relevant">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Role on network
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.role == "Network operator" %} 
+                    {{data.role}}
+                    {% elif data.role == "Energy supplier" %}
+                    {{data.role}}
+                    {% else %}
+                    Network operator and energy supplier
+                    {% endif %}
+                    
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your role on network</span></a>
+                </dd>
+            </div>
+            {% if data.role == "Network operator" %} 
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many suppliers do you have a bulk supply agreement with?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsuppliers}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are you the only {%if data.role == "Network operator" %}operator{% else %}operator and supplier{% endif %} on this heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introonly}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Currently supplying thermal energy?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsupply}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            {% if data.introsupply == "Yes" %} 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Year started supplying customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.supplywhen}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply20" >Change<span class="govuk-visually-hidden"> year started supplying customers</span></a>
+                </dd>
+            </div>
+            {% else %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Will the heat network be commissioned before 1 January 2027?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introcommissioned}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supply20" >Change<span class="govuk-visually-hidden"> year started supplying customers</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+  
+
+            {% if data.energycentre %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Operates any of the heat network's energy centres
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.energycentre}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> another heat network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Buildings your organisation responsible for
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.buildings}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="howmany">Change<span class="govuk-visually-hidden"> how many connected communal networks</span></a>
+                </dd>
+            </div>            
+            {% if data.buildings > 1 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Self-supply network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.selfsupply}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> self supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Heat network name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.name}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> network name</span></a>
+                </dd>
+            </div>
+        </dl>
+                <form method="POST" novalidate>
+    <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
+    {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+    }}            </form>
+                    {% if data.introcomplete == "true" %} 
+
+            <a href="cancel" class="govuk-link">Cancel changes</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -19,3 +19,4 @@ require('./routes/v18.js');
 require('./routes/v19.js');
 require('./routes/v20.js');
 require('./routes/v21.js');
+require('./routes/v22.js');

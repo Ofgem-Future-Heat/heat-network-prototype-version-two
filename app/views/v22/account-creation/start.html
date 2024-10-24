@@ -1,0 +1,88 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Comply with heat network consumer regulations" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+                        <h1 class="govuk-heading-xl">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Use this service to:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>get authorisation for existing and new heat networks</li>
+                    <li>apply for a license to upgrade or build new heat networks</li>
+                    <li>amend information about any heat networks you've already told us about</li>
+                    <li>submit mandatory reporting information on your organisation's heat networks </li>               
+                </ul>
+
+                    <h2 class="govuk-heading-l">Who this service is for</h2>
+                    <p class="govuk-body">You must use this service if your organisation undertakes regulated activities on a heat network, for instance as a heat network operator or supplier. 
+                    </p>
+
+
+
+                                <details class="govuk-details">
+                                    <summary class="govuk-details__summary">
+                                      <span class="govuk-details__summary-text">
+                                        Help with 'regulated activities on a heat network'
+                                      </span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        If you're not sure about whether or not your organisation is responsible for a heat network, or whether its activities need to be regulated, see the <a href="https://gov.uk" class="govuk-link">heat network guidance</a>.
+                                    </div>
+                                  </details>
+
+                                  <h2 class="govuk-heading-l">How to access the service</h2>
+                                  <h3 class="govuk-heading-m">If your organisation is a regulated heat network operator or supplier</h3>
+                                  
+                                  <p class="govuk-body">Continue to sign up or sign in and we'll guide you through the process.</p>
+                                  <div class="govuk-inset-text">If you need to sign up for the first time, you must use your individual work email address. Do not use a shared mailbox email address. If you need to provide team access to the service, you’ll be able to invite team members individually after you’ve signed in. </div>
+
+                                <h4 class="govuk-heading-s">If your organisation has never used this service before</h4>
+                                <p class="govuk-body">When prompted, you’ll also need to create an organisation account with Ofgem.</p>
+                                <div class="govuk-inset-text">
+                                  You must be your organisation’s ‘regulatory contact’ to do this.
+                                </div>
+
+                                <details class="govuk-details">
+                                  <summary class="govuk-details__summary">
+                                    <span class="govuk-details__summary-text">
+                                      Help with 'regulatory contact'
+                                    </span>
+                                  </summary>
+                                  <div class="govuk-details__text">
+                                    <p class="govuk-body"> This is your organisation’s most senior member of staff responsible for heat networks.</p>
+                                    <p class="govuk-body">As regulatory contact, you'll:</p>
+                                    <ul class="govuk-list govuk-list--bullet">
+                                      <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
+                                      <li>have full access to all features in the account, for example managing users and submitting heat network information</li> 
+                                      <li>be initially responsible for inviting other users into the account and setting their permissions</li>
+                                    </ul>
+                                    <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
+                                  </div>
+                                </details>
+
+                                <h3 class="govuk-heading-m">If you are a third party acting on behalf of a regulated operator or supplier </h3>
+                                <p class="govuk-body">You’ll need to ask the operator or supplier to sign up or sign in to the service and add you as a user with the appropriate permissions. You’ll then be able to use the service on their behalf. </p>
+                                  <form  method="POST" novalidate>
+                                    <input type="hidden" id="inviteemailcomplete" name="inviteemailcomplete" value="false" />
+
+                                    {{
+                                        govukButton ({
+                                            html: 'Sign up or sign in'
+                                        })
+                                    }}
+                                </form>
+                                </div>
+</div>
+
+{% endblock %}
