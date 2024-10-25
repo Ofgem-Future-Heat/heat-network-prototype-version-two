@@ -3624,7 +3624,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
     }
 
     else {
-        if (introgroundloop == "Yes") {
+        if (introgroundloop == "No") {
             res.redirect('/' + version + '/add-heat-network/introduction/role');
         }
         else {
