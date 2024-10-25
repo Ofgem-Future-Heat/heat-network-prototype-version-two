@@ -60,8 +60,17 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
                     {{title}}
                   </h1>
                 </legend>
-                <!-- <p class="govuk-body">???</p> -->
-                {% if data.validationErrors.financialhedged %}
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Help with ‘hedging’
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Hedging means buying wholesale energy in a way that provides a level of protection against price fluctuations. For example, purchasing energy at a set price in advance or over different timescales.
+    </div>
+</details>                {% if data.validationErrors.financialhedged %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
                     {{data.validationErrors.financialhedged.message}}
@@ -88,7 +97,7 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

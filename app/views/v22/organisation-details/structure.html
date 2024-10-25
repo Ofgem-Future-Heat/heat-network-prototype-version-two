@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-How is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} set up?  
+Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} set up as a joint venture, special purpose vehicle or wholly owned subsidiary of another entity?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,13 +72,13 @@ How is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% e
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="orgstructure" name="orgstructure" type="radio" value="Joint venture" {% if data.orgstructure == "Joint venture" %} checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="orgstructure">
-                      Joint venture
+                      A joint venture
                     </label>
                   </div>
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="orgstructure" name="orgstructure" type="radio" value="Special purpose vehicle or wholly owned subsidiary of another entity" {% if data.orgstructure == "Special purpose vehicle or wholly owned subsidiary of another entity" %} checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="orgstructure">
-                      Special purpose vehicle or wholly owned subsidiary of another entity
+                      A special purpose vehicle or wholly owned subsidiary of another entity
                     </label>
                   </div>
 
@@ -95,7 +95,7 @@ How is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% e
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

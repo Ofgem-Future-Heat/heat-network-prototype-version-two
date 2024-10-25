@@ -1,23 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title %}
-Are there any other operators on this network?
-{% endset %}
-
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd 
-{% endif %}
-{% endset %}
-
-{% set communalnumber %}
-{% if data.introcontrol == "No" %}
-{{data.introcontrolhowmany}}
-{% else %}
-{{data.introcommunalnetworks}}
-{% endif %}
-{% endset %}
+{% set title = "Ground loop? " %}
 {% set _inError = data.validationError == "true" %}
 
 
@@ -70,7 +52,7 @@ Radienteco Ltd
         <form method="POST" novalidate>
 
             <div
-                class="govuk-form-group {% if data.validationErrors.introonly %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.introgroundloop %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -81,27 +63,26 @@ Radienteco Ltd
                         </h1>
 
                     </legend>
-                    {% if (data.introcommunal == "Yes")  or (data.introconnectedcommunal == "Yes") %}
-                    <p class="govuk-body">Only considering the district heat network and the {{communalnumber}} connected communals that {{company}} operates, are any other operators involved? For example, another org that operates some of the distribution pipework.</p>
-                    {% endif %}
-                    {% if data.validationErrors.introonly %}
+                    <p class="govuk-body">Ground loop help text.</p>
+
+                    {% if data.validationErrors.introgroundloop %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introonly.message}}
+                        {{data.validationErrors.introgroundloop.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introonly" name="introonly" type="radio"
-                                value="Yes" {% if data.introonly=="Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introonly">
+                            <input class="govuk-radios__input" id="introgroundloop" name="introgroundloop" type="radio"
+                                value="Yes" {% if data.introgroundloop=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introgroundloop">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introonly-2" name="introonly" type="radio"
-                                value="No" {% if data.introonly=="No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introonly-2">
+                            <input class="govuk-radios__input" id="introgroundloop-2" name="introgroundloop" type="radio"
+                                value="No" {% if data.introgroundloop=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introgroundloop-2">
                                 No
                             </label>
                         </div>
