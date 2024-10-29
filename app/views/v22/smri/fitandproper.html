@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
 {% set title %}
-Are all people with SMRI at {{company}} fit and proper?
+Is everybody with SMRI at {{company}} fit and proper?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -74,11 +74,11 @@ Are all people with SMRI at {{company}} fit and proper?
         <details class="govuk-details">
           <summary class="govuk-details__summary">
             <span class="govuk-details__summary-text">
-              How to ensure a person is fit and proper
+              What are the fit and proper criteria?
             </span>
           </summary>
           <div class="govuk-details__text">
-              <p class="govuk-body">You should send these questions to anyone with SMRI so they can provide their response:</p>
+              <p class="govuk-body">Somebody is fit and proper if they answer ‘no’ to all of the following questions:</p>
               <ul class="govuk-list govuk-list--bullet">
                 <li>Has the person with SMRI been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector?</li>
                 <li>Does the person with SMRI have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?</li>
@@ -90,7 +90,7 @@ Are all people with SMRI at {{company}} fit and proper?
                 <li>Has the person with SMRI been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?</li>
                 <li>Has the person with SMRI owned or managed premises that have been the subject of a Relevant Order under the Housing Act 2004?</li>
                 <li>Has the person with SMRI been refused, had revoked, restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction?</li>
-                
+                                  
                 
               </ul>
               

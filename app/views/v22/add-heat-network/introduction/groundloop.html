@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Ground loop? " %}
+{% set title = "Do any of the buildings on the heat network get their energy from a shared ground loop?" %}
 {% set _inError = data.validationError == "true" %}
 
 
@@ -63,8 +63,18 @@
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">Ground loop help text.</p>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            Help with 'shared ground loop'
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            A shared ground loop system connects two or more properties using individual ground source heat pumps for heating.
+                        </div>
+                      </details>
 
+                    
                     {% if data.validationErrors.introgroundloop %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

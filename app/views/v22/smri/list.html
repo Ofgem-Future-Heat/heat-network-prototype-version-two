@@ -70,10 +70,9 @@
         <span class="govuk-caption-l">{{company}}</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-        <p class="govuk-body">Every person with SMRI at {{company}} must provide a fit and proper declaration. You'll need to add and submit these declarations on their behalf.</p>
-        <p class="govuk-body">
-            No one at {{company}} will be able to send heat network information to us until this is done. 
-        </p>
+              <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper.</p>
+              <p class="govuk-body">No one at {{company}} will be able to send heat network information to us until this is done.</p>
+              
 
 
         <h2 class="govuk-heading-m">Who has SMRI?</h2>
@@ -84,18 +83,21 @@
             </ul>
             <p class="govuk-body">For example, chief officers, directors and any other individuals who meet this definition.</p>
         <h2 class="govuk-heading-m">What you need to do</h2>
+
         <ul class="govuk-list govuk-list--number">
-          <li>Send the declaration questions to every person with SMRI.</li>
-          <li>Get them to provide answers to all of the questions.</li>
-          <li>If they answer 'Yes' to any of the questions, they can optionally provide further information.</li>
-          <li>Add their answers to the service.</li>
-          <li>Once you have added declarations for all people with SMRI, submit the final declaration to us.</li>
-          
+          <li>Put together a list of everybody with SMRI.</li>
+          <li>Get answers to all of the fit and proper questions for each person with SMRI.</li>
+          <li>Return to this service and submit the fit and proper declaration.</li>
         </ul>
+        
 
-
-
-
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            We can request the list of everybody with SMRI and their full responses to the fit and proper questions at anytime.
+                    </strong>
+        </div>
 
 
 
@@ -103,11 +105,11 @@
           <details class="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
-                What are the declaration questions?
+                What are the fit and proper criteria?
               </span>
             </summary>
             <div class="govuk-details__text">
-                <p class="govuk-body">You should send these questions to anyone with SMRI so they can provide their response:</p>
+                <p class="govuk-body">Somebody is fit and proper if they answer ‘no’ to all of the following questions:</p>
                 <ul class="govuk-list govuk-list--bullet">
                   <li>Has the person with SMRI been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector?</li>
                   <li>Does the person with SMRI have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?</li>
@@ -119,89 +121,14 @@
                   <li>Has the person with SMRI been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?</li>
                   <li>Has the person with SMRI owned or managed premises that have been the subject of a Relevant Order under the Housing Act 2004?</li>
                   <li>Has the person with SMRI been refused, had revoked, restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction?</li>
-                  
+                                    
                   
                 </ul>
                 
             </div>
           </details>
         </div>
-    </div>
-    <div class="govuk-grid-row">
 
-    {% set smris = [] %}
-
-    {% for i in range(1, 100) %}
-        {% set smris = smris.concat([{
-            "added": data["addedsmri" ~ i],
-            "firstname": data["smrifirstname" ~ i],
-            "lastname": data["smrilastname" ~ i],
-            "dob": data["smridobday" ~ i] + " " +  data["smridobmonth" ~ i] + " " +  data["smridobyear" ~ i] ,
-            "id": i,
-            "role": data["smrirole" ~ i],
-            "thirdparty": data["smrithirdparty" ~ i],
-            "orgname": data["smriorgname" ~ i]
-        }]) %}
-    {% endfor %}
-    {% set smriCount = 0 %}
-    {% for smri in smris %}
-    {% if smri.added == "true" %}
-    {% set smriCount = smriCount + 1 %}
-    {% endif %}
-    {% endfor %}
-    {% if smriCount > 0 %}
-    <div class="govuk-grid-column-full">
-
-        <div class="govuk-form-group {% if data.validationErrors.communalinfo %}govuk-form-group--error{% endif %}">
-            {% if data.validationErrors.communalinfo %}
-            <p class="govuk-error-message">
-                <span class="govuk-visually-hidden">Error:</span>
-                {{data.validationErrors.communalinfo.message}}
-            </p>
-            {% endif %}
-
-
-
-            <table class="govuk-table" id="communalinfo">
-                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">People with significant managerial responsibility or influence</caption>
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Name</th>
-                        <th scope="col" class="govuk-table__header">Date of birth</th>
-                        <th scope="col" class="govuk-table__header"></th>
-                    </tr>
-
-                </thead>
-                <tbody class="govuk-table__body">
-
-    
-                    
-
-                  {% for smri in smris %}
-
-                  {% if smri.added == "true" %}
-                        <tr class="govuk-table__row">
-                          <td class="govuk-table__cell">{{smri.firstname}} {{smri.lastname}}</td>
-                          <td class="govuk-table__cell">{{smri.dob}}</td>
-                          <td class="govuk-table__cell govuk-table__cell--numeric">
-                              <a href="cya?id={{ smri.id }}" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-2">Edit <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
-                              <a href="remove?id={{ smri.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{smri.firstname}} {{smri.lastname}}</span></a>
-                          </td>
-                      </tr>
-                  {% endif %}
-
-              {% endfor %}
-
-
-                  </tbody>
-    </table>
-
-
-
-        </div>
-
-    </div>
-    {% endif %}
     <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-button-group">
