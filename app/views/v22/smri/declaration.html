@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
-Are you sure you want to submit the SMRI declarations?
+Check your answers
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -59,52 +59,77 @@ Are you sure you want to submit the SMRI declarations?
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Process in place to ensure that al people with SMRI are fit and proper?
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{data.smriprocess}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="process">Change</a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+      Carry out regular assessments to ensure all people with SMRI remain fit and proper?
+      </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smriassessments}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="assessments">Change</a>
+      </dd>
+  </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+          List of all people at Radienteco Ltd with SMRI?
+      </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smrilist}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="smrilist">Change</a>
+      </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+          Are all people with SMRI fit and proper?
+      </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smrifitandproper}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="fitandproper">Change</a>
+      </dd>
+  </div>
+
+  
+  </dl>
+
+
+
     <form method="POST" novalidate>
 
-
-      <p class="govuk-body">Only do this when you’re sure you’ve added accurate and up-to-date declarations on behalf of each person with SMRI at {{company}}</p>
-      <p class="govuk-body">You cannot change this information after you've submitted it.</p>
+      <p class="govuk-body">Text here</p>
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
           <span class="govuk-visually-hidden">Warning</span>
-          Ofgem will carry out checks on this data. It also has the power to check your organisation has robust processes, systems and governance in place to ensure that any person with SMRI is fit and proper to fulfil their role.
+          Ofgem may request information about people with SMRI etc.....
         </strong>
       </div>
-          <div class="govuk-form-group govuk-!-margin-top-4 {% if data.validationErrors.smrideclaration %}govuk-form-group--error{% endif %}">
-            <fieldset class="govuk-fieldset">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                Submit declarations?
-              </legend>
-          {% if data.validationErrors.smrideclaration %}
-          <p class="govuk-error-message">
-              <span class="govuk-visually-hidden">Error:</span>
-              {{data.validationErrors.smrideclaration.message}}
-          </p>
-          {% endif %}
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="smrideclaration" name="smrideclaration" type="radio" value="Yes" {% if data.smrideclaration == "Yes" %}checked{% endif %}>
-                <label class="govuk-label govuk-radios__label" for="smrideclaration">
-                    Yes
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="smrideclaration-2" name="smrideclaration" type="radio" value="No" {% if data.smrideclaration == "No" %}checked{% endif %}>
-                <label class="govuk-label govuk-radios__label" for="smrideclaration-2">
-                    No
-                </label>
-            </div>
-        </div>
-        </fieldset>
-        </div>
+
 
 
 
 
   {{
       govukButton ({
-          html: 'Save and continue'
+          html: 'Submit declaration'
       })
   }}
 </form>

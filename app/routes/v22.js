@@ -7762,14 +7762,121 @@ router.post('/' + version + '/smri/personal', function (req, res) {
         req.session.data['smridobmonth' + req.session.data['smritotal']] = req.session.data['smridobmonth']
         req.session.data['smridobyear' + req.session.data['smritotal']] = req.session.data['smridobyear']
 
-        res.redirect('/' + version + '/smri/misconduct');
+        res.redirect('/' + version + '/smri/process');
     }
 });
 
 
 
 
-/// SMRI Fit and proper
+
+/// SMRI Process
+router.get('/' + version + '/smri/process', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/process', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/process', function (req, res) {
+    clearvalidation(req);
+    var smriprocess = req.session.data['smriprocess']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+
+
+    if (!smriprocess ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smriprocess = {
+            "anchor": "smriprocess",
+            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious process or mismanagement while carrying out a regulated activity"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/process', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/smri/assessments');
+    }
+});
+
+/// SMRI assessments
+router.get('/' + version + '/smri/assessments', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/assessments', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/assessments', function (req, res) {
+    clearvalidation(req);
+    var smriassessments = req.session.data['smriassessments']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+
+
+    if (!smriassessments ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smriassessments = {
+            "anchor": "smriassessments",
+            "message": "Select whether regular assessments are carried out"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/assessments', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/smri/smrilist');
+    }
+});
+
+
+/// SMRI list
+router.get('/' + version + '/smri/smrilist', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/smrilist', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/smrilist', function (req, res) {
+    clearvalidation(req);
+    var smrilist = req.session.data['smrilist']
+
+
+    if (!smrilist ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smrilist = {
+            "anchor": "smrilist",
+            "message": "Select whether you have a list of all people with SMRI"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/smrilist', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (smrilist == "Yes") {
+            res.redirect('/' + version + '/smri/fitandproper');
+        }
+        else {
+            res.redirect('/' + version + '/smri/dropout');
+        }
+    }
+});
+
+/// SMRI fitandproper
 router.get('/' + version + '/smri/fitandproper', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/smri/fitandproper', {
@@ -7779,103 +7886,16 @@ router.get('/' + version + '/smri/fitandproper', function (req, res) {
 
 router.post('/' + version + '/smri/fitandproper', function (req, res) {
     clearvalidation(req);
-    var smrimisconduct = req.session.data['smrimisconduct']
-    var smriconvictions = req.session.data['smriconvictions']
-    var smriinsolvency = req.session.data['smriinsolvency']
-    var smridisqualified = req.session.data['smridisqualified']
-    var smrisignificant = req.session.data['smrisignificant']
-    var smrisignificant2 = req.session.data['smrisignificant2']
-    var smrirelevant = req.session.data['smrirelevant']
-    var smriidentified = req.session.data['smriidentified']
-    var smriowned = req.session.data['smriowned']
-    var smrirevoked = req.session.data['smrirevoked']
+    var smrifitandproper = req.session.data['smrifitandproper']
 
 
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrimisconduct ) {
+    if (!smrifitandproper ) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrimisconduct = {
-            "anchor": "smrimisconduct",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious misconduct or mismanagement while carrying out a regulated activity"
+        req.session.data.validationErrors.smrifitandproper = {
+            "anchor": "smrifitandproper",
+            "message": "Select whether all people with SMRI are fit and proper"
         }
     }
-
-    if (!smriconvictions ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriconvictions = {
-            "anchor": "smriconvictions",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any relevant unspent criminal convictions"
-        }
-    }
-
-    if (!smriinsolvency ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriinsolvency = {
-            "anchor": "smriinsolvency",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any insolvency history"
-        }
-    }
-
-    if (!smridisqualified ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridisqualified = {
-            "anchor": "smridisqualified",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been disqualified from acting as a director of a company?"
-        }
-    }
-
-
-    if (!smrisignificant ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrisignificant = {
-            "anchor": "smrisignificant",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Last Resort Supply Direction"
-        }
-    }
-
-    if (!smrisignificant2 ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrisignificant2 = {
-            "anchor": "smrisignificant2",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Special Administration Order"
-        }
-    }
-
-    if (!smrirelevant ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrirelevant = {
-            "anchor": "smrirelevant",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been a relevant person regarding premises to which a tribunal has appointed a manager"
-        }
-    }
-
-    if (!smriidentified ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriidentified = {
-            "anchor": "smriidentified",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been identified on a database of rogue landlords or property agents"
-        }
-    }
-
-    if (!smriowned ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriowned = {
-            "anchor": "smriowned",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has owned or managed premises made the subject of a Relevant Order"
-        }
-    }
-
-    if (!smrirevoked ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrirevoked = {
-            "anchor": "smrirevoked",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been refused, had revoked, restricted or terminated any form of authorisation"
-        }
-    }
-
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/smri/fitandproper', {
@@ -7884,38 +7904,9 @@ router.post('/' + version + '/smri/fitandproper', function (req, res) {
     }
 
     else {
-        req.session.data['smrimisconduct' + req.session.data['smritotal']] = req.session.data['smrimisconduct']
-        req.session.data['smriconvictions' + req.session.data['smritotal']] = req.session.data['smriconvictions']
-        req.session.data['smriinsolvency' + req.session.data['smritotal']] = req.session.data['smriinsolvency']
-        req.session.data['smridisqualified' + req.session.data['smritotal']] = req.session.data['smridisqualified']
-        req.session.data['smrisignificant' + req.session.data['smritotal']] = req.session.data['smrisignificant']
-        req.session.data['smrisignificant2' + req.session.data['smritotal']] = req.session.data['smrisignificant2']
-        req.session.data['smrirelevant' + req.session.data['smritotal']] = req.session.data['smrirelevant']
-        req.session.data['smriidentified' + req.session.data['smritotal']] = req.session.data['smriidentified']
-        req.session.data['smriowned' + req.session.data['smritotal']] = req.session.data['smriowned']
-        req.session.data['smrirevoked' + req.session.data['smritotal']] = req.session.data['smrirevoked']
-
-
-        if (req.session.data['smrimisconduct'] == "Yes" ||
-            req.session.data['smriconvictions']  == "Yes" ||
-            req.session.data['smriinsolvency']  == "Yes" ||
-            req.session.data['smridisqualified']  == "Yes" ||
-            req.session.data['smrisignificant']  == "Yes" ||
-            req.session.data['smrisignificant2']  == "Yes" ||
-            req.session.data['smrirelevant']  == "Yes" ||
-            req.session.data['smriidentified']  == "Yes" ||
-            req.session.data['smriowned']  == "Yes" ||
-            req.session.data['smrirevoked']  == "Yes")
-            {
-                res.redirect('/' + version + '/smri/moredetails');
-            }
-            else {
-                res.redirect('/' + version + '/smri/cya');
-            }    }
+        res.redirect('/' + version + '/smri/declaration');
+    }
 });
-
-
-
 
 
 /// SMRI declaration
@@ -7928,682 +7919,9 @@ router.get('/' + version + '/smri/declaration', function (req, res) {
 
 router.post('/' + version + '/smri/declaration', function (req, res) {
     clearvalidation(req);
-    var smrideclaration = req.session.data['smrideclaration']
 
+    req.session.data['smrideclaration'] = "Yes"
 
-    if (!smrideclaration ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrideclaration = {
-            "anchor": "smrideclaration",
-            "message": "Select whether you want to submit the SMRI declarations "
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/declaration', {
-            data: req.session.data
-        });
-    }
-
-    else {
         
-        res.redirect('/' + version + '/account-information');
-    }
-});
-
-
-
-
-
-/// SMRI Name
-router.get('/' + version + '/smri/name', function (req, res) {
-    clearvalidation(req);
-
-    res.render('/' + version + '/smri/name', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/name', function (req, res) {
-    
-    clearvalidation(req);
-    const urlParams = req.query.id;
-
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-    if (!smrifirstname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrifirstname = {
-            "anchor": "smrifirstname",
-            "message": "Enter a first name"
-        }
-    }
-
-    if (!smrilastname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrilastname = {
-            "anchor": "smrilastname",
-            "message": "Enter a last name"
-        }
-    }
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/name', {
-            data: req.session.data
-        });
-    }
-
-
-    else {
-        if (urlParams) {
-            req.session.data['smritotal'] = urlParams;
-        }
-        else {
-        if (req.session.data.smritotal) {
-            req.session.data.smritotal = req.session.data.smritotal + 1
-        } 
-        else {
-            req.session.data.smritotal = 1
-        }
-    }
-        req.session.data['smrifirstname' + req.session.data['smritotal']] = req.session.data['smrifirstname']
-        req.session.data['smrilastname' + req.session.data['smritotal']] = req.session.data['smrilastname']
-        res.redirect('/' + version + '/smri/dob');
-    }
-});
-
-
-/// SMRI Date of Birth
-router.get('/' + version + '/smri/dob', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/dob', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/dob', function (req, res) {
-    clearvalidation(req);
-    var smridobday = req.session.data['smridobday']
-    var smridobmonth = req.session.data['smridobmonth']
-    var smridobyear = req.session.data['smridobyear']
-    const smridob = new Date(`${smridobyear}-${smridobmonth}-${smridobday}`);
-
-
-    if ((smridobday.length > 2) || (smridobday.month > 2) || (smridobday.year > 4) || (isNaN(smridob))) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridobday",
-            "message": "Enter a valid date"
-        }
-    }
-
-    if (!smridobday || !smridobmonth || !smridobyear) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridob",
-            "message": "Enter a full date of birth"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/dob', {
-            data: req.session.data
-        });
-    }
-
-
-
-    else {
-        req.session.data['smridob' + req.session.data['smritotal']] = smridob
-        req.session.data['smridobday' + req.session.data['smritotal']] = req.session.data['smridobday']
-        req.session.data['smridobmonth' + req.session.data['smritotal']] = req.session.data['smridobmonth']
-        req.session.data['smridobyear' + req.session.data['smritotal']] = req.session.data['smridobyear']
-        res.redirect('/' + version + '/smri/role');
-    }
-});
-
-
-
-/// SMRI Role
-router.get('/' + version + '/smri/role', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/role', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/role', function (req, res) {
-    clearvalidation(req);
-    var smrirole = req.session.data['smrirole']
-
-    if (!smrirole ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrirole = {
-            "anchor": "smrirole",
-            "message": "Enter a role"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/role', {
-            data: req.session.data
-        });
-    }
-
-
-
-    else {
-        req.session.data['smrirole' + req.session.data['smritotal']] = req.session.data['smrirole']
-        res.redirect('/' + version + '/smri/misconduct');
-    }
-});
-
-
-/// SMRI Misconduct
-router.get('/' + version + '/smri/misconduct', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/misconduct', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/misconduct', function (req, res) {
-    clearvalidation(req);
-    var smrimisconduct = req.session.data['smrimisconduct']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrimisconduct ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrimisconduct = {
-            "anchor": "smrimisconduct",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious misconduct or mismanagement while carrying out a regulated activity"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/misconduct', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smrimisconduct' + req.session.data['smritotal']] = req.session.data['smrimisconduct']
-        res.redirect('/' + version + '/smri/convictions');
-    }
-});
-
-/// SMRI convictions
-router.get('/' + version + '/smri/convictions', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/convictions', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/convictions', function (req, res) {
-    clearvalidation(req);
-    var smriconvictions = req.session.data['smriconvictions']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smriconvictions ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriconvictions = {
-            "anchor": "smriconvictions",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any relevant unspent criminal convictions"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/convictions', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smriconvictions' + req.session.data['smritotal']] = req.session.data['smriconvictions']
-        res.redirect('/' + version + '/smri/insolvency');
-    }
-});
-
-
-/// SMRI insolvency
-router.get('/' + version + '/smri/insolvency', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/insolvency', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/insolvency', function (req, res) {
-    clearvalidation(req);
-    var smriinsolvency = req.session.data['smriinsolvency']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smriinsolvency ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriinsolvency = {
-            "anchor": "smriinsolvency",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has any insolvency history"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/insolvency', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smriinsolvency' + req.session.data['smritotal']] = req.session.data['smriinsolvency']
-        res.redirect('/' + version + '/smri/disqualified');
-    }
-});
-
-/// SMRI disqualified
-router.get('/' + version + '/smri/disqualified', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/disqualified', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/disqualified', function (req, res) {
-    clearvalidation(req);
-    var smridisqualified = req.session.data['smridisqualified']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smridisqualified ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridisqualified = {
-            "anchor": "smridisqualified",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been disqualified from acting as a director of a company?"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/disqualified', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smridisqualified' + req.session.data['smritotal']] = req.session.data['smridisqualified']
-        res.redirect('/' + version + '/smri/significant');
-    }
-});
-
-
-/// SMRI significant
-router.get('/' + version + '/smri/significant', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/significant', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/significant', function (req, res) {
-    clearvalidation(req);
-    var smrisignificant = req.session.data['smrisignificant']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrisignificant ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrisignificant = {
-            "anchor": "smrisignificant",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Last Resort Supply Direction"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/significant', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smrisignificant' + req.session.data['smritotal']] = req.session.data['smrisignificant']
-        res.redirect('/' + version + '/smri/significant2');
-    }
-});
-
-/// SMRI significant 2
-router.get('/' + version + '/smri/significant2', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/significant2', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/significant2', function (req, res) {
-    clearvalidation(req);
-    var smrisignificant2 = req.session.data['smrisignificant2']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrisignificant2 ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrisignificant2 = {
-            "anchor": "smrisignificant2",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has ever been a person with SMRI at an operator or supplier that received a Special Administration Order"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/significant2', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smrisignificant2' + req.session.data['smritotal']] = req.session.data['smrisignificant2']
-        res.redirect('/' + version + '/smri/relevant');
-    }
-});
-
-/// SMRI relevant
-router.get('/' + version + '/smri/relevant', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/relevant', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/relevant', function (req, res) {
-    clearvalidation(req);
-    var smrirelevant = req.session.data['smrirelevant']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrirelevant ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrirelevant = {
-            "anchor": "smrirelevant",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been a relevant person regarding premises to which a tribunal has appointed a manager"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/relevant', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smrirelevant' + req.session.data['smritotal']] = req.session.data['smrirelevant']
-        res.redirect('/' + version + '/smri/identified');
-    }
-});
-
-/// SMRI identified
-router.get('/' + version + '/smri/identified', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/identified', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/identified', function (req, res) {
-    clearvalidation(req);
-    var smriidentified = req.session.data['smriidentified']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smriidentified ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriidentified = {
-            "anchor": "smriidentified",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been identified on a database of rogue landlords or property agents"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/identified', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smriidentified' + req.session.data['smritotal']] = req.session.data['smriidentified']
-        res.redirect('/' + version + '/smri/owned');
-    }
-});
-
-
-
-/// SMRI owned
-router.get('/' + version + '/smri/owned', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/owned', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/owned', function (req, res) {
-    clearvalidation(req);
-    var smriowned = req.session.data['smriowned']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smriowned ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriowned = {
-            "anchor": "smriowned",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has owned or managed premises made the subject of a Relevant Order"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/owned', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smriowned' + req.session.data['smritotal']] = req.session.data['smriowned']
-        res.redirect('/' + version + '/smri/revoked');
-    }
-});
-
-
-/// SMRI revoked
-router.get('/' + version + '/smri/revoked', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/revoked', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/revoked', function (req, res) {
-    clearvalidation(req);
-    var smrirevoked = req.session.data['smrirevoked']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smrirevoked ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrirevoked = {
-            "anchor": "smrirevoked",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been refused, had revoked, restricted or terminated any form of authorisation"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/revoked', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smrirevoked' + req.session.data['smritotal']] = req.session.data['smrirevoked']
-
-        if (req.session.data['smrimisconduct'] == "Yes" ||
-            req.session.data['smriconvictions']  == "Yes" ||
-            req.session.data['smriinsolvency']  == "Yes" ||
-            req.session.data['smridisqualified']  == "Yes" ||
-            req.session.data['smrisignificant']  == "Yes" ||
-            req.session.data['smrisignificant2']  == "Yes" ||
-            req.session.data['smrirelevant']  == "Yes" ||
-            req.session.data['smriidentified']  == "Yes" ||
-            req.session.data['smriowned']  == "Yes" ||
-            req.session.data['smrirevoked']  == "Yes")
-            {
-                res.redirect('/' + version + '/smri/moredetails');
-            }
-            else {
-                res.redirect('/' + version + '/smri/cya');
-            }
-    }
-});
-
-
-/// SMRI disciplinary
-router.get('/' + version + '/smri/disciplinary', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/disciplinary', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/disciplinary', function (req, res) {
-    clearvalidation(req);
-    var smridisciplinary = req.session.data['smridisciplinary']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smridisciplinary ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridisciplinary = {
-            "anchor": "smridisciplinary",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/disciplinary', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data['smridisciplinary' + req.session.data['smritotal']] = req.session.data['smridisciplinary']
-
-        if (req.session.data['smrimisconduct'] == "Yes" ||
-            req.session.data['smriconvictions']  == "Yes" ||
-            req.session.data['smriinsolvency']  == "Yes" ||
-            req.session.data['smridisqualified']  == "Yes" ||
-            req.session.data['smrisignificant']  == "Yes" ||
-            req.session.data['smrisignificant2']  == "Yes" ||
-            req.session.data['smrirelevant']  == "Yes" ||
-            req.session.data['smriidentified']  == "Yes" ||
-            req.session.data['smriowned']  == "Yes" ||
-            req.session.data['smrirevoked']  == "Yes" ||
-            req.session.data['smridisciplinary']  == "Yes")
-            {
-                res.redirect('/' + version + '/smri/moredetails');
-            }
-            else {
-                res.redirect('/' + version + '/smri/cya');
-            }
-    }
-});
-
-
-/// SMRI more details
-router.get('/' + version + '/smri/moredetails', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/smri/moredetails', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/moredetails', function (req, res) {
-    clearvalidation(req);
-    
-
-
-
-        req.session.data['smrimoredetails' + req.session.data['smritotal']] = req.session.data['smrimoredetails']
-        res.redirect('/' + version + '/smri/cya');
-
-});
-
-
-/// SMRI cya
-router.get('/' + version + '/smri/cya', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.id;
-    if (urlParams) {
-        setSMRIUser(req, urlParams);
-    }
-    res.render('/' + version + '/smri/cya', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/cya', function (req, res) {
-    clearvalidation(req);
-    clearSMRIUser(req)
-    req.session.data['addedsmri' + req.session.data['smritotal']] = "true"
-
-
-        res.redirect('/' + version + '/smri/list');
-});
-
-
-/// SMRI remove
-router.get('/' + version + '/smri/remove', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.id;
-    if (urlParams) {
-        setSMRIUser(req, urlParams);
-    }
-    res.render('/' + version + '/smri/remove', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/remove', function (req, res) {
-    clearvalidation(req);
-    clearSMRIUser(req)
-    const urlParams = req.query.id;
-
-    var smriremove = req.session.data['smriremove']
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-
-
-    if (!smriremove ) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smriremove = {
-            "anchor": "smriremove",
-            "message": "Select whether you wish to remove " + smrifirstname + " " + smrilastname
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/remove', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        removeSMRIUser(req, urlParams)
-        res.redirect('/' + version + '/smri/list');
-    }
+        res.redirect('/' + version + '/smri/summary');
 });

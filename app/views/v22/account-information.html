@@ -63,7 +63,11 @@
 
     {% if data.currentversion != "dev" %}
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
-    <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">People with SMRI</a></h3>
+      {% if data.smrideclaration != "Yes" %}
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">People with SMRI</a></h3>
+      {% else %}
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/summary" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">People with SMRI</a></h3>
+      {% endif %}
     <p class="govuk-body">Submit fit and proper declarations on behalf of all people with significant managerial responsibility or influence (SMRI)</p>
 
 

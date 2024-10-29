@@ -1,0 +1,93 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+People with significant managerial responsibility or influence (SMRI)
+{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+      <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+          <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
+          </li>
+
+        </ol>
+      </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+      <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Process in place to ensure that al people with SMRI are fit and proper?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                  {{data.smriprocess}}
+              </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+            Carry out regular assessments to ensure all people with SMRI remain fit and proper?
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{data.smriassessments}}
+            </dd>
+
+        </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                List of all people at Radienteco Ltd with SMRI?
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{data.smrilist}}
+            </dd>
+
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Are all people with SMRI fit and proper?
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{data.smrifitandproper}}
+            </dd>
+        </div>
+
+        
+        </dl>
+            <a href="declaration" class="govuk-button">Edit SMRI declaration</a>
+            <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="../account-information" >Return to {{company}} home</a></p>
+
+    </div>
+
+</div>
+
+{% endblock %}

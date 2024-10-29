@@ -1,12 +1,10 @@
 {% extends 'layouts/main.html' %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
-
 {% set title %}
-Does {{name}} have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?
+Do you have a list of all people at {{company}} with SMRI?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
-
 
 {% block pageTitle %}
 {{title}}
@@ -58,30 +56,32 @@ Does {{name}} have any relevant unspent criminal convictions in any jurisdiction
         
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
+    <label for="smrilist">
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-  <div class="govuk-form-group {% if data.validationErrors.smriconvictions %}govuk-form-group--error{% endif %}">
+  </label>
+  <div class="govuk-form-group {% if data.validationErrors.smrilist %}govuk-form-group--error{% endif %}">
 
-        {% if data.validationErrors.smriconvictions %}
+        {% if data.validationErrors.smrilist %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.smriconvictions.message}}
+            {{data.validationErrors.smrilist.message}}
         </p>
         {% endif %}
 
 
         <div class="govuk-radios" data-module="govuk-radios">
           <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="smriconvictions" name="smriconvictions" type="radio" value="Yes" {% if data.smriconvictions == "Yes" %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="smriconvictions">
+              <input class="govuk-radios__input" id="smrilist" name="smrilist" type="radio" value="Yes" {% if data.smrilist == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrilist">
                   Yes
               </label>
           </div>
           <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="smriconvictions-2" name="smriconvictions" type="radio" value="No" {% if data.smriconvictions == "No" %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="smriconvictions-2">
+              <input class="govuk-radios__input" id="smrilist-2" name="smrilist" type="radio" value="No" {% if data.smrilist == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrilist-2">
                   No
               </label>
           </div>

@@ -2,10 +2,9 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
 {% set title %}
-Fit and proper declaration for {{name}}
+Are all people with SMRI at {{company}} fit and proper?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
-
 
 {% block pageTitle %}
 {{title}}
@@ -52,358 +51,80 @@ Fit and proper declaration for {{name}}
         </div>
     </div>
     {% endif %}
-    
     <form  method="POST" novalidate>
 
         
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
-    <label for="smrimisconduct">
+    <label for="smrifitandproper">
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
   </label>
-  
+  <div class="govuk-form-group {% if data.validationErrors.smrifitandproper %}govuk-form-group--error{% endif %}">
 
-<div class="govuk-form-group {% if data.validationErrors.smrimisconduct %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smrimisconduct-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector (or, providing a service elsewhere, which, if provided in Great Britain, would be such a regulated activity)?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smrimisconduct %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smrimisconduct.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrimisconduct" name="smrimisconduct" type="radio" value="Yes" {% if data.smrimisconduct == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrimisconduct">
-          Yes
-        </label>
+        {% if data.validationErrors.smrifitandproper %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.smrifitandproper.message}}
+        </p>
+        {% endif %}
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              How to ensure a person is fit and proper
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+              <p class="govuk-body">You should send these questions to anyone with SMRI so they can provide their response:</p>
+              <ul class="govuk-list govuk-list--bullet">
+                <li>Has the person with SMRI been responsible for, contributed to or facilitated any serious misconduct or mismanagement (whether unlawful or not) in the course of carrying out a regulated activity in any sector?</li>
+                <li>Does the person with SMRI have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?</li>
+                <li>Does the person with SMRI have any insolvency history, including undischarged bankruptcy, debt judgements and county court judgements?</li>
+                <li>Has the person with SMRI been disqualified from acting as a director of a company?</li>
+                <li>Has the person with SMRI been a person with SMRI at a current or former authorised person, gas supplier or electricity supplier in respect of whose customers’ or consumers’ premises Ofgem issued a Last Resort Supply Direction?</li>
+                <li>Has the person with SMRI been a person with SMRI at a current or former authorised person or relevant energy licensee in relation to whom a Special Administration Order has been made?</li>
+                <li>Has the person with SMRI been a relevant person regarding premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?</li>
+                <li>Has the person with SMRI been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?</li>
+                <li>Has the person with SMRI owned or managed premises that have been the subject of a Relevant Order under the Housing Act 2004?</li>
+                <li>Has the person with SMRI been refused, had revoked, restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction?</li>
+                
+                
+              </ul>
+              
+          </div>
+        </details>
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrifitandproper" name="smrifitandproper" type="radio" value="Yes" {% if data.smrifitandproper == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrifitandproper">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrifitandproper-2" name="smrifitandproper" type="radio" value="No" {% if data.smrifitandproper == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrifitandproper-2">
+                  No
+              </label>
+          </div>
       </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrimisconduct-2" name="smrimisconduct" type="radio" value="No" {% if data.smrimisconduct == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrimisconduct-2">
-          No
-        </label>
+
       </div>
-    </div>
-  </fieldset>
-</div>
-
-<div class="govuk-form-group {% if data.validationErrors.smriconvictions %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smriconvictions-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Does {{name}} have any relevant unspent criminal convictions in any jurisdiction, in particular fraud or money laundering?
-        </h2>
-    </legend>
-    {% if data.validationErrors.smriconvictions %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smriconvictions.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriconvictions" name="smriconvictions" type="radio" value="Yes" {% if data.smriconvictions == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriconvictions">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriconvictions-2" name="smriconvictions" type="radio" value="No" {% if data.smriconvictions == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriconvictions-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-<div class="govuk-form-group {% if data.validationErrors.smriinsolvency %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smriinsolvency-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Does {{name}} have any insolvency history, including undischarged bankruptcy debt judgements and county court judgements?
-        </h2>
-    </legend>
-    {% if data.validationErrors.smriinsolvency %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smriinsolvency.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriinsolvency" name="smriinsolvency" type="radio" value="Yes" {% if data.smriinsolvency == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriinsolvency">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriinsolvency-2" name="smriinsolvency" type="radio" value="No" {% if data.smriinsolvency == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriinsolvency-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-
-
-<div class="govuk-form-group {% if data.validationErrors.smridisqualified %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smridisqualified-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been disqualified from acting as a director of a company?
-        </h2>
-    </legend>
-    {% if data.validationErrors.smridisqualified %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smridisqualified.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smridisqualified" name="smridisqualified" type="radio" value="Yes" {% if data.smridisqualified == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smridisqualified">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smridisqualified-2" name="smridisqualified" type="radio" value="No" {% if data.smridisqualified == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smridisqualified-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smrisignificant %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smrisignificant-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been a person with significant managerial responsibility or influence at a current or former authorised person, a gas supplier, or an electricity supplier in respect of whose customers’ or consumers' premises the authority issued a Last Resort Supply Direction (including where they were a person with significant managerial responsibility or influence at that supplier within the 12 months prior to the Last Resort Supply Direction being issued)?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smrisignificant %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smrisignificant.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrisignificant" name="smrisignificant" type="radio" value="Yes" {% if data.smrisignificant == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrisignificant">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrisignificant-2" name="smrisignificant" type="radio" value="No" {% if data.smrisignificant == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrisignificant-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smrisignificant2 %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smrisignificant2-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been a person with significant managerial responsibility or influence at a current or former authorised person or relevant energy licensee in relation to whom a Special Administration Order has been made?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smrisignificant2 %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smrisignificant2.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrisignificant2" name="smrisignificant2" type="radio" value="Yes" {% if data.smrisignificant2 == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrisignificant2">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrisignificant2-2" name="smrisignificant2" type="radio" value="No" {% if data.smrisignificant2 == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrisignificant2-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smrirelevant %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smrirelevant-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been a relevant person in respect of premises to which an appropriate tribunal has appointed a manager under section 24 or 24ZA of the Landlord and Tenant Act 1987?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smrirelevant %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smrirelevant.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrirelevant" name="smrirelevant" type="radio" value="Yes" {% if data.smrirelevant == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrirelevant">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrirelevant-2" name="smrirelevant" type="radio" value="No" {% if data.smrirelevant == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrirelevant-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smriidentified %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smriidentified-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been identified on a database of rogue landlords and property agents established under section 28 of the Housing and Planning Act 2016?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smriidentified %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smriidentified.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriidentified" name="smriidentified" type="radio" value="Yes" {% if data.smriidentified == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriidentified">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriidentified-2" name="smriidentified" type="radio" value="No" {% if data.smriidentified == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriidentified-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smriowned %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smriowned-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} owned or managed premises made the subject of a Relevant Order under the Housing Act 2004? 
-      </h2>
-    </legend>
-    {% if data.validationErrors.smriowned %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smriowned.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriowned" name="smriowned" type="radio" value="Yes" {% if data.smriowned == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriowned">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smriowned-2" name="smriowned" type="radio" value="No" {% if data.smriowned == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smriowned-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-<div class="govuk-form-group {% if data.validationErrors.smrirevoked %}govuk-form-group--error{% endif %}">
-  <fieldset class="govuk-fieldset" aria-describedby="smrirevoked-hint">
-    <legend class="govuk-fieldset__legend ">
-      <h2 class="govuk-fieldset__heading">
-        Has {{name}} been refused, had revoked (in whole or in part), restricted or terminated any form of authorisation, or had any disciplinary, compliance, enforcement or regulatory actions taken by any regulatory body in any jurisdiction whether as an individual, or in relation to a business in which that person held significant managerial responsibility or influence?
-      </h2>
-    </legend>
-    {% if data.validationErrors.smrirevoked %}
-    <p class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span>
-        {{data.validationErrors.smrirevoked.message}}
-    </p>
-    {% endif %}
-    <div class="govuk-radios govuk-radios--small govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrirevoked" name="smrirevoked" type="radio" value="Yes" {% if data.smrirevoked == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrirevoked">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="smrirevoked-2" name="smrirevoked" type="radio" value="No" {% if data.smrirevoked == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="smrirevoked-2">
-          No
-        </label>
-      </div>
-    </div>
-  </fieldset>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
       <div class="govuk-button-group">
         {{
           govukButton ({
-              html: 'Continue'
+            html: 'Continue'
           })
         }}
       </div>
 </form>
 
-</div>
 </div>
 
 {% endblock %}
