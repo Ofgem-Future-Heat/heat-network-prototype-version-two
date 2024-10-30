@@ -3485,6 +3485,14 @@ function clearRegIntro(req) {
     req.session.data['introcontrolhowmany'] = ""
     req.session.data['introonly'] = ""
     req.session.data['introsupply'] = ""
+    req.session.data['introonlysupplier'] = ""
+    req.session.data['introsupply20'] = ""
+    req.session.data['introsupplydecade'] = ""
+    req.session.data['supplywhen'] = ""
+    req.session.data['introselfsupply'] = ""
+    req.session.data['name'] = ""
+
+
 }
 
 
@@ -3729,7 +3737,7 @@ router.post('/' + version + '/add-heat-network/introduction/changes', function (
     var introcommunal = req.session.data['introcommunal']
 
         if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/primary');
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
 
         }
 
@@ -3754,6 +3762,7 @@ router.get('/' + version + '/add-heat-network/introduction/energycentre', functi
 router.post('/' + version + '/add-heat-network/introduction/energycentre', function (req, res) {
     clearvalidation(req);
     var introenergycentre = req.session.data['introenergycentre']
+    var introcommunal = req.session.data['introcommunal']
 
     if (!introenergycentre) {
         req.session.data.validationError = "true"
@@ -3768,16 +3777,24 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
             data: req.session.data
         });
     }
-    else {        
-        if (introenergycentre == "Yes") {
-        res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+    else {   
+        
+        
+        if (introcommunal == "Yes") {
+            if (introenergycentre == "Yes") {
+                res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/primary');
+            }
 
-    }
+        }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/primary');
+        res.redirect('/' + version + '/add-heat-network/introduction/supply20');
 
-    }    }
+    }    
+}
 
 });
 
@@ -3812,7 +3829,7 @@ router.post('/' + version + '/add-heat-network/introduction/primary', function (
         });
     }
     else {        
-        res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+        res.redirect('/' + version + '/add-heat-network/introduction/supply20');
     }
 
 });
@@ -4477,11 +4494,9 @@ router.get('/' + version + '/add-heat-network/introduction/cya', function (req, 
 
 router.post('/' + version + '/add-heat-network/introduction/cya', function (req, res) {
 
-    if (introcomplete == "true") {
-        res.redirect('/' + version + '/add-heat-network/confirmchange');
-    } else {
-        res.redirect('/' + version + '/add-heat-network/introduction/moreinfo');
-    }
+
+        res.redirect('/' + version + '/add-heat-network/introduction/examples');
+
 
 });
 
@@ -7920,8 +7935,15 @@ router.get('/' + version + '/smri/declaration', function (req, res) {
 router.post('/' + version + '/smri/declaration', function (req, res) {
     clearvalidation(req);
 
-    req.session.data['smrideclaration'] = "Yes"
+    var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
 
+today = dd + '/' + mm + '/' + yyyy;
+
+    req.session.data['smrideclaration'] = "Yes"
+    req.session.data['smrideclarationdate'] = today
         
-        res.redirect('/' + version + '/smri/summary');
+        res.redirect('/' + version + '/smri/list');
 });

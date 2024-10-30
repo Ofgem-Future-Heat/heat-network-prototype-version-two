@@ -41,6 +41,7 @@ People with significant managerial responsibility or influence (SMRI)
       <h1 class="govuk-heading-l">
             {{title}}
         </h1>
+        <p class="govuk-body">You must update these details if they become out-of-date or are incorrect.</p>
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
@@ -80,9 +81,18 @@ People with significant managerial responsibility or influence (SMRI)
 
         </div>
       
-        
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+           Submitted by
+          </dt>
+          <dd class="govuk-summary-list__value">
+              John Smith on {{data.smrideclarationdate}}
+          </dd>
+
+      </div>
+    
         </dl>
-            <a href="declaration" class="govuk-button">Edit SMRI declaration</a>
+            <a href="declaration" class="govuk-button">Submit new SMRI declaration</a>
             <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="../account-information" >Return to {{company}} home</a></p>
 
     </div>

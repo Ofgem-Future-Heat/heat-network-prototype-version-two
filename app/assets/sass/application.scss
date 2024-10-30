@@ -5,6 +5,10 @@
 
 // Add extra styles here
 
+.govuk-header__service-name {
+	@include govuk-font-size($size: 19);
+}
+
 .app-ofgem {
 
 	.dwp-\!-background-grey {

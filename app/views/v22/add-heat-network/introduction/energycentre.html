@@ -62,10 +62,11 @@
                         </h1>
 
                         </legend>
-
+                        {% if data.introcommunal == "Yes" %}
                         <p class="govuk-body">
                             For example, a communal boiler that heats the whole building.
                         </p>
+                        {% endif %}
                         {% if data.validationErrors.introenergycentre %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
