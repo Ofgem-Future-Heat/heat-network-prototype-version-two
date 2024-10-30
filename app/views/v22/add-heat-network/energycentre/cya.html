@@ -58,12 +58,7 @@
                     <strong>{% if data.technologies.length > 1 %}Technolgies{% else %}Technolgy{% endif %}:</strong><br />
                     {% if data.technologies %} {% for technology, energysource, year in data.technologies %}
                     {% if data.technologies.length > 1 %}Technology {{loop.index}}: {% endif %}{{technology}}
-                                <br />
-                                Source:
-                                {{energysource}}
-                                <br />
-                                Started: {{year}}
-                                <br /><br />
+                                                    <br /><br />
                                 {% endfor %}
                     {% endif %}
 

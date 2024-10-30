@@ -5081,7 +5081,7 @@ router.post('/' + version + '/add-heat-network/energycentre/technology', functio
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/energysource');
+        res.redirect('/' + version + '/add-heat-network/energycentre/summary');
     }
 });
 
