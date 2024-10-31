@@ -52,7 +52,7 @@
         </div>
         {% endif %}
 
-        {% if data.buildinglocationAddress %}
+        {% if data.smrinotification %}
         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
             <div class="govuk-notification-banner__header">
               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -61,8 +61,9 @@
             </div>
             <div class="govuk-notification-banner__content">
               <h3 class="govuk-notification-banner__heading">
-                You've added information about building 1
+                Fit and proper declaration submitted
               </h3>
+              <p class="govuk-body">We'll contact you via email if we need any further information.</p>
             </div>
           </div>
         {% endif %}
@@ -70,8 +71,7 @@
         <span class="govuk-caption-l">{{company}}</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
-              <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper.</p>
-              <p class="govuk-body">No one at {{company}} will be able to send heat network information to us until this is done.</p>
+              <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.</p>
               
               {% if data.smrideclaration != "Yes" %}
 

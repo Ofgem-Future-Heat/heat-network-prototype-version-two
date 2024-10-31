@@ -7694,6 +7694,8 @@ function removeSMRIUser(req, id) {
 router.get('/' + version + '/smri/list', function (req, res) {
     clearvalidation(req);
     clearSMRIUser(req);
+    const urlParams = req.query.notification;
+    req.session.data['smrinotification'] = urlParams;
     res.render('/' + version + '/smri/list', {
         data: req.session.data
     });
@@ -7945,5 +7947,5 @@ today = dd + '/' + mm + '/' + yyyy;
     req.session.data['smrideclaration'] = "Yes"
     req.session.data['smrideclarationdate'] = today
         
-        res.redirect('/' + version + '/smri/list');
+        res.redirect('/' + version + '/smri/list?notification=submitted');
 });
