@@ -50,7 +50,11 @@
             <h3 class="govuk-heading-m">Your heat network</h3>
             <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
 
-
+            {% if data.introcommunaloperate == "Yes" %}
+            <h3 class="govuk-heading-m">Additional heat networks</h3>
+            <p class="govuk-body">You also told us that you operate at least one communal building on this network. Communal buildings will need a separate heat network registration.</p>
+                <img src="/public/images/HNS/HNC1.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
+                {% endif %}
 
 
 
