@@ -1,0 +1,68 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You do not need to provide any information" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+
+
+
+            <p class="govuk-body">You do not need to tell us about your heat network</p>
+            <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
+            </p>
+
+<h3 class="govuk-heading-m">If you only control part of a relevant heat network</h3>
+<p class="govuk-body">You may have arrived here because you only control part of a heat network, for example some distribution pipework. In that case, whilst the wider heat network is considered a relevant heat network, your part of it is not.</p>
+<p class="govuk-body">You'll need to tell the primary operator on the network to contact Ofgem and we'll advise you on how to prepare a joint submission: heat-networks@ofgem.gov.uk</p>
+
+
+
+
+
+
+
+
+        </div>
+        <a href="../../account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

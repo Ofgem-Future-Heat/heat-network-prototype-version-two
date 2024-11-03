@@ -1,0 +1,74 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Heat network summary" %}
+{% set HN %}HNB{% if data.introbuildings == "Yes" %}{{data.introbuildingshowmany}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">
+                Based on the questions you've answered you are registering a <strong>district heat network</strong> where you operate:</p>
+                <ul class="govuk-list govuk-list--bullet"> 
+                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
+                    {% if data.introbuildings == "Yes" %}<li><strong>{{data.introbuildingshowmany}} </strong>buildings</li> {% endif %}</ul>
+            </p>
+            <h3 class="govuk-heading-m">Your heat network</h3>
+            <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
+
+
+
+
+
+
+
+
+
+        </div>
+        {% if data.role == "Both" %}
+        <a href="suppliers" class="govuk-button">Continue</a>
+
+        {% else %}
+        <a href="supply20" class="govuk-button">Continue</a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

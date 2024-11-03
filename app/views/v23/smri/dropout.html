@@ -1,0 +1,60 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You cannot continue" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">
+                This is because you do not have all the information required to complete the fit and proper declaration.
+            </p>
+            <p class="govuk-body">You must make sure you’ve got:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>a list of everybody with SMRI at your organisation</li>
+                <li>confirmation from each one as to whether they meet all the fit and proper criteria, as defined in heat network regulations</li>
+            </ul>
+            
+
+        </div>
+        <a href="../../account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

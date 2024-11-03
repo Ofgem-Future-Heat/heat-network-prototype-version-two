@@ -1,0 +1,55 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You do not need to register these communal buildings" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+
+
+
+            <p class="govuk-body">These are independent connected communal heat networks, they should be registered by their operator.</p>
+
+        </div>
+        <a href="energycentreoperate" class="govuk-button">Continue</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

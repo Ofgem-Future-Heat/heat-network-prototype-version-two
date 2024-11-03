@@ -1,0 +1,127 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Which of the following do you have in your heat network?" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" metertype="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.metertype %}govuk-form-group--error{% endif %}">
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - metering</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    {% if data.validationErrors.metertype %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.metertype.message}}
+                    </p>
+                    {% endif %}
+                    <div id="types-hint" class="govuk-hint">
+                        Select all that apply:
+                    </div>
+
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="metertype" name="metertype" type="checkbox" value="Building level meters" {% for infoitem in data.metertype %}{% if infoitem == "Building level meters" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="metertype">
+                                Building level meters
+                            </label>
+                            <div class="govuk-hint govuk-checkboxes__hint">
+                              They are used to measure the use of a single building on a heat network. They are not used to measure or bill consumers' use.
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="metertype-2" name="metertype" type="checkbox" value="Final consumer meters" {% for infoitem in data.metertype %}{% if infoitem == "Final consumer meters" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="metertype-2">
+                                Final consumer meters
+                            </label>
+                            <div class="govuk-hint govuk-checkboxes__hint">
+                             They are used to measure consumers' use, and to bill them.
+
+                            </div>
+                        </div>
+
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="metertype-4" name="metertype" type="checkbox" value="Final consumer heat cost allocators" {% for infoitem in data.metertype %}{% if infoitem == "Final consumer heat cost allocators" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="metertype-4">
+                                Final consumer heat cost allocators
+                            </label>
+                            <div class="govuk-hint govuk-checkboxes__hint">
+                              They are devices that are attached to individual radiators to measure the total heat output of that radiator.
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__divider">or</div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="metertype-5" name="metertype" type="checkbox" value="None" {% for infoitem in data.metertype %}{% if infoitem == "None" %}checked{% endif %} {% endfor %} data-behaviour="exclusive">
+                            <label class="govuk-label govuk-checkboxes__label" for="metertype-5">
+                                None
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+                <a href="cancel" class="govuk-link">Cancel</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

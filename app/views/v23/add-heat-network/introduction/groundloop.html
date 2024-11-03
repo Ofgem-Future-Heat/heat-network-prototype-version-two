@@ -1,0 +1,117 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Do any of the buildings on the heat network get their energy from a shared ground loop?" %}
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div
+                class="govuk-form-group {% if data.validationErrors.introgroundloop %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            Help with 'shared ground loop'
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            A shared ground loop system connects two or more properties using individual ground source heat pumps for heating.
+                        </div>
+                      </details>
+
+                    
+                    {% if data.validationErrors.introgroundloop %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.introgroundloop.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introgroundloop" name="introgroundloop" type="radio"
+                                value="Yes" {% if data.introgroundloop=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introgroundloop">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introgroundloop-2" name="introgroundloop" type="radio"
+                                value="No" {% if data.introgroundloop=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introgroundloop-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+            govukButton ({
+            html: 'Continue'
+            })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
