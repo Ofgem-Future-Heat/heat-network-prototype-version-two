@@ -4454,6 +4454,8 @@ router.get('/' + version + '/add-heat-network/introduction/supplywhen', function
 router.post('/' + version + '/add-heat-network/introduction/supplywhen', function (req, res) {
     clearvalidation(req);
     var supplywhen = req.session.data['supplywhen']
+    var introcommunal = req.session.data['introcommunal']
+
 
     if (!supplywhen) {
         req.session.data.validationError = "true"
@@ -4469,7 +4471,13 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+        if (introcommunal == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+
+        }
     }
 });
 
@@ -4526,12 +4534,46 @@ router.post('/' + version + '/add-heat-network/introduction/selfsupply', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introselfsupply = {
             "anchor": "introselfsupply",
-            "message": "Error text"
+            "message": "Select whether the heat network is a self-supply network"
         }
     }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+    }
+
+});
+
+
+// Introduction - Buy Sell Heat
+router.get('/' + version + '/add-heat-network/introduction/buysell', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/buysell', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/buysell', function (req, res) {
+    clearvalidation(req);
+    var introbuysell = req.session.data['introbuysell']
+
+    if (!introbuysell) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introbuysell = {
+            "anchor": "introbuysell",
+            "message": "Select whether the heat network buys or sells heat"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/buysell', {
             data: req.session.data
         });
     }
