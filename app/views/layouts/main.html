@@ -1,43 +1,43 @@
 {#
-For guidance on how to use layouts see:
-https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
-#}
-
-{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
-
-{% set bodyClasses = 'app-ofgem' %}
-
-{% block header %}
-{{ govukHeader({
-  homepageUrl: "#",
-  classes: "govuk-header--full-width-border"
-}) }}
-
-{{ govukServiceNavigation({
-  serviceName: serviceName,
-  serviceUrl: "#"
-}) }}
-
-
-
-
-
-{% endblock %}
-
-{% block footer %}
-    {{ govukFooter({
-        meta: {
-            items: [
-            {
-                href: "/manage-prototype",
-                text: "Manage prototype"
-            },
-            {
-                href: "/manage-prototype/clear-data",
-                text: "Clear data"
-            }
-
-                    ]
-        }
-    }) }}
-{% endblock %}
+  For guidance on how to use layouts see:
+  https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
+  #}
+  
+  {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+  
+  {% set bodyClasses = 'app-ofgem' %}
+  
+  {% block header %}
+  {{ govukHeader({
+    homepageUrl: "#",
+    classes: "govuk-header--full-width-border"
+  }) }}
+  
+  {{ govukServiceNavigation({
+    serviceName: serviceName,
+    serviceUrl: "#"
+  }) }}
+  
+  
+  
+  
+  
+  {% endblock %}
+  
+  {% block footer %}
+      {{ govukFooter({
+          meta: {
+              items: [
+              {
+                  href: "/manage-prototype",
+                  text: "Manage prototype"
+              },
+              {
+                  href: "/manage-prototype/clear-data",
+                  text: "Clear data"
+              }
+  
+                      ]
+          }
+      }) }}
+  {% endblock %}
