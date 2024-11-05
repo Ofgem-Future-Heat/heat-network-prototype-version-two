@@ -9,13 +9,13 @@
   
   {% block header %}
   {{ govukHeader({
-    homepageUrl: "#",
+    homepageUrl: "https://gov.uk",
     classes: "govuk-header--full-width-border"
   }) }}
   
   {{ govukServiceNavigation({
     serviceName: serviceName,
-    serviceUrl: "#"
+    serviceUrl: "/" + data.version + "/account-information"
   }) }}
   
   
