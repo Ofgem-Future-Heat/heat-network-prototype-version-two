@@ -3679,7 +3679,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
         }
 
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/communal');
+            res.redirect('/' + version + '/add-heat-network/introduction/changes');
 
         }
     }
@@ -3712,7 +3712,16 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
         });
     }
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/changes');
+
+        if (introcommunal == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+        }
+
+        else {
+            
+            res.redirect('/' + version + '/add-heat-network/introduction/communalbuildings');
+
+        }
 
         }
 });
@@ -3728,17 +3737,8 @@ router.get('/' + version + '/add-heat-network/introduction/changes', function (r
 
 router.post('/' + version + '/add-heat-network/introduction/changes', function (req, res) {
     clearvalidation(req);
-    var introcommunal = req.session.data['introcommunal']
+    res.redirect('/' + version + '/add-heat-network/introduction/communal');
 
-        if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
-        }
-
-        else {
-            
-            res.redirect('/' + version + '/add-heat-network/introduction/communalbuildings');
-
-        }
 });
 
 
