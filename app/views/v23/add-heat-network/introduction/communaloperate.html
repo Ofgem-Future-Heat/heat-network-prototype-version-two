@@ -82,11 +82,26 @@ Does {{company}} operate any of these communal buildings?
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communal" name="introcommunaloperate" type="radio" value="Yes" {% if data.introcommunaloperate == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="communal" name="introcommunaloperate" type="radio" value="Yes" {% if data.introcommunaloperate == "Yes" %}checked{% endif %}  data-aria-controls="conditional-introcommunaloperate">
                             <label class="govuk-label govuk-radios__label" for="communal">
                                 Yes
                             </label>
                         </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introcommunaloperate">
+                        
+                            <div class="govuk-form-group {% if data.validationErrors.introcommunaloperatehowmany %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="introcommunaloperatehowmany">
+                                How many energy centres do you operate?
+                              </label>
+                              {% if data.validationErrors.introcommunaloperatehowmany %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.introcommunaloperatehowmany.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input govuk-input--width-4" id="introcommunaloperatehowmany" name="introcommunaloperatehowmany" type="number" value="{{data.introcommunaloperatehowmany}}">
+                            </div>
+                    </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="communal-2" name="introcommunaloperate" type="radio" value="No" {% if data.introcommunaloperate == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="communal-2">

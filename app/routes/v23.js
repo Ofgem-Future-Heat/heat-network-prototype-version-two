@@ -3912,7 +3912,7 @@ router.get('/' + version + '/add-heat-network/introduction/communaloperate', fun
 router.post('/' + version + '/add-heat-network/introduction/communaloperate', function (req, res) {
     clearvalidation(req);
     var introcommunaloperate = req.session.data['introcommunaloperate']
-
+    var introcommunaloperatehowmany = req.session.data['introcommunaloperatehowmany']
 
     if (!introcommunaloperate) {
         req.session.data.validationError = "true"
@@ -3921,6 +3921,15 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
             "message": "Select if you operate any of the communal buildings?"
         }
     }
+
+    if (introcommunaloperate == "Yes" && !introcommunaloperatehowmany)  {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introenergycentrehowmany = {
+            "anchor": "introenergycentrehowmany",
+            "message": "Enter the number of communal buildings that you operate"
+        }
+    }
+    
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/introduction/communaloperate', {

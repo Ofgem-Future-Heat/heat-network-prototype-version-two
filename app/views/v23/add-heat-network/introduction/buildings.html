@@ -10,7 +10,7 @@ Radienteco Ltd
 
 
 {% set title %}
-Does {{company}} operate connection points to any of the other buildings on this heat network?
+Does {{company}} operate connection points to any of the buildings on this heat network?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -75,11 +75,13 @@ Does {{company}} operate connection points to any of the other buildings on this
 
                         </legend>
                         <p class="govuk-body">This means your organisation owns or has significant control over them. It has the ultimate decision-making authority to invest in them, make upgrades and direct repairs and maintenance.</p>
-                        {% if data.introcommunal == "Yes" %}
-                        <p class="govuk-body">
-                            For example, a communal boiler that heats the whole building.
-                        </p>
-                        {% endif %}
+                        <div class="govuk-warning-text">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                              <span class="govuk-visually-hidden">Warning</span>
+                              Make sure you do not include these communal buildings.
+                            </strong>
+                          </div>
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
