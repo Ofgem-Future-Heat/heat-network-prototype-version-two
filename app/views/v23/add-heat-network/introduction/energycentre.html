@@ -1,4 +1,13 @@
 {% extends 'layouts/main.html' %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
 {% set title = "Does the communal heat network have its own energy centre?" %}
 {% set _inError = data.validationError == "true"  %}
 

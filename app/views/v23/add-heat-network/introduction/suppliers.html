@@ -1,8 +1,4 @@
 {% extends 'layouts/main.html' %}
-{% set title %}
-Do you supply all of the buildings you operate on this heat network?
-{% endset %}
-
 {% set company %}
 {% if data.companyname %}
 {{data.companyname}}
@@ -10,6 +6,11 @@ Do you supply all of the buildings you operate on this heat network?
 Radienteco Ltd 
 {% endif %}
 {% endset %}
+{% set title %}
+Is {{company}} the heat supplier for all of the {{data.introbuildingshowmany}} buildings on this heat network?
+{% endset %}
+
+
 
 {% set _inError = data.validationError == "true" %}
 
@@ -74,6 +75,7 @@ Radienteco Ltd
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">This means your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the end users on the network.</p>
                     {% if data.validationErrors.introsuppliers %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

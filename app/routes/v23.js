@@ -30,6 +30,46 @@ router.get('/' + version + '/account-information', function (req, res) {
     });
 });
 
+
+//////////////////////////////////////////////////////////// SETUP PAGES /////////////////////////////////////////////////////////
+
+///Company name
+router.get('/' + version + '/setup/company-name', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/setup/company-name', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/setup/company-name', function (req, res) {
+    clearvalidation(req);
+    var companyname = req.session.data['companyname']
+    
+
+    if (!companyname) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.companyname = {
+                "anchor": "companyname",
+                "message": "Enter a name for your organisation"
+            }
+
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/setup/company-name', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+            res.redirect('/' + version + '/account-information?v=ur');
+    }
+
+});
+
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
 ///Org details
@@ -3890,7 +3930,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
 
     else {
         if (introcommunaloperate == "No") {
-            res.redirect('/' + version + '/add-heat-network/introduction/communalother');
+            res.redirect('/' + version + '/add-heat-network/introduction/communalotherregister');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
@@ -3931,7 +3971,7 @@ router.post('/' + version + '/add-heat-network/introduction/communalregister', f
 
     else {
         if (introcommunalregister == "No") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=district');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout-communal');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/communalother');
@@ -4494,6 +4534,7 @@ router.get('/' + version + '/add-heat-network/introduction/supplydecade', functi
 router.post('/' + version + '/add-heat-network/introduction/supplydecade', function (req, res) {
     clearvalidation(req);
     var introsupplydecade = req.session.data['introsupplydecade']
+    var introcommunal = req.session.data['introcommunal']
 
     if (!introsupplydecade) {
         req.session.data.validationError = "true"
@@ -4510,8 +4551,13 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
     }
     else {
         req.session.data.supplywhen = introsupplydecade;
-        res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
-    }
+        if (introcommunal == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+
+        }    }
 });
 
 

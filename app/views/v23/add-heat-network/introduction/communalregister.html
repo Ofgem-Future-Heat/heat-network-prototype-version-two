@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-You will need to register these communal buildings as separate heat networks
+You must register these communal buildings as separate heat networks
  {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,10 +72,17 @@ You will need to register these communal buildings as separate heat networks
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This means...</p>
+                    <p class="govuk-body">This is because we consider them individual heat networks in their own right.</p>
 
-                    <h2 class="govuk-heading-m">Do you still wish to register this district heat network?</h2>
-                    <p class="govuk-body">This heat network registration will not contain the communal buildings connected to this heat network.</p>
+                    <h2 class="govuk-heading-m">Do you want to continue registering the rest of the district network?</h2>
+
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                          <span class="govuk-visually-hidden">Warning</span>
+                          Make sure you do not include these communal buildings as part of this registration.
+                        </strong>
+                      </div>
 
                     {% if data.validationErrors.communal %}
                     <p class="govuk-error-message">

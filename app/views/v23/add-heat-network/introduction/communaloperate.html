@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Do {{company}} operate any of these communal buildings?
+Does {{company}} operate any of these communal buildings?
  {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,7 +72,7 @@ Do {{company}} operate any of these communal buildings?
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This means...</p>
+                    <p class="govuk-body">This means your organisation owns some or all of the network infrastructure in the buildings or it has significant control over it. It has the ultimate decision-making authority to invest in this infrastructure, make upgrades and direct repairs and maintenance to support its continued operation.</p>
 
                     {% if data.validationErrors.communal %}
                     <p class="govuk-error-message">

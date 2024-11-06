@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Are any of the communal buildings on this heat network operated by another organisation?
+Does another organisation operate any of the communal buildings on this heat network?
  {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,7 +72,7 @@ Are any of the communal buildings on this heat network operated by another organ
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This means...</p>
+                    <p class="govuk-body">This means the organisation owns some or all of the network infrastructure in the buildings or it has significant control over it. It has the ultimate decision-making authority to invest in this infrastructure, make upgrades and direct repairs and maintenance to support its continued operation.</p>
 
                     {% if data.validationErrors.communal %}
                     <p class="govuk-error-message">

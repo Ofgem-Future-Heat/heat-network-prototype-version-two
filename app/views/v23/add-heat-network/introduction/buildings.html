@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you operate any of the buildings on this heat network?" %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+Does {{company}} operate connection points to any of the other buildings on this heat network?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,6 +74,7 @@
                         </h1>
 
                         </legend>
+                        <p class="govuk-body">This means your organisation owns or has significant control over them. It has the ultimate decision-making authority to invest in them, make upgrades and direct repairs and maintenance.</p>
                         {% if data.introcommunal == "Yes" %}
                         <p class="govuk-body">
                             For example, a communal boiler that heats the whole building.

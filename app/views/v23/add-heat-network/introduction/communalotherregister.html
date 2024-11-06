@@ -1,6 +1,10 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You do not need to register these communal buildings" %}
+{% if data.introcommunaloperate == "No" %}
+{% set title = "You do not need to register any communal buildings" %}
 
+{% else %}
+{% set title = "You do not need to register these communal buildings" %}
+{% endif %}
 
 {% block pageTitle %}
 {{title}}
@@ -41,9 +45,27 @@
                 {{title}}
             </h1>
 
+            
+            {% if data.introcommunaloperate == "No" %}
+            <p class="govuk-body">You'd told us all the communal buildings on this heat network are operated by another organisation. These buildings do not need to be registered.</p>
+            <p class="govuk-body">This is because we consider them to be separate communal heat networks in their own right and their operator is responsible for registering them.</p>
 
 
-            <p class="govuk-body">These are independent connected communal heat networks, they should be registered by their operator.</p>
+            
+            {% else %}
+            <p class="govuk-body">This is because we consider them to be separate communal heat networks in their own right and their operator is responsible for registering them.</p>
+
+            {% endif %}
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  Make sure you do not include these communal buildings as part of this registration.
+                </strong>
+              </div>
+            
+
+
 
         </div>
         <a href="energycentreoperate" class="govuk-button">Continue</a>

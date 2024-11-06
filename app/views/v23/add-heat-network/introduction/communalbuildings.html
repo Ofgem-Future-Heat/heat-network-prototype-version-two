@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Does this heat network provide heat to any communal buildings?
+Does the heat network provide heat to any communal buildings?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -72,7 +72,7 @@ Does this heat network provide heat to any communal buildings?
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">For instance, it provides heat to a block of flats.</p>
+                    <p class="govuk-body">A communal building is one that has multiple premises within it. For example, a block of flats or an office block with more than one building in it.</p>
 
 
                     {% if data.validationErrors.introcommunalbuildings %}
