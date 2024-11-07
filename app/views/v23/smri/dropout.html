@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title = "You cannot continue" %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 
 {% block pageTitle %}
@@ -36,7 +37,7 @@
 
         <div class="govuk-form-group ">
 
-            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <span class="govuk-caption-l">People with SMRI at {{company}}</span>
             <h1 class="govuk-heading-l">
                 {{title}}
             </h1>
