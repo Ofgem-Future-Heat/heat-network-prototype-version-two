@@ -1260,7 +1260,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephone = {
             "anchor": "usertelephone",
-            "message": "Select a preferred contact method"
+            "message": "Select a preferred contact method for work"
         }
     }
 
@@ -1268,7 +1268,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonelandline = {
             "anchor": "usertelephonelandline",
-            "message": "Enter a landline telephone number"
+            "message": "Enter a landline number"
         }
     }
 
@@ -1277,7 +1277,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonemobile = {
             "anchor": "usertelephonemobile",
-            "message": "Enter a mobile telephone number"
+            "message": "Enter a mobile number"
         }
     }
 
@@ -1340,7 +1340,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.userjobtitle = {
             "anchor": "userjobtitle",
-            "message": "Enter a job title"
+            "message": "Enter the user’s job title"
         }
     }
     if (req.session.data.validationError == "true") {
@@ -1426,7 +1426,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.editusertelephone = {
             "anchor": "editusertelephone",
-            "message": "Select a preferred contact method"
+            "message": "Select a preferred contact method for work"
         }
     }
 
@@ -1434,7 +1434,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.editusertelephonelandline = {
             "anchor": "editusertelephonelandline",
-            "message": "Enter a landline telephone number"
+            "message": "Enter a landline number"
         }
     }
 
@@ -1443,7 +1443,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.editusertelephonemobile = {
             "anchor": "editusertelephonemobile",
-            "message": "Enter a mobile telephone number"
+            "message": "Enter a mobile number"
         }
     }
 
