@@ -4521,7 +4521,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
     }
     else {
         if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+            res.redirect('/' + version + '/add-heat-network/introduction/buy');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
@@ -4561,7 +4561,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
     else {
         req.session.data.supplywhen = introsupplydecade;
         if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+            res.redirect('/' + version + '/add-heat-network/introduction/buy');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
@@ -4600,35 +4600,68 @@ router.post('/' + version + '/add-heat-network/introduction/selfsupply', functio
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/buysell');
+        res.redirect('/' + version + '/add-heat-network/introduction/buy');
     }
 
 });
 
 
-// Introduction - Buy Sell Heat
-router.get('/' + version + '/add-heat-network/introduction/buysell', function (req, res) {
+// Introduction - Buy Heat
+router.get('/' + version + '/add-heat-network/introduction/buy', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/introduction/buysell', {
+    res.render('/' + version + '/add-heat-network/introduction/buy', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/add-heat-network/introduction/buysell', function (req, res) {
+router.post('/' + version + '/add-heat-network/introduction/buy', function (req, res) {
     clearvalidation(req);
-    var introbuysell = req.session.data['introbuysell']
+    var introbuy = req.session.data['introbuy']
 
-    if (!introbuysell) {
+    if (!introbuy) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.introbuysell = {
-            "anchor": "introbuysell",
+        req.session.data.validationErrors.introbuy = {
+            "anchor": "introbuy",
             "message": "Select whether the heat network buys or sells heat"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/buysell', {
+        res.render('/' + version + '/add-heat-network/introduction/buy', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction/sell');
+    }
+
+});
+
+// Introduction - Buy Heat
+router.get('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/sell', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
+    clearvalidation(req);
+    var introsell = req.session.data['introsell']
+
+    if (!introsell) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introsell = {
+            "anchor": "introsell",
+            "message": "Select whether the heat network buys or sells heat"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/sell', {
             data: req.session.data
         });
     }
@@ -4638,7 +4671,6 @@ router.post('/' + version + '/add-heat-network/introduction/buysell', function (
     }
 
 });
-
 // Introduction - Name
 router.get('/' + version + '/add-heat-network/introduction/name', function (req, res) {
     clearvalidation(req);
