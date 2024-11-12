@@ -51,9 +51,21 @@
             <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
 
             {% if data.introcommunaloperate == "Yes" %}
-            <h3 class="govuk-heading-m">Additional heat networks</h3>
-            <p class="govuk-body">You also told us that you operate <strong>{{data.introcommunaloperatehowmany}}</strong> communal building on this network. You must register communal buildings as separate heat networks.</p>
-                <img src="/public/images/HNS/HNC1.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
+            <h3 class="govuk-heading-m">Separate heat network registrations</h3>
+            <p class="govuk-body">You also told us that you operate <strong>{{data.introcommunaloperatehowmany}} communal building{% if data.introcommunaloperatehowmany > 1 %}s{% endif %}</strong> on this network. You must register these buildings as separate heat networks.</p>
+
+            </div>
+            </div>
+            <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-full">
+                    <div class="imagerow">
+                        {% for i in range(data.introcommunaloperatehowmany) %}
+                            <div class="imageitem">
+                                <img src="/public/images/HNS/HNC1.png" class="govuk-!-margin-bottom-3" />
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endif %}
 
 

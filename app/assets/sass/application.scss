@@ -75,3 +75,30 @@
 .breakword {
 	word-break: break-all;
 }
+
+.imagerow {
+	display: table;
+	border-collapse: collapse;
+	width: 100%;
+}
+.imagerow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust spacing between items */
+}
+
+.imageitem {
+    box-sizing: border-box;
+    overflow: hidden; /* Ensures no overflow if the image aspect ratio differs */
+	@include govuk-media-query($from: tablet) {
+		flex: 1 1 calc(25% - 16px); /* 4 items per row with space for gaps */
+
+		max-width: 25%;
+	}
+}
+
+.imageitem img {
+    width: 100%; /* Scale image width to fit the container */
+    height: 100%; /* Scale image height to fit the container */
+    object-fit: cover; /* Crop to cover the container, keeping aspect ratio */
+}
