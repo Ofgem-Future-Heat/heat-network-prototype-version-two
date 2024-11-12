@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the heat network buy or sell heat from or to other organisations?" %}
+{% set title = "Does your organisation sell heat or cooling from this heat network to another heat network that is operated by a different organisation?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -61,6 +61,9 @@
                             {{title}}
                         </h1>
                     </legend>
+                    <p class="govuk-body">
+                        This means your network supplies thermal energy to another communal or district network that your organisation does not control, and your organisation gets paid for this energy.
+                    </p>
 
 
                     {% if data.validationErrors.introsell %}

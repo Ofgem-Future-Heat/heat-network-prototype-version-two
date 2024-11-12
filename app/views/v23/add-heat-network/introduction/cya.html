@@ -203,18 +203,32 @@
             </div>            
             {% endif %}
 
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network buy or sell heat from or to other organisations?
+                    Does the heat network buy heat or cooling from another organisations?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.introbuysell}}
+                    {{data.introbuy}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
+                    <a class="govuk-link" href="buy">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
                 </dd>
             </div>  
  
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does the heat network sell heat or cooling from another organisations?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsell}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="sell">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
+                </dd>
+            </div>  
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
