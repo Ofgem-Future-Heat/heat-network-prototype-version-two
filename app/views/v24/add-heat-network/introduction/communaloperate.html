@@ -9,8 +9,12 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Does {{company}} operate any of these communal buildings?
- {% endset %}
+{% if data.introbuildingshowmany > 1 %}
+Are any of the {{data.introbuildingshowmany}} building connection points you operate on this heat network for communal buildings?
+{% else %}
+Is the building connection point you operate on this heat network for a communal building?
+{% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -91,7 +95,7 @@ Does {{company}} operate any of these communal buildings?
                         
                             <div class="govuk-form-group {% if data.validationErrors.introcommunaloperatehowmany %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="introcommunaloperatehowmany">
-                                How many communal buildings do you operate?
+                                How many communal building connection points do you operate?
                               </label>
                               {% if data.validationErrors.introcommunaloperatehowmany %}
                               <p class="govuk-error-message">

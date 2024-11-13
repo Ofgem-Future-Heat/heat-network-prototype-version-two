@@ -9,7 +9,11 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Does the heat network provide heat to any communal buildings?
+{% if data.introbuildingshowmany > 1 %}
+Are any of the {{data.introbuildingshowmany}} building connection points you operate on this heat network for communal buildings?
+{% else %}
+Is the building connection point you operate on this heat network for a communal building?
+{% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 

@@ -75,13 +75,7 @@ Does {{company}} operate connection points to any of the buildings on this heat 
 
                         </legend>
                         <p class="govuk-body">This means your organisation owns or has significant control over them. It has the ultimate decision-making authority to invest in them, make upgrades and direct repairs and maintenance.</p>
-                        <div class="govuk-warning-text">
-                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                            <strong class="govuk-warning-text__text">
-                              <span class="govuk-visually-hidden">Warning</span>
-                              Make sure you do not include any communal buildings that we've told you to register separately.
-                            </strong>
-                          </div>
+
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
@@ -102,7 +96,7 @@ Does {{company}} operate connection points to any of the buildings on this heat 
                         
                         <div class="govuk-form-group {% if data.validationErrors.introbuildingshowmany %}govuk-form-group--error{% endif %}">
                           <label class="govuk-label" for="introbuildingshowmany">
-                            How many buildings do you operate?
+                            How many buildings do you operate on this heat network?
                           </label>
                           {% if data.validationErrors.introbuildingshowmany %}
                           <p class="govuk-error-message">

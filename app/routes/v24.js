@@ -3759,7 +3759,7 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
 
         else {
             
-            res.redirect('/' + version + '/add-heat-network/introduction/communalbuildings');
+            res.redirect('/' + version + '/add-heat-network/introduction/buildings');
 
         }
 
@@ -4070,7 +4070,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/buildings');
+            res.redirect('/' + version + '/add-heat-network/introduction/summary');
     }
 
 });
@@ -4114,11 +4114,8 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
     }
 
     else {
-        if ((introenergycentre == "No") && (introbuildings == "No")) {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout-district');
-        } else {
-            res.redirect('/' + version + '/add-heat-network/introduction/summary');
-        }
+
+            res.redirect('/' + version + '/add-heat-network/introduction/communaloperate');
     }
 
 });
