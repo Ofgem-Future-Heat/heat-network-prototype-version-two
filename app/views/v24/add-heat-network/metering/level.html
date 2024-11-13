@@ -1,0 +1,97 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How many building level meters are on the heat network?" %}
+
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.meteringlevel %}govuk-form-group--error{% endif %}">
+
+                <span class="govuk-caption-l">Add a heat network - metering</span>
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+                <p class="govuk-body">
+                    Building level meters are meters that are used to measure the use of a single building on a heat network. They are not used to measure or bill consumers' use.
+                </p>
+
+                <fieldset class="govuk-fieldset">
+
+
+                        {% if data.validationErrors.meteringlevel %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.meteringlevel.message}}
+                        </p>
+
+                        {% endif %}
+                        <input class="govuk-input govuk-input--width-3" id="meteringlevel" name="meteringlevel" type="number" value="{{data.meteringlevel}}">
+                    
+                </fieldset>
+            </div>
+
+
+
+
+
+
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

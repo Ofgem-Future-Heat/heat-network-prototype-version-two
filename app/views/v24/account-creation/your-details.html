@@ -1,0 +1,194 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Your details" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+
+
+                    <div class="govuk-form-group govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Email address</h3>
+                        <p class="govuk-body">{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}</p>
+                    </div>
+                    <div class="govuk-inset-text govuk-!-margin-top-1">
+                      We'll use this email address for all regulatory notices and other documents that we may need to send regarding your organisation's heat networks.
+                    </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.yourfirstname %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="yourfirstname">
+                          First name
+                        </label>
+                        {% if data.validationErrors.yourfirstname %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.yourfirstname.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourfirstname" name="yourfirstname" type="text" value="{{data.yourfirstname}}">
+                    </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.yourlastname %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="yourlastname">
+                          Last name
+                        </label>
+                        {% if data.validationErrors.yourlastname %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.yourlastname.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourlastname" name="yourlastname" type="text" value="{{data.yourlastname}}">
+                    </div>
+
+
+
+                    <div class="govuk-form-group {% if data.validationErrors.yourtelephone %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+                            <legend class="govuk-fieldset__legend">
+                                <strong>Preferred contact number for work</strong>
+                              </legend>
+                          <div id="contact-hint" class="govuk-hint">
+                            Ofgem will only use this if we need to contact you about your organisation's heat networks. For international numbers, include the country code.
+                          </div>
+                          {% if data.validationErrors.yourtelephone %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.yourtelephone.message}}
+                          </p>
+                          {% endif %}
+                          <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                              <input class="govuk-radios__input" id="yourtelephone" name="yourtelephone" type="radio" value="Landline" data-aria-controls="conditional-contact-2" {% if data.yourtelephone == "Landline" %} checked{% endif %}>
+                              <label class="govuk-label govuk-radios__label" for="contact-2">
+                                Landline
+                              </label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2">
+                              <div class="govuk-form-group {% if data.validationErrors.yourtelephonelandline %}govuk-form-group--error{% endif %}">
+                                <label class="govuk-label" for="contact-by-phone">
+                                  Landline number
+                                </label>
+                                {% if data.validationErrors.yourtelephonelandline %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.yourtelephonelandline.message}}
+                                </p>
+                                {% endif %}
+                                <input class="govuk-input govuk-!-width-one-third" id="contact-by-phone" name="yourtelephonelandline" type="tel" value="{{data.yourtelephonelandline}}">
+                              </div>
+                              <div class="govuk-form-group">
+                                <label class="govuk-label" for="contact-by-phone">
+                                  Extension (optional)
+                                </label>
+
+                                <input class="govuk-input govuk-input--width-5" id="contact-by-phone" name="yourtelephonelandlineext" type="text"  value="{{data.yourtelephonelandlineext}}">
+                              </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                              <input class="govuk-radios__input" id="yourtelephone-2" name="yourtelephone" type="radio" value="Mobile" data-aria-controls="conditional-contact-3" {% if data.yourtelephone == "Mobile" %} checked{% endif %}>
+                              <label class="govuk-label govuk-radios__label" for="contact-3">
+                                Mobile
+                              </label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
+                              <div class="govuk-form-group {% if data.validationErrors.yourtelephonemobile %}govuk-form-group--error{% endif %}">
+                                <label class="govuk-label" for="contact-by-text">
+                                  Mobile number
+                                </label>
+                                {% if data.validationErrors.yourtelephonemobile %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.yourtelephonemobile.message}}
+                                </p>
+                                {% endif %}
+                                <input class="govuk-input govuk-!-width-one-third" id="contact-by-text" name="yourtelephonemobile" type="tel" autocomplete="tel" value="{% if data.yourtelephonemobile %}{{data.yourtelephonemobile}}{% else %}{{data.oneloginphone}}{% endif %}">
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                    <div class="govuk-form-group {% if data.validationErrors.yourjobtitle %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label govuk-label--s" for="yourjobtitle">
+                          Job title
+                        </label>
+                        {% if data.validationErrors.yourjobtitle %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.yourjobtitle.message}}
+                        </p>
+                        {% endif %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="yourjobtitle" name="yourjobtitle" type="text" value="{{data.yourjobtitle}}">
+                    </div>
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

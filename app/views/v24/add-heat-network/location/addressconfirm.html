@@ -1,0 +1,70 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Confirm address" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - location</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                {% if not data.locationaddressMPostcode %}
+                    <p class="govuk-body">
+                        {% if data.locationAddressSelect == 0 %}1 result found for found for {{data.addressPostcode}} and {{data.addressNumber}}{% else %}{{data.locationAddressSelect.length}} results found for {{data.buildingaddressPostcode}}{% endif %}  . <a href="address" class="govuk-link govuk-link--no-visited-state">Search again</a>
+                    </p>
+                {% endif %}
+                    <div class="govuk-inset-text">
+
+
+                        {% set address = data.locationAddress.toString() %}
+                        {{address | replace(", ", ",<br />") | safe}}
+
+                    </div>
+
+                                <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
+
+
+
+
+
+            </div>
+        <a href="control" class="govuk-button">Use this address</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
