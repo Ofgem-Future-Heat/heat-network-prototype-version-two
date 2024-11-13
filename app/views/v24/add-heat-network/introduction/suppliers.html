@@ -6,8 +6,11 @@
 Radienteco Ltd 
 {% endif %}
 {% endset %}
+
+{% set buildings %}{{data.introbuildingshowmany - data.introcommunaloperatehowmany}}{% endset %}
+
 {% set title %}
-Is {{company}} the heat supplier for all {{data.introbuildingshowmany}} buildings on this heat network?
+Is {{company}} the heat supplier for all {{buildings}} buildings on this heat network?
 {% endset %}
 
 
