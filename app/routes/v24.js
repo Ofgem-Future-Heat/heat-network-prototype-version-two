@@ -350,34 +350,34 @@ router.get('/' + version + '/organisation-details/trading-address-manual', funct
 
 router.post('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
     clearvalidation(req);
-    var orgaddressMLine1 = req.session.data['orgaddressMLine1']
-    var orgaddressMTown = req.session.data['orgaddressMTown']
-    var orgaddressMCounty = req.session.data['orgaddressMCounty']
+    var tradingaddressMLine1 = req.session.data['tradingaddressMLine1']
+    var tradingaddressMTown = req.session.data['tradingaddressMTown']
+    var tradingaddressMCounty = req.session.data['tradingaddressMCounty']
 
-    var orgaddressMPostcode = req.session.data['orgaddressMPostcode']
+    var tradingaddressMPostcode = req.session.data['tradingaddressMPostcode']
 
 
-    if (!orgaddressMLine1) {
+    if (!tradingaddressMLine1) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMLine1 = {
-            "anchor": "orgaddressMLine1",
+        req.session.data.validationErrors.tradingaddressMLine1 = {
+            "anchor": "tradingaddressMLine1",
             "message": "Enter the street address",
         }
     }
 
 
-    if (!orgaddressMTown) {
+    if (!tradingaddressMTown) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMTown = {
-            "anchor": "orgaddressMTown",
+        req.session.data.validationErrors.tradingaddressMTown = {
+            "anchor": "tradingaddressMTown",
             "message": "Enter the town or city",
         }
     }
 
-    if (!orgaddressMPostcode) {
+    if (!tradingaddressMPostcode) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMPostcode = {
-            "anchor": "orgaddressMPostcode",
+        req.session.data.validationErrors.tradingaddressMPostcode = {
+            "anchor": "tradingaddressMPostcode",
             "message": "Enter a postcode",
         }
     }
@@ -389,7 +389,7 @@ router.post('/' + version + '/organisation-details/trading-address-manual', func
     }
 
     else {
-            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode;
+            req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode;
             res.redirect('/' + version + '/organisation-details/trading-address-confirm');
 
         }
