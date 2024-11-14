@@ -3635,7 +3635,7 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
 
     else {
         if (introrelevant == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/groundloop');
+            res.redirect('/' + version + '/add-heat-network/introduction/role');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout');
@@ -3983,7 +3983,7 @@ router.post('/' + version + '/add-heat-network/introduction/communalregister', f
             res.redirect('/' + version + '/add-heat-network/introduction/dropout-communal');
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/communalother');
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
         }
 
     }

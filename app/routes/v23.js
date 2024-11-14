@@ -280,7 +280,7 @@ router.post('/' + version + '/organisation-details/trading-address-postcode', fu
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.tradingaddressSelect = locationaddresses;
+                        req.session.data.tradingaddressSelection = locationaddresses;
                         req.session.data.tradingaddressesnotfound = "";
                         res.redirect('/' + version + '/organisation-details/trading-address-select');
                     }

@@ -10,9 +10,9 @@ Radienteco Ltd
 
 {% set title %}
 {% if data.introbuildingshowmany > 1 %}
-Are any of the {{data.introbuildingshowmany}} building connection points you operate on this heat network for communal buildings?
+Are any of these {{data.introbuildingshowmany}} connection points for communal buildings?
 {% else %}
-Is the building connection point you operate on this heat network for a communal building?
+Is the connection point for a communal building?
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -76,7 +76,7 @@ Is the building connection point you operate on this heat network for a communal
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This means your organisation owns some or all of the network infrastructure in the buildings or it has significant control over it. It has the ultimate decision-making authority to invest in this infrastructure, make upgrades and direct repairs and maintenance to support its continued operation.</p>
+                    <p class="govuk-body">A communal building is a single building divided into separate premises. For example, a block of flats or an office block.</p>
 
                     {% if data.validationErrors.communal %}
                     <p class="govuk-error-message">
@@ -95,7 +95,7 @@ Is the building connection point you operate on this heat network for a communal
                         
                             <div class="govuk-form-group {% if data.validationErrors.introcommunaloperatehowmany %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="introcommunaloperatehowmany">
-                                How many communal building connection points do you operate?
+                                How many communal building connection points?
                               </label>
                               {% if data.validationErrors.introcommunaloperatehowmany %}
                               <p class="govuk-error-message">

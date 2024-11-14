@@ -10,7 +10,7 @@ Radienteco Ltd
 
 
 {% set title %}
-Does {{company}} operate connection points to any of the buildings on this heat network?
+Does {{company}} operate connection points to any buildings on this heat network?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -96,7 +96,7 @@ Does {{company}} operate connection points to any of the buildings on this heat 
                         
                         <div class="govuk-form-group {% if data.validationErrors.introbuildingshowmany %}govuk-form-group--error{% endif %}">
                           <label class="govuk-label" for="introbuildingshowmany">
-                            How many buildings do you operate connection points for on this heat network?
+                            How many building connection points?
                           </label>
                           {% if data.validationErrors.introbuildingshowmany %}
                           <p class="govuk-error-message">
