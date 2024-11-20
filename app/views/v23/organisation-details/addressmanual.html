@@ -1,9 +1,12 @@
 {% extends 'layouts/main.html' %}
+{% set title %}
+
 {% if data.parenttotal > 1 %}
 What is parent organisation {{data.parentsentered}}'s address?
 {% else %}
 What is the parent organisation's address?
 {% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
