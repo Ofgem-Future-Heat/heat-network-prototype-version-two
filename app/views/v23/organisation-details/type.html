@@ -3,7 +3,7 @@
 {% if data.parenttotal > 1 %}
 What type of organisation is parent organisation {{data.parentsentered}}?
 {% else %}
-What is the name of the parent organisation?
+What type of organisation is the parent organisation?
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
