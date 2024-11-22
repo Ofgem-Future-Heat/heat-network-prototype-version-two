@@ -122,7 +122,7 @@ router.post('/' + version + '/organisation-details/email-address', function (req
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/trading-name');
+        res.redirect('/' + version + '/organisation-details/profit');
     }
 
 });
