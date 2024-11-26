@@ -4825,7 +4825,7 @@ router.get('/' + version + '/add-heat-network/introduction/cya', function (req, 
 router.post('/' + version + '/add-heat-network/introduction/cya', function (req, res) {
 
 
-        res.redirect('/' + version + '/add-heat-network/introduction/intro');
+        res.redirect('/' + version + '/add-heat-network/tasklist');
 
 
 });
