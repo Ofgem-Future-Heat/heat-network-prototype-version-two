@@ -1,0 +1,136 @@
+{% extends 'layouts/main.html' %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+Does {{company}} operate connection points to any buildings on this heat network?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+            <div class="govuk-form-group {% if data.validationErrors.introbuildings %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                               {{title}}
+                        </h1>
+
+                        </legend>
+                        <p class="govuk-body">This means your organisation owns or has significant control over them. It has the ultimate decision-making authority to invest in them, make upgrades and direct repairs and maintenance.</p>
+
+                        {% if data.validationErrors.introbuildings %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.introbuildings.message}}
+                </p>
+                {% endif %}
+
+
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="introbuildings" name="introbuildings" type="radio" value="Yes" {% if data.introbuildings == "Yes" %}checked{% endif %} data-aria-controls="conditional-introbuildings">
+                        <label class="govuk-label govuk-radios__label" for="introbuildings">
+                            Yes
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introbuildings">
+                        
+                        <div class="govuk-form-group {% if data.validationErrors.introbuildingshowmany %}govuk-form-group--error{% endif %}">
+                          <label class="govuk-label" for="introbuildingshowmany">
+                            How many building connection points?
+                          </label>
+                          {% if data.validationErrors.introbuildingshowmany %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.introbuildingshowmany.message}}
+                          </p>
+                          {% endif %}
+                          <input class="govuk-input govuk-input--width-4" id="introbuildingshowmany" name="introbuildingshowmany" type="number" value="{{data.introbuildingshowmany}}">
+                        </div>
+                </div>
+
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="introbuildings-2" name="introbuildings" type="radio" value="No"  {% if data.introbuildings == "No" %}checked{% endif %} >
+                        <label class="govuk-label govuk-radios__label" for="introbuildings-2">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

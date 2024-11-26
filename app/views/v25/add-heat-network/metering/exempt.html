@@ -1,0 +1,140 @@
+{% extends 'layouts/main.html' %}
+{% if data.buildings > 1 %}
+{% set title = "What is the most common reason why some buildings on the heat network are in the exempt class?" %}
+{% else %}
+{% set title = "What is reason the building is in the exempt class?" %}
+{% endif %}
+
+
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.meteringexempt %}govuk-form-group--error{% endif %}">
+
+                <span class="govuk-caption-l">Add a heat network - metering</span>
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+                <div class="govuk-hint">
+                    <p class="govuk-body">For a full explanation of these reasons, see <a href="https://www.legislation.gov.uk/uksi/2020/1221/regulation/4/made" target="_blank" rel="noreferrer noopener" class="govuk-link govuk-link--no-visited-state">section 2A of The Heat Network (Metering and Billing) (Amendment) Regulations 2020 (opens in new tab)</a>.</p>
+                </div>
+                <fieldset class="govuk-fieldset">
+
+
+                        {% if data.validationErrors.meteringexempt %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.meteringexempt.message}}
+                        </p>
+
+                        {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt" name="meteringexempt" type="radio" value="Technical exemption for domestic dwelling" {% if data.meteringexempt == "Technical exemption for domestic dwelling" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt">
+                                Technical exemption for domestic dwellings
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt-2" name="meteringexempt" type="radio" value="Technical exemption for non-domestic dwellings" {% if data.meteringexempt == "Technical exemption for non-domestic dwellings" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt-2">
+                                Technical exemption for non-domestic dwellings 
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt-3" name="meteringexempt" type="radio" value="Exemptions related to a leasehold interest" {% if data.meteringexempt == "Exemptions related to a leasehold interest" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt-3">
+                                Exemptions related to a leasehold interest 
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt-4" name="meteringexempt" type="radio" value="Exemption for social housing" {% if data.meteringexempt == "Exemption for social housing" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt-4">
+                                Exemption for social housing 
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt-5" name="meteringexempt" type="radio" value="Exemption for almshouse accommodation" {% if data.meteringexempt == "Exemption for almshouse accommodation" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt-5">
+                                Exemption for almshouse accommodation 
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="meteringexempt-6" name="meteringexempt" type="radio" value="Exemption for purpose-built student accommodation" {% if data.meteringexempt == "Exemption for purpose-built student accommodation" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="meteringexempt-6">
+                                Exemption for purpose-built student accommodation 
+                            </label>
+                        </div>
+                    </div>
+
+
+                    
+                </fieldset>
+            </div>
+
+
+
+
+
+
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

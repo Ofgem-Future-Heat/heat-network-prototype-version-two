@@ -1,0 +1,110 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} have signed-off account for its most recent accounting periods?
+
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+          <form method="post" novalidate>
+            <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+            <div class="govuk-form-group {% if data.validationErrors.orgaccounts %}govuk-form-group--error{% endif %}">
+              <fieldset class="govuk-fieldset">
+
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <h1 class="govuk-fieldset__heading">
+                    {{title}}
+                  </h1>
+                </legend>
+
+                <p class="govuk-body">The accounting period must cover 12 months or more.</p>
+
+                <p class="govuk-body">If it does not, you can combine it with the accounts that immediately precede it. Together, they must cover a period of at least 12 months.</p>
+
+
+
+                <p class="govuk-body">You must be able to provide these, if requested.</p>
+                {% if data.validationErrors.orgaccounts %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.orgaccounts.message}}
+                </p>
+                {% endif %}
+                <div class="govuk-radios" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgaccounts" name="orgaccounts" type="radio" value="Yes" {% if data.orgaccounts == "Yes" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgaccounts">
+                      Yes
+                    </label>
+                  </div>
+
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgaccounts-2" name="orgaccounts" type="radio" value="No" {% if data.orgaccounts == "No" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgaccounts-2">
+                      No
+                    </label>
+                  </div>
+
+                  
+                </div>
+              </fieldset>
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+      </form>
+      
+      
+    </div>
+
+</div>
+
+{% endblock %}
