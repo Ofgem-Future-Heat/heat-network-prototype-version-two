@@ -659,11 +659,17 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     else {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
-            res.redirect('/' + version + '/organisation-details/socialhousing');
+            if (orgprofit == "No" ) {
+                res.redirect('/' + version + '/organisation-details/socialhousing');
+            }
+
+            else {
+                res.redirect('/' + version + '/organisation-details/date');
+            }
 
         }
 
-        if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
+        else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
             res.redirect('/' + version + '/organisation-details/date');
 
         }
