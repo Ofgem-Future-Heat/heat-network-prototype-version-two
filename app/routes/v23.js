@@ -695,14 +695,14 @@ router.get('/' + version + '/organisation-details/socialhousing', function (req,
 router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
     clearvalidation(req);
     var orgsocialhousing = req.session.data['orgsocialhousing']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
     if (!orgsocialhousing) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgsocialhousing = {
             "anchor": "orgsocialhousing",
-            "message": "Select average monthly cash needs met fixed costs"
+            "message": "Select whether " +  companyname + " is subject to social housing regulations"
         }
     }
 
