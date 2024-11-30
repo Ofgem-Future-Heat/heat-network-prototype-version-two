@@ -189,6 +189,8 @@ govukBackLink ({
                 </dd>
               </div>
               {% endif %}
+
+
               {% if data.orgsubtype %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -202,7 +204,20 @@ govukBackLink ({
                 </dd>
               </div>
               {% endif %}
-              {% if (data.orgsubtype != "Housing association") and (data.orgsubtype != "Local authority") and (data.orgsubtype != "Other social housing provider") %}
+              {% if data.orgsocialhousing %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Subject to social housing regulations?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsocialhousing}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="socialhousing">Change<span class="govuk-visually-hidden"> social housing regulations</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "Yes") %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Start and end of financial year?
@@ -216,7 +231,6 @@ govukBackLink ({
                   <a class="govuk-link govuk-link--no-visited-state" href="date">Change<span class="govuk-visually-hidden"> end date</span></a>
                 </dd>
               </div>
-              {% endif %}
               {% if data.orgaccounts %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -382,6 +396,8 @@ govukBackLink ({
 
                 {% endif %}
               {% endif %}
+              {% endif %}
+
               {% if data.orgstructure %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
