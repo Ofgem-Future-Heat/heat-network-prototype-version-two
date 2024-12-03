@@ -1166,7 +1166,7 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
             res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
-            res.redirect('/' + version + '/organisation-details/type');
+            res.redirect('/' + version + '/organisation-details/company-name');
         }
     }
 
