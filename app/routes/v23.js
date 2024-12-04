@@ -427,13 +427,8 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
         });
     }
     else {
-        if (orgaccounts == "Yes") {
-            res.redirect('/' + version + '/organisation-details/financial-profit');
-        }
 
-        else {
             res.redirect('/' + version + '/organisation-details/solvent');
-        }
     }
 
 });
@@ -526,7 +521,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
     clearvalidation(req);
     var orgsolvent = req.session.data['orgsolvent']
-
+    var orgaccounts = req.session.data['orgaccounts']
 
 
     if (!orgsolvent) {
@@ -543,41 +538,13 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
         });
     }
     else {
-            res.redirect('/' + version + '/organisation-details/structure');
-    }
-
-});
-
-/// Org details - Solvent months
-router.get('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/solvent-months', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    var orgsolventmonths = req.session.data['orgsolventmonths']
-
-
-
-    if (!orgsolventmonths) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgsolventmonths = {
-            "anchor": "orgsolventmonths",
-            "message": "Enter how many months the organisation is solvent for"
+        if (orgaccounts == "Yes") {
+            res.redirect('/' + version + '/organisation-details/financial-profit');
         }
-    }
 
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/solvent-months', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/organisation-details/structure');
+        else {
+            res.redirect('/' + version + '/organisation-details/structure');
+        }    
     }
 
 });
@@ -669,6 +636,10 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
 
         }
 
+        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association") {
+            res.redirect('/' + version + '/organisation-details/socialhousing');
+        }
+
         else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
             res.redirect('/' + version + '/organisation-details/date');
 
@@ -712,7 +683,7 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
         });
     }
     else {
-        if (orgsocialhousing == "Yes") {
+        if (orgsocialhousing == "No") {
             res.redirect('/' + version + '/organisation-details/date');
         }
 

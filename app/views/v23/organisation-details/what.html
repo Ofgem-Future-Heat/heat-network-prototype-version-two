@@ -105,6 +105,12 @@ Which option best describes the work {% if data.companyname %}{{data.companyname
                         Energy service company (ESCo)
                     </label>
                   </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="orgsubtype-7" name="orgsubtype" type="radio" value="Registered social housing provider" {% if data.orgsubtype=="Registered social housing provider" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsubtype-7">
+                        Registered social housing provider
+                    </label>
+                  </div>
 
                   {% else %}
                   <div class="govuk-radios__item">
