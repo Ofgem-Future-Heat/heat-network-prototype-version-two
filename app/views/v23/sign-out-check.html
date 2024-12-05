@@ -34,19 +34,12 @@
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" >
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                        <h1 class="govuk-fieldset__heading">
+                        <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
 
-                    </legend>
 
                     <p class="govuk-body">
                         This will sign you out of your GOV.UK One Login account.
@@ -58,15 +51,7 @@
                         <a href="sign-out" class="govuk-button">Sign out</a>
                         <a href="javascript:history.back()" class="govuk-link govuk-link--no-visited-state">Cancel</a>
                     </div>
-                    
 
-
-
-                </fieldset>
-
-
-            </div>
-        </form>
     </div>
 
 </div>
