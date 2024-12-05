@@ -67,11 +67,8 @@
     <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
 
 
-    {% if (data.smrideclaration == "Yes") %}
-    <strong class="govuk-tag govuk-tag--green">
-      Submitted
-     </strong>
-{% elif data.currentversion %}
+
+{% if data.currentversion %}
      {% if data.currentversion.toLowerCase()  == "ur" %}
      <strong class="govuk-tag govuk-tag--green">
       Submitted
@@ -89,6 +86,10 @@
         Approved
        </strong>
        {% endif %}
+       {% elif (data.smrideclaration == "Yes") %}
+       <strong class="govuk-tag govuk-tag--green">
+         Submitted
+        </strong>
     {% else %}
       <strong class="govuk-tag govuk-tag--red">
         Not started
