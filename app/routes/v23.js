@@ -7612,82 +7612,52 @@ router.post('/' + version + '/add-heat-network/suppliers/remove', function (req,
 
 ////////////////////////////////////////////////////////////////////////////// SMRI //////////////////////////////////////////////////////////////////////////////
 
-function setSMRIUser(req, id) {
-    req.session.data['smrifirstname'] = req.session.data['smrifirstname' + id]
-    req.session.data['smrilastname'] = req.session.data['smrilastname' + id]
-    req.session.data['smridob'] = req.session.data['smridob' + id]
-    req.session.data['smridobday'] = req.session.data['smridobday' + id]
-    req.session.data['smridobmonth'] = req.session.data['smridobmonth' + id]
-    req.session.data['smridobyear'] = req.session.data['smridobyear' + id]
-    req.session.data['smrirole'] = req.session.data['smrirole' + id]
-    req.session.data['smrimisconduct'] = req.session.data['smrimisconduct' + id]
-    req.session.data['smriconvictions'] = req.session.data['smriconvictions' + id]
-    req.session.data['smriinsolvency'] = req.session.data['smriinsolvency' + id]
-    req.session.data['smridisqualified'] = req.session.data['smridisqualified' + id]
-    req.session.data['smrisignificant'] = req.session.data['smrisignificant' + id]
-    req.session.data['smrisignificant2'] = req.session.data['smrisignificant2' + id]
-    req.session.data['smrirelevant'] = req.session.data['smrirelevant' + id]
-    req.session.data['smriidentified'] = req.session.data['smriidentified' + id]
-    req.session.data['smriowned'] = req.session.data['smriowned' + id]
-    req.session.data['smrirevoked'] = req.session.data['smrirevoked' + id]
-    req.session.data['smridisciplinary'] = req.session.data['smridisciplinary' + id]
-    req.session.data['smrimoredetails'] = req.session.data['smrimoredetails' + id]
+function setSMRIUser(req) {
+    req.session.data['smriprocess'] = "Yes"
+    req.session.data['smriassessments'] = "Yes"
+    req.session.data['smrilist'] = "Yes"
+    req.session.data['smrifitandproper'] = "Yes"
+    req.session.data['smrideclarationdate'] = "01/11/2024"
 }
 
 function clearSMRIUser(req) {
-    req.session.data['smrifirstname'] = ""
-    req.session.data['smrilastname'] = ""
-    req.session.data['smridob'] = ""
-    req.session.data['smridobday'] = ""
-    req.session.data['smridobmonth'] = ""
-    req.session.data['smridobyear'] = ""
-    req.session.data['smrirole'] = ""
-    req.session.data['smrimisconduct'] = ""
-    req.session.data['smriconvictions'] = ""
-    req.session.data['smriinsolvency'] = ""
-    req.session.data['smridisqualified'] = ""
-    req.session.data['smrisignificant'] = ""
-    req.session.data['smrisignificant2'] = ""
-    req.session.data['smrirelevant'] = ""
-    req.session.data['smriidentified'] = ""
-    req.session.data['smriowned'] = ""
-    req.session.data['smrirevoked'] = ""
-    req.session.data['smridisciplinary'] = ""
-    req.session.data['smrimoredetails'] = ""    
+    req.session.data['smriprocess'] = ""
+    req.session.data['smriassessments'] = ""
+    req.session.data['smrilist'] = ""
+    req.session.data['smrifitandproper'] = ""
+    req.session.data['smrideclarationdate'] = ""
 }
 
-function removeSMRIUser(req, id) {
-    req.session.data['addedsmri' + id] = ""
-    req.session.data['smrifirstname' + id] = ""
-    req.session.data['smrilastname' + id] = ""
-    req.session.data['smridob' + id] = ""
-    req.session.data['smridobday' + id] = ""
-    req.session.data['smridobmonth' + id] = ""
-    req.session.data['smridobyear' + id] = ""
-    req.session.data['smrirole' + id] = ""
-    req.session.data['smrimisconduct' + id] = ""
-    req.session.data['smriconvictions' + id] = ""
-    req.session.data['smriinsolvency' + id] = ""
-    req.session.data['smridisqualified' + id] = ""
-    req.session.data['smrisignificant' + id] = ""
-    req.session.data['smrisignificant2' + id] = ""
-    req.session.data['smrirelevant' + id] = ""
-    req.session.data['smriidentified' + id] = ""
-    req.session.data['smriowned' + id] = ""
-    req.session.data['smrirevoked'] = ""
-    req.session.data['smridisciplinary'] = ""
-    req.session.data['smrimoredetails' + id] = ""    
-}
 
 /// SMRI List
 router.get('/' + version + '/smri/list', function (req, res) {
     clearvalidation(req);
-    clearSMRIUser(req);
     const urlParams = req.query.notification;
+    const urlParamsVersion = req.query.v;
+    req.session.data['smristatus'] = urlParamsVersion;
+
+    if (urlParamsVersion == "submitted") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "expired") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "new") {
+        clearSMRIUser(req);
+        req.session.data['smrideclaration'] = "No";
+    }
     req.session.data['smrinotification'] = urlParams;
     res.render('/' + version + '/smri/list', {
         data: req.session.data
     });
+});
+
+router.post('/' + version + '/smri/list', function (req, res) {
+    clearSMRIUser(req);
+ res.redirect('/' + version + '/smri/process');
+
 });
 
 /// SMRI Personal

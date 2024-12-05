@@ -71,11 +71,14 @@
         <span class="govuk-caption-l">{{company}}</span>
   
               <h1 class="govuk-heading-l">{{title}}</h1>
+              {% if data.smrideclaration == "Yes" %}
+              <p class="govuk-body govuk-!-margin-bottom-6">{% if data.smristatus == "expired" %}<strong class="govuk-tag govuk-tag--red">Expired</strong> Last updated 01/06/2024{% else %}<strong class="govuk-tag govuk-tag--green">Submitted</strong> Last updated 01/11/2024{% endif %}</p>
+              {% endif %}
               <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.</p>
               
               {% if data.smrideclaration != "Yes" %}
 
-        <h2 class="govuk-heading-m">Who has SMRI?</h2>
+        <h2 class="govuk-heading-m">What is a person with SMRI?</h2>
         <p class="govuk-body">A person has SMRI if they play a role in either:</p>
         <ul class="govuk-list govuk-list--bullet">
             <li>the making of decisions about how the whole, or a substantial part, of {{company}} is to be managed or organised</li>
@@ -135,7 +138,7 @@
       <details class="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
-            Who has SMRI?
+            What is a person with SMRI?
           </span>
         </summary>
         <div class="govuk-details__text">
@@ -230,7 +233,18 @@
       </div>
     
         </dl>
-            <a href="declaration" class="govuk-button">Submit new SMRI declaration</a>
+
+        <form  method="POST" novalidate>
+
+
+          <div class="govuk-button-group">
+            {{
+              govukButton ({
+                html: 'Submit new SMRI declaration'
+              })
+            }}
+          </div>
+    </form>
             <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="../account-information" >Return to {{company}} home</a></p>
 
       {% endif %}
