@@ -102,3 +102,7 @@
     height: 100%; /* Scale image height to fit the container */
     object-fit: cover; /* Crop to cover the container, keeping aspect ratio */
 }
+
+.text-capitalise {
+	text-transform: capitalize;
+}

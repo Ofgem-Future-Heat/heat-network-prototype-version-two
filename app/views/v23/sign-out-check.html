@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You have signed out of the service" %}
+{% set title = "Are you sure you wish to sign out of the service" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -47,6 +47,12 @@
                         </h1>
 
                     </legend>
+
+                    <p class="govuk-body">
+                        This will sign you out of your gov one login account. You will need to log in again to access any sercices for which your one login account is used for.
+                    </p>
+                    <a href="sign-out" class="govuk-button">Sign out</a>
+
 
 
                 </fieldset>
