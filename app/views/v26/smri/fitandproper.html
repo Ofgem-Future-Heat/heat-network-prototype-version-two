@@ -1,0 +1,111 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
+{% set title %}
+Is everybody with SMRI at {{company}} fit and proper?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <form  method="POST" novalidate>
+
+        
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+    <label for="smrifitandproper">
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+  </label>
+
+  <p class="govuk-body">If your answer is 'No', we will contact you via email for further information.</p>
+  <p class="govuk-body">In situations where the person with SMRI may be uncomfortable relaying sensitive information through you, it's possible to nominate an alternative contact within your organisation. For example a HR manager.</p>
+  <p class="govuk-body"></p>
+
+  <div class="govuk-form-group {% if data.validationErrors.smrifitandproper %}govuk-form-group--error{% endif %}">
+
+
+
+
+        {% if data.validationErrors.smrifitandproper %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.smrifitandproper.message}}
+        </p>
+        {% endif %}
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrifitandproper" name="smrifitandproper" type="radio" value="Yes" {% if data.smrifitandproper == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrifitandproper">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smrifitandproper-2" name="smrifitandproper" type="radio" value="No" {% if data.smrifitandproper == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smrifitandproper-2">
+                  No
+              </label>
+          </div>
+      </div>
+
+      </div>
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+            html: 'Continue'
+          })
+        }}
+      </div>
+</form>
+
+</div>
+
+{% endblock %}

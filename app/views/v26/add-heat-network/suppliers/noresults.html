@@ -1,0 +1,54 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Supplier not found" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - suppliers</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        <p class="govuk-body">If you cannot find your supplier, they need to enable their organisation to use the heat network service. </p>
+                        <p class="govuk-body">Ask them to do this, and when they’ve finished, you can come back and add them to this heat network.</p>
+                        <p class="govuk-body">Contact us on <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>, if either:</p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>you believe your supplier is already enabled to use the heat networks service</li>
+                            <li>you're having issues getting them to engage</li>
+                        </ul>
+
+            </div>
+            
+        <a href="suppliers" class="govuk-button">Return to Suppliers</a>
+    </div>
+</div>
+
+{% endblock %}

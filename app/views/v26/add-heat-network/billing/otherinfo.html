@@ -1,0 +1,123 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What other information is included with customers' billing information?" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" billinginfo="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.billinginfo %}govuk-form-group--error{% endif %}">
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - billing</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    {% if data.validationErrors.billinginfo %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.billinginfo.message}}
+                    </p>
+                    {% endif %}
+                    <div id="types-hint" class="govuk-hint">
+                        Select all that apply:
+                    </div>
+
+
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="billinginfo" name="billinginfo" type="checkbox" value="Current energy prices charged to customers" {% for infoitem in data.billinginfo %}{% if infoitem == "Current energy prices charged to customers" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="billinginfo">
+                                Current energy prices charged to customers
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="billinginfo-2" name="billinginfo" type="checkbox" value="Information about the customers' recent energy consumption" {% for infoitem in data.billinginfo %}{% if infoitem == "Information about the customers' recent energy consumption" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="billinginfo-2">
+                                Information about the customers' recent energy consumption
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="billinginfo-3" name="billinginfo" type="checkbox" value="Year-on-year comparisons of the customers' energy consumption (where available)" {% for infoitem in data.billinginfo %}{% if infoitem == "Year-on-year comparisons of the customers' energy consumption (where available)" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="billinginfo-3">
+                                Year-on-year comparisons of the customers' energy consumption (where available)
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="billinginfo-4" name="billinginfo" type="checkbox" value="Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products" {% for infoitem in data.billinginfo %}{% if infoitem == "Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="billinginfo-4">
+                                Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products
+                            </label>
+                        </div>
+
+                        <div class="govuk-checkboxes__divider">or</div>
+                        <div class="govuk-checkboxes__item">
+                          <input class="govuk-checkboxes__input" id="billinginfo-5" name="billinginfo" type="checkbox" value="none" data-behaviour="exclusive">
+                          <label class="govuk-label govuk-checkboxes__label" for="billinginfo-5">
+                            None
+                          </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+                <a href="cancel" class="govuk-link">Cancel</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

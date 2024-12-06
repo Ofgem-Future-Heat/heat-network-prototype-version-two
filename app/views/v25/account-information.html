@@ -67,14 +67,43 @@
     <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
 
 
-    {% if (data.smrideclaration != "Yes") and (data.currentversion != "ur") %}
+
+{% if data.currentversion %}
+     {% if data.currentversion.toLowerCase()  == "ur" %}
+     <strong class="govuk-tag govuk-tag--green">
+      Submitted
+     </strong>
+    {% elif (data.currentversion.toLowerCase() == "expired") %}
     <strong class="govuk-tag govuk-tag--red">
-     Not started
-    </strong>
+      Expired
+     </strong>
+     {% elif (data.currentversion.toLowerCase() == "in review") %}
+     <strong class="govuk-tag govuk-tag--blue">
+       In review
+      </strong>
+      {% elif (data.currentversion.toLowerCase() == "approved") %}
+      <strong class="govuk-tag govuk-tag--green">
+        Approved
+       </strong>
+       {% elif (data.smrideclaration == "Yes") %}
+       <strong class="govuk-tag govuk-tag--green">
+         Submitted
+        </strong>
+        {% else %}
+        <strong class="govuk-tag govuk-tag--red">
+          Not started
+         </strong>
+    {% endif %}
     {% else %}
+    {% if (data.smrideclaration == "Yes") %}
     <strong class="govuk-tag govuk-tag--green">
       Submitted
      </strong>
+     {% else %}
+      <strong class="govuk-tag govuk-tag--red">
+        Not started
+       </strong>
+       {% endif %}
     {% endif %}
   </div>
   {% endif %}
@@ -102,7 +131,7 @@
 
       {{ govukButton ({
           text: "Add a new heat network",
-          href: "add-heat-network/introduction/intro"
+          href: "add-heat-network/introduction/examples"
       }) }}
       {% else %}
 

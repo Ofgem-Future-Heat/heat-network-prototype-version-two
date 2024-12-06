@@ -1,0 +1,55 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How the service works" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Only heat network operators can initiate adding a heat network. After you've added your operational data, you can invite any suppliers to contribute their supply data.</p>
+                        <p class="govuk-body">As an operator:</p>
+                <ul class="govuk-list govuk-list--number">
+                    <li>You must answer a short series of introductory questions about your heat network.</li>
+                    <li>We'll let you know your specific obligations, and what further information we need.</li>
+                    <li>After this, you'll be able to save your progress at any point.</li>
+                    <li>You must then provide the remaining information for your heat network.</li>
+                    <li>If you need other organisations to provide supply data, you can invite them into the service.</li>
+                    <li>You can then submit your information to Ofgem for processing.</li>   
+
+                </ul>
+
+                    <a href="initial" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}

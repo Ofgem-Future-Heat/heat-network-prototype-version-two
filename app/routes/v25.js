@@ -21,8 +21,6 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
-        // req.session.data['buildingcomplete'] = "true";
-        // req.session.data['eccomplete'] = "true";        
     }
 
     res.render('/' + version + '/account-information', {
@@ -69,6 +67,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
     }
 
 });
+
 
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
@@ -128,277 +127,6 @@ router.post('/' + version + '/organisation-details/email-address', function (req
 });
 
 
-/// Org details - Trading name
-router.get('/' + version + '/organisation-details/trading-name', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-name', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-name', function (req, res) {
-    clearvalidation(req);
-    var orghastradingname = req.session.data['orghastradingname']
-    var orgtradingname = req.session.data['orgtradingname']
-
-
-
-    if (!orghastradingname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghastradingname = {
-            "anchor": "orghastradingname",
-            "message": "Select whether your organisation has a trading name"
-        }
-    }
-
-
-    if ((orghastradingname == "Yes") && !orgtradingname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingname = {
-            "anchor": "orgtradingname",
-            "message": "Enter an trading name"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-name', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/organisation-details/trading-address');
-    }
-
-});
-
-/// Org details - Trading address
-router.get('/' + version + '/organisation-details/trading-address', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address', function (req, res) {
-    clearvalidation(req);
-    var orghastradingaddress = req.session.data['orghastradingaddress']
-
-
-    if (!orghastradingaddress) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghastradingaddress = {
-            "anchor": "orghastradingaddress",
-            "message": "Select whether your organisation has a trading address"
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address', {
-            data: req.session.data
-        });
-    }
-
-    else {
-    if (orghastradingaddress == "Yes") {
-        res.redirect('/' + version + '/organisation-details/trading-address-postcode');
-    }
-
-    else {
-        res.redirect('/' + version + '/organisation-details/profit');
-
-    }
-}
-
-});
-
-/// Org details - Trading address postcode
-router.get('/' + version + '/organisation-details/trading-address-postcode', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address-postcode', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address-postcode', function (req, res) {
-    clearvalidation(req);
-    var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-
-
-    if (!userpostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingpostcode = {
-            "anchor": "orgtradingpostcode",
-            "message": "Enter a postcode"
-        }
-    }    
-
-    function validateUKPostcode(postcode) {
-        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
-      
-        return postcodeRegex.test(postcode);
-      }
-      
-    if (!validateUKPostcode(userpostcode)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingpostcode = {
-            "anchor": "orgtradingpostcode",
-            "message": "Enter a valid postcode",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address-postcode', {
-            data: req.session.data
-        });
-    }
-
-    else {
-
-        const axios = require('axios');
-        const https = require('https');
-
-        const httpsAgent = new https.Agent({
-            rejectUnauthorized: false
-        })
-
-        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
-
-        async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                .then(function (response) {
-                    var output = JSON.stringify(response.data, null, 2);
-                    let parsed = JSON.parse(output).results;
-                    let locationaddresses = [];
-                    if (parsed != undefined) {
-
-                        for (var i = 0; i < parsed.length; i++) {
-                            let obj = parsed[i];
-                            locationaddresses.push(obj.LPI.ADDRESS);
-                        }
-                        req.session.data.tradingaddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = "";
-                        res.redirect('/' + version + '/organisation-details/trading-address-select');
-                    }
-
-                    else {
-                        req.session.data.tradingaddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = true;
-                        res.redirect('/' + version + '/organisation-details/trading-address-manual');
-                    }
-
-                });
-
-        }
-        postcode(userpostcode);
-
-}
-
-});
-
-
-
-
-// Org details - Trading address select
-router.get('/' + version + '/organisation-details/trading-address-select', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address-select', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address-select', function (req, res) {
-    clearvalidation(req);
-    var addressselect = req.session.data['tradingaddressSelect']
-
-
-
-    if (!addressselect) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressSelect = {
-            "anchor": "tradingaddressSelect",
-            "message": "Select an address",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address-select', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        res.redirect('/' + version + '/organisation-details/trading-address-confirm');
-    }    
-});
-
-
-// Org details - Trading address manual
-router.get('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address-manual', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
-    clearvalidation(req);
-    var tradingaddressMLine1 = req.session.data['tradingaddressMLine1']
-    var tradingaddressMTown = req.session.data['tradingaddressMTown']
-    var tradingaddressMCounty = req.session.data['tradingaddressMCounty']
-
-    var tradingaddressMPostcode = req.session.data['tradingaddressMPostcode']
-
-
-    if (!tradingaddressMLine1) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMLine1 = {
-            "anchor": "tradingaddressMLine1",
-            "message": "Enter the street address",
-        }
-    }
-
-
-    if (!tradingaddressMTown) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMTown = {
-            "anchor": "tradingaddressMTown",
-            "message": "Enter the town or city",
-        }
-    }
-
-    if (!tradingaddressMPostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressMPostcode = {
-            "anchor": "tradingaddressMPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address-manual', {
-            data: req.session.data
-        });
-    }
-
-    else {
-            req.session.data.tradingaddressSelect = tradingaddressMLine1 + ', ' + tradingaddressMTown + ', ' + tradingaddressMCounty + ', ' + tradingaddressMPostcode;
-            res.redirect('/' + version + '/organisation-details/trading-address-confirm');
-
-        }
-
-        
-
-});
-
-
 /// Org details - Accounts
 router.get('/' + version + '/organisation-details/accounts', function (req, res) {
     clearvalidation(req);
@@ -428,13 +156,8 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
         });
     }
     else {
-        if (orgaccounts == "Yes") {
-            res.redirect('/' + version + '/organisation-details/financial-profit');
-        }
 
-        else {
             res.redirect('/' + version + '/organisation-details/solvent');
-        }
     }
 
 });
@@ -527,7 +250,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
     clearvalidation(req);
     var orgsolvent = req.session.data['orgsolvent']
-
+    var orgaccounts = req.session.data['orgaccounts']
 
 
     if (!orgsolvent) {
@@ -544,46 +267,13 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
         });
     }
     else {
-        if (orgsolvent == "Yes") {
-            res.redirect('/' + version + '/organisation-details/structure');
+        if (orgaccounts == "Yes") {
+            res.redirect('/' + version + '/organisation-details/financial-profit');
         }
+
         else {
-            res.redirect('/' + version + '/organisation-details/solvent-months');
-        }
-    }
-
-});
-
-/// Org details - Solvent months
-router.get('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/solvent-months', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    var orgsolventmonths = req.session.data['orgsolventmonths']
-
-
-
-    if (!orgsolventmonths) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgsolventmonths = {
-            "anchor": "orgsolventmonths",
-            "message": "Enter how many months the organisation is solvent for"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/solvent-months', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/organisation-details/structure');
+            res.redirect('/' + version + '/organisation-details/structure');
+        }    
     }
 
 });
@@ -637,7 +327,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     clearvalidation(req);
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
-
+    var orgprofit = req.session.data['orgprofit']
 
 
 
@@ -665,19 +355,74 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     else {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
+            if (orgprofit == "No" ) {
+                res.redirect('/' + version + '/organisation-details/socialhousing');
+            }
+
+            else {
+                res.redirect('/' + version + '/organisation-details/date');
+            }
+
         }
 
-        if (orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other social housing provider" ) {
-            res.redirect('/' + version + '/organisation-details/structure');
+        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association") {
+            res.redirect('/' + version + '/organisation-details/socialhousing');
         }
-        else {
+
+        else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
             res.redirect('/' + version + '/organisation-details/date');
+
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/structure');
 
         }
 
     }
 
 });
+
+/// Org details - Social housing
+router.get('/' + version + '/organisation-details/socialhousing', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/socialhousing', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
+    clearvalidation(req);
+    var orgsocialhousing = req.session.data['orgsocialhousing']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+
+    if (!orgsocialhousing) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsocialhousing = {
+            "anchor": "orgsocialhousing",
+            "message": "Select whether " +  companyname + " is subject to social housing regulations"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/socialhousing', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (orgsocialhousing == "No") {
+            res.redirect('/' + version + '/organisation-details/date');
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/structure');
+        }
+    }
+
+});
+
 
 
 
@@ -778,7 +523,7 @@ router.post('/' + version + '/organisation-details/financial-income', function (
         });
     }
     else {
-            res.redirect('/' + version + '/organisation-details/financial-authorised');
+            res.redirect('/' + version + '/organisation-details/financial-hedged');
     }
 
 });
@@ -1121,7 +866,7 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
             res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
-            res.redirect('/' + version + '/organisation-details/type');
+            res.redirect('/' + version + '/organisation-details/company-name');
         }
     }
 
@@ -1159,185 +904,14 @@ router.post('/' + version + '/organisation-details/parent-total', function (req,
     }
     else {
         req.session.data['parentsentered'] = 1
-            res.redirect('/' + version + '/organisation-details/type');
+            res.redirect('/' + version + '/organisation-details/company-name');
     }
 
 });
 
-// /// Org details - Parent name
-// router.get('/' + version + '/organisation-details/parent-name', function (req, res) {
-//     clearvalidation(req);
-//     res.render('/' + version + '/organisation-details/parent-name', {
-//         data: req.session.data
-//     });
-// });
-
-
-// router.post('/' + version + '/organisation-details/parent-name', function (req, res) {
-//     clearvalidation(req);
-//     var parentname = req.session.data['parentname']
 
 
 
-//     if (!parentname) {
-//         req.session.data.validationError = "true"
-//         req.session.data.validationErrors.parentname = {
-//             "anchor": "parentname",
-//             "message": "Enter a parent organisation name"
-//         }
-//     }
-
-//     if (req.session.data.validationError == "true") {
-//         res.render('/' + version + '/organisation-details/parent-name', {
-//             data: req.session.data
-//         });
-//     }
-//     else {
-//         if (req.session.data.parentsentered) {
-//             req.session.data['parentname' + req.session.data['parentsentered']] = req.session.data['parentname']
-//         } 
-//         res.redirect('/' + version + '/organisation-details/parent-address');
-//     }
-
-// });
-
-// // Org details - Parent address
-// router.get('/' + version + '/organisation-details/parent-address', function (req, res) {
-//     clearvalidation(req);
-//     res.render('/' + version + '/organisation-details/parent-address', {
-//         data: req.session.data
-//     });
-// });
-
-
-// router.post('/' + version + '/organisation-details/parent-address', function (req, res) {
-//     clearvalidation(req);
-//     var parentaddressMLine1 = req.session.data['parentaddressMLine1']
-//     var parentaddressMTown = req.session.data['parentaddressMTown']
-//     var parentaddressMCountry = req.session.data['parentaddressMCountry']
-//     var parentaddressMPostcode = req.session.data['parentaddressMPostcode']
-//     var parentsentered = req.session.data['parentsentered']
-//     var parenttotal = req.session.data['parenttotal']
-
-
-
-//     if (!parentaddressMLine1) {
-//         req.session.data.validationError = "true"
-//         req.session.data.validationErrors.parentaddressMLine1 = {
-//             "anchor": "parentaddressMLine1",
-//             "message": "Enter the street address",
-//         }
-//     }
-
-
-//     if (!parentaddressMTown) {
-//         req.session.data.validationError = "true"
-//         req.session.data.validationErrors.parentaddressMTown = {
-//             "anchor": "parentaddressMTown",
-//             "message": "Enter the town or city",
-//         }
-//     }
-
-//     if (!parentaddressMPostcode) {
-//         req.session.data.validationError = "true"
-//         req.session.data.validationErrors.parentaddressMPostcode = {
-//             "anchor": "parentaddressMPostcode",
-//             "message": "Enter a postcode",
-//         }
-//     }
-
-//     if (!parentaddressMCountry) {
-//         req.session.data.validationError = "true"
-//         req.session.data.validationErrors.parentaddressMCountry = {
-//             "anchor": "parentaddressMCountry",
-//             "message": "Enter a country",
-//         }
-//     }
-
-//     if (req.session.data.validationError == "true") {
-//         res.render('/' + version + '/organisation-details/parent-address', {
-//             data: req.session.data
-//         });
-//     }
-
-//     else {
-//         if (req.session.data.parentsentered) {
-//             req.session.data['parentaddressSelect' + req.session.data['parentsentered']] =  parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
-//             if (parenttotal == parentsentered) {
-//                 res.redirect('/' + version + '/organisation-details/cya');
-//             }
-//             else {
-//                 clearparentdata(req);
-//                 req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-//                 res.redirect('/' + version + '/organisation-details/parent-name');
-
-//             }
-//         } 
-//         else {
-//             req.session.data.parentaddressSelect = parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
-//             res.redirect('/' + version + '/organisation-details/cya');
-//         }
-
-//         }
-
-        
-
-// });
-
-
-
-
-///Parent Type
-router.get('/' + version + '/organisation-details/type', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/type', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/type', function (req, res) {
-    clearvalidation(req);
-    var parentaccounttype = req.session.data['parentaccounttype']
-
-    if (!parentaccounttype) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentaccounttype = {
-            "anchor": "parentaccounttype",
-            "message": "Select which type of organisation you work for"
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/type', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (req.session.data.parentsentered) {
-            req.session.data['parentaccounttype' + req.session.data['parentsentered']] = req.session.data['parentaccounttype']
-
-            if (parentaccounttype == "Other UK organisation" || parentaccounttype == "Overseas organisation") {
-                res.redirect('/' + version + '/organisation-details/company-name');
-            }
-            else {
-                res.redirect('/' + version + '/organisation-details/company-number');
-            }
-        } 
-        else {
-            if (parentaccounttype == "Other UK organisation" || parentaccounttype == "Overseas organisation") {
-                res.redirect('/' + version + '/organisation-details/company-name');
-            }
-            else {
-                res.redirect('/' + version + '/organisation-details/company-number');
-            }    
-        }
-
-    }
-
-});
 ///Parent Company name
 router.get('/' + version + '/organisation-details/company-name', function (req, res) {
     clearvalidation(req);
@@ -1350,7 +924,7 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
 router.post('/' + version + '/organisation-details/company-name', function (req, res) {
     clearvalidation(req);
     var parentcompanyname = req.session.data['parentcompanyname']
-    var parentaccounttype = req.session.data['parentaccounttype']
+    req.session.data['parentaccounttype'] == "Overseas organisation"
     
 
     if (!parentcompanyname) {
@@ -1374,323 +948,12 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
         req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
         }
 
-        if (parentaccounttype == "Overseas organisation") {
             res.redirect('/' + version + '/organisation-details/addressmanual');
-        }
-        else {
-            res.redirect('/' + version + '/organisation-details/address');
-        }
-    }
-
-});
-
-
-
-///Parent Company number
-router.get('/' + version + '/organisation-details/company-number', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/company-number', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/company-number', function (req, res) {
-    clearvalidation(req);
-    var orgparentcompanynumber = req.session.data['parentcompanynumber']
-
-    
-
-    if (!orgparentcompanynumber) {
-        req.session.data.validationError = "true"
-            req.session.data.validationErrors.parentcompanynumber = {
-                "anchor": "parentcompanynumber",
-                "message": "Enter a company number"
-            }
-     
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/company-number', {
-            data: req.session.data
-        });
-    }
-
-    else {
-
-        (async () => {
-            // Dynamically import 'node-fetch' for CommonJS
-            const fetch = (await import('node-fetch')).default;
-          
-            const API_KEY = 'b38e31d7-61af-448c-8955-425028c1a088'; // Replace with your actual Companies House API key
-          
-            async function getCompanyDetails(parentcompanynumber) {
-              // Concatenate the API key with a colon (:) for Basic Auth
-              const apiKeyWithColon = API_KEY + ':';
-              
-              // Base64 encode the result
-              const encodedKey = Buffer.from(apiKeyWithColon).toString('base64');
-          
-              // Set the headers for the request
-              const headers = new Headers({
-                'Authorization': 'Basic ' + encodedKey
-              });
-          
-          
-              const requestOptions = {
-                method: 'GET',
-                headers: headers
-              };
-          
-              try {
-                const response = await fetch(`https://api.company-information.service.gov.uk/company/${parentcompanynumber}`, requestOptions);
-          
-                // Log the response status
-          
-                if (!response.ok) {
-                    req.session.data.validationErrors.parentcompanynumber = {
-                        "anchor": "parentcompanynumber",
-                        "message": "Enter a valid company number"
-                    }
-
-                    res.render('/' + version + '/organisation-details/company-number', {
-                        data: req.session.data
-                    });
-                }
-          
-                const companyData = await response.json();
-
-          
-                // Extracting company name and registered office address
-                const companyName = companyData.company_name;
-                const address = companyData.registered_office_address;
-          
-                if (!address) {
-                    req.session.data.parentcompanyname = companyName;
-                    if (req.session.data.parentsentered) {
-                        req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
-                    }
-                
-                    res.redirect('/' + version + '/organisation-details/addressmanual')
-                }
-
-                else {
-                const formattedAddress = `${address.address_line_1}, ${address.address_line_2 || ''}, ${address.locality}, ${address.region || ''}, ${address.postal_code}, ${address.country || ''}`.replace(/, ,/g, ',').replace(/, $/, '');
-                req.session.data.parentcompanyname = companyName;
-                if (req.session.data.parentsentered) {
-                    req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
-                }
-                req.session.data.parentorgaddressSelect = formattedAddress;
-                if (req.session.data.parentorgaddressSelect) {
-                    req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
-                }
-                }
-
-                // Returning as a JSON object
-                return {
-                  companyName: companyName,
-                  address: formattedAddress
-                };
-              } catch (error) {
-                console.error('Error fetching company details:', error);
-                return { error: error.message };
-              }
-            }
-          
-            // Example usage
-            getCompanyDetails(orgparentcompanynumber.toUpperCase())
-              .then(() => res.redirect('/' + version + '/organisation-details/company-confirm'))
-              .catch((error) => console.error('Error:', error));
-          })();
-
-          
 
     }
 
 });
 
-
-// // Org details - Parent company confirm
-router.get('/' + version + '/organisation-details/company-confirm', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/company-confirm', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/company-confirm', function (req, res) {
-    clearvalidation(req);
-    var parentsentered = req.session.data['parentsentered']
-    var parenttotal = req.session.data['parenttotal']
-
-
-        if (req.session.data.parentsentered) {
-            clearparentdata(req);
-
-            if (parenttotal == parentsentered) {
-                res.redirect('/' + version + '/organisation-details/cya');
-            }
-            else {
-                req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-                res.redirect('/' + version + '/organisation-details/type');
-
-            }
-        } 
-        else {
-            res.redirect('/' + version + '/organisation-details/cya');
-        }
-
-
-        
-
-});
-
-
-
-// Parent Company - Address
-router.get('/' + version + '/organisation-details/address', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/address', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/address', function (req, res) {
-    clearvalidation(req);
-    var userpostcode = req.session.data['parentorgaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-
-    if (!userpostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentorgaddressPostcode = {
-            "anchor": "parentorgaddressPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    function validateUKPostcode(postcode) {
-        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
-      
-        return postcodeRegex.test(postcode);
-      }
-
-    if (!validateUKPostcode(userpostcode)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentorgaddressPostcode = {
-            "anchor": "parentorgaddressPostcode",
-            "message": "Enter a valid postcode",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/address', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        const axios = require('axios');
-        const https = require('https');
-
-        const httpsAgent = new https.Agent({
-            rejectUnauthorized: false
-        })
-
-        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
-
-        async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                .then(function (response) {
-                    var output = JSON.stringify(response.data, null, 2);
-                    let totalResults = response.data.header.totalresults;
-                    let parsed = JSON.parse(output).results;
-                    let locationaddresses = [];
-                    if (parsed != undefined) {
-                        for (var i = 0; i < parsed.length; i++) {
-                            let obj = parsed[i];
-                            locationaddresses.push(obj.LPI.ADDRESS);
-                        }
-
-                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        req.session.data.parentorgaddressnotfound = "";
-                        if (totalResults > 99) {
-                            res.redirect('/' + version + '/organisation-details/addresserror?reason=toomany');
-                        }
-                        else {
-                            res.redirect('/' + version + '/organisation-details/addressselect');
-                        }
-                    }
-
-                    else {
-                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        req.session.data.parentorgaddressnotfound = true;
-                        res.redirect('/' + version + '/organisation-details/addresserror');
-
-                    }
-
-                });
-
-        }
-        postcode(userpostcode);
-        }
-
-
-});
-
-///Parent Address error
-router.get('/' + version + '/organisation-details/addresserror', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.reason;
-    req.session.data['addresserrorreason'] = urlParams;
-
-    res.render('/' + version + '/organisation-details/addresserror', {
-        data: req.session.data
-    });
-});
-
-
-
-// Parent Company - Address select
-router.get('/' + version + '/organisation-details/addressselect', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/addressselect', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/addressselect', function (req, res) {
-    clearvalidation(req);
-    var addressselect = req.session.data['parentorgaddressSelect']
-
-
-
-    if (!addressselect) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentorgaddressSelect = {
-            "anchor": "parentorgaddressSelect",
-            "message": "Select an address",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/addressselect', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (req.session.data.parentsentered) {
-            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
-        }
-
-        res.redirect('/' + version + '/organisation-details/company-confirm');
-    }    
-});
 
 
 // Parent Company - Address manual
@@ -1706,12 +969,11 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
     clearvalidation(req);
     var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
     var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
-    var parentorgaddressMCounty = req.session.data['parentorgaddressMCounty']
     var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
-    var parentaccounttype = req.session.data['parentaccounttype']
 
     var parentorgaddressMPostcode = req.session.data['parentorgaddressMPostcode']
-
+    var parentsentered = req.session.data['parentsentered']
+    var parenttotal = req.session.data['parenttotal']
 
     if (!parentorgaddressMLine1) {
         req.session.data.validationError = "true"
@@ -1745,30 +1007,26 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
     }
 
     else {
-        if (parentaccounttype == "Overseas organisation") {
             req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
-        } else {
-            req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMCounty + ', ' + parentorgaddressMPostcode
-        }
 
         if (req.session.data.parentsentered) {
             req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
+        }        
+        if (parenttotal == parentsentered) {
+            res.redirect('/' + version + '/organisation-details/cya');
+
+        }
+        else {
+            clearparentdata(req);
+            res.redirect('/' + version + '/organisation-details/company-name');
         }
 
+        console.log(parenttotal)
+        console.log(parentsentered)
 
-
-        
-            res.redirect('/' + version + '/organisation-details/company-confirm');
     }
 });
-
-
-
-
-
-
-
-
 
 
 ///CYA
@@ -1787,10 +1045,6 @@ router.post('/' + version + '/organisation-details/cya', function (req, res) {
     res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
 
 });
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7951,84 +7205,56 @@ router.post('/' + version + '/add-heat-network/suppliers/remove', function (req,
 
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////// SMRI //////////////////////////////////////////////////////////////////////////////
 
-function setSMRIUser(req, id) {
-    req.session.data['smrifirstname'] = req.session.data['smrifirstname' + id]
-    req.session.data['smrilastname'] = req.session.data['smrilastname' + id]
-    req.session.data['smridob'] = req.session.data['smridob' + id]
-    req.session.data['smridobday'] = req.session.data['smridobday' + id]
-    req.session.data['smridobmonth'] = req.session.data['smridobmonth' + id]
-    req.session.data['smridobyear'] = req.session.data['smridobyear' + id]
-    req.session.data['smrirole'] = req.session.data['smrirole' + id]
-    req.session.data['smrimisconduct'] = req.session.data['smrimisconduct' + id]
-    req.session.data['smriconvictions'] = req.session.data['smriconvictions' + id]
-    req.session.data['smriinsolvency'] = req.session.data['smriinsolvency' + id]
-    req.session.data['smridisqualified'] = req.session.data['smridisqualified' + id]
-    req.session.data['smrisignificant'] = req.session.data['smrisignificant' + id]
-    req.session.data['smrisignificant2'] = req.session.data['smrisignificant2' + id]
-    req.session.data['smrirelevant'] = req.session.data['smrirelevant' + id]
-    req.session.data['smriidentified'] = req.session.data['smriidentified' + id]
-    req.session.data['smriowned'] = req.session.data['smriowned' + id]
-    req.session.data['smrirevoked'] = req.session.data['smrirevoked' + id]
-    req.session.data['smridisciplinary'] = req.session.data['smridisciplinary' + id]
-    req.session.data['smrimoredetails'] = req.session.data['smrimoredetails' + id]
+function setSMRIUser(req) {
+    req.session.data['smriprocess'] = "Yes"
+    req.session.data['smriassessments'] = "Yes"
+    req.session.data['smrilist'] = "Yes"
+    req.session.data['smrifitandproper'] = "Yes"
+    req.session.data['smrideclarationdate'] = "01/11/2024"
 }
 
 function clearSMRIUser(req) {
-    req.session.data['smrifirstname'] = ""
-    req.session.data['smrilastname'] = ""
-    req.session.data['smridob'] = ""
-    req.session.data['smridobday'] = ""
-    req.session.data['smridobmonth'] = ""
-    req.session.data['smridobyear'] = ""
-    req.session.data['smrirole'] = ""
-    req.session.data['smrimisconduct'] = ""
-    req.session.data['smriconvictions'] = ""
-    req.session.data['smriinsolvency'] = ""
-    req.session.data['smridisqualified'] = ""
-    req.session.data['smrisignificant'] = ""
-    req.session.data['smrisignificant2'] = ""
-    req.session.data['smrirelevant'] = ""
-    req.session.data['smriidentified'] = ""
-    req.session.data['smriowned'] = ""
-    req.session.data['smrirevoked'] = ""
-    req.session.data['smridisciplinary'] = ""
-    req.session.data['smrimoredetails'] = ""    
+    req.session.data['smriprocess'] = ""
+    req.session.data['smriassessments'] = ""
+    req.session.data['smrilist'] = ""
+    req.session.data['smrifitandproper'] = ""
+    req.session.data['smrideclarationdate'] = ""
 }
 
-function removeSMRIUser(req, id) {
-    req.session.data['addedsmri' + id] = ""
-    req.session.data['smrifirstname' + id] = ""
-    req.session.data['smrilastname' + id] = ""
-    req.session.data['smridob' + id] = ""
-    req.session.data['smridobday' + id] = ""
-    req.session.data['smridobmonth' + id] = ""
-    req.session.data['smridobyear' + id] = ""
-    req.session.data['smrirole' + id] = ""
-    req.session.data['smrimisconduct' + id] = ""
-    req.session.data['smriconvictions' + id] = ""
-    req.session.data['smriinsolvency' + id] = ""
-    req.session.data['smridisqualified' + id] = ""
-    req.session.data['smrisignificant' + id] = ""
-    req.session.data['smrisignificant2' + id] = ""
-    req.session.data['smrirelevant' + id] = ""
-    req.session.data['smriidentified' + id] = ""
-    req.session.data['smriowned' + id] = ""
-    req.session.data['smrirevoked'] = ""
-    req.session.data['smridisciplinary'] = ""
-    req.session.data['smrimoredetails' + id] = ""    
-}
 
 /// SMRI List
 router.get('/' + version + '/smri/list', function (req, res) {
     clearvalidation(req);
-    clearSMRIUser(req);
     const urlParams = req.query.notification;
+    const urlParamsVersion = req.query.v;
+    req.session.data['smristatus'] = urlParamsVersion;
+
+    if (urlParamsVersion == "submitted") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "expired") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "new") {
+        clearSMRIUser(req);
+        req.session.data['smrideclaration'] = "No";
+    }
     req.session.data['smrinotification'] = urlParams;
     res.render('/' + version + '/smri/list', {
         data: req.session.data
     });
+});
+
+router.post('/' + version + '/smri/list', function (req, res) {
+    clearSMRIUser(req);
+ res.redirect('/' + version + '/smri/process');
+
 });
 
 /// SMRI Personal

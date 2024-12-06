@@ -1,0 +1,111 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Set up an authenticator app" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{title}}
+    </h1>
+
+    <ul class="govuk-list govuk-list--number govuk-list--spaced">
+      <li>Open your authenticator app on your smartphone, tablet or computer.
+      </li>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            I don’t have an authenticator app
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">You can download an authenticator app for your smartphone or tablet from your app store.
+          </p>
+          <p class="govuk-body">
+            If you don’t have a smartphone or tablet, search online for an authenticator app for your computer.
+          </p>
+          <p class="govuk-body">
+            You can use any authenticator app.
+          </p>
+        </div>
+      </details>
+      <li>Use your authenticator app to scan the QR code or type the secret key into your authenticator app. Some
+        authenticator apps call the secret key a 'code.</li>
+        <p class="govuk-body"><img id="qrcode" src="/public/images/QRcode.png" style="max-width: 200px" alt="QR Code" /></p>
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              I cannot scan the QR code
+          </summary>
+          <div class="govuk-details__text">
+            <p class="govuk-body">You can enter the secret key into your authenticator app instead.
+            </p>
+            <p class="govuk-body">
+              Secret key: <br />
+              <b>UZ5T R7MN HXQD 5NSL HVIG HNW4 D47R OYGB</b>
+            </p>
+            <p class="govuk-body">
+              Some authenticator apps call the secret key a 'code'.
+            </p>
+          </div>
+        </details>
+      <li>The authenticator app will show a security code.</li>
+      <li>Enter the security code.</li>
+    </ul>
+
+    <p class="govuk-body">It might take a few minutes to arrive. The code will expire after 15 minutes.</p>
+
+    <form action="account-created" method="post">
+
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="code">
+          Security code
+        </label>
+        <div id="password-hint" class="govuk-hint">
+          This is the 6-digit number shown in your authenticator app
+        </div>
+        <input class="govuk-input govuk-input--width-10 govuk-input--extra-letter-spacing" id="code" name="code"
+          type="text" spellcheck="false" autocomplete="one-time-code" inputmode="numeric" maxlength="8">
+
+      </div>
+
+      <button class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+
+
+    <p class="govuk-body">
+      <a href="#" class="govuk-link" rel="noreferrer noopener">Get a code another way</a>
+    </p>
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+
+
+</script>
+{% endblock pageScripts %}

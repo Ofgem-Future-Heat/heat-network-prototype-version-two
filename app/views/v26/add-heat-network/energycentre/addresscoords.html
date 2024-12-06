@@ -1,0 +1,111 @@
+{% extends 'layouts/main.html' %}
+
+{% if (data.energycentres > 1) %}
+{% set title = "What are energy centre 1's coordinates?" %}
+{% else %}
+{% set title = "What are the energy centre's coordinates?" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+
+
+                        <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                        <h1 class="govuk-heading-l">
+                                 {{title}}
+                          </h1>
+          
+        <p class="govuk-body">To find the coordinates of the energy centre go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The co-ordinates will be the first option in the list.</p>
+        <p class="govuk-body">You can then paste these coordinates directly into the box below.</p>
+
+                <div class="govuk-form-group {% if data.validationErrors.ecaddresslatitude %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label govuk-label--s" for="ecaddresslatitude">
+                        Latitude
+                      </label>                    
+                      <div class="govuk-hint">For example, 51.50338641497609</div>
+                    {% if data.validationErrors.ecaddresslatitude %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.ecaddresslatitude.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.ecaddresslatitude %}govuk-input--error{% endif %}" id="ecaddresslatitude" name="ecaddresslatitude" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.ecaddresslatitude}}">
+                </div>
+
+
+                <div class="govuk-form-group {% if data.validationErrors.ecaddresslongitude %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label govuk-label--s" for="ecaddresslongitude">
+                        Longitude
+                      </label>                    
+                      <div class="govuk-hint">For example, -0.12762994181576348</div>
+                    {% if data.validationErrors.ecaddresslongitude %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.ecaddresslongitude.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.ecaddresslongitude %}govuk-input--error{% endif %}" id="ecaddresslongitude" name="ecaddresslongitude" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.ecaddresslongitude}}">
+                </div>
+
+            </fieldset>
+            
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} main page</a>
+    </div>
+
+</div>
+
+{% endblock %}
