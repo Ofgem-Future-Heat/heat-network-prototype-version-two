@@ -3209,6 +3209,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
             res.redirect('/' + version + '/add-heat-network/introduction/communalotherregister');
         }
         else {
+            req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
             res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
         }
 
@@ -6875,7 +6876,6 @@ router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req
 // Supliers - List
 router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
-    var buildings = req.session.data['buildings']
     clearSupplier(req)
 
     res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
@@ -6887,21 +6887,6 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
 router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
     clearvalidation(req);
     var buildings = req.session.data['buildings']
-
-    let allSupplied = true;
-    buildings.forEach((building) => {
-        if (building.supplied === 0) {
-            allSupplied = false; 
-        }
-    });
-
-    if (!allSupplied) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.suppliers = {
-            "anchor": "",
-            "message": "All buildings must have an allocated supplier before you can continue",
-        }
-    }
 
 
     if (req.session.data.validationError == "true") {
@@ -7089,7 +7074,7 @@ router.get('/' + version + '/add-heat-network/suppliers/confirm', function (req,
 
 router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
     clearvalidation(req);
-
+    var introcommunal = req.session.data['introcommunal']
 
     
 
@@ -7097,8 +7082,17 @@ router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req
     req.session.data['supplieraddressselected' + req.session.data['supplierid']] = req.session.data['supplieraddressselected']
     req.session.data['addedsupplier' + req.session.data['supplierid']] = "true"
 
+    if (introcommunal == "Yes") {
+        res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
+    }
 
-    res.redirect('/' + version + '/add-heat-network/suppliers/buildings');
+    else {
+        res.redirect('/' + version + '/add-heat-network/suppliers/buildings');
+    }
+
+
+
+    
 });
 
 
@@ -7133,22 +7127,7 @@ router.post('/' + version + '/add-heat-network/suppliers/buildings', function (r
     }
 
     else {
-    // Check if supplierbuildings is an array
-    if (Array.isArray(supplierbuildings)) {
-        // Loop through the supplierbuildings array
-        supplierbuildings.forEach((supplierbuilding) => {
-            // Find the building with the matching id
-            const building = buildings.find(b => b.id == supplierbuilding);
-
-            // If a matching building is found, set supplied to true
-            if (building) {
-                building.supplied = req.session.data['supplierid'];
-            }
-        });
-    } else {
-    }
-    req.session.data['supplierbuildings' + req.session.data['supplierid']] = req.session.data['supplierbuildings']
-
+        req.session.data['supplierbuildings' + req.session.data['supplierid']] = req.session.data['supplierbuildings'];
         res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
       }
   });

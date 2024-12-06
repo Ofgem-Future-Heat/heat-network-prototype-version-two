@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
-Which buildings does {{data.suppliernameselected}} supply
+How many of the {{data.introbuildings}} buildings does {{data.suppliernameselected}} supply
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -66,17 +66,11 @@ Which buildings does {{data.suppliernameselected}} supply
 
 
       <div class="govuk-form-group {% if data.validationErrors.supplierbuildings %}govuk-form-group--error{% endif %}">
-        <fieldset class="govuk-fieldset" aria-describedby="supplierbuildings-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <span class="govuk-caption-l">Add a heat network - suppliers</span>
 
-            <h1 class="govuk-fieldset__heading">
-              {{title}}
+            <h1 class="govuk-heading-l">
+              <label for="supplierbuildings">{{title}}</label>
             </h1>
-          </legend>
-          <div id="supplierbuildings-hint" class="govuk-hint">
-            Select all that apply.
-          </div>
 
           {% if data.validationErrors.suppliername %}
           <p class="govuk-error-message">
@@ -84,20 +78,7 @@ Which buildings does {{data.suppliernameselected}} supply
               {{data.validationErrors.suppliername.message}}
           </p>
           {% endif %}
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-
-          {% for building in data.buildings %}
-          {% if (building.supplied == data.supplierid) or (building.supplied == "0") %}
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="supplierbuildings{{building.id}}" name="supplierbuildings" type="checkbox" value="{{building.id}}" {% if (building.supplied == data.supplierid) %}checked {% endif %}>
-              <label class="govuk-label govuk-checkboxes__label" for="supplierbuildings{{building.id}}">
-                {{building.address}}{{building.supplier}}
-              </label>
-            </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-        </fieldset>
+          <input class="govuk-input govuk-input--width-4" id="supplierbuildings" name="supplierbuildings" type="text" value="{{data.supplierbuildings}}">
       </div>
 
 

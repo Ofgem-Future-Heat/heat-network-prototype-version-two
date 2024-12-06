@@ -55,22 +55,8 @@
   
               <h1 class="govuk-heading-l">{{title}}</h1>
 
-              {% set buildingCount = 0 %}
-              {% for building in data.buildings %}
-              {% if building.supplied != 0 %}
-              {% set buildingCount = buildingCount + 1 %}
-              {% endif %}
-              {% endfor %}
-
-              {% set remaningbuildings = (data.buildings.length - buildingCount) %}
           
 
-        {% if buildingCount == 0 %}
-        <p class="govuk-body">You must allocate <strong>{{data.buildings.length}}</strong> buildings on your heat network to a supplier.</p>
-        {% else %}
-            <p class="govuk-body">You've allocated <strong>{{buildingCount}}</strong> of <strong>{{data.buildings.length}}</strong> buildings on your heat network to a supplier.</p>
-
-        {% endif %}
 
         </div>
     </div>
@@ -84,18 +70,25 @@
             "name": data["suppliernameselected" ~ i],
             "id": i,
             "address": data["supplieraddressselected" ~ i],
-            "buildings": data["supplierbuildings" ~ i]
+            "buildings": (data["supplierbuildings" ~ i] | int)
 
         }]) %}
     {% endfor %}
     {% set supplierCount = 0 %}
+    {% set supplierBuildingCount = 0 %}
+
     {% for supplier in suppliers %}
     {% if supplier.added == "true" %}
+    {% set supplierBuildingCount = supplierBuildingCount + supplier.buildings %}
     {% set supplierCount = supplierCount + 1 %}
     {% endif %}
     {% endfor %}
-    {% if supplierCount > 0 %}
     <div class="govuk-grid-column-full">
+        {% if data.introcommunal != "Yes" %}
+
+    <p class="govuk-body">You've allocated <strong>{{supplierBuildingCount}}</strong> of <strong>{{data.introbuildingshowmany}}</strong> buildings on your heat network to a supplier.</p>
+    {% endif %}
+    {% if supplierCount > 0 %}
 
         <div class="govuk-form-group {% if data.validationErrors.suppliers %}govuk-form-group--error{% endif %}">
             {% if data.validationErrors.suppliers %}
@@ -113,8 +106,10 @@
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Name</th>
                         <th scope="col" class="govuk-table__header govuk-!-width-one-half">Address</th>
-                        <th scope="col" class="govuk-table__header">Buildings supplied</th>
+                        {% if data.introcommunal != "Yes" %}
 
+                        <th scope="col" class="govuk-table__header">Buildings supplied</th>
+                        {% endif %}
                         <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"></th>
                     </tr>
 
@@ -130,8 +125,10 @@
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell">{{supplier.name}}</td>
                           <td class="govuk-table__cell">{{supplier.address}}</td>
-                          <td class="govuk-table__cell">{{supplier.buildings.length}}</td>
+                          {% if data.introcommunal != "Yes" %}
 
+                          <td class="govuk-table__cell">{{supplier.buildings}}</td>
+                        {% endif %}
                           <td class="govuk-table__cell govuk-table__cell--numeric">
                               <a href="name?id={{ supplier.id }}" class="govuk-link govuk-link--no-visited-state govuk-!-margin-right-2">Edit <span class="govuk-visually-hidden">{{supplier.firstname}} {{supplier.lastname}}</span></a>
                               <a href="remove?id={{ supplier.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{supplier.firstname}} {{supplier.lastname}}</span></a>
@@ -149,27 +146,26 @@
 
         </div>
 
-    </div>
     {% endif %}
+</div>
 
     <form  method="POST" novalidate>
 
     <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-button-group">
-            {% if buildingCount == 0 %}
-            <a href="name" class="govuk-button">Add a supplier</a>
-            {% else %}
-            {% if remaningbuildings != 0 %}
-            <a href="name" class="govuk-button govuk-button--secondary">Add a supplier</a>
-            {% endif %}
+            {% if supplierCount != 0 %}
 
+            <a href="name" class="govuk-button govuk-button--secondary">Add a supplier</a>
             {{
                 govukButton ({
                     html: 'Submit suppliers'
                 })
               }}
-              {% endif %}
+            {% else %}
+            <a href="name" class="govuk-button ">Add a supplier</a>
+            {% endif %}
+
 
           </div>
           <p class="govuk-body"><a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Save and return to {{data.name}} home</a></p>

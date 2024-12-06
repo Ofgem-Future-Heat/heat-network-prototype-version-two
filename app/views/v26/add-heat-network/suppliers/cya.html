@@ -77,24 +77,20 @@
                             <a class="govuk-link" href="often">Change</a>
                         </dd>
                         </div>
+                        {% if data.introcommunal != "Yes" %}
                         <div class="govuk-summary-list__row">
 
                         <dt class="govuk-summary-list__key">
-                            Which buildings does {{supplier.name}} supply?
+                            How many buildings does {{supplier.name}} supply?
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            <ul class="govuk-list">
-                            {% for building in data.buildings %}
-                            {% if building.supplied == supplier.id %}
-                            <li class="govuk-!-margin-bottom-3">{{building.address}}</li>
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
+                                {{supplier.buildings}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
                             <a class="govuk-link" href="often">Change</a>
                         </dd>
                     </div>
+                    {% endif %}
 
                       {% endif %}
     
