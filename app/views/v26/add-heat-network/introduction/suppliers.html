@@ -7,13 +7,11 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 
-{% set buildings %}{{data.introbuildingshowmany - data.introcommunaloperatehowmany}}{% endset %}
-
 {% set title %}
 {% if data.introcommunal == "Yes" %}
 Is {{company}} the only heat supplier this communal heat network?
 {% else %}
-Is {{company}} the heat supplier for all {{buildings}} buildings on this heat network?
+Is {{company}} the heat supplier for all {{data.introhnbuildings}} buildings on this heat network?
 {% endif %}
 {% endset %}
 
@@ -83,6 +81,12 @@ Is {{company}} the heat supplier for all {{buildings}} buildings on this heat ne
 
                     </legend>
                     <p class="govuk-body">This means your organisation has a contract to provide space or process heating, hot water or cooling to some or all of the end users on the network.</p>
+                    <div class="govuk-inset-text">
+                    <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                    <ul class="govuk-list govuk-list--bullet"> 
+                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                    {% if data.introbuildings == "Yes" %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li> {% endif %}</ul>
+                </div>
                     {% if data.validationErrors.introsuppliers %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
