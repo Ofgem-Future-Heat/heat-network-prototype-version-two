@@ -76,7 +76,7 @@
               {% endif %}
               <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.</p>
               
-              {% if data.smrideclaration != "Yes" %}
+        {% if data.smrideclaration != "Yes" %}
 
         <h2 class="govuk-heading-m">What is a 'person with SMRI'?</h2>
         <p class="govuk-body">A person has SMRI if they play a role in either:</p>
@@ -85,8 +85,9 @@
             <li>the actual managing or organising of the whole, or a substantial part of, {{company}}’s activities</li>
             </ul>
             <p class="govuk-body">For example, chief officers, directors and any other individuals who meet this definition.</p>
-        <h2 class="govuk-heading-m">What you need to do</h2>
 
+
+        <h2 class="govuk-heading-m">What you need to do</h2>
         <ul class="govuk-list govuk-list--number">
           <li>Identify everybody in your organisation with SMRI.</li>
           <li>Ask each of them to confirm whether or not they meet all the fit and proper criteria, as defined in the heat network regulations.</li>
@@ -98,6 +99,11 @@
           <li>has a process in place to ensure that all people with SMRI are fit and proper</li>
           <li>carries out regular assessments to ensure all people with SMRI remain fit and proper</li>
         </ul>
+
+        <h2 class="govuk-heading-m">How we’ll review your SMRI declaration</h2>
+        <p class="govuk-body">When you send heat network data to us, we'll review the latest SMRI declaration we have for your organisation.</p>
+
+        <p class="govuk-body">If the latest declaration is more than 3 months old, your declaration status will show as ‘expired’ and you’ll need to submit a new one. </p>
 
         <details class="govuk-details">
             <summary class="govuk-details__summary">
@@ -123,6 +129,8 @@
           </details>
 
 
+          
+          
 
 
 
