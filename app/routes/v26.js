@@ -3206,6 +3206,8 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
 
     else {
         if (introcommunaloperate == "No") {
+            req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'];
+
             res.redirect('/' + version + '/add-heat-network/introduction/communalotherregister');
         }
         else {
