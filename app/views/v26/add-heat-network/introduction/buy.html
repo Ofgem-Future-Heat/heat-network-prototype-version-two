@@ -62,7 +62,14 @@
                         </h1>
                     </legend>
                     <p class="govul-body">This means your network gets some or all of its thermal energy from a district network that your organisation does not control, and your organisation pays the operator of that heat network for this energy.</p>
-
+                    {% if data.introcommunal == "No" %}
+                    <div class="govuk-inset-text">
+                    <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                    <ul class="govuk-list govuk-list--bullet"> 
+                        {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
+                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}</ul>
+                    </div>
+                {% endif %}
 
                     {% if data.validationErrors.introbuy %}
                     <p class="govuk-error-message">

@@ -3013,7 +3013,7 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
 
         else {
             
-            res.redirect('/' + version + '/add-heat-network/introduction/buildings');
+            res.redirect('/' + version + '/add-heat-network/introduction/buildingstotal');
 
         }
 
@@ -3180,6 +3180,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
     clearvalidation(req);
     var introcommunaloperate = req.session.data['introcommunaloperate']
     var introcommunaloperatehowmany = req.session.data['introcommunaloperatehowmany']
+    var introbuildingshowmany = req.session.data['introbuildingshowmany']
 
     if (!introcommunaloperate) {
         req.session.data.validationError = "true"
@@ -3188,6 +3189,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
             "message": "Select if you operate any of the communal buildings?"
         }
     }
+    if (introbuildingshowmany != 1) {
 
     if (introcommunaloperate == "Yes" && !introcommunaloperatehowmany)  {
         req.session.data.validationError = "true"
@@ -3196,6 +3198,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
             "message": "Enter the number of communal buildings that you operate"
         }
     }
+}
     
 
     if (req.session.data.validationError == "true") {
@@ -3208,11 +3211,18 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
         if (introcommunaloperate == "No") {
             req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'];
 
-            res.redirect('/' + version + '/add-heat-network/introduction/communalotherregister');
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
         }
         else {
-            req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
-            res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
+            if (introbuildingshowmany == 1) {
+                req.session.data['introhnbuildings'] = 0
+                res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
+            }
+
+            else {
+                req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
+                res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
+                }
         }
 
     }
@@ -3345,6 +3355,49 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
 
 });
 
+// Introduction - introbuildingstotal
+router.get('/' + version + '/add-heat-network/introduction/buildingstotal', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/buildingstotal', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/buildingstotal', function (req, res) {
+    clearvalidation(req);
+    var introbuildingstotal = req.session.data['introbuildingstotal']
+
+    if (!introbuildingstotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introbuildingstotal = {
+            "anchor": "introbuildingstotal",
+            "message": "Enter the number of buildings on this heat network?"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/buildingstotal', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introbuildingstotal == 0) {
+            req.session.data['introhnbuildings'] = 0;
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/buildings');
+        }
+
+            
+    }
+
+});
+
+
 
 // Introduction - introbuildings
 router.get('/' + version + '/add-heat-network/introduction/buildings', function (req, res) {
@@ -3357,9 +3410,9 @@ router.get('/' + version + '/add-heat-network/introduction/buildings', function 
 
 router.post('/' + version + '/add-heat-network/introduction/buildings', function (req, res) {
     clearvalidation(req);
-    var introenergycentre = req.session.data['introenergycentre']
+    var introbuildingstotal = parseInt(req.session.data['introbuildingstotal'])
     var introbuildings = req.session.data['introbuildings']
-    var introbuildingshowmany = parseInt(req.session.data['introbuildingshowmany'])
+    var introbuildingshowmany = req.session.data['introbuildingshowmany']
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
     if (!introbuildings) {
@@ -3369,13 +3422,17 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
             "message": "Select if " + company + " operate any buildings on the heat network?"
         }
     }
-    if (introbuildings == "Yes" && !introbuildingshowmany)  {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.introbuildingshowmany = {
-            "anchor": "introbuildingshowmany",
-            "message": "Enter the number of buildings"
+
+    if (introbuildingstotal > 1) {
+        if (introbuildings == "No" && !introbuildingshowmany)  {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.introbuildingshowmany = {
+                "anchor": "introbuildingshowmany",
+                "message": "Enter the number of buildings"
+            }
         }
     }
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/introduction/buildings', {
@@ -3384,10 +3441,31 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
     }
 
     else {
+        if (introbuildingshowmany == '0') {
+            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+        }
+        if (introbuildings == "No") {
+            if (introbuildingstotal == 1) {
+                req.session.data['introhnbuildings'] == 0
+                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate')
+            }
 
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/communaloperate')
+
+            }
+        }
+
+        
+
+        else {
+            req.session.data['introbuildingshowmany'] = introbuildingstotal
             res.redirect('/' + version + '/add-heat-network/introduction/communaloperate');
-    }
+        }
 
+
+
+    }
 });
 
 
@@ -3424,23 +3502,6 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

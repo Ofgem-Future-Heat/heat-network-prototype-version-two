@@ -10,7 +10,11 @@ Radienteco Ltd
 
 
 {% set title %}
-Does {{company}} operate connection points to any buildings on this heat network?
+{% if data.introbuildingstotal > 1 %}
+Is {{company}} responsible for the supply of heat to all {{data.introbuildingstotal}} buildings?
+{% else %}
+Is {{company}} responsible for the supply of heat to this building?
+{% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -74,7 +78,7 @@ Does {{company}} operate connection points to any buildings on this heat network
                         </h1>
 
                         </legend>
-                        <p class="govuk-body">This means your organisation owns or has significant control over them. It has the ultimate decision-making authority to invest in them, make upgrades and direct repairs and maintenance.</p>
+                        <p class="govuk-body">This means your organisation owns or has significant control over all the distribution pipework up to and including the connection points to all buildings.</p>
 
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">
@@ -86,17 +90,27 @@ Does {{company}} operate connection points to any buildings on this heat network
 
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="introbuildings" name="introbuildings" type="radio" value="Yes" {% if data.introbuildings == "Yes" %}checked{% endif %} data-aria-controls="conditional-introbuildings">
+                        <input class="govuk-radios__input" id="introbuildings" name="introbuildings" type="radio" value="Yes" {% if data.introbuildings == "Yes" %}checked{% endif %} >
                         <label class="govuk-label govuk-radios__label" for="introbuildings">
                             Yes
                         </label>
                     </div>
 
+
+
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="introbuildings-2" name="introbuildings" type="radio" value="No"  {% if data.introbuildings == "No" %}checked{% endif %} data-aria-controls="conditional-introbuildings" >
+                        <label class="govuk-label govuk-radios__label" for="introbuildings-2">
+                            No
+                        </label>
+                    </div>
+                    {% if data.introbuildingstotal > 1 %}
+
                     <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introbuildings">
                         
                         <div class="govuk-form-group {% if data.validationErrors.introbuildingshowmany %}govuk-form-group--error{% endif %}">
                           <label class="govuk-label" for="introbuildingshowmany">
-                            How many building connection points?
+                            How many building connection points is {{company}} responsible for?
                           </label>
                           {% if data.validationErrors.introbuildingshowmany %}
                           <p class="govuk-error-message">
@@ -107,14 +121,7 @@ Does {{company}} operate connection points to any buildings on this heat network
                           <input class="govuk-input govuk-input--width-4" id="introbuildingshowmany" name="introbuildingshowmany" type="number" value="{{data.introbuildingshowmany}}">
                         </div>
                 </div>
-
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="introbuildings-2" name="introbuildings" type="radio" value="No"  {% if data.introbuildings == "No" %}checked{% endif %} >
-                        <label class="govuk-label govuk-radios__label" for="introbuildings-2">
-                            No
-                        </label>
-                    </div>
-
+                {% endif %}
                 </div>
 
 

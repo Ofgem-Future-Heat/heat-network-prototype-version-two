@@ -8,7 +8,10 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 
-{% set title = "Does the communal heat network have its own energy centre?" %}
+
+{% set title %}
+How many buildings does this heat network supply?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -60,40 +63,28 @@ Radienteco Ltd
 
         <form  method="POST" novalidate >
 
-            <div class="govuk-form-group {% if data.validationErrors.introenergycentre %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.introbuildingstotal %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" >
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - introduction</span>
-                        <h1 class="govuk-fieldset__heading">
-                               {{title}} 
+                        <h1 class="govuk-heading-l">
+                            <label for="introbuildingshowmany">
+                               {{title}}
+                            </label>
+
                         </h1>
 
-                        </legend>
-                        <p class="govuk-body">
-                            Not all communal heat networks have their own energy centre. For example, connected communal networks get their heat from another heat network.
-                        </p>
-                        {% if data.validationErrors.introenergycentre %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.introenergycentre.message}}
-                </p>
-                {% endif %}
-<div class="govuk-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introenergycentre" name="introenergycentre" type="radio" value="Yes" {% if data.introenergycentre == "Yes" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introenergycentre">
-          Yes
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="introenergycentre-2" name="introenergycentre" type="radio" value="No" {% if data.introenergycentre == "No" %}checked{% endif %}>
-        <label class="govuk-label govuk-radios__label" for="introenergycentre-2">
-          No
-        </label>
-      </div>
-    </div>
+
+
+
+                  {% if data.validationErrors.introbuildingstotal %}
+                  <p class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span>
+                      {{data.validationErrors.introbuildingstotal.message}}
+                  </p>
+                  {% endif %}
+                  <input class="govuk-input govuk-input--width-4" id="introbuildingstotal" name="introbuildingstotal" type="number" value="{{data.introbuildingstotal}}">
 
 
                 </fieldset>

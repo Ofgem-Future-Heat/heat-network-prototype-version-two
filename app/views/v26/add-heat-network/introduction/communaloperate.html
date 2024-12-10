@@ -91,6 +91,7 @@ Is the connection point for a communal building?
                                 Yes
                             </label>
                         </div>
+                        {% if data.introbuildingshowmany != 1 %}
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introcommunaloperate">
                         
                             <div class="govuk-form-group {% if data.validationErrors.introcommunaloperatehowmany %}govuk-form-group--error{% endif %}">
@@ -106,6 +107,7 @@ Is the connection point for a communal building?
                               <input class="govuk-input govuk-input--width-4" id="introcommunaloperatehowmany" name="introcommunaloperatehowmany" type="number" value="{{data.introcommunaloperatehowmany}}">
                             </div>
                     </div>
+                    {% endif %}
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="communal-2" name="introcommunaloperate" type="radio" value="No" {% if data.introcommunaloperate == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="communal-2">
