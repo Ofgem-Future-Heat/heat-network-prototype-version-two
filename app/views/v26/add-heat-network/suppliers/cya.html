@@ -59,15 +59,14 @@
         <dl class="govuk-summary-list">
    
                         
-    
-                      {% for supplier in suppliers %}
+            {% set suppliercount = 0 %}
+            {% for supplier in suppliers %}
     
                       {% if supplier.added == "true" %}
-
-
+                      {% set suppliercount = suppliercount + 1 %}
                       <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Supplier
+                            Supplier {{suppliercount}}
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {{supplier.name}}
@@ -77,20 +76,6 @@
                             <a class="govuk-link" href="often">Change</a>
                         </dd>
                         </div>
-                        {% if data.introcommunal != "Yes" %}
-                        <div class="govuk-summary-list__row">
-
-                        <dt class="govuk-summary-list__key">
-                            How many buildings does {{supplier.name}} supply?
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                                {{supplier.buildings}}
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="often">Change</a>
-                        </dd>
-                    </div>
-                    {% endif %}
 
                       {% endif %}
     

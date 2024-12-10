@@ -7145,13 +7145,7 @@ router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req
     req.session.data['supplieraddressselected' + req.session.data['supplierid']] = req.session.data['supplieraddressselected']
     req.session.data['addedsupplier' + req.session.data['supplierid']] = "true"
 
-    if (introcommunal == "Yes") {
         res.redirect('/' + version + '/add-heat-network/suppliers/suppliers');
-    }
-
-    else {
-        res.redirect('/' + version + '/add-heat-network/suppliers/buildings');
-    }
 
 
 
