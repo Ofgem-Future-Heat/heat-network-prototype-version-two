@@ -2,7 +2,6 @@
 {% set title = "Heat network summary" %}
 
 
-{% set HN %}HNB{% if data.introhnbuildings != 0 %}{{data.introhnbuildings}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
 {% block pageTitle %}
 {{title}}
 {% endblock %}
@@ -48,6 +47,7 @@
                     {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}</ul>
             </p>
             <h3 class="govuk-heading-m">Your heat network</h3>
+            {% set HN %}HNB{% if data.introhnbuildings != 0 %}{{data.introhnbuildings}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
             <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
 
             {% if data.introcommunaloperate == "Yes" %}
@@ -75,7 +75,7 @@
 
 
         {% if (data.role == "Both") and (data.introhnbuildings > 0)  %}
-        <a href="suppliers" class="govuk-button">Continue</a>
+        <a href="pipework" class="govuk-button">Continue</a>
 
         {% else %}
         <a href="supply20" class="govuk-button">Continue</a>

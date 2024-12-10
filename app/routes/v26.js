@@ -3467,7 +3467,46 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
 
     }
 });
+// Introduction - Pipework
+router.get('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/pipework', {
+        data: req.session.data
+    });
+});
 
+router.post('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
+    clearvalidation(req);
+    var intropipework = req.session.data['intropipework']
+
+
+    if (!intropipework) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.intropipework = {
+            "anchor": "intropipework",
+            "message": "Select if you supply all of the buildings you operate on this heat network?"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/pipework', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (intropipework == "No") {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
+        }
+            
+
+    }
+
+});
 
 // Introduction - Suppliers
 router.get('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
