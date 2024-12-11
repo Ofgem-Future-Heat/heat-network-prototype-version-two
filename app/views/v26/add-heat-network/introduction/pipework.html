@@ -81,8 +81,9 @@ Does {{company}} operate all the distrubution pipework on the heat network?
                     <div class="govuk-inset-text">
                     <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
                     <ul class="govuk-list govuk-list--bullet"> 
+                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
                         {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
-                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}</ul>
+                    </ul>
                     </div>
                 {% endif %}
                     {% if data.validationErrors.intropipework %}

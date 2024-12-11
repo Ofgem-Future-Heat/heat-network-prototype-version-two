@@ -41,14 +41,29 @@
             <h1 class="govuk-heading-l">
                 {{title}}
             </h1>
-            <p class="govuk-body">
-                Based on the questions you've answered, you’re registering a <strong>district heat network</strong> where you operate:
-                                <ul class="govuk-list govuk-list--bullet"> 
-                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
-                    {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}</ul>
-            </p>
-            {% set HN %}HNB{% if data.introhnbuildings != 0 %}{{data.introhnbuildings}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
-            <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />   
+            {% if data.introcommunal == "No" %}
+            <div class="govuk-inset-text">
+            <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+            <ul class="govuk-list govuk-list--bullet"> 
+                {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
+
+                {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
+            </ul>
+
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">
+                    Heat network diagram
+                  </span>
+                </summary>
+                <div class="govuk-details__text">
+                    {% set HN %}HNB{% if data.introhnbuildings != 0 %}{{data.introhnbuildings}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
+                    <img src="/public/images/HNS/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />   
+                        </div>
+              </details>
+            </div>
+
+        {% endif %}
 
 
             <ul class="govuk-task-list">
