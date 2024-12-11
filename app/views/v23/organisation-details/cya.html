@@ -52,7 +52,7 @@ govukBackLink ({
         <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
             <h1 class="govuk-heading-l">{{title}}</h1>
-                <dl class="govuk-summary-list">
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3">
                   <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                       Name
@@ -365,25 +365,28 @@ govukBackLink ({
             </div>
             {% endif %}
             {% endfor %}
+
+              {% endif %}
+            </dl>
             {% if data.orgstructure == "Joint venture" %}
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link govuk-link--no-visited-state" href="company-name?another=yes">Add another parent organisation</a>
-              </dd>
-            </div>
-            {% endif %}
+                  {% if data.validationErrors.orgparents %}
+                  <p class="govuk-error-message  govuk-!-text-align-right govuk-!-margin-bottom-1">
+                      <span class="govuk-visually-hidden">Error:</span>
+                      {{data.validationErrors.orgparents.message}}
+                  </p>
+                  {% endif %}
+
+                  <p class="govuk-body govuk-!-text-align-right"><a class="govuk-link govuk-link--no-visited-state" id="orgparents" href="company-name?another=yes">Add another parent organisation</a></p>
+
+
+
 
               {% endif %}
-              {% endif %}
-            </dl>
-
-            </dl>
             <p class="govuk-body">You’ll be able to return to this section and amend any of these details, even after confirming your answers.</p>
             <form method="POST" novalidate>
+             
+              {% endif %}
+
               {{
                 govukButton ({
                     html: 'Confirm and save'

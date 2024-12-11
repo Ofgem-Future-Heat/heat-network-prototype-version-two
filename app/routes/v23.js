@@ -1163,9 +1163,44 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
-    clearvalidation(req);
-    req.session.data['organisationdetails'] = 'Submitted';
-    res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+    var orgstructure = req.session.data['orgstructure']
+    var parentsentered = req.session.data['parentsentered']
+    const parents = [];
+    for (let i = 1; i <= parentsentered; i++) {
+        parents.push({
+            id: i,
+            name: req.session.data[`parentcompanyname${i}`],
+            address: req.session.data[`parentorgaddressSelect${i}`],
+            added: req.session.data[`parentorgadded${i}`]
+        });
+    }
+    console.log(parents)
+
+    const hasAddedYes = parents.some(parent => parent.added === "Yes");
+    console.log(hasAddedYes)
+
+    if (orgstructure != "Neither of these" && !hasAddedYes) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.orgparents = {
+                "anchor": "orgparents",
+                "message": "You must add at least one parent organisation"
+            }
+
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/cya', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        clearvalidation(req);
+        req.session.data['organisationdetails'] = 'Submitted';
+        res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+    
+    }
+
 
 });
 

@@ -379,9 +379,7 @@ Organisation details
              No parent company
               {% endif %}
             </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link govuk-link--no-visited-state" href="structure">Change<span class="govuk-visually-hidden"> organisation description</span></a>
-            </dd>
+
           </div>
           {% if data.orgstructure != "Neither of these" %}
 
@@ -408,12 +406,7 @@ Organisation details
             {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
 
           </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link govuk-link--no-visited-state" href="company-name?id={{parent.id}}">Change<span class="govuk-visually-hidden"> parent name</span></a><br />
-            {% if data.orgstructure == "Joint venture" %}
-            <a class="govuk-link govuk-link--no-visited-state text-red" href="parent-remove?id={{parent.id}}">Remove<span class="govuk-visually-hidden"> parent name</span></a>
-            {% endif %}
-          </dd>
+
         </div>
         {% endif %}
         {% endfor %}
