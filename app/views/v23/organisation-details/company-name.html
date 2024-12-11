@@ -1,10 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.parenttotal > 1 %}
-What is the name of parent organisation {{data.parentsentered}}?
-{% else %}
-What is the name of the parent organisation?
-{% endif %}
+
+What is the name of the parent organisation ?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -70,7 +67,9 @@ What is the name of the parent organisation?
                     </label>
 
                     </legend>
-
+                    {% if data.orgstructure == "Joint venture" and data.parentsentered == 1 %}
+                    <p class="govuk-body">If you have more than one parent organisation enter the details of the first organisation, you will have the option to add another after.</p>
+                    {% endif %}
                     {% if data.validationErrors.parentcompanyname %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

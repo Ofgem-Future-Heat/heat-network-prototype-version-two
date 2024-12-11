@@ -820,14 +820,11 @@ router.post('/' + version + '/organisation-details/financial-hedged-months', fun
 
 function clearparentdata(req) {
     req.session.data['parentcompanyname'] = "";
-    req.session.data['parentcompanynumber'] = "";
     req.session.data['parentorgaddressMLine1'] = "";
     req.session.data['parentorgaddressMTown'] = "";
     req.session.data['parentorgaddressMCounty'] = "";
     req.session.data['parentorgaddressMPostcode'] = "";
     req.session.data['parentorgaddressMCountry'] = "";
-    req.session.data['parentaccounttype'] = "";
-    req.session.data['parentorgaddressPostcode'] = "";
     req.session.data['parentorgaddressSelect'] = "";
 
 
@@ -864,13 +861,9 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
     }
     else {
         clearparentdata(req);
-        req.session.data['parenttotal'] = "";
-        req.session.data['parentsentered'] = "";
+        req.session.data['parentsentered'] = 1;
 
-        if(orgstructure == "Joint venture") {
-            res.redirect('/' + version + '/organisation-details/parent-total');
-        }
-        else if(orgstructure == "Neither of these") {
+        if(orgstructure == "Neither of these") {
             res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
@@ -882,47 +875,35 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
 
 
 
-/// Org details - Parent total
-router.get('/' + version + '/organisation-details/parent-total', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/parent-total', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/parent-total', function (req, res) {
-    clearvalidation(req);
-    var parenttotal = req.session.data['parenttotal']
-
-
-
-    if (!parenttotal) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parenttotal = {
-            "anchor": "parenttotal",
-            "message": "Enter the number of parent companies"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-total', {
-            data: req.session.data
-        });
-    }
-    else {
-        req.session.data['parentsentered'] = 1
-            res.redirect('/' + version + '/organisation-details/company-name');
-    }
-
-});
-
-
-
 
 ///Parent Company name
 router.get('/' + version + '/organisation-details/company-name', function (req, res) {
     clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+    }
+
+    else {
+        req.session.data['parentid'] = ""
+    }
+
+    const addanother = req.query.another;
+
+    if (addanother) {
+
+        req.session.data['parentsaddanother'] = "Yes"
+    }
+
+    else {
+        req.session.data['parentsaddanother'] = "No"
+    }
+
+
+
+
     res.render('/' + version + '/organisation-details/company-name', {
         data: req.session.data
     });
@@ -931,6 +912,9 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
 
 router.post('/' + version + '/organisation-details/company-name', function (req, res) {
     clearvalidation(req);
+    const urlParams = req.query.id;
+
+
     var parentcompanyname = req.session.data['parentcompanyname']
     req.session.data['parentaccounttype'] == "Overseas organisation"
     
@@ -952,11 +936,18 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
     }
 
     else {
-        if (req.session.data.parentsentered) {
-        req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
+        if (urlParams) {
+            req.session.data['parentcompanyname' + urlParams] = req.session.data['parentcompanyname']
+            res.redirect('/' + version + '/organisation-details/addressmanual?id=' + urlParams);
+
         }
 
+        else {
+            req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
             res.redirect('/' + version + '/organisation-details/addressmanual');
+
+        }
+    
 
     }
 
@@ -964,9 +955,32 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
 
 
 
+
+
 // Parent Company - Address manual
 router.get('/' + version + '/organisation-details/addressmanual', function (req, res) {
     clearvalidation(req);
+
+    const urlParams = req.query.id;
+
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+
+        req.session.data['parentorgaddressMLine1'] = req.session.data['parentorgaddressMLine1' + urlParams]
+
+        req.session.data['parentorgaddressMTown'] = req.session.data['parentorgaddressMTown' + urlParams]
+        req.session.data['parentorgaddressMCountry'] = req.session.data['parentorgaddressMCountry' + urlParams]
+        req.session.data['parentorgaddressMPostcode'] = req.session.data['parentorgaddressMPostcode' + urlParams]
+        }
+
+    else {
+
+        req.session.data['parentid'] = ""
+    }
+
+
+
     res.render('/' + version + '/organisation-details/addressmanual', {
         data: req.session.data
     });
@@ -974,14 +988,14 @@ router.get('/' + version + '/organisation-details/addressmanual', function (req,
 
 
 router.post('/' + version + '/organisation-details/addressmanual', function (req, res) {
+    const urlParams = req.query.id;
+
     clearvalidation(req);
     var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
     var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
     var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
-
+    var orgstructure = req.session.data['orgstructure']
     var parentorgaddressMPostcode = req.session.data['parentorgaddressMPostcode']
-    var parentsentered = req.session.data['parentsentered']
-    var parenttotal = req.session.data['parenttotal']
 
     if (!parentorgaddressMLine1) {
         req.session.data.validationError = "true"
@@ -1015,23 +1029,41 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
     }
 
     else {
-            req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
+        req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
 
-        if (req.session.data.parentsentered) {
-            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
-            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-        }        
-        if (parenttotal == parentsentered) {
+        if (urlParams) {
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgaddressMLine1' + urlParams] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + urlParams] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + urlParams] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + urlParams] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+
             res.redirect('/' + version + '/organisation-details/cya');
 
         }
+
         else {
-            clearparentdata(req);
-            res.redirect('/' + version + '/organisation-details/company-name');
+            req.session.data['parentorgaddressMLine1' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgadded' + req.session.data['parentsentered']] = "Yes";
+            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
+
+    
+            if (orgstructure == "Joint venture" && req.session.data['parentsaddanother'] != "Yes") {
+                res.redirect('/' + version + '/organisation-details/parent-another');
+            }
+    
+            else {
+                res.redirect('/' + version + '/organisation-details/cya');
+            }
         }
 
-        console.log(parenttotal)
-        console.log(parentsentered)
 
     }
 });
@@ -1039,8 +1071,82 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
 
 
 
+///Parent Another
+router.get('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-another', {
+        data: req.session.data
+    });
+});
 
 
+router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    var orgparentanother = req.session.data['orgparentanother']
+
+
+    if (!orgparentanother) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.orgparentanother = {
+                "anchor": "orgparentanother",
+                "message": "Enter a name for your organisation"
+            }
+
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-another', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+        if (orgparentanother == "Yes") {
+
+            clearparentdata(req);
+             res.redirect('/' + version + '/organisation-details/company-name');
+        }
+        else {
+            clearparentdata(req);
+
+            res.redirect('/' + version + '/organisation-details/cya');
+        }
+    }
+
+});
+
+
+
+
+
+///Parent Remove
+router.get('/' + version + '/organisation-details/parent-remove', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+        req.session.data['parentid'] = urlParams
+        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+
+    res.render('/' + version + '/organisation-details/parent-remove', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-remove', function (req, res) {
+    clearvalidation(req);
+
+    const urlParams = req.query.id;
+    
+
+
+            req.session.data['parentorgadded' + urlParams] = "No"
+            res.redirect('/' + version + '/organisation-details/cya');
+
+
+
+});
 
 
 
@@ -1048,6 +1154,7 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
     clearvalidation(req);
+    clearparentdata(req);
 
     res.render('/' + version + '/organisation-details/cya', {
         data: req.session.data

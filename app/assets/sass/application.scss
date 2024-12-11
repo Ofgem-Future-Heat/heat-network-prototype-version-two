@@ -106,3 +106,7 @@
 .text-capitalise {
 	text-transform: capitalize;
 }
+
+.text-red {
+	color:  $govuk-error-colour !important;
+}
