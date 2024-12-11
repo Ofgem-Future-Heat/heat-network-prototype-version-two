@@ -10,9 +10,9 @@ Radienteco Ltd
 
 {% set title %}
 {% if data.introbuildingshowmany > 1 %}
-Are any of these {{data.introbuildingshowmany}} building connection points for communal buildings?
+Are any of the {{data.introbuildingshowmany}} buildings you're responsible for communal buildings?
 {% else %}
-Is the building connection point for a communal building?
+Is the building you're responsible for a communal building?
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}

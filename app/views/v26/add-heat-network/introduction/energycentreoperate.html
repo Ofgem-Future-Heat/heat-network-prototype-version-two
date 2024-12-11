@@ -76,6 +76,17 @@ Does {{company}} operate any energy centres on this heat network?
                         </legend>
                         <p class="govuk-body">This means your organisation owns the energy centre or it has significant control over it. It has the ultimate decision-making authority to invest in it, make upgrades and direct repairs and maintenance to support its continued operation.</p>
 
+                        <details class="govuk-details">
+                            <summary class="govuk-details__summary">
+                              <span class="govuk-details__summary-text">
+                                What is an 'energy centre'?
+                              </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                              This is where the heat network's thermal energy is created. For example, a CHP plant, heat pump or gas boiler.
+                            </div>
+                          </details>
+
                         {% if data.introcommunal == "Yes" %}
                         <p class="govuk-body">
                             For example, a communal boiler that heats the whole building.
