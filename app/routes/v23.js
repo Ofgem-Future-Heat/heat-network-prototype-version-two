@@ -327,6 +327,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
     var orgprofit = req.session.data['orgprofit']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
 
@@ -334,7 +335,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgsubtype = {
             "anchor": "orgsubtype",
-            "message": "Select an organisation description"
+            "message": "Select the option that best describes the work " + companyname +" does"
         }
     }
 
@@ -343,6 +344,14 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationErrors.orgsubtypeother = {
             "anchor": "orgtradingpostcode",
             "message": "Enter an organisation description"
+        }
+    }
+
+    if ((orgsubtype == "Other") && orgsubtypeother.length > 50) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsubtypeother = {
+            "anchor": "orgtradingpostcode",
+            "message": "Enter the organisation’s description"
         }
     }
 
@@ -7269,91 +7278,6 @@ router.post('/' + version + '/smri/list', function (req, res) {
 
 });
 
-/// SMRI Personal
-router.get('/' + version + '/smri/personal', function (req, res) {
-    clearvalidation(req);
-
-    res.render('/' + version + '/smri/personal', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/personal', function (req, res) {
-    
-    clearvalidation(req);
-    const urlParams = req.query.id;
-
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-    var smridobday = req.session.data['smridobday']
-    var smridobmonth = req.session.data['smridobmonth']
-    var smridobyear = req.session.data['smridobyear']
-    const smridob = new Date(`${smridobyear}-${smridobmonth}-${smridobday}`);
-
-    if (!smrifirstname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrifirstname = {
-            "anchor": "smrifirstname",
-            "message": "Enter a first name"
-        }
-    }
-
-    if (!smrilastname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrilastname = {
-            "anchor": "smrilastname",
-            "message": "Enter a last name"
-        }
-    }
-
-
-
-    if ((smridobday.length > 2) || (smridobday.month > 2) || (smridobday.year > 4) || (isNaN(smridob))) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridobday",
-            "message": "Enter a valid date"
-        }
-    }
-
-    if (!smridobday || !smridobmonth || !smridobyear) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridob",
-            "message": "Enter a full date of birth"
-        }
-    }
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/personal', {
-            data: req.session.data
-        });
-    }
-    else {
-        if (urlParams) {
-            req.session.data['smritotal'] = urlParams;
-        }
-        else {
-        if (req.session.data.smritotal) {
-            req.session.data.smritotal = req.session.data.smritotal + 1
-        } 
-        else {
-            req.session.data.smritotal = 1
-        }
-    }
-        req.session.data['smrifirstname' + req.session.data['smritotal']] = req.session.data['smrifirstname']
-        req.session.data['smrilastname' + req.session.data['smritotal']] = req.session.data['smrilastname']
-        req.session.data['smridob' + req.session.data['smritotal']] = smridob
-        req.session.data['smridobday' + req.session.data['smritotal']] = req.session.data['smridobday']
-        req.session.data['smridobmonth' + req.session.data['smritotal']] = req.session.data['smridobmonth']
-        req.session.data['smridobyear' + req.session.data['smritotal']] = req.session.data['smridobyear']
-
-        res.redirect('/' + version + '/smri/process');
-    }
-});
-
-
-
-
 
 /// SMRI Process
 router.get('/' + version + '/smri/process', function (req, res) {
@@ -7368,13 +7292,13 @@ router.post('/' + version + '/smri/process', function (req, res) {
     var smriprocess = req.session.data['smriprocess']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriprocess ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriprocess = {
             "anchor": "smriprocess",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious process or mismanagement while carrying out a regulated activity"
+            "message": "Select whether " + companyname + " has a process in place to ensure that all people with SMRI are fit and proper"
         }
     }
 
@@ -7402,13 +7326,13 @@ router.post('/' + version + '/smri/assessments', function (req, res) {
     var smriassessments = req.session.data['smriassessments']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriassessments ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriassessments = {
             "anchor": "smriassessments",
-            "message": "Select whether regular assessments are carried out"
+            "message": "Select whether " + companyname + " carries out regular assessments to ensure all people with SMRI remain fit and proper"
         }
     }
 
@@ -7435,13 +7359,13 @@ router.get('/' + version + '/smri/smrilist', function (req, res) {
 router.post('/' + version + '/smri/smrilist', function (req, res) {
     clearvalidation(req);
     var smrilist = req.session.data['smrilist']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrilist ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrilist = {
             "anchor": "smrilist",
-            "message": "Select whether you have a list of all people with SMRI"
+            "message": "Select whether you have a list of all people at " + companyname + " with SMRI"
         }
     }
 
@@ -7472,13 +7396,13 @@ router.get('/' + version + '/smri/fitandproper', function (req, res) {
 router.post('/' + version + '/smri/fitandproper', function (req, res) {
     clearvalidation(req);
     var smrifitandproper = req.session.data['smrifitandproper']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrifitandproper ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrifitandproper = {
             "anchor": "smrifitandproper",
-            "message": "Select whether all people with SMRI are fit and proper"
+            "message": "Select whether everybody with SMRI at " + companyname + " is fit and proper"
         }
     }
 
