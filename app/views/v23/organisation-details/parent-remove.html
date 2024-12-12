@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
 {% if data.parentid %}
-Are you sure you wish to remove parent organisation {{data.parentcompanyname}}?
+Confirm you want to remove {{data.parentcompanyname}} as a parent organisation
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
