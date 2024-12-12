@@ -87,19 +87,18 @@ Organisation details
           {% endif %}</span>
 
             <h1 class="govuk-heading-l">{{title}}</h1>
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list govuk-!-margin-bottom-3">
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Name
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if data.companyname %}
-      {{data.companyname}}
-      {% else %}
-      Radienteco Ltd
-      {% endif %}
+                  {{data.companyname}}
+                  {% else %}
+                  Radienteco Ltd
+                  {% endif %}
                 </dd>
-
               </div>
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -145,53 +144,17 @@ Organisation details
             </dd>
           </div>
 
-          {% if data.organisationdetails == "Submitted" %}
-          {% if data.orghastradingname %}
+          
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Organisation trades using a different name?
+              Alternative email address
             </dt>
             <dd class="govuk-summary-list__value">
-              {{data.orghastradingname}}
+              {% if data.orghasemailaddress == "Yes" %}{{data.orgemailaddress}}{% else %} {{data.orghasemailaddress}}{% endif %}
             </dd>
 
           </div>
-          {% endif %}
-          {% if data.orgtradingname %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Trading name
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{data.orgtradingname}}
-            </dd>
-  
-          </div>
-          {% endif %}
-          {% if data.orghastradingaddress %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Organisation uses a different address?
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{data.orghastradingaddress}}
-            </dd>
 
-          </div>
-          {% endif %}
-          {% if data.tradingaddressSelect %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Trading address
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {% set address = data.tradingaddressSelect.toString() %}
-                {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-            </dd>
-
-          </div>
-          {% endif %}
-          {% if data.orgprofit %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               For profit organisation?
@@ -199,10 +162,9 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgprofit}}
             </dd>
-  
+
           </div>
-          {% endif %}
-          {% if data.orgsubtype %}
+
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Organisation description
@@ -212,64 +174,53 @@ Organisation details
             </dd>
 
           </div>
-          {% endif %}
-          {% if (data.orgsubtype != "Housing association") or (data.orgsubtype != "Local authority") or (data.orgsubtype != "Other social housing provider") %}
+
+          {% if data.orgsocialhousing %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Start and end of financial year?
+              Subject to social housing regulations?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgsocialhousing}}
+            </dd>
+
+          </div>
+          {% endif %}
+
+          {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Start and end dates of accounting period
             </dt>
             <dd class="govuk-summary-list__value">
               Start: {{data.orgfinancialstartday}}/{{data.orgfinancialstartmonth}}<br />
               End: {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
 
             </dd>
-  
+
           </div>
-          {% endif %}
-          {% if data.orgaccounts %}
+
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Accounts for last financial period?
+              Accounts for most recent accounting period?
             </dt>
             <dd class="govuk-summary-list__value">
               {{data.orgaccounts}}
             </dd>
 
           </div>
-          {% endif %}
 
-          {% if data.orgaccounts == "No" %}
-          {% if data.orgsolvent %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Solvent for the next 12 months?  
+              Reasonably expect to carry on heat network activity for 12 months?
             </dt>
             <dd class="govuk-summary-list__value">
               {{data.orgsolvent}}
             </dd>
 
           </div>
-          {% endif %}
-          {% if data.orgsolvent == "No" %}
 
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              How long is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} solvent for?
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{data.orgsolventmonths}} months
-            </dd>
-
-          </div>
-          {% endif %}
-
-          {% endif %}
           {% if data.orgaccounts == "Yes" %}
-
-
-
-
-
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Net profit or loss for the most recent financial year
@@ -277,13 +228,13 @@ Organisation details
             <dd class="govuk-summary-list__value">
               £{{data.financialprofit}}
             </dd>
- 
+
           </div>
 
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Total liquid assets
+              Total value of liquid assets
             </dt>
             <dd class="govuk-summary-list__value">
               £{{data.financialliquid}}
@@ -294,7 +245,7 @@ Organisation details
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} exceed it's liabilities?
+              Assets exceed liabilities?
             </dt>
             <dd class="govuk-summary-list__value">
               {{data.financialexceed}}
@@ -302,10 +253,19 @@ Organisation details
 
           </div>
 
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Total running costs for the previous financial year
+            </dt>
+            <dd class="govuk-summary-list__value">
+              £{{data.financialcosts}}
+            </dd>
+
+          </div>
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Average monthly fixed costs for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+              Average monthly fixed costs for heat networks
             </dt>
             <dd class="govuk-summary-list__value">
               £{{data.financialmonthly}}
@@ -315,58 +275,49 @@ Organisation details
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Average monthly income for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks 
+              Average monthly gross income from heat networks 
             </dt>
             <dd class="govuk-summary-list__value">
               £{{data.financialincome}}
             </dd>
-    
-          </div>
 
-
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Able to meet its costs as they fall due within the next 12 months
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{data.financialauthorised}}
-            </dd>
-  
           </div>
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} hedge their gas or electricity requirements? 
+              Hedge gas or electricity requirements?
             </dt>
             <dd class="govuk-summary-list__value">
               {{data.financialhedged}}
             </dd>
+
           </div>
             {% if data.financialhedged == "Yes" %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                How long are energy needs hedged for?
+                How long energy requirements hedged for
               </dt>
               <dd class="govuk-summary-list__value">
                 {{data.financiallength}} months
               </dd>
+
             </div>
 
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                Percentage of energy needs that are hedged
+                Percentage of costs that are hedged
               </dt>
               <dd class="govuk-summary-list__value">
                 {{data.financialpercentage}}%
               </dd>
+
             </div>
 
 
             {% endif %}
- 
-          
           {% endif %}
-          
+          {% endif %}
+
           {% if data.orgstructure %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -411,11 +362,7 @@ Organisation details
         {% endif %}
         {% endfor %}
 
-
           {% endif %}
-          {% endif %}
-        </dl>
-
         </dl>
 
             
