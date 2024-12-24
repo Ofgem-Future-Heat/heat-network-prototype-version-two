@@ -61,7 +61,7 @@
             </div>
             <div class="govuk-notification-banner__content">
               <h3 class="govuk-notification-banner__heading">
-                Fit and proper declaration submitted
+                SMRI declaration submitted
               </h3>
               <p class="govuk-body">We'll contact you via email if we need any further information.</p>
             </div>
@@ -74,8 +74,9 @@
               {% if data.smrideclaration == "Yes" %}
               <p class="govuk-body govuk-!-margin-bottom-6">{% if data.smristatus == "expired" %}<strong class="govuk-tag govuk-tag--red">Expired</strong> Last submitted 01/06/2024{% else %}<strong class="govuk-tag govuk-tag--green">Submitted</strong> Last submitted 01/11/2024{% endif %}</p>
               {% endif %}
-              <p class="govuk-body">You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.</p>
-              
+              <p class="govuk-body">
+                You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.
+              </p>
         {% if data.smrideclaration != "Yes" %}
 
         <h2 class="govuk-heading-m">What is a 'person with SMRI'?</h2>
@@ -154,9 +155,9 @@
         <div class="govuk-details__text">
           <p class="govuk-body">A person has SMRI if they play a role in either:</p>
           <ul class="govuk-list govuk-list--bullet">
-              <li>the making of decisions about how the whole, or a substantial part, of {{company}} is to be managed or organised</li>
-              <li>the actual managing or organising of the whole, or a substantial part of, {{company}}’s activities</li>
-              </ul>
+            <li>the making of decisions about how the whole, or a substantial part, of Organisation name is to be managed or organised</li>
+            <li>the actual managing or organising of the whole, or a substantial part of, Organisation name’s activities</li>
+                </ul>
               <p class="govuk-body">For example, chief officers, directors and any other individuals who meet this definition.</p>
           </div>
       </details>
@@ -188,8 +189,8 @@
 
 
       <h2 class="govuk-heading-m govuk-!-margin-top-8">Current SMRI declaration</h2>
-        <p class="govuk-body">You must update these details if they become out-of-date or are incorrect.</p>
-
+      <p class="govuk-body">When you send heat network data to us, we'll review the latest SMRI declaration we have for your organisation.</p>
+      <p class="govuk-body">If the latest declaration is more than 3 months old, your declaration status will show as ‘expired’ and you’ll need to submit a new one.</p>
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
             <div class="govuk-summary-list__row">
