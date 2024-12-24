@@ -1055,7 +1055,7 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
             req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
 
     
-            if (orgstructure == "Joint venture" && req.session.data['parentsaddanother'] != "Yes") {
+            if (orgstructure == "Joint venture") {
                 res.redirect('/' + version + '/organisation-details/parent-another');
             }
     
@@ -1082,14 +1082,26 @@ router.get('/' + version + '/organisation-details/parent-another', function (req
 
 router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
     clearvalidation(req);
-    var orgparentanother = req.session.data['orgparentanother']
+    var orgstructure = req.session.data['orgstructure']
+    var parentsentered = req.session.data['parentsentered']
+    const parents = [];
+    for (let i = 1; i <= parentsentered; i++) {
+        parents.push({
+            id: i,
+            name: req.session.data[`parentcompanyname${i}`],
+            address: req.session.data[`parentorgaddressSelect${i}`],
+            added: req.session.data[`parentorgadded${i}`]
+        });
+    }
 
+    const hasAddedYes = parents.some(parent => parent.added === "Yes");
+    console.log(hasAddedYes)
 
-    if (!orgparentanother) {
+    if (orgstructure != "Neither of these" && !hasAddedYes) {
         req.session.data.validationError = "true";
-            req.session.data.validationErrors.orgparentanother = {
-                "anchor": "orgparentanother",
-                "message": "Enter a name for your organisation"
+            req.session.data.validationErrors.orgparents = {
+                "anchor": "orgparents",
+                "message": "You must add at least one parent organisation"
             }
 
     }
@@ -1103,16 +1115,9 @@ router.post('/' + version + '/organisation-details/parent-another', function (re
 
     else {
 
-        if (orgparentanother == "Yes") {
-
-            clearparentdata(req);
-             res.redirect('/' + version + '/organisation-details/company-name');
-        }
-        else {
             clearparentdata(req);
 
             res.redirect('/' + version + '/organisation-details/cya');
-        }
     }
 
 });
@@ -1142,7 +1147,7 @@ router.post('/' + version + '/organisation-details/parent-remove', function (req
 
 
             req.session.data['parentorgadded' + urlParams] = "No"
-            res.redirect('/' + version + '/organisation-details/cya');
+            res.redirect('/' + version + '/organisation-details/parent-another');
 
 
 
@@ -1163,43 +1168,12 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
-    var orgstructure = req.session.data['orgstructure']
-    var parentsentered = req.session.data['parentsentered']
-    const parents = [];
-    for (let i = 1; i <= parentsentered; i++) {
-        parents.push({
-            id: i,
-            name: req.session.data[`parentcompanyname${i}`],
-            address: req.session.data[`parentorgaddressSelect${i}`],
-            added: req.session.data[`parentorgadded${i}`]
-        });
-    }
-    console.log(parents)
 
-    const hasAddedYes = parents.some(parent => parent.added === "Yes");
-    console.log(hasAddedYes)
 
-    if (orgstructure != "Neither of these" && !hasAddedYes) {
-        req.session.data.validationError = "true";
-            req.session.data.validationErrors.orgparents = {
-                "anchor": "orgparents",
-                "message": "You must add at least one parent organisation"
-            }
-
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/cya', {
-            data: req.session.data
-        });
-    }
-
-    else {
         clearvalidation(req);
         req.session.data['organisationdetails'] = 'Submitted';
         res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
     
-    }
 
 
 });

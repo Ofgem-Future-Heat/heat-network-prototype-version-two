@@ -357,10 +357,7 @@ govukBackLink ({
 
               </dd>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link govuk-link--no-visited-state" href="company-name?id={{parent.id}}">Change<span class="govuk-visually-hidden"> parent name</span></a><br />
-                {% if data.orgstructure == "Joint venture" %}
-                <a class="govuk-link govuk-link--no-visited-state text-red" href="parent-remove?id={{parent.id}}">Remove<span class="govuk-visually-hidden"> parent name</span></a>
-                {% endif %}
+                <a class="govuk-link govuk-link--no-visited-state" href="parent-another">Change<span class="govuk-visually-hidden"> parent</span></a><br />
               </dd>
             </div>
             {% endif %}
@@ -368,20 +365,7 @@ govukBackLink ({
 
               {% endif %}
             </dl>
-            {% if data.orgstructure == "Joint venture" %}
-                  {% if data.validationErrors.orgparents %}
-                  <p class="govuk-error-message  govuk-!-text-align-right govuk-!-margin-bottom-1">
-                      <span class="govuk-visually-hidden">Error:</span>
-                      {{data.validationErrors.orgparents.message}}
-                  </p>
-                  {% endif %}
 
-                  <p class="govuk-body govuk-!-text-align-right"><a class="govuk-link govuk-link--no-visited-state" id="orgparents" href="company-name?another=yes">Add another parent organisation</a></p>
-
-
-
-
-              {% endif %}
             <p class="govuk-body">You’ll be able to return to this section and amend any of these details, even after confirming your answers.</p>
             <form method="POST" novalidate>
              
