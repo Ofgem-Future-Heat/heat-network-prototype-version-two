@@ -75,10 +75,8 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
                     {{data.validationErrors.orgparentanother.message}}
                 </p>
                 {% endif %}
-                <dl class="govuk-summary-list">
-  
-
                 {% set parents = [] %}
+                {% set parentsadded = 0 %}
 
                 {% for i in range(1, data.parentsentered) %}
                     {% set parents = parents.concat([{
@@ -91,6 +89,16 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
                 
               {% for parent in parents %}
               {% if (parent.id <= data.parentsentered) and parent.name and parent.added == "Yes" %}
+                {% set parentsadded = parentsadded + 1 %}
+                {% endif %}
+                {% endfor %}
+                {% if parentsadded > 0 %}
+                <dl class="govuk-summary-list">
+                    {% for parent in parents %}
+                    {% if (parent.id <= data.parentsentered) and parent.name and parent.added == "Yes" %}
+      
+
+
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -115,22 +123,27 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
               {% endfor %}
   
             </dl>
+
             {% if data.orgstructure == "Joint venture" %}
+            <p class="govuk-body govuk-!-text-align-right"><a class="govuk-link govuk-link--no-visited-state" id="orgparents" href="company-name?another=yes">Add another parent organisation</a></p>
+            {% endif %}
+        </fieldset>
+    </div>
+    {{
+        govukButton ({
+            html: 'Continue'
+        })
+    }}
+            
+            {% else %}
+            <p class="govuk-body">You have not added any parent organisations yet.</p>
+        </fieldset>
+    </div>
+    <p class="govuk-body"><a class="govuk-button" id="orgparents" href="company-name?another=yes">Add a parent organisation</a></p>
+
+            {% endif %}
 
 
-                  <p class="govuk-body govuk-!-text-align-right"><a class="govuk-link govuk-link--no-visited-state" id="orgparents" href="company-name?another=yes">Add another parent organisation</a></p>
-
-
-
-
-              {% endif %}
-              </fieldset>
-            </div>
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
       </form>
       
       

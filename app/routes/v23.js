@@ -893,7 +893,11 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
     const addanother = req.query.another;
 
     if (addanother) {
-
+        req.session.data['parentcompanyname'] = ""
+        req.session.data['parentorgaddressMLine1'] = ""
+        req.session.data['parentorgaddressMTown'] = ""
+        req.session.data['parentorgaddressMCountry'] = ""
+        req.session.data['parentorgaddressMPostcode'] = ""
         req.session.data['parentsaddanother'] = "Yes"
     }
 
