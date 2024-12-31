@@ -136,7 +136,7 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
     }}
             
             {% else %}
-            <p class="govuk-body">You have not added any parent organisations yet.</p>
+            <p class="govuk-body">You told us that your organisation is set up as a {{ data.orgstructure | lower }}, but have not added any parent organisations yet. You must add at least one.</p>
         </fieldset>
     </div>
     <p class="govuk-body"><a class="govuk-button" id="orgparents" href="company-name?another=yes">Add a parent organisation</a></p>
