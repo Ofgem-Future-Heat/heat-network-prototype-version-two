@@ -145,9 +145,7 @@
 
 
 
-      {% if (data.organisationdetails == "Submitted") %}
-      {% if data.currentversion %}
-      {% if data.currentversion.toLowerCase() == "supplier" %}
+      {% if data.currentversion and data.currentversion.toLowerCase() == "supplier" %}
       <div class="govuk-grid-column-full">
         <h2 class="govuk-heading-m">Heat networks</h2>
         <h2 class="govuk-heading-s">In progress</h2>
@@ -210,10 +208,10 @@
     </dd>
   </div>
 </dl>
-
       </div>
 
-      {% else %}
+      {% elif (data.organisationdetails == "Submitted") %}
+      
       <div class="govuk-grid-column-two-thirds">
 
       <h2 class="govuk-heading-m">Heat networks</h2>
@@ -225,8 +223,7 @@
         href: "add-heat-network/introduction/intro"
     }) }}
       </div>
-      {% endif %}
-        {% endif %}
+ 
 
 
       {% else %}
