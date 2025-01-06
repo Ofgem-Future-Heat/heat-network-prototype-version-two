@@ -23,7 +23,28 @@
 
 {% block content %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-two-thirds">
+      {% if data.currentversion %}
+      {% if data.currentversion.toLowerCase() == "supplier" %}
+      <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Heat network assigned
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            A new heat network has been assigned to your organisation for further information
+          </h3>
+          <p class="govuk-body">You can find this heat network in your in progress heat networks list below.</p>
+  
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+      </div></div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l govuk-!-margin-bottom-1">
       {% if data.companyname %}
       {{data.companyname}}
@@ -121,21 +142,103 @@
 </div></div>
         <div class="govuk-grid-row govuk-!-margin-top-8">
 
-    <div class="govuk-grid-column-two-thirds">
 
 
-    <h2 class="govuk-heading-m">Heat networks</h2>
 
       {% if (data.organisationdetails == "Submitted") %}
-      <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
+      {% if data.currentversion %}
+      {% if data.currentversion.toLowerCase() == "supplier" %}
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m">Heat networks</h2>
+        <h2 class="govuk-heading-s">In progress</h2>
 
-      {{ govukButton ({
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Test network three
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <strong class="govuk-tag">In progress</strong>
+              <p class="govuk-body govuk-!-margin-top-2">This heat network has been assign to you by another organisation.</p>
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">Continue</a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Test network four
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <strong class="govuk-tag">In progress</strong>
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">Continue</a>
+
+            </dd>
+            
+          </div>
+        </dl>
+        <div class="govuk-!-text-align-right">
+        {{ govukButton ({
           text: "Add a new heat network",
           href: "add-heat-network/introduction/intro"
       }) }}
+    </div>
+<h2 class="govuk-heading-s govuk-!-margin-top-4">Complete</h2>
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Test network one
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag govuk-tag--green">Submitted</strong>
+    </dd>
+    <dd class="govuk-summary-list__value govuk-!-text-align-right">
+      Date submitted: 01/01/2025
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Test network two
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <strong class="govuk-tag govuk-tag--green">Submitted</strong>
+    </dd>
+    <dd class="govuk-summary-list__value govuk-!-text-align-right">
+      Date submitted: 01/01/2025
+    </dd>
+  </div>
+</dl>
+
+      </div>
+
       {% else %}
+      <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-m">Heat networks</h2>
+
+      <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
+
+      {{ govukButton ({
+        text: "Add a new heat network",
+        href: "add-heat-network/introduction/intro"
+    }) }}
+      </div>
+      {% endif %}
+        {% endif %}
+
+
+      {% else %}
+      <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-m">Heat networks</h2>
+
+
+
 
       <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
+    </div>
 
       {% endif %}
 
@@ -144,7 +247,6 @@
 
 
 
-   </div>
 
   </div>
 {% endblock %}
