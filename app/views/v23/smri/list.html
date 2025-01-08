@@ -75,8 +75,13 @@
               <p class="govuk-body govuk-!-margin-bottom-6">{% if data.smristatus == "expired" %}<strong class="govuk-tag govuk-tag--red">Expired</strong>{% else %}<strong class="govuk-tag govuk-tag--green">Submitted</strong>{% endif %}</p>
               {% endif %}
               <p class="govuk-body">
-                You must declare whether everybody with SMRI at {{company}} is fit and proper, in order for anybody at {{company}} to be able to send us heat network information.
-              </p>
+                When you send heat network data to us, we'll review your latest declaration to check whether everybody with SMRI at {{company}} meets the fit and proper criteria.
+
+                            </p>
+                            <p class="govuk-body">
+                              If the latest declaration is more than 3 months old, your declaration status will show as ‘expired’ and you’ll need to submit a new one.
+
+                            </p>
         {% if data.smrideclaration != "Yes" %}
 
         <h2 class="govuk-heading-m">What is a 'person with SMRI'?</h2>
@@ -189,8 +194,6 @@
 
 
       <h2 class="govuk-heading-m govuk-!-margin-top-8">Current SMRI declaration</h2>
-      <p class="govuk-body">When you send heat network data to us, we'll review the latest SMRI declaration we have for your organisation.</p>
-      <p class="govuk-body">If the latest declaration is more than 3 months old, your declaration status will show as ‘expired’ and you’ll need to submit a new one.</p>
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
             <div class="govuk-summary-list__row">
