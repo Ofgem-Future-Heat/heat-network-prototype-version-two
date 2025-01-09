@@ -1,0 +1,97 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+How many of the {{data.introhnbuildings}} buildings does {{data.suppliernameselected}} supply
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+
+    <form  method="POST" novalidate>
+
+
+
+
+
+
+
+
+
+      <div class="govuk-form-group {% if data.validationErrors.supplierbuildings %}govuk-form-group--error{% endif %}">
+            <span class="govuk-caption-l">Add a heat network - suppliers</span>
+
+            <h1 class="govuk-heading-l">
+              <label for="supplierbuildings">{{title}}</label>
+            </h1>
+
+          {% if data.validationErrors.suppliername %}
+          <p class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span>
+              {{data.validationErrors.suppliername.message}}
+          </p>
+          {% endif %}
+          <input class="govuk-input govuk-input--width-4" id="supplierbuildings" name="supplierbuildings" type="text" value="{{data.supplierbuildings}}">
+      </div>
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Continue'
+          })
+        }}
+      </div>
+</form>
+
+  </div>
+</div>
+
+{% endblock %}

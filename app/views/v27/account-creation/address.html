@@ -1,0 +1,90 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "Find your organisation's address" %}
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group {% if data.validationErrors.orgaddressPostcode %}govuk-form-group--error{% endif %}">
+                    <label class="govuk-label" for="address-postcode">
+                        Postcode
+                    </label>
+                    <div class="govuk-hint">For example, AA3 1AB</div>
+                    {% if data.validationErrors.orgaddressPostcode %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.orgaddressPostcode.message}}
+                    </p>
+                    {% endif %}
+                    <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.orgaddressPostcode %}govuk-input--error{% endif %}" id="orgaddressPostcode" name="orgaddressPostcode" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.orgaddressPostcode}}">
+                </div>
+
+            </fieldset>
+            <p class="govuk-body govuk-!-margin-top-5"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

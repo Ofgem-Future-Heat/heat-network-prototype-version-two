@@ -1,0 +1,135 @@
+{% extends 'layouts/main.html' %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+{% set title %}
+{% if data.introbuildingshowmany > 1 %}
+Are any of the {{data.introbuildingshowmany}} buildings you're responsible for communal buildings?
+{% else %}
+Is the building you're responsible for a communal building?
+{% endif %}
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.introcommunaloperate %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">A communal building is a single building divided into separate premises. For example, a block of flats or an office block.</p>
+
+                    {% if data.validationErrors.communal %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.introcommunaloperate.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="communal" name="introcommunaloperate" type="radio" value="Yes" {% if data.introcommunaloperate == "Yes" %}checked{% endif %}  data-aria-controls="conditional-introcommunaloperate">
+                            <label class="govuk-label govuk-radios__label" for="communal">
+                                Yes
+                            </label>
+                        </div>
+                        {% if data.introbuildingshowmany != 1 %}
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introcommunaloperate">
+                        
+                            <div class="govuk-form-group {% if data.validationErrors.introcommunaloperatehowmany %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="introcommunaloperatehowmany">
+                                How many of the buildings are communal buildings?
+                              </label>
+                              {% if data.validationErrors.introcommunaloperatehowmany %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.introcommunaloperatehowmany.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input govuk-input--width-4" id="introcommunaloperatehowmany" name="introcommunaloperatehowmany" type="number" value="{{data.introcommunaloperatehowmany}}">
+                            </div>
+                    </div>
+                    {% endif %}
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="communal-2" name="introcommunaloperate" type="radio" value="No" {% if data.introcommunaloperate == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="communal-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
