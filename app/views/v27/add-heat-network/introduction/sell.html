@@ -1,5 +1,18 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does your organisation sell heat or cooling from this heat network to another heat network that is operated by a different organisation?" %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+Does {{company}} sell heat or cooling from this heat network to another heat network that is operated by a different organisation?{% endset %}
+
+
 {% set _inError = data.validationError == "true"  %}
 
 
