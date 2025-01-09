@@ -128,7 +128,7 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
             <div class="govuk-form-group {% if data.validationErrors.parentaddanother %}govuk-form-group--error{% endif %} ">
 
 
-        <h2 class="govuk-heading-m">Would you like to add another parent organisation</h2>
+        <h2 class="govuk-heading-m">Would you like to add another parent organisation?</h2>
         {% if data.validationErrors.parentaddanother %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
@@ -159,7 +159,7 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
 </form>
  
             {% else %}
-            <p class="govuk-body">You told us that your organisation is set up as a {{ data.orgstructure | lower }}, but have not added any parent organisations yet. You must add at least one.</p>
+            <p class="govuk-body">You told us that your organisation is set up as a {{ data.orgstructure | lower }}, but have not added any parent organisations yet. You must add at least two.</p>
 
     <p class="govuk-body"><a class="govuk-button" id="orgparents" href="company-name?another=yes">Add a parent organisation</a></p>
 

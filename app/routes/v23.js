@@ -1116,7 +1116,7 @@ router.post('/' + version + '/organisation-details/parent-another', function (re
         req.session.data.validationError = "true";
             req.session.data.validationErrors.parentaddanother = {
                 "anchor": "parentaddanother",
-                "message": "You must add at least two parent organisations as a joint venture"
+                "message": "Joint ventures must have at least 2 parent orgnisations"
             }
 
     }
