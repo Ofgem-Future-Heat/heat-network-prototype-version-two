@@ -110,3 +110,11 @@
 .text-red {
 	color:  $govuk-error-colour !important;
 }
+
+.button-as-link {
+	background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+}

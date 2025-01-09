@@ -50,10 +50,7 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
         </div>
         {% endif %}
 
-          <form method="post" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.orgparentanother %}govuk-form-group--error{% endif %}">
-              <fieldset class="govuk-fieldset">
 
                   <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
@@ -112,7 +109,10 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
                     <ul class="govuk-summary-list__actions-list">
 
                         <li class="govuk-summary-list__actions-list-item">
-                            <a class="govuk-link govuk-link--no-visited-state text-red" href="parent-remove?id={{parent.id}}">Remove<span class="govuk-visually-hidden"> parent name</span></a>
+                            <form action="remove-parent" method="POST">
+                                <input type="hidden" name="parentId" value="{{ parent.id }}">
+                                <p class="govuk-body"><button type="submit" class="button-as-link govuk-link govuk-link--no-visited-state text-red">Remove <span class="govuk-visually-hidden">{{parent.name}}</span></button></p>
+                            </form>                            
                         </li>
   
                       </ul>
@@ -123,28 +123,49 @@ Parent organisations for {% if data.companyname %}{{data.companyname}}{% else %}
               {% endfor %}
   
             </dl>
+            <form method="post" novalidate>
 
-            {% if data.orgstructure == "Joint venture" %}
-            <p class="govuk-body govuk-!-text-align-right"><a class="govuk-link govuk-link--no-visited-state" id="orgparents" href="company-name?another=yes">Add another parent organisation</a></p>
-            {% endif %}
-        </fieldset>
-    </div>
+            <div class="govuk-form-group {% if data.validationErrors.parentaddanother %}govuk-form-group--error{% endif %} ">
+
+
+        <h2 class="govuk-heading-m">Would you like to add another parent organisation</h2>
+        {% if data.validationErrors.parentaddanother %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.parentaddanother.message}}
+        </p>
+        {% endif %}
+
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="parentaddanother" name="parentaddanother" type="radio" value="Yes" {% if data.parentaddanother == "Yes" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="parentaddanother">
+                        Yes
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="parentaddanother-2" name="parentaddanother" type="radio" value="No" {% if data.parentaddanother == "No" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="parentaddanother-2">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
     {{
         govukButton ({
             html: 'Continue'
         })
     }}
-            
+</form>
+ 
             {% else %}
             <p class="govuk-body">You told us that your organisation is set up as a {{ data.orgstructure | lower }}, but have not added any parent organisations yet. You must add at least one.</p>
-        </fieldset>
-    </div>
+
     <p class="govuk-body"><a class="govuk-button" id="orgparents" href="company-name?another=yes">Add a parent organisation</a></p>
 
             {% endif %}
 
 
-      </form>
       
       
     </div>

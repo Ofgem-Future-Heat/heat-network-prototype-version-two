@@ -1086,8 +1086,10 @@ router.get('/' + version + '/organisation-details/parent-another', function (req
 
 router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
     clearvalidation(req);
-    var orgstructure = req.session.data['orgstructure']
     var parentsentered = req.session.data['parentsentered']
+    var parentaddanother = req.session.data['parentaddanother']
+
+    
     const parents = [];
     for (let i = 1; i <= parentsentered; i++) {
         parents.push({
@@ -1098,18 +1100,35 @@ router.post('/' + version + '/organisation-details/parent-another', function (re
         });
     }
 
-    const hasAddedYes = parents.some(parent => parent.added === "Yes");
-    console.log(hasAddedYes)
+    const totalYes = parents.filter(parent => parent.added === "Yes").length;
+    req.session.data['parentsactual'] = totalYes;
 
-    if (orgstructure != "Neither of these" && !hasAddedYes) {
+    if (!parentaddanother) {
         req.session.data.validationError = "true";
-            req.session.data.validationErrors.orgparents = {
-                "anchor": "orgparents",
-                "message": "You must add at least one parent organisation"
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Select whether you'd like to add another parent organisation"
             }
 
     }
 
+    if (totalYes < 2 && parentaddanother == "No" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "You must add at least two parent organisations as a joint venture"
+            }
+
+    }
+
+    if (totalYes == 6 && parentaddanother == "Yes" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "You cannot add more than 6 parents organisations"
+            }
+
+    }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/parent-another', {
@@ -1118,10 +1137,16 @@ router.post('/' + version + '/organisation-details/parent-another', function (re
     }
 
     else {
+        clearparentdata(req);
 
-            clearparentdata(req);
+        if (parentaddanother == "Yes") {
+            res.redirect('/' + version + '/organisation-details/company-name?another=yes');
+        }
 
+        else {
             res.redirect('/' + version + '/organisation-details/cya');
+        }
+
     }
 
 });
@@ -1131,27 +1156,17 @@ router.post('/' + version + '/organisation-details/parent-another', function (re
 
 
 ///Parent Remove
-router.get('/' + version + '/organisation-details/parent-remove', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.id;
-        req.session.data['parentid'] = urlParams
-        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+router.post('/' + version + '/organisation-details/remove-parent', function (req, res) {
+    const parentId = req.body.parentId;
 
-    res.render('/' + version + '/organisation-details/parent-remove', {
-        data: req.session.data
-    });
-});
+    // Example: Remove parent logic
+    console.log(`Removing parent with ID: ${parentId}`);
+    // Perform the necessary action (e.g., update session or database)
+    req.session.data['parentorgadded' + parentId] = "No"
 
-
-router.post('/' + version + '/organisation-details/parent-remove', function (req, res) {
-    clearvalidation(req);
-
-    const urlParams = req.query.id;
-    
+    res.redirect('/' + version + '/organisation-details/parent-another');
 
 
-            req.session.data['parentorgadded' + urlParams] = "No"
-            res.redirect('/' + version + '/organisation-details/parent-another');
 
 
 
