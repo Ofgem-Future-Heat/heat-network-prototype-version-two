@@ -2889,7 +2889,7 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
 
     else {
         if (introrelevant == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/role');
+            res.redirect('/' + version + '/add-heat-network/introduction/groundloop');
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout');
@@ -2915,7 +2915,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introgroundloop = {
             "anchor": "introgroundloop",
-            "message": "Select whether the heat network is a groundloop heat network"
+            "message": "Select whether any of the buildings get their energy from a shared ground loop"
         }
     }
 
