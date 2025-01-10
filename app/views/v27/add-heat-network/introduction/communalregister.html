@@ -76,7 +76,12 @@ You must register this communal building as a separate heat network
                             {{title}}
                         </h1>
                     </legend>
+                    {% if data.introcommunaloperatehowmany > 1 %}
                     <p class="govuk-body">This is because we consider them individual heat networks in their own right.</p>
+                    {% else %}
+                    <p class="govuk-body">This is because we consider it to be an individual heat network in its own right.</p>
+
+                    {% endif %}
 
                       <div class="govuk-inset-text">
                         Do not include these communal buildings as part of this registration.
