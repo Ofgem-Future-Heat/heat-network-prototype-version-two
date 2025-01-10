@@ -9,7 +9,11 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
+{% if data.introcommunaloperatehowmany > 1 %}
 You must register these {{data.introcommunaloperatehowmany}} communal buildings as separate heat networks
+{% else %}
+You must register this communal building as separate heat networks
+{% endif %}
  {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
