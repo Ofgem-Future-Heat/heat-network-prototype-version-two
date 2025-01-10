@@ -74,43 +74,11 @@ You must register these {{data.introcommunaloperatehowmany}} communal buildings 
                     </legend>
                     <p class="govuk-body">This is because we consider them individual heat networks in their own right.</p>
 
-                    <!-- <div class="govuk-warning-text">
-                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                        <strong class="govuk-warning-text__text">
-                          <span class="govuk-visually-hidden">Warning</span>
-                          Make sure you do not include these communal buildings as part of this registration.
-                        </strong>
-                      </div> -->
                       <div class="govuk-inset-text">
                         Do not include these communal buildings as part of this registration.
                       </div>
 
                     <h2 class="govuk-heading-m">Do you want to continue registering the rest of the district network?</h2>
-
-
-
-                    {% if data.validationErrors.communal %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introcommunalregister.message}}
-                    </p>
-                    {% endif %}
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communal" name="introcommunalregister" type="radio" value="Yes" {% if data.introcommunalregister == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communal">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communal-2" name="introcommunalregister" type="radio" value="No" {% if data.introcommunalregister == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communal-2">
-                                No
-                            </label>
-                        </div>
-                    </div>
-
-
                 </fieldset>
 
 

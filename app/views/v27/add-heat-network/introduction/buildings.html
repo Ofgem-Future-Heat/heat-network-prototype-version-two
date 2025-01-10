@@ -78,7 +78,11 @@ Is {{company}} responsible for the supply of heat to this building?
                         </h1>
 
                         </legend>
+                        {% if data.introbuildingstotal > 1 %}
                         <p class="govuk-body">This means your organisation owns or has significant control over all the distribution pipework up to and including the connection points to all buildings.</p>
+                        {% else %}
+                        <p class="govuk-body">This means your organisation owns or has significant control over all the distribution pipework up to and including the connection points to this building.</p>
+                        {% endif %}
 
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">

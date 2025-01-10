@@ -3241,32 +3241,10 @@ router.get('/' + version + '/add-heat-network/introduction/communalregister', fu
 
 router.post('/' + version + '/add-heat-network/introduction/communalregister', function (req, res) {
     clearvalidation(req);
-    var introcommunalregister = req.session.data['introcommunalregister']
 
-
-    if (!introcommunalregister) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.introcommunalregister = {
-            "anchor": "introcommunalregister",
-            "message": "Select if you wish to continue with the registering this heat network?"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/communalregister', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (introcommunalregister == "No") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout-communal');
-        }
-        else {
             res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
-        }
 
-    }
+
 
 });
 
