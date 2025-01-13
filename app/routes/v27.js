@@ -4236,9 +4236,35 @@ router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', f
 
 // Intro - cya
 router.get('/' + version + '/add-heat-network/introduction/cya', function (req, res) {
+
+
+    const urlParams = req.query.v;
+
+    if (urlParams == "complete") {
+        req.session.data['introrelevant'] = "Yes"
+        req.session.data['introgroundloop'] = "No"
+        req.session.data['introcommunal'] = "No"
+        req.session.data['introbuildingstotal'] = "3"
+        req.session.data['introbuildingshowmany'] = "3"
+        req.session.data['introcommunaloperate'] = "Yes"
+        req.session.data['introcommunaloperatehowmany'] = "1"
+        req.session.data['introenergycentre'] = "Yes"
+        req.session.data['introenergycentrehowmany'] = "1"
+        req.session.data['intropipework'] = "Yes"
+        req.session.data['introsuppliers'] = "No"
+        req.session.data['introsupplycurrent'] = "Yes"
+        req.session.data['supplywhen'] = "2022"
+        req.session.data['introselfsupply'] = "No"
+        req.session.data['introbuy'] = "Yes"
+        req.session.data['introsell'] = "No"
+        req.session.data['name'] = "Heat Network One"
+
+    }
+
     res.render('/' + version + '/add-heat-network/introduction/cya', {
         data: req.session.data
     });
+
     introcomplete = req.session.data['introcomplete']
 
 });
