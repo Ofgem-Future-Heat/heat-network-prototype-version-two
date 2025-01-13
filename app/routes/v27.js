@@ -3514,12 +3514,86 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+            res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
 
     }
 
 });
 
+// Introduction - Supply current
+router.get('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
+    clearvalidation(req);
+    var introsupplycurrent = req.session.data['introsupplycurrent']
+
+
+    if (!introsupplycurrent) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introsupplycurrent = {
+            "anchor": "introsupplycurrent",
+            "message": "Select if the heat network already supplying thermal energy"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introsupplycurrent == "No") {
+            res.redirect('/' + version + '/add-heat-network/introduction/supplystart');
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+
+        }
+
+    }
+
+});
+
+// Introduction - Supply start
+router.get('/' + version + '/add-heat-network/introduction/supplystart', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/supplystart', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/introduction/supplystart', function (req, res) {
+    clearvalidation(req);
+    var introsupplystart = req.session.data['introsupplystart']
+
+
+    if (!introsupplystart) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introsupplystart = {
+            "anchor": "introsupplystart",
+            "message": "Select if the heat network will start supplying customers before 27 January 2027"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/supplystart', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/add-heat-network/introduction/name');
+
+    }
+
+});
 
 
 // Introduction - introcontrol
