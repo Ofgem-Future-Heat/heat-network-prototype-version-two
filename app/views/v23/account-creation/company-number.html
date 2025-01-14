@@ -1,4 +1,4 @@
-{% extends 'layouts/main.html' %}
+{% extends 'layouts/mainold.html' %}
 {% set title = "What is the company number?" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -79,7 +79,8 @@
 
                             <div class="govuk-form-group">
                                     <div class="govuk-hint" id="companynumber-hint" >
-                                        For example, 08811254 or SC123456                                        
+                                        For example, 08811254 or SC012345
+                                                                            
                                     </div>
                                 <input class="govuk-input {% if data.validationErrors.companynumber %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-10" id="companynumber" name="companynumber" type="text" inputmode="numeric" value="{{data.companynumber}}" aria-describedby="companynumber-hint">
                             </div>

@@ -2021,9 +2021,7 @@ router.get('/' + version + '/account-creation/select-org', function (req, res) {
 
 router.post('/' + version + '/account-creation/select-org', function (req, res) {
     clearvalidation(req);
-    var orgtotal = req.session.data['orgtotal']
     var orgselect = req.session.data['orgselect']
-    if(orgtotal > 1) {
         if (!orgselect) {
             req.session.data.validationError = "true"
             req.session.data.validationErrors.orgselect = {
@@ -2040,23 +2038,25 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
         }
     
         else {
-            if (orgselect == "New") {
-                res.redirect('/' + version + '/account-creation/type');
-            }
-            if (orgselect == "Heating Co") {
-                req.session.data.companyname = "Heating Co"
-                res.redirect('/' + version + '/account-creation/company-create');
-            }
-            else {
+            if (orgselect != "new" && orgselect != "Heating Co") {
                 req.session.data['companyname'] = orgselect;
                 res.redirect('/' + version + '/account-information');
             }
+
+            else {
+                if (orgselect == "new") {
+                    res.redirect('/' + version + '/account-creation/type');
+                }
+                if (orgselect == "Heating Co") {
+                    req.session.data.companyname = "Heating Co"
+                    res.redirect('/' + version + '/account-creation/company-create');
+                }
+    
+            }
+
+
         }
-    }
-    else {
-        res.redirect('/' + version + '/account-creation/type');
- 
-    }
+
 
 
 });
@@ -2229,6 +2229,18 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
             }
      
     }
+else {
+    const orgregex = /^[A-Za-z0-9]{8}$/;
+
+    if (!orgregex.test(orgcompanynumber)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrors.companynumber = {
+            "anchor": "companynumber",
+            "message": "Company number must have exactly 8 characters, comprising numbers and letters only"
+        };
+    }
+}
+
 
 
     if (req.session.data.validationError == "true") {
@@ -2267,11 +2279,12 @@ router.post('/' + version + '/account-creation/company-number', function (req, r
                 const response = await fetch(`https://api.company-information.service.gov.uk/company/${companyNumber}`, requestOptions);
           
                 // Log the response status
+                console.log(`Response Status: ${response.status} ${response.statusText}`);
           
                 if (!response.ok) {
                     req.session.data.validationErrors.companynumber = {
                         "anchor": "companynumber",
-                        "message": "Enter a valid company number"
+                        "message": "Cannot find a company with this number"
                     }
 
                     res.render('/' + version + '/account-creation/company-number', {
@@ -2763,6 +2776,28 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
+
+
+        const customSort = (a, b) => {
+            const extractNumber = (str) => {
+              const match = str.match(/^\d+/); // Extracts the leading number from the string
+              return match ? parseInt(match[0], 10) : NaN; // Converts the extracted number to integer
+            };
+          
+            const numA = extractNumber(a);
+            const numB = extractNumber(b);
+          
+            if (!isNaN(numA) && isNaN(numB)) {
+              return -1;
+            } else if (isNaN(numA) && !isNaN(numB)) {
+              return 1;
+            } else if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB; // Compare the numbers if both are numbers
+            } else {
+              return a.localeCompare(b); // Compare as strings if neither is a number
+            }
+          };
+
         async function postcode(postcode) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
@@ -2776,7 +2811,7 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
 
-                        req.session.data.buildinglocationAddressSelect = locationaddresses;
+                        req.session.data.buildinglocationAddressSelect = locationaddresses.sort(customSort);
                         req.session.data.orgaddressnotfound = "";
                         if (totalResults > 99) {
                             res.redirect('/' + version + '/account-creation/addresserror?reason=toomany');
@@ -2893,6 +2928,14 @@ router.post('/' + version + '/account-creation/addressmanual', function (req, re
         req.session.data.validationErrors.orgaddressMPostcode = {
             "anchor": "orgaddressMPostcode",
             "message": "Enter a postcode",
+        }
+    }
+
+    if ((accounttype == "Overseas organisation") && !orgaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgaddressMCountry = {
+            "anchor": "orgaddressMCountry",
+            "message": "Enter a country",
         }
     }
 
