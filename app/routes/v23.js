@@ -1199,9 +1199,6 @@ router.post('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
 
 function clearaddeduser(req) {
@@ -1347,7 +1344,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephone = {
             "anchor": "usertelephone",
-            "message": "Select a preferred contact method"
+            "message": "Select a preferred contact method for work"
         }
     }
 
@@ -1355,7 +1352,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonelandline = {
             "anchor": "usertelephonelandline",
-            "message": "Enter a landline telephone number"
+            "message": "Enter a landline number"
         }
     }
 
@@ -1364,7 +1361,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonemobile = {
             "anchor": "usertelephonemobile",
-            "message": "Enter a mobile telephone number"
+            "message": "Enter a mobile number"
         }
     }
 
@@ -1427,7 +1424,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.userjobtitle = {
             "anchor": "userjobtitle",
-            "message": "Enter a job title"
+            "message": "Enter the user’s job title"
         }
     }
     if (req.session.data.validationError == "true") {
@@ -1470,7 +1467,10 @@ router.post('/' + version + '/manage-users/add-user-permissions', function (req,
 /// Edit user
 router.get('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
+    generateuser(req);
+
     const userid = req.query.id;
+    
     req.session.data['userid'] = userid;
 
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1483,27 +1483,26 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
     clearvalidation(req);
     var source = req.query.source;
 
-    var userfirstname = req.session.data['edituserfirstname']
-    var userlastname = req.session.data['edituserlastname']
-    var usertelephone = req.session.data['editusertelephone']
-    var usertelephonemobile = req.session.data['editusertelephonemobile']
-    var usertelephonelandline = req.session.data['editusertelephonelandline']
-    var userjobtitle = req.session.data['edituserjobtitle']
+    var userfirstname = req.session.data['userfirstname']
+    var userlastname = req.session.data['userlastname']
+    var usertelephone = req.session.data['usertelephone']
+    var usertelephonemobile = req.session.data['usertelephonemobile']
+    var usertelephonelandline = req.session.data['usertelephonelandline']
 
 
 
     if (!userfirstname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserfirstname = {
-            "anchor": "edituserfirstname",
+        req.session.data.validationErrors.userfirstname = {
+            "anchor": "userfirstname",
             "message": "Enter a first name"
         }
     }
 
     if (!userlastname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserlastname = {
-            "anchor": "edituserlastname",
+        req.session.data.validationErrors.userlastname = {
+            "anchor": "userlastname",
             "message": "Enter a last name"
         }
     }
@@ -1511,36 +1510,30 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
     if (!usertelephone) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephone = {
-            "anchor": "editusertelephone",
-            "message": "Select a preferred contact method"
+        req.session.data.validationErrors.usertelephone = {
+            "anchor": "usertelephone",
+            "message": "Select a preferred contact method for work"
         }
     }
 
     if ((usertelephone == "Landline") && !usertelephonelandline) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonelandline = {
-            "anchor": "editusertelephonelandline",
-            "message": "Enter a landline telephone number"
+        req.session.data.validationErrors.usertelephonelandline = {
+            "anchor": "usertelephonelandline",
+            "message": "Enter a landline number"
         }
     }
 
 
     if ((usertelephone == "Mobile") && !usertelephonemobile) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonemobile = {
-            "anchor": "editusertelephonemobile",
-            "message": "Enter a mobile telephone number"
+        req.session.data.validationErrors.usertelephonemobile = {
+            "anchor": "usertelephonemobile",
+            "message": "Enter a mobile number"
         }
     }
 
-    if (!userjobtitle) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserjobtitle = {
-            "anchor": "edituserjobtitle",
-            "message": "Enter a job title"
-        }
-    }
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1552,20 +1545,14 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
     else {
-        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['edituserfirstname']
-        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['edituserlastname']
-        req.session.data['usertelephone' + req.session.data['usertotal']] = req.session.data['editusertelephone']
-        req.session.data['usertelephonelandline' + req.session.data['usertotal']] = req.session.data['editusertelephonelandline']
-        req.session.data['usertelephonelandlineext' + req.session.data['usertotal']] = req.session.data['editusertelephonelandlineext']
-        req.session.data['usertelephonemobile' + req.session.data['usertotal']] = req.session.data['editusertelephonemobile']
-
-        req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
-        if (source == "myprofile") {
+        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['userfirstname']
+        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['userlastname']
+        req.session.data['usertelephone' + req.session.data['userid']] = req.session.data['usertelephone']
+        req.session.data['usertelephonelandline' + req.session.data['userid']] = req.session.data['usertelephonelandline']
+        req.session.data['usertelephonelandlineext' + req.session.data['userid']] = req.session.data['usertelephonelandlineext']
+        req.session.data['usertelephonemobile' + req.session.data['userid']] = req.session.data['usertelephonemobile']
             res.redirect('/' + version + '/my-profile?notification=edituser');
-        }
-        else {
-            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser&id='+ req.session.data['userid']);
-        }
+
     }
 
 
@@ -1792,6 +1779,7 @@ router.get('/' + version + '/my-profile', function (req, res) {
         data: req.session.data
     });
 });
+
 
 
 

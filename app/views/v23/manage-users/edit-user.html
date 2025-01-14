@@ -31,23 +31,32 @@
 
 {% set users = [] %}
 
-{% for i in range(data.userid, data.userid + 1) %}
+{% for i in range(data.currentuserid, data.currentuserid + 1) %}
     {% set users = users.concat([{
         "email": data["useremail" ~ i],
         "firstname": data["userfirstname" ~ i],
         "lastname": data["userlastname" ~ i],
-        "telephonetype": data["usertelephone" ~ i],
+        "telephone": data["usertelephone" ~ i],
         "telephonelandline": data["usertelephonelandline" ~ i],
         "telephonelandlineext": data["usertelephonelandlineext" ~ i],
+
         "telephonemobile": data["usertelephonemobile" ~ i],
-    "jobtitle": data["userjobtitle" ~ i],
-        "id": i
+
+        "jobtitle": data["userjobtitle" ~ i],
+        "id": i,
+        "permissions": [
+        data["adduserpermissionstransfer" ~ i],
+        data["adduserpermissionsrightsandpowers" ~ i],
+        data["adduserpermissionsusermanagement" ~ i],
+        data["adduserpermissionsmonitoring" ~ i],
+        data["adduserpermissionsregistration" ~ i]
+    ]
   }]) %}
 {% endfor %}
 
 {% for user in users %}
 {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-{% set title = "Edit " + name %}
+{% set title = "Edit your details" %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -67,8 +76,9 @@
         </div>
     </div>
     {% endif %}
-    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
 
     <h1 class="govuk-heading-l">
       {{title}}
@@ -90,7 +100,7 @@
             {{data.validationErrors.userfirstname.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="edituserfirstname" type="text" value="{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}{{user.firstname}}{% endif %}">
+        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="userfirstname" type="text" value="{% if user.firstname %}{{user.firstname}}{% else %}{{user.firstname}}{% endif %}">
         
       </div>
       <div class="govuk-form-group {% if data.validationErrors.userlastname %}govuk-form-group--error{% endif %}">
@@ -103,85 +113,74 @@
             {{data.validationErrors.userlastname.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="last-name" name="edituserlastname" type="text" value="{% if data.edituserlastname %}{{data.edituserlastname}}{% else %}{{user.lastname}}{% endif %}"> 
+        <input class="govuk-input govuk-!-width-two-thirds" id="last-name" name="userlastname" type="text" value="{% if user.lastname %}{{user.lastname}}{% else %}{{user.lastname}}{% endif %}"> 
       </div>
-      <div class="govuk-form-group {% if data.validationErrors.editusertelephone %}govuk-form-group--error{% endif %}">
+      <div class="govuk-form-group {% if data.validationErrors.usertelephone %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend">
-                <strong>Preferred contact number for work</strong>
+                <strong>What is your work contact number?</strong>
               </legend>
           <div id="contact-hint" class="govuk-hint">
-            Ofgem will only use this if we need to contact them about your organisation's heat networks. For international numbers, include the country code.
+            Ofgem will only use this if we need to contact you about your organisation's heat networks. For international numbers, include the country code.
           </div>
-          {% if data.validationErrors.editusertelephone %}
+          {% if data.validationErrors.usertelephone %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>
-              {{data.validationErrors.editusertelephone.message}}
+              {{data.validationErrors.usertelephone.message}}
           </p>
           {% endif %}
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="editusertelephone" name="editusertelephone" type="radio" value="Landline" data-aria-controls="conditional-contact-2" {% if data.editusertelephone == "Landline" %} checked{% elif user.telephonetype == "Landline" %} checked{% endif %}>
+              <input class="govuk-radios__input" id="usertelephone" name="usertelephone" type="radio" value="Landline" data-aria-controls="conditional-contact-2" {% if user.telephone == "Landline" %} checked{% elif user.telephonetype == "Landline" %} checked{% endif %}>
               <label class="govuk-label govuk-radios__label" for="contact-2">
                 Landline
               </label>
             </div>
             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2">
-              <div class="govuk-form-group {% if data.validationErrors.editusertelephonelandline %}govuk-form-group--error{% endif %}">
+              <div class="govuk-form-group {% if data.validationErrors.usertelephonelandline %}govuk-form-group--error{% endif %}">
                 <label class="govuk-label" for="contact-by-phone">
                   Landline phone number
                 </label>
-                {% if data.validationErrors.editusertelephonelandline %}
+                {% if data.validationErrors.usertelephonelandline %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.editusertelephonelandline.message}}
+                    {{data.validationErrors.usertelephonelandline.message}}
                 </p>
                 {% endif %}
-                <input class="govuk-input govuk-!-width-one-third" id="contact-by-phone" name="editusertelephonelandline" type="tel" value="{% if data.editusertelephonelandline %}{{data.editusertelephonelandline}}{% else %}{{user.telephonelandline}}{% endif %}">
+                <input class="govuk-input govuk-!-width-one-third" id="contact-by-phone" name="usertelephonelandline" type="tel" value="{% if user.telephonelandline %}{{user.telephonelandline}}{% else %}{{user.telephonelandline}}{% endif %}">
               </div>
               <div class="govuk-form-group">
                 <label class="govuk-label" for="contact-by-phone">
                   Extension (optional)
                 </label>
 
-                <input class="govuk-input govuk-input--width-5" id="contact-by-phone" name="editusertelephonelandlineext" type="text"  value="{% if data.editusertelephonelandlineext %}{{data.editusertelephonelandlineext}}{% else %}{{user.telephonelandlineext}}{% endif %}">
+                <input class="govuk-input govuk-input--width-5" id="contact-by-phone" name="usertelephonelandlineext" type="text"  value="{% if user.telephonelandlineext %}{{user.telephonelandlineext}}{% else %}{{user.telephonelandlineext}}{% endif %}">
               </div>
             </div>
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="editusertelephone-2" name="editusertelephone" type="radio" value="Mobile" data-aria-controls="conditional-contact-3" {% if data.editusertelephone == "Mobile" %} checked{% elif user.telephonetype == "Mobile" %} checked{% endif %}>
+              <input class="govuk-radios__input" id="usertelephone-2" name="usertelephone" type="radio" value="Mobile" data-aria-controls="conditional-contact-3" {% if user.telephone == "Mobile" %} checked{% elif user.telephonetype == "Mobile" %} checked{% endif %}>
               <label class="govuk-label govuk-radios__label" for="contact-3">
                 Mobile
               </label>
             </div>
             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
-              <div class="govuk-form-group {% if data.validationErrors.editusertelephonemobile %}govuk-form-group--error{% endif %}">
+              <div class="govuk-form-group {% if data.validationErrors.usertelephonemobile %}govuk-form-group--error{% endif %}">
                 <label class="govuk-label" for="contact-by-text">
                   Mobile phone number
                 </label>
-                {% if data.validationErrors.editusertelephonemobile %}
+                {% if data.validationErrors.usertelephonemobile %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.editusertelephonemobile.message}}
+                    {{data.validationErrors.usertelephonemobile.message}}
                 </p>
                 {% endif %}
-                <input class="govuk-input govuk-!-width-one-third" id="contact-by-text" name="editusertelephonemobile" type="tel" autocomplete="tel" value="{% if data.editusertelephonemobile %}{{data.editusertelephonemobile}}{% else %}{{user.telephonemobile}}{% endif %}">
+                <input class="govuk-input govuk-!-width-one-third" id="contact-by-text" name="usertelephonemobile" type="tel" autocomplete="tel" value="{% if user.telephonemobile %}{{user.telephonemobile}}{% else %}{{user.telephonemobile}}{% endif %}">
               </div>
             </div>
           </div>
         </fieldset>
       </div>
-      <div class="govuk-form-group {% if data.validationErrors.userjobtitle %}govuk-form-group--error{% endif %}">
-        <label class="govuk-label" for="job-title">
-          Job title
-        </label>
-        {% if data.validationErrors.userjobtitle %}
-        <p class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.userjobtitle.message}}
-        </p>
-        {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="job-title" name="edituserjobtitle" type="text" value="{% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}{{user.jobtitle}}{% endif %}">
-      </div>
+
 
 
       
