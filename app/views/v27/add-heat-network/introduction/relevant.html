@@ -30,7 +30,6 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
@@ -48,20 +47,15 @@
             </div>
         </div>
         {% endif %}
-
         <form method="POST" novalidate>
-
             <div
                 class="govuk-form-group {% if data.validationErrors.introrelevant %}govuk-form-group--error{% endif %}">
-
                 <fieldset class="govuk-fieldset">
-
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - introduction</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-
                     </legend>
                     <p class="govuk-body">This means it's a heat network that falls within the scope of the heat network regulations.</p>
 

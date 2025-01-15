@@ -3938,13 +3938,21 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
             data: req.session.data
         });
     }
-    else {
-        if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/buy');
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
 
+    else {
+        if (supplywhen > 2024) {
+            res.redirect('/' + version + '/add-heat-network/introduction/operational');
+
+        }
+
+        else {
+            if (introcommunal == "Yes") {
+                res.redirect('/' + version + '/add-heat-network/introduction/buy');
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+    
+            }    
         }
     }
 });
@@ -3988,6 +3996,91 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
         }    }
 });
 
+// Introduction - Operationbal
+router.get('/' + version + '/add-heat-network/introduction/operational', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/operational', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/operational', function (req, res) {
+    clearvalidation(req);
+    var introoperationalday = req.session.data['introoperationalday']
+    var introoperationalmonth = req.session.data['introoperationalmonth']
+    var introoperationalyear = req.session.data['introoperationalyear']
+    const operationalDeadline = new Date('2025-04-01');
+
+    function createDateFromInputs(day, month, year) {
+        // Convert inputs to integers
+        const dayInt = parseInt(day, 10);
+        const monthInt = parseInt(month, 10) - 1; // JavaScript months are 0-based
+        const yearInt = parseInt(year, 10);
+    
+        // Validate inputs
+        if (
+            isNaN(dayInt) || isNaN(monthInt) || isNaN(yearInt) ||
+            dayInt < 1 || dayInt > 31 ||
+            monthInt < 0 || monthInt > 11 ||
+            yearInt < 1
+        ) {
+            throw new Error('Invalid date inputs');
+        }
+    
+        // Create and return the Date object
+        const date = new Date(yearInt, monthInt, dayInt);
+    
+        // Validate the resulting date to ensure it's correct
+        if (date.getDate() !== dayInt || date.getMonth() !== monthInt || date.getFullYear() !== yearInt) {
+            throw new Error('Invalid date inputs resulted in an invalid date');
+        }
+    
+        return date;
+    }
+
+    let introoperationaldate;
+
+    try {
+        introoperationaldate = createDateFromInputs(introoperationalday, introoperationalmonth, introoperationalyear);
+        console.log('Intro Operational Date:', introoperationaldate);
+    } catch (error) {
+        console.error('Error creating intro operational date:', error.message);
+    }
+
+    var introcommunal = req.session.data['introcommunal']
+
+    if (!introoperationalday || !introoperationalmonth || !introoperationalyear) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introoperationaldate = {
+            "anchor": "introoperationalday",
+            "message": "Enter a full date"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/operational', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introoperationaldate > operationalDeadline) {
+            res.redirect('/' + version + '/add-heat-network/introduction/authorisation');
+
+        }
+
+        else {
+            if (introcommunal == "Yes") {
+                res.redirect('/' + version + '/add-heat-network/introduction/buy');
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+    
+            }    
+        }
+    }
+});
 
 
 
@@ -4273,7 +4366,7 @@ router.get('/' + version + '/add-heat-network/introduction/cya', function (req, 
 router.post('/' + version + '/add-heat-network/introduction/cya', function (req, res) {
 
 
-        res.redirect('/' + version + '/add-heat-network/tasklist');
+        res.redirect('/' + version + '/add-heat-network/introduction/moreinfo');
 
 
 });

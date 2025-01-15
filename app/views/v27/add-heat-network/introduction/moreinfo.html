@@ -1,0 +1,76 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You must now provide more information about this heat network" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                    <p class="govuk-body">As a heat network operator or supplier, you're automatically authorised to operate a network if:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>it starts operating before 1 April 2025</li>
+                    <li>you provide mandatory data about the network now</li>
+                </ul>
+                    <h2 class="govuk-heading-m">Further information required</h2>
+                    <p class="govuk-body">You must provide:</p>
+                                <ul class="govuk-list govuk-list--bullet">
+
+                {% if data.buildings > 1 %}
+                    <li>the address of the network's energy centre</li>
+                    <li>the number of buildings on the network, by building type</li>
+                    <li>the number of customers on the network, by customer type</li>
+                    <li>information about any connected communal networks, including their addresses</li>
+                    <li>technical information, such as the network's capacity, generation and supply, and whether it has a backup system</li>
+                    <li>which technologies and energy sources the network uses</li>
+                    <li>information about metering</li>
+                {% else %}
+                    <li>the address of the building that the network supplies</li>
+                    <li>the type of building</li>
+                    <li>the type and number of final customers in the building</li>
+                    <li>technical information, such as the network's capacity, generation and supply, and whether it has a backup system</li>
+                    <li>which technologies and energy sources the network uses</li>
+                    <li>information about metering</li>
+                {% endif %}
+                </ul>
+            </div>
+        <a href="../tasklist" class="govuk-button">Continue</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
