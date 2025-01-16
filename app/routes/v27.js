@@ -2942,7 +2942,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
             res.redirect('/' + version + '/add-heat-network/introduction/role');
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=203');
  
         }
     }
@@ -3194,6 +3194,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
     var introcommunaloperatehowmany = req.session.data['introcommunaloperatehowmany']
     var introbuildingshowmany = req.session.data['introbuildingshowmany']
 
+
     if (!introcommunaloperate) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introcommunaloperate = {
@@ -3314,6 +3315,8 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
     clearvalidation(req);
     var introenergycentre = req.session.data['introenergycentre']
     var introenergycentrehowmany = parseInt(req.session.data['introenergycentrehowmany'])
+    var buildings = req.session.dation['introhnbuildings']
+
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
 
@@ -3340,7 +3343,13 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/summary');
+        if (buildings == 0 && (introenergycentrehowmany == 0 || introenergycentre == "No")) {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/introduction/summary');
+
+    }
     }
 
 });
@@ -3590,7 +3599,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplystart', functi
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introsupplystart = {
             "anchor": "introsupplystart",
-            "message": "Select if the heat network will start supplying customers before 27 January 2027"
+            "message": "Select if this heat network will start supplying customers before 27 January 2027"
         }
     }
 

@@ -79,11 +79,12 @@ Is {{company}} responsible for the supply of heat to this building?
 
                         </legend>
                         {% if data.introbuildingstotal > 1 %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over all the distribution pipework up to and including the connection points to all buildings.</p>
+                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that supply heat to these buildings.</p>
+                        <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.</p>
                         {% else %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over all the distribution pipework up to and including the connection points to this building.</p>
+                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that supply heat to this building.</p>
+                        <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.        </p>                
                         {% endif %}
-
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
