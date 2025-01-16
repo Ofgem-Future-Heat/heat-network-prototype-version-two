@@ -2829,6 +2829,18 @@ router.get('/' + version + '/add-heat-network/introduction/cancel', function (re
     });
 });
 
+// Introduction - dropout
+router.get('/' + version + '/add-heat-network/introduction/dropout', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.v;
+    req.session.data['introdropoutreason'] = urlParams;
+
+    backURL = req.header('Referer')
+    res.render('/' + version + '/add-heat-network/introduction/dropout', {
+        data: req.session.data
+    });
+});
+
 
 router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
     clearvalidation(req);

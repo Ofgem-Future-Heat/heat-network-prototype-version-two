@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You do not need to provide any information" %}
+{% set title = "You cannot continue" %}
 
 
 {% block pageTitle %}
@@ -41,22 +41,25 @@
                 {{title}}
             </h1>
 
+            {% if data.introdropoutreason == "203" %}
+            <p class="govuk-body">203</p>
+            {% endif %}
 
+            {% if data.introdropoutreason == "226" %}
+            <p class="govuk-body">226</p>
+            {% endif %}
 
-            <p class="govuk-body">You do not need to tell us about your heat network</p>
-            <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
-            </p>
+            {% if data.introdropoutreason == "227" %}
+            <p class="govuk-body">227</p>
+            {% endif %}
+            
+            {% if data.introdropoutreason == "232" %}
+            <p class="govuk-body">232</p>
+            {% endif %}
 
-<h3 class="govuk-heading-m">If you only control part of a relevant heat network</h3>
-<p class="govuk-body">You may have arrived here because you only control part of a heat network, for example some distribution pipework. In that case, whilst the wider heat network is considered a relevant heat network, your part of it is not.</p>
-<p class="govuk-body">You'll need to tell the primary operator on the network to contact Ofgem and we'll advise you on how to prepare a joint submission: heat-networks@ofgem.gov.uk</p>
-
-
-
-
-
-
-
+            {% if data.introdropoutreason == "233" %}
+            <p class="govuk-body">233</p>
+            {% endif %}
 
         </div>
         <a href="../../account-information" class="govuk-button">Finish</a>
