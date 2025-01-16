@@ -4,6 +4,13 @@
     Account information
 {% endblock %}
 
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 {% block beforeContent %}
 
     <div class="govuk-grid-row">
@@ -46,11 +53,7 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l govuk-!-margin-bottom-1">
-      {% if data.companyname %}
-      {{data.companyname}}
-      {% else %}
-      Radienteco Ltd 
-      {% endif %}
+        {{company}}
     </h1>
     <p class="govuk-body-s govuk-!-margin-top-0"><a href="account-creation/select-org" class="govuk-link govuk-link--no-visited-state">Switch to a different organisation</a></p>
 
@@ -148,7 +151,7 @@
       {% if data.currentversion and data.currentversion.toLowerCase() == "complete" %}
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">Heat networks</h2>
-        <p class="govuk-body">You currently have <strong>5</strong> heat networks with <strong>1</strong> in progress.</p>
+        <p class="govuk-body">{{company}} has added <strong>5</strong> heat networks with <strong>1</strong> in progress.</p>
           {{ govukButton ({
             text: "Add a new heat network",
             href: "add-heat-network/introduction/intro"
@@ -167,40 +170,43 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
+            {% if data.introcomplete == "true" %}
+
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">123456789</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>West Leeds<br /><strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2024</td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>{% if data.supplywhen %}{{data.supplywhen}}{% else %}{{data.supplywhen}}{% endif %}</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised != "Yes" %}Temorarily authorised{% else %}Deemed authorised{% endif %}</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
             </tr>
+            {% endif %}
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">234567811</a></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>West Leeds<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2024</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">456895421</a></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>West Leeds<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2024</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">658522341</a></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>West Leeds<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2024</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Complete</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">788845211</a></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>West Leeds<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2024</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Complete</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
           </tbody>
         </table>

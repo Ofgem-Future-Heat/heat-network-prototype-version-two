@@ -4086,12 +4086,22 @@ router.post('/' + version + '/add-heat-network/introduction/operational', functi
     }
 
     else {
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"
+          ];
+        const formattedDate = `${introoperationaldate.getDate()} ${monthNames[introoperationaldate.getMonth()]} ${introoperationaldate.getFullYear()}`;
+
+        req.session.data['supplywhen'] = formattedDate;
         if (introoperationaldate > operationalDeadline) {
+            req.session.data['introauthorised'] == "No"
             res.redirect('/' + version + '/add-heat-network/introduction/authorisation');
 
         }
 
         else {
+            req.session.data['introauthorised'] == "Yes"
+
             if (introcommunal == "Yes") {
                 res.redirect('/' + version + '/add-heat-network/introduction/buy');
             }
