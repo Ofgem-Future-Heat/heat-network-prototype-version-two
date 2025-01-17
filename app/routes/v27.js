@@ -2816,6 +2816,47 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
 });
 
 
+
+// View
+
+router.get('/' + version + '/add-heat-network/view', function (req, res) {
+
+
+
+
+    const urlParams = req.query.v;
+
+    if (urlParams == "complete") {
+        req.session.data['introrelevant'] = "Yes"
+        req.session.data['introgroundloop'] = "No"
+        req.session.data['introcommunal'] = "No"
+        req.session.data['introbuildingstotal'] = "3"
+        req.session.data['introbuildingshowmany'] = "3"
+        req.session.data['introcommunaloperate'] = "Yes"
+        req.session.data['introcommunaloperatehowmany'] = "1"
+        req.session.data['introenergycentre'] = "Yes"
+        req.session.data['introenergycentrehowmany'] = "1"
+        req.session.data['intropipework'] = "Yes"
+        req.session.data['introsuppliers'] = "No"
+        req.session.data['introsupplycurrent'] = "Yes"
+        req.session.data['supplywhen'] = "2022"
+        req.session.data['introselfsupply'] = "No"
+        req.session.data['introbuy'] = "Yes"
+        req.session.data['introsell'] = "No"
+        req.session.data['name'] = "Heat Network One"
+        req.session.data['introcomplete'] = "true"
+        req.session.data['introhnbuildings'] = "2"
+
+
+    }
+
+    res.render('/' + version + '/add-heat-network/view', {
+        data: req.session.data
+    });
+
+
+});
+
 // Add Heat Network - Intro
 
 // Introduction - Intro
