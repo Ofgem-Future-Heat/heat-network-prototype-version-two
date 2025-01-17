@@ -178,7 +178,7 @@
             {% if data.introcomplete == "true" %}
 
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/tasklist" class="govuk-link govuk-link--no-visited-state">123456789</a></th>
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">123456789</a></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>{% if data.supplywhen %}{{data.supplywhen}}{% else %}{{data.supplywhen}}{% endif %}</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Deemed authorised{% else %}Temporarily authorised{% endif %}</td>
