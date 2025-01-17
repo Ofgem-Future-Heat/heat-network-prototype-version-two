@@ -48,7 +48,7 @@
         {% endif %}
         <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.supplywhen %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.supplywhenyear %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,10 +64,10 @@
                         For example, 2020
                     </div>
 
-                                        {% if data.validationErrors.supplywhen %}
+                                        {% if data.validationErrors.supplywhenyear %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.supplywhen.message}}
+                        {{data.validationErrors.supplywhenyear.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-date-input" id="supply-date">
@@ -76,7 +76,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="supply-date-year">
                                     Year
                                 </label>
-                                <input class="govuk-input {% if data.validationErrors.supplywhen %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="supply-date-year" name="supplywhen" type="text" inputmode="numeric" value="{{data.supplywhen}}">
+                                <input class="govuk-input {% if data.validationErrors.supplywhenyear %}govuk-input--error{% endif %} govuk-date-input__input govuk-input--width-4" id="supply-date-year" name="supplywhenyear" type="text" inputmode="numeric" value="{{data.supplywhenyear}}">
                             </div>
                         </div>
                     </div>

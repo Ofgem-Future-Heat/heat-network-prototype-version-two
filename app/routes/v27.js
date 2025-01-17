@@ -3610,7 +3610,13 @@ router.post('/' + version + '/add-heat-network/introduction/supplystart', functi
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/name');
+        if (introsupplystart == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=232');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=233');
+        }
+            
 
     }
 
@@ -3942,14 +3948,14 @@ router.get('/' + version + '/add-heat-network/introduction/supplywhen', function
 
 router.post('/' + version + '/add-heat-network/introduction/supplywhen', function (req, res) {
     clearvalidation(req);
-    var supplywhen = req.session.data['supplywhen']
+    var supplywhenyear = req.session.data['supplywhenyear']
     var introcommunal = req.session.data['introcommunal']
 
 
-    if (!supplywhen) {
+    if (!supplywhenyear) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.supplywhen = {
-            "anchor": "supplywhen",
+        req.session.data.validationErrors.supplywhenyear = {
+            "anchor": "supplywhenyear",
             "message": "Enter a year"
         }
     }
@@ -3961,7 +3967,9 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
     }
 
     else {
-        if (supplywhen > 2024) {
+        req.session.data['supplywhen'] = supplywhenyear
+
+        if (supplywhenyear > 2024) {
             res.redirect('/' + version + '/add-heat-network/introduction/operational');
 
         }

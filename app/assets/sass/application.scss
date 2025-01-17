@@ -284,4 +284,13 @@ table.responsive thead {
 	display: table-row;
 	content: "";
   }
+
+  .float-right {
+	float: right;
+  }
   
+  .hn-accordion {
+	.govuk-accordion__controls {
+		display: none;
+	}
+  }
