@@ -69,6 +69,12 @@
 
 
         <div class="govuk-accordion hn-accordion" data-module="govuk-accordion" id="accordion-default">
+            <div class="govuk-accordion__section govuk-visually-hidden">
+                <div class="govuk-accordion__section-header">
+                </div>
+
+              </div>
+
             <div class="govuk-accordion__section">
               <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
@@ -85,6 +91,7 @@
                     </span>
                 </h2>
               </div>
+              {% if data.introcomplete == "true" %}
               <div id="accordion-default-content-1" class="govuk-accordion__section-content">
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     <div class="govuk-summary-list__row">
@@ -330,23 +337,12 @@
                     </div>
                 </dl>
                       </div>
+                      {% endif %}
+
             </div>
 
             <div class="govuk-accordion__section govuk-visually-hidden">
                 <div class="govuk-accordion__section-header">
-                  <h2 class="govuk-accordion__section-heading">
-                    <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
-                        Consumer protections
-
-                        {% if data.protectionscomplete == "true" %}
-                        <strong class="govuk-tag govuk-tag--green float-right">Completed</strong>
-                        {% else %}
-                        <strong class="govuk-tag govuk-tag--blue float-right">
-                            Not yet started
-                        </strong>
-                        {% endif %}
-                    </span>
-                  </h2>
                 </div>
 
               </div>
