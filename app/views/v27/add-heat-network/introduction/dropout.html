@@ -1,5 +1,25 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You cannot continue" %}
+{% set title %}
+{% if data.introdropoutreason == "203" %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+
+{% if data.introdropoutreason == "226" %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+
+{% if data.introdropoutreason == "227" %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+
+{% if data.introdropoutreason == "232" %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+
+{% if data.introdropoutreason == "233" %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+{% endset %}
 
 
 {% block pageTitle %}
@@ -42,7 +62,8 @@
             </h1>
 
             {% if data.introdropoutreason == "203" %}
-            <p class="govuk-body">203</p>
+            <p class="govuk-body">This service is not currently available for heat networks that are connected by shared ground loops.</p>
+            <p class="govuk-body">We’ll contact you once this feature is available.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "226" %}
@@ -54,11 +75,13 @@
             {% endif %}
             
             {% if data.introdropoutreason == "232" %}
-            <p class="govuk-body">232</p>
+            <p class="govuk-body">You’ll need to return to this service and register the heat network once it’s started providing heating, cooling or hot water to end consumers.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "233" %}
-            <p class="govuk-body">233</p>
+            <p class="govuk-body">If you're not carrying out a regulated activity until after 27 January 2027, you'll need to apply for authorisation. You can only do this after the heat network has started providing heating, cooling or hot water to end consumers. </p>
+            <p class="govuk-body">We'll make authorisation available closer to the time.</p>
+
             {% endif %}
 
         </div>

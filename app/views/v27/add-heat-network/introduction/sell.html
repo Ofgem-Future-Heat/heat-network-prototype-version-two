@@ -10,7 +10,7 @@ Radienteco Ltd
 
 
 {% set title %}
-Does {{company}} sell heating, cooling or hot water from this heat network to another heat network that is operated by a different organisation?
+Does {{company}} sell thermal energy from this heat network to another heat network that is operated by a different organisation?
 {% endset %}
 
 
@@ -77,16 +77,19 @@ Does {{company}} sell heating, cooling or hot water from this heat network to an
                     </legend>
                     <p class="govuk-body">
                         This means your network supplies thermal energy to another communal or district network that your organisation does not control, and your organisation gets paid for this energy.
-                    </p>
-                    {% if data.introcommunal == "No" %}
-                    <div class="govuk-inset-text">
-                    <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
-                    <ul class="govuk-list govuk-list--bullet"> 
-                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
-                        {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
-                    </ul>
-                    </div>
-                {% endif %}
+                        </p><p class="govuk-body">
+                        Thermal energy is the energy in a heat network that's used to provide heating, hot water or cooling to end consumers.                    </p>
+                        {% if data.introcommunal == "No" %}
+                        <div class="govuk-inset-text">
+                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                        <ul class="govuk-list govuk-list--bullet"> 
+                            {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
+                            {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                        </ul>
+    
+                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
+                        </div>
+                    {% endif %}
 
                     {% if data.validationErrors.introsell %}
                     <p class="govuk-error-message">
