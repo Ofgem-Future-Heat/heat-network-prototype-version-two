@@ -1,7 +1,10 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
+{% if data.introdropoutreason == "238" %}
+Only heat network operators can initiate adding heat network information
+{% else %}
 You cannot register your organisation’s heat network yet
-
+{% endif %}
 {% endset %}
 
 
@@ -50,7 +53,10 @@ You cannot register your organisation’s heat network yet
             {% endif %}
 
             {% if data.introdropoutreason == "226" %}
-            <p class="govuk-body">226</p>
+            <p class="govuk-body">This is because your organisation is not responsible for any buildings and does not operate any energy centres on this heat network.</p>
+            <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.</p>
+            <p class="govuk-body">Contact us on <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link breakword">support@registerheatnetworks.service.gov.uk</a>.</p>
+
             {% endif %}
 
             {% if data.introdropoutreason == "227" %}
@@ -70,11 +76,33 @@ You cannot register your organisation’s heat network yet
             {% endif %}
 
             {% if data.introdropoutreason == "237" %}
-            <p class="govuk-body">226</p>
+            <p class="govuk-body">You do not need to tell us about your heat network</p>
+            <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
             {% endif %}
 
             {% if data.introdropoutreason == "238" %}
-            <p class="govuk-body">226</p>
+            <p class="govuk-body">
+                This is because we need to start with a single reliable map of an entire heat network - including its energy centres - and operators are best placed to provide this.
+            </p>
+            <p class="govuk-body">
+                As part of the process of adding heat network information, operators will invite any relevant suppliers to add their supply data.
+            </p>
+            <p class="govuk-body">
+                If you're waiting for an invitation from any operators that you get heat from, you'll need to remind them to:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>create an account for the heat networks service</li>
+                <li>add their heat network data</li>
+                <li>invite you through the service to add your supply data</li>
+            </ul>
+
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  If your operator is not responding, or failing to take action in a timely manner, you can notify us on <a href="#" class="govuk-link breakword">support@registerheatnetworks.service.gov.uk</a>.
+                </strong>
+              </div>
             {% endif %}
 
         </div>
