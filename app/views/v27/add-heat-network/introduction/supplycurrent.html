@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the heat network already supplying thermal energy?" %}
+{% set title = "Is the heat network already providing heating, cooling or hot water to end consumers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -62,18 +62,6 @@
                         </h1>
 
                         </legend>
-
-
-                        <details class="govuk-details">
-                            <summary class="govuk-details__summary">
-                              <span class="govuk-details__summary-text">
-                                Help with ‘thermal energy’
-                              </span>
-                            </summary>
-                            <div class="govuk-details__text">
-                                Content here
-                            </div>
-                          </details>
 
                         {% if data.validationErrors.introsupplycurrent %}
                 <p class="govuk-error-message">

@@ -1,24 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if data.introdropoutreason == "203" %}
 You cannot register your organisation’s heat network yet
-{% endif %}
 
-{% if data.introdropoutreason == "226" %}
-You cannot register your organisation’s heat network yet
-{% endif %}
-
-{% if data.introdropoutreason == "227" %}
-You cannot register your organisation’s heat network yet
-{% endif %}
-
-{% if data.introdropoutreason == "232" %}
-You cannot register your organisation’s heat network yet
-{% endif %}
-
-{% if data.introdropoutreason == "233" %}
-You cannot register your organisation’s heat network yet
-{% endif %}
 {% endset %}
 
 
@@ -84,6 +67,14 @@ You cannot register your organisation’s heat network yet
             <p class="govuk-body">If you're not carrying out a regulated activity until after 27 January 2027, you'll need to apply for authorisation. You can only do this after the heat network has started providing heating, cooling or hot water to end consumers. </p>
             <p class="govuk-body">We'll make authorisation available closer to the time.</p>
 
+            {% endif %}
+
+            {% if data.introdropoutreason == "237" %}
+            <p class="govuk-body">226</p>
+            {% endif %}
+
+            {% if data.introdropoutreason == "238" %}
+            <p class="govuk-body">226</p>
             {% endif %}
 
         </div>
