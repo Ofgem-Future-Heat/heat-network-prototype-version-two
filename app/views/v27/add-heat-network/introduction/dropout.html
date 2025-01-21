@@ -2,6 +2,8 @@
 {% set title %}
 {% if data.introdropoutreason == "238" %}
 Only heat network operators can initiate adding heat network information
+{% elif data.introdropoutreason == "237" %}
+You do not need to register your organisation’s heat network
 {% else %}
 You cannot register your organisation’s heat network yet
 {% endif %}
