@@ -63,7 +63,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/account-information?v=ur');
+            res.redirect('/' + version + '/account-information?v=complete');
     }
 
 });

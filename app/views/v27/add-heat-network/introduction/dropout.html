@@ -71,7 +71,9 @@ You cannot register your organisation’s heat network yet
             {% endif %}
 
             {% if data.introdropoutreason == "227" %}
-            <p class="govuk-body">227</p>
+            <p class="govuk-body">This is because your organisation does not operate all of the distribution pipework connecting the heat source to the buildings on this heat network.</p>
+            <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.</p>
+            <p class="govuk-body">Contact us on <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link breakword">support@registerheatnetworks.service.gov.uk</a>.</p>
             {% endif %}
             
             {% if data.introdropoutreason == "232" %}
