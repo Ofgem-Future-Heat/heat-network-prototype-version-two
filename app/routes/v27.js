@@ -2945,7 +2945,7 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
             res.redirect('/' + version + '/add-heat-network/introduction/groundloop');
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=237');
  
         }
     }
@@ -3021,7 +3021,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
 
     else {
         if (role == "Heat supplier") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout-supplier');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=238');
 
         }
 
@@ -3385,7 +3385,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
 
     else {
         if (buildings == 0 && (introenergycentrehowmany == 0 || introenergycentre == "No")) {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=226');
     }
     else {
         res.redirect('/' + version + '/add-heat-network/introduction/summary');
@@ -3536,7 +3536,7 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
 
     else {
         if (intropipework == "No") {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout');
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=227');
 
         }
         else {
