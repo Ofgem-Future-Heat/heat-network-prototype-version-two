@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
+{% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
 {% set title = "Does this building have a building-level meter?" %}
+{% else %}
+{% set title = "Do any buildings on this heat network have a building-level meter?" %}
+{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -76,7 +80,7 @@
                     </p>
                     {% endif %}
 
-
+                    {% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="buildinglevelmeter" name="buildinglevelmeter" type="radio" value="Yes" {% if data.buildinglevelmeter == "Yes" %}checked{% endif %}>
@@ -91,7 +95,37 @@
                             </label>
                         </div>
                     </div>
+                    {% else %}
 
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="buildinglevelmeter" name="buildinglevelmeter" type="radio" value="Yes" {% if data.buildinglevelmeter == "Yes" %}checked{% endif %} data-aria-controls="conditional-buildinglevelmeter">
+                            <label class="govuk-label govuk-radios__label" for="buildinglevelmeter">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-buildinglevelmeter">
+                            <div class="govuk-form-group {% if data.validationErrors.buildinglevelmeternumber %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="buildinglevelmeternumber">
+                                How many?
+                              </label>
+                              {% if data.validationErrors.buildinglevelmeternumber %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.buildinglevelmeternumber.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input {% if data.validationErrors.buildinglevelmeternumber %}govuk-input--error{% endif %} govuk-!-width-one-third" id="buildinglevelmeternumber" name="buildinglevelmeternumber" type="text" spellcheck="false"  value="{{data.buildinglevelmeternumber}}">
+                            </div>
+                          </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="buildinglevelmeter-2" name="buildinglevelmeter" type="radio" value="No" {% if data.buildinglevelmeter == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="buildinglevelmeter-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                    {% endif %}
             </fieldset>
 
 

@@ -40,7 +40,7 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Building{% if (data.buildings > 1) %}s{% endif %}
+                    Customers
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if (data.buildings > 1) %}<strong>Building 1</strong><br />{% endif %}
@@ -50,7 +50,7 @@
                     {% endif %}
                     {% if (data.role != "Network operator") %}
                     <strong>Type:</strong> {% if data.buildingtype %}{{data.buildingtype | replace("0", "-")}}{% else %} - {% endif %}<br />
-                    <strong>Customers:</strong> {% if data.buildingaddressCustomers %}{{data.buildingaddressCustomers}}{% else %}-{% endif %}<br />
+                    <strong>Customers:</strong> {% if data.buildingcustomers %}{{data.buildingcustomers}}{% else %}-{% endif %}<br />
                     <strong>Metering</strong>
                     {% if data.meteringregulations == "Yes" %}
                     : Exempt

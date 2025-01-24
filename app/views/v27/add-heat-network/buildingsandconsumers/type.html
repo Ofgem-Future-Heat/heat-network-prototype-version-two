@@ -1,8 +1,14 @@
 {% extends 'layouts/main.html' %}
-
-    {% set title = "What type of building is this? " %}
+{% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
+    {% set title = "What type of building does your heat network contain? " %}
     {% set inputtype = "radios" %}
     {% set inputtypeshort = "radio" %}
+{% else %}
+{% set title = "What types of building does your heat network contain? " %}
+{% set inputtype = "checkboxes" %}
+{% set inputtypeshort = "checkbox" %}
+
+{% endif %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -80,10 +86,12 @@
                     </p>
                     {% endif %}
 
-                     {% if data.building == "Yes" %}
-                    {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses'], ['Mixed0use', 'For example, residential and commercial']] %}
-                                {% else %}
+                    {% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
                     {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse'], ['Mixed0use', 'For example, residential and commercial']] %}
+
+                                {% else %}
+                                {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses'], ['Mixed0use', 'For example, residential and commercial']] %}
+
                                 {% endif %}
                                 <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 

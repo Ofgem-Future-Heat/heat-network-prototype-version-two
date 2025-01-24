@@ -5246,212 +5246,8 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/howmany', f
 
 });
 
-// Buildings & consumers - Buildings
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
-    clearvalidation(req);
-
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildings', {
-        data: req.session.data
-    });
-});
 
 
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
-    clearvalidation(req);
-    var buildingaddressPostcode = req.session.data['buildingaddressPostcode']
-    var buildingType = req.session.data['buildingtype']
-    var commercialcustomers = req.session.data['buildingaddressCustomersCommercial']
-
-    if (!buildingaddressPostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildings = {
-            "anchor": "buildings",
-            "message": "Fill in all building information before continuing",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildings', {
-            data: req.session.data
-        });
-    }
-    else {
-        if (buildingType == "Commercial" | commercialcustomers >= 1) {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
-        }
-        else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
-        }
-    }
-});
-
-
-// Buildings & consumers - Address
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/address', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/address', function (req, res) {
-    clearvalidation(req);
-    var userpostcode = req.session.data['buildingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-    var usernumber = req.session.data['buildingaddressNumber']
-
-    if (!userpostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressPostcode = {
-            "anchor": "buildingaddressPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    function validateUKPostcode(postcode) {
-        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
-      
-        return postcodeRegex.test(postcode);
-      }
-
-    if (!validateUKPostcode(userpostcode)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressPostcode = {
-            "anchor": "buildingaddressPostcode",
-            "message": "Enter a valid postcode",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
-            data: req.session.data
-        });
-    }
-
-    else {
-
-        const axios = require('axios');
-        const https = require('https');
-
-        const httpsAgent = new https.Agent({
-            rejectUnauthorized: false
-        })
-
-        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
-
-        async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                .then(function (response) {
-                    var output = JSON.stringify(response.data, null, 2);
-                    let totalResults = response.data.header.totalresults;
-                    let parsed = JSON.parse(output).results;
-                    let locationaddresses = [];
-                    if (parsed != undefined) {
-                        for (var i = 0; i < parsed.length; i++) {
-                            let obj = parsed[i];
-                            locationaddresses.push(obj.LPI.ADDRESS);
-                        }
-
-                        req.session.data.buildinglocationAddressSelect = locationaddresses;
-                        req.session.data.orgaddressnotfound = "";
-                        if (totalResults > 99) {
-                            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addresserror?reason=toomany');
-                        }
-                        else {
-                            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addressselect');
-                        }
-                    }
-
-                    else {
-                        req.session.data.validationError = "true"
-                        req.session.data.validationErrors.buildingaddressPostcode = {
-                            "anchor": "buildingaddressPostcode",
-                            "message": "Enter a valid postcode",
-                        }
-                
-                        res.render('/' + version + '/add-heat-network/buildingsandconsumers/address', {
-                            data: req.session.data
-                        });
-                    }
-
-                });
-
-        }
-        postcode(userpostcode);
-        }
-
-});
-
-// Buildings & consumers - Address error
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/addresserror', function (req, res) {
-    clearvalidation(req);
-    const urlParams = req.query.reason;
-    req.session.data['addresserrorreason'] = urlParams;
-
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/addresserror', {
-        data: req.session.data
-    });
-});
-
-// Buildings & consumers - Address select
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/addressselect', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/addressselect', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/addressselect', function (req, res) {
-    clearvalidation(req);
-    var addressselect = req.session.data['buildingaddressSelect']
-    var buildings = req.session.data['buildings']
-    var role = req.session.data['role']
-
-
-
-    if (!addressselect) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressSelect = {
-            "anchor": "buildingaddressSelect",
-            "message": "Select an address",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/addressselect', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data.buildinglocationAddress = req.session.data['buildingaddressSelect']
-
-        if (buildings > 1) {
-            if (role == "Network operator"){
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-            }
-
-            else if (role != "Heat supplier"){
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-            }
-    
-        }
-        else {
-            if (role == "Network operator"){
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
-            }
-            
-            else {
-                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-            }    
-    
-        }
-    }
-});
 
 
 // Buildings & consumers - Contract
@@ -5495,76 +5291,6 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/contract', 
 });
 
 
-// Buildings & consumers - Address manual
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/addressmanual', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/addressmanual', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/addressmanual', function (req, res) {
-    clearvalidation(req);
-    var buildingaddressMLine1 = req.session.data['buildingaddressMLine1']
-    var buildingaddressMLine2 = req.session.data['buildingaddressMLine2']
-    var buildingaddressMTown = req.session.data['buildingaddressMTown']
-    var buildingaddressMCounty = req.session.data['buildingaddressMCounty']
-
-    var buildingaddressMPostcode = req.session.data['buildingaddressMPostcode']
-    var buildings = req.session.data['buildings']
-
-
-    if (!buildingaddressMLine1) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressMLine1 = {
-            "anchor": "buildingaddressMLine1",
-            "message": "Enter the first line of the address",
-        }
-    }
-
-
-    if (!buildingaddressMTown) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressMTown = {
-            "anchor": "buildingaddressMTown",
-            "message": "Enter a town or city",
-        }
-    }
-
-    if (!buildingaddressMPostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingaddressMPostcode = {
-            "anchor": "buildingaddressMPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/addressmanual', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        req.session.data.buildinglocationAddress = buildingaddressMLine1 + ', ' + buildingaddressMLine2 + ', ' + buildingaddressMTown + ', ' + buildingaddressMCounty + ', ' + buildingaddressMPostcode
-
-        if ((buildings > 1) && (role == "Network operator")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-        }
-        else if ((buildings = 1) && (role == "Network operator")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
-        }
-
-        else if ((buildings > 1) && (role != "Heat supplier")){
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/contract');
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/type');
-        }  
-    }
-});
-
 
 // Buildings & consumers - Type
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/type', function (req, res) {
@@ -5595,130 +5321,145 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/type', func
         });
     }
     else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers');
+        if (Array.isArray(buildingtype) && buildingtype.length > 1) {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        } else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/customers');
+        }
     }
 });
 
 
-// Buildings & consumers - Class
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/class', function (req, res) {
+// Buildings & consumers - Buildings
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/class', {
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildings', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/class', function (req, res) {
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
     clearvalidation(req);
+    var buildings = req.session.data['introhnbuildings']
+    var buildingnumberResidential = req.session.data['buildingnumberResidential']
+    var buildingnumberCommercial = req.session.data['buildingnumberCommercial']
+    var buildingnumberIndustrial = req.session.data['buildingnumberIndustrial']
+    var buildingnumberPublic = req.session.data['buildingnumberPublic']
+    var buildingtype = req.session.data['buildingtype']
 
-    var buildingclass = req.session.data['buildingclass']
 
-    if (!buildingclass) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.buildingclass = {
-            "anchor": "buildingclass",
-            "message": "Select a class of building"
+    const types = ["Residential", "Commercial", "Industrial", "Public", "Mixed0Use"];
+
+    types.forEach(type => {
+        if (buildingtype.includes(type) && !req.session.data[`buildingnumber${type}`]) {
+            req.session.data.validationError = "true";
+            req.session.data.validationErrors[`buildingnumber${type}`] = {
+                "anchor": `buildingnumber${type}`,
+                "message": "Enter the number of " + type + " buildings",
+            };
         }
-    }
+    });
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/class', {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildings', {
             data: req.session.data
         });
     }
     else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/customers');
     }
 });
 
 
-// Buildings & consumers - Address customers
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers', function (req, res) {
+// Buildings & consumers - Customers
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/customers', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers', {
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/customers', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers', function (req, res) {
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/customers', function (req, res) {
     clearvalidation(req);
-    var addresscustomers = req.session.data['buildingaddressCustomers']
-    var addresscustomersResidential = req.session.data['buildingaddressCustomersResidential']
-    var addresscustomersCommercial = req.session.data['buildingaddressCustomersCommercial']
-    var addresscustomersIndustrial = req.session.data['buildingaddressCustomersIndustrial']
-    var addresscustomersPublic = req.session.data['buildingaddressCustomersPublic']
-
-
+    var customers = req.session.data['buildingcustomers']
+    var customersResidential = req.session.data['buildingcustomersResidential']
+    var customersCommercial = req.session.data['buildingcustomersCommercial']
+    var customersIndustrial = req.session.data['buildingcustomersIndustrial']
+    var customersPublic = req.session.data['buildingcustomersPublic']
+    var buildings = req.session.data['introhnbuildings']
+    var hntype = req.session.data['introcommunal']
     var buildingtype = req.session.data['buildingtype']
 
-    var buildings = req.session.data['buildings']
-
-    if (buildingtype == "Mixed0use") {
-        if (!addresscustomersResidential && !addresscustomersCommercial) {
-            req.session.data.validationError = "true"
-            req.session.data.validationErrors.buildingaddressCustomersResidential = {
-                "anchor": "buildingaddressCustomersResidential",
-                "message": "Enter the number of customers",
+        if (buildingtype == "Mixed0use") {
+            if (!customersResidential && !customersCommercial && !customersIndustrial && !customersPublic) {
+                req.session.data.validationError = "true"
+                req.session.data.validationErrors.buildingcustomers = {
+                    "anchor": "buildingcustomers",
+                    "message": "Enter the number of customers",
+                }
             }
-        }
-
-    
-    
-        if (req.session.data.validationError == "true") {
-            res.render('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers', {
-                data: req.session.data
-            });
-        }
-    
-        else {
-            req.session.data['buildingaddressCustomers'] = Number(addresscustomersResidential) + Number(addresscustomersCommercial) + Number(addresscustomersIndustrial) + Number(addresscustomersPublic)
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/metering');
-      
-        }
-    }
-
-    else {
-        if (!addresscustomers) {
-            req.session.data.validationError = "true"
-            req.session.data.validationErrors.buildingaddressCustomers = {
-                "anchor": "buildingaddressCustomers",
-                "message": "Enter the number of final customers",
+            
+            if (req.session.data.validationError == "true") {
+                res.render('/' + version + '/add-heat-network/buildingsandconsumers/customers', {
+                    data: req.session.data
+                });
+            }
+        
+            else {
+                req.session.data['buildingcustomers'] = Number(customersResidential) + Number(customersCommercial) + Number(customersIndustrial) + Number(customersPublic)
+                        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/metering');
             }
         }
     
-    
-        if (req.session.data.validationError == "true") {
-            res.render('/' + version + '/add-heat-network/buildingsandconsumers/addresscustomers', {
-                data: req.session.data
-            });
-        }
-    
+        else {            
+            if ((buildings == 1) || (hntype == "Yes")) {
+                if (!customers) {
+                    req.session.data.validationError = "true"
+                    req.session.data.validationErrors.buildingcustomers = {
+                        "anchor": "buildingcustomers",
+                        "message": "Enter the number of final customers",
+                    }
+                }
+            
+                if (req.session.data.validationError == "true") {
+                    res.render('/' + version + '/add-heat-network/buildingsandconsumers/customers', {
+                        data: req.session.data
+                    });
+                }
+            
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter');    
+                }
+        }    
         else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/metering');
 
+            const types = ["Residential", "Commercial", "Industrial", "Public"];
 
-            // if (buildings > 1){
-            //     if (buildingtype == "Residential" ) {
-            //         res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/sharedfacilities');
-            //     }
-            //     else {
-            //         res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-            //     }            }
-            // else {
-            //     if (buildingtype == "Commercial" | addresscustomersCommercial >= 1) {
-            //         res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
-            //     }
-            //     else {
-            //         res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/cya');
-            //     }   
-            // }
-    
-    
+            types.forEach(type => {
+                if (buildingtype.includes(type) && !req.session.data[`buildingcustomers${type}`]) {
+                    req.session.data.validationError = "true";
+                    req.session.data.validationErrors[`buildingcustomers${type}`] = {
+                        "anchor": `buildingcustomers${type}`,
+                        "message": "Enter the number of " + type + " customers",
+                    };
+                }
+            });
+
+            if (req.session.data.validationError == "true") {
+                res.render('/' + version + '/add-heat-network/buildingsandconsumers/customers', {
+                    data: req.session.data
+                });
+            }
+
+            else {
+                res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter');    
+            }
         }
-    
     }
+
+
 });
 
 // Buildings & consumers -  Metering
@@ -5800,7 +5541,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/finalconsum
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
     }
 });
 
@@ -5819,6 +5560,9 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/heatcostall
     clearvalidation(req);
     var heatcostallocators = req.session.data['heatcostallocators']
     var heatcostallocatorsnumber = req.session.data['heatcostallocatorsnumber']
+    var addresscustomersCommercial = req.session.data['buildingcustomersCommercial']
+
+    var buildingtype = req.session.data['buildingtype']
 
 
     if (!heatcostallocators) {
@@ -5844,7 +5588,12 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/heatcostall
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+        if (buildingtype == "Commercial" | addresscustomersCommercial >= 1) {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+        }   
     }
 });
 
@@ -5904,6 +5653,9 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
     clearvalidation(req);
     var smartdisplaymeters = req.session.data['smartdisplaymeters']
     var smartdisplaymetersnumber = req.session.data['smartdisplaymetersnumber']
+    var buildinglevelmeter = req.session.data['buildinglevelmeter']
+    var buildings = req.session.data['introhnbuildings']
+    var buildinglevelmeternumber = req.session.data['buildinglevelmeternumber']
 
 
     if (!smartdisplaymeters) {
@@ -5933,7 +5685,11 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies');
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
+        if ((buildinglevelmeternumber) && (buildinglevelmeternumber < buildings)) {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/capable');
+            console.log(buildinglevelmeternumber + "," + buildings)
+        }
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators');
         }
 
 
@@ -5942,54 +5698,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
 
 
 
-// Buildings & consumers -  Smart display meters
-router.get('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', {
-        data: req.session.data
-    });
-});
 
-
-router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
-    clearvalidation(req);
-    var smartdisplaymeters = req.session.data['smartdisplaymeters']
-    var smartdisplaymetersnumber = req.session.data['smartdisplaymetersnumber']
-
-
-    if (!smartdisplaymeters) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smartdisplaymeters = {
-            "anchor": "smartdisplaymeters",
-            "message": "Select whether any dwellings have smart display meters",
-        }
-    }
-
-    if (smartdisplaymeters == "Yes" && !smartdisplaymetersnumber) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smartdisplaymetersnumber = {
-            "anchor": "smartdisplaymetersnumber",
-            "message": "Enter how many dwellings have smart display meters",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (smartdisplaymeters == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies');
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-        }
-
-
-    }
-});
 
 
 
@@ -6019,6 +5728,9 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildingleve
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', function (req, res) {
     clearvalidation(req);
     var buildinglevelmeter = req.session.data['buildinglevelmeter']
+    var hntype = req.session.data['introcommunal']
+    var buildings = req.session.data['introhnbuildings']
+    var buildinglevelmeternumber = req.session.data['buildinglevelmeternumber']
 
     if (!buildinglevelmeter) {
         req.session.data.validationError = "true"
@@ -6027,6 +5739,14 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildinglev
             "message": "Select whether the building has a building-level meter",
         }
     }
+    if (!(buildings == 1 || hntype == "Yes")) {
+        if (!buildinglevelmeternumber) {
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.buildinglevelmeternumber = {
+                "anchor": "buildinglevelmeternumber",
+                "message": "Enter the number of buildings with a building-level meter",
+            }
+        }    }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', {
@@ -6035,7 +5755,58 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildinglev
     }
 
     else {
+        if (buildinglevelmeter == "No") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/capable');
+
+        }
+
+        else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/finalconsumermeters');
+
+        }
+    }
+});
+
+
+
+// Buildings & consumers -  Capable
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/capable', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/capable', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/capable', function (req, res) {
+    clearvalidation(req);
+    var capable = req.session.data['capable']
+    var buildings = req.session.data['introhnbuildings']
+
+    if (!capable) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.capable = {
+            "anchor": "capable",
+            "message": "Select whether the building has a building-level meter",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/capable', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (capable == "No" && buildings > 6) {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/apply');
+
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators');
+
+        }
     }
 });
 
@@ -6091,6 +5862,8 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/meteringrea
             }
     }
 });
+
+
 
 
 // Buildings & consumers -  Microbusinesses

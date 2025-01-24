@@ -17,13 +17,13 @@ Are you sure you want to remove {{data.smrifirstname}} {{data.smrilastname}} as 
   <div class="govuk-grid-column-full">
 
 
+    {% include data.version + "/_partials/headerlinks.html" %}
     {{
     govukBackLink ({
     text: 'Back',
     href: 'javascript:history.back()'
     })
     }}
-    {% include data.version + "/_partials/headerlinks.html" %}
 
   </div>
 
