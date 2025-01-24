@@ -5322,8 +5322,10 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/type', func
     }
     else {
         if (Array.isArray(buildingtype) && buildingtype.length > 1) {
+            req.session.data['hasbuildingtypes'] = true
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
         } else {
+            req.session.data['hasbuildingtypes'] = false
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/customers');
         }
     }
@@ -5687,9 +5689,10 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
         else {
         if ((buildinglevelmeternumber) && (buildinglevelmeternumber < buildings)) {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/capable');
-            console.log(buildinglevelmeternumber + "," + buildings)
         }
+        else {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators');
+        }
         }
 
 
@@ -5712,8 +5715,18 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnol
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', function (req, res) {
-    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/buildings');
-});
+
+    var buildings = req.session.data['introhnbuildings']
+    var buildinglevelmeternumber = req.session.data['buildinglevelmeternumber']
+
+
+
+    if ((buildinglevelmeternumber) && (buildinglevelmeternumber < buildings)) {
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/capable');
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators');
+    }});
 
 
 // Buildings & consumers -  Building level meters
