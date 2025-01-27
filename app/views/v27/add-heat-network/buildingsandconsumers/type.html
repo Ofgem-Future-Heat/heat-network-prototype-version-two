@@ -97,7 +97,7 @@
 
                     {% for building, description in buildtypes %}
                         <div class="govuk-{{inputtype}}__item">
-                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}" {% if inputtype == "checkboxes" %}{% if building in data.buildingtype %}checked{% endif %} {% else %}{% if data.buildingtype == building %}checked{% endif %}{% endif %}>
+                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}" {% if data.buildingtype %}{% if inputtype == "checkboxes" %}{% if building in data.buildingtype %}checked{% endif %} {% else %}{% if data.buildingtype == building %}checked{% endif %}{% endif %}{% endif %}>
                             <label class="govuk-label govuk-{{inputtype}}__label" for="buildingtype-{{building}}">
                                 {{building | replace("0", "-") | safe}} building
                             </label>
