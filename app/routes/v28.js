@@ -4510,7 +4510,7 @@ router.get('/' + version + '/add-heat-network/energycentre/energycentres', funct
 
 router.post('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     clearvalidation(req);
-    var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
+    var enerycentrescompleted = req.session.data['enerycentrescompleted']
 
 
     if (enerycentrescompleted != true) {
