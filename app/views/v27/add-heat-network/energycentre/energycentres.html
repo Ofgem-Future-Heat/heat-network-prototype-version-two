@@ -102,67 +102,85 @@
 
                 </thead>
                 <tbody class="govuk-table__body">
-                    {% if (data.energycentres >= 1) %}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Energy centre 1</td>
-                        <td class="govuk-table__cell">
-                            {% if data.ecaddressHasPostcode == "Yes" and data.ecaddressSelected %}
-                            {% set address = data.ecaddressSelected.toString() %}
-                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-                            {% elif data.ecaddresslatitude %}
-                            <p class="govuk-body">Latitude: {{data.ecaddresslatitude}}<br />
-                                Longitude: {{data.ecaddresslongitude}}</p>
-                            {% else %}
-                            -
-                            {% endif %}
 
-                            </td>
-                                <td class="govuk-table__cell">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% else %} - {% endif %}</td>
 
-                                <td class="govuk-table__cell">{% if data.techcapacity or data.techcoolingcapacity %}{% if data.techcapacity %}Heating: {{data.techcapacity}}KW <br />{% endif %}{% if data.techcoolingcapacity %}Cooling: {{data.techcoolingcapacity}}KW {% endif %}{% else %} - {% endif %}</td>
+                    {% set energycentres = [] %}
+                    {% set allComplete = true %}
+                    {% for i in range(1, ((data.energycentres | int) + 1)) %}
+                        {% set energycentres = energycentres.concat([{
+                            "ecaddressHasPostcode": data["ecaddressHasPostcode" ~ i],
+                            "ecaddressSelected": data["ecaddressSelected" ~ i],
+                            "address": data["ecaddressSelected" ~ i],
+                            "ecaddresslatitude": data["ecaddresslatitude" ~ i],
+                            "ecaddresslongitude": data["ecaddresslongitude" ~ i],
+                            "energytype": data["energytype" ~ i],
+                            "id": i,
+                            "techcapacity": data["techcapacity" ~ i],
+                            "techcoolingcapacity": data["techcoolingcapacity" ~ i],
+                            "technologies": data["technologies" ~ i],
+                            "eccomplete": data["eccomplete" ~ i]
+                        }]) %}
 
-                            <td class="govuk-table__cell">                   
-                                {% if data.technologies %} {% for technology, energysource, year in data.technologies %}
-                                {{technology}}
-                                <br />
-                                Source:
-                                {{energysource}}
-                                <br /><br />
-                                {% endfor %}
-                            {% else %}
+                        {% if data["eccomplete" ~ i] != true %}
+                        {% set allComplete = false %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                  {% for energycentre in energycentres %}
+
+                  <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Energy centre {{energycentre.id}}</td>
+                    <td class="govuk-table__cell">
+                        {% if energycentre.ecaddressHasPostcode == "Yes" and energycentre.ecaddressSelected %}
+                        {% set address = energycentre.ecaddressSelected.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        {% elif energycentre.ecaddresslatitude %}
+                        <p class="govuk-body">Latitude: {{energycentre.ecaddresslatitude}}<br />
+                            Longitude: {{energycentre.ecaddresslongitude}}</p>
+                        {% else %}
                         -
-                    {% endif %}</td>
-
-
-                        <td class="govuk-table__cell"><a href="addresspostcode" class="govuk-link govuk-link--no-visited-state">{% if data.ecaddressSelected %}Edit{% else %}Add information{% endif %}</a></td>
-                    </tr>
-
-                    {% for i in range(1, data.energycentres) -%}
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Energy centre {{ i + 1 }}</td>
-                        <td class="govuk-table__cell">
-                            -
-                        </td>
-                        {% if data.role != "Network operator" %}
-                            <td class="govuk-table__cell">-</td>
-                            <td class="govuk-table__cell">-</td>
-
-                            <td class="govuk-table__cell">
-                                -
-                            </td>
                         {% endif %}
 
-                        <td class="govuk-table__cell"><a href="addresspostcode" class="govuk-link govuk-link--no-visited-state">Add information</a></td>
-                    </tr>
-                    {% endfor %}
-                    {% endif %}
+                        </td>
+                        <td class="govuk-table__cell">{% if energycentre.energytype %}{% for type in energycentre.energytype %}{{type}} <br /> {% endfor %} {% else %} - {% endif %}</td>
+
+                        <td class="govuk-table__cell">{% if energycentre.techcapacity or energycentre.techcoolingcapacity %}{% if energycentre.techcapacity %}Heating: {{energycentre.techcapacity}}KW <br />{% endif %}{% if energycentre.techcoolingcapacity %}Cooling: {{energycentre.techcoolingcapacity}}KW {% endif %}{% else %} - {% endif %}</td>
+
+                        <td class="govuk-table__cell">                   
+                            {% if energycentre.technologies %} {% for technology, energysource, year in energycentre.technologies %}
+                            {{technology}}
+                            <br />
+                            Source:
+                            {{energysource}}
+                            <br /><br />
+                            {% endfor %}
+                        {% else %}
+                    -
+                {% endif %}</td>
+
+
+                    <td class="govuk-table__cell"><a href="addresspostcode?id={{energycentre.id}}" class="govuk-link govuk-link--no-visited-state">{% if energycentre.eccomplete %}Edit{% else %}Add information{% endif %}</a></td>
+                </tr>                  
+                {% endfor %}
+
+
+
+
+
+
+
+
+
+
 
                 </tbody>
             </table>
         </div>
         <form method="POST" novalidate>
 
-
+            {% if allComplete %}
+            <input type="hidden" name="enerycentrescompleted" value="true">                 
+        {% endif %}
 
 
             {{

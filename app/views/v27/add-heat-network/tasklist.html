@@ -89,7 +89,9 @@
                         {% if data.eccomplete == "true" %}
                         <a class="govuk-link govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</a>
                     {% else %}
-                        <a class="govuk-link govuk-task-list__link" href="energycentre/howmany" aria-describedby="company-details-3-hint company-details-3-status">Energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</a>
+                    
+                        <a class="govuk-link govuk-task-list__link" {% if data.introenergycentrehowmany > 1 %}href="energycentre/energycentres"{% else %}href="energycentre/addresspostcode"{% endif %} aria-describedby="company-details-3-hint company-details-3-status">Energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</a>
+                    
                     {% endif %}
 
 

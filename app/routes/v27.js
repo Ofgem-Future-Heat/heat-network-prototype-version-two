@@ -4536,7 +4536,7 @@ router.post('/' + version + '/add-heat-network/energycentre/howmany', function (
 // Energy centre - Energy Centres
 router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     clearvalidation(req);
-
+    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany']
     res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
         data: req.session.data
     });
@@ -4572,6 +4572,13 @@ router.post('/' + version + '/add-heat-network/energycentre/energycentres', func
 // Energy centre - Has postcode
 router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
     clearvalidation(req);
+
+    const urlParams = req.query.id;
+    if (urlParams) {
+        req.session.data['currentecid'] = urlParams
+    }
+    
+
 
     res.render('/' + version + '/add-heat-network/energycentre/addresspostcode', {
         data: req.session.data
@@ -5138,6 +5145,27 @@ router.post('/' + version + '/add-heat-network/energycentre/summary', function (
 
         if (techsummaryother == "No") {
             if (energycentres > 1) {
+
+                req.session.data['ecaddressHasPostcode' + req.session.data['currentecid']] = req.session.data['ecaddressHasPostcode']
+                req.session.data['ecaddressSelected' + req.session.data['currentecid']] = req.session.data['ecaddressSelected']
+                req.session.data['ecaddresslatitude' + req.session.data['currentecid']] = req.session.data['ecaddresslatitude']
+                req.session.data['ecaddresslongitude' + req.session.data['currentecid']] = req.session.data['ecaddresslongitude']
+                req.session.data['energytype' + req.session.data['currentecid']] = req.session.data['energytype']
+                req.session.data['techcapacity' + req.session.data['currentecid']] = req.session.data['techcapacity']
+                req.session.data['techcoolingcapacity' + req.session.data['currentecid']] = req.session.data['techcoolingcapacity']
+                req.session.data['technologies' + req.session.data['currentecid']] = req.session.data['technologies']
+                req.session.data['eccomplete' + req.session.data['currentecid']] = true
+                
+
+
+
+                req.session.data['ecaddressSelected'] = ""
+                req.session.data['ecaddresslatitude'] = ""
+                req.session.data['ecaddresslongitude'] = ""
+                req.session.data['energytype'] = ""
+                req.session.data['techcapacity'] = ""
+                req.session.data['techcoolingcapacity'] = ""
+                req.session.data['technologies'] = ""
                 res.redirect('/' + version + '/add-heat-network/energycentre/energycentres');
 
             }
