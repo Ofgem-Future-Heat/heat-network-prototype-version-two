@@ -4421,6 +4421,7 @@ router.get('/' + version + '/add-heat-network/introduction/cya', function (req, 
         req.session.data['introbuildingshowmany'] = "3"
         req.session.data['introcommunaloperate'] = "Yes"
         req.session.data['introcommunaloperatehowmany'] = "1"
+        req.session.data['introhnbuildings'] = "2"
         req.session.data['introenergycentre'] = "Yes"
         req.session.data['introenergycentrehowmany'] = "1"
         req.session.data['intropipework'] = "Yes"
