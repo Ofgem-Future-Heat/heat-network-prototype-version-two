@@ -1,0 +1,124 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Is the network a 'relevant heat network'? " %}
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+            <div
+                class="govuk-form-group {% if data.validationErrors.introrelevant %}govuk-form-group--error{% endif %}">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">This means it's a heat network that falls within the scope of the heat network regulations.</p>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with 'relevant heat network'
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+
+                            <p class="govuk-body">These include:</p>
+
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>communal heat networks, which provide heating, cooling or hot water to a single building divided into separate premises or persons in those premises</li>
+                                <li>district heat networks, which provide heating, cooling or hot water to 2 or more buildings or persons in those buildings</li>
+                            </ul>
+                            
+                            <p class="govuk-body">Examples of networks that are out of scope of the regulations include:</p>
+                            
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>houses of multiple occupation (HMOs) where heating is supplied through a shared heating system of single-dwelling capacity</li>
+                                <li>conversions of existing buildings where a property is divided to create 2 new properties within a shared building, that have one energy source with a capacity of no more than 45kWth</li>
+                            </ul>
+                        </div>
+                    </details>
+                    {% if data.validationErrors.introrelevant %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.introrelevant.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introrelevant" name="introrelevant" type="radio"
+                                value="Yes" {% if data.introrelevant=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introrelevant">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introrelevant-2" name="introrelevant" type="radio"
+                                value="No" {% if data.introrelevant=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introrelevant-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+            govukButton ({
+            html: 'Continue'
+            })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

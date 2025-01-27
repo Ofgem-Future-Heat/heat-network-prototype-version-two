@@ -1,0 +1,201 @@
+{% extends 'layouts/main.html' %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/headerlinks.html" %}
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+{% set users = [] %}
+
+{% for i in range(data.userid, data.userid + 1) %}
+    {% set users = users.concat([{
+        "email": data["useremail" ~ i],
+        "firstname": data["userfirstname" ~ i],
+        "lastname": data["userlastname" ~ i],
+        "telephonetype": data["usertelephone" ~ i],
+        "telephonelandline": data["usertelephonelandline" ~ i],
+        "telephonelandlineext": data["usertelephonelandlineext" ~ i],
+        "telephonemobile": data["usertelephonemobile" ~ i],
+    "jobtitle": data["userjobtitle" ~ i],
+        "id": i
+  }]) %}
+{% endfor %}
+
+{% for user in users %}
+{% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+{% set title = "Edit " + name %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <form method="post" novalidate>
+
+
+
+    <p class="govuk-body"><strong>Email address:</strong> {{user.email}}</p>
+
+
+      <div class="govuk-form-group {% if data.validationErrors.userfirstname %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label" for="first-name">
+          First name
+        </label>
+        {% if data.validationErrors.userfirstname %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.userfirstname.message}}
+        </p>
+        {% endif %}
+        <input class="govuk-input govuk-!-width-two-thirds" id="first-name" name="edituserfirstname" type="text" value="{% if data.edituserfirstname %}{{data.edituserfirstname}}{% else %}{{user.firstname}}{% endif %}">
+        
+      </div>
+      <div class="govuk-form-group {% if data.validationErrors.userlastname %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label" for="last-name">
+          Last name
+        </label>
+        {% if data.validationErrors.userlastname %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.userlastname.message}}
+        </p>
+        {% endif %}
+        <input class="govuk-input govuk-!-width-two-thirds" id="last-name" name="edituserlastname" type="text" value="{% if data.edituserlastname %}{{data.edituserlastname}}{% else %}{{user.lastname}}{% endif %}"> 
+      </div>
+      <div class="govuk-form-group {% if data.validationErrors.editusertelephone %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+            <legend class="govuk-fieldset__legend">
+                <strong>Preferred contact number for work</strong>
+              </legend>
+          <div id="contact-hint" class="govuk-hint">
+            Ofgem will only use this if we need to contact them about your organisation's heat networks. For international numbers, include the country code.
+          </div>
+          {% if data.validationErrors.editusertelephone %}
+          <p class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span>
+              {{data.validationErrors.editusertelephone.message}}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="editusertelephone" name="editusertelephone" type="radio" value="Landline" data-aria-controls="conditional-contact-2" {% if data.editusertelephone == "Landline" %} checked{% elif user.telephonetype == "Landline" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="contact-2">
+                Landline
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2">
+              <div class="govuk-form-group {% if data.validationErrors.editusertelephonelandline %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="contact-by-phone">
+                  Landline phone number
+                </label>
+                {% if data.validationErrors.editusertelephonelandline %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.editusertelephonelandline.message}}
+                </p>
+                {% endif %}
+                <input class="govuk-input govuk-!-width-one-third" id="contact-by-phone" name="editusertelephonelandline" type="tel" value="{% if data.editusertelephonelandline %}{{data.editusertelephonelandline}}{% else %}{{user.telephonelandline}}{% endif %}">
+              </div>
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="contact-by-phone">
+                  Extension (optional)
+                </label>
+
+                <input class="govuk-input govuk-input--width-5" id="contact-by-phone" name="editusertelephonelandlineext" type="text"  value="{% if data.editusertelephonelandlineext %}{{data.editusertelephonelandlineext}}{% else %}{{user.telephonelandlineext}}{% endif %}">
+              </div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="editusertelephone-2" name="editusertelephone" type="radio" value="Mobile" data-aria-controls="conditional-contact-3" {% if data.editusertelephone == "Mobile" %} checked{% elif user.telephonetype == "Mobile" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="contact-3">
+                Mobile
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
+              <div class="govuk-form-group {% if data.validationErrors.editusertelephonemobile %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="contact-by-text">
+                  Mobile phone number
+                </label>
+                {% if data.validationErrors.editusertelephonemobile %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.editusertelephonemobile.message}}
+                </p>
+                {% endif %}
+                <input class="govuk-input govuk-!-width-one-third" id="contact-by-text" name="editusertelephonemobile" type="tel" autocomplete="tel" value="{% if data.editusertelephonemobile %}{{data.editusertelephonemobile}}{% else %}{{user.telephonemobile}}{% endif %}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="govuk-form-group {% if data.validationErrors.userjobtitle %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label" for="job-title">
+          Job title
+        </label>
+        {% if data.validationErrors.userjobtitle %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.userjobtitle.message}}
+        </p>
+        {% endif %}
+        <input class="govuk-input govuk-!-width-two-thirds" id="job-title" name="edituserjobtitle" type="text" value="{% if data.edituserjobtitle %}{{data.edituserjobtitle}}{% else %}{{user.jobtitle}}{% endif %}">
+      </div>
+
+
+      
+    <div class="govuk-button-group">
+      {{
+        govukButton ({
+            html: 'Save'
+        })
+      }}
+    </div>
+</form>
+
+  </div>
+</div>
+      {% endfor %}
+
+{% endblock %}

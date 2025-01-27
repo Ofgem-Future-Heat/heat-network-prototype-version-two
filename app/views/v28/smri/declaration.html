@@ -1,0 +1,139 @@
+{% extends 'layouts/main.html' %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+Check your answers
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/headerlinks.html" %}
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+        
+    <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Does {{company}} have a process in place to ensure that everybody with SMRI is fit and proper?
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{data.smriprocess}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="process">Change</a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+      Carry out regular assessments to ensure all people with SMRI remain fit and proper?
+      </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smriassessments}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="assessments">Change</a>
+      </dd>
+  </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        List of everybody with SMRI at {{company}}?
+            </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smrilist}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="smrilist">Change</a>
+      </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Is everybody with SMRI at {{company}} fit and proper?
+      </dt>
+      <dd class="govuk-summary-list__value">
+          {{data.smrifitandproper}}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="fitandproper">Change</a>
+      </dd>
+  </div>
+
+  
+  </dl>
+
+
+
+    <form method="POST" novalidate>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          We can request the list of everybody with SMRI and their full responses to the fit and proper questions at anytime.
+        </strong>
+      </div>
+
+
+
+
+
+  {{
+      govukButton ({
+          html: 'Submit SMRI declaration'
+      })
+  }}
+</form>
+
+
+</div>
+
+{% endblock %}

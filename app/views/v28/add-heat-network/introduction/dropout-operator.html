@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You cannot continue" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">
+                Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.
+            </p>
+            <p class="govuk-body">
+                Contact us on <a href="#" class="govuk-link breakword">support@registerheatnetworks.service.gov.uk</a>.
+            </p>
+
+
+
+
+
+
+
+
+        </div>
+        <a href="../../account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

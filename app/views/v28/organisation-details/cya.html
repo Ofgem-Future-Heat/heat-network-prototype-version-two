@@ -1,0 +1,422 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Check your answers
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+       
+        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+            <h1 class="govuk-heading-l">{{title}}</h1>
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if data.companyname %}
+                      {{data.companyname}}
+                      {% else %}
+                      Radienteco Ltd
+                      {% endif %}
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                     Type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if data.accounttype %}
+                      {{data.accounttype}}
+                      {% else %}
+                      UK company registered with Companies House
+                      {% endif %}
+                    </dd>
+
+                  </div>
+                  {% if data.accounttype == "UK company registered with Companies House" %}
+                  <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Company number
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if data.companynumber %}
+                        {{data.companynumber}}
+                        {% else %}
+                        1241241
+                        {% endif %}
+                        
+                      </dd>
+                    </div>
+                    {% endif %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.orgaddressSelect %} 
+                    {% set address = data.orgaddressSelect.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    {% else %}
+                    19 Grosvenor Road <br />
+                    Solihull <br />
+                    B91 3PU
+                    {% endif %} 
+                </dd>
+              </div>
+
+              
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Alternative email address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if data.orghasemailaddress == "Yes" %}{{data.orgemailaddress}}{% else %} {{data.orghasemailaddress}}{% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="email-address">Change<span class="govuk-visually-hidden"> trading name</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  For profit organisation?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgprofit}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="profit">Change<span class="govuk-visually-hidden"> organisation profit</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Organisation description
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsubtype}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="what">Change<span class="govuk-visually-hidden"> organisation description</span></a>
+                </dd>
+              </div>
+
+              {% if data.orgsocialhousing %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Subject to social housing regulations?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsocialhousing}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="socialhousing">Change<span class="govuk-visually-hidden"> social housing regulations</span></a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Start and end dates of accounting period
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  Start: {{data.orgfinancialstartday}}/{{data.orgfinancialstartmonth}}<br />
+                  End: {{data.orgfinancialendday}}/{{data.orgfinancialendmonth}}
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="date">Change<span class="govuk-visually-hidden"> the start and end dates of organisation’s accounting period</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Accounts for most recent accounting period?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgaccounts}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> whether organisation has signed-off accounts for its most recent accounting period</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Reasonably expect to carry on heat network activity for 12 months?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgsolvent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="accounts">Change<span class="govuk-visually-hidden"> whether organisation reasonably expects to carry on its regulated heat network activity for the next 12 months</span></a>
+                </dd>
+              </div>
+
+              {% if data.orgaccounts == "Yes" %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Net profit or loss for the most recent financial year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialprofit}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-profit">Change<span class="govuk-visually-hidden"> organisation’s net profit or loss for the most recent financial year</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Total value of liquid assets
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialliquid}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-liquid">Change<span class="govuk-visually-hidden"> total value of liquid assets that organisation controls or has unrestricted access to</span></a>
+                </dd>
+              </div>
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Assets exceed liabilities?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialexceed}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-exceed">Change<span class="govuk-visually-hidden"> whether assets exceeded liabilities at the end of the most recent financial year</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Total running costs for the previous financial year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialcosts}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-costs">Change<span class="govuk-visually-hidden"> the total running costs for the previous financial year</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Average monthly fixed costs for heat networks
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialmonthly}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-monthly">Change<span class="govuk-visually-hidden"> the average monthly fixed costs for running heat networks for previous financial year</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Average monthly gross income from heat networks 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  £{{data.financialincome}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-income">Change<span class="govuk-visually-hidden"> the average monthly gross income from heat sales on heat networks for previous financial year</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Hedge gas or electricity requirements?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.financialhedged}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="financial-hedged">Change<span class="govuk-visually-hidden"> whether organisation hedges their gas, electricity, biomass or other fuel input requirements</span></a>
+                </dd>
+              </div>
+                {% if data.financialhedged == "Yes" %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    How long energy requirements hedged for
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{data.financiallength}} months
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="financial-hedged-months">Change<span class="govuk-visually-hidden"> how many months ahead the organisation hedges their gas or electricity requirements</span></a>
+                  </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Percentage of costs that are hedged
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{data.financialpercentage}}%
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="financial-percentage">Change<span class="govuk-visually-hidden"> the percentage volume of organisation’s costs that are hedged</span></a>
+                  </dd>
+                </div>
+
+
+                {% endif %}
+              {% endif %}
+              {% endif %}
+
+              {% if data.orgstructure %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Organisation structure
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if data.orgstructure != "Neither of these" %}
+                  {{data.orgstructure}}
+                  {% else %}
+                 No parent company
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="structure">Change<span class="govuk-visually-hidden"> organisation description</span></a>
+                </dd>
+              </div>
+              {% if data.orgstructure != "Neither of these" %}
+              {% if data.parenttotal %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Number of parent organisations
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.parenttotal}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="parent-total">Change<span class="govuk-visually-hidden"> organisation description</span></a>
+                </dd>
+              </div>
+              {% set parents = [] %}
+
+              {% for i in range(1, 100) %}
+                  {% set parents = parents.concat([{
+                      "id": i,
+                      "name": data["parentcompanyname" ~ i],
+                      "address": data["parentorgaddressSelect" ~ i]
+                  }]) %}
+              {% endfor %}
+              
+            {% for parent in parents %}
+            {% if (parent.id <= data.parenttotal) and parent.name %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Parent organisation {{parent.id}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{parent.name}}<br />
+                {% set parentaddress = parent.address.toString() %}
+                {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link govuk-link--no-visited-state" href="parent-total">Change<span class="govuk-visually-hidden"> parent name</span></a>
+              </dd>
+            </div>
+            {% endif %}
+            {% endfor %}
+              {% else %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Parent organisation name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.parentcompanyname}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="type">Change<span class="govuk-visually-hidden"> parent name</span></a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Parent organisation address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% set parentaddress = data.parentorgaddressSelect.toString() %}
+                  {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="type">Change<span class="govuk-visually-hidden"> parent address</span></a>
+                </dd>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% endif %}
+            </dl>
+
+            </dl>
+            <p class="govuk-body">You’ll be able to return to this section and amend any of these details, even after confirming your answers.</p>
+            <form method="POST" novalidate>
+              {{
+                govukButton ({
+                    html: 'Confirm and save'
+                })
+            }}
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

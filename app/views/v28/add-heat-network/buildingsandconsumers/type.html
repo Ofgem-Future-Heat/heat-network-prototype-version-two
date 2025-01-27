@@ -1,0 +1,126 @@
+{% extends 'layouts/main.html' %}
+{% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
+    {% set title = "What type of building does your heat network contain? " %}
+    {% set inputtype = "radios" %}
+    {% set inputtypeshort = "radio" %}
+{% else %}
+{% set title = "What types of building does your heat network contain? " %}
+{% set inputtype = "checkboxes" %}
+{% set inputtypeshort = "checkbox" %}
+
+{% endif %}
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <form method="POST" novalidate>
+                                <div class="govuk-form-group {% if data.validationErrors.buildingtype %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    {% if data.buildinglocationAddress %}
+                    <div class="govuk-inset-text">
+                        {% set address = data.buildinglocationAddress.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                    </div>
+                    {% endif %}
+
+                    
+                    {% if data.validationErrors.buildingtype %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.buildingtype.message}}
+                    </p>
+                    {% endif %}
+
+                    {% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
+                    {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse'], ['Mixed0use', 'For example, residential and commercial']] %}
+
+                                {% else %}
+                                {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses'], ['Mixed0use', 'For example, residential and commercial']] %}
+
+                                {% endif %}
+                                <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
+
+                    {% for building, description in buildtypes %}
+                        <div class="govuk-{{inputtype}}__item">
+                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}" {% if data.buildingtype %}{% if inputtype == "checkboxes" %}{% if building in data.buildingtype %}checked{% endif %} {% else %}{% if data.buildingtype == building %}checked{% endif %}{% endif %}{% endif %}>
+                            <label class="govuk-label govuk-{{inputtype}}__label" for="buildingtype-{{building}}">
+                                {{building | replace("0", "-") | safe}} building
+                            </label>
+                            <div id="buildingtype-hint" class="govuk-hint govuk-{{inputtype}}__hint">
+                                {{description}}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+                </fieldset>
+            </div>
+
+                {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+                }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}
