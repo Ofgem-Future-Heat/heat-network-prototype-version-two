@@ -4513,7 +4513,7 @@ router.post('/' + version + '/add-heat-network/energycentre/energycentres', func
     var enerycentrescompleted = req.session.data['enerycentrescompleted']
 
 
-    if (enerycentrescompleted != true) {
+    if (enerycentrescompleted != "true") {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.ecaddressHasPostcode = {
             "anchor": "",
