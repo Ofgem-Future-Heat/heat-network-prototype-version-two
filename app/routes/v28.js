@@ -3268,12 +3268,12 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
         else {
             if (introbuildingshowmany == 1) {
                 req.session.data['introhnbuildings'] = 0
-                res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
+                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
             }
 
             else {
                 req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
-                res.redirect('/' + version + '/add-heat-network/introduction/communalregister');
+                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
                 }
         }
 
