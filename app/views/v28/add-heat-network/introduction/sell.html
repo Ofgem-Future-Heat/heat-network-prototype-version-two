@@ -10,7 +10,7 @@ Radienteco Ltd
 
 
 {% set title %}
-Does {{company}} sell thermal energy from this heat network to another heat network that is operated by a different organisation?
+Selling thermal energy to other heat networks
 {% endset %}
 
 
@@ -65,9 +65,7 @@ Does {{company}} sell thermal energy from this heat network to another heat netw
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.introsell %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add a heat network - introduction</span>
@@ -90,33 +88,41 @@ Does {{company}} sell thermal energy from this heat network to another heat netw
                         {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
                         </div>
                     {% endif %}
+                    <div class="govuk-form-group {% if data.validationErrors.introsell %}govuk-form-group--error{% endif %}">
 
-                    {% if data.validationErrors.introsell %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introsell.message}}
-                    </p>
-                    {% endif %}
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introsell" name="introsell" type="radio" value="Yes" {% if data.introsell == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introsell">
-                                Yes
-                            </label>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                Does {{company}} sell thermal energy from this heat network to another heat network that is operated by a different organisation?
+                              </legend>
+    
+    
+    
+                        {% if data.validationErrors.introsell %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.introsell.message}}
+                        </p>
+                        {% endif %}
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="introsell" name="introsell" type="radio" value="Yes" {% if data.introsell == "Yes" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="introsell">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="introsell-2" name="introsell" type="radio" value="No" {% if data.introsell == "No" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="introsell-2">
+                                    No
+                                </label>
+                            </div>
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introsell-2" name="introsell" type="radio" value="No" {% if data.introsell == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introsell-2">
-                                No
-                            </label>
-                        </div>
-                    </div>
-
-
-                </fieldset>
-
-
-            </div>
+    
+    
+                    </fieldset>
+    
+    
+                </div>
             {{
                 govukButton ({
                     html: 'Continue'
