@@ -162,7 +162,6 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
 
 });
 
-
 /// Org details - Financial year date
 router.get('/' + version + '/organisation-details/date', function (req, res) {
     clearvalidation(req);
@@ -180,45 +179,155 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
     var financialendmonth = req.session.data['orgfinancialendmonth']
 
 
-    // Helper function to calculate the number of days between two dates
-    function calculateDaysBetweenDates(startDay, startMonth, endDay, endMonth) {
-        const currentYear = new Date().getFullYear();
-
-        // Create the start date using current year
-        const startDate = new Date(currentYear, startMonth - 1, startDay);
-        
-        // Create the end date using current year, adjusting if it wraps to the next year
-        let endDate = new Date(currentYear, endMonth - 1, endDay);
-        if (endDate < startDate) {
-            // If end date is before start date, add one year to the end date
-            endDate = new Date(currentYear + 1, endMonth - 1, endDay);
+    function isValidDate(day, month) {
+        // Convert to integers
+        const dayInt = parseInt(day, 10);
+        const monthInt = parseInt(month, 10);
+    
+        // Check if month is between 1-12
+        if (monthInt < 1 || monthInt > 12) {
+            return false;
         }
-
-        // Calculate the difference in time and convert to days
-        const timeDifference = endDate - startDate;
-        const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-
-        return daysDifference;
+    
+        // Days per month (index 1 = January, 2 = February, etc.)
+        const daysInMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    
+        // Adjust for leap years (assumes year 2024 as a reference for leap year calculations)
+        if (monthInt === 2) {
+            daysInMonth[2] = 29; // Assume leap year support for February
+        }
+    
+        // Check if day is valid for the given month
+        return dayInt >= 1 && dayInt <= daysInMonth[monthInt];
     }
 
+req.session.data.validationErrorStartDate = false;
 
+// Check if both fields are missing
+if (!financialstartday && !financialstartmonth) {
+    req.session.data.validationError = "true";
+    req.session.data.validationErrorStartDate = "true";
 
+    req.session.data.validationErrors.financialstartdate = {
+        anchor: "orgfinancialstartday",
+        message: "Enter the start of the accounting period"
+    };
+} else {
+    // Validate financialstartday
+    if (!financialstartday) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
 
-    if (!financialstartday || !financialstartmonth) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialstartdate = {
-            "anchor": "orgfinancialstartday",
-            "message": "Enter an start date for accounting period"
-        }
+        req.session.data.validationErrors.financialstartday = {
+            anchor: "orgfinancialstartday",
+            message: "Enter a day for the start of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialstartday)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartday = {
+            anchor: "orgfinancialstartday",
+            message: "Start day must be a number"
+        };
     }
 
-    if (!financialendday || !financialendmonth) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialenddate = {
-            "anchor": "orgfinancialendday",
-            "message": "Enter an end date for accounting period"
+    // Validate financialstartmonth
+    if (!financialstartmonth) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartmonth = {
+            anchor: "orgfinancialstartmonth",
+            message: "Enter a month for the start of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialstartmonth)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartmonth = {
+            anchor: "orgfinancialstartmonth",
+            message: "Start month must be a number"
+        };
+    }
+
+    // **Only perform valid date check if no validation errors exist**
+    if (!req.session.data.validationErrorStartDate) {
+        if (!isValidDate(financialstartday, financialstartmonth)) {
+            req.session.data.validationError = "true";
+            req.session.data.validationErrors.financialstartdate = {
+                anchor: "orgfinancialstartday",
+                message: "Start date of accounting period must be a real date"
+            };
         }
     }
+}
+
+
+
+
+req.session.data.validationErrorendDate = false;
+
+// Check if both fields are missing
+if (!financialendday && !financialendmonth) {
+    req.session.data.validationError = "true";
+    req.session.data.validationErrorendDate = "true";
+
+    req.session.data.validationErrors.financialenddate = {
+        anchor: "orgfinancialendday",
+        message: "Enter the end of the accounting period"
+    };
+} else {
+    // Validate financialendday
+    if (!financialendday) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendday = {
+            anchor: "orgfinancialendday",
+            message: "Enter a day for the end of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialendday)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendday = {
+            anchor: "orgfinancialendday",
+            message: "End day must be a number"
+        };
+    }
+
+    // Validate financialendmonth
+    if (!financialendmonth) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendmonth = {
+            anchor: "orgfinancialendmonth",
+            message: "Enter a month for the end of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialendmonth)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendmonth = {
+            anchor: "orgfinancialendmonth",
+            message: "End month must be a number"
+        };
+    }
+
+    // **Only perform valid date check if no validation errors exist**
+    if (!req.session.data.validationErrorendDate) {
+        if (!isValidDate(financialendday, financialendmonth)) {
+            req.session.data.validationError = "true";
+            req.session.data.validationErrors.financialenddate = {
+                anchor: "orgfinancialendday",
+                message: "End date of accounting period must be a real date"
+            };
+        }
+    }
+}
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/date', {
@@ -237,7 +346,6 @@ router.post('/' + version + '/organisation-details/date', function (req, res) {
     }
 
 });
-
 /// Org details - Solvent
 router.get('/' + version + '/organisation-details/solvent', function (req, res) {
     clearvalidation(req);
