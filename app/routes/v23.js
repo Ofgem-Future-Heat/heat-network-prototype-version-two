@@ -724,12 +724,30 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
     clearvalidation(req);
     var financialpercentage = req.session.data['financialpercentage']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+    const regex = /^[0-9,\s.]+$/; // Allowed characters: numbers (0-9), commas (,), spaces (\s), and decimal points (.)
 
     if (!financialpercentage) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialpercentage = {
             "anchor": "financialpercentage",
-            "message": "Confirm whether the percentage entity is satisfied"
+            "message": "Enter the percentage volume of " + companyname + "’s costs that are hedged"
+        }
+    }
+
+    else if (!regex.test(financialpercentage)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialpercentage = {
+            "anchor": "financialpercentage",
+            "message": "Percentage must only include numbers and special characters such as full stops and commas"
+        }
+    }
+
+    if (financialpercentage > 100) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialpercentage = {
+            "anchor": "financialpercentage",
+            "message": "Percentage must be 100 or less"
         }
     }
 
