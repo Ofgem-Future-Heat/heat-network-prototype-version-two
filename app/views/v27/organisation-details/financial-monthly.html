@@ -53,19 +53,15 @@ What were {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{
             
             <div class="govuk-form-group {% if data.validationErrors.financialmonthly %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-      
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financialmonthly">
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l" for="financialmonthly">
+                                {{title}}
+                            </label>
+                          </h1>
 
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
-                    </label>
-
-                    </legend>
                     <p class="govuk-body">Only include costs from parts of the business that deal with your organisation's heat networks.</p>
+                    <p class="govuk-body">You must enter a whole number without decimals.</p>
 
                     {% if data.validationErrors.financialmonthly %}
                     <p class="govuk-error-message">
@@ -84,7 +80,6 @@ What were {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{
 
 
 
-                </fieldset>
 
 
             </div>

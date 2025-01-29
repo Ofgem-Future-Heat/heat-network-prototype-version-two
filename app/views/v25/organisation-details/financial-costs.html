@@ -53,18 +53,16 @@ What were {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{
             
             <div class="govuk-form-group {% if data.validationErrors.financialcosts %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financialcosts">
 
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
-                    </label>
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l" for="financialcosts">
+                                {{title}}
+                            </label>
+                          </h1>
 
-                    </legend>
+                          <p class="govuk-body">You must enter a whole number without decimals.</p>
+
 
                     {% if data.validationErrors.financialcosts %}
                     <p class="govuk-error-message">
@@ -83,7 +81,6 @@ What were {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{
 
 
 
-                </fieldset>
 
 
             </div>

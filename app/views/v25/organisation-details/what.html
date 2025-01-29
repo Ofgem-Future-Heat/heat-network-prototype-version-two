@@ -158,7 +158,7 @@ Which option best describes the work {% if data.companyname %}{{data.companyname
                   </div>
 
                   <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-orgsubtype">
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgsubtypeother %}govuk-form-group--error{% endif %}">
                       <label class="govuk-label" for="orgsubtypeother">
                         Organisation description
                       </label>
@@ -168,7 +168,7 @@ Which option best describes the work {% if data.companyname %}{{data.companyname
                           {{data.validationErrors.orgsubtypeother.message}}
                       </p>
                       {% endif %}
-                      <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.orgsubtypeother %}govuk-input--error{% endif %}" id="orgsubtypeother" name="orgsubtypeother" type="text" value="{{data.orgsubtypeother}}">        
+                      <input class="govuk-input {% if data.validationErrors.orgsubtypeother %}govuk-input--error{% endif %}" id="orgsubtypeother" name="orgsubtypeother" type="text" value="{{data.orgsubtypeother}}">        
                     </div>
                   </div>
 

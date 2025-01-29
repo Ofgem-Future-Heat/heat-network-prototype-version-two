@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} reasonably expect to have sufficient finance and resources available to carry on its regulated heat network activity for the next 12 months?
+Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} subject to social housing regulations?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -51,39 +51,34 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
         {% endif %}
 
           <form method="post" novalidate>
-
-            <div class="govuk-form-group {% if data.validationErrors.orgsolvent %}govuk-form-group--error{% endif %}">
+            
+            <div class="govuk-form-group {% if data.validationErrors.orgsocialhousing %}govuk-form-group--error{% endif %}">
               <fieldset class="govuk-fieldset">
 
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                   <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-
                   <h1 class="govuk-fieldset__heading">
                     {{title}}
                   </h1>
                 </legend>
-                <p class="govuk-body">
-                  The 12-month period starts from the date you send this data to Ofgem.
-                </p>
-                <p class="govuk-body">Take into account any dividend, other distribution or outgoing which Organisation name might reasonably expect to pay or declare.
-                </p>
-                {% if data.validationErrors.orgsolvent %}
+                <!-- <p class="govuk-body">???</p> -->
+                {% if data.validationErrors.orgsocialhousing %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.orgsolvent.message}}
+                    {{data.validationErrors.orgsocialhousing.message}}
                 </p>
                 {% endif %}
                 <div class="govuk-radios" data-module="govuk-radios">
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgsolvent" name="orgsolvent" type="radio" value="Yes" {% if data.orgsolvent == "Yes" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgsolvent">
+                    <input class="govuk-radios__input" id="orgsocialhousing" name="orgsocialhousing" type="radio" value="Yes" {% if data.orgsocialhousing == "Yes" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsocialhousing">
                       Yes
                     </label>
                   </div>
 
                   <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="orgsolvent-2" name="orgsolvent" type="radio" value="No" {% if data.orgsolvent == "No" %} checked{% endif %}>
-                    <label class="govuk-label govuk-radios__label" for="orgsolvent-2">
+                    <input class="govuk-radios__input" id="orgsocialhousing-2" name="orgsocialhousing" type="radio" value="No" {% if data.orgsocialhousing == "No" %} checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="orgsocialhousing-2">
                       No
                     </label>
                   </div>

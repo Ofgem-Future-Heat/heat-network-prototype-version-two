@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is your organisation's address?" %}
+{% set title %}
+
+
+What is the parent organisation's address?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -97,24 +101,12 @@
                         {% endif %}
                         <input class="govuk-input govuk-!-width-two-thirds" id="parentorgaddressMTown" name="parentorgaddressMTown" type="text" autocomplete="address-level2" value="{{data.parentorgaddressMTown}}">
                     </div>
-                    {% if data.parentaccounttype != "Overseas organisation" %}
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="parentorgaddressMCounty">
-                            County (optional)
-                        </label>
-                        <input class="govuk-input govuk-!-width-two-thirds" id="parentorgaddressMCounty" name="parentorgaddressMCounty" type="text" value="{{data.parentorgaddressMCounty}}">
-                    </div>
-                    {% endif %}
-                    <div class="govuk-form-group">
                         <label class="govuk-label" for="parentorgaddressMPostcode">
-                            {% if data.parentaccounttype == "Overseas organisation" %}
                             Postal code or zip code
-                            {% else %}
-                            Postcode
-                            {% endif %}
                         </label>
-                        {% if data.validationErrors.parentorgaddressMTown %}
+                        {% if data.validationErrors.parentorgaddressMPostcode %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
                             {{data.validationErrors.parentorgaddressMPostcode.message}}
@@ -122,7 +114,6 @@
                         {% endif %}
                         <input class="govuk-input govuk-input--width-10" id="parentorgaddressMPostcode" name="parentorgaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.parentorgaddressMPostcode}}">
                     </div>
-                    {% if data.parentaccounttype == "Overseas organisation" %}
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="parentorgaddressMCountry">
                             Country
@@ -135,7 +126,6 @@
                         {% endif %}
                         <input class="govuk-input govuk-!-width-two-thirds" id="parentorgaddressMCountry" name="parentorgaddressMCountry" type="text"  value="{{data.parentorgaddressMCountry}}">
                     </div>
-                    {% endif %}
 
                 </fieldset>
 

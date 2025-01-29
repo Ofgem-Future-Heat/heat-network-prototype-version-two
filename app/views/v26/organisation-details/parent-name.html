@@ -59,17 +59,16 @@ What is the name of the parent organisation?
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} </span>
                         <label for="parentname">
 
                         <h1 class="govuk-fieldset__heading">
-                            {{title}}
+                            {{title}} 
                         </h1>
                     </label>
 
                     </legend>
-
-                    {% if data.validationErrors.parentname %}
+                          {% if data.validationErrors.parentname %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
                         {{data.validationErrors.parentname.message}}

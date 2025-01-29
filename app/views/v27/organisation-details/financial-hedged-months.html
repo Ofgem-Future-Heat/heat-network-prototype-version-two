@@ -52,19 +52,14 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
         <form  method="POST" novalidate>
 
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+            <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="financiallength">
+                    {{title}}
+                </label>
+              </h1>
 
-                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financiallength">
-
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
-                        </label>
-
-                    </legend>
 
 
                             <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
@@ -85,7 +80,6 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
 
 
 
-                </fieldset>
 
 
             {{
