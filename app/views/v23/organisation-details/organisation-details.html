@@ -100,19 +100,20 @@ Organisation details
                   {% endif %}
                 </dd>
               </div>
+              {% if data.companynumber %}
+
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                 Type
+                 Company number
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if data.accounttype %}
-                  {{data.accounttype}}
-                  {% else %}
-                  UK company registered with Companies House
-                  {% endif %}
+                  {{data.companynumber}}
+
                 </dd>
 
               </div>
+              {% endif %}
+
               {% if data.accounttype == "UK company registered with Companies House" %}
               <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">

@@ -1026,6 +1026,14 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
         }
     }
 
+    if (!parentorgaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMCountry = {
+            "anchor": "parentorgaddressMCountry",
+            "message": "Enter a postcode",
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/addressmanual', {
             data: req.session.data

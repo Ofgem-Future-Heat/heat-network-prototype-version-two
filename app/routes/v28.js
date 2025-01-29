@@ -996,7 +996,14 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentorgaddressMPostcode = {
             "anchor": "parentorgaddressMPostcode",
-            "message": "Enter a postcode",
+            "message": "Enter a postal code or zip code",
+        }
+    }
+    if (!parentorgaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMCountry = {
+            "anchor": "parentorgaddressMCountry",
+            "message": "Enter a country",
         }
     }
 
