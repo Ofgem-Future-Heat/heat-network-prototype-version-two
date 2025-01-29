@@ -335,13 +335,6 @@ if (!financialendday && !financialendmonth) {
         });
     }
     else {
-        const days = calculateDaysBetweenDates(
-            parseInt(financialstartday), 
-            parseInt(financialstartmonth), 
-            parseInt(financialendday), 
-            parseInt(financialendmonth)
-        );
-        req.session.data['financialdays'] = days;
         res.redirect('/' + version + '/organisation-details/accounts');
     }
 
