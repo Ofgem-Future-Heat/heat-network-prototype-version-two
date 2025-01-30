@@ -53,6 +53,7 @@ Does {{company}} have a process in place to ensure that all people with SMRI are
     </div>
     {% endif %}
     <form  method="POST" novalidate>
+      <div class="govuk-form-group {% if data.validationErrors.smriprocess %}govuk-form-group--error{% endif %}">
 
         
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
@@ -86,7 +87,6 @@ Does {{company}} have a process in place to ensure that all people with SMRI are
         </ul>
     </div>
   </details>
-  <div class="govuk-form-group {% if data.validationErrors.smriprocess %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriprocess %}
         <p class="govuk-error-message">

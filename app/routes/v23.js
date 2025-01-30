@@ -878,12 +878,13 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
     clearvalidation(req);
     var financialhedged = req.session.data['financialhedged']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!financialhedged) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialhedged = {
             "anchor": "financialhedged",
-            "message": "Enter the number of months"
+            "message": "Select whether " + companyname + " hedges their gas, electricity, biomass or other fuel input requirementss"
         }
     }
 

@@ -53,7 +53,8 @@ Do you have a list of all people at {{company}} with SMRI?
     {% endif %}
     <form  method="POST" novalidate>
 
-        
+      <div class="govuk-form-group {% if data.validationErrors.smrilist %}govuk-form-group--error{% endif %}">
+
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
 
     <label for="smrilist">
@@ -62,7 +63,6 @@ Do you have a list of all people at {{company}} with SMRI?
       {{title}}
     </h1>
   </label>
-  <div class="govuk-form-group {% if data.validationErrors.smrilist %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smrilist %}
         <p class="govuk-error-message">

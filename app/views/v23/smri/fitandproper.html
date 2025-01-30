@@ -52,6 +52,7 @@ Is everybody with SMRI at {{company}} fit and proper?
     </div>
     {% endif %}
     <form  method="POST" novalidate>
+      <div class="govuk-form-group {% if data.validationErrors.smrifitandproper %}govuk-form-group--error{% endif %}">
 
         
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
@@ -67,7 +68,6 @@ Is everybody with SMRI at {{company}} fit and proper?
   <p class="govuk-body">In situations where the person with SMRI may be uncomfortable relaying sensitive information through you, it's possible to nominate an alternative contact within your organisation. For example a HR manager.</p>
   <p class="govuk-body"></p>
 
-  <div class="govuk-form-group {% if data.validationErrors.smrifitandproper %}govuk-form-group--error{% endif %}">
 
 
 

@@ -53,6 +53,7 @@ What percentage volume of {% if data.companyname %}{{data.companyname}}{% else %
 
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <div class="govuk-form-group {% if data.validationErrors.financialpercentage %}govuk-form-group--error{% endif %}">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
@@ -67,7 +68,6 @@ What percentage volume of {% if data.companyname %}{{data.companyname}}{% else %
                     </legend>
 
 
-                            <div class="govuk-form-group {% if data.validationErrors.financialpercentage %}govuk-form-group--error{% endif %}">
 
 
         

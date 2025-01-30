@@ -51,6 +51,7 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
         {% endif %}
         <form  method="POST" novalidate>
 
+            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
 
             <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
@@ -62,7 +63,6 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
 
 
 
-                            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
 
 
                   
