@@ -13,17 +13,17 @@ Did {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endi
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
 
+{% include data.version + "/_partials/headerlinks.html" %}
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
 
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
-
-    </div>
+  </div>
 
 </div>
 
