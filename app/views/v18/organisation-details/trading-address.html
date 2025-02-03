@@ -14,19 +14,20 @@
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
 
+{% include data.version + "/_partials/headerlinks.html" %}
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
 
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
-
-    </div>
+  </div>
 
 </div>
+
 
 {% endblock %}
 
@@ -91,20 +92,6 @@
                       Yes
                     </label>
                   </div>
-                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-orghastradingaddress">
-                    <div class="govuk-form-group">
-                      <label class="govuk-label" for="orgtradingpostcode">
-                        Trading address postcode
-                      </label>
-                      {% if data.validationErrors.orgtradingpostcode %}
-                      <p class="govuk-error-message">
-                          <span class="govuk-visually-hidden">Error:</span>
-                          {{data.validationErrors.orgtradingpostcode.message}}
-                      </p>
-                      {% endif %}
-                      <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.orgtradingpostcode %}govuk-input--error{% endif %}" id="orgtradingpostcode" name="orgtradingpostcode" type="text" value="{{data.orgtradingpostcode}}">        
-                    </div>
-                  </div>
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="orghastradingaddress-2" name="orghastradingaddress" type="radio" value="No" {% if data.orghastradingaddress == "No" %} checked{% endif %}>
                     <label class="govuk-label govuk-radios__label" for="orghastradingaddress-2">
@@ -118,7 +105,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

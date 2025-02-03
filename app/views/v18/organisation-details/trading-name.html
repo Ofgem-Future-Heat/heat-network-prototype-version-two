@@ -13,19 +13,20 @@
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
 
+{% include data.version + "/_partials/headerlinks.html" %}
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
 
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
-
-    </div>
+  </div>
 
 </div>
+
 
 {% endblock %}
 
@@ -78,7 +79,7 @@
                     </label>
                   </div>
                   <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-orghastradingname">
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgtradingname %}govuk-form-group--error{% endif %}">
                       <label class="govuk-label" for="orgtradingname">
                         Trading name
                       </label>
@@ -104,7 +105,7 @@
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

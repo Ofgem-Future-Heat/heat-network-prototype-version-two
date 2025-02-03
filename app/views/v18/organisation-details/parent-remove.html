@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You cannot add this user" %}
+{% set title %}
+{% if data.parentid %}
+Confirm you want to remove {{data.parentcompanyname}} as a parent organisation
+{% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -7,10 +11,23 @@
 {{title}}
 {% endblock %}
 
-
 {% block beforeContent %}
 
+<div class="govuk-grid-row">
 
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
 
 {% endblock %}
 
@@ -36,31 +53,19 @@
         {% endif %}
         <form  method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.parentcompanyname %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" >
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                        <h1 class="govuk-fieldset__heading">
+                        <h1 class="govuk-heading-l">
                             {{title}}
-                        </h1>
+                            </h1>
 
-                    </legend>
-
-                    
-
-
-                    <p class="govuk-body">
-                        Ofgem have decided to prevent this user from using all its online services.
-                    </p>
-                    <p class="govuk-body">If you want further information, contact  <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
-
-
-                </fieldset>
 
 
             </div>
+            <button class="govuk-button govuk-button--warning">
+                Remove parent organisation
+              </button>
         </form>
     </div>
 

@@ -26,6 +26,8 @@ router.get('/' + version + '/account-information', function (req, res) {
 
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
+
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
     clearvalidation(req);
@@ -37,252 +39,47 @@ router.get('/' + version + '/organisation-details/organisation-details', functio
     });
 });
 
-
-/// Org details - Trading name
-router.get('/' + version + '/organisation-details/trading-name', function (req, res) {
+/// Org details - Email address
+router.get('/' + version + '/organisation-details/email-address', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-name', {
+    res.render('/' + version + '/organisation-details/email-address', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/organisation-details/trading-name', function (req, res) {
+router.post('/' + version + '/organisation-details/email-address', function (req, res) {
     clearvalidation(req);
-    var orghastradingname = req.session.data['orghastradingname']
-    var orgtradingname = req.session.data['orgtradingname']
+    var orghasemailaddress = req.session.data['orghasemailaddress']
+    var orgemailaddress = req.session.data['orgemailaddress']
 
 
 
-    if (!orghastradingname) {
+    if (!orghasemailaddress) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghastradingname = {
-            "anchor": "orghastradingname",
-            "message": "Select whether your organisation has a trading name"
+        req.session.data.validationErrors.orghasemailaddress = {
+            "anchor": "orghasemailaddress",
+            "message": "Select whether your organisation has an alternative email address"
         }
     }
 
 
-    if ((orghastradingname == "Yes") && !orgtradingname) {
+    if ((orghasemailaddress == "Yes") && !orgemailaddress) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingname = {
-            "anchor": "orgtradingname",
-            "message": "Enter an trading name"
+        req.session.data.validationErrors.orgemailaddress = {
+            "anchor": "orgemailaddress",
+            "message": "Enter an email address"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-name', {
+        res.render('/' + version + '/organisation-details/email-address', {
             data: req.session.data
         });
     }
-    else {
-        res.redirect('/' + version + '/organisation-details/trading-address');
-    }
-
-});
-
-/// Org details - Trading address
-router.get('/' + version + '/organisation-details/trading-address', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address', function (req, res) {
-    clearvalidation(req);
-    var orghastradingaddress = req.session.data['orghastradingaddress']
-    var userpostcode = req.session.data['orgtradingpostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
-
-
-    if (!orghastradingaddress) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orghastradingaddress = {
-            "anchor": "orghastradingaddress",
-            "message": "Select whether your organisation has a trading address"
-        }
-    }
-
-
-    if ((orghastradingaddress == "Yes") && !userpostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingpostcode = {
-            "anchor": "orgtradingpostcode",
-            "message": "Enter a postcode"
-        }
-    }    
-
-    function validateUKPostcode(postcode) {
-        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
-      
-        return postcodeRegex.test(postcode);
-      }
-      
-    if ((orghastradingaddress == "Yes") && !validateUKPostcode(userpostcode)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgtradingpostcode = {
-            "anchor": "orgtradingpostcode",
-            "message": "Enter a valid postcode",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address', {
-            data: req.session.data
-        });
-    }
-
-    else {
-    if (orghastradingaddress == "Yes") {
-        console.log(userpostcode)
-
-
-
-
-
-        const axios = require('axios');
-        const https = require('https');
-
-        const httpsAgent = new https.Agent({
-            rejectUnauthorized: false
-        })
-
-        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
-
-        async function postcode(postcode) {
-            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
-                .then(function (response) {
-                    var output = JSON.stringify(response.data, null, 2);
-                    let parsed = JSON.parse(output).results;
-                    let locationaddresses = [];
-                    if (parsed != undefined) {
-
-                        for (var i = 0; i < parsed.length; i++) {
-                            let obj = parsed[i];
-                            locationaddresses.push(obj.LPI.ADDRESS);
-                        }
-                        req.session.data.tradingaddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = "";
-                        res.redirect('/' + version + '/organisation-details/trading-address-select');
-                    }
-
-                    else {
-                        req.session.data.tradingaddressSelect = locationaddresses;
-                        req.session.data.tradingaddressesnotfound = true;
-                        res.redirect('/' + version + '/organisation-details/trading-address-manual');
-                    }
-
-                });
-
-        }
-        postcode(userpostcode);
-        }
-
     else {
         res.redirect('/' + version + '/organisation-details/profit');
-
     }
-}
-
-});
-
-
-
-// Org details - Trading address select
-router.get('/' + version + '/organisation-details/trading-address-select', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address-select', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address-select', function (req, res) {
-    clearvalidation(req);
-    var addressselect = req.session.data['tradingaddressSelect']
-
-
-
-    if (!addressselect) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.tradingaddressSelect = {
-            "anchor": "tradingaddressSelect",
-            "message": "Select an address",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address-select', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        res.redirect('/' + version + '/organisation-details/trading-address-confirm');
-    }    
-});
-
-
-// Org details - Trading address manual
-router.get('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/trading-address-manual', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/trading-address-manual', function (req, res) {
-    clearvalidation(req);
-    var orgaddressMLine1 = req.session.data['orgaddressMLine1']
-    var orgaddressMTown = req.session.data['orgaddressMTown']
-    var orgaddressMCounty = req.session.data['orgaddressMCounty']
-
-    var orgaddressMPostcode = req.session.data['orgaddressMPostcode']
-
-
-    if (!orgaddressMLine1) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMLine1 = {
-            "anchor": "orgaddressMLine1",
-            "message": "Enter the street address",
-        }
-    }
-
-
-    if (!orgaddressMTown) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMTown = {
-            "anchor": "orgaddressMTown",
-            "message": "Enter the town or city",
-        }
-    }
-
-    if (!orgaddressMPostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgaddressMPostcode = {
-            "anchor": "orgaddressMPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/trading-address-manual', {
-            data: req.session.data
-        });
-    }
-
-    else {
-            req.session.data.orgaddressSelect = orgaddressMLine1 + ', ' + orgaddressMTown + ', ' + orgaddressMCounty + ', ' + orgaddressMPostcode;
-            res.redirect('/' + version + '/organisation-details/trading-address-confirm');
-
-        }
-
-        
 
 });
 
@@ -316,17 +113,11 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
         });
     }
     else {
-        if (orgaccounts == "Yes") {
-            res.redirect('/' + version + '/organisation-details/financial-profit');
-        }
 
-        else {
             res.redirect('/' + version + '/organisation-details/solvent');
-        }
     }
 
 });
-
 
 /// Org details - Financial year date
 router.get('/' + version + '/organisation-details/date', function (req, res) {
@@ -339,28 +130,161 @@ router.get('/' + version + '/organisation-details/date', function (req, res) {
 
 router.post('/' + version + '/organisation-details/date', function (req, res) {
     clearvalidation(req);
-    var financialendday = req.session.data['orgfinancialendday']
-    var financialendmonth = req.session.data['orgfinancialendmonth']
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
+    var financialendday = req.session.data['orgfinancialendday']
+    var financialendmonth = req.session.data['orgfinancialendmonth']
 
 
-
-    if (!financialstartday || !financialstartmonth) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialstartdate = {
-            "anchor": "orgfinancialstartday",
-            "message": "Enter an start date for financial year"
+    function isValidDate(day, month) {
+        // Convert to integers
+        const dayInt = parseInt(day, 10);
+        const monthInt = parseInt(month, 10);
+    
+        // Check if month is between 1-12
+        if (monthInt < 1 || monthInt > 12) {
+            return false;
         }
+    
+        // Days per month (index 1 = January, 2 = February, etc.)
+        const daysInMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    
+        // Adjust for leap years (assumes year 2024 as a reference for leap year calculations)
+        if (monthInt === 2) {
+            daysInMonth[2] = 29; // Assume leap year support for February
+        }
+    
+        // Check if day is valid for the given month
+        return dayInt >= 1 && dayInt <= daysInMonth[monthInt];
     }
 
-    if (!financialendday || !financialendmonth) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialenddate = {
-            "anchor": "orgfinancialendday",
-            "message": "Enter an end date for financial year"
+req.session.data.validationErrorStartDate = false;
+
+// Check if both fields are missing
+if (!financialstartday && !financialstartmonth) {
+    req.session.data.validationError = "true";
+    req.session.data.validationErrorStartDate = "true";
+
+    req.session.data.validationErrors.financialstartdate = {
+        anchor: "orgfinancialstartday",
+        message: "Enter the start of the accounting period"
+    };
+} else {
+    // Validate financialstartday
+    if (!financialstartday) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartday = {
+            anchor: "orgfinancialstartday",
+            message: "Enter a day for the start of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialstartday)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartday = {
+            anchor: "orgfinancialstartday",
+            message: "Start day must be a number"
+        };
+    }
+
+    // Validate financialstartmonth
+    if (!financialstartmonth) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartmonth = {
+            anchor: "orgfinancialstartmonth",
+            message: "Enter a month for the start of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialstartmonth)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorStartDate = "true";
+
+        req.session.data.validationErrors.financialstartmonth = {
+            anchor: "orgfinancialstartmonth",
+            message: "Start month must be a number"
+        };
+    }
+
+    // **Only perform valid date check if no validation errors exist**
+    if (!req.session.data.validationErrorStartDate) {
+        if (!isValidDate(financialstartday, financialstartmonth)) {
+            req.session.data.validationError = "true";
+            req.session.data.validationErrors.financialstartdate = {
+                anchor: "orgfinancialstartday",
+                message: "Start date of accounting period must be a real date"
+            };
         }
     }
+}
+
+
+
+
+req.session.data.validationErrorendDate = false;
+
+// Check if both fields are missing
+if (!financialendday && !financialendmonth) {
+    req.session.data.validationError = "true";
+    req.session.data.validationErrorendDate = "true";
+
+    req.session.data.validationErrors.financialenddate = {
+        anchor: "orgfinancialendday",
+        message: "Enter the end of the accounting period"
+    };
+} else {
+    // Validate financialendday
+    if (!financialendday) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendday = {
+            anchor: "orgfinancialendday",
+            message: "Enter a day for the end of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialendday)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendday = {
+            anchor: "orgfinancialendday",
+            message: "End day must be a number"
+        };
+    }
+
+    // Validate financialendmonth
+    if (!financialendmonth) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendmonth = {
+            anchor: "orgfinancialendmonth",
+            message: "Enter a month for the end of the accounting period"
+        };
+    } else if (/[^0-9]/.test(financialendmonth)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrorendDate = "true";
+
+        req.session.data.validationErrors.financialendmonth = {
+            anchor: "orgfinancialendmonth",
+            message: "End month must be a number"
+        };
+    }
+
+    // **Only perform valid date check if no validation errors exist**
+    if (!req.session.data.validationErrorendDate) {
+        if (!isValidDate(financialendday, financialendmonth)) {
+            req.session.data.validationError = "true";
+            req.session.data.validationErrors.financialenddate = {
+                anchor: "orgfinancialendday",
+                message: "End date of accounting period must be a real date"
+            };
+        }
+    }
+}
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/date', {
@@ -385,7 +309,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
     clearvalidation(req);
     var orgsolvent = req.session.data['orgsolvent']
-
+    var orgaccounts = req.session.data['orgaccounts']
 
 
     if (!orgsolvent) {
@@ -402,46 +326,13 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
         });
     }
     else {
-        if (orgsolvent == "Yes") {
-            res.redirect('/' + version + '/organisation-details/structure');
+        if (orgaccounts == "Yes") {
+            res.redirect('/' + version + '/organisation-details/financial-profit');
         }
+
         else {
-            res.redirect('/' + version + '/organisation-details/solvent-months');
-        }
-    }
-
-});
-
-/// Org details - Solvent months
-router.get('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/solvent-months', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/solvent-months', function (req, res) {
-    clearvalidation(req);
-    var orgsolventmonths = req.session.data['orgsolventmonths']
-
-
-
-    if (!orgsolventmonths) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgsolventmonths = {
-            "anchor": "orgsolventmonths",
-            "message": "Enter how many months the organisation is solvent for"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/solvent-months', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/organisation-details/structure');
+            res.redirect('/' + version + '/organisation-details/structure');
+        }    
     }
 
 });
@@ -495,7 +386,8 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     clearvalidation(req);
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
-
+    var orgprofit = req.session.data['orgprofit']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
 
@@ -503,7 +395,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgsubtype = {
             "anchor": "orgsubtype",
-            "message": "Select an organisation description"
+            "message": "Select the option that best describes the work " + companyname +" does"
         }
     }
 
@@ -515,6 +407,14 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         }
     }
 
+    if ((orgsubtype == "Other") && orgsubtypeother.length > 50) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsubtypeother = {
+            "anchor": "orgtradingpostcode",
+            "message": "Enter the organisation’s description"
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/what', {
             data: req.session.data
@@ -523,231 +423,74 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     else {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
+            if (orgprofit == "No" ) {
+                res.redirect('/' + version + '/organisation-details/socialhousing');
+            }
+
+            else {
+                res.redirect('/' + version + '/organisation-details/date');
+            }
+
         }
 
-        if (orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other social housing provider" ) {
-            res.redirect('/' + version + '/organisation-details/structure');
+        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association") {
+            res.redirect('/' + version + '/organisation-details/socialhousing');
         }
-        else {
+
+        else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
             res.redirect('/' + version + '/organisation-details/date');
 
         }
 
-    }
-
-});
-
-function clearparentdata(req) {
-    req.session.data['parentname'] = "";
-    req.session.data['parentaddressMLine1'] = "";
-    req.session.data['parentaddressMTown'] = "";
-    req.session.data['parentaddressMCountry'] = "";
-    req.session.data['parentaddressMPostcode'] = "";
-}
-
-
-/// Org details - Structure
-router.get('/' + version + '/organisation-details/structure', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/structure', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/structure', function (req, res) {
-    clearvalidation(req);
-    var orgstructure = req.session.data['orgstructure']
-
-
-
-    if (!orgstructure) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.orgstructure = {
-            "anchor": "orgstructure",
-            "message": "Confirm your organisation structure"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/structure', {
-            data: req.session.data
-        });
-    }
-    else {
-        clearparentdata(req);
-        req.session.data['parenttotal'] = "";
-        req.session.data['parentsentered'] = "";
-
-        if(orgstructure == "Joint venture") {
-            res.redirect('/' + version + '/organisation-details/parent-total');
-        }
-        else if(orgstructure == "Neither of these") {
-            res.redirect('/' + version + '/organisation-details/cya');
-        }
         else {
-            res.redirect('/' + version + '/organisation-details/parent-name');
+            res.redirect('/' + version + '/organisation-details/structure');
+
         }
+
     }
 
 });
 
-
-
-/// Org details - Parent total
-router.get('/' + version + '/organisation-details/parent-total', function (req, res) {
+/// Org details - Social housing
+router.get('/' + version + '/organisation-details/socialhousing', function (req, res) {
     clearvalidation(req);
-    res.render('/' + version + '/organisation-details/parent-total', {
+    res.render('/' + version + '/organisation-details/socialhousing', {
         data: req.session.data
     });
 });
 
 
-router.post('/' + version + '/organisation-details/parent-total', function (req, res) {
+router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
     clearvalidation(req);
-    var parenttotal = req.session.data['parenttotal']
+    var orgsocialhousing = req.session.data['orgsocialhousing']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
-
-    if (!parenttotal) {
+    if (!orgsocialhousing) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.parenttotal = {
-            "anchor": "parenttotal",
-            "message": "Enter the number of parent companies"
+        req.session.data.validationErrors.orgsocialhousing = {
+            "anchor": "orgsocialhousing",
+            "message": "Select whether " +  companyname + " is subject to social housing regulations"
         }
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-total', {
+        res.render('/' + version + '/organisation-details/socialhousing', {
             data: req.session.data
         });
     }
     else {
-        req.session.data['parentsentered'] = 1
-            res.redirect('/' + version + '/organisation-details/parent-name');
-    }
-
-});
-
-/// Org details - Parent name
-router.get('/' + version + '/organisation-details/parent-name', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/parent-name', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/parent-name', function (req, res) {
-    clearvalidation(req);
-    var parentname = req.session.data['parentname']
-
-
-
-    if (!parentname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentname = {
-            "anchor": "parentname",
-            "message": "Enter a parent organisation name"
+        if (orgsocialhousing == "No") {
+            res.redirect('/' + version + '/organisation-details/date');
         }
-    }
 
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-name', {
-            data: req.session.data
-        });
-    }
-    else {
-        if (req.session.data.parentsentered) {
-            req.session.data['parentname' + req.session.data['parentsentered']] = req.session.data['parentname']
-        } 
-        res.redirect('/' + version + '/organisation-details/parent-address');
-    }
-
-});
-
-// Org details - Parent address
-router.get('/' + version + '/organisation-details/parent-address', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/organisation-details/parent-address', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/parent-address', function (req, res) {
-    clearvalidation(req);
-    var parentaddressMLine1 = req.session.data['parentaddressMLine1']
-    var parentaddressMTown = req.session.data['parentaddressMTown']
-    var parentaddressMCountry = req.session.data['parentaddressMCountry']
-    var parentaddressMPostcode = req.session.data['parentaddressMPostcode']
-    var parentsentered = req.session.data['parentsentered']
-    var parenttotal = req.session.data['parenttotal']
-
-
-
-    if (!parentaddressMLine1) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentaddressMLine1 = {
-            "anchor": "parentaddressMLine1",
-            "message": "Enter the street address",
-        }
-    }
-
-
-    if (!parentaddressMTown) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentaddressMTown = {
-            "anchor": "parentaddressMTown",
-            "message": "Enter the town or city",
-        }
-    }
-
-    if (!parentaddressMPostcode) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentaddressMPostcode = {
-            "anchor": "parentaddressMPostcode",
-            "message": "Enter a postcode",
-        }
-    }
-
-    if (!parentaddressMCountry) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parentaddressMCountry = {
-            "anchor": "parentaddressMCountry",
-            "message": "Enter a country",
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-address', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (req.session.data.parentsentered) {
-            req.session.data['parentaddressSelect' + req.session.data['parentsentered']] =  parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
-            if (parenttotal == parentsentered) {
-                res.redirect('/' + version + '/organisation-details/cya');
-            }
-            else {
-                clearparentdata(req);
-                req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-                res.redirect('/' + version + '/organisation-details/parent-name');
-
-            }
-        } 
         else {
-            req.session.data.parentaddressSelect = parentaddressMLine1 + ', ' + parentaddressMTown + ', ' + parentaddressMPostcode + ', ' + parentaddressMCountry;
-            res.redirect('/' + version + '/organisation-details/cya');
+            res.redirect('/' + version + '/organisation-details/structure');
         }
-
-        }
-
-        
+    }
 
 });
+
 
 
 
@@ -848,7 +591,7 @@ router.post('/' + version + '/organisation-details/financial-income', function (
         });
     }
     else {
-            res.redirect('/' + version + '/organisation-details/financial-authorised');
+            res.redirect('/' + version + '/organisation-details/financial-hedged');
     }
 
 });
@@ -919,10 +662,45 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
         });
     }
     else {
+        res.redirect('/' + version + '/organisation-details/financial-costs');
+    }
+
+});
+
+/// Org details - Financial costs
+router.get('/' + version + '/organisation-details/financial-costs', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/financial-costs', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/financial-costs', function (req, res) {
+    clearvalidation(req);
+    var financialcosts = req.session.data['financialcosts']
+
+
+
+    if (!financialcosts) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialcosts = {
+            "anchor": "financialcosts",
+            "message": "Enter the total running costs"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/financial-costs', {
+            data: req.session.data
+        });
+    }
+    else {
         res.redirect('/' + version + '/organisation-details/financial-monthly');
     }
 
 });
+
 
 
 /// Org details - Financial needs
@@ -1006,12 +784,30 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
     clearvalidation(req);
     var financialpercentage = req.session.data['financialpercentage']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+    const regex = /^[0-9,\s.]+$/; // Allowed characters: numbers (0-9), commas (,), spaces (\s), and decimal points (.)
 
     if (!financialpercentage) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialpercentage = {
             "anchor": "financialpercentage",
-            "message": "Confirm whether the percentage entity is satisfied"
+            "message": "Enter the percentage volume of " + companyname + "’s costs that are hedged"
+        }
+    }
+
+    else if (!regex.test(financialpercentage)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialpercentage = {
+            "anchor": "financialpercentage",
+            "message": "Percentage must only include numbers and special characters such as full stops and commas"
+        }
+    }
+
+    if (financialpercentage > 100) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialpercentage = {
+            "anchor": "financialpercentage",
+            "message": "Percentage must be 100 or less"
         }
     }
 
@@ -1040,12 +836,13 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
     clearvalidation(req);
     var financialhedged = req.session.data['financialhedged']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!financialhedged) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialhedged = {
             "anchor": "financialhedged",
-            "message": "Enter the number of months"
+            "message": "Select whether " + companyname + " hedges their gas, electricity, biomass or other fuel input requirementss"
         }
     }
 
@@ -1098,9 +895,377 @@ router.post('/' + version + '/organisation-details/financial-hedged-months', fun
 
 });
 
+
+
+function clearparentdata(req) {
+    req.session.data['parentcompanyname'] = "";
+    req.session.data['parentorgaddressMLine1'] = "";
+    req.session.data['parentorgaddressMTown'] = "";
+    req.session.data['parentorgaddressMCounty'] = "";
+    req.session.data['parentorgaddressMPostcode'] = "";
+    req.session.data['parentorgaddressMCountry'] = "";
+    req.session.data['parentorgaddressSelect'] = "";
+
+
+}
+
+
+/// Org details - Structure
+router.get('/' + version + '/organisation-details/structure', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/structure', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/structure', function (req, res) {
+    clearvalidation(req);
+    var orgstructure = req.session.data['orgstructure']
+
+
+
+    if (!orgstructure) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgstructure = {
+            "anchor": "orgstructure",
+            "message": "Confirm your organisation structure"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/structure', {
+            data: req.session.data
+        });
+    }
+    else {
+        clearparentdata(req);
+        req.session.data['parentsentered'] = 1;
+
+        if(orgstructure == "Neither of these") {
+            res.redirect('/' + version + '/organisation-details/cya');
+        }
+        else {
+            res.redirect('/' + version + '/organisation-details/company-name');
+        }
+    }
+
+});
+
+
+
+
+///Parent Company name
+router.get('/' + version + '/organisation-details/company-name', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+    }
+
+    else {
+        req.session.data['parentid'] = ""
+    }
+
+    const addanother = req.query.another;
+
+    if (addanother) {
+        req.session.data['parentcompanyname'] = ""
+        req.session.data['parentorgaddressMLine1'] = ""
+        req.session.data['parentorgaddressMTown'] = ""
+        req.session.data['parentorgaddressMCountry'] = ""
+        req.session.data['parentorgaddressMPostcode'] = ""
+        req.session.data['parentsaddanother'] = "Yes"
+    }
+
+    else {
+        req.session.data['parentsaddanother'] = "No"
+    }
+
+
+
+
+    res.render('/' + version + '/organisation-details/company-name', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/company-name', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.id;
+
+
+    var parentcompanyname = req.session.data['parentcompanyname']
+    req.session.data['parentaccounttype'] == "Overseas organisation"
+    
+
+    if (!parentcompanyname) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentcompanyname = {
+                "anchor": "parentcompanyname",
+                "message": "Enter a name for your organisation"
+            }
+
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/company-name', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (urlParams) {
+            req.session.data['parentcompanyname' + urlParams] = req.session.data['parentcompanyname']
+            res.redirect('/' + version + '/organisation-details/addressmanual?id=' + urlParams);
+
+        }
+
+        else {
+            req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
+            res.redirect('/' + version + '/organisation-details/addressmanual');
+
+        }
+    
+
+    }
+
+});
+
+
+
+
+
+// Parent Company - Address manual
+router.get('/' + version + '/organisation-details/addressmanual', function (req, res) {
+    clearvalidation(req);
+
+    const urlParams = req.query.id;
+
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+
+        req.session.data['parentorgaddressMLine1'] = req.session.data['parentorgaddressMLine1' + urlParams]
+
+        req.session.data['parentorgaddressMTown'] = req.session.data['parentorgaddressMTown' + urlParams]
+        req.session.data['parentorgaddressMCountry'] = req.session.data['parentorgaddressMCountry' + urlParams]
+        req.session.data['parentorgaddressMPostcode'] = req.session.data['parentorgaddressMPostcode' + urlParams]
+        }
+
+    else {
+
+        req.session.data['parentid'] = ""
+    }
+
+
+
+    res.render('/' + version + '/organisation-details/addressmanual', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/addressmanual', function (req, res) {
+    const urlParams = req.query.id;
+
+    clearvalidation(req);
+    var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
+    var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
+    var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
+    var orgstructure = req.session.data['orgstructure']
+    var parentorgaddressMPostcode = req.session.data['parentorgaddressMPostcode']
+
+    if (!parentorgaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMLine1 = {
+            "anchor": "parentorgaddressMLine1",
+            "message": "Enter the street address",
+        }
+    }
+
+
+    if (!parentorgaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMTown = {
+            "anchor": "parentorgaddressMTown",
+            "message": "Enter the town or city",
+        }
+    }
+
+    if (!parentorgaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMPostcode = {
+            "anchor": "parentorgaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (!parentorgaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.parentorgaddressMCountry = {
+            "anchor": "parentorgaddressMCountry",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/addressmanual', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
+
+        if (urlParams) {
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgaddressMLine1' + urlParams] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + urlParams] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + urlParams] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + urlParams] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+
+            res.redirect('/' + version + '/organisation-details/cya');
+
+        }
+
+        else {
+            req.session.data['parentorgaddressMLine1' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgadded' + req.session.data['parentsentered']] = "Yes";
+            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
+
+    
+            if (orgstructure == "Joint venture") {
+                res.redirect('/' + version + '/organisation-details/parent-another');
+            }
+    
+            else {
+                res.redirect('/' + version + '/organisation-details/cya');
+            }
+        }
+
+
+    }
+});
+
+
+
+
+///Parent Another
+router.get('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-another', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    var parentsentered = req.session.data['parentsentered']
+    var parentaddanother = req.session.data['parentaddanother']
+
+    
+    const parents = [];
+    for (let i = 1; i <= parentsentered; i++) {
+        parents.push({
+            id: i,
+            name: req.session.data[`parentcompanyname${i}`],
+            address: req.session.data[`parentorgaddressSelect${i}`],
+            added: req.session.data[`parentorgadded${i}`]
+        });
+    }
+
+    const totalYes = parents.filter(parent => parent.added === "Yes").length;
+    req.session.data['parentsactual'] = totalYes;
+
+    if (!parentaddanother) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Select whether you'd like to add another parent organisation"
+            }
+
+    }
+
+    if (totalYes < 2 && parentaddanother == "No" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Joint ventures must have at least 2 parent orgnisations"
+            }
+
+    }
+
+    if (totalYes == 6 && parentaddanother == "Yes" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "You cannot add more than 6 parents organisations"
+            }
+
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-another', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        clearparentdata(req);
+
+        if (parentaddanother == "Yes") {
+            res.redirect('/' + version + '/organisation-details/company-name?another=yes');
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/cya');
+        }
+
+    }
+
+});
+
+
+
+
+
+///Parent Remove
+router.post('/' + version + '/organisation-details/remove-parent', function (req, res) {
+    const parentId = req.body.parentId;
+
+    // Example: Remove parent logic
+    console.log(`Removing parent with ID: ${parentId}`);
+    // Perform the necessary action (e.g., update session or database)
+    req.session.data['parentorgadded' + parentId] = "No"
+
+    res.redirect('/' + version + '/organisation-details/parent-another');
+
+
+
+
+
+});
+
+
+
+
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
     clearvalidation(req);
+    clearparentdata(req);
 
     res.render('/' + version + '/organisation-details/cya', {
         data: req.session.data
@@ -1109,9 +1274,13 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
-    clearvalidation(req);
-    req.session.data['organisationdetails'] = 'Submitted';
-    res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+
+
+        clearvalidation(req);
+        req.session.data['organisationdetails'] = 'Submitted';
+        res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+    
+
 
 });
 
@@ -5688,3 +5857,218 @@ router.post('/' + version + '/add-heat-network/consumerprotections/confirm', fun
     res.redirect('/' + version + '/add-heat-network/tasklist');
 });
 
+
+
+////////////////////////////////////////////////////////////////////////////// SMRI //////////////////////////////////////////////////////////////////////////////
+
+function setSMRIUser(req) {
+    req.session.data['smriprocess'] = "Yes"
+    req.session.data['smriassessments'] = "Yes"
+    req.session.data['smrilist'] = "Yes"
+    req.session.data['smrifitandproper'] = "Yes"
+    req.session.data['smrideclarationdate'] = "01/11/2024"
+}
+
+function clearSMRIUser(req) {
+    req.session.data['smriprocess'] = ""
+    req.session.data['smriassessments'] = ""
+    req.session.data['smrilist'] = ""
+    req.session.data['smrifitandproper'] = ""
+    req.session.data['smrideclarationdate'] = ""
+}
+
+
+/// SMRI List
+router.get('/' + version + '/smri/list', function (req, res) {
+    clearvalidation(req);
+    const urlParams = req.query.notification;
+    const urlParamsVersion = req.query.v;
+    req.session.data['smristatus'] = urlParamsVersion;
+
+    if (urlParamsVersion == "submitted") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "expired") {
+        setSMRIUser(req);
+        req.session.data['smrideclaration'] = "Yes";
+    }
+    if (urlParamsVersion == "new") {
+        clearSMRIUser(req);
+        req.session.data['smrideclaration'] = "No";
+    }
+    req.session.data['smrinotification'] = urlParams;
+    res.render('/' + version + '/smri/list', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/list', function (req, res) {
+    clearSMRIUser(req);
+ res.redirect('/' + version + '/smri/process');
+
+});
+
+
+/// SMRI Process
+router.get('/' + version + '/smri/process', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/process', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/process', function (req, res) {
+    clearvalidation(req);
+    var smriprocess = req.session.data['smriprocess']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+    if (!smriprocess ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smriprocess = {
+            "anchor": "smriprocess",
+            "message": "Select whether " + companyname + " has a process in place to ensure that all people with SMRI are fit and proper"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/process', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/smri/assessments');
+    }
+});
+
+/// SMRI assessments
+router.get('/' + version + '/smri/assessments', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/assessments', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/assessments', function (req, res) {
+    clearvalidation(req);
+    var smriassessments = req.session.data['smriassessments']
+    var smrifirstname = req.session.data['smrifirstname']
+    var smrilastname = req.session.data['smrilastname']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+    if (!smriassessments ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smriassessments = {
+            "anchor": "smriassessments",
+            "message": "Select whether " + companyname + " carries out regular assessments to ensure all people with SMRI remain fit and proper"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/assessments', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/smri/smrilist');
+    }
+});
+
+
+/// SMRI list
+router.get('/' + version + '/smri/smrilist', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/smrilist', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/smrilist', function (req, res) {
+    clearvalidation(req);
+    var smrilist = req.session.data['smrilist']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+    if (!smrilist ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smrilist = {
+            "anchor": "smrilist",
+            "message": "Select whether you have a list of all people at " + companyname + " with SMRI"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/smrilist', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (smrilist == "Yes") {
+            res.redirect('/' + version + '/smri/fitandproper');
+        }
+        else {
+            res.redirect('/' + version + '/smri/dropout');
+        }
+    }
+});
+
+/// SMRI fitandproper
+router.get('/' + version + '/smri/fitandproper', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/fitandproper', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/fitandproper', function (req, res) {
+    clearvalidation(req);
+    var smrifitandproper = req.session.data['smrifitandproper']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+    if (!smrifitandproper ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smrifitandproper = {
+            "anchor": "smrifitandproper",
+            "message": "Select whether everybody with SMRI at " + companyname + " is fit and proper"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/smri/fitandproper', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/smri/declaration');
+    }
+});
+
+
+/// SMRI declaration
+router.get('/' + version + '/smri/declaration', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/smri/declaration', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/smri/declaration', function (req, res) {
+    clearvalidation(req);
+
+    var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = dd + '/' + mm + '/' + yyyy;
+
+    req.session.data['smrideclaration'] = "Yes"
+    req.session.data['smrideclarationdate'] = today
+        
+        res.redirect('/' + version + '/smri/list?notification=submitted');
+});

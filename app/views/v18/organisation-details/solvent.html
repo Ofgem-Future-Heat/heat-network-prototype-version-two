@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} projected to be financially solvent for at least the next 12 months?  
+Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %} reasonably expect to have sufficient finance and resources available to carry on its regulated heat network activity for the next 12 months?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -15,7 +15,7 @@ Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',
@@ -62,7 +62,11 @@ Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif
                     {{title}}
                   </h1>
                 </legend>
-                <!-- <p class="govuk-body">???</p> -->
+                <p class="govuk-body">
+                  The 12-month period starts from the date you send this data to Ofgem.
+                </p>
+                <p class="govuk-body">Take into account any dividend, other distribution or outgoing which Organisation name might reasonably expect to pay or declare.
+                </p>
                 {% if data.validationErrors.orgsolvent %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
@@ -90,7 +94,7 @@ Is {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

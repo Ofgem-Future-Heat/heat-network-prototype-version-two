@@ -19,17 +19,18 @@
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
-            govukBackLink ({
-                text: 'Back',
-                href: 'javascript:history.back()'
-            })
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
         }}
 
     </div>
 
 </div>
+
 
 {% endblock %}
 
@@ -78,7 +79,7 @@
                     </p>
                     {% endif %}
 <div class="govuk-radios" data-module="govuk-radios">
-                            {% for address in data.tradingaddressSelect %}
+                            {% for address in data.tradingaddressSelection %}
 
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="{{address | replace (" ", "-") | safe}}" name="tradingaddressSelect" type="radio" value="{{address}}" {% if data.tradingaddressSelect == address %} checked {% endif %}>
@@ -101,7 +102,7 @@
 
     {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
     }}
     </form>

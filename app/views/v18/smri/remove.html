@@ -1,5 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the new user’s email address?" %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+Are you sure you want to remove {{data.smrifirstname}} {{data.smrilastname}} as a person with SMRI for {{company}}?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -47,32 +51,43 @@
         </div>
     </div>
     {% endif %}
-    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+    <form  method="POST" novalidate>
 
+        
+     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+
+    <label for="smriremove">
 
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-    <form  method="POST" novalidate>
-            <div class="govuk-form-group {% if data.validationErrors.useremail %}govuk-form-group--error{% endif %}">
-        <label class="govuk-label govuk-label--s" for="email">
-          Email address
-        </label>
-        {% if data.validationErrors.useremail %}
+  </label>
+  <div class="govuk-form-group {% if data.validationErrors.smriremove %}govuk-form-group--error{% endif %}">
+
+        {% if data.validationErrors.smriremove %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.useremail.message}}
+            {{data.validationErrors.smriremove.message}}
         </p>
         {% endif %}
-        <input class="govuk-input govuk-!-width-two-thirds" id="email" name="useremail" type="text" value="{{data.useremail}}">
+
+
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smriremove" name="smriremove" type="radio" value="Yes" {% if data.smriremove == "Yes" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smriremove">
+                  Yes
+              </label>
+          </div>
+          <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="smriremove-2" name="smriremove" type="radio" value="No" {% if data.smriremove == "No" %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="smriremove-2">
+                  No
+              </label>
+          </div>
       </div>
-    
 
-
-
-
-      
-
+      </div>
 
 
 
@@ -85,7 +100,6 @@
       </div>
 </form>
 
-  </div>
 </div>
 
 {% endblock %}

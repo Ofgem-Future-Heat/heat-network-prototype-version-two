@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-What was the average monthly income for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks for the previous financial year?
+What was {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s average monthly gross income from heat sales on its heat networks for the previous financial year?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -15,7 +15,7 @@ What was the average monthly income for {% if data.companyname %}{{data.companyn
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',
@@ -52,19 +52,15 @@ What was the average monthly income for {% if data.companyname %}{{data.companyn
         <form  method="POST" novalidate>
 
             <div class="govuk-form-group {% if data.validationErrors.financialincome %}govuk-form-group--error{% endif %}">
+                <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-     
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financialincome">
-
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="financialincome">
+                        {{title}}
                     </label>
+                  </h1>
 
-                    </legend>
+                  <p class="govuk-body">You must enter a whole number without decimals.</p>
 
                     {% if data.validationErrors.financialincome %}
                     <p class="govuk-error-message">
@@ -83,7 +79,6 @@ What was the average monthly income for {% if data.companyname %}{{data.companyn
 
 
 
-                </fieldset>
 
 
             </div>

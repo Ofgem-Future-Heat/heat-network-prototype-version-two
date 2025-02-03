@@ -13,19 +13,20 @@ Are you satisfied that {% if data.companyname %}{{data.companyname}}{% else %}Ra
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
 
+{% include data.version + "/_partials/headerlinks.html" %}
+      {{
+govukBackLink ({
+                  text: 'Back',
+                  href: 'javascript:history.back()'
+              })
+      }}
 
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
-
-    </div>
+  </div>
 
 </div>
+
 
 {% endblock %}
 
@@ -61,8 +62,16 @@ Are you satisfied that {% if data.companyname %}{{data.companyname}}{% else %}Ra
                     {{title}}
                   </h1>
                 </legend>
-                <!-- <p class="govuk-body">???</p> -->
-                {% if data.validationErrors.financialauthorised %}
+                <details class="govuk-details">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                      Help with 'fall due'
+                    </span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    This means the costs that the organisation is due to pay on, or by, a date that has already been agreed.
+                  </div>
+                </details>                {% if data.validationErrors.financialauthorised %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
                     {{data.validationErrors.financialauthorised.message}}
@@ -89,7 +98,7 @@ Are you satisfied that {% if data.companyname %}{{data.companyname}}{% else %}Ra
             </div>
             {{
                 govukButton ({
-                    html: 'Save and continue'
+                    html: 'Continue'
                 })
             }}
       </form>

@@ -39,11 +39,15 @@
       
       <div class="govuk-grid-row ds-grid-row">
         {% if data.currentversion != "dev" %}
-
       <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
-      
+      {% if data.currentversion == "ur" %}
+      <strong class="govuk-tag govuk-tag--green">
+        Completed
+       </strong>
+       {% else %}
+
       {% if data.organisationdetails != "Submitted" %}
       <strong class="govuk-tag govuk-tag--red">
        Not started
@@ -53,8 +57,46 @@
         Completed
        </strong>
       {% endif %}
+      {% endif %}
     </div>
     {% endif %}
+
+    {% if data.currentversion != "dev" %}
+    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">SMRI declaration</a></h3>
+    <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
+
+
+
+{% if data.currentversion %}
+     {% if data.currentversion.toLowerCase()  == "ur" %}
+     <strong class="govuk-tag govuk-tag--green">
+      Submitted
+     </strong>
+    {% elif (data.currentversion.toLowerCase() == "expired") %}
+    <strong class="govuk-tag govuk-tag--red">
+      Expired
+     </strong>
+     {% elif (data.currentversion.toLowerCase() == "in review") %}
+     <strong class="govuk-tag govuk-tag--blue">
+       In review
+      </strong>
+      {% elif (data.currentversion.toLowerCase() == "approved") %}
+      <strong class="govuk-tag govuk-tag--green">
+        Approved
+       </strong>
+       {% endif %}
+       {% elif (data.smrideclaration == "Yes") %}
+       <strong class="govuk-tag govuk-tag--green">
+         Submitted
+        </strong>
+    {% else %}
+      <strong class="govuk-tag govuk-tag--red">
+        Not started
+       </strong>
+    {% endif %}
+  </div>
+  {% endif %}
  
 
     <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
@@ -74,19 +116,18 @@
 
     <h2 class="govuk-heading-m">Heat networks</h2>
 
-    {% if data.organisationdetails == "Submitted" %}
-    <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
+      {% if (data.organisationdetails == "Submitted") %}
+      <p class="govuk-body">To comply with heat network regulations, you must tell us about all your UK heat networks.</p>
 
-    {{ govukButton ({
-        text: "Add a new heat network",
-        href: "add-heat-network/introduction/intro"
-    }) }}
-    {% else %}
+      {{ govukButton ({
+          text: "Add a new heat network",
+          href: "add-heat-network/introduction/examples"
+      }) }}
+      {% else %}
 
-    <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
+      <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
 
-    {% endif %}
-
+      {% endif %}
 
     
 

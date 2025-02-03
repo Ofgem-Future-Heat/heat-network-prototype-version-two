@@ -15,7 +15,7 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',
@@ -51,23 +51,18 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
         {% endif %}
         <form  method="POST" novalidate>
 
+            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+            <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
-                        <label for="financiallength">
-
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
-                        </label>
-
-                    </legend>
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="financiallength">
+                    {{title}}
+                </label>
+              </h1>
 
 
-                            <div class="govuk-form-group {% if data.validationErrors.financiallength %}govuk-form-group--error{% endif %}">
+
 
 
                   
@@ -85,7 +80,6 @@ How many months ahead does {% if data.companyname %}{{data.companyname}}{% else 
 
 
 
-                </fieldset>
 
 
             {{
