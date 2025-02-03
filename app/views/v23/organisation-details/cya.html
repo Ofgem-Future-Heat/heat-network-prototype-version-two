@@ -358,7 +358,15 @@ govukBackLink ({
 
               </dd>
               <dd class="govuk-summary-list__actions">
+                {% if data.orgstructure == "Special purpose vehicle or wholly owned subsidiary of another entity" %}
+                <a class="govuk-link govuk-link--no-visited-state" href="company-name?id=1">Change<span class="govuk-visually-hidden"> parent</span></a><br />
+
+                {% else %}
+
                 <a class="govuk-link govuk-link--no-visited-state" href="parent-another">Change<span class="govuk-visually-hidden"> parent</span></a><br />
+
+                {% endif %}
+
               </dd>
             </div>
             {% endif %}
