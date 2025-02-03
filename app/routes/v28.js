@@ -3645,8 +3645,6 @@ router.get('/' + version + '/add-heat-network/introduction/pipework', function (
 router.post('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
     clearvalidation(req);
     var intropipework = req.session.data['intropipework']
-    var buildings = req.session.data['introhnbuildings']
-    var role = req.session.data['role']
 
     if (!intropipework) {
         req.session.data.validationError = "true"
@@ -3668,19 +3666,63 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
 
         }
         else {
-            if (buildings > 0 && (role != "Operator")) {
-                res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
-            }
-            else {
-                res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
 
-            }
+                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+
         }
             
 
     }
 
 });
+
+
+// Introduction - introselfsupply
+router.get('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
+    clearvalidation(req);
+    var introselfsupply = req.session.data['introselfsupply']
+    var buildings = req.session.data['introhnbuildings']
+    var role = req.session.data['role']
+
+
+    if (!introselfsupply) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introselfsupply = {
+            "anchor": "introselfsupply",
+            "message": "Select whether the heat network is a self-supply network"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introselfsupply == "Yes" ||
+            (introselfsupply == "No" && role == "Operator") ||
+            (introselfsupply == "No" && buildings == 0)
+         ) {
+            res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
+
+        }
+    }
+
+});
+
 
 // Introduction - Suppliers
 router.get('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
@@ -4154,7 +4196,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
                 res.redirect('/' + version + '/add-heat-network/introduction/buy');
             }
             else {
-                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+                res.redirect('/' + version + '/add-heat-network/introduction/buy');
     
             }    
         }
@@ -4195,7 +4237,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
             res.redirect('/' + version + '/add-heat-network/introduction/buy');
         }
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+            res.redirect('/' + version + '/add-heat-network/introduction/buy');
 
         }    }
 });
@@ -4214,7 +4256,7 @@ router.post('/' + version + '/add-heat-network/introduction/operational', functi
     var introoperationalday = req.session.data['introoperationalday']
     var introoperationalmonth = req.session.data['introoperationalmonth']
     var introoperationalyear = req.session.data['introoperationalyear']
-    const operationalDeadline = new Date('2025-04-01');
+    const operationalDeadline = new Date('2025-03-31');
 
     function createDateFromInputs(day, month, year) {
         // Convert inputs to integers
@@ -4229,15 +4271,23 @@ router.post('/' + version + '/add-heat-network/introduction/operational', functi
             monthInt < 0 || monthInt > 11 ||
             yearInt < 1
         ) {
-            throw new Error('Invalid date inputs');
-        }
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.introoperationaldate = {
+                "anchor": "introoperationalday",
+                "message": "Enter a valid date"
+            }    
+                }
     
         // Create and return the Date object
         const date = new Date(yearInt, monthInt, dayInt);
     
         // Validate the resulting date to ensure it's correct
         if (date.getDate() !== dayInt || date.getMonth() !== monthInt || date.getFullYear() !== yearInt) {
-            throw new Error('Invalid date inputs resulted in an invalid date');
+            req.session.data.validationError = "true"
+            req.session.data.validationErrors.introoperationaldate = {
+                "anchor": "introoperationalday",
+                "message": "Enter a valid date"
+            }        
         }
     
         return date;
@@ -4285,51 +4335,12 @@ router.post('/' + version + '/add-heat-network/introduction/operational', functi
         else {
             req.session.data['introauthorised'] == "Yes"
 
-            if (introcommunal == "Yes") {
                 res.redirect('/' + version + '/add-heat-network/introduction/buy');
-            }
-            else {
-                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
-    
-            }    
         }
     }
 });
 
 
-
-// Introduction - introselfsupply
-router.get('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
-    clearvalidation(req);
-    var introselfsupply = req.session.data['introselfsupply']
-
-    if (!introselfsupply) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.introselfsupply = {
-            "anchor": "introselfsupply",
-            "message": "Select whether the heat network is a self-supply network"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        res.redirect('/' + version + '/add-heat-network/introduction/buy');
-    }
-
-});
 
 
 // Introduction - Buy Heat

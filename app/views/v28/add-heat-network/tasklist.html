@@ -43,15 +43,17 @@
                 {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise hn-tag  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag hn-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}            </h1>
 
             </h1>
+
+
             {% if data.introcommunal == "No" %}
             <div class="govuk-inset-text">
-            <p class="govuk-body">You’re registering a district heat network where you operate:</p>
-            <ul class="govuk-list govuk-list--bullet"> 
-                {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
-
-                {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
-            </ul>
-
+                <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                <ul class="govuk-list govuk-list--bullet"> 
+                    {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
+                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                </ul>
+    
+    
             <details class="govuk-details">
                 <summary class="govuk-details__summary">
                   <span class="govuk-details__summary-text">

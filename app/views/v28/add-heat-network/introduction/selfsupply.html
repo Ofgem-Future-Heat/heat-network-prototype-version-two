@@ -65,6 +65,16 @@
                         These are networks where a single business or organisation operates the network and occupies all the buildings in it. For example, hospitals, prisons and university buildings.
                     </p>
 
+                    <div class="govuk-inset-text">
+                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                        <ul class="govuk-list govuk-list--bullet"> 
+                            {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
+                            {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                        </ul>
+    
+                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
+                        </div>
+
                     {% if data.validationErrors.introselfsupply %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
