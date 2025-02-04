@@ -33,13 +33,12 @@
     <div class="govuk-grid-column-two-thirds">
         <span class="govuk-caption-l">Add a heat network - energy centres</span>
         <h1 class="govuk-heading-l">
-            {{title}}
+            {{title}} {{data.energycentres}}
         </h1>
 
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-            {% if data.energycentres == 1 %}
-
+            {% if data.introenergycentrehowmany == 1 or data.introenergycentrehowmany == null %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Energy centre {% if (data.energycentres > 1) %}1{% endif %}
@@ -66,7 +65,7 @@
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="energycentres">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="addresspostcode">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
 

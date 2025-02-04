@@ -11,9 +11,9 @@ Radienteco Ltd
 
 {% set title %}
 {% if data.introbuildingstotal > 1 %}
-Is {{company}} responsible for the supply of heat to all {{data.introbuildingstotal}} buildings?
+Is {{company}} responsible for providing heating, cooling or hot water to all {{data.introbuildingstotal}} buildings?
 {% else %}
-Is {{company}} responsible for the supply of heat to this building?
+Is {{company}} responsible for providing heating, cooling or hot water to this building?
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -79,10 +79,10 @@ Is {{company}} responsible for the supply of heat to this building?
 
                         </legend>
                         {% if data.introbuildingstotal > 1 %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that supply heat to these buildings.</p>
+                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that provide heating, cooling or hot water to these buildings.</p>
                         <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.</p>
                         {% else %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that supply heat to this building.</p>
+                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that provide heating, cooling or hot water to this building.</p>
                         <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.        </p>                
                         {% endif %}
                         {% if data.validationErrors.introbuildings %}

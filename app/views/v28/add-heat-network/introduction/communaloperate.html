@@ -10,9 +10,9 @@ Radienteco Ltd
 
 {% set title %}
 {% if data.introbuildingshowmany > 1 %}
-Are any of the {{data.introbuildingshowmany}} buildings that {{company}} supplies communal buildings?
+Are any of the number of {{data.introbuildingshowmany}} buildings that {{company}} provides heating, cooling or hot water to communal buildings?
 {% else %}
-Is the building that {{company}} supplies a communal building?
+Is the building that {{company}} provides heating, cooling or hot water to a communal building?
 {% endif %}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}

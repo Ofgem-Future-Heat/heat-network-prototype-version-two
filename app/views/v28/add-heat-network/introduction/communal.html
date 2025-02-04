@@ -61,9 +61,21 @@
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This is a single building divided into separate premises. For example, a block of flats or an office block.</p>
+                    <p class="govuk-body">This is a single building divided into separate premises. For example, a block of flats or an office block that has multiple end consumers in it.</p>
                     <p class="govuk-body">This is what we call a 'communal network'.</p>
                     <p class="govuk-body">You should answer ‘yes’, even if this heat network does not have its own energy centre.</p>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            What is an 'energy centre'?
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                          This is where the heat network's thermal energy is generated. For example, a CHP plant, heat pump or gas boiler.
+                        </div>
+                      </details>
+
 
                     {% if data.validationErrors.communal %}
                     <p class="govuk-error-message">

@@ -3710,7 +3710,7 @@ router.post('/' + version + '/add-heat-network/introduction/selfsupply', functio
     else {
         if (introselfsupply == "Yes" ||
             (introselfsupply == "No" && role == "Operator") ||
-            (introselfsupply == "No" && buildings == 0)
+            (introselfsupply == "No" && buildings <= 1)
          ) {
             res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
         }

@@ -62,13 +62,13 @@
                         </h1>
                     </legend>
                     <p class="govuk-body">
-                        These are networks where a single business or organisation operates the network and occupies all the buildings in it. For example, hospitals, prisons and university buildings.
+                        These are networks where an organisation does not sell heating, cooling or hot water to end consumers, but uses all the energy itself. For example, hospitals, prisons and university buildings. 
                     </p>
 
                     <div class="govuk-inset-text">
                         <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
                         <ul class="govuk-list govuk-list--bullet"> 
-                            {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>connection{% if data.introhnbuildings > 1 %}s{% endif %} to {% if data.introhnbuildings > 1 %}buildings{% else %}a building{% endif %} with single premises</li>  {% endif %}
+                            {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}</li>{% endif %}
                             {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
                         </ul>
     
