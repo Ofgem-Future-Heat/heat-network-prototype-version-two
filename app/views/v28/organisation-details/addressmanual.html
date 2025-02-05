@@ -17,7 +17,7 @@ What is the parent organisation's address?
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',
@@ -77,7 +77,8 @@ What is the parent organisation's address?
                         No results
                     </p>
                     {% endif %}
-                    <div class="govuk-form-group">
+
+                    <div class="govuk-form-group {% if data.validationErrors.parentorgaddressMLine1 %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="parentorgaddressMLine1">
                             Street address
                         </label>
@@ -89,7 +90,7 @@ What is the parent organisation's address?
                         {% endif %}
                         <input class="govuk-input" id="parentorgaddressMLine1" name="parentorgaddressMLine1" type="text" autocomplete="address-line1" value="{{data.parentorgaddressMLine1}}">
                     </div>
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.parentorgaddressMTown %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="parentorgaddressMTown">
                             Town or city
                         </label>
@@ -102,7 +103,7 @@ What is the parent organisation's address?
                         <input class="govuk-input govuk-!-width-two-thirds" id="parentorgaddressMTown" name="parentorgaddressMTown" type="text" autocomplete="address-level2" value="{{data.parentorgaddressMTown}}">
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.parentorgaddressMPostcode %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="parentorgaddressMPostcode">
                             Postal code or zip code
                         </label>
@@ -114,7 +115,7 @@ What is the parent organisation's address?
                         {% endif %}
                         <input class="govuk-input govuk-input--width-10" id="parentorgaddressMPostcode" name="parentorgaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.parentorgaddressMPostcode}}">
                     </div>
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.parentorgaddressMCountry %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="parentorgaddressMCountry">
                             Country
                         </label>

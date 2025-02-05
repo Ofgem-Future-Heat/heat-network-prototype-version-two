@@ -13,9 +13,22 @@ What type of organisation is the parent organisation?
 {{title}}
 {% endblock %}
 
-{% block beforeContent %}
+<div class="govuk-grid-row">
 
-{% endblock %}
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
 
 {% block content %}
 

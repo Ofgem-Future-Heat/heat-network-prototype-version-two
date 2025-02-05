@@ -14,7 +14,7 @@ Check your answers
 
   <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
       {{
 govukBackLink ({
                   text: 'Back',
@@ -25,6 +25,7 @@ govukBackLink ({
   </div>
 
 </div>
+
 
 {% endblock %}
 
@@ -65,20 +66,8 @@ govukBackLink ({
                       {% endif %}
                     </dd>
                   </div>
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                     Type
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      {% if data.accounttype %}
-                      {{data.accounttype}}
-                      {% else %}
-                      UK company registered with Companies House
-                      {% endif %}
-                    </dd>
 
-                  </div>
-                  {% if data.accounttype == "UK company registered with Companies House" %}
+                  {% if data.companynumber %}
                   <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
                         Company number
@@ -357,7 +346,15 @@ govukBackLink ({
 
               </dd>
               <dd class="govuk-summary-list__actions">
+                {% if data.orgstructure == "Special purpose vehicle or wholly owned subsidiary of another entity" %}
+                <a class="govuk-link govuk-link--no-visited-state" href="company-name?id=1">Change<span class="govuk-visually-hidden"> parent</span></a><br />
+
+                {% else %}
+
                 <a class="govuk-link govuk-link--no-visited-state" href="parent-another">Change<span class="govuk-visually-hidden"> parent</span></a><br />
+
+                {% endif %}
+
               </dd>
             </div>
             {% endif %}

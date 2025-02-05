@@ -19,17 +19,18 @@
 
     <div class="govuk-grid-column-full">
 
-
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
-            govukBackLink ({
-                text: 'Back',
-                href: 'javascript:history.back()'
-            })
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
         }}
 
     </div>
 
 </div>
+
 
 {% endblock %}
 

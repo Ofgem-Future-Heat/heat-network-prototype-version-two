@@ -54,6 +54,7 @@ Does {{company}} carry out regular assessments to ensure all people with SMRI re
     </div>
     {% endif %}
     <form  method="POST" novalidate>
+      <div class="govuk-form-group {% if data.validationErrors.smriassessments %}govuk-form-group--error{% endif %}">
 
         
     <span class="govuk-caption-l">People with SMRI at {{company}}</span>
@@ -62,7 +63,6 @@ Does {{company}} carry out regular assessments to ensure all people with SMRI re
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
-  <div class="govuk-form-group {% if data.validationErrors.smriassessments %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.smriassessments %}
         <p class="govuk-error-message">
