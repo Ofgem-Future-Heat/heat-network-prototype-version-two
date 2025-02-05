@@ -123,6 +123,11 @@
 	max-width: unset;
 }
 
+.hn-grid-row {
+    display: flex;
+    align-items: center; /* Centers content vertically */
+}
+
 
 
 /// Responsive table /// 

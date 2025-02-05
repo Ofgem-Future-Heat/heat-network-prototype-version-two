@@ -49,25 +49,20 @@
             </p>
             <p class="govuk-body">If this is incorrect, you can <a href="buildingstotal" class="govuk-link govuk-link--no-visited-state">change your heat network information</a></p>
             <h3 class="govuk-heading-m">Your heat network</h3>
-            {% set HN %}HNB{% if data.introhnbuildings != 0 %}{{data.introhnbuildings}}{% else %}0{% endif %}E{% if data.introenergycentre == "Yes" %}{{data.introenergycentrehowmany}}{% else %}0{% endif %}{% endset %}
-            <img src="/public/images/HNS2/{{HN}}.png" style="max-width: 100%; max-height: 600px" class="govuk-!-margin-bottom-3" />    
+            {% set HN %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif%}{% else %}0{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
+            <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px" class="govuk-!-margin-bottom-3" />    
 
             {% if data.introcommunaloperate == "Yes" %}
-            <h3 class="govuk-heading-m">Separate heat network registrations</h3>
+            <h3 class="govuk-heading-m govuk-!-margin-top-5">Separate heat network registrations</h3>
             <p class="govuk-body">You also told us that you operate <strong>{{data.introcommunaloperatehowmany}} communal building connection point{% if data.introcommunaloperatehowmany > 1 %}s{% endif %}</strong> on this network. You must register these as separate heat networks.</p>
-
+            <div class="govuk-grid-row hn-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <img src="/public/images/HNFINAL/HNCommunal.png" style="max-width: 100%" class="govuk-!-margin-bottom-3" />
+                </div>
+                <div class="govuk-grid-column-one-half">
+                    <h3 class="govuk-heading-xl">x{{data.introcommunaloperatehowmany}}</h3>
+                </div>
             </div>
-            </div>
-            <div class="govuk-grid-row">
-
-                <div class="govuk-grid-column-full">
-                    <div class="imagerow govuk-!-margin-bottom-4">
-                        {% for i in range(data.introcommunaloperatehowmany) %}
-                            <div class="imageitem">
-                                <img src="/public/images/HNS/HNC1.png" class="govuk-!-margin-bottom-3" />
-                            </div>
-                        {% endfor %}
-                    </div>
                 {% endif %}
 
 
