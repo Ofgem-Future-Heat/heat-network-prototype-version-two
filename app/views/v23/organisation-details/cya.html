@@ -66,20 +66,8 @@ govukBackLink ({
                       {% endif %}
                     </dd>
                   </div>
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                     Type
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      {% if data.accounttype %}
-                      {{data.accounttype}}
-                      {% else %}
-                      UK company registered with Companies House
-                      {% endif %}
-                    </dd>
 
-                  </div>
-                  {% if data.accounttype == "UK company registered with Companies House" %}
+                  {% if data.companynumber %}
                   <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
                         Company number
