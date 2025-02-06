@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the heat network a single communal block?" %}
+{% set title = "Are you sure you wish to cancel adding this heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -12,7 +12,6 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-            {% include data.version + "/_partials/headerlinks.html" %}
 
 
         {{
@@ -52,7 +51,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.introcommunal %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.cancels %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -62,38 +61,23 @@
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This is a single building divided into separate premises. For example, a block of flats or an office block that has multiple end consumers (more than one bill-payer) in it. </p>
-                    <p class="govuk-body">This is what we call a 'communal network'.</p>
-                    <p class="govuk-body">You should answer ‘yes’, even if this heat network does not have its own energy centre.</p>
 
-                    <details class="govuk-details">
-                        <summary class="govuk-details__summary">
-                          <span class="govuk-details__summary-text">
-                            What is an 'energy centre'?
-                          </span>
-                        </summary>
-                        <div class="govuk-details__text">
-                          This is where the heat network's thermal energy is generated. For example, a CHP plant, heat pump or gas boiler.
-                        </div>
-                      </details>
-
-
-                    {% if data.validationErrors.communal %}
+                    {% if data.validationErrors.cancels %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introcommunal.message}}
+                        {{data.validationErrors.cancels.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communal" name="introcommunal" type="radio" value="Yes" {% if data.introcommunal == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communal">
+                            <input class="govuk-radios__input" id="cancel" name="cancels" type="radio" value="Yes" {% if data.cancels == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="cancel">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="communal-2" name="introcommunal" type="radio" value="No" {% if data.introcommunal == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="communal-2">
+                            <input class="govuk-radios__input" id="cancel-2" name="cancels" type="radio" value="No" {% if data.cancels == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="cancel-2">
                                 No
                             </label>
                         </div>
@@ -110,7 +94,8 @@
                 })
             }}
         </form>
-        <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+
+        <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
     </div>
 
 </div>

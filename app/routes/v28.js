@@ -2919,6 +2919,45 @@ function clearRegIntro(req) {
 }
 
 
+// Introduction - Cancel
+router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+    clearvalidation(req);
+    req.session.data['cancels'] = "";
+    backURL = req.header('Referer')
+    res.render('/' + version + '/add-heat-network/introduction/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+    clearvalidation(req);
+    var cancels = req.session.data['cancels']
+
+    if (!cancels) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.cancels = {
+            "anchor": "cancels",
+            "message": "Select whether you wish to cancel"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/cancel', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (cancels == "Yes") {
+            res.redirect('/' + version + '/account-information');
+        } else {
+            res.redirect(backURL);
+        }
+    }
+
+});
+
 
 // Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/initial', function (req, res) {
@@ -4592,7 +4631,7 @@ router.get('/' + version + '/add-heat-network/introduction/cya', function (req, 
 router.post('/' + version + '/add-heat-network/introduction/cya', function (req, res) {
 
 
-        res.redirect('/' + version + '/add-heat-network/introduction/moreinfo');
+        res.redirect('/' + version + '/add-heat-network/tasklist');
 
 
 });

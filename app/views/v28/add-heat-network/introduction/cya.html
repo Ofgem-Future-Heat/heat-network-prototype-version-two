@@ -18,7 +18,6 @@ Radienteco Ltd
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-            {% include data.version + "/_partials/headerlinks.html" %}
 
 
         {{
@@ -220,7 +219,20 @@ Radienteco Ltd
                         </dd>
                     </div>
 
-                    {% if data.introsuppliers %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Is the heat network a 'self-supply' network?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introselfsupply}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
+                        </dd>
+                    </div>   
+    
+
+                    {% if data.introsuppliers and  data.introselfsupply == "No"%}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Is {{company}} the only heat supplier?
@@ -275,20 +287,7 @@ Radienteco Ltd
                     </dd>
                 </div>
 
-                {% if data.introcommunal == "No" %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Is the heat network a 'self-supply' network?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {{data.introselfsupply}}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
-                    </dd>
-                </div>   
 
-                {% endif %}
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
@@ -335,10 +334,8 @@ Radienteco Ltd
                     html: 'Save and continue'
                 })
     }}            </form>
-                    {% if data.introcomplete == "true" %} 
+    <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
 
-            <a href="cancel" class="govuk-link">Cancel changes</a>
-        {% endif %}
 
     </div>
 
