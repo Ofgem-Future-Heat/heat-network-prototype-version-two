@@ -2960,6 +2960,16 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
 
 // Introduction - Initial
+router.get('/' + version + '/add-heat-network/introduction/intro', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/intro', {
+        data: req.session.data
+    });
+});
+
+
+
+// Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/initial', function (req, res) {
     clearvalidation(req);
     clearRegIntro(req);
@@ -3936,47 +3946,6 @@ router.post('/' + version + '/add-heat-network/introduction/control', function (
 
 });
 
-
-// Introduction - Only
-router.get('/' + version + '/add-heat-network/introduction/only', function (req, res) {
-    clearvalidation(req);
-    res.render('/' + version + '/add-heat-network/introduction/only', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/only', function (req, res) {
-    clearvalidation(req);
-    var introonly = req.session.data['introonly']
-    var role = req.session.data['role']
-
-    if (!introonly) {
-        req.session.data.validationError = "true"
-            req.session.data.validationErrors.introonly = {
-                "anchor": "introonly",
-                "message": "Select whether you are the only operator"
-            }
-        }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/only', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (introonly == "No") {
-                res.redirect('/' + version + '/add-heat-network/introduction/othersuppliers');
-
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/introduction/dropout-operator');
- 
-        }
-    }
-});
 
 
 // Introduction - Only Supplier

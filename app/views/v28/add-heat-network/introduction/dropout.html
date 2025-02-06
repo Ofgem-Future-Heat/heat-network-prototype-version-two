@@ -1,4 +1,6 @@
 {% extends 'layouts/main.html' %}
+{% set cdnumber = data.introdropoutreason %}
+
 {% set title %}
 {% if data.introdropoutreason == "238" %}
 Only heat network operators can initiate adding heat network information
@@ -51,11 +53,13 @@ You cannot register your organisation’s heat network yet
             </h1>
 
             {% if data.introdropoutreason == "203" %}
+
             <p class="govuk-body">This service is not currently available for heat networks that are connected by shared ground loops.</p>
             <p class="govuk-body">We’ll contact you once this feature is available.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "226" %}
+
             <p class="govuk-body">This is because your organisation is not responsible for any buildings and does not operate any energy centres on this heat network.</p>
             <p class="govuk-body">You may operate part of the heat network and another organisation operates other parts of it. </p>
             <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network. </p>
@@ -64,6 +68,7 @@ You cannot register your organisation’s heat network yet
             {% endif %}
 
             {% if data.introdropoutreason == "227" %}
+
             <p class="govuk-body">This is because your organisation does not operate all of the distribution pipework connecting the heat source to the buildings on this heat network.</p>
             <p class="govuk-body">You may operate part of the heat network, but another organisation operates the energy centre and building connections.</p>
             <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.</p>
@@ -71,21 +76,25 @@ You cannot register your organisation’s heat network yet
             {% endif %}
             
             {% if data.introdropoutreason == "232" %}
+
             <p class="govuk-body">You’ll need to return to this service and register the heat network once it’s started providing heating, cooling or hot water to end consumers.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "233" %}
+
             <p class="govuk-body">If you're not carrying out a regulated activity until after 27 January 2027, you'll need to apply for authorisation. You can only do this after the heat network has started providing heating, cooling or hot water to end consumers. </p>
             <p class="govuk-body">We'll make authorisation available closer to the time.</p>
 
             {% endif %}
 
             {% if data.introdropoutreason == "237" %}
+
             <p class="govuk-body">You do not need to tell us about your heat network.</p>
             <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
             {% endif %}
 
             {% if data.introdropoutreason == "238" %}
+
             <p class="govuk-body">
                 This is because we need to start with a single reliable map of an entire heat network - including its energy centres - and operators are best placed to provide this.
             </p>
