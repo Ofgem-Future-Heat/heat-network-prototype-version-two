@@ -3673,6 +3673,17 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
 
     }
 });
+
+
+// Introduction - Summary
+router.get('/' + version + '/add-heat-network/introduction/summary', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/add-heat-network/introduction/summary', {
+        data: req.session.data
+    });
+});
+
+
 // Introduction - Pipework
 router.get('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
     clearvalidation(req);
@@ -5287,8 +5298,6 @@ function clearECdata(req) {
 // Energy centre - summary
 router.get('/' + version + '/add-heat-network/energycentre/summary', function (req, res) {
     clearvalidation(req);
-
-
     res.render('/' + version + '/add-heat-network/energycentre/summary', {
         data: req.session.data
     });
