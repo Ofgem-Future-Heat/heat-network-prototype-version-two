@@ -1,4 +1,11 @@
 {% extends 'layouts/main.html' %}
+{% if data.smrideclaration == "Yes" %}
+{% set cdnumber = "053" %}
+
+{% else %}
+{% set cdnumber = "046" %}
+
+{% endif %}
 
 {% set title = "Significant managerial responsibility or influence (SMRI) declaration" %}
 

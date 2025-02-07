@@ -1,4 +1,6 @@
 {% extends 'layouts/main.html' %}
+{% set cdnumber = "049" %}
+
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set name %}{{data.smrifirstname}} {{data.smrilastname}}{% endset %}
 {% set title %}
