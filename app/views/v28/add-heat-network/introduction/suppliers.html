@@ -11,9 +11,9 @@ Radienteco Ltd
 
 {% set title %}
 {% if data.introcommunal == "Yes" %}
-Is {{company}} the only supplier selling to end consumers on this communal heat network?
+Is {{company}} the only supplier selling to consumers on this communal heat network?
 {% else %}
-Is {{company}} the only supplier selling to end consumers for {% if data.introhnbuildings > 1 %}all {{data.introhnbuildings}} buildings {% else %}the building{% endif %} on this heat network?
+Is {{company}} the only supplier selling to consumers for {% if data.introhnbuildings > 1 %}all {{data.introhnbuildings}} buildings {% else %}the building{% endif %} on this heat network?
 {% endif %}
 {% endset %}
 
@@ -83,7 +83,7 @@ Is {{company}} the only supplier selling to end consumers for {% if data.introhn
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">This means your organisation has a contract to provide space or process heating, cooling or hot water to all of the end consumers on the network.</p>
+                    <p class="govuk-body">This means your organisation has a contract to provide space or process heating, cooling or hot water to all of the consumers on the network.</p>
                     {% if data.introcommunal == "No" %}
                     <div class="govuk-inset-text">
                     <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
