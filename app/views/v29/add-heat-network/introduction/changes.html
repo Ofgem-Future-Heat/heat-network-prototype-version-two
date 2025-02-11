@@ -1,0 +1,62 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "205" %}
+
+{% set title = "How to handle heat network information that changes over time" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Some of your answers to the upcoming questions will likely change over time.</p>
+                        <p class="govuk-body">We need you to give answers that reflect the current state of the heat network.</p>
+                        <p class="govuk-body">For information on how to report changes to the heat network, see <a href="#" class="govuk-link">Guidance on monitoring, reporting and amendments (opens in a new window or tab)</a></p>
+
+    
+            </div>
+
+                <form method="POST" novalidate>
+                    {{
+                        govukButton ({
+                            html: 'Continue'
+                        })
+                    }}
+                </form>
+                <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+
+    </div>
+    
+</div>
+
+{% endblock %}

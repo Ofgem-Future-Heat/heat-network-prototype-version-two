@@ -1,0 +1,138 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "216" %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+{% set title %}
+{% if data.introcommunal == "Yes" %}
+Is {{company}} the only supplier selling to end consumers on this communal heat network?
+{% else %}
+Is {{company}} the only supplier selling to end consumers for {% if data.introhnbuildings > 1 %}all {{data.introhnbuildings}} buildings {% else %}the building{% endif %} on this heat network?
+{% endif %}
+{% endset %}
+
+
+
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/headerlinks.html" %}
+
+        {{
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div
+                class="govuk-form-group {% if data.validationErrors.introsuppliers %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">This means your organisation has a contract to provide space or process heating, cooling or hot water to all of the end consumers on the network.</p>
+                    {% if data.introcommunal == "No" %}
+                    <div class="govuk-inset-text">
+                    <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                    <ul class="govuk-list govuk-list--bullet"> 
+                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}</li>{% endif %}
+                        {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                    </ul>
+
+                    {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
+                    </div>
+                {% endif %}
+
+                    {% if data.validationErrors.introsuppliers %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.introsuppliers.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introsuppliers" name="introsuppliers" type="radio"
+                                value="Yes" {% if data.introsuppliers=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introsuppliers">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="introsuppliers-2" name="introsuppliers" type="radio"
+                                value="No" {% if data.introsuppliers=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introsuppliers-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+            govukButton ({
+            html: 'Continue'
+            })
+            }}
+        </form>
+        <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+    </div>
+
+</div>
+
+{% endblock %}

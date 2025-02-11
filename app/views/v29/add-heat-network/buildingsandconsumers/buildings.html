@@ -1,0 +1,103 @@
+{% extends 'layouts/main.html' %}
+{% set title = "How many of each building type does the heat network contain?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            {% if data.introcommunal == "No" %}
+
+            <div class="govuk-inset-text">
+                <p class="govuk-body">You’re registering a <strong>district heat network</strong> which contains <strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}
+                </p>
+
+                {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
+                </div>
+                {% endif %}
+        </div>
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                {% for buildingtype in data.buildingtype %}
+                {% set validationKey = "buildingnumber" ~ buildingtype %}
+                            <div class="govuk-form-group {% if data.validationErrors[validationKey] %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="{{validationKey}}">
+                    {% if buildingtype == "Mixed0use" %}Mixed use{% else %}{{buildingtype}}{% endif %} buildings
+                </label>
+                {% if data.validationErrors[validationKey] %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{ data.validationErrors[validationKey].message }}
+                    </p>
+                {% endif %}
+
+                <input class="govuk-input govuk-input--width-3 {% if data.validationErrors[validationKey] %}govuk-input--error{% endif %} " id="{{validationKey}}" name="{{validationKey}}" type="number" value="{{data[validationKey]}}">
+            </div>
+
+                {% endfor %}
+            </fieldset>
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

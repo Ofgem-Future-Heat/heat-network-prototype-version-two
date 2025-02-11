@@ -1,0 +1,105 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "Check your email" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{title}}</h1>
+
+    <div class="govuk-inset-text">
+      <p class="govuk-body">We have sent an email to: <b>{{data.oneloginemail}}</b>.</p>
+    </div>
+
+    <p class="govuk-body">The email contains a 6 digit security code.</p>
+
+    <p class="govuk-body">Your email might take a few minutes to arrive. If you do not get an email, check your spam
+      folder.</p>
+
+    <p class="govuk-body">The code will expire after one hour.</p>
+
+    <form  method="post" novalidate="">
+
+
+
+      <div class="govuk-form-group {% if data.validationErrors.code %}govuk-form-group--error{% endif %}">
+        <label class="govuk-label" for="code">
+          Enter the 6 digit security code
+        </label>
+
+        {% if data.validationErrors.code %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.code.message}}
+        </p>
+        {% endif %}
+
+        <input class="govuk-input govuk-input--width-10 govuk-input--extra-letter-spacing" id="code" name="onelogincode" type="text" spellcheck="false"
+          autocomplete="one-time-code" inputmode="numeric" maxlength="6">
+
+      </div>
+
+      {{
+        govukButton ({
+            html: 'Continue'
+        })
+    }}
+
+    </form>
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Problems with the code?
+        </span>
+
+      </summary>
+      <div class="govuk-details__text">
+        We can <a href="#" class="govuk-link" rel="noreferrer noopener" target="_blank">send the code again</a> or you
+        can <a href="#" class="govuk-link" rel="noreferrer noopener" target="_blank">use a different email address</a>.
+      </div>
+    </details>
+
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+
+
+</script>
+{% endblock pageScripts %}

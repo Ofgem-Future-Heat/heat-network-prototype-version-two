@@ -1,0 +1,105 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "070" %}
+
+{% set title %}
+What was {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s net profit or loss for the most recent financial year?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+            
+            <div class="govuk-form-group {% if data.validationErrors.financialprofit %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+                        <label for="financialprofit">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </label>
+
+                    </legend>
+                    <p class="govuk-body">You must enter a whole number without decimals.</p>
+
+                    {% if data.validationErrors.financialprofit %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.financialprofit.message}}
+                    </p>
+                    {% endif %}
+                    <div id="financialprofit-hint" class="govuk-hint">
+                        For example, 100000 or -100000
+                      </div>
+                            <div class="govuk-form-group {% if data.validationErrors.financialprofit %}govuk-form-group--error{% endif %}">
+         
+                                <div class="govuk-input__wrapper">
+                                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                    <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.financialprofit %}govuk-input--error{% endif %}" id="financialprofit" name="financialprofit" type="text" spellcheck="false" value="{{data.financialprofit}}" >
+                                  </div>
+                            </div>
+
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

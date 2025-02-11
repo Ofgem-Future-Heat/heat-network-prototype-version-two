@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "214" %}
+
+{% set title = "Heat network summary" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">
+                Based on the questions you've answered, you’re registering a <strong>district heat network</strong> where you operate:
+                <ul class="govuk-list govuk-list--bullet"> 
+                    {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}</li>{% endif %}
+                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
+                </ul>
+            </p>
+            <p class="govuk-body">If this is incorrect, you can <a href="buildingstotal" class="govuk-link govuk-link--no-visited-state">change your heat network information</a></p>
+            <h3 class="govuk-heading-m">Your heat network</h3>
+            {% set HN %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif%}{% else %}0{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
+            <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px" class="govuk-!-margin-bottom-3" />    
+
+            {% if data.introcommunaloperate == "Yes" %}
+            <h3 class="govuk-heading-m govuk-!-margin-top-5">Separate heat network registrations</h3>
+            <p class="govuk-body">You also told us that you operate <strong>{{data.introcommunaloperatehowmany}} communal building connection point{% if data.introcommunaloperatehowmany > 1 %}s{% endif %}</strong> on this network. You must register these as separate heat networks.</p>
+            <div class="govuk-grid-row hn-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <img src="/public/images/HNFINAL/HNCommunal.png" style="max-width: 100%" class="govuk-!-margin-bottom-3" />
+                </div>
+                <div class="govuk-grid-column-one-half">
+                    <h3 class="govuk-heading-xl">x{{data.introcommunaloperatehowmany}}</h3>
+                </div>
+            </div>
+                {% endif %}
+
+
+
+
+
+
+
+        <a href="pipework" class="govuk-button">Continue</a>
+        <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+
+    </div>
+
+</div>
+
+{% endblock %}

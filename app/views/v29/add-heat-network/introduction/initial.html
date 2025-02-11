@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "201" %}
+
+{% set title = "Initial information you'll need" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">To help us understand your specific obligations, you'll first need to tell us:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>which regulated activities your organisation undertakes on the heat network - operation, supply or both</li>
+                    <li>whether the heat network uses a shared ground loop</li>
+                    <li>what type of heat network it is, and how much of it your organisation is responsible for, including buildings and energy centres</li>
+                    <li>whether the heat network is currently providing heating, cooling or hot water to end consumers, and - if so - when this began</li>
+                    <li>if a district network, whether the heat network is a 'self-supply' network</li>
+                    <li>whether the heat network buys thermal energy from or supplies thermal energy to another heat network</li>
+                </ul>
+
+                <p class="govuk-body">We'll provide definitions and guidance for any possibly unfamiliar concepts as you progress.</p>
+                    <a href="relevant" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}
