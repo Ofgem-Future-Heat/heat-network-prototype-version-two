@@ -82,7 +82,7 @@ Buying thermal energy from other heat networks
                     <div class="govuk-inset-text">
                     <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
                     <ul class="govuk-list govuk-list--bullet"> 
-                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}</li>{% endif %}
+                        {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single consumer{% else %}connection to a building with single premises and a single consumer{% endif %}</li>{% endif %}
                         {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
                     </ul>
 
