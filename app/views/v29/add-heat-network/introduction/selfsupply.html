@@ -68,15 +68,7 @@
                         These are networks where an organisation does not sell heating, cooling or hot water to consumers, but uses all the energy itself. For example, hospitals, prisons and university buildings. 
                     </p>
 
-                    <div class="govuk-inset-text">
-                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
-                        <ul class="govuk-list govuk-list--bullet"> 
-                            {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single consumer{% else %}connection to a building with single premises and a single consumer{% endif %}</li>{% endif %}
-                            {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
-                        </ul>
-    
-                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
-                        </div>
+
 
                     {% if data.validationErrors.introselfsupply %}
                     <p class="govuk-error-message">
