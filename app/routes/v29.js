@@ -2991,7 +2991,7 @@ function populateHNdataSupplier(req) {
     req.session.data['introcommunaloperatehowmany'] = "1"
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introenergycentre'] = "Yes"
-    req.session.data['introenergycentrehowmany'] = "2"
+    req.session.data['introenergycentrehowmany'] = "0"
     req.session.data['intropipework'] = "Yes"
     req.session.data['introsuppliers'] = "Yes"
     req.session.data['introsupplycurrent'] = "Yes"
@@ -3009,19 +3009,16 @@ function populateHNdataSupplier(req) {
 // Tasklist
 router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
     clearvalidation(req);
-    console.log("tasklist loading...")
 
     const urlParams = req.query.v;
 
     if (urlParams == "supplier") {
         populateHNdataSupplier(req)
-        console.log("Supplier")
     }
 
     else {
         if (req.session.data['introcomplete'] != "true") {
             populateIntrodata(req)
-            console.log("Normal")
 
         }
     }
@@ -3337,6 +3334,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
     }
     else {      
             if (introenergycentre == "Yes") {
+                req.session.data['introenergycentrehowmany'] = 1
                 if (role != "Network operator") {
                     res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
                 }
@@ -3345,6 +3343,8 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
                 }
             }
             else {
+                req.session.data['introenergycentrehowmany'] = 0
+  
                 res.redirect('/' + version + '/add-heat-network/introduction/primary');
             }
 
@@ -3605,6 +3605,9 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=226');
     }
     else {
+        if (introenergycentre == "No") {
+            req.session.data['introenergycentrehowmany'] = 0
+        }
         res.redirect('/' + version + '/add-heat-network/introduction/summary');
 
     }
@@ -4704,7 +4707,7 @@ router.post('/' + version + '/add-heat-network/confirmchange', function (req, re
 // Energy centre - Energy Centres
 router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     clearvalidation(req);
-    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany']
+    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
     res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
         data: req.session.data
     });
@@ -4753,6 +4756,8 @@ req.session.data['techmeters'] = req.session.data['techmeters' + id];
 // Energy centre - Has postcode
 router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
     clearvalidation(req);
+    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
+
 
     const urlParams = req.query.id;
     if (urlParams) {
@@ -4787,6 +4792,16 @@ router.post('/' + version + '/add-heat-network/energycentre/addresspostcode', fu
         });
     }
     else {
+
+        var energycentres = req.session.data['energycentres']
+        if (energycentres == 0) {
+            req.session.data['energycentretype'] = "plot connection point"
+        }
+        else {
+            req.session.data['energycentretype'] = "energy centre"
+
+        }
+    
         if (ecaddressHasPostcode == "Yes") {
             res.redirect('/' + version + '/add-heat-network/energycentre/address');
         }
@@ -4809,6 +4824,7 @@ router.get('/' + version + '/add-heat-network/energycentre/addresscoords', funct
 
 router.post('/' + version + '/add-heat-network/energycentre/addresscoords', function (req, res) {
     clearvalidation(req);
+
     var ecaddresslatitude = req.session.data['ecaddresslatitude']
     var ecaddresslongitude = req.session.data['ecaddresslongitude']
 
@@ -4977,7 +4993,14 @@ router.get('/' + version + '/add-heat-network/energycentre/addressconfirm', func
 });
 
 router.post('/' + version + '/add-heat-network/energycentre/addressconfirm', function (req, res) {
+    var energycentres = req.session.data['energycentres'] 
+    if (energycentres == 0) {
+        res.redirect('/' + version + '/add-heat-network/energycentre/cya');
+
+    }
+    else {
         res.redirect('/' + version + '/add-heat-network/energycentre/type');
+    }
 });
 
 

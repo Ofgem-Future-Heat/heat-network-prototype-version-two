@@ -5,7 +5,13 @@
 Does energy centre {{data.currentecid}} have a postcode?
 {% endset %}
 {% else %}
+{% if data.energycentres == 0 %} 
+{% set title = "Does the main plot connection for this heat network have a postcode?" %}
+
+{% else %}
 {% set title = "Does the energy centre have a postcode?" %}
+
+{% endif %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -62,7 +68,7 @@ Does energy centre {{data.currentecid}} have a postcode?
             <div class="govuk-form-group {% if data.validationErrors.ecaddressHasPostcode %}govuk-form-group--error{% endif %}">
 
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <span class="govuk-caption-l">Add a heat network - energy centres</span>
+              <span class="govuk-caption-l">Add a heat network - technical information</span>
               <h1 class="govuk-fieldset__heading">
                        {{title}}
                 </h1>

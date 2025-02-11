@@ -9,9 +9,9 @@ Energy centre 1: Confirm co-ordinates
 {% endif %}
 {% else %}
 {% if data.ecaddressHasPostcode == "Yes" %}
-Confirm address
+Confirm {{data.energycentretype}} address
 {% else %}
-Confirm co-ordinates
+Confirm {{data.energycentretype}} co-ordinates
 {% endif %}
 {% endif %}
 {% endset %}
@@ -51,7 +51,7 @@ Confirm co-ordinates
 
             <div class="govuk-form-group ">
 
-                <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                <span class="govuk-caption-l">Add a heat network - technical information</span>
                 <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>

@@ -35,14 +35,14 @@
     <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group ">
 
-                <span class="govuk-caption-l">Add a heat network - energy centres</span>
+                <span class="govuk-caption-l">Add a heat network - technical information</span>
                 <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
                         <p class="govuk-body">Intro text here...</p>
 
 
-                    <a {% if data.introenergycentrehowmany > 1 %}href="energycentres"{% else %}href="addresspostcode"{% endif %} class="govuk-button">Continue</a>
+                    <a {% if (data.introenergycentrehowmany > 1) and (data.introenergycentre == "Yes" ) %}href="energycentres"{% else %}href="addresspostcode"{% endif %} class="govuk-button">Continue</a>
     </div>
 </div>
 
