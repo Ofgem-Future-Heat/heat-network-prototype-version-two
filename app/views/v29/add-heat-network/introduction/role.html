@@ -104,11 +104,17 @@ Which regulated activities does {{company}} undertake on the heat network?
                                 Your organisation owns some or all of the assets on the heat network (for example the pipework, heat exchangers, substations or energy centres) or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs and maintenance to support its continued operation.
                             </div>
                         </div>
-                        <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Both" aria-describedby="role-3-item-hint" {% if data.role == "Both" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-3">
                                 Both
+                            </label>
+                        </div>
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="role-4" name="role" type="radio" value="Neither" aria-describedby="role-3-item-hint" {% if data.role == "neither" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="role-4">
+                                Neither
                             </label>
                         </div>
 
