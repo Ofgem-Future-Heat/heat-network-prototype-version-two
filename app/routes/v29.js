@@ -11,16 +11,45 @@ function clearvalidation(req) {
     req.session.data['version'] = version
 
 }
+
+function generateSupplierHN(req) {
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "Not started"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "3"
+    req.session.data['introbuildingshowmany'] = "3"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "Seaton (City Centre)"
+    req.session.data['introhnbuildings'] = "2"
+    req.session.data['introauthorised'] = "Yes"
+    req.session.data['operator'] = "British Gas"
+}
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
 router.get('/' + version + '/account-information', function (req, res) {
     clearvalidation(req);
-    generateuser(req)
+    generateuser(req);
     const urlParams = req.query.v;
     req.session.data['currentversion'] = urlParams;
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
+    }
+
+    if (urlParams == "supplier") {
+        generateSupplierHN(req);
     }
 
     res.render('/' + version + '/account-information', {
@@ -63,7 +92,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/account-information?v=complete');
+            res.redirect('/' + version + '/account-information?v=supplier');
     }
 
 });
@@ -3062,6 +3091,10 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
         req.session.data['introhnbuildings'] = "2"
 
 
+    }
+
+    if (urlParams == "supplier") {
+        generateSupplierHN(req);
     }
 
     res.render('/' + version + '/add-heat-network/view', {

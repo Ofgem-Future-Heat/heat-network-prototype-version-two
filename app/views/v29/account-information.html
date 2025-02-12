@@ -42,9 +42,9 @@
         </div>
         <div class="govuk-notification-banner__content">
           <h3 class="govuk-notification-banner__heading">
-            "Test network three" has been assigned to your organisation for further information
+            {{data.name}} has been assigned to your organisation for further information
           </h3>
-          <p class="govuk-body">You can find this heat network in your in progress heat networks list below.</p>
+          <p class="govuk-body">You can find this heat network in your heat networks list below.</p>
   
         </div>
       </div>
@@ -149,7 +149,7 @@
 
 
 
-      {% if data.currentversion and data.currentversion.toLowerCase() == "complete" %}
+      {% if data.currentversion and (data.currentversion.toLowerCase() == "complete" or data.currentversion.toLowerCase() == "supplier")   %}
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">Heat networks</h2>
         {% if data.introcomplete == "true" %}
@@ -168,7 +168,6 @@
         <table class="govuk-table responsive">
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">ID</th>
               <th scope="col" class="govuk-table__header">Name</th>
               <th scope="col" class="govuk-table__header">Started supplying</th>
               <th scope="col" class="govuk-table__header">Authorisation type</th>
@@ -176,40 +175,43 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
+            {% if data.currentversion.toLowerCase() == "supplier" %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2004</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Deemed authorised{% else %}Temporarily authorised{% endif %}</td>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong></td>
+            </tr>
+            {% endif %}
             {% if data.introcomplete == "true" %}
 
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">123456789</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</td>
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a><br /><span class="govuk-body-s">(ID: 123456789)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>{% if data.supplywhen %}{{data.supplywhen}}{% else %}{{data.supplywhen}}{% endif %}</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Deemed authorised{% else %}Temporarily authorised{% endif %}</td>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
             </tr>
             {% endif %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">234567811</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>Leston hall<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Leston hall<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 234567811)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2007</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">456895421</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>Thames Road Apartments<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Thames Road Apartments<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 456895421)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>8 April 2025</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Temporarily authorised</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">658522341</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>Fallowfield Residences<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Fallowfield Residences<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 658522341)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>1980s</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">788845211</a></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>Paddington Green Police Station<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Paddington Green Police Station<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 788845211)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2008</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
