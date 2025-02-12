@@ -23,7 +23,7 @@
         <div class="govuk-breadcrumbs">
             <ol class="govuk-breadcrumbs__list">
                 <li class="govuk-breadcrumbs__list-item">
-                    <a class="govuk-breadcrumbs__link" href="../account-information?v=complete">Account home</a>
+                    <a class="govuk-breadcrumbs__link" href="../account-information?v=supplier">Account home</a>
                 </li>
             </ol>
         </div>
@@ -69,6 +69,32 @@
                     <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px" class="govuk-!-margin-bottom-3" />    
                                 </div>
               </details>
+
+
+            
+
+              <p class="govuk-body govuk-!-margin-bottom-0"><strong>Heat network location</strong><br/>
+                {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
+                {% set address = data.ecAddress.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br />
+                    <a class="govuk-link govuk-link--no-visited-state"  href="https://www.google.com/maps?q={{ address }}" target="_blank">View on Google Maps</a>
+                {% else %}
+                <strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                    <strong>Longitude:</strong> {{data.ecaddresslongitude}}
+                    <br />
+                    <a class="govuk-link govuk-link--no-visited-state" href="https://www.google.com/maps?q={{ data.ecaddresslatitude }},{{ data.ecaddresslongitude }}" target="_blank">View on Google Maps</a>
+
+                {% endif %}
+            </p>
+
+
+
+            {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
+    {% set address = data.ecAddress | replace(" ", "+") %}
+    
+{% else %}
+{% endif %}
+              </p>
             </div>
         {% endif %}
 

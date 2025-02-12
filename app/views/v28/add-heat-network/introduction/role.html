@@ -72,7 +72,7 @@ Which regulated activities does {{company}} undertake on the heat network?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating. If your organisation does not do any of the activities described, you can cancel adding the heat network.</p>
+                    <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating.</p>
 
                     {% if data.validationErrors.role %}
                     <p class="govuk-error-message">
@@ -92,7 +92,7 @@ Which regulated activities does {{company}} undertake on the heat network?
                                 Supply only
                             </label>
                             <div id="role-item-hint" class="govuk-hint govuk-radios__hint">
-                                Your organisation has a contract to provide heating, cooling or hot water to some or all of the end users on the network.
+                                Your organisation has a contract to provide heating, cooling or hot water to some or all of the consumers on the network. A consumer is someone who has a contract for the purchase of thermal energy, for example a bill payer.
                             </div>
                         </div>
                         <div class="govuk-radios__item">
@@ -107,14 +107,14 @@ Which regulated activities does {{company}} undertake on the heat network?
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Both" aria-describedby="role-3-item-hint" {% if data.role == "Both" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-3">
-                                Both
+                                Both of these activities
                             </label>
                         </div>
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="role-4" name="role" type="radio" value="Neither" aria-describedby="role-3-item-hint" {% if data.role == "neither" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-4">
-                                Neither
+                                Neither of these activities
                             </label>
                         </div>
 

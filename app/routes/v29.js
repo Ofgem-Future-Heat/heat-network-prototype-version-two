@@ -35,6 +35,10 @@ function generateSupplierHN(req) {
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
     req.session.data['operator'] = "British Gas"
+    req.session.data['ecaddressHasPostcode'] = "Yes"
+    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddresslatitude'] = "57.15340080950945"
+    req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
 }
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
@@ -92,7 +96,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/account-information?v=supplier');
+            res.redirect('/' + version + '/emails/supplier-invite');
     }
 
 });
