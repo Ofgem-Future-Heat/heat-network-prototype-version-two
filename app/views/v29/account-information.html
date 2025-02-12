@@ -33,7 +33,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% if data.currentversion %}
-      {% if data.currentversion.toLowerCase() == "supplier" %}
+      {% if data.currentversion.toLowerCase() == "supplier2" %}
       <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
         <div class="govuk-notification-banner__header">
           <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -67,7 +67,7 @@
       <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
-      {% if data.currentversion == "ur" or data.currentversion == "supplier" %}
+      {% if data.currentversion == "ur" or data.currentversion == "supplier" or data.currentversion == "supplier2" %}
       <strong class="govuk-tag govuk-tag--green">
         Submitted
        </strong>
@@ -94,7 +94,7 @@
 
 
 {% if data.currentversion %}
-    {% if data.currentversion == "ur" or data.currentversion == "supplier" %}
+    {% if data.currentversion == "ur" or data.currentversion == "supplier" or data.currentversion == "supplier2" %}
     <strong class="govuk-tag govuk-tag--green">
       Submitted
      </strong>
@@ -149,7 +149,7 @@
 
 
 
-      {% if data.currentversion and (data.currentversion.toLowerCase() == "complete" or data.currentversion.toLowerCase() == "supplier")   %}
+      {% if data.currentversion and (data.currentversion.toLowerCase() == "complete" or data.currentversion.toLowerCase() == "supplier" or data.currentversion.toLowerCase() == "supplier2")   %}
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">Heat networks</h2>
         {% if data.introcomplete == "true" %}
@@ -175,7 +175,7 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
-            {% if data.currentversion.toLowerCase() == "supplier" %}
+            {% if data.currentversion.toLowerCase() == "supplier" or data.currentversion.toLowerCase() == "supplier2" %}
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2004</td>

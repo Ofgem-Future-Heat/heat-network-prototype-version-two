@@ -40,6 +40,39 @@ function generateSupplierHN(req) {
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
 }
+
+function generateSupplier2HN(req) {
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "Not started"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "3"
+    req.session.data['introbuildingshowmany'] = "3"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "Seaton (City Centre)"
+    req.session.data['introhnbuildings'] = "2"
+    req.session.data['introauthorised'] = "Yes"
+    req.session.data['operator'] = "British Gas"
+    req.session.data['ecaddressHasPostcode'] = "No"
+    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddresslatitude'] = "57.15340080950945"
+    req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
+}
+
+
+
+
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
 router.get('/' + version + '/account-information', function (req, res) {
@@ -54,6 +87,10 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "supplier") {
         generateSupplierHN(req);
+    }
+
+    if (urlParams == "supplier2") {
+        generateSupplier2HN(req);
     }
 
     res.render('/' + version + '/account-information', {
