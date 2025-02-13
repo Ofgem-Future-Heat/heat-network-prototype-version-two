@@ -73,6 +73,8 @@
 
 
             <ul class="govuk-task-list">
+                {% if (data.variantname != "supplier" and data.variantname != "supplier2") %}
+
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
@@ -87,6 +89,8 @@
                         {% endif %}
                     </div>
                 </li>
+
+                {% endif %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.eccomplete == "true" %}
@@ -94,7 +98,7 @@
                     {% else %}
                     
                         <a class="govuk-link govuk-task-list__link" href="energycentre/intro" aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
-                    
+                        {% endif %}
 
 
                     </div>
@@ -108,7 +112,6 @@
                         {% endif %}
                     </div>
                 </li>
-                {% endif %}
                 {% if (data.introhnbuildings > 0) or (data.introcommunal == "Yes") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
@@ -132,7 +135,7 @@
                 </li>
 
 
-               {% if data.role == "Network operator" or data.introsuppliers == "No" %}
+               {% if (data.role == "Network operator" or data.introsuppliers == "No") and (data.variantname != "supplier" and data.variantname != "supplier2") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.suppliercomplete == "true" %}
@@ -220,7 +223,7 @@
 
         </div>
 
-        <a href="confirmsubmit" class="govuk-button">Submit</a>
+        <a href="../account-information?v=supplier2" class="govuk-button">Submit</a>
 
     </div>
 

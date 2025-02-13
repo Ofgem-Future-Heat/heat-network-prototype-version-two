@@ -1,5 +1,5 @@
 {% extends 'layouts/email.html' %}
-{% set companyname %}
+{% set company %}
 {% if data.companyname %}
 {{data.companyname }}
 {% else %}
@@ -7,7 +7,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-A heat network has been assigned to you by British gas
+{{data.operator}} has told us that {{company}} supplies a heat network that they operate
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -24,6 +24,14 @@ A heat network has been assigned to you by British gas
             <h1 class="govuk-heading-l">
               {{title}}
             </h1>
+
+
+
+
+            <p class="govuk-body">{{data.operator}} told us that you supply to consumers on their heat network.</p>
+            <p class="govuk-body">You’ll need to sign in to the heat networks service and provide some additional information about {{data.name}}.</p>
+              <p class="govuk-body">If you do not believe you supply to this heat network, you should contact the operator.</p>
+              <p class="govuk-body">If you cannot get in touch with the operator or have any issues with this, you can contact us on <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link breakword">support@registerheatnetworks.service.gov.uk</a>.</p>
 
           <p class="govuk-body">
           <a class="govuk-button" href="../account-information?v=supplier">Go to heat networks home</a>

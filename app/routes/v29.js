@@ -39,6 +39,11 @@ function generateSupplierHN(req) {
     req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
+    req.session.data['energytype'] = ['Space heating', 'Process heating']
+    req.session.data['techcapacity'] = "120"
+    req.session.data['technologies'] = ['Biofuel boiler', 'Expander']
+    req.session.data['eccomplete'] = "true"
+
 }
 
 function generateSupplier2HN(req) {
@@ -51,8 +56,7 @@ function generateSupplier2HN(req) {
     req.session.data['introbuildingshowmany'] = "3"
     req.session.data['introcommunaloperate'] = "Yes"
     req.session.data['introcommunaloperatehowmany'] = "1"
-    req.session.data['introenergycentre'] = "Yes"
-    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['introenergycentre'] = "No"
     req.session.data['intropipework'] = "Yes"
     req.session.data['introsuppliers'] = "No"
     req.session.data['introsupplycurrent'] = "Yes"
@@ -68,6 +72,12 @@ function generateSupplier2HN(req) {
     req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
+    req.session.data['energytype'] = ""
+    req.session.data['techcapacity'] = ""
+    req.session.data['techcoolingcapacity'] = ""
+    req.session.data['technologies'] = ""
+    req.session.data['eccomplete'] = "true"
+
 }
 
 
@@ -79,7 +89,8 @@ router.get('/' + version + '/account-information', function (req, res) {
     clearvalidation(req);
     generateuser(req);
     const urlParams = req.query.v;
-    req.session.data['currentversion'] = urlParams;
+    req.session.data['variantname'] = urlParams
+
 
     if (urlParams == "ur") {
         req.session.data['organisationdetails'] = "Submitted";
@@ -136,6 +147,16 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
             res.redirect('/' + version + '/emails/supplier-invite');
     }
 
+});
+
+//////////////////////////////////////////////////////////// EMAILS /////////////////////////////////////////////////////////
+router.get('/' + version + '/emails/supplier-invite', function (req, res) {
+    clearvalidation(req);
+    generateSupplierHN(req);
+
+    res.render('/' + version + '/emails/supplier-invite', {
+        data: req.session.data
+    });
 });
 
 
@@ -3051,28 +3072,6 @@ router.get('/' + version + '/add-heat-network/introduction/initial', function (r
 
 
 
-function populateHNdataSupplier(req) {
-    req.session.data['introrelevant'] = "Yes"
-    req.session.data['introgroundloop'] = "No"
-    req.session.data['introcommunal'] = "No"
-    req.session.data['introbuildingstotal'] = "3"
-    req.session.data['introbuildingshowmany'] = "3"
-    req.session.data['introcommunaloperate'] = "Yes"
-    req.session.data['introcommunaloperatehowmany'] = "1"
-    req.session.data['introhnbuildings'] = "2"
-    req.session.data['introenergycentre'] = "Yes"
-    req.session.data['introenergycentrehowmany'] = "0"
-    req.session.data['intropipework'] = "Yes"
-    req.session.data['introsuppliers'] = "Yes"
-    req.session.data['introsupplycurrent'] = "Yes"
-    req.session.data['supplywhen'] = "2022"
-    req.session.data['introselfsupply'] = "No"
-    req.session.data['introbuy'] = "Yes"
-    req.session.data['role'] = "Supplier"
-    req.session.data['introsell'] = "No"
-    req.session.data['name'] = "Heat Network Two"
-    req.session.data['introcomplete'] = "true";
-}
 
 
 
@@ -3081,9 +3080,14 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
     clearvalidation(req);
 
     const urlParams = req.query.v;
+    req.session.data['variantname'] = urlParams
 
     if (urlParams == "supplier") {
-        populateHNdataSupplier(req)
+        generateSupplierHN(req)
+    }
+
+    if (urlParams == "supplier2") {
+        generateSupplier2HN(req)
     }
 
     else {
@@ -3109,6 +3113,7 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
 
     const urlParams = req.query.v;
+    req.session.data['variantname'] = urlParams
 
     if (urlParams == "complete") {
         req.session.data['introrelevant'] = "Yes"
@@ -3136,6 +3141,10 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
     if (urlParams == "supplier") {
         generateSupplierHN(req);
+    }
+
+    if (urlParams == "supplier2") {
+        generateSupplier2HN(req);
     }
 
     res.render('/' + version + '/add-heat-network/view', {
