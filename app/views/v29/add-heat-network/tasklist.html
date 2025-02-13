@@ -90,7 +90,7 @@
                     </div>
                 </li>
 
-                {% endif %}
+
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         {% if data.eccomplete == "true" %}
@@ -112,6 +112,9 @@
                         {% endif %}
                     </div>
                 </li>
+                {% endif %}
+
+
                 {% if (data.introhnbuildings > 0) or (data.introcommunal == "Yes") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
