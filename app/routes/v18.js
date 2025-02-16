@@ -1823,6 +1823,8 @@ router.get('/' + version + '/manage-users', function (req, res) {
     req.session.data['manageusersnotification'] = urlParams;
 
 
+    
+
     res.render('/' + version + '/manage-users/index', {
         data: req.session.data
     });

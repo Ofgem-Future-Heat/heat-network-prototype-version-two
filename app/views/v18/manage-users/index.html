@@ -131,15 +131,23 @@
 
                           {% if user.added == "true" %}
                                 <tr class="govuk-table__row">
+                                  {% if (user.id == "2") %}
+                                  <td class="govuk-table__cell">-
+
+                                  {% else %}
                                   <td class="govuk-table__cell">{{user.firstname}} {{user.lastname}}
+                                   
                                     {% if (user.thirdparty == "Yes") %}
                                     <br />(Third party)</span>
+                                    {% endif %}
                                     {% endif %}
                                 </td>
                                   <td class="govuk-table__cell">{{ user.email }}</td>
                                   <td class="govuk-table__cell">
                                     {%if user.deleted == true %}
                                     <span class="govuk-tag govuk-tag--red">Deactivated</span>
+                                    {% elif (user.id == "2") %}
+                                    <span class="govuk-tag govuk-tag--yellow">Invite sent</span>
                                     {% else %}
                                           <span class="govuk-tag govuk-tag--green">Active</span>
           
@@ -152,6 +160,7 @@
                               </tr>
                           {% endif %}
                           {% endif %}
+
 
                       {% endfor %}
 
