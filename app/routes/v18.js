@@ -1838,6 +1838,41 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
 
 });
 
+
+/// Invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/organisation-invite', function (req, res) {
+
+    var acceptinvite = req.session.data['acceptinvite']
+    clearvalidation(req);
+
+
+    if (acceptinvite != "yes" && acceptinvite != "no") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.acceptinvite = {
+            "anchor": "acceptinvite",
+            "message": "Select yes if you wish to accept this invite"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/organisation-invite', {
+            data: req.session.data
+        });
+    }
+    else {
+    res.redirect('/' + version + '/account-information');
+    }
+
+});
+
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);

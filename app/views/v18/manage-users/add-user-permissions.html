@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "030" %}
 
-{% set title = "Permissions for " + data.userfirstname + " " + data.userlastname %}
+{% set title = "Permissions for this user" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -54,7 +54,7 @@
       </div>
       <div class="govuk-notification-banner__content">
         <h3 class="govuk-notification-banner__heading">
-          {{data.userfirstname}} {{data.userlastname}} has been added to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+          You’ve added {{data.useremail}} to the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
         </h3>
         <p class="govuk-body">We've let them know via email.</p>
 
@@ -67,13 +67,24 @@
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+
+    <div class="govuk-inset-text">
+      <p class="govuk-body">
+        <strong>Email address</strong><br />{{data.useremail}}
+      </p>
+      <p class="govuk-body">
+        <strong>Name</strong><br />{{data.userfirstname}} {{data.userlastname}}
+
+        </p>
+    </div>
+
     <h2 class="govuk-heading-m">Default permissions</h2>
     <form method="post" novalidate>
 
       {% if data.userthirdparty == "Yes" %}
-      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} only has access to the information they’ve added to the service.</p>
+      <p class="govuk-body">By default, this user only has access to the information they’ve added to the service.</p>
       {% else %}
-      <p class="govuk-body">By default, {{data.userfirstname}} {{data.userlastname}} has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
+      <p class="govuk-body">By default, this user has read access to all {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information.</p>
       {% endif %}
 
 

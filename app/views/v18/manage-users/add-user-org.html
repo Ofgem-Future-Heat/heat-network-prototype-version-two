@@ -2,7 +2,7 @@
 {% set cdnumber = "041" %}
 
 {% set title %}
-Does {{data.userfirstname}} {{data.userlastname}} work for a different organisation?
+Does this user work for a different organisation?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,6 +65,15 @@ Does {{data.userfirstname}} {{data.userlastname}} work for a different organisat
               {{title}}
             </h1>
           </legend>
+          <div class="govuk-inset-text">
+            <p class="govuk-body">
+              <strong>Email address</strong><br />{{data.useremail}}
+            </p>
+            <p class="govuk-body">
+              <strong>Name</strong><br />{{data.userfirstname}} {{data.userlastname}}
+
+              </p>
+          </div>
           <p class="govuk-body">Tell us whether this user works for a third party, like a metering and billing or managing agent, that is acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
           {% if data.validationErrors.userthirdparty %}
           <p class="govuk-error-message">

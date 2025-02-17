@@ -10,7 +10,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-You've been invited to join {{company}}
+You’ve been invited to act on behalf of {{company}}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -68,7 +68,7 @@ You've been invited to join {{company}}
         </legend>
 
     
-        <p class="govuk-body">Approving this request will allow users at {{company}} to view the following personal information information.</p>
+        <p class="govuk-body">If you accept this invite, heat networks service users at {{company}} will be able to view some of your personal information.</p>
 
         <div class="govuk-inset-text">
 
@@ -77,28 +77,28 @@ You've been invited to join {{company}}
         </div>
 
 
-        <div class="govuk-form-group {% if data.validationErrors.approveuser %}govuk-form-group--error{% endif %}">
+        <div class="govuk-form-group {% if data.validationErrors.acceptinvite %}govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              Approve request?
+              Do you wish to accept this invite?
             </legend>
-        {% if data.validationErrors.approveuser %}
+        {% if data.validationErrors.acceptinvite %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.approveuser.message}}
+            {{data.validationErrors.acceptinvite.message}}
         </p>
         {% endif %}
 
         <div class="govuk-radios " data-module="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="approveuser" name="approveuser" type="radio" value="yes">
-            <label class="govuk-label govuk-radios__label" for="approveuser">
+            <input class="govuk-radios__input" id="acceptinvite" name="acceptinvite" type="radio" value="yes">
+            <label class="govuk-label govuk-radios__label" for="acceptinvite">
               Yes
             </label>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="approveuser-2" name="approveuser" type="radio" value="no">
-            <label class="govuk-label govuk-radios__label" for="approveuser-2">
+            <input class="govuk-radios__input" id="acceptinvite" name="acceptinvite" type="radio" value="no">
+            <label class="govuk-label govuk-radios__label" for="acceptinvite-2">
               No
             </label>
           </div>
