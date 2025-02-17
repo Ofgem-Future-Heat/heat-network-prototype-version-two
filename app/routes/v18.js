@@ -24,7 +24,30 @@ router.get('/' + version + '/account-information', function (req, res) {
     });
 });
 
-//////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////// EMAILS /////////////////////////////////////////////////////////
+
+
+
+///Invite email
+router.get('/' + version + '/emails/service-invite', function (req, res) {
+    clearvalidation(req);
+
+    res.render('/' + version + '/emails/service-invite', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/emails/service-invite', function (req, res) {
+    req.session.data['firstname'] = "";
+    req.session.data['lastname'] = "";
+    req.session.data['telephone'] = "";
+    req.session.data['directorjobtitle'] = "";
+    res.redirect('/' + version + '/account-creation/one-login/start-onelogin');
+
+});
+
+
 
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
@@ -1868,6 +1891,16 @@ router.get('/' + version + '/my-profile', function (req, res) {
 });
 
 
+/// Org invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+
+
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -2767,23 +2800,6 @@ router.post('/' + version + '/account-creation/company-create', function (req, r
 
 
 
-
-///Invite email
-router.get('/' + version + '/emails/service-invite', function (req, res) {
-    res.render('/' + version + '/emails/service-invite', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/emails/service-invite', function (req, res) {
-    req.session.data['firstname'] = "";
-    req.session.data['lastname'] = "";
-    req.session.data['telephone'] = "";
-    req.session.data['directorjobtitle'] = "";
-    res.redirect('/' + version + '/account-creation/one-login/start-onelogin');
-
-});
 
 
 // Company - Address
