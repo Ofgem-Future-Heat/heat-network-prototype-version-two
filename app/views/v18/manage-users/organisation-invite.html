@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Access request" %}
+
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+{% set title %}
+You've been invited to join {{company}}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -59,16 +71,17 @@
             {{title}}
           </h1>
         </legend>
+
+    
+        <p class="govuk-body">Approving this request will allow users at {{company}} to view the following personal information information.</p>
+
         <div class="govuk-inset-text">
-          <p class="govuk-body"><strong>Email address</strong><br /> j.smith@ofgem.gov.uk</p>
 
           <p class="govuk-body"><strong>Full name</strong><br />Jane Smith</p>
           <p class="govuk-body"><strong>Telephone</strong><br /> 01234567890</p>
-          <p class="govuk-body"><strong>Job title</strong><br /> Director</p>
         </div>
-    
-        <p class="govuk-body">Approving this request will allow Jane Smith to view all information on {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks account.</p>
-        <p class="gouk-body">You can set additional permissions for them the next screen.</p>
+
+
         <div class="govuk-form-group {% if data.validationErrors.approveuser %}govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
