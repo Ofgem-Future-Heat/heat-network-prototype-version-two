@@ -49,7 +49,7 @@
            {{data.deletedusername}} has been reactivated for the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
             {% elif data.manageusersnotification == 'adduserpermissions' %}
-            You've changed {{data.userfirstname}} {{data.userlastname}}'s additional permissions
+            You've changed additional permissions for {{data.useremail}}
 
             {% elif data.manageusersnotification == 'regchange' %}
             You've made {{data.regcontactname}} the regulatory contact for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks
