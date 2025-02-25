@@ -1,0 +1,121 @@
+{% extends 'layouts/main.html' %}
+{% if data.accounttype == "UK charity registered with the Charity Commission" %}
+{% set title = "Which trustee do you want to approve the creation of your organisation account?" %}
+{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}
+{% set title = "Which member do you want to approve the creation of your organisation account?" %}
+{% else %}
+{% set title = "Which director do you want to approve the creation of your organisation account?" %}
+{% endif %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" accounttype="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.accounttype %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    {% if data.validationErrors.accounttype %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.accounttype.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="directorselect" name="directorselect" type="radio" value="John Smith" {% if data.directorselect=="John Smith" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="accounttype">
+                                John Smith
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="directorselect-2" name="directorselect" type="radio" value="Jane Smith" {% if data.directorselect=="Jane Smith" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="directorselect-2">
+                                Jane Smith
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="directorselect-3" name="directorselect" type="radio" value="Other" {% if data.directorselect=="Other" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="directorselect-3">
+                                A different {% if data.accounttype == "UK charity registered with the Charity Commission" %}trustee{% elif data.accounttype == "UK mutual society registered with the Financial Conduct Authority" %}member{% else %}director{% endif %}
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "037" %}
+
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+    {% include data.version + "/_partials/headerlinks.html" %}
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+
+
+    {% set users = [] %}
+
+    {% for i in range(data.userid, data.userid + 1) %}
+        {% set users = users.concat([{
+            "email": data["useremail" ~ i],
+            "firstname": data["userfirstname" ~ i],
+            "lastname": data["userlastname" ~ i],
+            "telephone": data["usertelephone" ~ i],
+            "jobtitle": data["userjobtitle" ~ i],
+            "id": i
+      }]) %}
+    {% endfor %}
+    
+    {% for user in users %}
+    {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+    {% set title = "Are you sure you want to reactivate " + name + "?" %}
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+    <p class="govuk-body">{{name}} will regain access to the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
+    <form method="post" novalidate>
+      <div class="govuk-button-group">
+      <button class="govuk-button">
+        Reactivate user
+      </button>
+      </div>
+</form>
+{% endfor %}
+
+
+  </div>
+</div>
+
+{% endblock %}

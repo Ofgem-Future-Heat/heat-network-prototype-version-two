@@ -27,3 +27,4 @@ require('./routes/v26.js');
 require('./routes/v27.js');
 require('./routes/v28.js');
 require('./routes/v29.js');
+require('./routes/v30.js');

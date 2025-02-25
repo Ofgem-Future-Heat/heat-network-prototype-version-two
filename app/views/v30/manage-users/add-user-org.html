@@ -1,0 +1,132 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "041" %}
+
+{% set title %}
+Does {{data.userfirstname}} {{data.userlastname}} work for a different organisation?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {{
+      govukBackLink ({
+      text: 'Back',
+      href: 'javascript:history.back()'
+      })
+      }}
+      {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <form method="post" novalidate>
+
+      <div class="govuk-form-group {% if data.validationErrors.userthirdparty %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+            <h1 class="govuk-fieldset__heading">
+              {{title}}
+            </h1>
+          </legend>
+          <p class="govuk-body">Tell us whether this user works for a third party, like a metering and billing or managing agent, that is acting on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
+          {% if data.validationErrors.userthirdparty %}
+          <p class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span>
+              {{data.validationErrors.userthirdparty.message}}
+          </p>
+          {% endif %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="userthirdparty" name="userthirdparty" type="radio" value="Yes" {% if data.userthirdparty == "Yes" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="userthirdparty">
+                Yes
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="userthirdparty-2" name="userthirdparty" type="radio" value="No" data-aria-controls="conditional-userthirdparty-2" {% if data.userthirdparty == "No" %} checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="userthirdparty-2">
+                No
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-userthirdparty-2">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="userjobtitle">
+                  Job title
+                </label>
+                {% if data.validationErrors.userjobtitle %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.userjobtitle.message}}
+                </p>
+                {% endif %}
+                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.userjobtitle %}govuk-input--error{% endif %}" id="userjobtitle" name="userjobtitle" type="text" value="{{data.userjobtitle}}" >              </div>
+            </div>
+            
+          </div>
+        </fieldset>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Save and continue'
+          })
+        }}
+      </div>
+</form>
+
+  </div>
+</div>
+
+{% endblock %}

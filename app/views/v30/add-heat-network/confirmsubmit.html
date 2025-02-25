@@ -1,0 +1,115 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Are you sure you want to submit your application?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.confirms %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Authorisation for {{data.name}}</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">By submitting this application, you are confirming that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>you have the authority to provide this information, or are acting on behalf of someone who has delegated this authority to you</li>
+                        <li>all the information you are providing is correct to the best of your knowledge</li>
+                        <li>you will notify Ofgem as soon as possible if any of the information changes</li>
+                    </ul>
+                    <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+   It is a criminal offence to knowingly submit incorrect information.
+  </strong>
+</div>
+                    {% if data.validationErrors.confirms %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.confirms.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirms" type="radio" value="Yes" {% if data.confirms=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirms" type="radio" value="No" {% if data.confirms=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Confirm and continue'
+                })
+            }}
+        </form>
+
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

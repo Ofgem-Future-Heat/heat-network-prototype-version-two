@@ -1,0 +1,49 @@
+{% extends 'layouts/onelogin.html' %}
+{% set title = "You’ve created your GOV.UK One Login" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">{{title}}</h1>
+
+        <p class="govuk-body">Now continue to use the service.</p>
+
+        {% if data.inviteemailcomplete == "true" %} 
+        <a href="../../account-information" role="button"
+        draggable="false" class="govuk-button" data-module="govuk-button">
+        Continue
+    </a>
+        {% else %}
+        <a href="../type" role="button"
+            draggable="false" class="govuk-button" data-module="govuk-button">
+            Continue
+        </a>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+
+
+</script>
+{% endblock pageScripts %}

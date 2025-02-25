@@ -1,0 +1,45 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Organisation enabled for the heat network service" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              {{title}}
+            </h1>
+            <div class="govuk-panel__body">
+              Account ID: AC1234567
+            </div>
+          </div>
+          <p class="govuk-body">We have: </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>enabled {{data.companyname}} for the heat network service</li>
+            <li>made you the regulatory contact for {{data.companyname}}’s heat networks</li>
+            <li>sent an email confirmation, with the account ID, to {{data.oneloginemail}}</li>
+          </ul>
+          <p class="govuk-body">As regulatory contact, you can now:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>access the service</li>
+            <li>add team members to the service</li>
+            <li>decide what your team members can and cannot do on the service by setting their permission levels</li>
+          </ul>
+          <h2 class="govuk-heading-m">Before you can start providing your heat network information</h2>
+          <p class="govuk-body">You’ll need to access the service and provide further information about your organisation. After this, the service will be fully unlocked.</p>
+    
+    
+
+        <a href="../account-information" class="govuk-button">Go to heat networks home</a>
+    </div>
+
+</div>
+
+{% endblock %}
