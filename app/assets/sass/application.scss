@@ -293,6 +293,10 @@ table.responsive thead {
   .float-right {
 	float: right;
   }
+
+  .no-wrap {
+	white-space: nowrap;
+  }
   
   .hn-accordion {
 	.govuk-accordion__controls {

@@ -110,22 +110,19 @@
 
 
     <h1 class="govuk-heading-l">
-      {{title}}
+      {{title}}      <br />
       {% if (user.thirdparty == "Yes") %}
-      <br />
       <strong class="govuk-tag">
         Third party
       </strong>      
       {% endif %}
 
       {% if (data.regchange == user.id) %}
-      <br />
       <strong class="govuk-tag">
         Regulatory contact
       </strong>
       {% endif %}
       {% if user.deleted == true %}
-      <br />
       <strong class="govuk-tag govuk-tag--red">
         Deactivated
       </strong>
@@ -145,6 +142,7 @@
           {{user.email}}
         </dd>
       </div>
+
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Name

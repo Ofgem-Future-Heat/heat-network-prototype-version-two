@@ -1,7 +1,13 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "037" %}
+{% set cdnumber = "???" %}
 
-
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 
 {% block pageTitle %}
 {{title}}
@@ -30,7 +36,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+    <span class="govuk-caption-l">Manage users for {{company}}</span>
 
 
 
@@ -49,24 +55,22 @@
     
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-    {% set title = "Are you sure you want to reactivate this user?" %}
+    {% set title = "Are you sure you want to cancel inviting and remove this user?" %}
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
+
     <div class="govuk-inset-text">
       <p class="govuk-body">
         <strong>Email address</strong><br />{{user.email}}
       </p>
-      <p class="govuk-body">
-        <strong>Name</strong><br />{{user.firstname}} {{user.lastname}}
-
-        </p>
     </div>
-    <p class="govuk-body">This user will regain access to the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</p>
+    <p class="govuk-body">They will no longer be able accept or reject their invite to act on behalf of {{company}}.</p>
+    <p class="govuk-body">If you wish to re-invite this user, you'll have to add them again.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">
-      <button class="govuk-button">
-        Reactivate user
+      <button class="govuk-button govuk-button--warning">
+        Cancel invitation and remove user
       </button>
       </div>
 </form>
