@@ -1,11 +1,13 @@
 {% extends 'layouts/main.html' %}
 {% set title = "What is the company number?" %}
 {% set _inError = data.validationError == "true"  %}
+{% set showhelp = true  %}
 
 
 {% block pageTitle %}
 {{title}}
 {% endblock %}
+
 
 {% block beforeContent %}
 
@@ -100,4 +102,8 @@
 
 </div>
 
+
+
 {% endblock %}
+
+

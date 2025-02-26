@@ -25,6 +25,12 @@
   {% endblock %}
 
   {% block footer %}
+  
+  {% if showhelp == true %}
+  {% include data.version + "/_partials/needhelp2.html" %}
+
+  {% endif %}
+
 
   <footer class="govuk-footer">
     <div class="govuk-width-container">
@@ -37,6 +43,8 @@
 
             </li>
             {% endif %}
+
+ 
             <li class="govuk-footer__inline-list-item">
               <a class="govuk-footer__link" href="/manage-prototype">
                 Manage prototype

@@ -299,3 +299,22 @@ table.responsive thead {
 		display: none;
 	}
   }
+
+
+  // QUERY MANAGEMENT
+
+  .hn-contact--panel {
+    border-top: 2px solid #1d70b8;
+	@include govuk-responsive-padding(4, "top");	
+	@include govuk-responsive-margin(8, "top");	
+	margin-bottom: -20px;
+  }
+
+
+  .hn-contact--panel--v2 {
+	background-color: govuk-colour("light-grey");
+    border-top: 1px solid govuk-colour("mid-grey");
+	@include govuk-responsive-padding(2, "top");	
+	@include govuk-responsive-padding(2, "bottom");	
+	margin-bottom: -20px;
+  }
