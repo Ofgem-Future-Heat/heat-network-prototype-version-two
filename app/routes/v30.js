@@ -1911,9 +1911,8 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
     clearvalidation(req);
-    const urlParams = req.query.notification;
-    req.session.data['manageusersnotification'] = urlParams;
-
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
 
     res.render('/' + version + '/manage-users/reactivate-user', {
         data: req.session.data

@@ -174,7 +174,9 @@
                                     <a href="manage-users/cancel-invite?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Cancel invitation</a>
                                     {% elif (user.id == "4") %}
                                     <a href="manage-users/remove-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Remove user</a>
-                                  
+                                    {% elif (user.deleted == true) %}
+                                    <a href="manage-users/reactivate-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Reactivate user</a>
+
                                     {% else %}
                                       <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
                                     {% endif %}
