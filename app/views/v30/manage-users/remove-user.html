@@ -55,7 +55,7 @@
     
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-    {% set title = "Are you sure you want to remove this user?" %}
+    {% set title = "Confirm you want to remove this user?" %}
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
@@ -65,8 +65,8 @@
         <strong>Email address</strong><br />{{user.email}}
       </p>
     </div>
-    <p class="govuk-body">They will no longer appear in the list of users for {{company}}.</p>
-    <p class="govuk-body">If you wish to re-invite this user, you'll have to add them again.</p>
+    <p class="govuk-body">Once removed, they will no longer appear in {{company}}'s list of users.</p>
+    <p class="govuk-body">You'll need to add this user again if you wish to re-invite them.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">
       <button class="govuk-button govuk-button--warning">
