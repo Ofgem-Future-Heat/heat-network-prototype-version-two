@@ -8096,3 +8096,101 @@ today = dd + '/' + mm + '/' + yyyy;
         
         res.redirect('/' + version + '/smri/list?notification=submitted');
 });
+
+
+
+//////////////// QUERY MANAGEMENT //////////////
+
+
+// Help - type
+router.get('/' + version + '/help/type', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/help/type', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/' + version + '/help/type', function (req, res) {
+    clearvalidation(req);
+    var helptype = req.session.data['helptype']
+    var helptypeother = req.session.data['helptypeother']
+
+    if (!helptype) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.helptype = {
+            "anchor": "helptype",
+            "message": "Select why you need to contact Ofgem",
+        }
+    }
+
+    if (helptype == "Something else" & !helptypeother) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.helptypeother = {
+            "anchor": "helptypeother",
+            "message": "Enter a reason for contacting Ofgem",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/help/type', {
+            data: req.session.data
+        });
+    }
+    else {
+
+        if (helptype == "Something else") {
+            req.session.data['helptypesummary'] = helptypeother
+            res.redirect('/' + version + '/help/details');
+
+        }
+
+        else {
+            req.session.data['helptypesummary'] = helptype
+            res.redirect('/' + version + '/help/details');
+        }
+    }
+});
+
+// Help - details
+router.get('/' + version + '/help/details', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/help/details', {
+        data: req.session.data
+    });
+
+});
+
+
+router.post('/' + version + '/help/details', function (req, res) {
+    clearvalidation(req);
+    var helpdetails = req.session.data['helpdetails']
+
+    if (!helpdetails) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.helpdetails = {
+            "anchor": "helpdetails",
+            "message": "Add further details",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/help/details', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/help/sent');
+    }
+});
+
+// Help - sent
+router.get('/' + version + '/help/sent', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/help/sent', {
+        data: req.session.data
+    });
+
+});

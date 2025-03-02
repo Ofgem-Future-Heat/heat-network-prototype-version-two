@@ -1,0 +1,49 @@
+{% extends 'layouts/main.html' %}
+
+{% set title %}
+Add further details about your enquiry
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/headerlinks.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        Message sent
+      </h1>
+      <div class="govuk-panel__body">
+        Your query id<br><strong>HDJ2123F</strong>
+      </div>
+    </div>
+    <p class="govuk-body">We have sent you an email with the details of this message.</p>
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk-body">
+      Your query will be assigned to an appropriate team in Ofgem. You will then hear back from us via email (sent to john.smith@radienteco.co.uk) within the next 14 days.
+    </p>
+
+    <p class="govuk-body">
+      <a href="/{{data.version}}/account-information" class="govuk-link govuk-link--no-visited-state">Return to heat networks home</a>
+    </p>
+
+{% endblock %}
