@@ -1859,8 +1859,8 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
 /// Delete user
 router.get('/' + version + '/manage-users/delete-user', function (req, res) {
     clearvalidation(req);
-    const urlParams = req.query.notification;
-    req.session.data['manageusersnotification'] = urlParams;
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
 
 
     res.render('/' + version + '/manage-users/delete-user', {
@@ -1941,9 +1941,8 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
     clearvalidation(req);
-    const urlParams = req.query.notification;
-    req.session.data['manageusersnotification'] = urlParams;
-
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
 
     res.render('/' + version + '/manage-users/reactivate-user', {
         data: req.session.data
@@ -1962,7 +1961,6 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
     res.redirect('/' + version + '/manage-users/edit-user-permissions?id=' + userid + '&notification=reactivated');
 
 });
-
 
 /// Invite accept
 router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
