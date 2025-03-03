@@ -67,11 +67,7 @@
 
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-    {% if user.id != "2" %}
     {% set title = name %}
-    {% else %}
-    {% set title = user.email %}
-    {% endif %}
     {% if data.manageusersnotification %}
     <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
       aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -114,29 +110,21 @@
 
 
     <h1 class="govuk-heading-l">
-      {{title}}
+      {{title}}      <br />
       {% if (user.thirdparty == "Yes") %}
-      <br />
       <strong class="govuk-tag">
         Third party
       </strong>      
       {% endif %}
 
       {% if (data.regchange == user.id) %}
-      <br />
       <strong class="govuk-tag">
         Regulatory contact
       </strong>
       {% endif %}
       {% if user.deleted == true %}
-      <br />
       <strong class="govuk-tag govuk-tag--red">
         Deactivated
-      </strong>
-      {% elif user.id == "2" %}
-
-      <strong class="govuk-tag govuk-tag--yellow">
-        Invite pending
       </strong>
       {% endif %}
     </h1>
@@ -154,7 +142,6 @@
           {{user.email}}
         </dd>
       </div>
-      {% if user.id != "2" %}
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -174,7 +161,6 @@
           %}{{user.telephonemobile}}{% endif %}
         </dd>
       </div>
-      {% endif %}
       {% if (user.thirdparty == "No") %}
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

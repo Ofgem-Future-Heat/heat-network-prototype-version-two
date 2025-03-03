@@ -1,17 +1,5 @@
 {% extends 'layouts/main.html' %}
-
-
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd 
-{% endif %}
-{% endset %}
-
-{% set title %}
-You’ve been invited to act on behalf of {{company}}
-{% endset %}
+{% set title = "Access request" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -25,7 +13,14 @@ You’ve been invited to act on behalf of {{company}}
 
   <div class="govuk-grid-column-full">
 
+
     {% include data.version + "/_partials/headerlinks.html" %}
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
 
   </div>
 
@@ -66,39 +61,38 @@ You’ve been invited to act on behalf of {{company}}
             {{title}}
           </h1>
         </legend>
-
-    
-        <p class="govuk-body">If you accept this invitation, heat networks service users at {{company}} will be able to view some of your personal information.</p>
-
         <div class="govuk-inset-text">
+          <p class="govuk-body"><strong>Email address</strong><br /> j.smith@ofgem.gov.uk</p>
 
           <p class="govuk-body"><strong>Full name</strong><br />Jane Smith</p>
           <p class="govuk-body"><strong>Telephone</strong><br /> 01234567890</p>
+          <p class="govuk-body"><strong>Job title</strong><br /> Director</p>
         </div>
-
-
-        <div class="govuk-form-group {% if data.validationErrors.acceptinvite %}govuk-form-group--error{% endif %}">
+    
+        <p class="govuk-body">Approving this request will allow Jane Smith to view all information on {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks account.</p>
+        <p class="gouk-body">You can set additional permissions for them the next screen.</p>
+        <div class="govuk-form-group {% if data.validationErrors.approveuser %}govuk-form-group--error{% endif %}">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              Do you wish to accept this invitation?
+              Approve request?
             </legend>
-        {% if data.validationErrors.acceptinvite %}
+        {% if data.validationErrors.approveuser %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.acceptinvite.message}}
+            {{data.validationErrors.approveuser.message}}
         </p>
         {% endif %}
 
         <div class="govuk-radios " data-module="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="acceptinvite" name="acceptinvite" type="radio" value="yes">
-            <label class="govuk-label govuk-radios__label" for="acceptinvite">
+            <input class="govuk-radios__input" id="approveuser" name="approveuser" type="radio" value="yes">
+            <label class="govuk-label govuk-radios__label" for="approveuser">
               Yes
             </label>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="acceptinvite" name="acceptinvite" type="radio" value="no">
-            <label class="govuk-label govuk-radios__label" for="acceptinvite-2">
+            <input class="govuk-radios__input" id="approveuser-2" name="approveuser" type="radio" value="no">
+            <label class="govuk-label govuk-radios__label" for="approveuser-2">
               No
             </label>
           </div>

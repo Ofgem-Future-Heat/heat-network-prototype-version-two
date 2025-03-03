@@ -1858,7 +1858,7 @@ router.post('/' + version + '/manage-users/organisation-invite', function (req, 
         req.session.data.validationError = "true"
         req.session.data.validationErrors.acceptinvite = {
             "anchor": "acceptinvite",
-            "message": "Select yes if you wish to accept this invite"
+            "message": "Select yes if you wish to accept this invitation"
         }
     }
 
