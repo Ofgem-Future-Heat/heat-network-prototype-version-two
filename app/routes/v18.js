@@ -1874,14 +1874,23 @@ router.post('/' + version + '/manage-users/organisation-invite', function (req, 
 });
 
 /// Manage users
+/// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);
     clearvalidation(req);
     const urlParams = req.query.notification;
+    const variant = req.query.v;
+
     req.session.data['manageusersnotification'] = urlParams;
 
+    if (variant == "dev") {
+        generateuser2(req);
+        generateuser3(req);
+        generateuser4(req);
+        generateuser5(req);
+    }
 
-    
+
 
     res.render('/' + version + '/manage-users/index', {
         data: req.session.data
