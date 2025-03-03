@@ -70,7 +70,7 @@
           </h3>
           {% if data.manageusersnotification == 'inviteremoved' %}
           <p class="govuk-body">They've also been removed from the heat networks service for {{company}}. We've let them know via email.</p>
-          {% elif data.manageusersnotification != 'removed' %}
+          {% elif (data.manageusersnotification != 'removed') and (data.manageusersnotification != 'adduserpermissions') %}
           <p class="govuk-body">We've let them know via email.</p>
           {% endif %}
         </div>
