@@ -1328,6 +1328,7 @@ function clearaddeduser(req) {
     req.session.data['adduserpermissionsregistration'] = ""
 }
 
+
 function generateuser(req){
 
     var useradded = req.session.data['addeduser1']
@@ -1352,6 +1353,79 @@ function generateuser(req){
 }
 
 }
+
+function generateuser2(req){
+    req.session.data['userfirstname2'] = "Bob";
+    req.session.data['userlastname2'] = "Smith";
+    req.session.data['usertelephone2'] = "Landline";
+    req.session.data['usertelephonelandline2'] = "01234567892";
+    req.session.data['usertelephonelandlineext2'] = "2243";
+    req.session.data['useremail2'] = "bob.smith@radienteco.org";
+    req.session.data['userjobtitle2'] = "Staff";
+    req.session.data['addeduser2'] = "true";
+    req.session.data['adduserpermissionstransfer2'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers2'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement2'] = "Manage users";
+    req.session.data['adduserpermissionsmonitoring2'] = "Submit heat network information";
+    req.session.data['adduserpermissionsregistration2'] = "Add or edit heat network information";
+}
+
+function generateuser3(req){
+
+    req.session.data['userfirstname3'] = "Dan";
+    req.session.data['userlastname3'] = "Smith";
+    req.session.data['usertelephone3'] = "Mobile";
+    req.session.data['usertelephonemobile3'] = "07334567893";
+    req.session.data['useremail3'] = "dan.smith@radienteco.org";
+    req.session.data['userjobtitle3'] = "Staff";
+    req.session.data['addeduser3'] = "true";
+    req.session.data['userthirdparty3'] = "Yes";
+    req.session.data['adduserpermissionstransfer3'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers3'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement3'] = "Manage users";
+    req.session.data['adduserpermissionsmonitoring3'] = "Submit heat network information";
+    req.session.data['adduserpermissionsregistration3'] = "Add or edit heat network information";
+
+}
+
+function generateuser4(req){
+
+    req.session.data['userfirstname4'] = "Jane";
+    req.session.data['userlastname4'] = "Smith";
+    req.session.data['usertelephone4'] = "Mobile";
+    req.session.data['usertelephonemobile4'] = "0222567894";
+    req.session.data['useremail4'] = "jane.smith@radienteco.org";
+    req.session.data['userjobtitle4'] = "Staff";
+    req.session.data['addeduser4'] = "true";
+    req.session.data['userthirdparty4'] = "No";
+    req.session.data['adduserpermissionstransfer4'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers4'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement4'] = "Manage users";
+    req.session.data['adduserpermissionsregistration4'] = "Add or edit heat network information";
+
+}
+
+function generateuser5(req){
+
+    req.session.data['userfirstname5'] = "Donald";
+    req.session.data['userlastname5'] = "Smith";
+    req.session.data['usertelephone5'] = "Mobile";
+    req.session.data['usertelephonemobile5'] = "0222567895";
+    req.session.data['useremail5'] = "donald.smith@radienteco.org";
+    req.session.data['userjobtitle5'] = "Staff";
+    req.session.data['addeduser5'] = "true";
+    req.session.data['userthirdparty5'] = "No";
+    req.session.data['adduserpermissionstransfer5'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers5'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement5'] = "Manage users";
+    req.session.data['adduserpermissionsregistration5'] = "Add or edit heat network information";
+    req.session.data['isdeleted5'] = true;
+
+    req.session.data['usertotal'] = "5";
+
+}
+
+
 
 function clearediteduser(req) {
     req.session.data['edituserfirstname'] = "";
@@ -1873,7 +1947,6 @@ router.post('/' + version + '/manage-users/organisation-invite', function (req, 
 
 });
 
-/// Manage users
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);
