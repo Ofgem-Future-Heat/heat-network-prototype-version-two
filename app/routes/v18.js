@@ -1887,6 +1887,57 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
 });
 
 
+/// Cancel invite
+router.get('/' + version + '/manage-users/cancel-invite', function (req, res) {
+    clearvalidation(req);
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+
+    res.render('/' + version + '/manage-users/cancel-invite', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+    clearvalidation(req);
+    req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
+
+    req.session.data['addeduser' + req.session.data['userid']] = false;
+    res.redirect('/' + version + '/manage-users?notification=inviteremoved');
+
+});
+
+
+/// Remove user
+router.get('/' + version + '/manage-users/remove-user', function (req, res) {
+    clearvalidation(req);
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+
+    res.render('/' + version + '/manage-users/remove-user', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/remove-user', function (req, res) {
+    const userid = req.query.id;
+    req.session.data['userid'] = userid;
+
+    clearvalidation(req);
+    req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
+
+    req.session.data['addeduser' + req.session.data['userid']] = false;
+    res.redirect('/' + version + '/manage-users?notification=removed');
+
+});
+
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
     clearvalidation(req);
