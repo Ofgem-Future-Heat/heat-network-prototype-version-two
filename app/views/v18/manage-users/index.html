@@ -59,7 +59,7 @@
            You've removed {{data.deleteduseremail}} from the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
            {% elif data.manageusersnotification == 'inviteremoved'  %}
-           You've cancelled the invitation for {{data.deleteduseremail}} to act on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+           You've cancelled the invitation for {{data.deleteduseremail}} to use the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
             {% elif data.manageusersnotification == 'adduserpermissions' %}
             You've added additional permissions for {{data.useremail}}

@@ -1459,6 +1459,14 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
         }
     }
 
+    if (useremail.length > 80) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.useremail = {
+            "anchor": "useremail",
+            "message": "Enter an email address using 80 characters or fewer"
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/manage-users/add-user', {
             data: req.session.data

@@ -10,7 +10,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-You’ve been invited to act on behalf of {{company}}
+You’ve been invited to use the heat networks service on behalf of {{company}}
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -68,7 +68,12 @@ You’ve been invited to act on behalf of {{company}}
         </legend>
 
     
-        <p class="govuk-body">If you accept this invitation, heat networks service users at {{company}} will be able to view some of your personal information.</p>
+        <p class="govuk-body">
+          After you accept this invitation, you’ll be able to help {{company}} meet its regulatory responsibilities. 
+        </p>
+        <p class="govuk-body">
+          Other users of this service from {{company}} will be able to see your details. 
+        </p>
 
         <div class="govuk-inset-text">
 

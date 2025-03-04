@@ -56,7 +56,7 @@
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
     {% set title %}
-    Are you sure you want to cancel this users invitation to act on behalf of {{company}}?
+    Are you sure you want to cancel this user’s invitation?
     {% endset %}
     <h1 class="govuk-heading-l">
       {{title}}
@@ -68,7 +68,7 @@
       </p>
     </div>
     <p class="govuk-body">This will remove them from the heat networks service for {{company}} and they will not be able to accept their invitation.</p>
-    <p class="govuk-body">You'll need to add this user again if you wish to re-invite them.</p>
+    <p class="govuk-body">You'll need to add this user again if you want them to use this service.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">
       <button class="govuk-button govuk-button--warning">
