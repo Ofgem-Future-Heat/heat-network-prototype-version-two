@@ -2285,6 +2285,13 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ACCOUNT CREATE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/// Start
+router.get('/' + version + '/account-creation/intro', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/account-creation/intro', {
+        data: req.session.data
+    });
+});
 
 ///Select org
 router.get('/' + version + '/account-creation/select-org', function (req, res) {
@@ -2322,7 +2329,7 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
     
         else {
             if (orgselect == "New") {
-                res.redirect('/' + version + '/account-creation/type');
+                res.redirect('/' + version + '/account-creation/intro');
             }
             if (orgselect == "Heating Co") {
                 req.session.data.companyname = "Heating Co"
