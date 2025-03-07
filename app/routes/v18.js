@@ -1341,6 +1341,8 @@ function generateuser(req){
     req.session.data['useremail1'] = "john.smith@radienteco.org";
     req.session.data['userjobtitle1'] = "Director";
     req.session.data['addeduser1'] = "true";
+    req.session.data['userthirdparty1'] = "No";
+
     req.session.data['adduserpermissionstransfer1'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers1'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement1'] = "Manage users";
@@ -1363,6 +1365,7 @@ function generateuser2(req){
     req.session.data['useremail2'] = "bob.smith@radienteco.org";
     req.session.data['userjobtitle2'] = "Staff";
     req.session.data['addeduser2'] = "true";
+    req.session.data['userthirdparty2'] = "No";
     req.session.data['adduserpermissionstransfer2'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers2'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement2'] = "Manage users";
