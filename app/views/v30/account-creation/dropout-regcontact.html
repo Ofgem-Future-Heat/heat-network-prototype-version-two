@@ -1,4 +1,4 @@
-{% extends 'layouts/mainold.html' %}
+{% extends 'layouts/main.html' %}
 {% set title = "You cannot continue" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -8,10 +8,26 @@
 {% endblock %}
 
 
+{% set cdnumber = "148" %}
 {% block beforeContent %}
 
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
 
 
+    </div>
+
+</div>
 {% endblock %}
 
 {% block content %}

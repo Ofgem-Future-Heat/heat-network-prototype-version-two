@@ -164,7 +164,9 @@ Which option best describes the work {% if data.companyname %}{{data.companyname
                       <label class="govuk-label" for="orgsubtypeother">
                         Organisation description
                       </label>
+                      {% if data.orgprofit == "No" %}
                       <p class="govuk-hint">For example, community energy or right to manage groups</p>
+                      {% endif %}
                       {% if data.validationErrors.orgsubtypeother %}
                       <p class="govuk-error-message">
                           <span class="govuk-visually-hidden">Error:</span>

@@ -1,4 +1,4 @@
-{% extends 'layouts/mainold.html' %}
+{% extends 'layouts/main.html' %}
 {% set title %}
 Are you {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s regulatory contact for heat networks?
 {% endset %}
@@ -9,12 +9,14 @@ Are you {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% 
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "007" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
  govukBackLink ({
@@ -23,10 +25,10 @@ Are you {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% 
                 })
         }}
 
+
     </div>
 
 </div>
-
 {% endblock %}
 
 {% block content %}

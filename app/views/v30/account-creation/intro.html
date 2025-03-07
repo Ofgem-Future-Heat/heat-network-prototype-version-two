@@ -1,11 +1,27 @@
-{% extends 'layouts/mainold.html' %}
-{% set title = "Comply with heat network regulations" %}
+{% extends 'layouts/main.html' %}
+{% set title = "Create an account for your organisation" %}
 
 
 {% block pageTitle %}
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "???" %}
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
 
 
 {% block content %}
@@ -16,17 +32,31 @@
                         <h1 class="govuk-heading-xl">
                             {{title}}
                         </h1>
-                        <p class="govuk-body">Use this service to:</p>
-                <ul class="govuk-list govuk-list--bullet">
-                    <li>get authorisation for existing and new heat networks</li>
-                    <li>apply for a license to upgrade or build new heat networks</li>
-                    <li>amend information about any heat networks you've already told us about</li>
-                    <li>submit mandatory reporting information on your organisation's heat networks </li>               
-                </ul>
 
-                    <h2 class="govuk-heading-l">Who this service is for</h2>
-                    <p class="govuk-body">You must use this service if your organisation undertakes regulated activities on a heat network, for instance as a heat network operator or supplier. 
-                    </p>
+
+                        <p class="govuk-body">You can create an account for your organisation if you’re the ‘regulatory contact’ for heat networks.</p>
+                        <p class="govuk-body">If somebody else is the regulatory contact, ask them to create the organisation’s account instead. Once it’s set up, the regulatory contact can invite you to access the account.</p>
+                        <p class="govuk-body">If you do not wish to continue, you can close this browser. No information will be saved.</p>
+
+                        <details class="govuk-details">
+                          <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                              Help with 'regulatory contact'
+                            </span>
+                          </summary>
+                          <div class="govuk-details__text">
+                            <p class="govuk-body"> This is your organisation’s most senior member of staff responsible for heat
+                              networks.</p>
+                            <p class="govuk-body">The regulatory contact:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                              <li>is Ofgem’s main point of contact for any regulatory and compliance matters</li>
+                              <li>has full access to all features in the heat network service, for example managing users and submitting heat network information</li>
+                              <li>is initially responsible for inviting other users into the service and setting their permissions</li>
+                            </ul>
+                            <p class="govuk-body">The regulatory contact for an organisation can be changed if necessary.</p>
+                          </div>
+                        </details>
+
                     <a class="govuk-button" href="type">Continue</a>
 
 
