@@ -1,4 +1,4 @@
-{% extends 'layouts/main.html' %}
+{% extends 'layouts/mainold.html' %}
 
 {% set title = "Find your organisation's address" %}
 
@@ -10,24 +10,26 @@
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "023" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
-            govukBackLink ({
-                text: 'Back',
-                href: 'company-name'
-            })
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
         }}
+
 
     </div>
 
 </div>
-
 {% endblock %}
 
 {% block content %}
@@ -56,7 +58,7 @@
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
-
+        <p class="govuk-body">This is the address to which official correspondence, such as government or legal forms, is sent.</p>
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
                 <div class="govuk-form-group {% if data.validationErrors.orgaddressPostcode %}govuk-form-group--error{% endif %}">
@@ -82,6 +84,8 @@
                 })
             }}
         </form>
+        <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
     </div>
 
 </div>

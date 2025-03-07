@@ -13,12 +13,14 @@ No address found
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "045" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
  govukBackLink ({
@@ -27,10 +29,10 @@ No address found
                 })
         }}
 
+
     </div>
 
 </div>
-
 {% endblock %}
 
 {% block content %}

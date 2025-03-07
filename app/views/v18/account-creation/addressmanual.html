@@ -7,12 +7,14 @@
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "025" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
  govukBackLink ({
@@ -21,10 +23,10 @@
                 })
         }}
 
+
     </div>
 
 </div>
-
 {% endblock %}
 
 {% block content %}
@@ -66,12 +68,15 @@
                             {{title}}
                         </h1>
                     </legend>
+                    <p class="govuk-body">This is the address to which official correspondence, such as government or legal forms, is sent.</p>
+
+
                     {% if data.orgaddressesnotfound %}
                     <p class="govuk-body">
                         No results
                     </p>
                     {% endif %}
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgaddressMLine1 %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="orgaddressMLine1">
                             Street address
                         </label>
@@ -81,9 +86,9 @@
                             {{data.validationErrors.orgaddressMLine1.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input" id="orgaddressMLine1" name="orgaddressMLine1" type="text" autocomplete="address-line1" value="{{data.orgaddressMLine1}}">
+                        <input class="govuk-input" id="orgaddressMLine1 {% if data.validationErrors.orgaddressMLine1 %}govuk-input--error{% endif %}" name="orgaddressMLine1" type="text" autocomplete="address-line1" value="{{data.orgaddressMLine1}}">
                     </div>
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgaddressMTown %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="orgaddressMTown">
                             Town or city
                         </label>
@@ -93,18 +98,18 @@
                             {{data.validationErrors.orgaddressMTown.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-two-thirds" id="orgaddressMTown" name="orgaddressMTown" type="text" autocomplete="address-level2" value="{{data.orgaddressMTown}}">
+                        <input class="govuk-input govuk-!-width-two-thirds {% if data.validationErrors.orgaddressMTown %}govuk-input--error{% endif %}" id="orgaddressMTown" name="orgaddressMTown" type="text" autocomplete="address-level2" value="{{data.orgaddressMTown}}">
                     </div>
                     {% if data.accounttype != "Overseas organisation" %}
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgaddressMCounty %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="orgaddressMCounty">
                             County (optional)
                         </label>
                         <input class="govuk-input govuk-!-width-two-thirds" id="orgaddressMCounty" name="orgaddressMCounty" type="text" value="{{data.orgaddressMCounty}}">
                     </div>
                     {% endif %}
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgaddressMPostcode %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="orgaddressMPostcode">
                             {% if data.accounttype == "Overseas organisation" %}
                             Postal code or zip code
@@ -118,10 +123,10 @@
                             {{data.validationErrors.orgaddressMPostcode.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-input--width-10" id="orgaddressMPostcode" name="orgaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.orgaddressMPostcode}}">
+                        <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.orgaddressMPostcode %}govuk-input--error{% endif %}" id="orgaddressMPostcode" name="orgaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.orgaddressMPostcode}}">
                     </div>
                     {% if data.accounttype == "Overseas organisation" %}
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.orgaddressMCountry %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="orgaddressMCountry">
                             Country
                         </label>
@@ -131,7 +136,7 @@
                             {{data.validationErrors.orgaddressMCountry.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-two-thirds" id="orgaddressMCountry" name="orgaddressMCountry" type="text"  value="{{data.orgaddressMCountry}}">
+                        <input class="govuk-input govuk-!-width-two-thirds {% if data.validationErrors.orgaddressMCountry %}govuk-input--error{% endif %}" id="orgaddressMCountry" name="orgaddressMCountry" type="text"  value="{{data.orgaddressMCountry}}">
                     </div>
                     {% endif %}
 

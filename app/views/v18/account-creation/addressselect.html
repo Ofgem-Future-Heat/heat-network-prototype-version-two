@@ -1,4 +1,4 @@
-{% extends 'layouts/main.html' %}
+{% extends 'layouts/mainold.html' %}
 
 {% set title = "Select your organisation’s address" %}
 
@@ -11,26 +11,27 @@
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "024" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
-            govukBackLink ({
-                text: 'Back',
-                href: 'address'
-            })
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
         }}
+
 
     </div>
 
 </div>
-
 {% endblock %}
-
 {% block content %}
 
 <div class="govuk-grid-row">

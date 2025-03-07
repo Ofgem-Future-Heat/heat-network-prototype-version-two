@@ -1,4 +1,5 @@
 {% extends 'layouts/main.html' %}
+
 {% set title = "Your details" %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -7,12 +8,14 @@
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "003" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
 
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
  govukBackLink ({
@@ -21,10 +24,10 @@
                 })
         }}
 
+
     </div>
 
 </div>
-
 {% endblock %}
 
 {% block content %}
