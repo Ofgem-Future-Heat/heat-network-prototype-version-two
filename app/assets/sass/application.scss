@@ -41,6 +41,21 @@
 
 }
 
+.hn-box {
+
+	&--grey {
+		height: 100%;
+		background-color: #f8f8f8 !important;
+		box-sizing: border-box;;
+	
+	}
+
+}
+
+.hn-flex {
+	display: flex;
+}
+
 .hn-task-list__status {
 	min-width: 150px;
 }
