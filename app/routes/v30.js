@@ -12,6 +12,13 @@ function clearvalidation(req) {
 
 }
 
+//////// PAGE SETUP //////
+router.use(function (req, res, next) {
+    clearvalidation(req);
+    next(); // Continue to the actual route handler
+});
+
+
 function generateSupplierHN(req) {
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
@@ -80,13 +87,10 @@ function generateSupplier2HN(req) {
 
 }
 
-
-
-
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
 router.get('/' + version + '/account-information', function (req, res) {
-    clearvalidation(req);
+    
     generateuser(req);
     const urlParams = req.query.v;
     req.session.data['variantname'] = urlParams
@@ -114,7 +118,7 @@ router.get('/' + version + '/account-information', function (req, res) {
 
 ///Company name
 router.get('/' + version + '/setup/company-name', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/setup/company-name', {
         data: req.session.data
     });
@@ -122,7 +126,7 @@ router.get('/' + version + '/setup/company-name', function (req, res) {
 
 
 router.post('/' + version + '/setup/company-name', function (req, res) {
-    clearvalidation(req);
+    
     var companyname = req.session.data['companyname']
     
 
@@ -151,7 +155,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
 //////////////////////////////////////////////////////////// EMAILS /////////////////////////////////////////////////////////
 router.get('/' + version + '/emails/supplier-invite', function (req, res) {
-    clearvalidation(req);
+    
     generateSupplierHN(req);
 
     res.render('/' + version + '/emails/supplier-invite', {
@@ -164,7 +168,7 @@ router.get('/' + version + '/emails/supplier-invite', function (req, res) {
 
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.notification;
     req.session.data['orgdetailsnotification'] = urlParams;
 
@@ -175,7 +179,7 @@ router.get('/' + version + '/organisation-details/organisation-details', functio
 
 /// Org details - Email address
 router.get('/' + version + '/organisation-details/email-address', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/email-address', {
         data: req.session.data
     });
@@ -183,7 +187,7 @@ router.get('/' + version + '/organisation-details/email-address', function (req,
 
 
 router.post('/' + version + '/organisation-details/email-address', function (req, res) {
-    clearvalidation(req);
+    
     var orghasemailaddress = req.session.data['orghasemailaddress']
     var orgemailaddress = req.session.data['orgemailaddress']
 
@@ -220,7 +224,7 @@ router.post('/' + version + '/organisation-details/email-address', function (req
 
 /// Org details - Accounts
 router.get('/' + version + '/organisation-details/accounts', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/accounts', {
         data: req.session.data
     });
@@ -228,7 +232,7 @@ router.get('/' + version + '/organisation-details/accounts', function (req, res)
 
 
 router.post('/' + version + '/organisation-details/accounts', function (req, res) {
-    clearvalidation(req);
+    
     var orgaccounts = req.session.data['orgaccounts']
 
 
@@ -255,7 +259,7 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
 
 /// Org details - Financial year date
 router.get('/' + version + '/organisation-details/date', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/date', {
         data: req.session.data
     });
@@ -263,7 +267,7 @@ router.get('/' + version + '/organisation-details/date', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/date', function (req, res) {
-    clearvalidation(req);
+    
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
     var financialendday = req.session.data['orgfinancialendday']
@@ -432,7 +436,7 @@ if (!financialendday && !financialendmonth) {
 });
 /// Org details - Solvent
 router.get('/' + version + '/organisation-details/solvent', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/solvent', {
         data: req.session.data
     });
@@ -440,7 +444,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 
 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
-    clearvalidation(req);
+    
     var orgsolvent = req.session.data['orgsolvent']
     var orgaccounts = req.session.data['orgaccounts']
 
@@ -473,7 +477,7 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
 
 /// Org details - Profit
 router.get('/' + version + '/organisation-details/profit', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/profit', {
         data: req.session.data
     });
@@ -481,7 +485,7 @@ router.get('/' + version + '/organisation-details/profit', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/profit', function (req, res) {
-    clearvalidation(req);
+    
     var orgprofit = req.session.data['orgprofit']
 
 
@@ -508,7 +512,7 @@ router.post('/' + version + '/organisation-details/profit', function (req, res) 
 
 /// Org details - What
 router.get('/' + version + '/organisation-details/what', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/what', {
         data: req.session.data
     });
@@ -516,7 +520,7 @@ router.get('/' + version + '/organisation-details/what', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/what', function (req, res) {
-    clearvalidation(req);
+    
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
     var orgprofit = req.session.data['orgprofit']
@@ -577,7 +581,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
 
 /// Org details - Social housing
 router.get('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/socialhousing', {
         data: req.session.data
     });
@@ -585,7 +589,7 @@ router.get('/' + version + '/organisation-details/socialhousing', function (req,
 
 
 router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    clearvalidation(req);
+    
     var orgsocialhousing = req.session.data['orgsocialhousing']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
@@ -620,7 +624,7 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
 
 /// Org details - Financial protfit
 router.get('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-profit', {
         data: req.session.data
     });
@@ -628,7 +632,7 @@ router.get('/' + version + '/organisation-details/financial-profit', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    clearvalidation(req);
+    
     var financialprofit = req.session.data['financialprofit']
 
 
@@ -654,7 +658,7 @@ router.post('/' + version + '/organisation-details/financial-profit', function (
 
 /// Org details - Financial monthly
 router.get('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-monthly', {
         data: req.session.data
     });
@@ -662,7 +666,7 @@ router.get('/' + version + '/organisation-details/financial-monthly', function (
 
 
 router.post('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    clearvalidation(req);
+    
     var financialmonthly = req.session.data['financialmonthly']
 
 
@@ -688,7 +692,7 @@ router.post('/' + version + '/organisation-details/financial-monthly', function 
 
 /// Org details - Financial income
 router.get('/' + version + '/organisation-details/financial-income', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-income', {
         data: req.session.data
     });
@@ -696,7 +700,7 @@ router.get('/' + version + '/organisation-details/financial-income', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-income', function (req, res) {
-    clearvalidation(req);
+    
     var financialincome = req.session.data['financialincome']
 
 
@@ -725,7 +729,7 @@ router.post('/' + version + '/organisation-details/financial-income', function (
 
 /// Org details - Financial liquid
 router.get('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-liquid', {
         data: req.session.data
     });
@@ -733,7 +737,7 @@ router.get('/' + version + '/organisation-details/financial-liquid', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    clearvalidation(req);
+    
     var financialliquid = req.session.data['financialliquid']
 
 
@@ -759,7 +763,7 @@ router.post('/' + version + '/organisation-details/financial-liquid', function (
 
 /// Org details - Financial exceed
 router.get('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-exceed', {
         data: req.session.data
     });
@@ -767,7 +771,7 @@ router.get('/' + version + '/organisation-details/financial-exceed', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    clearvalidation(req);
+    
     var financialexceed = req.session.data['financialexceed']
 
 
@@ -793,7 +797,7 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
 
 /// Org details - Financial costs
 router.get('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-costs', {
         data: req.session.data
     });
@@ -801,7 +805,7 @@ router.get('/' + version + '/organisation-details/financial-costs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    clearvalidation(req);
+    
     var financialcosts = req.session.data['financialcosts']
 
 
@@ -829,7 +833,7 @@ router.post('/' + version + '/organisation-details/financial-costs', function (r
 
 /// Org details - Financial needs
 router.get('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-needs', {
         data: req.session.data
     });
@@ -837,7 +841,7 @@ router.get('/' + version + '/organisation-details/financial-needs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    clearvalidation(req);
+    
     var financialneeds = req.session.data['financialneeds']
 
 
@@ -864,7 +868,7 @@ router.post('/' + version + '/organisation-details/financial-needs', function (r
 
 /// Org details - Financial authorised
 router.get('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-authorised', {
         data: req.session.data
     });
@@ -872,7 +876,7 @@ router.get('/' + version + '/organisation-details/financial-authorised', functio
 
 
 router.post('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    clearvalidation(req);
+    
     var financialauthorised = req.session.data['financialauthorised']
 
 
@@ -899,7 +903,7 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
 
 /// Org details - Financial percentage
 router.get('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-percentage', {
         data: req.session.data
     });
@@ -907,7 +911,7 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 
 
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    clearvalidation(req);
+    
     var financialpercentage = req.session.data['financialpercentage']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
     const regex = /^[0-9,\s.]+$/; // Allowed characters: numbers (0-9), commas (,), spaces (\s), and decimal points (.)
@@ -953,7 +957,7 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
 
 /// Org details - Financial hedged
 router.get('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-hedged', {
         data: req.session.data
     });
@@ -961,7 +965,7 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    clearvalidation(req);
+    
     var financialhedged = req.session.data['financialhedged']
 
     if (!financialhedged) {
@@ -991,7 +995,7 @@ router.post('/' + version + '/organisation-details/financial-hedged', function (
 
 /// Org details - Financial hedged months
 router.get('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/financial-hedged-months', {
         data: req.session.data
     });
@@ -999,7 +1003,7 @@ router.get('/' + version + '/organisation-details/financial-hedged-months', func
 
 
 router.post('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    clearvalidation(req);
+    
     var financiallength = req.session.data['financiallength']
 
     if (!financiallength) {
@@ -1041,7 +1045,7 @@ function clearparentdata(req) {
 
 /// Org details - Structure
 router.get('/' + version + '/organisation-details/structure', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/structure', {
         data: req.session.data
     });
@@ -1049,7 +1053,7 @@ router.get('/' + version + '/organisation-details/structure', function (req, res
 
 
 router.post('/' + version + '/organisation-details/structure', function (req, res) {
-    clearvalidation(req);
+    
     var orgstructure = req.session.data['orgstructure']
 
 
@@ -1089,7 +1093,7 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
 
 /// Org details - Parent total
 router.get('/' + version + '/organisation-details/parent-total', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/parent-total', {
         data: req.session.data
     });
@@ -1097,7 +1101,7 @@ router.get('/' + version + '/organisation-details/parent-total', function (req, 
 
 
 router.post('/' + version + '/organisation-details/parent-total', function (req, res) {
-    clearvalidation(req);
+    
     var parenttotal = req.session.data['parenttotal']
 
 
@@ -1127,7 +1131,7 @@ router.post('/' + version + '/organisation-details/parent-total', function (req,
 
 ///Parent Company name
 router.get('/' + version + '/organisation-details/company-name', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/company-name', {
         data: req.session.data
     });
@@ -1135,7 +1139,7 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
 
 
 router.post('/' + version + '/organisation-details/company-name', function (req, res) {
-    clearvalidation(req);
+    
     var parentcompanyname = req.session.data['parentcompanyname']
     req.session.data['parentaccounttype'] == "Overseas organisation"
     
@@ -1171,7 +1175,7 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
 
 // Parent Company - Address manual
 router.get('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/organisation-details/addressmanual', {
         data: req.session.data
     });
@@ -1179,7 +1183,7 @@ router.get('/' + version + '/organisation-details/addressmanual', function (req,
 
 
 router.post('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    clearvalidation(req);
+    
     var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
     var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
     var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
@@ -1251,7 +1255,7 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
 
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/organisation-details/cya', {
         data: req.session.data
@@ -1260,7 +1264,7 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['organisationdetails'] = 'Submitted';
     res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
 
@@ -1397,7 +1401,7 @@ function clearediteduser(req) {
 
 /// Add user
 router.get('/' + version + '/manage-users/add-user', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/manage-users/add-user', {
         data: req.session.data
     });
@@ -1405,7 +1409,7 @@ router.get('/' + version + '/manage-users/add-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user', function (req, res) {
-    clearvalidation(req);
+    
 
 
     var useremail = req.session.data['useremail']
@@ -1445,7 +1449,7 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 /// Add user details
 router.get('/' + version + '/manage-users/add-user-details', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/manage-users/add-user-details', {
         data: req.session.data
     });
@@ -1453,7 +1457,7 @@ router.get('/' + version + '/manage-users/add-user-details', function (req, res)
 
 
 router.post('/' + version + '/manage-users/add-user-details', function (req, res) {
-    clearvalidation(req);
+    
 
 
     var userfirstname = req.session.data['userfirstname']
@@ -1538,7 +1542,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
 
 /// Add user - third party
 router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/manage-users/add-user-org', {
         data: req.session.data
     });
@@ -1546,7 +1550,7 @@ router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
-    clearvalidation(req);
+    
     var userorgname = req.session.data['userorgname']
     var userthirdparty = req.session.data['userthirdparty']
     var userjobtitle = req.session.data['userjobtitle']
@@ -1587,7 +1591,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 /// Add user permissions
 router.get('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/manage-users/add-user-permissions', {
         data: req.session.data
     });
@@ -1595,7 +1599,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 
 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['adduserpermissionsview' + req.session.data['usertotal']] = req.session.data['adduserpermissionsview']
     req.session.data['adduserpermissionstransfer' + req.session.data['usertotal']] = req.session.data['adduserpermissionstransfer']
     req.session.data['adduserpermissionsrightsandpowers' + req.session.data['usertotal']] = req.session.data['adduserpermissionsrightsandpowers']
@@ -1608,7 +1612,7 @@ router.post('/' + version + '/manage-users/add-user-permissions', function (req,
 
 /// Edit user
 router.get('/' + version + '/manage-users/edit-user', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1619,7 +1623,7 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user', function (req, res) {
-    clearvalidation(req);
+    
     var source = req.query.source;
 
     var userfirstname = req.session.data['edituserfirstname']
@@ -1713,7 +1717,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 /// Edit user permissions
 router.get('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
     const urlParams = req.query.notification;
@@ -1728,7 +1732,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 
 
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = req.session.data['edituserpermissionsview']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']
     req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = req.session.data['edituserpermissionsmonitoring']
@@ -1742,7 +1746,7 @@ router.post('/' + version + '/manage-users/edit-user-permissions', function (req
 
 /// Edit user - third party
 router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1754,7 +1758,7 @@ router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    clearvalidation(req);
+    
     var edituserthirdparty = req.session.data['edituserthirdparty']
     var edituserjobtitle = req.session.data['edituserjobtitle']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
@@ -1792,14 +1796,14 @@ router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 /// Reg change
 router.get('/' + version + '/manage-users/reg-change', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/manage-users/reg-change', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/manage-users/reg-change', function (req, res) {
-    clearvalidation(req);
+    
     var regchange = req.session.data['regchange']
 
     if (regchange == "") {
@@ -1828,7 +1832,7 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
 
 /// Delete user
 router.get('/' + version + '/manage-users/delete-user', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1843,7 +1847,7 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    clearvalidation(req);
+    
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = ""
     req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = ""
@@ -1858,7 +1862,7 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
 
 /// Cancel invite
 router.get('/' + version + '/manage-users/cancel-invite', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1873,7 +1877,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    clearvalidation(req);
+    
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -1884,7 +1888,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
 
 /// Remove user
 router.get('/' + version + '/manage-users/remove-user', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1899,7 +1903,7 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    clearvalidation(req);
+    
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -1910,7 +1914,7 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
 
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
-    clearvalidation(req);
+    
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1924,7 +1928,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    clearvalidation(req);
+    
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
 
     req.session.data['isdeleted' + req.session.data['userid']] = false;
@@ -1935,7 +1939,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);
-    clearvalidation(req);
+    
     const urlParams = req.query.notification;
     const variant = req.query.v;
 
@@ -1957,7 +1961,7 @@ router.get('/' + version + '/manage-users', function (req, res) {
 
 
 router.post('/' + version + '/manage-users', function (req, res) {
-    clearvalidation(req);
+    
     clearaddeduser(req);
     res.redirect('/' + version + '/manage-users/add-user');
 });
@@ -1965,7 +1969,7 @@ router.post('/' + version + '/manage-users', function (req, res) {
 
 /// User profile
 router.get('/' + version + '/manage-users/user-profile', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     const userid = req.query.id;
@@ -1981,7 +1985,7 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
 /// User profile self
 router.get('/' + version + '/my-profile', function (req, res) {
     generateuser(req);
-    clearvalidation(req);
+    
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     clearediteduser(req)
@@ -1998,7 +2002,7 @@ router.get('/' + version + '/my-profile', function (req, res) {
 
 /// Start
 router.get('/' + version + '/account-creation/start', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/start', {
         data: req.session.data
     });
@@ -2017,7 +2021,7 @@ router.post('/' + version + '/account-creation/start', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  ONE LOGIN  - P0 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 /// Email
 router.get('/' + version + '/account-creation/one-login/enter-email-create', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/enter-email-create', {
         data: req.session.data
     });
@@ -2025,7 +2029,7 @@ router.get('/' + version + '/account-creation/one-login/enter-email-create', fun
 
 
 router.post('/' + version + '/account-creation/one-login/enter-email-create', function (req, res) {
-    clearvalidation(req);
+    
     var email = req.session.data['oneloginemail']
 
     if (!email) {
@@ -2050,7 +2054,7 @@ router.post('/' + version + '/account-creation/one-login/enter-email-create', fu
 
 /// Email
 router.get('/' + version + '/account-creation/one-login/check-your-email', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/check-your-email', {
         data: req.session.data
     });
@@ -2058,7 +2062,7 @@ router.get('/' + version + '/account-creation/one-login/check-your-email', funct
 
 
 router.post('/' + version + '/account-creation/one-login/check-your-email', function (req, res) {
-    clearvalidation(req);
+    
 
 
 
@@ -2070,7 +2074,7 @@ router.post('/' + version + '/account-creation/one-login/check-your-email', func
 
 /// Email sign in
 router.get('/' + version + '/account-creation/one-login/enter-email-sign-in', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/enter-email-sign-in', {
         data: req.session.data
     });
@@ -2078,7 +2082,7 @@ router.get('/' + version + '/account-creation/one-login/enter-email-sign-in', fu
 
 
 router.post('/' + version + '/account-creation/one-login/enter-email-sign-in', function (req, res) {
-    clearvalidation(req);
+    
 
 
 
@@ -2090,7 +2094,7 @@ router.post('/' + version + '/account-creation/one-login/enter-email-sign-in', f
 
 /// Create password
 router.get('/' + version + '/account-creation/one-login/create-password', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/create-password', {
         data: req.session.data
     });
@@ -2098,7 +2102,7 @@ router.get('/' + version + '/account-creation/one-login/create-password', functi
 
 
 router.post('/' + version + '/account-creation/one-login/create-password', function (req, res) {
-    clearvalidation(req);
+    
 
             res.redirect('/' + version + '/account-creation/one-login/get-security-codes');
 
@@ -2107,7 +2111,7 @@ router.post('/' + version + '/account-creation/one-login/create-password', funct
 
 /// Get security codes
 router.get('/' + version + '/account-creation/one-login/get-security-codes', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/get-security-codes', {
         data: req.session.data
     });
@@ -2115,7 +2119,7 @@ router.get('/' + version + '/account-creation/one-login/get-security-codes', fun
 
 
 router.post('/' + version + '/account-creation/one-login/get-security-codes', function (req, res) {
-    clearvalidation(req);
+    
     var authenticate = req.session.data['2faMethod']
 
     if (!authenticate) {
@@ -2148,7 +2152,7 @@ router.post('/' + version + '/account-creation/one-login/get-security-codes', fu
 
 /// Enter phone number
 router.get('/' + version + '/account-creation/one-login/enter-phone-number', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/enter-phone-number', {
         data: req.session.data
     });
@@ -2156,7 +2160,7 @@ router.get('/' + version + '/account-creation/one-login/enter-phone-number', fun
 
 
 router.post('/' + version + '/account-creation/one-login/enter-phone-number', function (req, res) {
-    clearvalidation(req);
+    
     var phone = req.session.data['oneloginphone']
 
     if (!phone) {
@@ -2183,7 +2187,7 @@ router.post('/' + version + '/account-creation/one-login/enter-phone-number', fu
 
 /// Check your phone
 router.get('/' + version + '/account-creation/one-login/check-your-phone', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/one-login/check-your-phone', {
         data: req.session.data
     });
@@ -2191,7 +2195,7 @@ router.get('/' + version + '/account-creation/one-login/check-your-phone', funct
 
 
 router.post('/' + version + '/account-creation/one-login/check-your-phone', function (req, res) {
-    clearvalidation(req);
+    
 
             res.redirect('/' + version + '/account-creation/one-login/account-created');
 
@@ -2203,7 +2207,7 @@ router.post('/' + version + '/account-creation/one-login/check-your-phone', func
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ACCOUNT CREATE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Intro
 router.get('/' + version + '/account-creation/intro', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/intro', {
         data: req.session.data
     });
@@ -2213,7 +2217,7 @@ router.get('/' + version + '/account-creation/intro', function (req, res) {
 
 ///Select org
 router.get('/' + version + '/account-creation/select-org', function (req, res) {
-    clearvalidation(req);
+    
     const orgtotal = req.query.orgtotal;
     if (orgtotal) {
         req.session.data['orgtotal'] = orgtotal;
@@ -2226,7 +2230,7 @@ router.get('/' + version + '/account-creation/select-org', function (req, res) {
 
 
 router.post('/' + version + '/account-creation/select-org', function (req, res) {
-    clearvalidation(req);
+    
     var orgselect = req.session.data['orgselect']
         if (!orgselect) {
             req.session.data.validationError = "true"
@@ -2270,7 +2274,7 @@ router.post('/' + version + '/account-creation/select-org', function (req, res) 
 
 ///Legal declaration
 router.get('/' + version + '/account-creation/check-answers', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/check-answers', {
         data: req.session.data
     });
@@ -2278,7 +2282,7 @@ router.get('/' + version + '/account-creation/check-answers', function (req, res
 
 
 router.post('/' + version + '/account-creation/check-answers', function (req, res) {
-    clearvalidation(req);
+    
     var confirmauthority = req.session.data['creatorlegaldeclaration']
 
     if (!confirmauthority) {
@@ -2331,7 +2335,7 @@ router.post('/' + version + '/account-creation/check-answers', function (req, re
 
 ///Type
 router.get('/' + version + '/account-creation/type', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/type', {
         data: req.session.data
     });
@@ -2339,7 +2343,7 @@ router.get('/' + version + '/account-creation/type', function (req, res) {
 
 
 router.post('/' + version + '/account-creation/type', function (req, res) {
-    clearvalidation(req);
+    
     var accounttype = req.session.data['accounttype']
 
     if (!accounttype) {
@@ -2369,7 +2373,7 @@ router.post('/' + version + '/account-creation/type', function (req, res) {
 });
 ///Company name
 router.get('/' + version + '/account-creation/company-name', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/company-name', {
         data: req.session.data
     });
@@ -2377,7 +2381,7 @@ router.get('/' + version + '/account-creation/company-name', function (req, res)
 
 
 router.post('/' + version + '/account-creation/company-name', function (req, res) {
-    clearvalidation(req);
+    
     var companyname = req.session.data['companyname']
     var accounttype = req.session.data['accounttype']
     
@@ -2413,7 +2417,7 @@ router.post('/' + version + '/account-creation/company-name', function (req, res
 
 ///Company number
 router.get('/' + version + '/account-creation/company-number', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/company-number', {
         data: req.session.data
     });
@@ -2421,7 +2425,7 @@ router.get('/' + version + '/account-creation/company-number', function (req, re
 
 
 router.post('/' + version + '/account-creation/company-number', function (req, res) {
-    clearvalidation(req);
+    
     var orgcompanynumber = req.session.data['companynumber']
     var accounttype = req.session.data['accounttype']
 
@@ -2542,7 +2546,7 @@ else {
 
 ///Your details
 router.get('/' + version + '/account-creation/your-details', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/your-details', {
         data: req.session.data
     });
@@ -2550,7 +2554,7 @@ router.get('/' + version + '/account-creation/your-details', function (req, res)
 
 
 router.post('/' + version + '/account-creation/your-details', function (req, res) {
-    clearvalidation(req);
+    
     var firstname = req.session.data['yourfirstname']
     var lastname = req.session.data['yourlastname']
     var telephone = req.session.data['yourtelephone']
@@ -2626,7 +2630,7 @@ router.post('/' + version + '/account-creation/your-details', function (req, res
 
 ///Director select
 router.get('/' + version + '/account-creation/director-select', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/director-select', {
         data: req.session.data
     });
@@ -2634,7 +2638,7 @@ router.get('/' + version + '/account-creation/director-select', function (req, r
 
 
 router.post('/' + version + '/account-creation/director-select', function (req, res) {
-    clearvalidation(req);
+    
     var directorselect = req.session.data['directorselect']
     var accounttype = req.session.data['accounttype']
 
@@ -2691,7 +2695,7 @@ router.post('/' + version + '/account-creation/director-select', function (req, 
 
 ///Director details
 router.get('/' + version + '/account-creation/director-details', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/director-details', {
         data: req.session.data
     });
@@ -2699,7 +2703,7 @@ router.get('/' + version + '/account-creation/director-details', function (req, 
 
 
 router.post('/' + version + '/account-creation/director-details', function (req, res) {
-    clearvalidation(req);
+    
     var email = req.session.data['directoremail']
     var firstname = req.session.data['directorfirstname']
     var lastname = req.session.data['directorlastname']
@@ -2746,7 +2750,7 @@ router.post('/' + version + '/account-creation/director-details', function (req,
 
 ///Director details check
 router.get('/' + version + '/account-creation/director-details-check', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/director-details-check', {
         data: req.session.data
     });
@@ -2754,7 +2758,7 @@ router.get('/' + version + '/account-creation/director-details-check', function 
 
 
 router.post('/' + version + '/account-creation/director-details-check', function (req, res) {
-    clearvalidation(req);
+    
     var firstname = req.session.data['directorfirstname']
     var lastname = req.session.data['directorlastname']
 
@@ -2793,7 +2797,7 @@ router.post('/' + version + '/account-creation/director-details-check', function
 
 ///Confirm authority
 router.get('/' + version + '/account-creation/confirm-authority', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/confirm-authority', {
         data: req.session.data
     });
@@ -2801,7 +2805,7 @@ router.get('/' + version + '/account-creation/confirm-authority', function (req,
 
 
 router.post('/' + version + '/account-creation/confirm-authority', function (req, res) {
-    clearvalidation(req);
+    
     var confirmauthority = req.session.data['confirmauthority']
 
     if (!confirmauthority) {
@@ -2828,7 +2832,7 @@ router.post('/' + version + '/account-creation/confirm-authority', function (req
 
 ///Confirm director authority
 router.get('/' + version + '/account-creation/confirm-director-authority', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/confirm-director-authority', {
         data: req.session.data
     });
@@ -2836,7 +2840,7 @@ router.get('/' + version + '/account-creation/confirm-director-authority', funct
 
 
 router.post('/' + version + '/account-creation/confirm-director-authority', function (req, res) {
-    clearvalidation(req);
+    
     var confirmauthority = req.session.data['confirmauthority']
 
     if (!confirmauthority) {
@@ -2869,7 +2873,7 @@ router.post('/' + version + '/account-creation/confirm-director-authority', func
 
 ///Company create
 router.get('/' + version + '/account-creation/company-create', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/company-create', {
         data: req.session.data
     });
@@ -2877,7 +2881,7 @@ router.get('/' + version + '/account-creation/company-create', function (req, re
 
 
 router.post('/' + version + '/account-creation/company-create', function (req, res) {
-    clearvalidation(req);
+    
     var companycreate = req.session.data['companycreate']
     var accounttype = req.session.data['accounttype']
 
@@ -2932,7 +2936,7 @@ router.post('/' + version + '/emails/service-invite', function (req, res) {
 
 // Company - Address
 router.get('/' + version + '/account-creation/address', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/address', {
         data: req.session.data
     });
@@ -2940,7 +2944,7 @@ router.get('/' + version + '/account-creation/address', function (req, res) {
 
 
 router.post('/' + version + '/account-creation/address', function (req, res) {
-    clearvalidation(req);
+    
     var userpostcode = req.session.data['orgaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
     if (!userpostcode) {
@@ -3045,7 +3049,7 @@ router.post('/' + version + '/account-creation/address', function (req, res) {
 
 ///Address error
 router.get('/' + version + '/account-creation/addresserror', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.reason;
     req.session.data['addresserrorreason'] = urlParams;
 
@@ -3058,7 +3062,7 @@ router.get('/' + version + '/account-creation/addresserror', function (req, res)
 
 // Company - Address select
 router.get('/' + version + '/account-creation/addressselect', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/addressselect', {
         data: req.session.data
     });
@@ -3066,7 +3070,7 @@ router.get('/' + version + '/account-creation/addressselect', function (req, res
 
 
 router.post('/' + version + '/account-creation/addressselect', function (req, res) {
-    clearvalidation(req);
+    
     var addressselect = req.session.data['orgaddressSelect']
 
 
@@ -3094,7 +3098,7 @@ router.post('/' + version + '/account-creation/addressselect', function (req, re
 
 // Company - Address manual
 router.get('/' + version + '/account-creation/addressmanual', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/account-creation/addressmanual', {
         data: req.session.data
     });
@@ -3102,7 +3106,7 @@ router.get('/' + version + '/account-creation/addressmanual', function (req, res
 
 
 router.post('/' + version + '/account-creation/addressmanual', function (req, res) {
-    clearvalidation(req);
+    
     var orgaddressMLine1 = req.session.data['orgaddressMLine1']
     var orgaddressMTown = req.session.data['orgaddressMTown']
     var orgaddressMCounty = req.session.data['orgaddressMCounty']
@@ -3197,7 +3201,7 @@ function clearRegIntro(req) {
 
 // Introduction - Cancel
 router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['cancels'] = "";
     backURL = req.header('Referer')
     res.render('/' + version + '/add-heat-network/introduction/cancel', {
@@ -3207,7 +3211,7 @@ router.get('/' + version + '/add-heat-network/introduction/cancel', function (re
 
 
 router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    clearvalidation(req);
+    
     var cancels = req.session.data['cancels']
 
     if (!cancels) {
@@ -3237,7 +3241,7 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
 // Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/intro', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/intro', {
         data: req.session.data
     });
@@ -3247,7 +3251,7 @@ router.get('/' + version + '/add-heat-network/introduction/intro', function (req
 
 // Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/initial', function (req, res) {
-    clearvalidation(req);
+    
     clearRegIntro(req);
     res.render('/' + version + '/add-heat-network/introduction/initial', {
         data: req.session.data
@@ -3262,7 +3266,7 @@ router.get('/' + version + '/add-heat-network/introduction/initial', function (r
 
 // Tasklist
 router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
-    clearvalidation(req);
+    
 
     const urlParams = req.query.v;
     req.session.data['variantname'] = urlParams
@@ -3343,7 +3347,7 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
 // Introduction - Intro
 router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['cancels'] = "";
     
     backURL = req.header('Referer')
@@ -3354,7 +3358,7 @@ router.get('/' + version + '/add-heat-network/introduction/cancel', function (re
 
 // Introduction - dropout
 router.get('/' + version + '/add-heat-network/introduction/dropout', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.v;
     req.session.data['introdropoutreason'] = urlParams;
 
@@ -3366,7 +3370,7 @@ router.get('/' + version + '/add-heat-network/introduction/dropout', function (r
 
 
 router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    clearvalidation(req);
+    
     var cancels = req.session.data['cancels']
 
     if (!cancels) {
@@ -3397,7 +3401,7 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
 // Introduction - Relevant
 router.get('/' + version + '/add-heat-network/introduction/relevant', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/relevant', {
         data: req.session.data
     });
@@ -3405,7 +3409,7 @@ router.get('/' + version + '/add-heat-network/introduction/relevant', function (
 
 
 router.post('/' + version + '/add-heat-network/introduction/relevant', function (req, res) {
-    clearvalidation(req);
+    
     var introrelevant = req.session.data['introrelevant']
 
     if (!introrelevant) {
@@ -3435,7 +3439,7 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
 
 // Introduction - Ground loop
 router.get('/' + version + '/add-heat-network/introduction/groundloop', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/groundloop', {
         data: req.session.data
     });
@@ -3443,7 +3447,7 @@ router.get('/' + version + '/add-heat-network/introduction/groundloop', function
 
 
 router.post('/' + version + '/add-heat-network/introduction/groundloop', function (req, res) {
-    clearvalidation(req);
+    
     var introgroundloop = req.session.data['introgroundloop']
 
     if (!introgroundloop) {
@@ -3476,7 +3480,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
 
 // Introduction - Role
 router.get('/' + version + '/add-heat-network/introduction/role', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/role', {
         data: req.session.data
     });
@@ -3484,7 +3488,7 @@ router.get('/' + version + '/add-heat-network/introduction/role', function (req,
 
 
 router.post('/' + version + '/add-heat-network/introduction/role', function (req, res) {
-    clearvalidation(req);
+    
     var role = req.session.data['role']
 
     if (!role) {
@@ -3516,7 +3520,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
 
 // Introduction - Communal
 router.get('/' + version + '/add-heat-network/introduction/communal', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/communal', {
         data: req.session.data
     });
@@ -3524,7 +3528,7 @@ router.get('/' + version + '/add-heat-network/introduction/communal', function (
 
 
 router.post('/' + version + '/add-heat-network/introduction/communal', function (req, res) {
-    clearvalidation(req);
+    
     var introcommunal = req.session.data['introcommunal']
 
     if (!introcommunal) {
@@ -3557,7 +3561,7 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
 
 // Introduction - Changes
 router.get('/' + version + '/add-heat-network/introduction/changes', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/changes', {
         data: req.session.data
     });
@@ -3565,7 +3569,7 @@ router.get('/' + version + '/add-heat-network/introduction/changes', function (r
 
 
 router.post('/' + version + '/add-heat-network/introduction/changes', function (req, res) {
-    clearvalidation(req);
+    
     res.redirect('/' + version + '/add-heat-network/introduction/communal');
 
 });
@@ -3575,7 +3579,7 @@ router.post('/' + version + '/add-heat-network/introduction/changes', function (
 
 // Introduction - Energy centre
 router.get('/' + version + '/add-heat-network/introduction/energycentre', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/energycentre', {
         data: req.session.data
     });
@@ -3583,7 +3587,7 @@ router.get('/' + version + '/add-heat-network/introduction/energycentre', functi
 
 
 router.post('/' + version + '/add-heat-network/introduction/energycentre', function (req, res) {
-    clearvalidation(req);
+    
     var introenergycentre = req.session.data['introenergycentre']
     var role = req.session.data['role']
 
@@ -3624,7 +3628,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
 
 // Introduction - Primary
 router.get('/' + version + '/add-heat-network/introduction/primary', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/primary', {
         data: req.session.data
     });
@@ -3632,7 +3636,7 @@ router.get('/' + version + '/add-heat-network/introduction/primary', function (r
 
 
 router.post('/' + version + '/add-heat-network/introduction/primary', function (req, res) {
-    clearvalidation(req);
+    
     var introprimary = req.session.data['introprimary']
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
     var role = req.session.data['role']
@@ -3667,14 +3671,14 @@ router.post('/' + version + '/add-heat-network/introduction/primary', function (
 
 // Introduction - Communal buildings
 router.get('/' + version + '/add-heat-network/introduction/communalbuildings', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/communalbuildings', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/communalbuildings', function (req, res) {
-    clearvalidation(req);
+    
     var introcommunalbuildings = req.session.data['introcommunalbuildings']
 
 
@@ -3708,14 +3712,14 @@ router.post('/' + version + '/add-heat-network/introduction/communalbuildings', 
 
 // Introduction - Communal Operate
 router.get('/' + version + '/add-heat-network/introduction/communaloperate', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/communaloperate', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/communaloperate', function (req, res) {
-    clearvalidation(req);
+    
     var introcommunaloperate = req.session.data['introcommunaloperate']
     var introcommunaloperatehowmany = req.session.data['introcommunaloperatehowmany']
     var introbuildingshowmany = req.session.data['introbuildingshowmany']
@@ -3772,14 +3776,14 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
 
 // Introduction - Communal Register
 router.get('/' + version + '/add-heat-network/introduction/communalregister', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/communalregister', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/communalregister', function (req, res) {
-    clearvalidation(req);
+    
 
             res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
 
@@ -3790,14 +3794,14 @@ router.post('/' + version + '/add-heat-network/introduction/communalregister', f
 
 // Introduction - Communal Other
 router.get('/' + version + '/add-heat-network/introduction/communalother', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/communalother', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/communalother', function (req, res) {
-    clearvalidation(req);
+    
     var introcommunalother = req.session.data['introcommunalother']
 
 
@@ -3830,7 +3834,7 @@ router.post('/' + version + '/add-heat-network/introduction/communalother', func
 
 // Introduction - introenergycentreoperate
 router.get('/' + version + '/add-heat-network/introduction/energycentreoperate', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/energycentreoperate', {
         data: req.session.data
     });
@@ -3838,7 +3842,7 @@ router.get('/' + version + '/add-heat-network/introduction/energycentreoperate',
 
 
 router.post('/' + version + '/add-heat-network/introduction/energycentreoperate', function (req, res) {
-    clearvalidation(req);
+    
     var introenergycentre = req.session.data['introenergycentre']
     var introenergycentrehowmany = parseInt(req.session.data['introenergycentrehowmany'])
     var buildings = req.session.data['introbuildingshowmany']
@@ -3885,7 +3889,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
 
 // Introduction - introbuildingstotal
 router.get('/' + version + '/add-heat-network/introduction/buildingstotal', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/buildingstotal', {
         data: req.session.data
     });
@@ -3893,7 +3897,7 @@ router.get('/' + version + '/add-heat-network/introduction/buildingstotal', func
 
 
 router.post('/' + version + '/add-heat-network/introduction/buildingstotal', function (req, res) {
-    clearvalidation(req);
+    
     var introbuildingstotal = req.session.data['introbuildingstotal']
 
     if (!introbuildingstotal) {
@@ -3929,7 +3933,7 @@ router.post('/' + version + '/add-heat-network/introduction/buildingstotal', fun
 
 // Introduction - introbuildings
 router.get('/' + version + '/add-heat-network/introduction/buildings', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/buildings', {
         data: req.session.data
     });
@@ -3937,7 +3941,7 @@ router.get('/' + version + '/add-heat-network/introduction/buildings', function 
 
 
 router.post('/' + version + '/add-heat-network/introduction/buildings', function (req, res) {
-    clearvalidation(req);
+    
     var introbuildingstotal = parseInt(req.session.data['introbuildingstotal'])
     var introbuildings = req.session.data['introbuildings']
     var introbuildingshowmany = req.session.data['introbuildingshowmany']
@@ -3999,7 +4003,7 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
 
 // Introduction - Summary
 router.get('/' + version + '/add-heat-network/introduction/summary', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/summary', {
         data: req.session.data
     });
@@ -4008,14 +4012,14 @@ router.get('/' + version + '/add-heat-network/introduction/summary', function (r
 
 // Introduction - Pipework
 router.get('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/pipework', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/pipework', function (req, res) {
-    clearvalidation(req);
+    
     var intropipework = req.session.data['intropipework']
 
     if (!intropipework) {
@@ -4051,7 +4055,7 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
 
 // Introduction - introselfsupply
 router.get('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/selfsupply', {
         data: req.session.data
     });
@@ -4059,7 +4063,7 @@ router.get('/' + version + '/add-heat-network/introduction/selfsupply', function
 
 
 router.post('/' + version + '/add-heat-network/introduction/selfsupply', function (req, res) {
-    clearvalidation(req);
+    
     var introselfsupply = req.session.data['introselfsupply']
     var buildings = req.session.data['introhnbuildings']
     var role = req.session.data['role']
@@ -4098,14 +4102,14 @@ router.post('/' + version + '/add-heat-network/introduction/selfsupply', functio
 
 // Introduction - Suppliers
 router.get('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/suppliers', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     var introsuppliers = req.session.data['introsuppliers']
 
 
@@ -4132,14 +4136,14 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
 
 // Introduction - Supply current
 router.get('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
-    clearvalidation(req);
+    
     var introsupplycurrent = req.session.data['introsupplycurrent']
 
 
@@ -4173,14 +4177,14 @@ router.post('/' + version + '/add-heat-network/introduction/supplycurrent', func
 
 // Introduction - Supply start
 router.get('/' + version + '/add-heat-network/introduction/supplystart', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supplystart', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/introduction/supplystart', function (req, res) {
-    clearvalidation(req);
+    
     var introsupplystart = req.session.data['introsupplystart']
 
 
@@ -4214,7 +4218,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplystart', functi
 
 // Introduction - introcontrol
 router.get('/' + version + '/add-heat-network/introduction/control', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/control', {
         data: req.session.data
     });
@@ -4222,7 +4226,7 @@ router.get('/' + version + '/add-heat-network/introduction/control', function (r
 
 
 router.post('/' + version + '/add-heat-network/introduction/control', function (req, res) {
-    clearvalidation(req);
+    
     var introcontrol = req.session.data['introcontrol']
     var controlnumber = parseInt(req.session.data['introcontrolhowmany'])
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
@@ -4262,7 +4266,7 @@ router.post('/' + version + '/add-heat-network/introduction/control', function (
 
 // Introduction - Only Supplier
 router.get('/' + version + '/add-heat-network/introduction/othersuppliers', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/othersuppliers', {
         data: req.session.data
     });
@@ -4270,7 +4274,7 @@ router.get('/' + version + '/add-heat-network/introduction/othersuppliers', func
 
 
 router.post('/' + version + '/add-heat-network/introduction/othersuppliers', function (req, res) {
-    clearvalidation(req);
+    
     var introonlysupplier = req.session.data['introonlysupplier']
 
     if (!introonlysupplier) {
@@ -4296,7 +4300,7 @@ router.post('/' + version + '/add-heat-network/introduction/othersuppliers', fun
 
 // Introduction - Supply
 router.get('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supply', {
         data: req.session.data
     });
@@ -4304,7 +4308,7 @@ router.get('/' + version + '/add-heat-network/introduction/supply', function (re
 
 
 router.post('/' + version + '/add-heat-network/introduction/supply', function (req, res) {
-clearvalidation(req);
+
 var introsupply = req.session.data['introsupply']
 
 if (!introsupply) {
@@ -4372,7 +4376,7 @@ else {
 
 // Introduction - Suppliers
 router.get('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/suppliers', {
         data: req.session.data
     });
@@ -4380,7 +4384,7 @@ router.get('/' + version + '/add-heat-network/introduction/suppliers', function 
 
 
 router.post('/' + version + '/add-heat-network/introduction/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     var introsuppliers = req.session.data['introsuppliers']
 
     if (!introsuppliers) {
@@ -4407,7 +4411,7 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
 
 // Introduction - Only supplier
 router.get('/' + version + '/add-heat-network/introduction/onlysupply', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/onlysupply', {
         data: req.session.data
     });
@@ -4415,7 +4419,7 @@ router.get('/' + version + '/add-heat-network/introduction/onlysupply', function
 
 
 router.post('/' + version + '/add-heat-network/introduction/onlysupply', function (req, res) {
-    clearvalidation(req);
+    
     var introonlysupply = req.session.data['introonlysupply']
     var role = req.session.data['role']
 
@@ -4450,7 +4454,7 @@ router.post('/' + version + '/add-heat-network/introduction/onlysupply', functio
 
 // Introduction - Supply 20 years
 router.get('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supply20', {
         data: req.session.data
     });
@@ -4458,7 +4462,7 @@ router.get('/' + version + '/add-heat-network/introduction/supply20', function (
 
 
 router.post('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
-clearvalidation(req);
+
 var introsupply20 = req.session.data['introsupply20']
 
 if (!introsupply20) {
@@ -4487,7 +4491,7 @@ else {
 
 // Introduction - Supply when
 router.get('/' + version + '/add-heat-network/introduction/supplywhen', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supplywhen', {
         data: req.session.data
     });
@@ -4495,7 +4499,7 @@ router.get('/' + version + '/add-heat-network/introduction/supplywhen', function
 
 
 router.post('/' + version + '/add-heat-network/introduction/supplywhen', function (req, res) {
-    clearvalidation(req);
+    
     var supplywhenyear = req.session.data['supplywhenyear']
     var introcommunal = req.session.data['introcommunal']
 
@@ -4537,7 +4541,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplywhen', functio
 
 // Introduction - Supply decade
 router.get('/' + version + '/add-heat-network/introduction/supplydecade', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/supplydecade', {
         data: req.session.data
     });
@@ -4545,7 +4549,7 @@ router.get('/' + version + '/add-heat-network/introduction/supplydecade', functi
 
 
 router.post('/' + version + '/add-heat-network/introduction/supplydecade', function (req, res) {
-    clearvalidation(req);
+    
     var introsupplydecade = req.session.data['introsupplydecade']
     var introcommunal = req.session.data['introcommunal']
 
@@ -4575,7 +4579,7 @@ router.post('/' + version + '/add-heat-network/introduction/supplydecade', funct
 
 // Introduction - Operationbal
 router.get('/' + version + '/add-heat-network/introduction/operational', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/operational', {
         data: req.session.data
     });
@@ -4583,7 +4587,7 @@ router.get('/' + version + '/add-heat-network/introduction/operational', functio
 
 
 router.post('/' + version + '/add-heat-network/introduction/operational', function (req, res) {
-    clearvalidation(req);
+    
     var introoperationalday = req.session.data['introoperationalday']
     var introoperationalmonth = req.session.data['introoperationalmonth']
     var introoperationalyear = req.session.data['introoperationalyear']
@@ -4676,7 +4680,7 @@ router.post('/' + version + '/add-heat-network/introduction/operational', functi
 
 // Introduction - Buy Heat
 router.get('/' + version + '/add-heat-network/introduction/buy', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/buy', {
         data: req.session.data
     });
@@ -4684,7 +4688,7 @@ router.get('/' + version + '/add-heat-network/introduction/buy', function (req, 
 
 
 router.post('/' + version + '/add-heat-network/introduction/buy', function (req, res) {
-    clearvalidation(req);
+    
     var introbuy = req.session.data['introbuy']
 
     if (!introbuy) {
@@ -4709,7 +4713,7 @@ router.post('/' + version + '/add-heat-network/introduction/buy', function (req,
 
 // Introduction - Buy Heat
 router.get('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/sell', {
         data: req.session.data
     });
@@ -4717,7 +4721,7 @@ router.get('/' + version + '/add-heat-network/introduction/sell', function (req,
 
 
 router.post('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
-    clearvalidation(req);
+    
     var introsell = req.session.data['introsell']
 
     if (!introsell) {
@@ -4741,7 +4745,7 @@ router.post('/' + version + '/add-heat-network/introduction/sell', function (req
 });
 // Introduction - Name
 router.get('/' + version + '/add-heat-network/introduction/name', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/name', {
         data: req.session.data
     });
@@ -4749,7 +4753,7 @@ router.get('/' + version + '/add-heat-network/introduction/name', function (req,
 
 
 router.post('/' + version + '/add-heat-network/introduction/name', function (req, res) {
-    clearvalidation(req);
+    
     var name = req.session.data['name']
 
     if (!name) {
@@ -4779,7 +4783,7 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
 
 // Introduction - Commissioned
 router.get('/' + version + '/add-heat-network/introduction/commissioned', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/commissioned', {
         data: req.session.data
     });
@@ -4787,7 +4791,7 @@ router.get('/' + version + '/add-heat-network/introduction/commissioned', functi
 
 
 router.post('/' + version + '/add-heat-network/introduction/commissioned', function (req, res) {
-clearvalidation(req);
+
 var introcommissioned = req.session.data['introcommissioned']
 
 if (!introcommissioned) {
@@ -4819,7 +4823,7 @@ else {
 
 // Introduction - Sharedfacilities
 router.get('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
         data: req.session.data
     });
@@ -4827,7 +4831,7 @@ router.get('/' + version + '/add-heat-network/introduction/sharedfacilities', fu
 
 
 router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    clearvalidation(req);
+    
     var sharedfacilities = req.session.data['sharedfacilities']
     var sharednumnber = parseInt(req.session.data['sharedfacilitieshowmany'])
     var buildings = parseInt(req.session.data['buildings'])
@@ -4934,7 +4938,7 @@ router.post('/' + version + '/add-heat-network/introduction/cya', function (req,
 
 // Confirm changes
 router.get('/' + version + '/add-heat-network/confirmchange', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['confirmchange'] = "";
     backURL = req.header('Referer')
     res.render('/' + version + '/add-heat-network/confirmchange', {
@@ -4944,7 +4948,7 @@ router.get('/' + version + '/add-heat-network/confirmchange', function (req, res
 
 
 router.post('/' + version + '/add-heat-network/confirmchange', function (req, res) {
-    clearvalidation(req);
+    
     var confirmchange = req.session.data['confirmchange']
 
     if (!confirmchange) {
@@ -4974,7 +4978,7 @@ router.post('/' + version + '/add-heat-network/confirmchange', function (req, re
 
 // Energy centre - Energy Centres
 router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
     res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
         data: req.session.data
@@ -4983,7 +4987,7 @@ router.get('/' + version + '/add-heat-network/energycentre/energycentres', funct
 
 
 router.post('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
-    clearvalidation(req);
+    
     var enerycentrescompleted = req.session.data['enerycentrescompleted']
 
 
@@ -5023,7 +5027,7 @@ req.session.data['techmeters'] = req.session.data['techmeters' + id];
 
 // Energy centre - Has postcode
 router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
-    clearvalidation(req);
+    
     req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
 
 
@@ -5042,7 +5046,7 @@ router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', fun
 
 
 router.post('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {
-    clearvalidation(req);
+    
     var ecaddressHasPostcode = req.session.data['ecaddressHasPostcode']
 
     if (!ecaddressHasPostcode) {
@@ -5082,7 +5086,7 @@ router.post('/' + version + '/add-heat-network/energycentre/addresspostcode', fu
 
 // Energy centre - Coordinates
 router.get('/' + version + '/add-heat-network/energycentre/addresscoords', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/energycentre/addresscoords', {
         data: req.session.data
@@ -5091,7 +5095,7 @@ router.get('/' + version + '/add-heat-network/energycentre/addresscoords', funct
 
 
 router.post('/' + version + '/add-heat-network/energycentre/addresscoords', function (req, res) {
-    clearvalidation(req);
+    
 
     var ecaddresslatitude = req.session.data['ecaddresslatitude']
     var ecaddresslongitude = req.session.data['ecaddresslongitude']
@@ -5130,7 +5134,7 @@ router.post('/' + version + '/add-heat-network/energycentre/addresscoords', func
 
 // Energy centre - Address
 router.get('/' + version + '/add-heat-network/energycentre/address', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/address', {
         data: req.session.data
     });
@@ -5138,7 +5142,7 @@ router.get('/' + version + '/add-heat-network/energycentre/address', function (r
 
 
 router.post('/' + version + '/add-heat-network/energycentre/address', function (req, res) {
-    clearvalidation(req);
+    
     var userpostcode = req.session.data['ecaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
 
     if (!userpostcode) {
@@ -5219,7 +5223,7 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
 
 // Energy center - Address select
 router.get('/' + version + '/add-heat-network/energycentre/addressselect', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/addressselect', {
         data: req.session.data
     });
@@ -5227,7 +5231,7 @@ router.get('/' + version + '/add-heat-network/energycentre/addressselect', funct
 
 
 router.post('/' + version + '/add-heat-network/energycentre/addressselect', function (req, res) {
-    clearvalidation(req);
+    
     var addressselect = req.session.data['ecaddressSelected']
 
     if (!addressselect) {
@@ -5254,7 +5258,7 @@ router.post('/' + version + '/add-heat-network/energycentre/addressselect', func
 
 // Energy centre - Address confirm
 router.get('/' + version + '/add-heat-network/energycentre/addressconfirm', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/addressconfirm', {
         data: req.session.data
     });
@@ -5274,7 +5278,7 @@ router.post('/' + version + '/add-heat-network/energycentre/addressconfirm', fun
 
 // Energy centre - Address manual
 router.get('/' + version + '/add-heat-network/energycentre/addressmanual', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/addressmanual', {
         data: req.session.data
     });
@@ -5285,7 +5289,7 @@ router.get('/' + version + '/add-heat-network/energycentre/addressmanual', funct
 
 // Energy Centre - Type
 router.get('/' + version + '/add-heat-network/energycentre/type', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/type', {
         data: req.session.data
     });
@@ -5293,7 +5297,7 @@ router.get('/' + version + '/add-heat-network/energycentre/type', function (req,
 
 
 router.post('/' + version + '/add-heat-network/energycentre/type', function (req, res) {
-    clearvalidation(req);
+    
     var energytypes = req.session.data['energytype']
 
     if (!energytypes) {
@@ -5323,7 +5327,7 @@ router.post('/' + version + '/add-heat-network/energycentre/type', function (req
 });
 // Energy centre - Capacity
 router.get('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/capacity', {
         data: req.session.data
     });
@@ -5331,7 +5335,7 @@ router.get('/' + version + '/add-heat-network/energycentre/capacity', function (
 
 
 router.post('/' + version + '/add-heat-network/energycentre/capacity', function (req, res) {
-    clearvalidation(req);
+    
     var techcapacity = req.session.data['techcapacity']
     var energytype = req.session.data['energytype']
 
@@ -5363,7 +5367,7 @@ router.post('/' + version + '/add-heat-network/energycentre/capacity', function 
 
 // Energy centre - coolingcapacity
 router.get('/' + version + '/add-heat-network/energycentre/coolingcapacity', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/coolingcapacity', {
         data: req.session.data
     });
@@ -5371,7 +5375,7 @@ router.get('/' + version + '/add-heat-network/energycentre/coolingcapacity', fun
 
 
 router.post('/' + version + '/add-heat-network/energycentre/coolingcapacity', function (req, res) {
-    clearvalidation(req);
+    
     var techcoolingcapacity = req.session.data['techcoolingcapacity']
     var services = req.session.data['service']
 
@@ -5402,7 +5406,7 @@ router.post('/' + version + '/add-heat-network/energycentre/coolingcapacity', fu
 
 // Energy centre - meters
 router.get('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/meters', {
         data: req.session.data
     });
@@ -5410,7 +5414,7 @@ router.get('/' + version + '/add-heat-network/energycentre/meters', function (re
 
 
 router.post('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
-    clearvalidation(req);
+    
     var techmeters = req.session.data['techmeters']
 var technologies = req.session.data['technologies']
 
@@ -5442,7 +5446,7 @@ var technologies = req.session.data['technologies']
 
 // Energy centre - electricity
 router.get('/' + version + '/add-heat-network/energycentre/electricity', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/electricity', {
         data: req.session.data
     });
@@ -5450,7 +5454,7 @@ router.get('/' + version + '/add-heat-network/energycentre/electricity', functio
 
 
 router.post('/' + version + '/add-heat-network/energycentre/electricity', function (req, res) {
-    clearvalidation(req);
+    
     var techelectricity = req.session.data['techelectricity']
 
 
@@ -5483,7 +5487,7 @@ router.post('/' + version + '/add-heat-network/energycentre/electricity', functi
 
 // Energy centre - technology
 router.get('/' + version + '/add-heat-network/energycentre/technology', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/technology', {
         data: req.session.data
     });
@@ -5491,7 +5495,7 @@ router.get('/' + version + '/add-heat-network/energycentre/technology', function
 
 
 router.post('/' + version + '/add-heat-network/energycentre/technology', function (req, res) {
-    clearvalidation(req);
+    
     var techtechnology = req.session.data['techtechnology']
     var techtechnologyother = req.session.data['techtechnologyother']
    
@@ -5530,7 +5534,7 @@ router.post('/' + version + '/add-heat-network/energycentre/technology', functio
 
 // Energy centre - energysource
 router.get('/' + version + '/add-heat-network/energycentre/energysource', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/energysource', {
         data: req.session.data
     });
@@ -5538,7 +5542,7 @@ router.get('/' + version + '/add-heat-network/energycentre/energysource', functi
 
 
 router.post('/' + version + '/add-heat-network/energycentre/energysource', function (req, res) {
-    clearvalidation(req);
+    
     var techenergysource = req.session.data['techenergysource']
     var techenergysourceother = req.session.data['techenergysourceother']
 
@@ -5572,7 +5576,7 @@ router.post('/' + version + '/add-heat-network/energycentre/energysource', funct
 
 // Energy centre when
 router.get('/' + version + '/add-heat-network/energycentre/when', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/when', {
         data: req.session.data
     });
@@ -5580,7 +5584,7 @@ router.get('/' + version + '/add-heat-network/energycentre/when', function (req,
 
 
 router.post('/' + version + '/add-heat-network/energycentre/when', function (req, res) {
-    clearvalidation(req);
+    
 
         res.redirect('/' + version + '/add-heat-network/energycentre/summary');
 });
@@ -5601,7 +5605,7 @@ function clearECdata(req) {
 
 // Energy centre - summary
 router.get('/' + version + '/add-heat-network/energycentre/summary', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/energycentre/summary', {
         data: req.session.data
     });
@@ -5610,7 +5614,7 @@ router.get('/' + version + '/add-heat-network/energycentre/summary', function (r
 
 
 router.post('/' + version + '/add-heat-network/energycentre/summary', function (req, res) {
-    clearvalidation(req);
+    
     var techsummaryother = req.session.data['techsummaryother']
     var energycentres = req.session.data['energycentres']
     var tech = req.session.data['techtechnology'] || req.session.data['technologyother']
@@ -5678,7 +5682,7 @@ router.post('/' + version + '/add-heat-network/energycentre/summary', function (
 
 // // Energy centre - Another
 // router.get('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
-//     clearvalidation(req);
+//     
 //     res.render('/' + version + '/add-heat-network/energycentre/another', {
 //         data: req.session.data
 //     });
@@ -5686,7 +5690,7 @@ router.post('/' + version + '/add-heat-network/energycentre/summary', function (
 
 
 // router.post('/' + version + '/add-heat-network/energycentre/another', function (req, res) {
-//     clearvalidation(req);
+//     
 //     var techanother = req.session.data['techanother']
 
 
@@ -5725,7 +5729,7 @@ router.post('/' + version + '/add-heat-network/energycentre/cya', function (req,
 
 // Buildings & consumers - How many
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/howmany', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/howmany', {
         data: req.session.data
     });
@@ -5733,7 +5737,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/howmany', fu
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/howmany', function (req, res) {
-    clearvalidation(req);
+    
     var buildings = req.session.data['buildings']
 
 
@@ -5769,7 +5773,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/howmany', f
 
 // Buildings & consumers - Contract
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/contract', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/contract', {
         data: req.session.data
     });
@@ -5777,7 +5781,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/contract', f
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/contract', function (req, res) {
-    clearvalidation(req);
+    
     var buildingcontract = req.session.data['buildingcontract']
 
 
@@ -5811,7 +5815,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/contract', 
 
 // Buildings & consumers - Type
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/type', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/type', {
         data: req.session.data
     });
@@ -5819,7 +5823,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/type', funct
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/type', function (req, res) {
-    clearvalidation(req);
+    
 
     var buildingtype = req.session.data['buildingtype']
     req.session.data['buildingtypealt'] = req.session.data['buildingtype']
@@ -5851,7 +5855,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/type', func
 
 // Buildings & consumers - Buildings
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildings', {
         data: req.session.data
     });
@@ -5859,7 +5863,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildings', 
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildings', function (req, res) {
-    clearvalidation(req);
+    
     var buildings = req.session.data['introhnbuildings']
     var buildingnumberResidential = req.session.data['buildingnumberResidential']
     var buildingnumberCommercial = req.session.data['buildingnumberCommercial']
@@ -5893,7 +5897,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildings',
 
 // Buildings & consumers - Customers
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/customers', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/customers', {
         data: req.session.data
     });
@@ -5901,7 +5905,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/customers', 
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/customers', function (req, res) {
-    clearvalidation(req);
+    
     var customers = req.session.data['buildingcustomers']
     var customersResidential = req.session.data['buildingcustomersResidential']
     var customersCommercial = req.session.data['buildingcustomersCommercial']
@@ -5983,7 +5987,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/customers',
 
 // Buildings & consumers -  Metering
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/metering', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/metering', {
         data: req.session.data
     });
@@ -5991,7 +5995,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/metering', f
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/metering', function (req, res) {
-    clearvalidation(req);
+    
     var meteringregulations = req.session.data['meteringregulations']
 
     if (!meteringregulations) {
@@ -6024,7 +6028,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/metering', 
 
 // Buildings & consumers -  Final customer meters
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/finalconsumermeters', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/finalconsumermeters', {
         data: req.session.data
     });
@@ -6032,7 +6036,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/finalconsume
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/finalconsumermeters', function (req, res) {
-    clearvalidation(req);
+    
     var finalconsumermeters = req.session.data['finalconsumermeters']
     var finalconsumermetersnumber = req.session.data['finalconsumermetersnumber']
 
@@ -6068,7 +6072,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/finalconsum
 
 // Buildings & consumers -  Heat cost allocators
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators', {
         data: req.session.data
     });
@@ -6076,7 +6080,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallo
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/heatcostallocators', function (req, res) {
-    clearvalidation(req);
+    
     var heatcostallocators = req.session.data['heatcostallocators']
     var heatcostallocatorsnumber = req.session.data['heatcostallocatorsnumber']
     var addresscustomersCommercial = req.session.data['buildingcustomersCommercial']
@@ -6118,7 +6122,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/heatcostall
 
 // Buildings & consumers -  Pre payment meters
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters', {
         data: req.session.data
     });
@@ -6126,7 +6130,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentme
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters', function (req, res) {
-    clearvalidation(req);
+    
     var prepaymentmeters = req.session.data['prepaymentmeters']
     var prepaymentmetersnumber = req.session.data['prepaymentmetersnumber']
 
@@ -6161,7 +6165,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentm
 
 // Buildings & consumers -  Smart display meters
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', {
         data: req.session.data
     });
@@ -6169,7 +6173,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplay
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdisplaymeters', function (req, res) {
-    clearvalidation(req);
+    
     var smartdisplaymeters = req.session.data['smartdisplaymeters']
     var smartdisplaymetersnumber = req.session.data['smartdisplaymetersnumber']
     var buildinglevelmeter = req.session.data['buildinglevelmeter']
@@ -6224,7 +6228,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smartdispla
 
 // Buildings & consumers -  Smart display meters technologies
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/smarttechnologies', {
         data: req.session.data
     });
@@ -6248,7 +6252,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smarttechno
 
 // Buildings & consumers -  Building level meters
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', {
         data: req.session.data
     });
@@ -6256,7 +6260,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/buildingleve
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildinglevelmeter', function (req, res) {
-    clearvalidation(req);
+    
     var buildinglevelmeter = req.session.data['buildinglevelmeter']
     var hntype = req.session.data['introcommunal']
     var buildings = req.session.data['introhnbuildings']
@@ -6301,7 +6305,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/buildinglev
 
 // Buildings & consumers -  Capable
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/capable', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/capable', {
         data: req.session.data
     });
@@ -6309,7 +6313,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/capable', fu
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/capable', function (req, res) {
-    clearvalidation(req);
+    
     var capable = req.session.data['capable']
     var buildings = req.session.data['introhnbuildings']
 
@@ -6344,7 +6348,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/capable', f
 
 // Buildings & consumers -  Metering reason
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/meteringreason', function (req, res) {
-    clearvalidation(req);
+    
 
     
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/meteringreason', {
@@ -6360,7 +6364,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/meteringrea
 
     var buildings = req.session.data['buildings']
 
-    clearvalidation(req);
+    
     var meteringregulations = req.session.data['meteringregulations']
 
     if (!meteringregulations) {
@@ -6398,7 +6402,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/meteringrea
 
 // Buildings & consumers -  Microbusinesses
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', {
         data: req.session.data
     });
@@ -6406,7 +6410,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusines
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {
-    clearvalidation(req);
+    
     var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
 
     if (!consumertypemicrobusiness) {
@@ -6433,7 +6437,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
 
 // Buildings & consumers -  Small medium businesses
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', {
         data: req.session.data
     });
@@ -6441,7 +6445,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumb
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', function (req, res) {
-    clearvalidation(req);
+    
     var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
 
     if (!smallmediumbusinesses) {
@@ -6466,7 +6470,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmedium
 
 // Metering - agent
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/agent', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/agent', {
         data: req.session.data
@@ -6476,7 +6480,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/agent', func
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/agent', function (req, res) {
-    clearvalidation(req);
+    
     var meteringagent = req.session.data['meteringagent']
 
     if (!meteringagent) {
@@ -6506,7 +6510,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/agent', fun
 
 // Metering - agentservices services
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', {
         data: req.session.data
@@ -6516,7 +6520,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/agentservice
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/agentservices', function (req, res) {
-    clearvalidation(req);
+    
     var meteringagentservices = req.session.data['meteringagentservices']
 
     if (!meteringagentservices) {
@@ -6540,7 +6544,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/agentservic
 
 // Metering - agent name
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/agent-name', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/buildingsandconsumers/agent-name', {
         data: req.session.data
@@ -6550,7 +6554,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/agent-name',
 
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/agent-name', function (req, res) {
-    clearvalidation(req);
+    
     var meteringagentname = req.session.data['meteringagentname']
 
     if (!meteringagentname) {
@@ -6599,7 +6603,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/cya', funct
 
 // Metering - Viable
 router.get('/' + version + '/add-heat-network/metering/viable', function (req, res) {
-    clearvalidation(req);
+    
 
         res.render('/' + version + '/add-heat-network/metering/viable', {
             data: req.session.data
@@ -6609,7 +6613,7 @@ router.get('/' + version + '/add-heat-network/metering/viable', function (req, r
 
 
 router.post('/' + version + '/add-heat-network/metering/viable', function (req, res) {
-    clearvalidation(req);
+    
     var buildingclass = req.session.data['buildingclass']
     var meteringmeters = req.session.data['meteringmeters']
 
@@ -6647,7 +6651,7 @@ router.post('/' + version + '/add-heat-network/metering/viable', function (req, 
 
 // Metering - Open
 router.get('/' + version + '/add-heat-network/metering/open', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/open', {
         data: req.session.data
@@ -6657,7 +6661,7 @@ router.get('/' + version + '/add-heat-network/metering/open', function (req, res
 
 
 router.post('/' + version + '/add-heat-network/metering/open', function (req, res) {
-    clearvalidation(req);
+    
     var buildingclass = req.session.data['buildingclass']
     var meteringopen1 = req.session.data['meteringopen1']
     var meteringopen2 = req.session.data['meteringopen2']
@@ -6692,7 +6696,7 @@ router.post('/' + version + '/add-heat-network/metering/open', function (req, re
 
 // Metering - Exempt
 router.get('/' + version + '/add-heat-network/metering/exempt', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/exempt', {
         data: req.session.data
@@ -6702,7 +6706,7 @@ router.get('/' + version + '/add-heat-network/metering/exempt', function (req, r
 
 
 router.post('/' + version + '/add-heat-network/metering/exempt', function (req, res) {
-    clearvalidation(req);
+    
     var meteringexempt = req.session.data['meteringexempt']
 
     if (!meteringexempt) {
@@ -6726,7 +6730,7 @@ router.post('/' + version + '/add-heat-network/metering/exempt', function (req, 
 
 // Metering - Smart
 router.get('/' + version + '/add-heat-network/metering/smart', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/smart', {
         data: req.session.data
@@ -6736,7 +6740,7 @@ router.get('/' + version + '/add-heat-network/metering/smart', function (req, re
 
 
 router.post('/' + version + '/add-heat-network/metering/smart', function (req, res) {
-    clearvalidation(req);
+    
     var meteringsmart = req.session.data['meteringsmart']
 
     if (!meteringsmart) {
@@ -6760,7 +6764,7 @@ router.post('/' + version + '/add-heat-network/metering/smart', function (req, r
 
 // Metering - electrical
 router.get('/' + version + '/add-heat-network/metering/electrical', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/electrical', {
         data: req.session.data
@@ -6770,7 +6774,7 @@ router.get('/' + version + '/add-heat-network/metering/electrical', function (re
 
 
 router.post('/' + version + '/add-heat-network/metering/electrical', function (req, res) {
-    clearvalidation(req);
+    
     var meteringelectrical = req.session.data['meteringelectrical']
 
     if (!meteringelectrical) {
@@ -6795,7 +6799,7 @@ router.post('/' + version + '/add-heat-network/metering/electrical', function (r
 
 // Metering - type
 router.get('/' + version + '/add-heat-network/metering/type-check', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/type-check', {
         data: req.session.data
@@ -6805,7 +6809,7 @@ router.get('/' + version + '/add-heat-network/metering/type-check', function (re
 
 
 router.post('/' + version + '/add-heat-network/metering/type-check', function (req, res) {
-    clearvalidation(req);
+    
     var metertype = req.session.data['metertype']
 
 
@@ -6827,7 +6831,7 @@ router.post('/' + version + '/add-heat-network/metering/type-check', function (r
 
 // Metering - level
 router.get('/' + version + '/add-heat-network/metering/level', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/level', {
         data: req.session.data
@@ -6837,7 +6841,7 @@ router.get('/' + version + '/add-heat-network/metering/level', function (req, re
 
 
 router.post('/' + version + '/add-heat-network/metering/level', function (req, res) {
-    clearvalidation(req);
+    
     var metertype = req.session.data['metertype']
 
     if (metertype.includes("Final consumer meters")) {
@@ -6855,7 +6859,7 @@ router.post('/' + version + '/add-heat-network/metering/level', function (req, r
 
 // Metering - consumer
 router.get('/' + version + '/add-heat-network/metering/consumer', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/consumer', {
         data: req.session.data
@@ -6865,7 +6869,7 @@ router.get('/' + version + '/add-heat-network/metering/consumer', function (req,
 
 
 router.post('/' + version + '/add-heat-network/metering/consumer', function (req, res) {
-    clearvalidation(req);
+    
     var metertype = req.session.data['metertype']
 
     if (metertype.includes("Final consumer heat cost allocators")) {
@@ -6878,7 +6882,7 @@ router.post('/' + version + '/add-heat-network/metering/consumer', function (req
 
 // Metering - cost
 router.get('/' + version + '/add-heat-network/metering/cost', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/cost', {
         data: req.session.data
@@ -6888,14 +6892,14 @@ router.get('/' + version + '/add-heat-network/metering/cost', function (req, res
 
 
 router.post('/' + version + '/add-heat-network/metering/cost', function (req, res) {
-    clearvalidation(req);
+    
 
         res.redirect('/' + version + '/add-heat-network/metering/smart');
 });
 
 // Metering - agent
 router.get('/' + version + '/add-heat-network/metering/agent', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/agent', {
         data: req.session.data
@@ -6905,7 +6909,7 @@ router.get('/' + version + '/add-heat-network/metering/agent', function (req, re
 
 
 router.post('/' + version + '/add-heat-network/metering/agent', function (req, res) {
-    clearvalidation(req);
+    
     var meteringagent = req.session.data['meteringagent']
 
     if (!meteringagent) {
@@ -6935,7 +6939,7 @@ router.post('/' + version + '/add-heat-network/metering/agent', function (req, r
 
 // Metering - agent name
 router.get('/' + version + '/add-heat-network/metering/agent-name', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/add-heat-network/metering/agent-name', {
         data: req.session.data
@@ -6945,7 +6949,7 @@ router.get('/' + version + '/add-heat-network/metering/agent-name', function (re
 
 
 router.post('/' + version + '/add-heat-network/metering/agent-name', function (req, res) {
-    clearvalidation(req);
+    
     var meteringagentname = req.session.data['meteringagentname']
 
     if (!meteringagentname) {
@@ -6990,7 +6994,7 @@ router.post('/' + version + '/add-heat-network/metering/cya', function (req, res
 
 // Billing - often
 router.get('/' + version + '/add-heat-network/billing/often', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/billing/often', {
         data: req.session.data
     });
@@ -6999,7 +7003,7 @@ router.get('/' + version + '/add-heat-network/billing/often', function (req, res
 
 
 router.post('/' + version + '/add-heat-network/billing/often', function (req, res) {
-    clearvalidation(req);
+    
     var billingoften = req.session.data['billingoften']
 
     if (!billingoften) {
@@ -7024,7 +7028,7 @@ router.post('/' + version + '/add-heat-network/billing/often', function (req, re
 
 // Billing - calculated
 router.get('/' + version + '/add-heat-network/billing/calculated', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/billing/calculated', {
         data: req.session.data
     });
@@ -7033,7 +7037,7 @@ router.get('/' + version + '/add-heat-network/billing/calculated', function (req
 
 
 router.post('/' + version + '/add-heat-network/billing/calculated', function (req, res) {
-    clearvalidation(req);
+    
     var billingcalculated = req.session.data['billingcalculated']
 
     if (!billingcalculated) {
@@ -7058,7 +7062,7 @@ router.post('/' + version + '/add-heat-network/billing/calculated', function (re
 
 // Billing - compare
 router.get('/' + version + '/add-heat-network/billing/compare', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/billing/compare', {
         data: req.session.data
     });
@@ -7067,7 +7071,7 @@ router.get('/' + version + '/add-heat-network/billing/compare', function (req, r
 
 
 router.post('/' + version + '/add-heat-network/billing/compare', function (req, res) {
-    clearvalidation(req);
+    
     var billingcompare = req.session.data['billingcompare']
 
     if (!billingcompare) {
@@ -7091,7 +7095,7 @@ router.post('/' + version + '/add-heat-network/billing/compare', function (req, 
 
 // Billing - available
 router.get('/' + version + '/add-heat-network/billing/available', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/billing/available', {
         data: req.session.data
     });
@@ -7100,7 +7104,7 @@ router.get('/' + version + '/add-heat-network/billing/available', function (req,
 
 
 router.post('/' + version + '/add-heat-network/billing/available', function (req, res) {
-    clearvalidation(req);
+    
     var billingavailable = req.session.data['billingavailable']
 
     if (!billingavailable) {
@@ -7124,7 +7128,7 @@ router.post('/' + version + '/add-heat-network/billing/available', function (req
 
 // Billing - other info
 router.get('/' + version + '/add-heat-network/billing/otherinfo', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/billing/otherinfo', {
         data: req.session.data
     });
@@ -7133,7 +7137,7 @@ router.get('/' + version + '/add-heat-network/billing/otherinfo', function (req,
 
 
 router.post('/' + version + '/add-heat-network/billing/otherinfo', function (req, res) {
-    clearvalidation(req);
+    
     var billinginfo = req.session.data['billinginfo']
 
     //if (!billinginfo) {
@@ -7174,7 +7178,7 @@ router.post('/' + version + '/add-heat-network/billing/cya', function (req, res)
 
 // Financial - plan
 router.get('/' + version + '/add-heat-network/financial/plan', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/financial/plan', {
         data: req.session.data
     });
@@ -7183,7 +7187,7 @@ router.get('/' + version + '/add-heat-network/financial/plan', function (req, re
 
 
 router.post('/' + version + '/add-heat-network/financial/plan', function (req, res) {
-    clearvalidation(req);
+    
     var financialplan = req.session.data['financialplan']
 
     if (!financialplan) {
@@ -7208,7 +7212,7 @@ router.post('/' + version + '/add-heat-network/financial/plan', function (req, r
 
 // Financial - supply
 router.get('/' + version + '/add-heat-network/financial/supply', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/financial/supply', {
         data: req.session.data
     });
@@ -7217,7 +7221,7 @@ router.get('/' + version + '/add-heat-network/financial/supply', function (req, 
 
 
 router.post('/' + version + '/add-heat-network/financial/supply', function (req, res) {
-    clearvalidation(req);
+    
     var financialsupply = req.session.data['financialsupply']
 
     if (!financialsupply) {
@@ -7241,7 +7245,7 @@ router.post('/' + version + '/add-heat-network/financial/supply', function (req,
 
 // Financial - arrangement
 router.get('/' + version + '/add-heat-network/financial/arrangement', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/financial/arrangement', {
         data: req.session.data
     });
@@ -7250,7 +7254,7 @@ router.get('/' + version + '/add-heat-network/financial/arrangement', function (
 
 
 router.post('/' + version + '/add-heat-network/financial/arrangement', function (req, res) {
-    clearvalidation(req);
+    
     var financialarrangement = req.session.data['financialarrangement']
 
     if (!financialarrangement) {
@@ -7289,7 +7293,7 @@ router.post('/' + version + '/add-heat-network/financial/cya', function (req, re
 
 // Consumer - vulnerable
 router.get('/' + version + '/add-heat-network/consumerprotections/vulnerable', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/consumerprotections/vulnerable', {
         data: req.session.data
     });
@@ -7298,7 +7302,7 @@ router.get('/' + version + '/add-heat-network/consumerprotections/vulnerable', f
 
 
 router.post('/' + version + '/add-heat-network/consumerprotections/vulnerable', function (req, res) {
-    clearvalidation(req);
+    
     var consumervulnerable = req.session.data['consumervulnerable']
     var consumervulnerableammount = req.session.data['consumervulnerableammount']
 
@@ -7338,7 +7342,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/vulnerable', 
 
 // Consumer - psr
 router.get('/' + version + '/add-heat-network/consumerprotections/psr', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/consumerprotections/psr', {
         data: req.session.data
     });
@@ -7347,7 +7351,7 @@ router.get('/' + version + '/add-heat-network/consumerprotections/psr', function
 
 
 router.post('/' + version + '/add-heat-network/consumerprotections/psr', function (req, res) {
-    clearvalidation(req);
+    
     var consumerpsr = req.session.data['consumerpsr']
 
     if (!consumerpsr) {
@@ -7377,7 +7381,7 @@ router.get('/' + version + '/add-heat-network/consumerprotections/confirm', func
 });
 
 router.post('/' + version + '/add-heat-network/consumerprotections/confirm', function (req, res) {
-    clearvalidation(req);
+    
     var consumerconfirm = req.session.data['consumerconfirm']
 
     if (!consumerconfirm) {
@@ -7407,7 +7411,7 @@ router.get('/' + version + '/add-heat-network/consumerprotections/difficulties',
 });
 
 router.post('/' + version + '/add-heat-network/consumerprotections/difficulties', function (req, res) {
-    clearvalidation(req);
+    
     var consumerdifficulties = req.session.data['consumerdifficulties']
 
     if (!consumerdifficulties) {
@@ -7490,7 +7494,7 @@ function removeSupplier(req, id) {
 
 // Suppliers - How many
 router.get('/' + version + '/add-heat-network/suppliers/howmany', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/suppliers/howmany', {
         data: req.session.data
     });
@@ -7498,7 +7502,7 @@ router.get('/' + version + '/add-heat-network/suppliers/howmany', function (req,
 
 
 router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req, res) {
-    clearvalidation(req);
+    
     var suppliershowmany = req.session.data['suppliershowmany']
 
 
@@ -7531,7 +7535,7 @@ router.post('/' + version + '/add-heat-network/suppliers/howmany', function (req
 
 // Supliers - List
 router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     clearSupplier(req)
 
     res.render('/' + version + '/add-heat-network/suppliers/suppliers', {
@@ -7541,7 +7545,7 @@ router.get('/' + version + '/add-heat-network/suppliers/suppliers', function (re
 
 
 router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (req, res) {
-    clearvalidation(req);
+    
     var buildings = req.session.data['buildings']
 
 
@@ -7559,7 +7563,7 @@ router.post('/' + version + '/add-heat-network/suppliers/suppliers', function (r
 
 // Suppliers - Name
 router.get('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.id;
     if (urlParams) {
         setSupplier(req, urlParams)
@@ -7584,7 +7588,7 @@ router.get('/' + version + '/add-heat-network/suppliers/name', function (req, re
 
 
 router.post('/' + version + '/add-heat-network/suppliers/name', function (req, res) {
-    clearvalidation(req);
+    
     var suppliername = req.session.data['suppliername']
     var buildinglocationAddress = req.session.data['buildinglocationAddress']
 
@@ -7689,14 +7693,14 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
 
 // Suppliers - Results
 router.get('/' + version + '/add-heat-network/suppliers/results', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/suppliers/results', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/suppliers/results', function (req, res) {
-    clearvalidation(req);
+    
     var suppliernameselected = req.session.data['suppliernameselected']
 
 if (!suppliernameselected) {
@@ -7722,14 +7726,14 @@ else {
 
 // Suppliers - Confirm supplier
 router.get('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/suppliers/confirm', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req, res) {
-    clearvalidation(req);
+    
     var introcommunal = req.session.data['introcommunal']
 
     
@@ -7749,7 +7753,7 @@ router.post('/' + version + '/add-heat-network/suppliers/confirm', function (req
 
 // Suppliers - Buildings
 router.get('/' + version + '/add-heat-network/suppliers/buildings', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/add-heat-network/suppliers/buildings', {
         data: req.session.data
     });
@@ -7757,7 +7761,7 @@ router.get('/' + version + '/add-heat-network/suppliers/buildings', function (re
 
 
 router.post('/' + version + '/add-heat-network/suppliers/buildings', function (req, res) {
-    clearvalidation(req);
+    
     var buildings = req.session.data['buildings']
     var supplierbuildings = req.session.data['supplierbuildings']
 
@@ -7798,7 +7802,7 @@ router.post('/' + version + '/add-heat-network/suppliers/cya', function (req, re
 
 /// supplier remove
 router.get('/' + version + '/add-heat-network/suppliers/remove', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.id;
     if (urlParams) {
         setSupplier(req, urlParams)
@@ -7809,7 +7813,7 @@ router.get('/' + version + '/add-heat-network/suppliers/remove', function (req, 
 });
 
 router.post('/' + version + '/add-heat-network/suppliers/remove', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.id;
 
     var supplierremove = req.session.data['supplierremove']
@@ -7870,7 +7874,7 @@ function clearSMRIUser(req) {
 
 /// SMRI List
 router.get('/' + version + '/smri/list', function (req, res) {
-    clearvalidation(req);
+    
     const urlParams = req.query.notification;
     const urlParamsVersion = req.query.v;
     req.session.data['smristatus'] = urlParamsVersion;
@@ -7901,7 +7905,7 @@ router.post('/' + version + '/smri/list', function (req, res) {
 
 /// SMRI Personal
 router.get('/' + version + '/smri/personal', function (req, res) {
-    clearvalidation(req);
+    
 
     res.render('/' + version + '/smri/personal', {
         data: req.session.data
@@ -7910,7 +7914,7 @@ router.get('/' + version + '/smri/personal', function (req, res) {
 
 router.post('/' + version + '/smri/personal', function (req, res) {
     
-    clearvalidation(req);
+    
     const urlParams = req.query.id;
 
     var smrifirstname = req.session.data['smrifirstname']
@@ -7987,14 +7991,14 @@ router.post('/' + version + '/smri/personal', function (req, res) {
 
 /// SMRI Process
 router.get('/' + version + '/smri/process', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/smri/process', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/process', function (req, res) {
-    clearvalidation(req);
+    
     var smriprocess = req.session.data['smriprocess']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
@@ -8021,14 +8025,14 @@ router.post('/' + version + '/smri/process', function (req, res) {
 
 /// SMRI assessments
 router.get('/' + version + '/smri/assessments', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/smri/assessments', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/assessments', function (req, res) {
-    clearvalidation(req);
+    
     var smriassessments = req.session.data['smriassessments']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
@@ -8056,14 +8060,14 @@ router.post('/' + version + '/smri/assessments', function (req, res) {
 
 /// SMRI list
 router.get('/' + version + '/smri/smrilist', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/smri/smrilist', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/smrilist', function (req, res) {
-    clearvalidation(req);
+    
     var smrilist = req.session.data['smrilist']
 
 
@@ -8093,14 +8097,14 @@ router.post('/' + version + '/smri/smrilist', function (req, res) {
 
 /// SMRI fitandproper
 router.get('/' + version + '/smri/fitandproper', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/smri/fitandproper', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/fitandproper', function (req, res) {
-    clearvalidation(req);
+    
     var smrifitandproper = req.session.data['smrifitandproper']
 
 
@@ -8126,14 +8130,14 @@ router.post('/' + version + '/smri/fitandproper', function (req, res) {
 
 /// SMRI declaration
 router.get('/' + version + '/smri/declaration', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/smri/declaration', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/declaration', function (req, res) {
-    clearvalidation(req);
+    
 
     var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -8155,7 +8159,7 @@ today = dd + '/' + mm + '/' + yyyy;
 
 // Help - type
 router.get('/' + version + '/help/type', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/help/type', {
         data: req.session.data
     });
@@ -8164,7 +8168,7 @@ router.get('/' + version + '/help/type', function (req, res) {
 
 
 router.post('/' + version + '/help/type', function (req, res) {
-    clearvalidation(req);
+    
     var helptype = req.session.data['helptype']
     var helptypeother = req.session.data['helptypeother']
 
@@ -8206,7 +8210,7 @@ router.post('/' + version + '/help/type', function (req, res) {
 
 // Help - details
 router.get('/' + version + '/help/details', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/help/details', {
         data: req.session.data
     });
@@ -8215,7 +8219,7 @@ router.get('/' + version + '/help/details', function (req, res) {
 
 
 router.post('/' + version + '/help/details', function (req, res) {
-    clearvalidation(req);
+    
     var helpdetails = req.session.data['helpdetails']
 
     if (!helpdetails) {
@@ -8239,7 +8243,7 @@ router.post('/' + version + '/help/details', function (req, res) {
 
 // Help - sent
 router.get('/' + version + '/help/sent', function (req, res) {
-    clearvalidation(req);
+    
     res.render('/' + version + '/help/sent', {
         data: req.session.data
     });

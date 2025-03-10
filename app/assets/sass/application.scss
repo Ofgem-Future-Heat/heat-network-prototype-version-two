@@ -325,10 +325,11 @@ table.responsive thead {
   // QUERY MANAGEMENT
 
   .hn-contact--panel {
-    border-top: 2px solid #1d70b8;
+    border-top: 5px solid #1d70b8;
 	@include govuk-responsive-padding(4, "top");	
-	@include govuk-responsive-margin(8, "top");	
-	margin-bottom: -20px;
+	@include govuk-responsive-margin(4, "top");	
+	@include govuk-responsive-padding(1, "bottom");	
+
   }
 
 

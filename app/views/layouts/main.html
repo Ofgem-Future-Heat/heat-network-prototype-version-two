@@ -26,9 +26,9 @@
 
   {% block footer %}
   
-  {% if showhelp == true %}
-  {% include data.version + "/_partials/needhelp2.html" %}
-
+  {% if (showhelp != false) and (data.version.replace('v', '')|int >= 30)%}
+        {% include data.version + "/_partials/needhelp.html" %}
+        
   {% endif %}
 
 
@@ -40,7 +40,6 @@
             {% if cdnumber %}
             <li class="govuk-footer__inline-list-item">
               CD{{cdnumber}}
-
             </li>
             {% endif %}
 

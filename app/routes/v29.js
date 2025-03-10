@@ -12,6 +12,13 @@ function clearvalidation(req) {
 
 }
 
+//////// PAGE SETUP //////
+router.use(function (req, res, next) {
+    clearvalidation(req);
+    next(); // Continue to the actual route handler
+});
+
+
 function generateSupplierHN(req) {
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"

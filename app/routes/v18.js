@@ -4,6 +4,7 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 var version = "v18";
 
+
 function clearvalidation(req) {
     req.session.data.validationErrors = {}
     req.session.data.validationError = "false"
@@ -11,6 +12,13 @@ function clearvalidation(req) {
     req.session.data['version'] = version
 
 }
+
+//////// PAGE SETUP //////
+router.use(function (req, res, next) {
+    clearvalidation(req);
+    next(); // Continue to the actual route handler
+});
+
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
 router.get('/' + version + '/account-information', function (req, res) {
