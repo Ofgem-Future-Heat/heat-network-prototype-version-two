@@ -71,7 +71,7 @@
                     <p class="govuk-body">
                         This could be because it’s in the wrong format or is too large.
                     </p>
-                    <p class="govuk-body">Try again and if the issue persists, contact <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Account%20creation&body=Account%20email%3A%20%7B%25%20if%20data.onelingemail%20%25%7D%7B%7Bdata.oneloginemail%7D%7D%7B%25%20else%20%25%7Djohn.smith%40heatco.org%7B%25%20endif%20%25%7D%0AContact%20reason%3A%20Data%20cannot%20be%20stored%20in%20our%20service%0A%0AFurther%20details%3A%0Ada" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>.</p>
+                    <p class="govuk-body">Try again and if the issue persists, contact <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Account%20creation&body=Account%20email%3A%20{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}%0AContact%20reason%3A%20Data%20cannot%20be%20stored%20in%20our%20service%0A%0AFurther%20details%3A%0A" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>.</p>
 
 
                 </fieldset>
