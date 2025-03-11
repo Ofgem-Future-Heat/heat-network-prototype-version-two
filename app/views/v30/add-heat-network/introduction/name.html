@@ -1,7 +1,13 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "223" %}
 
-{% set title = "Give this heat network a name" %}
+{% set title %}
+{% if data.introcommunal == "Yes" %}
+Give this building a name
+{% else %}
+Give this heat network a name
+{% endif %}
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -63,8 +69,15 @@
                         </h1>
 
                     </legend>
-
+                    {% if data.introcommunal == "Yes" %}
                     <p class="govuk-body">This can be any name that makes sense to you. It will be added to a public list of authorised heat networks in Great Britain.</p>
+                    {% else %}
+                    <p class="govuk-body">This can be any name that will help you identify this heat network. For example, the site or development name.</p>
+                    <p class="govuk-body">It will be added to a public list of authorised heat networks in Great Britain.</p>
+                    {% endif %}
+
+
+
 
                     <p class="govuk-body">We will also give you a unique ID for the heat network after you submit your information.</p>
 

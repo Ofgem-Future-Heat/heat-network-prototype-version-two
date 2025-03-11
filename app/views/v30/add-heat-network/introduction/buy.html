@@ -12,7 +12,7 @@ Radienteco Ltd
 
 
 {% set title %}
-Buying thermal energy from other heat networks
+Buying heating, cooling or hot water from other heat networks
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -73,11 +73,9 @@ Buying thermal energy from other heat networks
                             {{title}}
                         </h1>
                     <p class="govul-body">
-                        This means your network gets some or all of its thermal energy from a district network that your organisation does not control, and your organisation pays the operator of that heat network for this energy.
+                        This means your network gets some or all of its heating, cooling or hot water from a district network that your organisation does not control, and your organisation pays the operator of that heat network for this energy.
                     </p>
-                    <p class="govul-body">
-                        Thermal energy is the energy in a heat network that's used to provide heating, hot water or cooling to consumers.
-                    </p>
+
                     {% if data.introcommunal == "No" %}
                     <div class="govuk-inset-text">
                     <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
@@ -95,14 +93,14 @@ Buying thermal energy from other heat networks
                     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                     <strong class="govuk-warning-text__text">
                       <span class="govuk-visually-hidden">Warning</span>
-                      Do not include any input energy that your organisation uses to produce thermal energy for your network. For example, gas and electricity.
+                      Do not include any input energy that your organisation uses to produce heating, cooling or hot water for your network. For example, gas and electricity.
                     </strong>
                   </div>
                 <div class="govuk-form-group {% if data.validationErrors.introbuy %}govuk-form-group--error{% endif %}">
 
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            Does {{company}} buy thermal energy for this heat network from another heat network that is operated by a different organisation?
+                            Does {{company}} buy heating, cooling or hot water for this heat network from another heat network that is operated by a different organisation?
                           </legend>
 
 
