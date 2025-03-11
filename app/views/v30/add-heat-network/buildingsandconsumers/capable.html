@@ -17,7 +17,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
  govukBackLink ({
@@ -101,13 +101,15 @@
 
 
     </div>
-    {{
-                govukButton ({
-                    html: 'Continue'
-                })
-    }}
-    </form>
-    <a href="cancel" class="govuk-link">Cancel</a>
+                <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="cancel" class="govuk-link">Cancel</a>
+            </div>
+        </form>
 </div>
 
 </div>

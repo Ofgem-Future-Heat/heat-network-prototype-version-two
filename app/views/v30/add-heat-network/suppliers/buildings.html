@@ -17,7 +17,7 @@ How many of the {{data.introhnbuildings}} buildings does {{data.suppliernamesele
   <div class="govuk-grid-column-full">
 
 
-    {% include data.version + "/_partials/headerlinks.html" %}
+    {% include data.version + "/_partials/logout.html" %}
     {{
     govukBackLink ({
     text: 'Back',
@@ -88,6 +88,7 @@ How many of the {{data.introhnbuildings}} buildings does {{data.suppliernamesele
               html: 'Continue'
           })
         }}
+        <a href="cancel" class="govuk-link">Cancel</a>
       </div>
 </form>
 

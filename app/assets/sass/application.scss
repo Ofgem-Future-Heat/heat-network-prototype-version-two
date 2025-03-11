@@ -327,7 +327,7 @@ table.responsive thead {
   .hn-contact--panel {
     border-top: 5px solid #1d70b8;
 	@include govuk-responsive-padding(4, "top");	
-	@include govuk-responsive-margin(4, "top");	
+	@include govuk-responsive-margin(2, "top");	
 	@include govuk-responsive-padding(1, "bottom");	
 
   }

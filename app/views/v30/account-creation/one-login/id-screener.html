@@ -115,13 +115,15 @@
 
 
             </div>
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="cancel" class="govuk-link">Cancel</a>
+            </div>
         </form>
-        <a href="cancel" class="govuk-link">Cancel</a>
     </div>
 
 </div>
