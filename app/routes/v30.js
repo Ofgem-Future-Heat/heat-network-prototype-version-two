@@ -2,7 +2,7 @@ const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
 
-var version = "v31";
+var version = "v30";
 
 function clearvalidation(req) {
     req.session.data.validationErrors = {}
