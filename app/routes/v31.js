@@ -3919,7 +3919,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
     
     var introenergycentre = req.session.data['introenergycentre']
     var introenergycentrehowmany = parseInt(req.session.data['introenergycentrehowmany'])
-    var buildings = req.session.data['introbuildingshowmany']
+    var buildings = req.session.data['introhnbuildings']
 
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
