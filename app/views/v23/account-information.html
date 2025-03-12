@@ -37,9 +37,11 @@
     
       <h2 class="govuk-heading-m">Your organisation</h2>
       
-      <div class="govuk-grid-row ds-grid-row">
+      <div class="govuk-grid-row hn-flex">
         {% if data.currentversion != "dev" %}
-      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+        <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4 hn-box">
+
+      <div class="govuk-!-padding-4 hn-box--grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
       {% if data.currentversion == "ur" %}
@@ -59,13 +61,15 @@
       {% endif %}
       {% endif %}
     </div>
+    </div>
     {% endif %}
 
     {% if data.currentversion != "dev" %}
-    <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+    <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4 hn-box">
+
+    <div class="govuk-!-padding-4 hn-box--grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">SMRI declaration</a></h3>
     <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
-
 
 
 {% if data.currentversion %}
@@ -96,9 +100,12 @@
        </strong>
     {% endif %}
   </div>
+  
   {% endif %}
  
     </div>
+  </div>
+
 
 </div></div>
         <div class="govuk-grid-row govuk-!-margin-top-8">
