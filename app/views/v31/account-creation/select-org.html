@@ -1,0 +1,158 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+{% if data.orgtotal > 1 %}
+Select your organisation’s account 
+{% else %}
+Switch to a different organisation
+{% endif %}
+{% endset %}
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% set cdnumber = "026" %}
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+
+    </div>
+
+</div>
+{% endblock %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" orgselect="alert"
+            data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                    {% if data.orgtotal > 1 %}
+                    <p class="govuk-body">You are linked to {{data.orgtotal}} organisations. </p>
+                    <p class="govuk-body">You can access any of these, or you can add a new organisation.</p>
+                    <p class="govuk-body">To add a new organisation, you must be its regulatory contact for heat networks.</p>
+
+                    {% else %}
+                    <p class="govuk-body">You are linked to 1 organisation.</p>
+                    <p class="govuk-body">You can access this organisation, or you can add a new one.</p>
+                    <p class="govuk-body">To add a new organisation, you must be its regulatory contact for heat networks.</p>
+                    {% endif %}
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            Help with 'regulatory contact'
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                          <p class="govuk-body">This is your organisation’s most senior member of staff responsible for heat networks.</p>
+                          <p class="govuk-body">As regulatory contact, you'll:</p>
+                          <ul class="govuk-list govuk-list--bullet">
+                            <li>be Ofgem’s main point of contact for any regulatory and compliance matters</li>
+                            <li>have full access to all features in the heat network service, for example managing users and submitting heat network information</li> 
+                            <li>be initially responsible for inviting other users into the service and setting their permissions</li>
+                          </ul>
+                          <p class="govuk-body">You can change the regulatory contact in the future, if you need to.</p>
+                        </div>
+                      </details>
+                      <form method="POST" novalidate>
+
+                        <div class="govuk-form-group {% if data.validationErrors.orgselect %}govuk-form-group--error{% endif %}">
+                        
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            Which organisation do you want to access?
+                        </legend>
+                        {% if data.validationErrors.orgselect %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.orgselect.message}}
+                        </p>
+                        {% endif %}
+    
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        {% if data.orgtotal > 1 %}
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="orgselect-4" name="orgselect" type="radio"
+                                value="Heating Co">
+                            <label class="govuk-label govuk-radios__label" for="orgselect-4">
+                                Heating Co
+                            </label>
+                        </div>
+                        {% endif %}
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="orgselect" name="orgselect" type="radio"
+                                value="{% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}">
+                            <label class="govuk-label govuk-radios__label" for="orgselect">
+                                {% if data.companyname and (data.companyname != "Heating Co") %} {{data.companyname}}{% else %} Radienteco Ltd {% endif %}
+                            </label>
+                        </div>
+     
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="orgselect-5" name="orgselect" type="radio"
+                                value="new">
+                            <label class="govuk-label govuk-radios__label" for="orgselect-5">
+                                Add a new organisation
+                            </label>
+                        </div>
+
+
+                    </div>
+
+
+                </fieldset>
+
+            </div>
+
+
+            {{
+            govukButton ({
+            html: 'Continue'
+            })
+            }}
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

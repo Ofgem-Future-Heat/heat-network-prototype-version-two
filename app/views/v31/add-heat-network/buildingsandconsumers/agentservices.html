@@ -1,0 +1,107 @@
+{% extends 'layouts/main.html' %}
+
+    {% set title = "Which services do you use " + data.meteringagentname + " for?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <form method="POST" novalidate>
+                                <div class="govuk-form-group {% if data.validationErrors.meteringagentservices %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+
+                    
+                    {% if data.validationErrors.meteringagentservices %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.meteringagentservices.message}}
+                    </p>
+                    {% endif %}
+
+
+                          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="meteringagentservices" name="meteringagentservices" type="checkbox" value="Metering"  {% for service in data.meteringagentservices %}{% if service == "Metering" %}checked{% endif %} {% endfor %}>
+                              <label class="govuk-label govuk-checkboxes__label" for="meteringagentservices">
+                                Metering
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="meteringagentservices-2" name="meteringagentservices" type="checkbox" value="Billing" {% for service in data.meteringagentservices %}{% if service == "Billing" %}checked{% endif %} {% endfor %}>
+                              <label class="govuk-label govuk-checkboxes__label" for="meteringagentservices-2">
+                                Billing
+                              </label>
+                            </div>
+
+
+                </fieldset>
+            </div>
+
+
+                            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="cancel" class="govuk-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

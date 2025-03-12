@@ -1,0 +1,109 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "209" %}
+
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+How many buildings does this heat network provide heating, cooling or hot water to?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form  method="POST" novalidate >
+
+            <div class="govuk-form-group {% if data.validationErrors.introbuildingstotal %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" >
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            <label for="introbuildingshowmany">
+                               {{title}}
+                            </label>
+
+                        </h1>
+
+                        <p class="govuk-body">You should count a block with multiple dwellings as one building.</p>
+                        <p class="govuk-body">If the heat network does not provide heating, cooling or hot water to any buildings, enter '0'.</p>
+
+
+                  {% if data.validationErrors.introbuildingstotal %}
+                  <p class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span>
+                      {{data.validationErrors.introbuildingstotal.message}}
+                  </p>
+                  {% endif %}
+                  <input class="govuk-input govuk-input--width-4" id="introbuildingstotal" name="introbuildingstotal" type="number" value="{{data.introbuildingstotal}}">
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+        <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+    </div>
+
+</div>
+
+{% endblock %}

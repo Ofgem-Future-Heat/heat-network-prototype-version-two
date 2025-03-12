@@ -3512,11 +3512,88 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
         }
 
         else {
-            res.redirect('/' + version + '/add-heat-network/introduction/changes');
+            res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
 
         }
     }
 });
+
+// Introduction - Supply current
+router.get('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
+    
+    var introsupplycurrent = req.session.data['introsupplycurrent']
+
+
+    if (!introsupplycurrent) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introsupplycurrent = {
+            "anchor": "introsupplycurrent",
+            "message": "Select if the heat network already supplying thermal energy"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introsupplycurrent == "No") {
+            res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=232');
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/supply20');
+
+        }
+
+    }
+
+});
+
+// Introduction - Supply April
+router.get('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/supply20', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
+
+var introsupply20 = req.session.data['introsupply20']
+
+if (!introsupply20) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.introsupply20 = {
+        "anchor": "introsupply20",
+        "message": "Select an option"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/introduction/supply20', {
+        data: req.session.data
+    });
+}
+
+else {
+
+        res.redirect('/' + version + '/add-heat-network/introduction/changes');
+}
+});
+
+
+
 
 // Introduction - Communal
 router.get('/' + version + '/add-heat-network/introduction/communal', function (req, res) {
@@ -3607,18 +3684,15 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
     else {      
             if (introenergycentre == "Yes") {
                 req.session.data['introenergycentrehowmany'] = 1
-                if (role != "Network operator") {
-                    res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
-                }
-                else {
-                    res.redirect('/' + version + '/add-heat-network/introduction/supply20');
-                }
+            }
+
+            if (role != "Network operator") {
+                res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
             }
             else {
-                req.session.data['introenergycentrehowmany'] = 0
-  
-                res.redirect('/' + version + '/add-heat-network/introduction/primary');
+                res.redirect('/' + version + '/add-heat-network/introduction/sell');
             }
+
 
         }  
 
@@ -4038,6 +4112,48 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
 
     else {
         if (intropipework == "No") {
+            res.redirect('/' + version + '/add-heat-network/introduction/responsible');
+
+        }
+        else {
+
+                res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
+
+        }
+            
+
+    }
+
+});
+
+// Introduction - Responsible
+router.get('/' + version + '/add-heat-network/introduction/responsible', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/responsible', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/introduction/responsible', function (req, res) {
+    
+    var introresponsible = req.session.data['introresponsible']
+
+    if (!introresponsible) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introresponsible = {
+            "anchor": "introresponsible",
+            "message": "Select if you supply all of the buildings you operate on this heat network?"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/responsible', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introresponsible == "No") {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=227');
 
         }
@@ -4051,6 +4167,9 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
     }
 
 });
+
+
+
 
 
 // Introduction - introselfsupply
@@ -4088,7 +4207,7 @@ router.post('/' + version + '/add-heat-network/introduction/selfsupply', functio
             (introselfsupply == "No" && role == "Operator") ||
             (introselfsupply == "No" && buildings <= 1)
          ) {
-            res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
+            res.redirect('/' + version + '/add-heat-network/introduction/sell');
         }
 
         else {
@@ -4128,52 +4247,13 @@ router.post('/' + version + '/add-heat-network/introduction/suppliers', function
     }
 
     else {
-            res.redirect('/' + version + '/add-heat-network/introduction/supplycurrent');
+            res.redirect('/' + version + '/add-heat-network/introduction/sell');
 
     }
 
 });
 
-// Introduction - Supply current
-router.get('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
-        data: req.session.data
-    });
-});
 
-router.post('/' + version + '/add-heat-network/introduction/supplycurrent', function (req, res) {
-    
-    var introsupplycurrent = req.session.data['introsupplycurrent']
-
-
-    if (!introsupplycurrent) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.introsupplycurrent = {
-            "anchor": "introsupplycurrent",
-            "message": "Select if the heat network already supplying thermal energy"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/supplycurrent', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (introsupplycurrent == "No") {
-            res.redirect('/' + version + '/add-heat-network/introduction/supplystart');
-        }
-
-        else {
-            res.redirect('/' + version + '/add-heat-network/introduction/supply20');
-
-        }
-
-    }
-
-});
 
 // Introduction - Supply start
 router.get('/' + version + '/add-heat-network/introduction/supplystart', function (req, res) {
@@ -4452,42 +4532,7 @@ router.post('/' + version + '/add-heat-network/introduction/onlysupply', functio
 
 
 
-// Introduction - Supply 20 years
-router.get('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/introduction/supply20', {
-        data: req.session.data
-    });
-});
 
-
-router.post('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
-
-var introsupply20 = req.session.data['introsupply20']
-
-if (!introsupply20) {
-    req.session.data.validationError = "true"
-    req.session.data.validationErrors.introsupply20 = {
-        "anchor": "introsupply20",
-        "message": "Select an option"
-    }
-}
-
-if (req.session.data.validationError == "true") {
-    res.render('/' + version + '/add-heat-network/introduction/supply20', {
-        data: req.session.data
-    });
-}
-
-else {
-    if (introsupply20 == "Yes") {
-        res.redirect('/' + version + '/add-heat-network/introduction/supplywhen');
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/introduction/supplydecade');
-    }
-}
-});
 
 // Introduction - Supply when
 router.get('/' + version + '/add-heat-network/introduction/supplywhen', function (req, res) {

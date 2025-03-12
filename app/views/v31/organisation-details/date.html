@@ -1,0 +1,185 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "066" %}
+
+{% set title %}
+What are the start and end dates of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s accounting period?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/logout.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form  method="POST" novalidate>
+
+
+          <span class="govuk-caption-l">Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+                <h1 class="govuk-heading-l">
+                    {{title}}
+                </h1>
+
+
+                    <div class="govuk-form-group {% if data.validationErrors.financialstartdate or data.validationErrors.financialstartday or data.validationErrors.financialstartmonth %}govuk-form-group--error{% endif %}">
+
+
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="financialstarthint">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            Start of accounting period
+                        </legend>
+    
+                          <div id="financialstarthint" class="govuk-hint">
+                            For example, 1 12
+                          </div>
+
+                          {% if data.validationErrors.financialstartdate %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.financialstartdate.message}}
+                          </p>
+                          {% endif %}
+
+                          {% if data.validationErrors.financialstartday %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.financialstartday.message}}
+                          </p>
+                          {% endif %}
+
+                          {% if data.validationErrors.financialstartmonth %}
+                          <p class="govuk-error-message">
+                              <span class="govuk-visually-hidden">Error:</span>
+                              {{data.validationErrors.financialstartmonth.message}}
+                          </p>
+                          {% endif %}
+                          <div class="govuk-date-input" id="financialstart">
+                            <div class="govuk-date-input__item">
+                              <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="orgfinancialstartday">
+                                  Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if data.validationErrors.financialstartdate or data.validationErrors.financialstartday %}govuk-input--error{% endif %}" id="orgfinancialstartday" name="orgfinancialstartday" type="text" inputmode="numeric" value="{{data.orgfinancialstartday}}">
+                              </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                              <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="orgfinancialstartmonth">
+                                  Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if data.validationErrors.financialstartdate or data.validationErrors.financialstartmonth %}govuk-input--error{% endif %}" id="orgfinancialstartmonth" name="orgfinancialstartmonth" type="text" inputmode="numeric" value="{{data.orgfinancialstartmonth}}">
+                              </div>
+                            </div>
+                          </div>
+    
+                </fieldset>
+                </div>
+                <div class="govuk-form-group {% if data.validationErrors.financialenddate or data.validationErrors.financialendday or data.validationErrors.financialendmonth %}govuk-form-group--error{% endif %}">
+
+
+
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="financialstarthint">
+
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      End of accounting period
+                  </legend>
+
+                    <div id="financialstarthint" class="govuk-hint">
+                      For example, 30 11
+                    </div>
+
+                    {% if data.validationErrors.financialenddate %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.financialenddate.message}}
+                    </p>
+                    {% endif %}
+
+                    {% if data.validationErrors.financialendday %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.financialendday.message}}
+                    </p>
+                    {% endif %}
+
+                    {% if data.validationErrors.financialendmonth %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.financialendmonth.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-date-input" id="financialstart">
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="orgfinancialendday">
+                            Day
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if data.validationErrors.financialenddate or data.validationErrors.financialendday %}govuk-input--error{% endif %}" id="orgfinancialendday" name="orgfinancialendday" type="text" inputmode="numeric" value="{{data.orgfinancialendday}}">
+                        </div>
+                      </div>
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="orgfinancialendmonth">
+                            Month
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2 {% if data.validationErrors.financialenddate or data.validationErrors.financialendmonth %}govuk-input--error{% endif %}" id="orgfinancialendmonth" name="orgfinancialendmonth" type="text" inputmode="numeric" value="{{data.orgfinancialendmonth}}">
+                        </div>
+                      </div>
+                    </div>
+
+          </fieldset>
+                </div>
+
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

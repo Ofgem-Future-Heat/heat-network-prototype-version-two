@@ -1,0 +1,51 @@
+{% extends 'layouts/main.html' %}
+{% set title = "You may need to apply for metering concessions" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+   {{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+
+                        <span class="govuk-caption-l">Add a heat network - metering</span>
+                        <h1 class="govuk-heading-l">
+                               {{title}}
+                        </h1>
+                        <p class="govuk-body">Text here please.</p>
+                        <div class="govuk-button-group"> <a href="heatcostallocators" class="govuk-button">Continue</a></div>
+
+
+        <a href="cancel" class="govuk-link">Cancel</a>
+    </div>
+
+</div>
+
+{% endblock %}

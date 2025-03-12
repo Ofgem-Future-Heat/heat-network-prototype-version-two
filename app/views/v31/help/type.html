@@ -1,0 +1,167 @@
+{% extends 'layouts/main.html' %}
+{% set title = "What do you need to contact Ofgem regarding?" %}
+{% set _inError = data.validationError == "true"  %}
+{% set showhelp = false %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/logout.html" %}
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" helptype="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.helptype %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Contact Ofgem</span>
+
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">Select from the list below which area of the heat networks service you need asistance with. You'll be able to provide further information on the next page.</p>
+
+                    {% if data.validationErrors.helptype %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.helptype.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="helptype" name="helptype" type="radio" value="Issues with your account" aria-describedby="helptype-hint" {% if data.helptype=="Issues with your account" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype">
+                                Your account
+                            </label>
+                            <div id="helptype-hint" class="govuk-hint govuk-radios__hint">
+                                For example, issues logging in or changing your personal information.
+                              </div>
+                        </div>
+
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="helptype-1" name="helptype" type="radio" value="Adding a heat network" aria-describedby="helptype-1-hint" {% if data.helptype=="Adding a heat network" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype-1">
+                                Adding a heat network
+                            </label>
+                            <div id="helptype-1-hint" class="govuk-hint govuk-radios__hint">
+                                For exmaple, problems with submitting a heat network or gathering the required information to register a heat network with us.
+                              </div>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="helptype-2" name="helptype" type="radio" value="Organisation details" aria-describedby="helptype-2-hint" {% if data.helptype=="Organisation details" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype-2">
+                                Organisation details
+                            </label>
+                            <div id="helptype-2-hint" class="govuk-hint govuk-radios__hint">
+                                If you're experiencing issues with providing additional information about the structure or finances of your organisation.
+                              </div>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="helptype-3" name="helptype" type="radio" value="SMRI declaration" aria-describedby="helptype-3-hint" {% if data.helptype=="SMRI declaration" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype-3">
+                                SMRI declaration
+                            </label>
+                            <div id="helptype-3-hint" class="govuk-hint govuk-radios__hint">
+                                Queries and issues relating to submitting your declaration about people with significant managerial responsibility or influence.
+                              </div>
+                        </div>
+
+
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="helptype-4" name="helptype" type="radio" value="Something else" aria-describedby="helptype-4-hint" data-aria-controls="conditional-helptype-4" {% if data.helptype=="Something else" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype-4">
+                                Something else
+                            </label>
+                        </div>
+                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-helptype-4">
+                            <div class="govuk-form-group {% if data.validationErrors.helptypeother %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="helptype-other">
+                                Reason for contact
+                              </label>
+                              {% if data.validationErrors.helptypeother %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.helptypeother.message}}
+                              </p>
+                              {% endif %}
+                              <input class="govuk-input" id="helptype-other" name="helptypeother" type="tel" autocomplete="tel">
+                            </div>
+                          </div>
+
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
+        </form>
+
+
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

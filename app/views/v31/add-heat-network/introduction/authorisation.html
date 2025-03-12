@@ -1,0 +1,59 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "235" %}
+
+{% set title = "Your organisation’s heat network will be temporarily authorised " %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+
+            
+            <p class="govuk-body">Once this heat network is registered, it will be covered by a temporary authorisation until 27 January 2027. You'll then need to convert this to a full authorisation.</p>
+            <p class="govuk-body">We’ll let you know how to do this nearer the time.</p>
+
+
+
+        </div>
+        <a href="buy" class="govuk-button">Continue</a>
+        <p class="govuk-body"><a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+    </div>
+
+</div>
+
+{% endblock %}
