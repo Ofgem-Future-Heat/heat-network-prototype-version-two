@@ -3576,7 +3576,7 @@ if (!introsupply20) {
     req.session.data.validationError = "true"
     req.session.data.validationErrors.introsupply20 = {
         "anchor": "introsupply20",
-        "message": "Select an option"
+        "message": "Select yes if this heat network started providing heating, cooling or hot water to consumers before 1 April 2025"
     }
 }
 
