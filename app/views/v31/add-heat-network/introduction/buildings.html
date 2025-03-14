@@ -81,11 +81,9 @@ Is {{company}} responsible for providing heating, cooling or hot water to this b
 
                         </legend>
                         {% if data.introbuildingstotal > 1 %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that provide heating, cooling or hot water to these buildings.</p>
-                        <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.</p>
+                        <p class="govuk-body">This means your organisation operates all of the pipework up to the connection point with each building.</p>
                         {% else %}
-                        <p class="govuk-body">This means your organisation owns or has significant control over the network assets that provide heating, cooling or hot water to this building.</p>
-                        <p class="govuk-body">These assets can include things like energy centres, distribution pipework and building connection points.        </p>                
+                        <p class="govuk-body">This means your organisation operates all of the pipework up to the connection point with this building.</p>
                         {% endif %}
                         {% if data.validationErrors.introbuildings %}
                 <p class="govuk-error-message">
@@ -116,9 +114,10 @@ Is {{company}} responsible for providing heating, cooling or hot water to this b
                     <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-introbuildings">
                         
                         <div class="govuk-form-group {% if data.validationErrors.introbuildingshowmany %}govuk-form-group--error{% endif %}">
-                          <label class="govuk-label" for="introbuildingshowmany">
+                          <label class="govuk-label govuk-label--s" for="introbuildingshowmany">
                             How many buildings is {{company}} responsible for?
                           </label>
+                          <p class="govuk-body">If the pipework that your organisation operates does not connect to any buildings, enter '0'.</p>
                           {% if data.validationErrors.introbuildingshowmany %}
                           <p class="govuk-error-message">
                               <span class="govuk-visually-hidden">Error:</span>
