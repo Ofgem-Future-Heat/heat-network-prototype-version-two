@@ -1,5 +1,12 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Enter {{data.energycentretype}} address" %}
+{% if (data.energycentres > 1) %}
+{% set title = "What is the primary energy centre's address?" %}
+{% else %}
+{% set title %}
+What is the {{data.energycentretype}}'s address? 
+{% endset %}
+{% endif %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -67,54 +74,52 @@
                             {{title}}
                         </h1>
                     </legend>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="locationaddressMLine1">
-                            Address line 1
+                    <div class="govuk-form-group {% if data.validationErrors.ecaddressMLine1 %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label" for="ecaddressMLine1">
+                            Street address
                         </label>
-                        {% if data.validationErrors.locationaddressMLine1 %}
+                        {% if data.validationErrors.ecaddressMLine1 %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
-                            {{data.validationErrors.locationaddressMLine1.message}}
+                            {{data.validationErrors.ecaddressMLine1.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input" id="locationaddressMLine1" name="locationaddressMLine1" type="text" autocomplete="address-line1" value="{{data.locationaddressMLine1}}">
+                        <input class="govuk-input" id="ecaddressMLine1 {% if data.validationErrors.ecaddressMLine1 %}govuk-input--error{% endif %}" name="ecaddressMLine1" type="text" autocomplete="address-line1" value="{{data.ecaddressMLine1}}">
                     </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="locationaddressMLine2">
-                            Address line 2 (optional)
-                        </label>
-                        <input class="govuk-input" id="locationaddressMLine2" name="locationaddressMLine2" type="text" autocomplete="address-line2" value="{{data.locationaddressMLine2}}">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="locationaddressMTown">
+                    <div class="govuk-form-group {% if data.validationErrors.ecaddressMTown %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label" for="ecaddressMTown">
                             Town or city
                         </label>
-                            {% if data.validationErrors.locationaddressMTown %}
+                            {% if data.validationErrors.ecaddressMTown %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
-                            {{data.validationErrors.locationaddressMTown.message}}
+                            {{data.validationErrors.ecaddressMTown.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-!-width-two-thirds" id="locationaddressMTown" name="locationaddressMTown" type="text" autocomplete="address-level2" value="{{data.locationaddressMTown}}">
+                        <input class="govuk-input govuk-!-width-two-thirds {% if data.validationErrors.ecaddressMTown %}govuk-input--error{% endif %}" id="ecaddressMTown" name="ecaddressMTown" type="text" autocomplete="address-level2" value="{{data.ecaddressMTown}}">
                     </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="locationaddressMCounty">
+
+
+                    <div class="govuk-form-group {% if data.validationErrors.ecaddressMCounty %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label" for="ecaddressMCounty">
                             County (optional)
                         </label>
-                        <input class="govuk-input govuk-!-width-two-thirds" id="locationaddressMCounty" name="locationaddressMCounty" type="text" value="{{data.locationaddressMCounty}}">
+                        <input class="govuk-input govuk-!-width-two-thirds" id="ecaddressMCounty" name="ecaddressMCounty" type="text" value="{{data.ecaddressMCounty}}">
                     </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="locationaddressMPostcode">
+
+                    <div class="govuk-form-group {% if data.validationErrors.ecaddressMPostcode %}govuk-form-group--error{% endif %}">
+                        <label class="govuk-label" for="ecaddressMPostcode">
                             Postcode
                         </label>
-                        {% if data.validationErrors.locationaddressMTown %}
+                        {% if data.validationErrors.ecaddressMTown %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
-                            {{data.validationErrors.locationaddressMPostcode.message}}
+                            {{data.validationErrors.ecaddressMPostcode.message}}
                         </p>
                         {% endif %}
-                        <input class="govuk-input govuk-input--width-10" id="locationaddressMPostcode" name="locationaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.locationaddressMPostcode}}">
+                        <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.ecaddressMPostcode %}govuk-input--error{% endif %}" id="ecaddressMPostcode" name="ecaddressMPostcode" type="text" autocomplete="postal-code" value="{{data.ecaddressMPostcode}}">
                     </div>
+                    
                 </fieldset>
 
 

@@ -43,7 +43,11 @@
                     How often do you send bills to customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
+                    {% if data.billingoften == "Other" %}
+                    {{data.billingoftenfrequency}}
+                    {% else %}
                     {{data.billingoften}}
+                    {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="often">Change</a>

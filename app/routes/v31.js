@@ -20,6 +20,7 @@ router.use(function (req, res, next) {
 
 
 function generateSupplierHN(req) {
+    req.session.data['role'] = "Supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -54,6 +55,7 @@ function generateSupplierHN(req) {
 }
 
 function generateSupplier2HN(req) {
+    req.session.data['role'] = "Supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -4929,6 +4931,7 @@ router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', f
 
 
 function populateIntrodata(req) {
+    req.session.data['role'] = "Both"
     req.session.data['introrelevant'] = "Yes"
     req.session.data['introgroundloop'] = "No"
     req.session.data['introcommunal'] = "No"
@@ -4949,6 +4952,7 @@ function populateIntrodata(req) {
     req.session.data['name'] = "Heat Network One"
     req.session.data['introcomplete'] = "true";
 }
+
 
 
 
@@ -5331,6 +5335,65 @@ router.get('/' + version + '/add-heat-network/energycentre/addressmanual', funct
 
 
 
+router.post('/' + version + '/add-heat-network/energycentre/addressmanual', function (req, res) {
+    
+    var ecaddressMLine1 = req.session.data['ecaddressMLine1']
+    var ecaddressMTown = req.session.data['ecaddressMTown']
+    var ecaddressMCounty = req.session.data['ecaddressMCounty']
+    var ecaddressMCountry = req.session.data['ecaddressMCountry']
+    var accounttype = req.session.data['accounttype']
+
+    var ecaddressMPostcode = req.session.data['ecaddressMPostcode']
+
+
+    if (!ecaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressMLine1 = {
+            "anchor": "ecaddressMLine1",
+            "message": "Enter the street address",
+        }
+    }
+
+
+    if (!ecaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressMTown = {
+            "anchor": "ecaddressMTown",
+            "message": "Enter the town or city",
+        }
+    }
+
+    if (!ecaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressMPostcode = {
+            "anchor": "ecaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if ((accounttype == "Overseas organisation") && !ecaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.ecaddressMCountry = {
+            "anchor": "ecaddressMCountry",
+            "message": "Enter a country",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/addressmanual', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            req.session.data.ecAddress = ecaddressMLine1 + ', ' + ecaddressMTown + ', ' + ecaddressMCounty + ', ' + ecaddressMPostcode       
+            console.log(req.session.data.ecAddress)
+            res.redirect('/' + version + '/add-heat-network/energycentre/addressconfirm');
+    }
+});
+
+
+
 
 // Energy Centre - Type
 router.get('/' + version + '/add-heat-network/energycentre/type', function (req, res) {
@@ -5402,7 +5465,7 @@ router.post('/' + version + '/add-heat-network/energycentre/capacity', function 
  if (Array.isArray(energytype) && energytype.includes("Cooling")) {
     res.redirect('/' + version + '/add-heat-network/energycentre/coolingcapacity');
 } else {
-        res.redirect('/' + version + '/add-heat-network/energycentre/meters');
+        res.redirect('/' + version + '/add-heat-network/energycentre/technology');
     }
 
 
@@ -5440,89 +5503,14 @@ router.post('/' + version + '/add-heat-network/energycentre/coolingcapacity', fu
     else {
 
 
-        res.redirect('/' + version + '/add-heat-network/energycentre/meters');
-
-
-
-    }
-});
-
-
-
-// Energy centre - meters
-router.get('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/energycentre/meters', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/energycentre/meters', function (req, res) {
-    
-    var techmeters = req.session.data['techmeters']
-var technologies = req.session.data['technologies']
-
-    if (!techmeters) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techmeters = {
-            "anchor": "techmeters",
-            "message": "Select if the system is capable of thermal meters"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/meters', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (technologies) {
-            res.redirect('/' + version + '/add-heat-network/energycentre/summary');
-
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/energycentre/technology');
-        }
-    }
-
-});
-
-// Energy centre - electricity
-router.get('/' + version + '/add-heat-network/energycentre/electricity', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/energycentre/electricity', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/energycentre/electricity', function (req, res) {
-    
-    var techelectricity = req.session.data['techelectricity']
-
-
-    if (!techelectricity) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.techelectricity = {
-            "anchor": "techelectricity",
-            "message": "Select if the system is capable of thermal electricity"
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/energycentre/electricity', {
-            data: req.session.data
-        });
-    }
-
-    else {
         res.redirect('/' + version + '/add-heat-network/energycentre/technology');
-    }
 
+
+
+    }
 });
+
+
 
 
 
@@ -5570,8 +5558,7 @@ router.post('/' + version + '/add-heat-network/energycentre/technology', functio
         });
     }
     else {
-        req.session.data['techtechnologycount'] = req.session.data['techtechnologycount'] + 1 | 1
-        res.redirect('/' + version + '/add-heat-network/energycentre/summary');
+        res.redirect('/' + version + '/add-heat-network/energycentre/cya');
     }
 });
 
@@ -7050,6 +7037,7 @@ router.get('/' + version + '/add-heat-network/billing/often', function (req, res
 router.post('/' + version + '/add-heat-network/billing/often', function (req, res) {
     
     var billingoften = req.session.data['billingoften']
+    
 
     if (!billingoften) {
         req.session.data.validationError = "true"
@@ -7066,7 +7054,7 @@ router.post('/' + version + '/add-heat-network/billing/often', function (req, re
         });
     }
     else {
-        res.redirect('/' + version + '/add-heat-network/billing/calculated');
+           res.redirect('/' + version + '/add-heat-network/billing/calculated');
     }
 });
 
