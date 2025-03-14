@@ -15,6 +15,7 @@ function clearvalidation(req) {
 //////// PAGE SETUP //////
 router.use(function (req, res, next) {
     clearvalidation(req);
+    req.session.data.lastpage = req.originalUrl;
     next(); // Continue to the actual route handler
 });
 
@@ -8159,7 +8160,9 @@ today = dd + '/' + mm + '/' + yyyy;
 
 // Help - type
 router.get('/' + version + '/help/type', function (req, res) {
-    
+    const urlParams = req.query.v;
+    req.session.data['returnpage'] = urlParams
+
     res.render('/' + version + '/help/type', {
         data: req.session.data
     });
@@ -8171,6 +8174,8 @@ router.post('/' + version + '/help/type', function (req, res) {
     
     var helptype = req.session.data['helptype']
     var helptypeother = req.session.data['helptypeother']
+    var helptypeother = req.session.data['helptypeother']
+
 
     if (!helptype) {
         req.session.data.validationError = "true"
@@ -8194,7 +8199,6 @@ router.post('/' + version + '/help/type', function (req, res) {
         });
     }
     else {
-
         if (helptype == "Something else") {
             req.session.data['helptypesummary'] = helptypeother
             res.redirect('/' + version + '/help/details');
@@ -8210,7 +8214,7 @@ router.post('/' + version + '/help/type', function (req, res) {
 
 // Help - details
 router.get('/' + version + '/help/details', function (req, res) {
-    
+
     res.render('/' + version + '/help/details', {
         data: req.session.data
     });
