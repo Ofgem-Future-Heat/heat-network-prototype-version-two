@@ -78,10 +78,10 @@
                     </p>
                     {% endif %}
 <div class="govuk-radios" data-module="govuk-radios">
-                            {% for address in data.buildinglocationAddressSelect %}
+                            {% for address in data.buildingaddressSelect %}
 
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="{{address | replace (" ", "-") | safe}}" name="buildingaddressSelect" type="radio" value="{{address}}" {% if data.buildingaddressSelect == address %} checked {% endif %}>
+        <input class="govuk-radios__input" id="{{address | replace (" ", "-") | safe}}" name="buildingaddressSelected" type="radio" value="{{address}}" {% if data.buildingaddressSelected == address %} checked {% endif %}>
         <label class="govuk-label govuk-radios__label" for="{{address | replace (" ", "-") | safe}}">
           {{address}}
         </label>

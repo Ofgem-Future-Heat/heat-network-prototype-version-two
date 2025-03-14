@@ -121,6 +121,20 @@ Radienteco Ltd
 
             <!---------///////////////////////  COMMUNAL  /////////////////////// ------------>
             {% if data.introcommunal == "Yes" %} 
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What is the address of the communal building?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% set address = data.buildingaddressSelected.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+        </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                </dd>
+            </div>
+
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         Does the heat network have its own energy centre?

@@ -3626,7 +3626,7 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
     else {
 
         if (introcommunal == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+            res.redirect('/' + version + '/add-heat-network/introduction/address');
         }
 
         else {
@@ -3637,6 +3637,216 @@ router.post('/' + version + '/add-heat-network/introduction/communal', function 
 
         }
 });
+
+
+// Introduction - Address
+router.get('/' + version + '/add-heat-network/introduction/address', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/address', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/address', function (req, res) {
+    
+    var userpostcode = req.session.data['buildingaddressPostcode'].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
+
+    if (!userpostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressPostcode = {
+            "anchor": "buildingaddressPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    function validateUKPostcode(postcode) {
+        const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+        return postcodeRegex.test(postcode);
+      }
+
+    if (!validateUKPostcode(userpostcode)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressPostcode = {
+            "anchor": "buildingaddressPostcode",
+            "message": "Enter a valid postcode",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/address', {
+            data: req.session.data
+        });
+    }
+
+    else {
+
+
+        const axios = require('axios');
+        const https = require('https');
+
+        const httpsAgent = new https.Agent({
+            rejectUnauthorized: false
+        })
+
+        const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
+
+        async function postcode(postcode) {
+            axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
+                .then(function (response) {
+                    var output = JSON.stringify(response.data, null, 2);
+                    let parsed = JSON.parse(output).results;
+                    let locationaddresses = [];
+                    if (parsed != undefined) {
+
+                        for (var i = 0; i < parsed.length; i++) {
+                            let obj = parsed[i];
+                            locationaddresses.push(obj.LPI.ADDRESS);
+                        }
+                        req.session.data.buildingaddressSelect = locationaddresses;
+                        req.session.data.ecorgaddressesnotfound = "";
+                        res.redirect('/' + version + '/add-heat-network/introduction/addressselect');
+                    }
+
+                    else {
+                        req.session.data.buildingaddressSelect = locationaddresses;
+                        req.session.data.buildingaddressesnotfound = true;
+                        res.redirect('/' + version + '/add-heat-network/introduction/addressmanual');
+                    }
+
+                });
+
+        }
+        postcode(userpostcode);
+
+    }
+});
+
+
+
+
+
+
+
+// Introduction - Address select
+router.get('/' + version + '/add-heat-network/introduction/addressselect', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/addressselect', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/addressselect', function (req, res) {
+    
+    var addressselect = req.session.data['buildingaddressSelected']
+
+    if (!addressselect) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressSelected = {
+            "anchor": "buildingaddressSelectRadios",
+            "message": "Select an address",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/addressselect', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        req.session.data.buildingaddress = req.session.data['buildingaddressSelected']
+        res.redirect('/' + version + '/add-heat-network/introduction/addressconfirm');
+
+    }
+});
+
+// Introduction - Address confirm
+router.get('/' + version + '/add-heat-network/introduction/addressconfirm', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/addressconfirm', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/add-heat-network/introduction/addressconfirm', function (req, res) {
+        res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+});
+
+
+// Introduction - Address manual
+router.get('/' + version + '/add-heat-network/introduction/addressmanual', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/addressmanual', {
+        data: req.session.data
+    });
+});
+
+
+
+router.post('/' + version + '/add-heat-network/introduction/addressmanual', function (req, res) {
+    
+    var buildingaddressMLine1 = req.session.data['buildingaddressMLine1']
+    var buildingaddressMTown = req.session.data['buildingaddressMTown']
+    var buildingaddressMCounty = req.session.data['buildingaddressMCounty']
+    var buildingaddressMCountry = req.session.data['buildingaddressMCountry']
+    var accounttype = req.session.data['accounttype']
+
+    var buildingaddressMPostcode = req.session.data['buildingaddressMPostcode']
+
+
+    if (!buildingaddressMLine1) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressMLine1 = {
+            "anchor": "buildingaddressMLine1",
+            "message": "Enter the street address",
+        }
+    }
+
+
+    if (!buildingaddressMTown) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressMTown = {
+            "anchor": "buildingaddressMTown",
+            "message": "Enter the town or city",
+        }
+    }
+
+    if (!buildingaddressMPostcode) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressMPostcode = {
+            "anchor": "buildingaddressMPostcode",
+            "message": "Enter a postcode",
+        }
+    }
+
+    if ((accounttype == "Overseas organisation") && !buildingaddressMCountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingaddressMCountry = {
+            "anchor": "buildingaddressMCountry",
+            "message": "Enter a country",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/addressmanual', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            req.session.data.buildingaddress = buildingaddressMLine1 + ', ' + buildingaddressMTown + ', ' + buildingaddressMCounty + ', ' + buildingaddressMPostcode       
+            console.log(req.session.data.buildingaddress)
+            res.redirect('/' + version + '/add-heat-network/introduction/addressconfirm');
+    }
+});
+
+
+
+
+
 
 // Introduction - Changes
 router.get('/' + version + '/add-heat-network/introduction/changes', function (req, res) {
