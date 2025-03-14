@@ -1,14 +1,8 @@
 {% extends 'layouts/main.html' %}
-{% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
-    {% set title = "What type of building does your heat network contain? " %}
-    {% set inputtype = "radios" %}
-    {% set inputtypeshort = "radio" %}
-{% else %}
-{% set title = "What types of building does your heat network contain? " %}
+{% set title = "Which types of customer are on this heat network? " %}
 {% set inputtype = "checkboxes" %}
 {% set inputtypeshort = "checkbox" %}
 
-{% endif %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,11 +55,11 @@
 
 
         <form method="POST" novalidate>
-                                <div class="govuk-form-group {% if data.validationErrors.buildingtype %}govuk-form-group--error{% endif %}">
+                                <div class="govuk-form-group {% if data.validationErrors.customertype %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -74,36 +68,36 @@
                     {% if data.introcommunal == "No" %}
 
                     <div class="govuk-inset-text">
-                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> which contains <strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single end consumer{% else %}connection to a building with single premises and a single end consumer{% endif %}
+                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> which contains <strong>{{data.introhncustomers}} </strong>{% if data.introhncustomers > 1 %}connections to single premises customers, each with a single end consumer{% else %}connection to a customer with single premises and a single end consumer{% endif %}
                         </p>
     
-                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal buildings {% else %}communal building{% endif %} connected to this network.</p>{% endif %}
+                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal customers {% else %}communal customer{% endif %} connected to this network.</p>{% endif %}
                         </div>
                         {% endif %}
                     
-                    {% if data.validationErrors.buildingtype %}
+                    {% if data.validationErrors.customertype %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.buildingtype.message}}
+                        {{data.validationErrors.customertype.message}}
                     </p>
                     {% endif %}
 
-                    {% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
-                    {% set buildtypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government building, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse'], ['Mixed0use', 'For example, residential and commercial']] %}
+                    {% if (data.introhncustomers == 1) or (data.introcommunal == "Yes") %}
+                    {% set customertypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government customer, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse']] %}
 
                                 {% else %}
-                                {% set buildtypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government buildings, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses'], ['Mixed0use', 'For example, residential and commercial']] %}
+                                {% set customertypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government customers, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses']] %}
 
                                 {% endif %}
                                 <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 
-                    {% for building, description in buildtypes %}
+                    {% for customer, description in customertypes %}
                         <div class="govuk-{{inputtype}}__item">
-                            <input class="govuk-{{inputtype}}__input" id="buildingtype-{{building}}"  name="buildingtype" type="{{inputtypeshort}}" value="{{building}}" {% if data.buildingtype %}{% if inputtype == "checkboxes" %}{% if building in data.buildingtype %}checked{% endif %} {% else %}{% if data.buildingtype == building %}checked{% endif %}{% endif %}{% endif %}>
-                            <label class="govuk-label govuk-{{inputtype}}__label" for="buildingtype-{{building}}">
-                                {{building | replace("0", "-") | safe}} building
+                            <input class="govuk-{{inputtype}}__input" id="customertype-{{customer}}"  name="customertype" type="{{inputtypeshort}}" value="{{customer}}" {% if data.customertype %}{% if inputtype == "checkboxes" %}{% if customer in data.customertype %}checked{% endif %} {% else %}{% if data.customertype == customer %}checked{% endif %}{% endif %}{% endif %}>
+                            <label class="govuk-label govuk-{{inputtype}}__label" for="customertype-{{customer}}">
+                                {{customer | replace("0", "-") | safe}} customers
                             </label>
-                            <div id="buildingtype-hint" class="govuk-hint govuk-{{inputtype}}__hint">
+                            <div id="customertype-hint" class="govuk-hint govuk-{{inputtype}}__hint">
                                 {{description}}
                             </div>
                         </div>

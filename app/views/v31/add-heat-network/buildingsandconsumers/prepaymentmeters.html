@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do any dwellings have pre-payment meters installed?" %}
+{% set title = "How many customers on this heat network have pre-payment meters installed?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -56,7 +56,7 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
@@ -79,29 +79,21 @@
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="prepaymentmeters" name="prepaymentmeters" type="radio" value="Yes" {% if data.prepaymentmeters == "Yes" %}checked{% endif %} data-aria-controls="conditional-prepaymentmeters">
+                            <input class="govuk-radios__input" id="prepaymentmeters" name="prepaymentmeters" type="radio" value="Some" {% if data.prepaymentmeters == "Some" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="prepaymentmeters">
-                                Yes
+                                Some
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-prepaymentmeters">
-                            <div class="govuk-form-group {% if data.validationErrors.prepaymentmetersnumber %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="prepaymentmetersnumber">
-                                How many?
-                              </label>
-                              {% if data.validationErrors.prepaymentmetersnumber %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.prepaymentmetersnumber.message}}
-                              </p>
-                              {% endif %}
-                              <input class="govuk-input {% if data.validationErrors.prepaymentmetersnumber %}govuk-input--error{% endif %} govuk-!-width-one-third" id="prepaymentmetersnumber" name="prepaymentmetersnumber" type="text" spellcheck="false"  value="{{data.prepaymentmetersnumber}}">
-                            </div>
-                          </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="prepaymentmeters-2" name="prepaymentmeters" type="radio" value="No" {% if data.prepaymentmeters == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="prepaymentmeters-2" name="prepaymentmeters" type="radio" value="All" {% if data.prepaymentmeters == "All" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="prepaymentmeters-2">
-                                No
+                                All
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="prepaymentmeters-3" name="prepaymentmeters" type="radio" value="None" {% if data.prepaymentmeters == "None" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="prepaymentmeters-3">
+                                None
                             </label>
                         </div>
                     </div>

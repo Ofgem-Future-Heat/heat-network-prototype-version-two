@@ -1,14 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
-{% if data.buildingtype == "Mixed0use" %}
-{% set title = "How many customers does the heat network contain?" %}
+{% if data.customertype.length > 1 %}
+{% set title = "How many customers are on this heat network?" %}
 {% else %}
-{% set unformattedtitle = "How many " + data.buildingtype + " customers are in this building?" %}
+{% set unformattedtitle = "How many " + data.customertype + " customers are on this heat network?" %}
 {% set title = unformattedtitle | capitalize %}
-{% endif %}
-
-{% else %}
-{% set title = "How many customers does the heat network contain?" %}
 {% endif %}
 
 
@@ -66,7 +61,7 @@
 
         <div class="govuk-form-group ">
 
-            <span class="govuk-caption-l">Add a heat network - {% if data.role == "Network operator" %}buildings{% else %}buildings, customers and metering{% endif %}</span>
+            <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
             <h1 class="govuk-heading-l">
                 {{title}}
             </h1>
@@ -82,7 +77,7 @@
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
                 <!-- IF Mixed Use-->
-                {% if "Mixed0use" in data.buildingtype %}
+                {% if "Mixed0use" in data.customertype | string %}
                 <div class="govuk-form-group {% if data.validationErrors.buildingcustomers %}govuk-form-group--error{% endif %}">
 
                 {% if data.validationErrors.buildingcustomers %}
@@ -130,11 +125,15 @@
             {% else %}
             <!-- ELSE If NOT communal and > 1 building-->
 
-                {% for buildingtype in data.buildingtype %}
-                {% set validationKey = "buildingcustomers" ~ buildingtype %}
+                {% for customertype in data.customertype %}
+                {% set validationKey = "buildingcustomers" ~ customertype %}
                             <div class="govuk-form-group {% if data.validationErrors[validationKey] %}govuk-form-group--error{% endif %}">
                 <label class="govuk-label" for="buildingcustomersResidential">
-                    {{buildingtype}} customers
+                    {% if data.customertype.length == 1 %}
+                    Number of customers
+                    {% else %}
+                    {{customertype}} customers
+                    {% endif %}
                 </label>
                 {% if data.validationErrors[validationKey] %}
                     <p class="govuk-error-message">

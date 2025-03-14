@@ -1,5 +1,15 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you use an agent to deal with metering or billing?" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+
+{% set title %} 
+Does {{company}} use a metering or billing agent for this heat network?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -56,7 +66,7 @@
                 <fieldset class="govuk-fieldset" >
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - metering</span>
+                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                                {{title}}
                         </h1>
@@ -65,7 +75,7 @@
                     <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Help with 'agent'
+        Help with ‘metering or billing agent’
     </span>
   </summary>
   <div class="govuk-details__text">

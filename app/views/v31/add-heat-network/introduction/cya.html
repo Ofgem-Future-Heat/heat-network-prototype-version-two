@@ -146,20 +146,7 @@ Radienteco Ltd
                         <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
                     </dd>
                 </div>
-                {% if data.introenergycentre == "No" %} 
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Does {{company}} operate the heat network that provides heat to this communal network?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {{data.introprimary}}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="primary">Change<span class="govuk-visually-hidden"> whether {{company}} operates the primary network</span></a>
-                    </dd>
-                </div>
-                {% endif %}
                 {% if data.role == "Both" %} 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
