@@ -83,13 +83,8 @@
                     </p>
                     {% endif %}
 
-                    {% if (data.introhncustomers == 1) or (data.introcommunal == "Yes") %}
-                    {% set customertypes = [['Residential', 'For example, a block of flats'], ['Public', 'For example, a local authority or other government customer, library, school or healthcare facility'], ['Commercial', 'For example, an office block'], ['Industrial', 'For example, a factory or warehouse']] %}
-
-                                {% else %}
                                 {% set customertypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government customers, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses']] %}
 
-                                {% endif %}
                                 <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 
                     {% for customer, description in customertypes %}
