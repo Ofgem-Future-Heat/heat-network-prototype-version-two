@@ -109,26 +109,13 @@
             {% else %}
                 <!-- ELSE If communal or 1 building-->
 
-            {% if (data.introhnbuildings == 1) or (data.introcommunal == "Yes") %}
-            <div class="govuk-form-group {% if data.validationErrors.buildingcustomers %}govuk-form-group--error{% endif %}">
-                <label class="govuk-label" for="buildingcustomers">
-                    Customers
-                </label>
-                {% if data.validationErrors.buildingcustomers %}
-                <p class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>
-                    {{data.validationErrors.buildingcustomers.message}}
-                </p>
-                {% endif %}
-                <input class="govuk-input govuk-input--width-3 {% if data.validationErrors.buildingcustomers %}govuk-input--error{% endif %} " id="buildingcustomers" name="buildingcustomers" type="number" value="{{data.buildingcustomers}}">
-            </div>
-            {% else %}
+
             <!-- ELSE If NOT communal and > 1 building-->
 
                 {% for customertype in data.customertype %}
                 {% set validationKey = "buildingcustomers" ~ customertype %}
                             <div class="govuk-form-group {% if data.validationErrors[validationKey] %}govuk-form-group--error{% endif %}">
-                <label class="govuk-label" for="buildingcustomersResidential">
+                <label class="govuk-label" for="{{validationKey}}">
                     {% if data.customertype.length == 1 %}
                     Number of customers
                     {% else %}
@@ -146,7 +133,6 @@
             </div>
 
                 {% endfor %}
-                {% endif %}
                 {% endif %}
             </fieldset>
 

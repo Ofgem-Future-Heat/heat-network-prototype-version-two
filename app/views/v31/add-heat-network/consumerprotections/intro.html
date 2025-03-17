@@ -47,9 +47,17 @@
     <li>if you have a process for dealing with customers who have difficulties paying</li>
 </ul>
 
-
-                    <a href="vulnerable" class="govuk-button">Continue</a>
+{% if data.buildingcustomersResidential > 0 %}
+<a href="vulnerable" class="govuk-button">Continue</a>
+{% else %}
+<a href="confirm" class="govuk-button">Continue</a>
+{% endif %}
+                   
     </div>
 </div>
 
 {% endblock %}
+
+
+
+data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes")

@@ -172,7 +172,7 @@
                 {% endif %}
 
                 
-                {% if (data.role == "Supplier" or data.role == "Both") and data.buildingcomplete == "true" %}
+                {% if (data.role == "Supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.buildingcustomersResidential > 0 or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes")  %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
@@ -223,7 +223,7 @@
 
         </div>
 
-        <a href="../account-information?v=supplier2" class="govuk-button">Submit</a>
+        <a href="/confirmsubmit" class="govuk-button">Submit</a>
 
     </div>
 

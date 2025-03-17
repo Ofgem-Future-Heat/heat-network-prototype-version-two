@@ -3589,8 +3589,15 @@ if (req.session.data.validationError == "true") {
 }
 
 else {
+    if (introsupply20 == "Yes") {
+        res.redirect('/' + version + '/add-heat-network/introduction/authorisation');
 
+    }
+    else {
         res.redirect('/' + version + '/add-heat-network/introduction/changes');
+
+    }
+
 }
 });
 
@@ -6559,13 +6566,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/vulnerable', 
         });
     }
     else {
-        if (consumervulnerable == "Yes") {
             res.redirect('/' + version + '/add-heat-network/consumerprotections/psr');
-        }
-
-        else {
-            res.redirect('/' + version + '/add-heat-network/consumerprotections/confirm');
-        }
     }
 });
 
@@ -6583,6 +6584,8 @@ router.get('/' + version + '/add-heat-network/consumerprotections/psr', function
 router.post('/' + version + '/add-heat-network/consumerprotections/psr', function (req, res) {
     
     var consumerpsr = req.session.data['consumerpsr']
+    var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
+    var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
 
     if (!consumerpsr) {
         req.session.data.validationError = "true"
@@ -6599,7 +6602,16 @@ router.post('/' + version + '/add-heat-network/consumerprotections/psr', functio
         });
     }
     else {
+        if (consumertypemicrobusiness == "Yes" | smallmediumbusinesses == "Yes") {
             res.redirect('/' + version + '/add-heat-network/consumerprotections/confirm');
+
+        }
+
+        else {
+            res.redirect('/' + version + '/add-heat-network/consumerprotections/difficulties');
+
+        }
+
 
     }
 });
