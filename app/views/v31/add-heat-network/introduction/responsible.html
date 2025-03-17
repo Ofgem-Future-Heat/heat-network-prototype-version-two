@@ -10,7 +10,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Do you have permission to register this heat network on behalf of the other operators?
+Have the other operators agreed that you can provide heat network information on their behalf?
 {% endset %}
 
 
@@ -79,6 +79,12 @@ Do you have permission to register this heat network on behalf of the other oper
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">
+                        By providing network information on behalf of another operator, you’re confirming that they undertake a regulated activity.
+                    </p>
+                    <p class="govuk-body">
+                        We’ll check that the information provided is correct and may contact your organisation or the other operators for further details.
+	                    </p>
 
                     {% if data.validationErrors.introresponsible %}
                     <p class="govuk-error-message">

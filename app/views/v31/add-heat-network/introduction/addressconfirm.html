@@ -1,19 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if (data.energycentres > 1) %}
-
-{% if data.ecaddressHasPostcode == "Yes" %}
-Confirm primary energy centre's address
-{% else %}
-Confirm primary energy centre's co-ordinates
-{% endif %}
-{% else %}
-{% if data.ecaddressHasPostcode == "Yes" %}
-Confirm {{data.energycentretype}} address
-{% else %}
-Confirm {{data.energycentretype}} co-ordinates
-{% endif %}
-{% endif %}
+Confirm address
 {% endset %}
 
 {% block pageTitle %}

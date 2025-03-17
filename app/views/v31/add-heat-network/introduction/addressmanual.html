@@ -1,9 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% if (data.buildings > 1) %}
-{% set title = "Building 1: Enter address" %}
-{% else %}
 {% set title = "Enter building address" %}
-{% endif %}
 {% set _inError = data.validationError == "true"  %}
 
 

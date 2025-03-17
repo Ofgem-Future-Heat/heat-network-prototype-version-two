@@ -150,7 +150,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/emails/supplier-invite');
+            res.redirect('/' + version + '/account-information?v=ur');
     }
 
 });

@@ -74,6 +74,7 @@
                         {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal customers {% else %}communal customer{% endif %} connected to this network.</p>{% endif %}
                         </div>
                         {% endif %}
+                        <div class="govuk-hint">Select all that apply</div>
                     
                     {% if data.validationErrors.customertype %}
                     <p class="govuk-error-message">

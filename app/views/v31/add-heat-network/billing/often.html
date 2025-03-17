@@ -105,13 +105,13 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="billingoften-7" name="billingoften" type="radio" value="Other" data-aria-controls="billingoften-conditional" {% if data.billingoften == "Other" %}checked{% endif %} >
                             <label class="govuk-label govuk-radios__label" for="billingoften-7">
-                                Other
+                                Other (please specify)
                             </label>
                         </div>
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="billingoften-conditional" >
                             <div class="govuk-form-group">
                               <label class="govuk-label" for="billingoftenfrequency">
-                                Billing frequency description
+                                Describe billing frequency
                               </label>
                               <input class="govuk-input govuk-!-width-one-third" id="billingoftenfrequency" name="billingoftenfrequency" type="text" value="{{data.billingoftenfrequency}}">
                             </div>

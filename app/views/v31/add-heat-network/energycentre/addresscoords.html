@@ -1,10 +1,10 @@
 {% extends 'layouts/main.html' %}
 
 {% if (data.energycentres > 1) %}
-{% set title = "What are the primary energy centre's coordinates?" %}
+{% set title = "What are the primary energy centre's grid coordinates?" %}
 {% else %}
 {% set title %}
-What are the {{data.energycentretype}}'s coordinates? 
+What are the {{data.energycentretype}}'s grid coordinates? 
 {% endset %}
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
@@ -64,7 +64,7 @@ What are the {{data.energycentretype}}'s coordinates?
                                  {{title}}
                           </h1>
           
-        <p class="govuk-body">To find the coordinates of the {{data.energycentretype}} go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The co-ordinates will be the first option in the list.</p>
+        <p class="govuk-body">To find the coordinates of the {{data.energycentretype}} go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The coordinates will be the first option in the list.</p>
         <p class="govuk-body">You can then paste these coordinates directly into the box below.</p>
 
                 <div class="govuk-form-group {% if data.validationErrors.ecaddresslatitude %}govuk-form-group--error{% endif %}">
