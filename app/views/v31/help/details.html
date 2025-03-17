@@ -2,7 +2,7 @@
 {% set showhelp = false %}
 
 {% set title %}
-Add further details about your enquiry
+What are the details?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,7 +61,8 @@ Add further details about your enquiry
       {{title}}
     </h1>
     <p class="govuk-body">
-      Tell us more about your enquiry so we can direct it to the right team.
+      Do not provide any personal information. As you're logged in to the service, we know who you are.
+
   
     </p>
   <div class="govuk-inset-text">
@@ -72,7 +73,7 @@ Add further details about your enquiry
 
   <div class="govuk-form-group {% if data.validationErrors.helpdetails %}govuk-form-group--error{% endif %}">
         <h2 class="govuk-heading-s">
-          <label for="helpdetails">Enter further details</label>
+          <label for="helpdetails">Enter details</label>
         </h2>
         {% if data.validationErrors.helpdetails %}
         <p class="govuk-error-message">
@@ -82,8 +83,21 @@ Add further details about your enquiry
         {% endif %}
 
 
-        <textarea class="govuk-textarea" id="helpdetails" name="helpdetails" rows="5"></textarea>
-
+        <textarea class="govuk-textarea govuk-!-margin-bottom-1" id="helpdetails" name="helpdetails" rows="5" maxlength="1000"></textarea>
+        <div class="govuk-hint" id="char-count">1000 characters remaining</div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const textarea = document.getElementById("helpdetails");
+                const charCount = document.getElementById("char-count");
+                const maxChars = 1000;
+        
+                textarea.addEventListener("input", function () {
+                    const remaining = maxChars - textarea.value.length;
+                    charCount.textContent = `${remaining} characters remaining`;
+                });
+            });
+        </script>
       </div>
 
 

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What do you need to contact Ofgem regarding?" %}
+{% set title = "What is your question about?" %}
 {% set _inError = data.validationError == "true"  %}
 {% set showhelp = false %}
 
@@ -63,7 +63,6 @@
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">Select from the list below which area of the heat networks service you need asistance with. You'll be able to provide further information on the next page.</p>
 
                     {% if data.validationErrors.helptype %}
                     <p class="govuk-error-message">
@@ -77,69 +76,125 @@
 
 
                     <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="helptype" name="helptype" type="radio" value="Issues with your account" aria-describedby="helptype-hint" {% if data.helptype=="Issues with your account" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="helptype">
-                                Your account
-                            </label>
-                            <div id="helptype-hint" class="govuk-hint govuk-radios__hint">
-                                For example, issues logging in or changing your personal information.
-                              </div>
-                        </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-1" name="helptype" type="radio" value="Accessing the service and user permissions" aria-describedby="helptype-1-hint" {% if data.helptype=="Accessing the service and user permissions" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-1">
+                                    Accessing the service and user permissions
+                                </label>
+                                <div id="helptype-1-hint" class="govuk-hint govuk-radios__hint">
+                                    Either for yourself or other users from your organisation, including options for Welsh speakers and those who need extra help using digital services.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-2" name="helptype" type="radio" value="IT issue" aria-describedby="helptype-2-hint" {% if data.helptype=="IT issue" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-2">
+                                    IT issue
+                                </label>
+                                <div id="helptype-2-hint" class="govuk-hint govuk-radios__hint">
+                                    For example, a technical error or a bug.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-3" name="helptype" type="radio" value="Organisation details" aria-describedby="helptype-3-hint" {% if data.helptype=="Organisation details" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-3">
+                                    Organisation details
+                                </label>
+                                <div id="helptype-3-hint" class="govuk-hint govuk-radios__hint">
+                                    For any issues related to data we require about your organisation, including its governance and finances.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-4" name="helptype" type="radio" value="SMRI declarations" aria-describedby="helptype-4-hint" {% if data.helptype=="SMRI declarations" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-4">
+                                    SMRI declarations
+                                </label>
+                                <div id="helptype-4-hint" class="govuk-hint govuk-radios__hint">
+                                    For issues related to the fit and proper checks required for people with 'significant managerial responsibility and influence'.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-5" name="helptype" type="radio" value="Registering a heat network" aria-describedby="helptype-5-hint" {% if data.helptype=="Registering a heat network" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-5">
+                                    Registering a heat network
+                                </label>
+                                <div id="helptype-5-hint" class="govuk-hint govuk-radios__hint">
+                                    For issues related to regulating pre-existing heat networks.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-6" name="helptype" type="radio" value="Authorising a heat network" aria-describedby="helptype-6-hint" {% if data.helptype=="Authorising a heat network" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-6">
+                                    Authorising a heat network
+                                </label>
+                                <div id="helptype-6-hint" class="govuk-hint govuk-radios__hint">
+                                    For issues related to regulating new heat networks.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-7" name="helptype" type="radio" value="Rights and powers license application" {% if data.helptype=="Rights and powers license application" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-7">
+                                    Rights and powers license application
+                                </label>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-8" name="helptype" type="radio" value="Quarterly monitoring data" aria-describedby="helptype-8-hint" {% if data.helptype=="Quarterly monitoring data" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-8">
+                                    Quarterly monitoring data
+                                </label>
+                                <div id="helptype-8-hint" class="govuk-hint govuk-radios__hint">
+                                    For issues related to regular monitoring data we require for all heat networks.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-9" name="helptype" type="radio" value="Amendments" aria-describedby="helptype-9-hint" {% if data.helptype=="Amendments" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-9">
+                                    Amendments
+                                </label>
+                                <div id="helptype-9-hint" class="govuk-hint govuk-radios__hint">
+                                    For issues related to updating any heat network information that you've already provided.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-10" name="helptype" type="radio" value="Complaint" aria-describedby="helptype-10-hint" {% if data.helptype=="Complaint" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-10">
+                                    Complaint
+                                </label>
+                                <div id="helptype-10-hint" class="govuk-hint govuk-radios__hint">
+                                    Specifically about heat network consumer protection regulations and the services we're delivering to enforce them.
+                                </div>
+                            </div>
+                        
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="helptype-11" name="helptype" type="radio" value="FOI or EIR request" aria-describedby="helptype-11-hint" {% if data.helptype=="FOI or EIR request" %}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="helptype-11">
+                                    FOI or EIR request
+                                </label>
+                                <div id="helptype-11-hint" class="govuk-hint govuk-radios__hint">
+                                    Request for information made under the Freedom of Information Act (2000) or the Environmental Information Regulations (2004).
+                                </div>
+                            </div>
 
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="helptype-1" name="helptype" type="radio" value="Adding a heat network" aria-describedby="helptype-1-hint" {% if data.helptype=="Adding a heat network" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="helptype-1">
-                                Adding a heat network
-                            </label>
-                            <div id="helptype-1-hint" class="govuk-hint govuk-radios__hint">
-                                For exmaple, problems with submitting a heat network or gathering the required information to register a heat network with us.
-                              </div>
-                        </div>
 
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="helptype-2" name="helptype" type="radio" value="Organisation details" aria-describedby="helptype-2-hint" {% if data.helptype=="Organisation details" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="helptype-2">
-                                Organisation details
-                            </label>
-                            <div id="helptype-2-hint" class="govuk-hint govuk-radios__hint">
-                                If you're experiencing issues with providing additional information about the structure or finances of your organisation.
-                              </div>
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="helptype-3" name="helptype" type="radio" value="SMRI declaration" aria-describedby="helptype-3-hint" {% if data.helptype=="SMRI declaration" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="helptype-3">
-                                SMRI declaration
-                            </label>
-                            <div id="helptype-3-hint" class="govuk-hint govuk-radios__hint">
-                                Queries and issues relating to submitting your declaration about people with significant managerial responsibility or influence.
-                              </div>
-                        </div>
-
+                        
 
                         <div class="govuk-radios__divider">or</div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="helptype-4" name="helptype" type="radio" value="Something else" aria-describedby="helptype-4-hint" data-aria-controls="conditional-helptype-4" {% if data.helptype=="Something else" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="helptype-4">
+                            <input class="govuk-radios__input" id="helptype-12" name="helptype" type="radio" value="Something else" aria-describedby="helptype-4-hint" {% if data.helptype=="Something else" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="helptype-12">
                                 Something else
                             </label>
                         </div>
-                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-helptype-4">
-                            <div class="govuk-form-group {% if data.validationErrors.helptypeother %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="helptype-other">
-                                Reason for contact
-                              </label>
-                              {% if data.validationErrors.helptypeother %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.helptypeother.message}}
-                              </p>
-                              {% endif %}
-                              <input class="govuk-input" id="helptype-other" name="helptypeother" type="tel" autocomplete="tel">
-                            </div>
-                          </div>
+
 
                     </div>
 
