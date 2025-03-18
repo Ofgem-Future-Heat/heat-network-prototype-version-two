@@ -60,10 +60,14 @@
                         
 
 
+{% if data.introcommunal == "Yes" %}  
+<a href="type" class="govuk-button">Continue</a>
 
+{% else %}
+<a href="addresspostcode" class="govuk-button">Continue</a>
 
+{% endif %}
 
-                    <a href="addresspostcode" class="govuk-button">Continue</a>
     </div>
 </div>
 

@@ -5237,7 +5237,6 @@ router.post('/' + version + '/add-heat-network/confirmchange', function (req, re
 // Energy centre - Energy Centres
 router.get('/' + version + '/add-heat-network/energycentre/energycentres', function (req, res) {
     
-    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
     res.render('/' + version + '/add-heat-network/energycentre/energycentres', {
         data: req.session.data
     });
@@ -5282,6 +5281,19 @@ req.session.data['technologies'] = req.session.data['technologies' + id];
 
 req.session.data['techmeters'] = req.session.data['techmeters' + id];
 }
+
+
+// Energy centre - Intro
+router.get('/' + version + '/add-heat-network/energycentre/intro', function (req, res) {
+    
+    req.session.data['energycentres'] = req.session.data['introenergycentrehowmany'] || 0
+
+    res.render('/' + version + '/add-heat-network/energycentre/intro', {
+        data: req.session.data
+    });
+});
+
+
 
 // Energy centre - Has postcode
 router.get('/' + version + '/add-heat-network/energycentre/addresspostcode', function (req, res) {

@@ -95,7 +95,8 @@
                     </div>
                 </li>
 
-                {% if (data.role == "Network operator" or (data.role == "Both" and data.introsuppliers == "No")) %}
+                {% if (data.role == "Network operator" or (data.role == "Both" and data.introsuppliers == "No")) and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentrehowmany > 0)) %}  
+                
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
