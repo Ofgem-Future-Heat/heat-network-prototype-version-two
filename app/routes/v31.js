@@ -7452,7 +7452,12 @@ router.post('/' + version + '/help/type', function (req, res) {
 
 // Help - details
 router.get('/' + version + '/help/details', function (req, res) {
-    
+    const urlParams = req.query.type;
+    if(urlParams) {
+        req.session.data['helptypesummary'] = urlParams
+    }
+
+
     res.render('/' + version + '/help/details', {
         data: req.session.data
     });
