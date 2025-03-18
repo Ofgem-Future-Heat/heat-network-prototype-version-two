@@ -65,15 +65,7 @@
                             {{title}}
                         </h1>
                     </legend>
-                    {% if data.introcommunal == "No" %}
 
-                    <div class="govuk-inset-text">
-                        <p class="govuk-body">You’re registering a <strong>district heat network</strong> which contains <strong>{{data.introhncustomers}} </strong>{% if data.introhncustomers > 1 %}connections to single premises customers, each with a single end consumer{% else %}connection to a customer with single premises and a single end consumer{% endif %}
-                        </p>
-    
-                        {% if data.introcommunaloperate == "Yes" %}<p class="govuk-body">You should not include the {% if data.introcommunaloperatehowmany > 1 %}{{data.introcommunaloperatehowmany}} communal customers {% else %}communal customer{% endif %} connected to this network.</p>{% endif %}
-                        </div>
-                        {% endif %}
                         <div class="govuk-hint">Select all that apply</div>
                     
                     {% if data.validationErrors.customertype %}

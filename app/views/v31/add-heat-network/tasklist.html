@@ -51,7 +51,7 @@
             <div class="govuk-inset-text">
                 {% if (data.variantname != "supplier" and data.variantname != "supplier2") %}
 
-                <p class="govuk-body">You’re registering a <strong>district heat network</strong> where you operate:</p>
+                <p class="govuk-body">You’re registering a <strong>district heat network</strong> {% if data.role == "Network operator" or data.role == "Both" %}where you operate{% else %}that you supply to. This heat network contains{% endif %}:</p>
                 {% else %}
                 <p class="govuk-body">This is a <strong>district heat network</strong> containing:</p>
                 {% endif %}
@@ -79,7 +79,7 @@
 
 
             <ul class="govuk-task-list">
-
+                {% if data.role == "Network operator" or data.role == "Both" %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
@@ -94,6 +94,7 @@
                         {% endif %}
                     </div>
                 </li>
+                {% endif %}
 
                 {% if (data.role == "Network operator" or (data.role == "Both" and data.introsuppliers == "No")) and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentrehowmany > 0)) %}  
                 
