@@ -6985,7 +6985,7 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
       }
 
       else {
-        res.redirect('/' + version + '/add-heat-network/suppliers/noresults');
+        res.redirect('/' + version + '/add-heat-network/suppliers/dropout');
       }
     })}
   });

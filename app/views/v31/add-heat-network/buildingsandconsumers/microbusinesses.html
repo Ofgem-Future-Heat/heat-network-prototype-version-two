@@ -62,13 +62,22 @@
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">These are businesses that either:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>consume less than 247,000 kWh of heat per year</li>
-                        <li>have less than 10 full-time employees</li>
-                        <li>turn over less than &pound;2 million per year</li>
-                    </ul>
-                    <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            Help with ‘microbusinesses’
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">These are businesses that either:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>consume less than 247,000 kWh of heat per year</li>
+                                <li>have less than 10 full-time employees</li>
+                                <li>turn over less than &pound;2 million per year</li>
+                            </ul>
+                            <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
+                                </div>
+                      </details>
 
                     {% if data.validationErrors.consumertypemicrobusiness %}
                     <p class="govuk-error-message">

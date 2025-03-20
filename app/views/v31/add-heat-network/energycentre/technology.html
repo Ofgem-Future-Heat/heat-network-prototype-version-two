@@ -65,9 +65,6 @@
                         </h1>
 
                     </legend>
-                    <div id="waste-hint" class="govuk-hint">
-                        We will ask about other technologies later.
-                    </div>
                     {% if data.validationErrors.techtechnology %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -96,7 +93,7 @@
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="techtechnology-2" name="techtechnology" type="radio" value="combined heat and power (CHP) plant" {% if data.techtechnology=="combined heat and power (CHP) plant" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="techtechnology-2">
-                                combined heat and power (CHP) plant
+                                Combined heat and power (CHP) plant
                             </label>
                         </div>
 
