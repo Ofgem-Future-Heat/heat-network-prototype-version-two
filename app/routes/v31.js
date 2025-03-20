@@ -6708,6 +6708,46 @@ router.post('/' + version + '/add-heat-network/consumerprotections/cya', functio
 
 
 
+// Confirm submit
+router.get('/' + version + '/add-heat-network/confirmsubmit', function (req, res) {
+    res.render('/' + version + '/add-heat-network/confirmsubmit', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/confirmsubmit', function (req, res) {
+    var confirmsubmit = req.session.data['confirmsubmit']
+
+    if (!confirmsubmit) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.confirmsubmit = {
+            "anchor": "confirmsubmit",
+            "message": "Tell us whether you wish to confirm and submit your applicaton",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/confirmsubmit', {
+            data: req.session.data
+        });
+    }
+   
+   else {
+if (confirmsubmit == "No") {
+    res.redirect('/' + version + '/add-heat-network/tasklist');
+
+}
+
+else {
+    res.redirect('/' + version + '/add-heat-network/confirmation');
+
+}
+   }
+});
+
+
+
 ////////// SUPPLIERS /////////////
 
 

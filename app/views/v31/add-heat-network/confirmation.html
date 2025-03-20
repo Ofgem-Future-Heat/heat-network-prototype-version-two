@@ -1,0 +1,50 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Heat network submitted" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% set cdnumber = "009" %}
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+
+    </div>
+
+</div>
+{% endblock %}
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              {{title}}
+            </h1>
+            <div class="govuk-panel__body">
+              Heat Network ID: AC1234567
+            </div>
+          </div>
+    
+
+        <a href="../account-information" class="govuk-button">Go to heat networks home</a>
+    </div>
+
+</div>
+
+{% endblock %}
