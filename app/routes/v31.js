@@ -102,6 +102,11 @@ router.get('/' + version + '/account-information', function (req, res) {
         req.session.data['organisationdetails'] = "Submitted";
     }
 
+    if (urlParams == "noqm") {
+        req.session.data['noqm'] = true;
+    }
+
+
     if (urlParams == "supplier") {
         generateSupplierHN(req);
     }
