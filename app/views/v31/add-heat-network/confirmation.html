@@ -37,12 +37,19 @@
               {{title}}
             </h1>
             <div class="govuk-panel__body">
-              Heat Network ID: AC1234567
+              Heat Network ID: HN0001234
             </div>
           </div>
-    
-
-        <a href="../account-information" class="govuk-button">Go to heat networks home</a>
+          <h2 class="govuk-heading-m">
+            What happens next
+          </h2>
+          <p class="govuk-body">
+            We'll send you a confirmation email. This will tell you what your future obligations are, for example how to keep this heat network compliant and your data up to date.
+          </p>
+          {% if data.introcommunaloperate == "Yes" %}
+          <p class="govuk-body">You must submit separate registrations for your {{data.introcommunaloperatehowmany}} communal buildings.</p>
+            {% endif %}
+        <a href="/{{data.version}}/account-information" class="govuk-button">Go to account home</a>
     </div>
 
 </div>
