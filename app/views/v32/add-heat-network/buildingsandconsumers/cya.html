@@ -1,0 +1,153 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Which types of customer does your heat network contain? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.customertype.length > 1 %}
+                    {% for customertype in data.customertype %}
+                    {{ customertype | replace("0", "-") | replace(",", "") | safe}}<br />
+                    {% endfor %}
+                    {% else %}
+                    {{ data.customertype}}
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    How many of each building type does the heat network contain?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for customertype in data.customertype %}
+                    {% set customers = "buildingcustomers" ~ customertype %}
+
+                    {{data[customers]}} {{customertype | replace("0", "-") | replace(",", ", ")}} customers<br />
+                    {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="customers">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            {% if (data.buildingtype == "Commercial") or (data.buildingcustomersCommercial >= 1)  %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are any of your commercial customers 'microbusinesses'?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.consumertypemicrobusiness}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does the heat network serve small and medium-sized businesses (SMEs)?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.smallmediumbusinesses}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="smallmediumbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do any dwellings have pre-payment meters?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.prepaymentmeters == "Yes" %}
+                   {{data.prepaymentmeters}}<br />
+                  {{data.prepaymentmetersnumber}} dwelling{% if data.prepaymentmetersnumber > 1 %}s{% endif %}
+                   {% else %}
+                   {{data.prepaymentmeters}}
+                   {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="prepaymentmeters">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+          
+
+           
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you use an agent to deal with metering and billing?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent">Change</a>
+                </dd>
+            </div>
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

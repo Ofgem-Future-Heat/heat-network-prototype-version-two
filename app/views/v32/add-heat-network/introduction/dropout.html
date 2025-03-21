@@ -1,0 +1,144 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = data.introdropoutreason %}
+{% set showhelp = false %}
+
+{% set title %}
+{% if data.introdropoutreason == "238" %}
+Only heat network operators can initiate adding heat network information
+{% elif data.introdropoutreason == "237" %}
+You do not need to register your organisation’s heat network
+{% else %}
+You cannot register your organisation’s heat network yet
+{% endif %}
+{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - introduction</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+
+            {% if data.introdropoutreason == "203" %}
+
+            <p class="govuk-body">This service is not currently available for heat networks that are connected by shared ground loops.</p>
+            <p class="govuk-body">We’ll contact you once this feature is available.</p>
+            {% endif %}
+
+            {% if data.introdropoutreason == "226" %}
+            <p class="govuk-body">This is because your organisation is not responsible for any buildings and does not operate any energy centres on this heat network.</p>
+            <p class="govuk-body">You may operate part of the heat network and another organisation operates other parts of it. In this case, you must make sure that the primary operator registers the heat network on your behalf. </p>
+            <p class="govuk-body">We’ll contact them if we need further information about your organisation or any of the other operators.</p>
+
+            {% endif %}
+
+            {% if data.introdropoutreason == "227" %}
+
+            <p class="govuk-body">This is because your organisation does not operate all of the distribution pipework connecting the heat source to the buildings on this heat network.</p>
+            <p class="govuk-body">You may operate part of the heat network, but another organisation operates the energy centre and building connections.</p>
+            <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.</p>
+            {% endif %}
+            
+            {% if data.introdropoutreason == "232" %}
+
+            <p class="govuk-body">You’ll need to return to this service and register the heat network once it’s started providing heating, cooling or hot water to consumers.</p>
+            <h2 class="govuk-heading-s">Temporary authorisation</h2>
+            <p class="govuk-body">If the heat network will start providing to consumers between 1 April 2025 and 27 January 2027, once registered, it will be covered by a temporary authorisation.</p>
+            <p class="govuk-body">After 27 January 2027, you'll need to convert this to a full authorisation.</p>
+            <h2 class="govuk-heading-s">Full authorisation</h2>
+            <p class="govuk-body">If the heat network will start providing to consumers from 27 January 2027, you’ll need to apply for full authorisation.</p>
+            <p class="govuk-body">We'll let you know how to do this nearer the time.</p>
+            {% endif %}
+
+            {% if data.introdropoutreason == "233" %}
+
+            <p class="govuk-body">If you're not carrying out a regulated activity until after 27 January 2027, you'll need to apply for authorisation. You must do this before the heat network starts providing heating, cooling or hot water to consumers.</p>
+            <p class="govuk-body">We'll make authorisation available closer to the time.</p>
+
+            {% endif %}
+
+            {% if data.introdropoutreason == "237" %}
+
+            <p class="govuk-body">You do not need to tell us about your heat network.</p>
+            <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
+            {% endif %}
+
+            {% if data.introdropoutreason == "238" %}
+
+            <p class="govuk-body">
+                This is because we need to start with a single reliable map of an entire heat network - including its energy centres - and operators are best placed to provide this.
+            </p>
+            <p class="govuk-body">
+                As part of the process of adding heat network information, operators will invite any relevant suppliers to add their supply data.
+            </p>
+            <p class="govuk-body">
+                If you're waiting for an invitation from any operators that you get heat from, you'll need to remind them to:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>create an account for the heat networks service</li>
+                <li>add their heat network data</li>
+                <li>invite you through the service to add your supply data</li>
+            </ul>
+
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                  <span class="govuk-visually-hidden">Warning</span>
+                  If your operator is not responding, or failing to take action in a timely manner, you should notify us.
+                </strong>
+              </div>
+            {% endif %}
+            <p class="govuk-body">
+                For further information, you can contact us either via:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li><a href="/{{data.version}}/help/details?type=Registering%20a%20heat%20network" class="govuk-link govuk-link--no-visited-state">Web form</a></li>
+                <li>Email: <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Registering%20a%20heat%20network&body=Account%20email%3A%20{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}%0AContact%20reason%3A%20Cannot%20register%20a%20heat%20network%0A%0AFurther%20details%3A%0A" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></li>
+
+            </ul>
+            <p class="govuk-body">
+                We'll aim to respond within 5 working days.
+            </p>
+
+        </div>
+        <a href="../../account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

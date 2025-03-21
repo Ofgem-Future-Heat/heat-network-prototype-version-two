@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "200" %}
+
+{% set title = "Introduction" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+                <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">We need to know some information about your organisation’s buildings, customers and meters. You’ll need to tell us:</p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>which types of customer are on this heat network, and how many of each type</li>
+                            <li>if you have commercial customers, whether any are ‘microbusinesses’ or small and medium-sized enterprises (SMEs)</li>
+                            <li>how many customers have pre-payment meters installed</li>
+                            <li>whether you use a metering or billing agent for this heat network</li>
+                        </ul>
+                        
+
+
+
+                    <a href="type" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}

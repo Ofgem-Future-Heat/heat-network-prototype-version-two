@@ -1,0 +1,162 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - technical information</span>
+        <h1 class="govuk-heading-l">
+            {{title}} 
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            {% if data.introcommunal != "Yes" %}  
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Does the  {% if  data.energycentres == 0 %}plot connection point{% elif data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %} have a postcode
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.ecaddressHasPostcode}}
+
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="addresspostcode">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    </dd>
+                </div>
+                {% if data.ecaddressHasPostcode == "Yes" %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {% set address = data.ecaddressSelected.toString() %}
+                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    </dd>
+                </div>
+                {% else %}
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} co-ordinates
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                            <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
+
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="addresscoords">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    </dd>
+                </div>
+                {% endif %}
+            {% endif %}
+            {% if data.energycentres >= 1 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What types of heating, cooling or hot water does the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %} supply?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% endif %}</p>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What is the combined heating and hot water capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body">{{data.techcapacity}} kW</p>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="capacity">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% for energytype in data.energytype %}{% if energytype=='Cooling' %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    What is the cooling capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body">{{data.techcapacity}} kW</p>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="coolingcapacity">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}{% endfor %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Which technology provides the largest proportion of the heat energy in the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body">{{data.techtechnology}}</p>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="technology">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+
+
+
+
+
+
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="eccomplete" name="eccomplete" value="true" />
+            {{
+                govukButton ({
+                    html: 'Save and continue'
+                })
+            }}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

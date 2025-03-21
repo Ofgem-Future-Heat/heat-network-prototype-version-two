@@ -1,0 +1,73 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Confirm address
+{% endset %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="POST" novalidate>
+
+
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">Add a heat network - introduction</span>
+                <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        <div class="govuk-inset-text">
+                            {% set address = data.buildingaddressSelected.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="cancel" class="govuk-link">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

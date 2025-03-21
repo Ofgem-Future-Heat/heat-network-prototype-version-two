@@ -1,0 +1,288 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "019" %}
+{% set showhelp = true %}
+
+{% block pageTitle %}
+    Account information
+{% endblock %}
+
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if data.variantname %}
+      {% if data.variantname.toLowerCase() == "supplier" %}
+      <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Heat network assigned
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            {{data.name}} has been assigned to your organisation for further information
+          </h3>
+          <p class="govuk-body">You can find this heat network in the list below.</p>
+  
+        </div>
+      </div>
+      {% endif %}
+      {% if data.variantname.toLowerCase() == "supplier2" %}
+      <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Heat network assigned
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            3 heat networks have been assigned to your organisation for further information
+          </h3>
+          <p class="govuk-body">You can find these heat networks in the list below.</p>
+  
+        </div>
+      </div>
+      {% endif %}
+
+      {% endif %}
+      </div></div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-1">
+        {{company}}
+    </h1>
+    <p class="govuk-body-s govuk-!-margin-top-0"><a href="account-creation/select-org" class="govuk-link govuk-link--no-visited-state">Switch to a different organisation</a></p>
+
+
+    
+      <h2 class="govuk-heading-m">Your organisation</h2>
+      
+      <div class="govuk-grid-row hn-flex">
+        {% if data.variantname != "dev" %}
+        <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4 hn-box">
+      <div class="govuk-!-padding-4 hn-box--grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
+      <p class="govuk-body">View, change and add organisation information.</p>
+      {% if data.variantname == "ur" or data.variantname == "supplier" or data.variantname == "supplier2" %}
+      <strong class="govuk-tag govuk-tag--green">
+        Submitted
+       </strong>
+       {% else %}
+
+      {% if data.organisationdetails != "Submitted" %}
+      <strong class="govuk-tag govuk-tag--red">
+       Not started
+      </strong>
+      {% else %}
+      <strong class="govuk-tag govuk-tag--green">
+        Submitted
+       </strong>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+    {% endif %}
+
+    {% if data.variantname != "dev" %}
+    <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4 hn-box">
+
+    <div class="govuk-!-padding-4 hn-box--grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="smri/list" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">SMRI declaration</a></h3>
+    <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
+
+
+
+{% if data.variantname %}
+    {% if data.variantname == "ur" or data.variantname == "supplier" or data.variantname == "supplier2" %}
+    <strong class="govuk-tag govuk-tag--green">
+      Submitted
+     </strong>
+    {% elif (data.variantname.toLowerCase() == "expired") %}
+    <strong class="govuk-tag govuk-tag--red">
+      Expired
+     </strong>
+     {% elif (data.variantname.toLowerCase() == "in review") %}
+     <strong class="govuk-tag govuk-tag--blue">
+       In review
+      </strong>
+      {% elif (data.variantname.toLowerCase() == "approved") %}
+      <strong class="govuk-tag govuk-tag--green">
+        Approved
+       </strong>
+       {% elif (data.smrideclaration == "Yes") %}
+       <strong class="govuk-tag govuk-tag--green">
+         Submitted
+        </strong>
+        {% else %}
+        <strong class="govuk-tag govuk-tag--red">
+          Not started
+         </strong>
+    {% endif %}
+    {% else %}
+    {% if (data.smrideclaration == "Yes") %}
+    <strong class="govuk-tag govuk-tag--green">
+      Submitted
+     </strong>
+     {% else %}
+      <strong class="govuk-tag govuk-tag--red">
+        Not started
+       </strong>
+       {% endif %}
+    {% endif %}
+  </div>
+  </div>
+  {% endif %}
+ 
+  <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4">
+
+    <div class="govuk-!-padding-4 hn-box--grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold">
+
+        <a href="manage-users" class="govuk-link  govuk-link--no-visited-state govuk-!-font-weight-bold">Manage users</a>
+      </h3>
+      <p class="govuk-body">Add and remove users; edit user permissions.</p>
+    </div>
+    </div>
+    </div>
+
+</div></div>
+        <div class="govuk-grid-row govuk-!-margin-top-8">
+
+
+
+
+      {% if data.variantname and (data.variantname.toLowerCase() == "complete" or data.variantname.toLowerCase() == "supplier" or data.variantname.toLowerCase() == "supplier2")   %}
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Heat networks</h2>
+        {% if data.introcomplete == "true" %}
+        <p class="govuk-body">{{company}} has added <strong>5</strong> heat networks with <strong>1</strong> in progress.</p>
+        {% else %}
+        <p class="govuk-body">{{company}} has added <strong>4</strong> heat networks with <strong>0</strong> in progress.</p>
+        {% endif %}
+
+          {{ govukButton ({
+            text: "Add a new heat network",
+            href: "add-heat-network/introduction/intro"
+        }) }}
+      </div>
+        <div class="govuk-grid-column-full">
+
+        <table class="govuk-table responsive">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Name</th>
+              <th scope="col" class="govuk-table__header">Started supplying</th>
+              <th scope="col" class="govuk-table__header">Authorisation type</th>
+              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% if data.variantname.toLowerCase() == "supplier" or data.variantname.toLowerCase() == "supplier2" %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v={{data.variantname}}" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2004</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Deemed authorised{% else %}Temporarily authorised{% endif %}</td>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong></td>
+            </tr>
+            {% endif %}
+            {% if data.introcomplete == "true" and (data.variantname.toLowerCase() != "supplier" and data.variantname.toLowerCase() != "supplier2") %}
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a><br /><span class="govuk-body-s">(ID: 123456789)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>{% if data.supplywhen %}{{data.supplywhen}}{% else %}{{data.supplywhen}}{% endif %}</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Deemed authorised{% else %}Temporarily authorised{% endif %}</td>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+            </tr>
+            {% endif %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Leston hall<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 234567811)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2007</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Thames Road Apartments<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 456895421)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>8 April 2025</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Temporarily authorised</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Fallowfield Residences<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 658522341)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>1980s</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Paddington Green Police Station<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 788845211)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Started supplying<br /></span>2008</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>Deemed authorised</td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+
+      </div>
+
+      {% elif (data.organisationdetails == "Submitted") %}
+      
+      <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-m">Heat networks</h2>
+
+      <p class="govuk-body">To comply with heat network regulations, you must register all of {{company}}’s heat networks.</p>
+
+      {{ govukButton ({
+        text: "Add a new heat network",
+        href: "add-heat-network/introduction/intro"
+    }) }}
+      </div>
+ 
+
+
+      {% else %}
+      <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-m">Heat networks</h2>
+
+
+
+
+      <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
+    </div>
+
+      {% endif %}
+
+    
+
+      
+
+
+
+  </div>
+{% endblock %}

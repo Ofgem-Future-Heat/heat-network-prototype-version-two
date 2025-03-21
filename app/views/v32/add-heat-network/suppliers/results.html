@@ -1,0 +1,128 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+{{data.supplierresults.length}} results found
+ {% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    
+        <form id="supplierresutls" method="POST" novalidate>
+            
+    <div class="govuk-form-group {% if data.validationErrors.suppliernameselected %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Add a heat network - suppliers</span>
+
+            <h1 class="govuk-fieldset__heading">
+                {{title}}
+            </h1>
+          </legend>
+          {% if data.validationErrors.suppliernameselected %}
+          <p class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span>
+              {{data.validationErrors.suppliernameselected.message}}
+          </p>
+          {% endif %}
+
+          {% if data.supplierresults.length > 0 %}
+
+          {% for org in data.supplierresults %}
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="{{org.Name}}" name="suppliernameselected" type="radio" value="{{org.Name}}" data-address="{{org.Address}}" {% if data.suppliernameselected == org.Name %} checked {% endif %}>
+              <label class="govuk-label govuk-radios__label" for="{{org.Name}}">
+                {{org.Name}} <br />
+                <div class="govuk-hint">{{ org.Address }}</div>
+              </label>
+            </div>
+
+
+      {% endfor %}
+
+            {% endif %}
+            <input type="hidden" name="supplieraddressselected" id="supplieraddressselected">
+
+          </div>
+        </fieldset>
+      </div>
+      <p class="govuk-body"><a href="noresults" class="govuk-link govuk-link--no-visited-state">I cannot find my supplier</a></p>
+      
+
+
+
+
+
+
+
+      <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Continue'
+          })
+        }}
+        <a href="cancel" class="govuk-link">Cancel</a>
+
+      </div>
+</form>    </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const orgForm = document.getElementById('supplierresutls');
+    const supplieraddressselected = document.getElementById('supplieraddressselected');
+
+    orgForm.addEventListener('submit', function(event) {
+        const selectedOrg = document.querySelector('input[name="suppliernameselected"]:checked');
+        if (selectedOrg) {
+            supplieraddressselected.value = selectedOrg.getAttribute('data-address');
+        }
+    });
+});
+ </script>{% endblock %}
