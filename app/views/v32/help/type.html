@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is your question about?" %}
+{% set title = "What is your enquiry about?" %}
 {% set _inError = data.validationError == "true"  %}
 {% set showhelp = false %}
 
@@ -127,21 +127,12 @@
                             </div>
                         
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="helptype-6" name="helptype" type="radio" value="Authorising a heat network" aria-describedby="helptype-6-hint" {% if data.helptype=="Authorising a heat network" %}checked{% endif %}>
+                                <input class="govuk-radios__input" id="helptype-6" name="helptype" type="radio" value="Authorising a heat network" aria-describedby="helptype-6-hint" {% if data.helptype=="Installation and maintenance licence application" %}checked{% endif %}>
                                 <label class="govuk-label govuk-radios__label" for="helptype-6">
-                                    Authorising a heat network
-                                </label>
-                                <div id="helptype-6-hint" class="govuk-hint govuk-radios__hint">
-                                    For issues related to regulating new heat networks.
-                                </div>
-                            </div>
-                        
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="helptype-7" name="helptype" type="radio" value="Rights and powers license application" {% if data.helptype=="Rights and powers license application" %}checked{% endif %}>
-                                <label class="govuk-label govuk-radios__label" for="helptype-7">
-                                    Rights and powers license application
+                                    Installation and maintenance licence application
                                 </label>
                             </div>
+           
                         
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="helptype-8" name="helptype" type="radio" value="Quarterly monitoring data" aria-describedby="helptype-8-hint" {% if data.helptype=="Quarterly monitoring data" %}checked{% endif %}>

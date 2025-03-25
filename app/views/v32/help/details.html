@@ -83,21 +83,41 @@ What are the details?
         {% endif %}
 
 
-        <textarea class="govuk-textarea govuk-!-margin-bottom-1" id="helpdetails" name="helpdetails" rows="5" maxlength="1000"></textarea>
-        <div class="govuk-hint" id="char-count">1000 characters remaining</div>
+        <textarea class="govuk-textarea govuk-!-margin-bottom-1" id="helpdetails" name="helpdetails" rows="5">{% if data.helpdetails %}{{data.helpdetails}}{% endif %}</textarea>
+        <div class="govuk-hint" id="char-count">You have 32,000 characters remaining</div>
         
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const textarea = document.getElementById("helpdetails");
-                const charCount = document.getElementById("char-count");
-                const maxChars = 1000;
-        
-                textarea.addEventListener("input", function () {
-                    const remaining = maxChars - textarea.value.length;
-                    charCount.textContent = `${remaining} characters remaining`;
-                });
-            });
-        </script>
+          document.addEventListener("DOMContentLoaded", function () {
+              const textarea = document.getElementById("helpdetails");
+              const charCount = document.getElementById("char-count");
+              const maxChars = 32000;
+      
+              function formatNumber(num) {
+                  return num.toLocaleString(); // Adds commas for thousands separator
+              }
+      
+              function getCharacterText(num) {
+                  return num === 1 ? "character" : "characters"; // Handles singular/plural
+              }
+      
+              function updateCharCount() {
+                  const enteredChars = textarea.value.length;
+                  const remaining = maxChars - enteredChars;
+      
+                  if (remaining >= 0) {
+                      charCount.textContent = `${formatNumber(remaining)} ${getCharacterText(remaining)} remaining`;
+                  } else {
+                      charCount.textContent = `You have entered ${formatNumber(Math.abs(remaining))} ${getCharacterText(Math.abs(remaining))} too many`;
+                  }
+              }
+      
+              // Run on page load (in case textarea has pre-filled content)
+              updateCharCount();
+      
+              // Update as user types
+              textarea.addEventListener("input", updateCharCount);
+          });
+      </script>
       </div>
 
 

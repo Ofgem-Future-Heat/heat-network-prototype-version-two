@@ -7530,8 +7530,17 @@ router.post('/' + version + '/help/details', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.helpdetails = {
             "anchor": "helpdetails",
-            "message": "Add further details",
+            "message": "Enter the details of your enquiry",
         }
+    }
+
+    if (helpdetails.length > 32000) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.helpdetails = {
+            "anchor": "helpdetails",
+            "message": "Details of enquiry must be 32,000 characters or fewer",
+        }
+
     }
 
 
