@@ -3784,7 +3784,7 @@ router.get('/' + version + '/add-heat-network/introduction/addressconfirm', func
 });
 
 router.post('/' + version + '/add-heat-network/introduction/addressconfirm', function (req, res) {
-        res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+        res.redirect('/' + version + '/add-heat-network/introduction/similarcommunal');
 });
 
 
@@ -5016,7 +5016,8 @@ router.get('/' + version + '/add-heat-network/introduction/name', function (req,
 router.post('/' + version + '/add-heat-network/introduction/name', function (req, res) {
     
     var name = req.session.data['name']
-
+    var introcommunal = req.session.data['introcommunal']
+    
     if (!name) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.name = {
@@ -5032,7 +5033,12 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/cya');
+        if (introcommunal == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/cya');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/similardistrict');
+        }
 
     }
 });
