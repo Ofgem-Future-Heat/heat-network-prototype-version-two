@@ -3333,7 +3333,7 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
 
         if (!req.session.data['HNStatus']) {
-            req.session.data['HNStatus'] = "In Progress"
+            req.session.data['HNStatus'] = "In progress"
 
         }
     }
