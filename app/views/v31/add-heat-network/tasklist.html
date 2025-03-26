@@ -42,7 +42,9 @@
             <span class="govuk-caption-l">Add a heat network</span>
             <h1 class="govuk-heading-l">
                 {{title}}<br />
-                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise hn-tag  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag hn-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}            </h1>
+                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise hn-tag  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag hn-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}            
+                <strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Complete' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong>
+            </h1>
 
             </h1>
 
@@ -229,9 +231,10 @@
 
 
         </div>
-
+<div class="govuk-button-group">
         <a href="/{{data.version}}/add-heat-network/confirmsubmit" class="govuk-button">Submit</a>
-
+        <a href="/{{data.version}}/add-heat-network/confirmdelete" class="govuk-link text-red">Delete this heat network</a>
+    </div>
     </div>
 
 </div>

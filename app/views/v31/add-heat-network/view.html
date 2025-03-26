@@ -47,7 +47,8 @@
             <span class="govuk-caption-l">Heat network</span>
             <h1 class="govuk-heading-l">
                 {{title}} <br />
-                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}            </h1>
+                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}  <strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Complete' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong>
+            </h1>
         
             {% if data.introcommunal == "No" %}
             <div class="govuk-inset-text">
@@ -119,11 +120,19 @@
 {% endif %}
 
 
-  <p class="govuk-body">
-    <a href="tasklist?v={{data.variantname}}" role="button" draggable="false" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
-        Add further information
-      </a>     
-</p>
+    <p class="govuk-body">
+        <a href="tasklist?v={{data.variantname}}" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-3" data-module="govuk-button" data-govuk-button-init="">
+            {% if (data.variantname == "supplier" or data.variantname == "supplier2") %}
+            Add further information
+    
+            {% elif data.HNStatus == 'In progress' %}
+            Conintue adding heat network information
+            {% endif %}
+          </a>  
+
+        </p>
+   
+
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 <h2 class="govuk-heading-m">Heat network details</h2>
 
@@ -334,6 +343,9 @@
             </dl>
             </div>
             </div>
+            <p class="govuk-body">
+            <a href="/{{data.version}}/add-heat-network/confirmdelete" class="govuk-link text-red">Delete this heat network</a>
+        </p>
 
 
 

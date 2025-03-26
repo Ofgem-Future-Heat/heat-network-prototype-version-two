@@ -54,6 +54,46 @@ function generateSupplierHN(req) {
 
 }
 
+
+function generateOperatorHN(req) {
+    req.session.data['role'] = "Both"
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "Not started"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "3"
+    req.session.data['introbuildingshowmany'] = "3"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "Seaton (City Centre)"
+    req.session.data['introhnbuildings'] = "2"
+    req.session.data['introauthorised'] = "Yes"
+    req.session.data['operator'] = "British Gas"
+    req.session.data['ecaddressHasPostcode'] = "Yes"
+    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddresslatitude'] = "57.15340080950945"
+    req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
+    req.session.data['energytype'] = ['Space heating', 'Process heating']
+    req.session.data['techcapacity'] = "120"
+    req.session.data['technologies'] = ['Biofuel boiler', 'Expander']
+    req.session.data['eccomplete'] = "true"
+    req.session.data['HNStatus'] = "In progress"
+
+}
+
+
+
+
 function generateSupplier2HN(req) {
     req.session.data['role'] = "Supplier"
     req.session.data['HNID'] = "496458931"
@@ -3291,11 +3331,44 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
             populateIntrodata(req)
 
         }
+
+        if (!req.session.data['HNStatus']) {
+            req.session.data['HNStatus'] = "In Progress"
+
+        }
     }
     
     res.render('/' + version + '/add-heat-network/tasklist', {
         data: req.session.data
     });
+});
+
+router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
+    
+    var cancels = req.session.data['cancels']
+
+    if (!cancels) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.cancels = {
+            "anchor": "cancels",
+            "message": "Select whether you wish to cancel"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/cancel', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (cancels == "Yes") {
+            res.redirect('/' + version + '/account-information');
+        } else {
+            res.redirect(backURL);
+        }
+    }
+
 });
 
 
@@ -3337,6 +3410,10 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
     if (urlParams == "supplier") {
         generateSupplierHN(req);
+    }
+
+    if (urlParams == "operator") {
+        generateOperatorHN(req);
     }
 
     if (urlParams == "supplier2") {
