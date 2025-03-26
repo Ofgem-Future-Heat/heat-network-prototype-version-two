@@ -4284,6 +4284,8 @@ router.post('/' + version + '/add-heat-network/introduction/buildingstotal', fun
 
     else {
         if (introbuildingstotal == 0) {
+
+            // ADD LOGIC HERE ASH 
             req.session.data['introhnbuildings'] = 0;
             res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
         }
@@ -4343,6 +4345,9 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
         if (introbuildingshowmany == '0') {
             res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
         }
+
+        // ADD LOGIC HERE ASH 
+
         if (introbuildings == "No") {
             if (introbuildingstotal == 1) {
                 req.session.data['introhnbuildings'] == 0
