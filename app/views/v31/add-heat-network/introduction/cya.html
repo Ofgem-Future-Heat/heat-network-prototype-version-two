@@ -50,19 +50,21 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do any of the buildings on the heat network get their energy from a shared ground loop?
+                    	
+
+                Does the heat network include 2 or more ground source heat pumps connected by a shared ground loop? 
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.introgroundloop}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="groundloop">Change<span class="govuk-visually-hidden"> whether the heat network is a shared ground loop</span></a>
+                    <a class="govuk-link" href="groundloop">Change<span class="govuk-visually-hidden"> whether the heat network includes 2 or more ground source heat pumps connected by a shared ground loop!</span></a>
                 </dd>
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Role on network
+                    Which regulated activities does {{company}} undertake?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if data.role == "Network operator" %} 
@@ -75,36 +77,36 @@ Radienteco Ltd
                     
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> your role on network</span></a>
+                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> which regulated activities your organisation undertakes on the heat network</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Is the heat network already supplying heating, cooling or hot water?
+                    Is the heat network already providing heating, cooling or hot water to consumers?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.introsupplycurrent}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                    <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether the heat network is already providing heating, cooling or hot water</span></a>
                 </dd>
             </div>
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Did the heat network start providing before 1 April 2025?
+                        Did the heat network start providing heating, cooling or hot water to consumers before 1 April 2025?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.introsupply20}}
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="supply20">Change<span class="govuk-visually-hidden"> whether the heat network start providing before 1 April 2025</span></a>
+                        <a class="govuk-link" href="supply20">Change<span class="govuk-visually-hidden"> whether the heat network started providing heating, cooling or hot water to consumers before 1 April 2025</span></a>
                     </dd>
                 </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Network type
+                    Type of heat network
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if data.introcommunal == "Yes" %} 
@@ -114,7 +116,7 @@ Radienteco Ltd
                     {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="communal">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                    <a class="govuk-link" href="communal">Change<span class="govuk-visually-hidden"> whether the heat network is a single communal block</span></a>
                 </dd>
             </div>
 
@@ -131,7 +133,7 @@ Radienteco Ltd
                     {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
         </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> the address of the communal building</span></a>
                 </dd>
             </div>
 
@@ -174,7 +176,7 @@ Radienteco Ltd
                             {{data.introbuildingstotal}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> the number of buildings</span></a>
+                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> how many buildings this heat network provides heating, cooling or hot water to</span></a>
                         </dd>
                     </div>
 
@@ -186,7 +188,7 @@ Radienteco Ltd
                             {{data.introbuildingshowmany}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> the number of buildings</span></a>
+                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> how many buildings your organisation is responsible for on this heat network!</span></a>
                         </dd>
                     </div>
                     
@@ -194,7 +196,7 @@ Radienteco Ltd
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Communal buildings where you are responsible for the supply of heat
+                            Communal buildings {{company}} provides heating, cooling or hot water to
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {% if data.introcommunaloperate == "Yes" %}
@@ -204,7 +206,7 @@ Radienteco Ltd
                             {% endif %}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="buildings">Change<span class="govuk-visually-hidden"> whether you operate any buildings</span></a>
+                            <a class="govuk-link" href="buildings">Change<span class="govuk-visually-hidden"> how many communal buildings your organisation provides heating, cooling or hot water to!</span></a>
                         </dd>
                     </div>
                     {% endif %}
@@ -212,7 +214,7 @@ Radienteco Ltd
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Energy centres you operate  on this heat network?
+                            Energy centres {{company}} operates on this heat network?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {% if data.introenergycentre == "Yes" %}
@@ -222,7 +224,7 @@ Radienteco Ltd
                             {% endif %}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> whether you operate any energy centres</span></a>
+                            <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> how many energy centres your organisation operates on this heat network</span></a>
                         </dd>
                     </div>
 
@@ -235,19 +237,19 @@ Radienteco Ltd
                             {{data.intropipework}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="pipework">Change<span class="govuk-visually-hidden"> whether you Operate all the distribution pipework</span></a>
+                            <a class="govuk-link" href="pipework">Change<span class="govuk-visually-hidden"> whether your organisation operates all the distribution pipework on this heat network</span></a>
                         </dd>
                     </div>
                     {% if data.intropipework == "Yes" %}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Are you happy to register this heat network on behalf of any other operators?
+                            Have the other operators agreed that you can provide heat network information on their behalf?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {{data.introresponsible}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="responsible">Change<span class="govuk-visually-hidden"> whether you Operate all the distribution pipework</span></a>
+                            <a class="govuk-link" href="responsible">Change<span class="govuk-visually-hidden"> whether the others operators have agreed that you can provide heat network information on their behalf</span></a>
                         </dd>
                     </div>
                     {% endif %}
@@ -260,7 +262,7 @@ Radienteco Ltd
                             {{data.introselfsupply}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> the self supply status of this network</span></a>
+                            <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> whether the heat network is a self supply network!</span></a>
                         </dd>
                     </div>   
     
@@ -268,13 +270,13 @@ Radienteco Ltd
                     {% if data.introsuppliers and  data.introselfsupply == "No"%}
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Is {{company}} the only heat supplier?
+                            Is {{company}} the only supplier selling to consumers?
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {{data.introsuppliers}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether {{company}} is the only supplier</span></a>
+                            <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether your organisation is the only supplier selling to consumers</span></a>
                         </dd>
                     </div>
                     {% endif %}
@@ -285,13 +287,13 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does {{company}} sell heating, cooling or hot water from this heat network
+                    Does the heat network sell thermal energy to a heat network owned by another organisation?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.introsell}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> whether you sell</span></a>
+                    <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> whether the heat network sells thermal energy to a heat network that’s owned by another organisation</span></a>
                 </dd>
             </div>
 
@@ -303,10 +305,22 @@ Radienteco Ltd
                     {{data.name}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> network name</span></a>
+                    <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> he heat network’s name</span></a>
                 </dd>
             </div>
         </dl>
+
+
+        {% if data.introcomplete == "true" %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              If you change any of these answers after saving them, you may have to update information you provide further on in the service.
+            </strong>
+          </div>
+{% endif %}
+
                 <form method="POST" novalidate>
     <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
     {{

@@ -5017,7 +5017,7 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
     
     var name = req.session.data['name']
     var introcommunal = req.session.data['introcommunal']
-    
+
     if (!name) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.name = {
@@ -5170,7 +5170,9 @@ function populateIntrodata(req) {
     req.session.data['introbuy'] = "Yes"
     req.session.data['introsell'] = "No"
     req.session.data['name'] = "Heat Network One"
-    req.session.data['introcomplete'] = "true";
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes";
 }
 
 
