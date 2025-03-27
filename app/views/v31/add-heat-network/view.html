@@ -76,8 +76,8 @@
             
 
               <p class="govuk-body govuk-!-margin-bottom-0"><strong>Heat network location</strong><br/>
-                {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
-                {% set address = data.ecAddress.toString() %}
+                {% if data.ecaddressHasPostcode == "Yes" and data.ecaddressSelected %}
+                {% set address = data.ecaddressSelected.toString() %}
                     {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}<br />
                     <a class="govuk-link govuk-link--no-visited-state"  href="https://www.google.com/maps?q={{ address }}" target="_blank">View on Google Maps</a>
                 {% else %}
@@ -119,6 +119,7 @@
               </details>
 {% endif %}
 
+            {% if data.HNStatus != "Complete" %}
 
     <p class="govuk-body">
         <a href="tasklist?v={{data.variantname}}" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-3" data-module="govuk-button" data-govuk-button-init="">
@@ -131,7 +132,7 @@
           </a>  
 
         </p>
-   
+        {% endif %}
 
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 <h2 class="govuk-heading-m">Heat network details</h2>
@@ -152,7 +153,7 @@
                 </div>
                 <div class="govuk-summary-card__content govuk-!-display-none" id="HN1Content" >
             <dl class="govuk-summary-list ">
-
+                {% if data.role == "Supplier" %}
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         Operator
@@ -162,7 +163,7 @@
                     </dd>
 
                 </div>
-    
+                {% endif %}
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
@@ -178,21 +179,73 @@
     
                 </div>
     
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Is the heat network already providing heating, cooling or hot water to consumers?
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.introsupplycurrent}}
+                    </dd>
+
+                </div>
     
-    
-                {% if data.introcommunal == "Yes" %} 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Does the heat network have its own energy centre?
+                            Did the heat network start providing heating, cooling or hot water to consumers before 1 April 2025?
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            {{data.introenergycentre}}
+                            {{data.introsupply20}}
                         </dd>
 
                     </div>
+
+                
+                    <!--- COMMUNAL -->
+                    {% if data.introcommunal == "Yes" %} 
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            What is the address of the communal building?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {% set address = data.buildingaddressSelected.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> the address of the communal building</span></a>
+                        </dd>
+                    </div>
         
-                {% else %}
-    
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Does the heat network have its own energy centre?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.introenergycentre}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                            </dd>
+                        </div>
+        
+                        {% if data.role == "Both" %} 
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Is {{company}} the only heat supplier?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.introsuppliers}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether {{company}} is the only supplier</span></a>
+                            </dd>
+                        </div>
+                        {% endif %}
+        
+        
+        
+                    {% else %}
+        
        
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
@@ -220,34 +273,30 @@
 
                         </div>
      
-    
-    
-                {% endif %}
-    
-    
 
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            When did the heat network start supplying customers
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            {{data.supplywhen}}
-                        </dd>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Is the heat network a 'self-supply' network?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.introselfsupply}}
+                            </dd>
 
-                    </div>
-    
-
-    
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Does the heat network buy heat or cooling from another organisations?
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            {{data.introbuy}}
-                        </dd>
-
-                    </div>  
+                        </div>   
         
+    
+                        {% if data.introsuppliers and  data.introselfsupply == "No"%}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Is {{company}} the only supplier selling to consumers?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.introsuppliers}}
+                            </dd>
+
+                        </div>
+                        {% endif %}
+                        {% endif %}      
     
     
                     <div class="govuk-summary-list__row">
@@ -263,8 +312,7 @@
             </dl>
             </div>
             </div>
-
-
+            {% if data.eccomplete == "true" %}
             <div class="govuk-summary-card">
                 <div class="govuk-summary-card__title-wrapper">
                   <h2 class="govuk-summary-card__title">
@@ -280,69 +328,421 @@
                     </li>
                 </div>
                 <div class="govuk-summary-card__content govuk-!-display-none" id="HN2Content" >
-            <dl class="govuk-summary-list ">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        {% if data.introenergycentre == "No" %}
-                        Plot connection point location
+                    <dl class="govuk-summary-list">
+                        {% if data.introcommunal != "Yes" %}  
 
-                        {% else %}
-                        Energy centre location
+                            {% if data.ecaddressHasPostcode == "Yes" %}
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} address
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    {% set address = data.ecaddressSelected.toString() %}
+                                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+            
+                                </dd>
+                            </div>
+                            {% else %}
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} co-ordinates
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                                        <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
+            
+                                </dd>
+
+                            </div>
+                            {% endif %}
                         {% endif %}
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
-                        {% set address = data.ecAddress.toString() %}
-                        {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
-                        {% elif data.ecaddresslatitude %}
-                        <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
-                            <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
-                        {% endif %}                    </dd>
-
+                        {% if data.energycentres >= 1 %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                What types of heating, cooling or hot water does the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %} supply?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                <p class="govuk-body">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% endif %}</p>
+            
+                            </dd>
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                What is the combined heating and hot water capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                <p class="govuk-body">{{data.techcapacity}} kW</p>
+            
+                            </dd>
+                        </div>
+                        {% for energytype in data.energytype %}{% if energytype=='Cooling' %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                What is the cooling capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                <p class="govuk-body">{{data.techcapacity}} kW</p>
+            
+                            </dd>
+                        </div>
+                        {% endif %}{% endfor %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Which technology provides the largest proportion of the heat energy in the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                <p class="govuk-body">{{data.techtechnology}}</p>
+            
+                            </dd>
+                        </div>
+                        {% endif %}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                    </dl>
                 </div>
-                {% if data.energytype %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Energy type
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {% if data.energytype %}{% for type in data.energytype %}{{type}}<br />{% endfor %}{% endif %}
-                    </dd>
 
-                </div>
-                {% endif %}
-                
-                {% if data.techcapacity %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Capacity
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {% if data.techcapacity and data.techcoolingcapacity %}{% endif %}{% if data.techcapacity or data.techcoolingcapacity %}{% if data.techcapacity %}Heating: {{data.techcapacity}}kW <br />{% endif %}{% if data.techcoolingcapacity %}Cooling: {{data.techcoolingcapacity}}kW {% endif %}{% endif %}
-                        
-                    </dd>
+            </div>
+            {% endif %}
 
+
+            {% if data.buildingcomplete == "true" %}
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Customers and metering
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN3Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
                 </div>
-                {% endif %}
-                {% if data.technologies %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        {% if data.technologies.length > 1 %}Technolgies{% else %}Technolgy{% endif %}:
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        {% if data.technologies %} 
-                        {% for technology in data.technologies %}
-                        {{technology}}<br />
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN3Content" >
+                    <dl class="govuk-summary-list">
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Which types of customer does your heat network contain? 
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {% if data.customertype.length > 1 %}
+                                {% for customertype in data.customertype %}
+                                {{ customertype | replace("0", "-") | replace(",", "") | safe}}<br />
+                                {% endfor %}
+                                {% else %}
+                                {{ data.customertype}}
+                                {% endif %}
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                How many of each building type does the heat network contain?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {% for customertype in data.customertype %}
+                                {% set customers = "buildingcustomers" ~ customertype %}
+            
+                                {{data[customers]}} {{customertype | replace("0", "-") | replace(",", ", ")}} customers<br />
+                                {% endfor %}
+                            </dd>
+
+                        </div>
+            
+                        {% if (data.buildingtype == "Commercial") or (data.buildingcustomersCommercial >= 1)  %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Are any of your commercial customers 'microbusinesses'?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+            
+                                    {{data.consumertypemicrobusiness}}
+                            </dd>
+
+                        </div>
+            
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Does the heat network serve small and medium-sized businesses (SMEs)?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+            
+                                    {{data.smallmediumbusinesses}}
+                            </dd>
+
+                        </div>
+            
+                        {% endif %}
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do any dwellings have pre-payment meters?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                               {{data.prepaymentmeters}}
+                            </dd>
+
+                        </div>
+            
+                      
+            
+                       
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do you use an agent to deal with metering and billing?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.meteringagent}}
+                            </dd>
+
+                        </div>
+            
+                    </dl>
+                </div>
+
+            </div>
+            {% endif %}
+
+            {% if data.billingcomplete == "true" %}
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Billing
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN4Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN4Content" >
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                How often do you send bills to customers?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {% if data.billingoften == "Other" %}
+                                {{data.billingoftenfrequency}}
+                                {% else %}
+                                {{data.billingoften}}
+                                {% endif %}
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Information on how customers' bills are calculated?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.billingcalculated}}
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Information so customers can compare your charges
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.billingcompare}}
+                            </dd>
+
+                        </div>
+                        {% if data.billinginfo %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                What other information is included with customers' billing information
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                 <ul class="govuk-list">
+                                    {% for info in data.billinginfo %}
+                                    <li>{{info}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </dd>
+
+                        </div>
+                        {% endif %}
+            
+                    </dl>
+                </div>
+
+            </div>
+            {% endif %}
+
+
+            {% if data.billingcomplete == "true" %}
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Consumer protections
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN5Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN5Content" >
+                    <dl class="govuk-summary-list">
+                        {% if data.consumervulnerable %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Does the heat network supply vulnerable customers?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.consumervulnerable}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="vulnerable">Change</a>
+                            </dd>
+                        </div>
+                        {% endif %}
+                        {% if data.consumervulnerable == "Yes" %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Total number of vulnerable customers
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.consumervulnerableammount}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="vulnerable">Change</a>
+                            </dd>
+                        </div>
+                        {% endif %}
+                        {% if data.consumerpsr %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do you have a Priority Service Register (PSR)?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.consumerpsr}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="psr">Change</a>
+                            </dd>
+                        </div>
+                        {% endif %}
+                        {% if data.consumerconfirm %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Is there a procedure in place for domestic consumers and microbusinesses to raise a complaint?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.consumerconfirm}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="confirm">Change</a>
+                            </dd>
+                        </div>
+                        {% endif %}
+                        {% if data.consumerdifficulties %}
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do you have a process for dealing with customers with payment difficulties, including issuing reminder letters?
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                {{data.consumerdifficulties}}
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="difficulties">Change</a>
+                            </dd>
+                        </div>
+                        {% endif %}
+
+
+            
+            
+                    </dl>
+                </div>
+
+            </div>
+            {% endif %}
+
+                                
+            {% if data.role != "Supplier" %} 
+            {% if data.suppliercomplete %}
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                   Suppliers
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN6Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN6Content" >
+    
+                    <dl class="govuk-summary-list">
+                        {% set suppliers = [] %}
+
+                        {% for i in range(1, 100) %}
+                            {% set suppliers = suppliers.concat([{
+                                "added": data["addedsupplier" ~ i],
+                                "name": data["suppliernameselected" ~ i],
+                                "id": i,
+                                "address": data["supplieraddressselected" ~ i]
+                    
+                            }]) %}
                         {% endfor %}
-                        {% endif %}                    
-                    </dd>
-    
+                        
+                        {% set suppliercount = 0 %}
+                        {% for supplier in suppliers %}
+                
+                                  {% if supplier.added == "true" %}
+                                  {% set suppliercount = suppliercount + 1 %}
+                                  <div class="govuk-summary-list__row">
+                                    <dt class="govuk-summary-list__key">
+                                        Supplier {{suppliercount}}
+                                    </dt>
+                                    <dd class="govuk-summary-list__value">
+                                        {{supplier.name}}<br />
+                                        {{supplier.address| replace(", ",",<br />")| safe}}
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions">
+                                        <a class="govuk-link" href="often">Change</a>
+                                    </dd>
+                                    </div>
+            
+                                  {% endif %}
+                
+                              {% endfor %}
+                
+                            </dl>
+                
                 </div>
-                {% endif %}
-    
-            </dl>
+
             </div>
-            </div>
+
+            {% endif %}
+            {% endif %}
+
+
             <p class="govuk-body">
             <a href="/{{data.version}}/add-heat-network/confirmdelete" class="govuk-link text-red">Remove this heat network</a>
         </p>

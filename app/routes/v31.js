@@ -43,13 +43,14 @@ function generateSupplierHN(req) {
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
     req.session.data['operator'] = "British Gas"
+
     req.session.data['ecaddressHasPostcode'] = "Yes"
-    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
     req.session.data['energytype'] = ['Space heating', 'Process heating']
     req.session.data['techcapacity'] = "120"
-    req.session.data['technologies'] = ['Biofuel boiler', 'Expander']
+    req.session.data['techtechnology'] = ['Biofuel boiler']
     req.session.data['eccomplete'] = "true"
 
 }
@@ -58,7 +59,7 @@ function generateSupplierHN(req) {
 function generateOperatorHN(req) {
     req.session.data['role'] = "Both"
     req.session.data['HNID'] = "496458931"
-    req.session.data['HNStatus'] = "Not started"
+    req.session.data['HNStatus'] = "In progress"
     req.session.data['introrelevant'] = "Yes"
     req.session.data['introgroundloop'] = "No"
     req.session.data['introcommunal'] = "No"
@@ -66,8 +67,9 @@ function generateOperatorHN(req) {
     req.session.data['introbuildingshowmany'] = "3"
     req.session.data['introcommunaloperate'] = "Yes"
     req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introhnbuildings'] = "2"
     req.session.data['introenergycentre'] = "Yes"
-    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['introenergycentrehowmany'] = "2"
     req.session.data['intropipework'] = "Yes"
     req.session.data['introsuppliers'] = "No"
     req.session.data['introsupplycurrent'] = "Yes"
@@ -75,21 +77,98 @@ function generateOperatorHN(req) {
     req.session.data['introselfsupply'] = "No"
     req.session.data['introbuy'] = "Yes"
     req.session.data['introsell'] = "No"
-    req.session.data['name'] = "Seaton (City Centre)"
-    req.session.data['introhnbuildings'] = "2"
-    req.session.data['introauthorised'] = "Yes"
+    req.session.data['name'] = "London Road Tower"
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes";
     req.session.data['operator'] = "British Gas"
+
     req.session.data['ecaddressHasPostcode'] = "Yes"
-    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
     req.session.data['energytype'] = ['Space heating', 'Process heating']
     req.session.data['techcapacity'] = "120"
-    req.session.data['technologies'] = ['Biofuel boiler', 'Expander']
+    req.session.data['techtechnology'] = ['Biofuel boiler']
     req.session.data['eccomplete'] = "true"
-    req.session.data['HNStatus'] = "In progress"
 
 }
+
+function generateOperatorCompleteHN(req) {
+    req.session.data['role'] = "Both"
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "Complete"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "5"
+    req.session.data['introbuildingshowmany'] = "5"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introhnbuildings'] = "4"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['energycentres'] =  req.session.data['introenergycentrehowmany']
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "Seaton Town Centre"
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes"
+
+    // EC Flow
+    req.session.data['ecaddressHasPostcode'] = "Yes"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['energytype'] = ['Space heating', 'Process heating']
+    req.session.data['techcapacity'] = "120"
+    req.session.data['techtechnology'] = ['Biofuel boiler']
+    req.session.data['eccomplete'] = "true"
+
+    
+    // Customers Flow
+    req.session.data['customertype'] = ['Residential', 'Public', 'Commercial']
+    req.session.data['buildingcustomersResidential'] = "10"
+    req.session.data['buildingcustomersPublic'] = "5"
+    req.session.data['buildingcustomersCommercial'] = "1"
+    req.session.data['consumertypemicrobusiness'] = "Yes"
+    req.session.data['smallmediumbusinesses'] = "Yes"
+    req.session.data['prepaymentmeters'] = "Some"
+    req.session.data['meteringagent'] = "Yes"
+    req.session.data['buildingcomplete'] = "true"
+
+    // Billing
+    req.session.data['billingoften'] = ['Quarterly']
+    req.session.data['billingcalculated'] = "Yes"
+    req.session.data['billingcompare'] = "Yes"
+    req.session.data['billinginfo'] = ['Current energy prices charged to customers', "Information about the customers' recent energy consumption"];
+    req.session.data['billingcomplete'] = "true"
+
+    //Consumer protections
+    req.session.data['consumervulnerable'] = "Yes"
+    req.session.data['consumervulnerableammount'] = "2"
+    req.session.data['consumerpsr'] = "Yes"
+    req.session.data['consumerconfirm'] = "Yes"
+    req.session.data['consumerdifficulties'] = "No"
+    req.session.data['protectionscomplete'] = "true"
+
+    //Suppliers
+    req.session.data['addedsupplier1'] = "true"
+    req.session.data['suppliernameselected1'] = "BRITISH GAS"
+    req.session.data['supplieraddressselected1'] = "Millstream, Maidenhead Road, Windsor, Berkshire, SL4 5GD"
+    req.session.data['addedsupplier2'] = "true"
+    req.session.data['suppliernameselected2'] = "E.ON NEXT ENERGY LTD."
+    req.session.data['supplieraddressselected2'] = "WESTWOOD WAY, WESTWOOD BUSINESS PARK, COVENTRY, CV4 8LG, UNITED KINGDOM"
+    req.session.data['suppliercomplete'] = "true"
+
+
+
+}
+
 
 
 
@@ -117,14 +196,15 @@ function generateSupplier2HN(req) {
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
     req.session.data['operator'] = "British Gas"
+
     req.session.data['ecaddressHasPostcode'] = "No"
-    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
     req.session.data['energytype'] = ""
     req.session.data['techcapacity'] = ""
     req.session.data['techcoolingcapacity'] = ""
-    req.session.data['technologies'] = ""
+    req.session.data['techtechnology'] = ""
     req.session.data['eccomplete'] = "true"
 
 }
@@ -3416,6 +3496,10 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
         generateOperatorHN(req);
     }
 
+    if (urlParams == "operatorcomplete") {
+        generateOperatorCompleteHN(req);
+    }
+    
     if (urlParams == "supplier2") {
         generateSupplier2HN(req);
     }
@@ -6847,7 +6931,6 @@ function setSupplier(req, id) {
     req.session.data['suppliernameselected'] = req.session.data['suppliernameselected' + id]
     req.session.data['supplieraddressselected'] = req.session.data['supplieraddressselected' + id]
     req.session.data['addedsupplier'] = req.session.data['addedsupplier' + id]
-    req.session.data['supplierbuildings'] = req.session.data['supplierbuildings' + id]
     req.session.data['supplierid'] = id
 }
 
@@ -6856,7 +6939,6 @@ function clearSupplier(req) {
     req.session.data['suppliernameselected'] = ""
     req.session.data['supplieraddressselected'] = ""
     req.session.data['addedsupplier'] = ""
-    req.session.data['supplierbuildings'] = ""
     req.session.data['supplierid'] = ""
     req.session.data['supplierremove'] = ""
 
@@ -6867,14 +6949,7 @@ function removeSupplier(req, id) {
     req.session.data['suppliernameselected' + id] = ""
     req.session.data['supplieraddressselected' + id] = ""
     req.session.data['addedsupplier' + id] = ""
-    req.session.data['supplierbuildings' + id] = ""
-    var buildings = req.session.data['buildings']
-    buildings.forEach((building) => {
-        if (building.supplied == id) {
-            building.supplied = 0 
-        }
-    })
-    req.session.data['buildings'] = buildings
+
 
 }
 

@@ -108,12 +108,7 @@
                     Do any dwellings have pre-payment meters?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.prepaymentmeters == "Yes" %}
-                   {{data.prepaymentmeters}}<br />
-                  {{data.prepaymentmetersnumber}} dwelling{% if data.prepaymentmetersnumber > 1 %}s{% endif %}
-                   {% else %}
                    {{data.prepaymentmeters}}
-                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="prepaymentmeters">Change<span class="govuk-visually-hidden"> network supply status</span></a>
