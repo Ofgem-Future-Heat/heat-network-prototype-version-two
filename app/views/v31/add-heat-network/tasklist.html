@@ -39,7 +39,22 @@
 
     <div class="govuk-grid-column-two-thirds">
 
-
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
 
         <div class="govuk-form-group ">
 
@@ -89,6 +104,12 @@
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
+                        {% if data.validationErrors.introcomplete %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.introcomplete.message}}
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-1-status">
                         {% if data.introcomplete == "true" %}
@@ -106,14 +127,19 @@
                 
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
+                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.eccomplete %}govuk-form-group--error{% endif %}">
                         {% if data.eccomplete == "true" %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
                     {% else %}
                     
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="energycentre/intro" aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
                         {% endif %}
-
+                        {% if data.validationErrors.eccomplete %}
+                        <p class="govuk-error-message govuk-!-margin-top-1">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.eccomplete.message}}
+                        </p>
+                        {% endif %}
 
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
@@ -130,14 +156,19 @@
 
                 {% if (data.introhnbuildings > 0) or (data.introcommunal == "Yes") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
+                    <div class="govuk-task-list__name-and-hint  {% if data.validationErrors.buildingcomplete %}govuk-form-group--error{% endif %}">
                         {% if data.buildingcomplete == "true" %}
-                            <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Buildings customers and metering</a>
+                            <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Customers and metering</a>
                         {% else %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="buildingsandconsumers/intro" aria-describedby="company-details-3-hint company-details-3-status">Customers and metering</a>
 
                         {% endif %}
-
+                        {% if data.validationErrors.buildingcomplete %}
+                        <p class="govuk-error-message govuk-!-margin-top-1">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.buildingcomplete.message}}
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-3-status">
                         {% if data.buildingcomplete == "true" %}
@@ -159,12 +190,18 @@
                 {% if data.role == "Supplier" or data.role == "Both" %}
                 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
+                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
                         {% if data.billingcomplete == "true" %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/cya" aria-describedby="company-details-5-status">Billing</a>
                         {% else %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/intro" aria-describedby="company-details-5-status">Billing</a
 >
+                        {% endif %}
+                        {% if data.validationErrors.billingcomplete %}
+                        <p class="govuk-error-message govuk-!-margin-top-1">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.billingcomplete.message}}
+                        </p>
                         {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-5-status">
@@ -183,12 +220,18 @@
                 {% if (data.role == "Supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.buildingcustomersResidential > 0 or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes")  %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
+                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">
                         {% if data.protectionscomplete == "true" %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="consumerprotections/cya" aria-describedby="company-details-8-status">Consumer protections</a>
 
                         {% else %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="consumerprotections/intro" aria-describedby="company-details-8-status">Consumer protections</a>
+                        {% endif %}
+                        {% if data.validationErrors.protectionscomplete %}
+                        <p class="govuk-error-message govuk-!-margin-top-1">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.protectionscomplete.message}}
+                        </p>
                         {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-8-status">
@@ -209,13 +252,18 @@
 
                 {% if (data.role == "Network operator" or (data.role == "Both" and data.introsuppliers == "No")) %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint">
+                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.suppliercomplete %}govuk-form-group--error{% endif %}">
                         {% if data.suppliercomplete == "true" %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/cya" aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
                     {% else %}
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/intro" aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
                     {% endif %}
-
+                    {% if data.validationErrors.suppliercomplete %}
+                    <p class="govuk-error-message govuk-!-margin-top-1">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.suppliercomplete.message}}
+                    </p>
+                    {% endif %}
 
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
@@ -235,10 +283,26 @@
 
 
         </div>
-<div class="govuk-button-group">
-        <a href="/{{data.version}}/add-heat-network/confirmsubmit?ref={{data.lastpage}}" class="govuk-button">Submit</a>
-        <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
-    </div>
+
+
+        <form method="POST" novalidate>
+            <div class="govuk-button-group">
+                {% if data.variantname != "nopermissions" %} 
+                {{
+                    govukButton ({
+                        html: 'Submit'
+                    })
+                }}
+                
+                {% else %}
+                    <p class="govuk-body">You do not have permission to submit this heat network. Ask someone at your organisation to submit on your behalf.</p>
+                    {% endif %}
+                    <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
+                </div>
+
+        </form>
+
+
     </div>
 
 </div>

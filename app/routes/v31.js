@@ -3428,28 +3428,82 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
 
 router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     
-    var cancels = req.session.data['cancels']
+    var introcomplete = req.session.data['introcomplete']
+    var eccomplete = req.session.data['eccomplete']
+    var billingcomplete = req.session.data['billingcomplete']
+    var protectionscomplete = req.session.data['protectionscomplete']
+    var suppliercomplete = req.session.data['suppliercomplete']
+    var buildingcomplete = req.session.data['buildingcomplete']
 
-    if (!cancels) {
+    var role = req.session.data['role']
+    var buildingcustomersResidential = req.session.data['buildingcustomersResidential']
+    var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
+    var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
+    var introcommunal = req.session.data['introcommunal']
+    var introhnbuildings = req.session.data['introhnbuildings']
+    var introenergycentrehowmany = req.session.data['introenergycentrehowmany']
+    var introsuppliers = req.session.data['introsuppliers']
+
+    if (introcomplete != "true") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.cancels = {
-            "anchor": "cancels",
-            "message": "Select whether you wish to cancel"
+        req.session.data.validationErrors.introcomplete = {
+            "anchor": "introcomplete",
+            "message": "Introduction must be complete"
         }
+    }
+
+    if (((role === "Network operator" || role === "Both") && (introcommunal !== "Yes" || (introcommunal === "Yes" && introenergycentrehowmany > 0))) && (eccomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.eccomplete = {
+            "anchor": "eccomplete",
+            "message": "Technical information must be complete"
+        }
+    }
+
+
+    if ((introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingcomplete = {
+            "anchor": "buildingcomplete",
+            "message": "Customers and metering must be complete"
+        }
+    }
+
+    if ((role === "Supplier" || role === "Both") && (billingcomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcomplete = {
+            "anchor": "billingcomplete",
+            "message": "Billing must be complete"
+        }
+    }
+
+    if (((role === "Supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.protectionscomplete = {
+            "anchor": "protectionscomplete",
+            "message": "Consumer protections must be complete"
+        }
+    }
+
+
+    if ((role === "Network operator" || (role === "Both" && introsuppliers === "No")) && (suppliercomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.suppliercomplete = {
+            "anchor": "suppliercomplete",
+            "message": "Other suppliers must be complete"
+        }    
     }
 
     if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/cancel', {
+        res.render('/' + version + '/add-heat-network/tasklist', {
             data: req.session.data
         });
     }
+    
 
     else {
-        if (cancels == "Yes") {
-            res.redirect('/' + version + '/account-information');
-        } else {
-            res.redirect(backURL);
-        }
+            res.redirect('/' + version + '/add-heat-network/confirmsubmit');
+
     }
 
 });
