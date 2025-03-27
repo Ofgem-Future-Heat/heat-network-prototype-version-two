@@ -15,6 +15,8 @@ function clearvalidation(req) {
 //////// PAGE SETUP //////
 router.use(function (req, res, next) {
     clearvalidation(req);
+    req.session.data.lastpage = req.originalUrl;
+
     next(); // Continue to the actual route handler
 });
 
@@ -42,6 +44,8 @@ function generateSupplierHN(req) {
     req.session.data['name'] = "Seaton (City Centre)"
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
+    req.session.data['introcomplete'] = "true"
+
     req.session.data['operator'] = "British Gas"
 
     req.session.data['ecaddressHasPostcode'] = "Yes"
@@ -5254,65 +5258,6 @@ else {
 
 
 
-// Introduction - Sharedfacilities
-router.get('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    var sharedfacilities = req.session.data['sharedfacilities']
-    var sharednumnber = parseInt(req.session.data['sharedfacilitieshowmany'])
-    var buildings = parseInt(req.session.data['buildings'])
-
-
-    if (!sharedfacilities) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.sharedfacilities = {
-            "anchor": "sharedfacilities",
-            "message": "Select if there are any shared facilities"
-        }
-    }
-    if (buildings > 1) {
-        if (sharedfacilities == "Yes" && !sharednumnber)  {
-            req.session.data.validationError = "true"
-            req.session.data.validationErrors.sharedfacilitieshowmany = {
-                "anchor": "sharedfacilitieshowmany",
-                "message": "Enter the number of buildings with shared facilities"
-            }
-        }
-    
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (sharedfacilities == "Yes") {
-            if (sharednumnber) {
-                if (sharednumnber >= buildings) {
-                    res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-                }
-                else {
-                    res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
-                }    
-            }
-            else {
-                res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-            }
-        } else {
-            res.redirect('/' + version + '/add-heat-network/introduction/name');
-        }
-    }
-
-});
 
 
 
@@ -6910,6 +6855,48 @@ router.post('/' + version + '/add-heat-network/confirmsubmit', function (req, re
    else {
 if (confirmsubmit == "No") {
     res.redirect('/' + version + '/add-heat-network/tasklist');
+
+}
+
+else {
+    res.redirect('/' + version + '/add-heat-network/confirmation');
+
+}
+   }
+});
+
+
+// Confirm remove
+router.get('/' + version + '/add-heat-network/confirmremove', function (req, res) {
+    res.render('/' + version + '/add-heat-network/confirmremove', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/confirmremove', function (req, res) {
+    var confirmremove = req.session.data['confirmremove']
+    const referrer = req.query.ref;
+
+
+
+    if (!confirmremove) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.confirmremove = {
+            "anchor": "confirmremove",
+            "message": "Select yes if you want to remove this heat network",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/confirmremove', {
+            data: req.session.data
+        });
+    }
+   
+   else {
+if (confirmremove == "No") {
+    res.redirect(referrer);
 
 }
 

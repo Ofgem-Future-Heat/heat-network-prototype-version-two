@@ -3364,6 +3364,7 @@ router.get('/' + version + '/add-heat-network/introduction/dropout', function (r
     req.session.data['introdropoutreason'] = urlParams;
 
     backURL = req.header('Referer')
+
     res.render('/' + version + '/add-heat-network/introduction/dropout', {
         data: req.session.data
     });
@@ -3432,6 +3433,7 @@ router.post('/' + version + '/add-heat-network/introduction/relevant', function 
             res.redirect('/' + version + '/add-heat-network/introduction/groundloop');
         }
         else {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=237');
  
         }
@@ -3470,6 +3472,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
             res.redirect('/' + version + '/add-heat-network/introduction/role');
         }
         else {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=203');
  
         }
@@ -3508,6 +3511,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
 
     else {
         if ((role == "Heat supplier") || (role == "Neither")) {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=238');
 
         }
@@ -3875,6 +3879,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentreoperate'
 
     else {
         if (buildings == 0 && (introenergycentrehowmany == 0 || introenergycentre == "No")) {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=226');
     }
     else {
@@ -4039,6 +4044,7 @@ router.post('/' + version + '/add-heat-network/introduction/pipework', function 
 
     else {
         if (intropipework == "No") {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=227');
 
         }
@@ -4205,9 +4211,11 @@ router.post('/' + version + '/add-heat-network/introduction/supplystart', functi
 
     else {
         if (introsupplystart == "Yes") {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=232');
         }
         else {
+            req.session.data['returnPage'] = req.originalUrl;   
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=233');
         }
             
@@ -4820,67 +4828,6 @@ else {
 });
 
 
-
-
-// Introduction - Sharedfacilities
-router.get('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    var sharedfacilities = req.session.data['sharedfacilities']
-    var sharednumnber = parseInt(req.session.data['sharedfacilitieshowmany'])
-    var buildings = parseInt(req.session.data['buildings'])
-
-
-    if (!sharedfacilities) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.sharedfacilities = {
-            "anchor": "sharedfacilities",
-            "message": "Select if there are any shared facilities"
-        }
-    }
-    if (buildings > 1) {
-        if (sharedfacilities == "Yes" && !sharednumnber)  {
-            req.session.data.validationError = "true"
-            req.session.data.validationErrors.sharedfacilitieshowmany = {
-                "anchor": "sharedfacilitieshowmany",
-                "message": "Enter the number of buildings with shared facilities"
-            }
-        }
-    
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (sharedfacilities == "Yes") {
-            if (sharednumnber) {
-                if (sharednumnber >= buildings) {
-                    res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-                }
-                else {
-                    res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
-                }    
-            }
-            else {
-                res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-            }
-        } else {
-            res.redirect('/' + version + '/add-heat-network/introduction/name');
-        }
-    }
-
-});
 
 
 

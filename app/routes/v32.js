@@ -3368,6 +3368,7 @@ router.get('/' + version + '/add-heat-network/introduction/dropout', function (r
     
     const urlParams = req.query.v;
     req.session.data['introdropoutreason'] = urlParams;
+    
 
     backURL = req.header('Referer')
     res.render('/' + version + '/add-heat-network/introduction/dropout', {

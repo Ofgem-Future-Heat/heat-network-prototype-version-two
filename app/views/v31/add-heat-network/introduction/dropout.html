@@ -131,7 +131,17 @@ You cannot register your organisation’s heat network yet
             </p>
 
         </div>
+
+        {% if data.introcomplete == "true" %}
+        <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-button govuk-button--warning">Remove this heat network</a>
+
+
+        {% else %}
         <a href="../../account-information" class="govuk-button">Finish</a>
+
+        {% endif %} 
+
+
 
     </div>
 

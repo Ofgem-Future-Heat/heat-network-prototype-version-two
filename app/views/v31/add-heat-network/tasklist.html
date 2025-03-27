@@ -18,7 +18,11 @@
         <div class="govuk-breadcrumbs">
             <ol class="govuk-breadcrumbs__list">
                 <li class="govuk-breadcrumbs__list-item">
+                    {% if data.role == 'Supplier' %}
+                    <a class="govuk-breadcrumbs__link" href="../account-information?v=supplier">Account home</a>
+                    {% else %}
                     <a class="govuk-breadcrumbs__link" href="../account-information?v=complete">Account home</a>
+                    {% endif %}
                 </li>
             </ol>
         </div>
@@ -232,8 +236,8 @@
 
         </div>
 <div class="govuk-button-group">
-        <a href="/{{data.version}}/add-heat-network/confirmsubmit" class="govuk-button">Submit</a>
-        <a href="/{{data.version}}/add-heat-network/confirmdelete" class="govuk-link text-red">Remove this heat network</a>
+        <a href="/{{data.version}}/add-heat-network/confirmsubmit?ref={{data.lastpage}}" class="govuk-button">Submit</a>
+        <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
     </div>
     </div>
 

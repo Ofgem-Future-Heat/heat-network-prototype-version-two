@@ -1,8 +1,10 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Are you sure you want to submit {{data.name}}?
+Are you sure you want to remove {{data.name}}?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
+{% set cdnumber = "247" %}
+
 
 
 {% block pageTitle %}
@@ -53,7 +55,7 @@ Are you sure you want to submit {{data.name}}?
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.confirmsubmit %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.confirmremove %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -63,34 +65,26 @@ Are you sure you want to submit {{data.name}}?
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">By submitting this heat network information, you are confirming that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>you have the authority to provide this information, or are acting on behalf of someone who has delegated this authority to you</li>
-                        <li>all the information you are providing is correct to the best of your knowledge</li>
-                        <li>you will notify Ofgem as soon as possible if any of the information changes</li>
-                    </ul>
-                    <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">Warning</span>
-   It is a criminal offence to knowingly submit incorrect information.
-  </strong>
-</div>
-                    {% if data.validationErrors.confirmsubmit %}
+                    <p class="govuk-body">By continuing, this heat network and all of the information you’ve entered will be removed.</p>
+                    <p class="govuk-body">If you want to add this heat network again, you’ll have to re-enter all of your answers. </p>
+
+
+
+                    {% if data.validationErrors.confirmremove %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.confirmsubmit.message}}
+                        {{data.validationErrors.confirmremove.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="confirm" name="confirmsubmit" type="radio" value="Yes" {% if data.confirmsubmit=="Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="confirm" name="confirmremove" type="radio" value="Yes" {% if data.confirmremove=="Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="confirm">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="confirm-2" name="confirmsubmit" type="radio" value="No" {% if data.confirmsubmit=="No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="confirm-2" name="confirmremove" type="radio" value="No" {% if data.confirmremove=="No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="confirm-2">
                                 No
                             </label>
