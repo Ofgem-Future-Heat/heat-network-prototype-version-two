@@ -8,15 +8,14 @@ function clearvalidation(req) {
     req.session.data.validationErrors = {}
     req.session.data.validationError = "false"
     req.session.data.includeValidation = req.query.iv || req.session.data.includeValidation
-    req.session.data['version'] = version
 
 }
 
 //////// PAGE SETUP //////
 router.use(function (req, res, next) {
+    req.session.data['version'] = version
     clearvalidation(req);
     req.session.data.lastpage = req.originalUrl;
-
     next(); // Continue to the actual route handler
 });
 
