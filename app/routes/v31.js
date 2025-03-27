@@ -6908,6 +6908,19 @@ else {
 
 
 
+
+
+
+
+// Confirm remove
+router.get('/' + version + '/add-heat-network/cannotsubmit', function (req, res) {
+    res.render('/' + version + '/add-heat-network/cannotsubmit', {
+        data: req.session.data
+    });
+});
+
+
+
 ////////// SUPPLIERS /////////////
 
 
