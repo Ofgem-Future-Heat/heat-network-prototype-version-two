@@ -73,22 +73,30 @@ Confirm {{data.energycentretype}} coordinates
 
 
             </div>
-            {% if data.ecaddressHasPostcode == "Yes" %}
-            {{
-                govukButton ({
-                    html: 'Use this address'
-                })
-            }}
-{% else %}
-{{
-    govukButton ({
-        html: 'Use these coordinates'
-    })
-}}
-{% endif %}
 
+
+            <div class="govuk-button-group">
+                {% if data.ecaddressHasPostcode == "Yes" %}
+                {{
+                    govukButton ({
+                        html: 'Use this address'
+                    })
+                }}
+    {% else %}
+    {{
+        govukButton ({
+            html: 'Use these coordinates'
+        })
+    }}
+    {% endif %}
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
+
+
+          
         </form>
-        <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
     </div>
 
