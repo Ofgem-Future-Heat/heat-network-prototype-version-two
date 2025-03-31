@@ -1,5 +1,24 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you have a process for dealing with customers with payment difficulties, including issuing reminder letters?" %}
+{% set cdnumber = "239" %}
+
+
+{% set hnname %}
+{% if data.name %}
+{{data.name}}
+{% else %}
+Seaton City Centre
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+{% if data.introcomplete == "true" %}
+Are you sure you wish to cancel changing technical information for {{hnname}}?
+{% else %}
+Are you sure you wish to cancel adding technical information for {{hnname}}?
+{% endif %}
+{% endset %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,60 +70,55 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.consumerdifficulties %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.energycentrecancel %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - consumer protections</span>
+                        <span class="govuk-caption-l">Add a heat network - energycentre</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-
                     </legend>
+                    {% if data.energycentrecomplete == "true" %}
+                    <p class="govuk-body">Any changes you have made will not be saved.</p>
+                    {% else %}
+                    <p class="govuk-body">Any information you have added will not be saved.</p>
 
-                    {% if data.validationErrors.consumerdifficulties %}
+                    {% endif %}
+                    {% if data.validationErrors.energycentrecancel %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.consumerdifficulties.message}}
+                        {{data.validationErrors.energycentrecancel.message}}
                     </p>
                     {% endif %}
-
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumerdifficulties" name="consumerdifficulties" type="radio" value="Yes" {% if data.consumerdifficulties == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumerdifficulties">
+                            <input class="govuk-radios__input" id="cancel" name="energycentrecancel" type="radio" value="Yes" >
+                            <label class="govuk-label govuk-radios__label" for="cancel">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumerdifficulties-2" name="consumerdifficulties" type="radio" value="No" data-aria-controls="consumerdifficultiesconditional" {% if data.consumerdifficulties == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="consumerdifficulties-2">
+                            <input class="govuk-radios__input" id="cancel-2" name="energycentrecancel" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="cancel-2">
                                 No
                             </label>
                         </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="consumerdifficultiesconditional">
-                                <p class="govuk-body">You will need to confirm this is in place within 3 months.</p>
-                            </div>
-
-
                     </div>
+
 
                 </fieldset>
 
-            </div>
-                            <p class="govuk-body">We may request this from you in the future.</p>
 
-
-                        <div class="govuk-button-group">
-                {{
-                    govukButton ({
-                        html: 'Continue'
-                    })
-                }}
-                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
         </form>
+
     </div>
 
 </div>

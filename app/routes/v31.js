@@ -16,7 +16,7 @@ function clearvalidation(req) {
 router.use(function (req, res, next) {
     req.session.data['version'] = version
     clearvalidation(req);
-    req.session.data.lastpage = req.originalUrl;
+    req.session.lastPage = req.originalUrl;
     next(); // Continue to the actual route handler
 });
 
@@ -3462,44 +3462,6 @@ function clearRegIntro(req) {
 }
 
 
-// Introduction - Cancel
-router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    req.session.data['cancels'] = "";
-    backURL = req.header('Referer')
-    res.render('/' + version + '/add-heat-network/introduction/cancel', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    var cancels = req.session.data['cancels']
-
-    if (!cancels) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.cancels = {
-            "anchor": "cancels",
-            "message": "Select whether you wish to cancel"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/cancel', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (cancels == "Yes") {
-            res.redirect('/' + version + '/account-information');
-        } else {
-            res.redirect(backURL);
-        }
-    }
-
-});
 
 
 // Introduction - Initial
@@ -3703,16 +3665,7 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
 // Add Heat Network - Intro
 
-// Introduction - Intro
-router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    req.session.data['cancels'] = "";
-    
-    backURL = req.header('Referer')
-    res.render('/' + version + '/add-heat-network/introduction/cancel', {
-        data: req.session.data
-    });
-});
+
 
 // Introduction - dropout
 router.get('/' + version + '/add-heat-network/introduction/dropout', function (req, res) {
@@ -3726,34 +3679,6 @@ router.get('/' + version + '/add-heat-network/introduction/dropout', function (r
     });
 });
 
-
-router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    var cancels = req.session.data['cancels']
-
-    if (!cancels) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.cancels = {
-            "anchor": "cancels",
-            "message": "Select whether you wish to cancel"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/cancel', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (cancels == "Yes") {
-            res.redirect('/' + version + '/account-information');
-        } else {
-            res.redirect(backURL);
-        }
-    }
-
-});
 
 
 
@@ -6767,6 +6692,9 @@ router.post('/' + version + '/add-heat-network/billing/cya', function (req, res)
 
 
 
+
+
+
 // Financial - plan
 router.get('/' + version + '/add-heat-network/financial/plan', function (req, res) {
     
@@ -7537,6 +7465,312 @@ router.post('/' + version + '/add-heat-network/suppliers/remove', function (req,
         }
     }
 });
+
+
+///// CANCEL PAGES
+
+
+
+// Introduction - Cancel
+router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+    req.session.data['introcancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/introduction/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+
+    var introcancel = req.session.data['introcancel']
+    const urlParams = req.query.v;
+
+
+    if (!introcancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introcancel = {
+            "anchor": "introcancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/cancel', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introcancel == "Yes") {
+            res.redirect('/' + version + '/account-information');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+
+// Billing - cancel
+router.get('/' + version + '/add-heat-network/billing/cancel', function (req, res) {
+    req.session.data['billingcancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/billing/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/billing/cancel', function (req, res) {
+
+    var billingcancel = req.session.data['billingcancel']
+    const urlParams = req.query.v;
+
+
+    if (!billingcancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcancel = {
+            "anchor": "billingcancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/billing/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (billingcancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+// Customers - cancel
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/cancel', function (req, res) {
+    req.session.data['customerscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/cancel', function (req, res) {
+
+    var customerscancel = req.session.data['customerscancel']
+    const urlParams = req.query.v;
+
+
+    if (!customerscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customerscancel = {
+            "anchor": "customerscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (customerscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+// Consumer protections - cancel
+router.get('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+    req.session.data['consumerprotectionscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+
+    var consumerprotectionscancel = req.session.data['consumerprotectionscancel']
+    const urlParams = req.query.v;
+
+
+    if (!consumerprotectionscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerprotectionscancel = {
+            "anchor": "consumerprotectionscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumerprotectionscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+// Technical information - cancel
+router.get('/' + version + '/add-heat-network/energycentre/cancel', function (req, res) {
+    req.session.data['energycentrecancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/energycentre/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/cancel', function (req, res) {
+
+    var energycentrecancel = req.session.data['energycentrecancel']
+    const urlParams = req.query.v;
+
+
+    if (!energycentrecancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.energycentrecancel = {
+            "anchor": "energycentrecancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (energycentrecancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Suppliers - cancel
+router.get('/' + version + '/add-heat-network/suppliers/cancel', function (req, res) {
+    req.session.data['supplierscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/suppliers/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/cancel', function (req, res) {
+
+    var supplierscancel = req.session.data['supplierscancel']
+    const urlParams = req.query.v;
+
+
+    if (!supplierscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplierscancel = {
+            "anchor": "supplierscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (supplierscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Consumer protections - cancel
+router.get('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+    req.session.data['consumerprotectionscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+
+    var consumerprotectionscancel = req.session.data['consumerprotectionscancel']
+    const urlParams = req.query.v;
+
+
+    if (!consumerprotectionscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerprotectionscancel = {
+            "anchor": "consumerprotectionscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumerprotectionscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
 
 
 

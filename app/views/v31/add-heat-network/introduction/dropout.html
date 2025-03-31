@@ -138,6 +138,7 @@ You cannot register your organisation’s heat network yet
         </div>
 
         {% if data.introcomplete == "true" %}
+        <p class="govuk-body">This heat network no longer falls within the scope of the heat network regulations. You should remove it from the service.</p>
         <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-button govuk-button--warning">Remove this heat network</a>
 
 

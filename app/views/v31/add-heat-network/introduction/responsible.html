@@ -89,7 +89,7 @@ Have the other operators on this heat network agreed that you can provide inform
                         <p class="govuk-body">
                             By providing network information on behalf of another operator, you’re confirming that they undertake a regulated activity.
                             </p>
-                            
+
                     {% if data.validationErrors.introresponsible %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -123,7 +123,8 @@ Have the other operators on this heat network agreed that you can provide inform
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>
