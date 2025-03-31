@@ -33,8 +33,8 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {% if data.variantname %}
-      {% if data.variantname.toLowerCase() == "supplier" %}
+      {% if data.usertype %}
+      {% if data.usertype == "supplier" %}
       <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
         <div class="govuk-notification-banner__header">
           <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -50,7 +50,7 @@
         </div>
       </div>
       {% endif %}
-      {% if data.variantname.toLowerCase() == "supplier2" %}
+      {% if data.usertype == "supplier2" %}
       <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
         <div class="govuk-notification-banner__header">
           <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
@@ -86,7 +86,7 @@
       <div class="govuk-!-padding-4 hn-box--grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
-      {% if data.variantname == "ur" or data.variantname == "supplier" or data.variantname == "supplier2" %}
+      {% if data.usertype == "operator" or data.usertype == "supplier" or data.usertype == "supplier2" %}
       <strong class="govuk-tag govuk-tag--green">
         Submitted
        </strong>
@@ -106,7 +106,7 @@
   </div>
     {% endif %}
 
-    {% if data.variantname != "dev" %}
+    {% if data.usertype != "dev" %}
     <div class="govuk-grid-column-one-third govuk-!-margin-bottom-4 hn-box">
 
     <div class="govuk-!-padding-4 hn-box--grey">
@@ -115,20 +115,20 @@
 
 
 
-{% if data.variantname %}
-    {% if data.variantname == "ur" or data.variantname == "supplier" or data.variantname == "supplier2" %}
+{% if data.usertype %}
+    {% if data.usertype == "operator" or data.usertype == "supplier" or data.usertype == "supplier2" %}
     <strong class="govuk-tag govuk-tag--green">
       Submitted
      </strong>
-    {% elif (data.variantname.toLowerCase() == "expired") %}
+    {% elif (data.variantname() == "expired") %}
     <strong class="govuk-tag govuk-tag--red">
       Expired
      </strong>
-     {% elif (data.variantname.toLowerCase() == "in review") %}
+     {% elif (data.variantname() == "in review") %}
      <strong class="govuk-tag govuk-tag--blue">
        In review
       </strong>
-      {% elif (data.variantname.toLowerCase() == "approved") %}
+      {% elif (data.variantname() == "approved") %}
       <strong class="govuk-tag govuk-tag--green">
         Approved
        </strong>
@@ -174,7 +174,7 @@
 
 
 
-      {% if data.variantname and (data.variantname.toLowerCase() == "complete" or data.variantname.toLowerCase() == "supplier" or data.variantname.toLowerCase() == "supplier2")   %}
+      {% if data.networklist == "complete"  %}
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">Heat networks</h2>
         {% if data.introcomplete == "true" %}
@@ -199,14 +199,14 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
-            {% if data.variantname.toLowerCase() == "supplier" or data.variantname.toLowerCase() == "supplier2" %}
+            {% if data.usertype == "supplier" or data.usertype == "supplier2" %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v={{data.variantname}}" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Authorisation type<br /></span>{% if data.introauthorised == "Yes" %}Registered{% else %}Temporarily authorised{% endif %}</td>
-            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong></td>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Submitted' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong></td>
             </tr>
             {% endif %}
-            {% if data.introcomplete == "true" and (data.variantname.toLowerCase() != "supplier" and data.variantname.toLowerCase() != "supplier2") %}
+            {% if data.introcomplete == "true" and (data.usertype != "supplier" and data.usertype != "supplier2") %}
 
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a><br /><span class="govuk-body-s">(ID: 123456789)</span></th>

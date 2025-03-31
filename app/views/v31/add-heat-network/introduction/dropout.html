@@ -122,7 +122,10 @@ You cannot register your organisation’s heat network yet
                 </strong>
               </div>
             {% endif %}
+            {% if data.introdropoutreason == "244" %}
 
+            <p class="govuk-body">This is because you’ve told us that your organisation is an operator, but that you do not provide heating, cooling or hot water to any single dwelling buildings.</p>
+            {% endif %}
 
             <p class="govuk-body">
                 For further information, you can contact us at <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>

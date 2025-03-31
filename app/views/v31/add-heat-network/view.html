@@ -23,7 +23,7 @@
         <div class="govuk-breadcrumbs">
             <ol class="govuk-breadcrumbs__list">
                 <li class="govuk-breadcrumbs__list-item">
-                    <a class="govuk-breadcrumbs__link" href="../account-information?v=supplier">Account home</a>
+                    <a class="govuk-breadcrumbs__link" href="../account-information">Account home</a>
                 </li>
             </ol>
         </div>
@@ -99,7 +99,7 @@
               </p>
             </div>
         {% endif %}
-        {% if (data.variantname == "supplier" or data.variantname == "supplier2") %}
+        {% if (data.usertype == "supplier" or data.usertype == "supplier2") %}
 
         <p class="govuk-body">{{data.operator}} told us that {{company}} supplies to consumers on this heat network. They've invited you to add supplier information.</p>
         <p class="govuk-body">If you do not believe you supply to consumers on this heat network, you should contact us on <a href="mailto: support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
@@ -119,10 +119,10 @@
               </details>
 {% endif %}
 
-            {% if data.HNStatus != "Complete" %}
+            {% if data.HNStatus != "Submitted" %}
 
     <p class="govuk-body">
-        <a href="tasklist?v={{data.variantname}}" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-3" data-module="govuk-button" data-govuk-button-init="">
+        <a href="tasklist?v={{data.usertype}}" role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-3" data-module="govuk-button" data-govuk-button-init="">
             
             {% if data.HNStatus == 'In progress' %}
             Continue editing
@@ -746,7 +746,10 @@
 
 
             <p class="govuk-body">
+                {% if data.HNStatus != "Submitted" %}
+
             <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
+            {% endif %}
         </p>
 
 
