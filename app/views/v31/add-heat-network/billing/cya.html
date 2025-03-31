@@ -97,17 +97,18 @@
         <form method="POST" novalidate>
             <input type="hidden" id="billingcomplete" name="billingcomplete" value="true" />
             <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
-
+            <div class="govuk-button-group">
             {{
                 govukButton ({
                     html: 'Save and continue'
                 })
             }}
-        </form>
-        {% if data.billingcomplete == "true" %}
+            <a href="/{{data.version}}/add-heat-network/billing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
 
-        <a href="cancel" class="govuk-link">Cancel changes</a>
-        {% endif %}
+        </div>
+        </form>
+
+
 
     </div>
 

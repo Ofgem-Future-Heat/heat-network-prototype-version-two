@@ -324,14 +324,17 @@ Radienteco Ltd
                 <form method="POST" novalidate>
     <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
     <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+    <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Save and continue'
+          })
+        }}
+        <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
-    {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-    }}            </form>
-    <p class="govuk-body"><a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
-</p>
+      </div>
+         </form>
+
 
 
     </div>

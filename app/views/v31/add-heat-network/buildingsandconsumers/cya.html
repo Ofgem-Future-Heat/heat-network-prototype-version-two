@@ -135,12 +135,14 @@
         <form method="POST" novalidate>
             <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
             <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
-
-            {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-            }}
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Save and continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
         </form>
 
     </div>

@@ -109,17 +109,17 @@
             <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
 
 
-            {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-            }}
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Save and continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
         </form>
 
-        {% if data.protectionscomplete == "true" %}
 
-        <a href="cancel" class="govuk-link">Cancel changes</a>
-        {% endif %}
 
     </div>
 
