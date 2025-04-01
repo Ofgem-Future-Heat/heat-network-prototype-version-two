@@ -431,7 +431,7 @@ router.get('/' + version + '/emails/supplier-invite', function (req, res) {
 
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['orgdetailsnotification'] = urlParams;
 
@@ -442,7 +442,7 @@ router.get('/' + version + '/organisation-details/organisation-details', functio
 
 /// Org details - Email address
 router.get('/' + version + '/organisation-details/email-address', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/email-address', {
         data: req.session.data
     });
@@ -450,7 +450,7 @@ router.get('/' + version + '/organisation-details/email-address', function (req,
 
 
 router.post('/' + version + '/organisation-details/email-address', function (req, res) {
-    
+    clearvalidation(req);
     var orghasemailaddress = req.session.data['orghasemailaddress']
     var orgemailaddress = req.session.data['orgemailaddress']
 
@@ -487,7 +487,7 @@ router.post('/' + version + '/organisation-details/email-address', function (req
 
 /// Org details - Accounts
 router.get('/' + version + '/organisation-details/accounts', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/accounts', {
         data: req.session.data
     });
@@ -495,7 +495,7 @@ router.get('/' + version + '/organisation-details/accounts', function (req, res)
 
 
 router.post('/' + version + '/organisation-details/accounts', function (req, res) {
-    
+    clearvalidation(req);
     var orgaccounts = req.session.data['orgaccounts']
 
 
@@ -522,7 +522,7 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
 
 /// Org details - Financial year date
 router.get('/' + version + '/organisation-details/date', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/date', {
         data: req.session.data
     });
@@ -530,7 +530,7 @@ router.get('/' + version + '/organisation-details/date', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/date', function (req, res) {
-    
+    clearvalidation(req);
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
     var financialendday = req.session.data['orgfinancialendday']
@@ -697,9 +697,10 @@ if (!financialendday && !financialendmonth) {
     }
 
 });
+
 /// Org details - Solvent
 router.get('/' + version + '/organisation-details/solvent', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/solvent', {
         data: req.session.data
     });
@@ -707,7 +708,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 
 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
-    
+    clearvalidation(req);
     var orgsolvent = req.session.data['orgsolvent']
     var orgaccounts = req.session.data['orgaccounts']
 
@@ -740,7 +741,7 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
 
 /// Org details - Profit
 router.get('/' + version + '/organisation-details/profit', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/profit', {
         data: req.session.data
     });
@@ -748,7 +749,7 @@ router.get('/' + version + '/organisation-details/profit', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/profit', function (req, res) {
-    
+    clearvalidation(req);
     var orgprofit = req.session.data['orgprofit']
 
 
@@ -775,7 +776,7 @@ router.post('/' + version + '/organisation-details/profit', function (req, res) 
 
 /// Org details - What
 router.get('/' + version + '/organisation-details/what', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/what', {
         data: req.session.data
     });
@@ -783,10 +784,11 @@ router.get('/' + version + '/organisation-details/what', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/what', function (req, res) {
-    
+    clearvalidation(req);
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
     var orgprofit = req.session.data['orgprofit']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
 
@@ -794,7 +796,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgsubtype = {
             "anchor": "orgsubtype",
-            "message": "Select an organisation description"
+            "message": "Select the option that best describes the work " + companyname +" does"
         }
     }
 
@@ -803,6 +805,14 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationErrors.orgsubtypeother = {
             "anchor": "orgtradingpostcode",
             "message": "Enter an organisation description"
+        }
+    }
+
+    if ((orgsubtype == "Other") && orgsubtypeother.length > 50) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsubtypeother = {
+            "anchor": "orgtradingpostcode",
+            "message": "Enter the organisation’s description"
         }
     }
 
@@ -844,7 +854,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
 
 /// Org details - Social housing
 router.get('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/socialhousing', {
         data: req.session.data
     });
@@ -852,7 +862,7 @@ router.get('/' + version + '/organisation-details/socialhousing', function (req,
 
 
 router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    
+    clearvalidation(req);
     var orgsocialhousing = req.session.data['orgsocialhousing']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
@@ -887,7 +897,7 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
 
 /// Org details - Financial protfit
 router.get('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-profit', {
         data: req.session.data
     });
@@ -895,7 +905,7 @@ router.get('/' + version + '/organisation-details/financial-profit', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    
+    clearvalidation(req);
     var financialprofit = req.session.data['financialprofit']
 
 
@@ -921,7 +931,7 @@ router.post('/' + version + '/organisation-details/financial-profit', function (
 
 /// Org details - Financial monthly
 router.get('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-monthly', {
         data: req.session.data
     });
@@ -929,7 +939,7 @@ router.get('/' + version + '/organisation-details/financial-monthly', function (
 
 
 router.post('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    
+    clearvalidation(req);
     var financialmonthly = req.session.data['financialmonthly']
 
 
@@ -955,7 +965,7 @@ router.post('/' + version + '/organisation-details/financial-monthly', function 
 
 /// Org details - Financial income
 router.get('/' + version + '/organisation-details/financial-income', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-income', {
         data: req.session.data
     });
@@ -963,7 +973,7 @@ router.get('/' + version + '/organisation-details/financial-income', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-income', function (req, res) {
-    
+    clearvalidation(req);
     var financialincome = req.session.data['financialincome']
 
 
@@ -992,7 +1002,7 @@ router.post('/' + version + '/organisation-details/financial-income', function (
 
 /// Org details - Financial liquid
 router.get('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-liquid', {
         data: req.session.data
     });
@@ -1000,7 +1010,7 @@ router.get('/' + version + '/organisation-details/financial-liquid', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    
+    clearvalidation(req);
     var financialliquid = req.session.data['financialliquid']
 
 
@@ -1026,7 +1036,7 @@ router.post('/' + version + '/organisation-details/financial-liquid', function (
 
 /// Org details - Financial exceed
 router.get('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-exceed', {
         data: req.session.data
     });
@@ -1034,7 +1044,7 @@ router.get('/' + version + '/organisation-details/financial-exceed', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    
+    clearvalidation(req);
     var financialexceed = req.session.data['financialexceed']
 
 
@@ -1060,7 +1070,7 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
 
 /// Org details - Financial costs
 router.get('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-costs', {
         data: req.session.data
     });
@@ -1068,7 +1078,7 @@ router.get('/' + version + '/organisation-details/financial-costs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    
+    clearvalidation(req);
     var financialcosts = req.session.data['financialcosts']
 
 
@@ -1096,7 +1106,7 @@ router.post('/' + version + '/organisation-details/financial-costs', function (r
 
 /// Org details - Financial needs
 router.get('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-needs', {
         data: req.session.data
     });
@@ -1104,7 +1114,7 @@ router.get('/' + version + '/organisation-details/financial-needs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    
+    clearvalidation(req);
     var financialneeds = req.session.data['financialneeds']
 
 
@@ -1131,7 +1141,7 @@ router.post('/' + version + '/organisation-details/financial-needs', function (r
 
 /// Org details - Financial authorised
 router.get('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-authorised', {
         data: req.session.data
     });
@@ -1139,7 +1149,7 @@ router.get('/' + version + '/organisation-details/financial-authorised', functio
 
 
 router.post('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    
+    clearvalidation(req);
     var financialauthorised = req.session.data['financialauthorised']
 
 
@@ -1163,10 +1173,9 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
 
 });
 
-
 /// Org details - Financial percentage
 router.get('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-percentage', {
         data: req.session.data
     });
@@ -1174,7 +1183,7 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 
 
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    
+    clearvalidation(req);
     var financialpercentage = req.session.data['financialpercentage']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
     const regex = /^[0-9,\s.]+$/; // Allowed characters: numbers (0-9), commas (,), spaces (\s), and decimal points (.)
@@ -1216,11 +1225,9 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
 });
 
 
-
-
 /// Org details - Financial hedged
 router.get('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-hedged', {
         data: req.session.data
     });
@@ -1228,14 +1235,15 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    
+    clearvalidation(req);
     var financialhedged = req.session.data['financialhedged']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!financialhedged) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialhedged = {
             "anchor": "financialhedged",
-            "message": "Enter the number of months"
+            "message": "Select whether " + companyname + " hedges their gas, electricity, biomass or other fuel input requirementss"
         }
     }
 
@@ -1258,7 +1266,7 @@ router.post('/' + version + '/organisation-details/financial-hedged', function (
 
 /// Org details - Financial hedged months
 router.get('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-hedged-months', {
         data: req.session.data
     });
@@ -1266,7 +1274,7 @@ router.get('/' + version + '/organisation-details/financial-hedged-months', func
 
 
 router.post('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    
+    clearvalidation(req);
     var financiallength = req.session.data['financiallength']
 
     if (!financiallength) {
@@ -1292,14 +1300,11 @@ router.post('/' + version + '/organisation-details/financial-hedged-months', fun
 
 function clearparentdata(req) {
     req.session.data['parentcompanyname'] = "";
-    req.session.data['parentcompanynumber'] = "";
     req.session.data['parentorgaddressMLine1'] = "";
     req.session.data['parentorgaddressMTown'] = "";
     req.session.data['parentorgaddressMCounty'] = "";
     req.session.data['parentorgaddressMPostcode'] = "";
     req.session.data['parentorgaddressMCountry'] = "";
-    req.session.data['parentaccounttype'] = "";
-    req.session.data['parentorgaddressPostcode'] = "";
     req.session.data['parentorgaddressSelect'] = "";
 
 
@@ -1308,7 +1313,7 @@ function clearparentdata(req) {
 
 /// Org details - Structure
 router.get('/' + version + '/organisation-details/structure', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/structure', {
         data: req.session.data
     });
@@ -1316,7 +1321,7 @@ router.get('/' + version + '/organisation-details/structure', function (req, res
 
 
 router.post('/' + version + '/organisation-details/structure', function (req, res) {
-    
+    clearvalidation(req);
     var orgstructure = req.session.data['orgstructure']
 
 
@@ -1336,13 +1341,9 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
     }
     else {
         clearparentdata(req);
-        req.session.data['parenttotal'] = "";
-        req.session.data['parentsentered'] = "";
+        req.session.data['parentsentered'] = 1;
 
-        if(orgstructure == "Joint venture") {
-            res.redirect('/' + version + '/organisation-details/parent-total');
-        }
-        else if(orgstructure == "Neither of these") {
+        if(orgstructure == "Neither of these") {
             res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
@@ -1354,47 +1355,39 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
 
 
 
-/// Org details - Parent total
-router.get('/' + version + '/organisation-details/parent-total', function (req, res) {
-    
-    res.render('/' + version + '/organisation-details/parent-total', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/parent-total', function (req, res) {
-    
-    var parenttotal = req.session.data['parenttotal']
-
-
-
-    if (!parenttotal) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parenttotal = {
-            "anchor": "parenttotal",
-            "message": "Enter the number of parent companies"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-total', {
-            data: req.session.data
-        });
-    }
-    else {
-        req.session.data['parentsentered'] = 1
-            res.redirect('/' + version + '/organisation-details/company-name');
-    }
-
-});
-
-
-
 
 ///Parent Company name
 router.get('/' + version + '/organisation-details/company-name', function (req, res) {
-    
+    clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+    }
+
+    else {
+        req.session.data['parentid'] = ""
+    }
+
+    const addanother = req.query.another;
+
+    if (addanother) {
+        req.session.data['parentcompanyname'] = ""
+        req.session.data['parentorgaddressMLine1'] = ""
+        req.session.data['parentorgaddressMTown'] = ""
+        req.session.data['parentorgaddressMCountry'] = ""
+        req.session.data['parentorgaddressMPostcode'] = ""
+        req.session.data['parentsaddanother'] = "Yes"
+    }
+
+    else {
+        req.session.data['parentsaddanother'] = "No"
+    }
+
+
+
+
     res.render('/' + version + '/organisation-details/company-name', {
         data: req.session.data
     });
@@ -1402,7 +1395,10 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
 
 
 router.post('/' + version + '/organisation-details/company-name', function (req, res) {
-    
+    clearvalidation(req);
+    const urlParams = req.query.id;
+
+
     var parentcompanyname = req.session.data['parentcompanyname']
     req.session.data['parentaccounttype'] == "Overseas organisation"
     
@@ -1424,11 +1420,18 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
     }
 
     else {
-        if (req.session.data.parentsentered) {
-        req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
+        if (urlParams) {
+            req.session.data['parentcompanyname' + urlParams] = req.session.data['parentcompanyname']
+            res.redirect('/' + version + '/organisation-details/addressmanual?id=' + urlParams);
+
         }
 
+        else {
+            req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
             res.redirect('/' + version + '/organisation-details/addressmanual');
+
+        }
+    
 
     }
 
@@ -1436,9 +1439,32 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
 
 
 
+
+
 // Parent Company - Address manual
 router.get('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    
+    clearvalidation(req);
+
+    const urlParams = req.query.id;
+
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+
+        req.session.data['parentorgaddressMLine1'] = req.session.data['parentorgaddressMLine1' + urlParams]
+
+        req.session.data['parentorgaddressMTown'] = req.session.data['parentorgaddressMTown' + urlParams]
+        req.session.data['parentorgaddressMCountry'] = req.session.data['parentorgaddressMCountry' + urlParams]
+        req.session.data['parentorgaddressMPostcode'] = req.session.data['parentorgaddressMPostcode' + urlParams]
+        }
+
+    else {
+
+        req.session.data['parentid'] = ""
+    }
+
+
+
     res.render('/' + version + '/organisation-details/addressmanual', {
         data: req.session.data
     });
@@ -1446,14 +1472,14 @@ router.get('/' + version + '/organisation-details/addressmanual', function (req,
 
 
 router.post('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    
+    const urlParams = req.query.id;
+
+    clearvalidation(req);
     var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
     var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
     var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
-
+    var orgstructure = req.session.data['orgstructure']
     var parentorgaddressMPostcode = req.session.data['parentorgaddressMPostcode']
-    var parentsentered = req.session.data['parentsentered']
-    var parenttotal = req.session.data['parenttotal']
 
     if (!parentorgaddressMLine1) {
         req.session.data.validationError = "true"
@@ -1476,14 +1502,15 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentorgaddressMPostcode = {
             "anchor": "parentorgaddressMPostcode",
-            "message": "Enter a postal code or zip code",
+            "message": "Enter a postcode",
         }
     }
+
     if (!parentorgaddressMCountry) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentorgaddressMCountry = {
             "anchor": "parentorgaddressMCountry",
-            "message": "Enter a country",
+            "message": "Enter a postcode",
         }
     }
 
@@ -1494,31 +1521,152 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
     }
 
     else {
-            req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
+        req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
 
-        if (req.session.data.parentsentered) {
-            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
-            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-        }        
-        if (parenttotal == parentsentered) {
+        if (urlParams) {
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgaddressMLine1' + urlParams] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + urlParams] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + urlParams] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + urlParams] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+
             res.redirect('/' + version + '/organisation-details/cya');
 
         }
+
         else {
-            clearparentdata(req);
-            res.redirect('/' + version + '/organisation-details/company-name');
+            req.session.data['parentorgaddressMLine1' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgadded' + req.session.data['parentsentered']] = "Yes";
+            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
+
+    
+            if (orgstructure == "Joint venture") {
+                res.redirect('/' + version + '/organisation-details/parent-another');
+            }
+    
+            else {
+                res.redirect('/' + version + '/organisation-details/cya');
+            }
         }
 
-        console.log(parenttotal)
-        console.log(parentsentered)
 
     }
 });
 
 
+
+
+///Parent Another
+router.get('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-another', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    var parentsentered = req.session.data['parentsentered']
+    var parentaddanother = req.session.data['parentaddanother']
+
+    
+    const parents = [];
+    for (let i = 1; i <= parentsentered; i++) {
+        parents.push({
+            id: i,
+            name: req.session.data[`parentcompanyname${i}`],
+            address: req.session.data[`parentorgaddressSelect${i}`],
+            added: req.session.data[`parentorgadded${i}`]
+        });
+    }
+
+    const totalYes = parents.filter(parent => parent.added === "Yes").length;
+    req.session.data['parentsactual'] = totalYes;
+
+    if (!parentaddanother) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Select whether you'd like to add another parent organisation"
+            }
+
+    }
+
+    if (totalYes < 2 && parentaddanother == "No" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Joint ventures must have at least 2 parent orgnisations"
+            }
+
+    }
+
+    if (totalYes == 6 && parentaddanother == "Yes" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "You cannot add more than 6 parents organisations"
+            }
+
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-another', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        clearparentdata(req);
+
+        if (parentaddanother == "Yes") {
+            res.redirect('/' + version + '/organisation-details/company-name?another=yes');
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/cya');
+        }
+
+    }
+
+});
+
+
+
+
+
+///Parent Remove
+router.post('/' + version + '/organisation-details/remove-parent', function (req, res) {
+    const parentId = req.body.parentId;
+
+    // Example: Remove parent logic
+    console.log(`Removing parent with ID: ${parentId}`);
+    // Perform the necessary action (e.g., update session or database)
+    req.session.data['parentorgadded' + parentId] = "No"
+
+    res.redirect('/' + version + '/organisation-details/parent-another');
+
+
+
+
+
+});
+
+
+
+
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
-    
+    clearvalidation(req);
+    clearparentdata(req);
 
     res.render('/' + version + '/organisation-details/cya', {
         data: req.session.data
@@ -1527,11 +1675,17 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
+
+
+        clearvalidation(req);
+        req.session.data['organisationdetails'] = 'Submitted';
+        res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
     
-    req.session.data['organisationdetails'] = 'Submitted';
-    res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+
 
 });
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1555,6 +1709,7 @@ function clearaddeduser(req) {
     req.session.data['adduserpermissionsregistration'] = ""
 }
 
+
 function generateuser(req){
 
     var useradded = req.session.data['addeduser1']
@@ -1567,6 +1722,8 @@ function generateuser(req){
     req.session.data['useremail1'] = "john.smith@radienteco.org";
     req.session.data['userjobtitle1'] = "Director";
     req.session.data['addeduser1'] = "true";
+    req.session.data['userthirdparty1'] = "No";
+
     req.session.data['adduserpermissionstransfer1'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers1'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement1'] = "Manage users";
@@ -1581,14 +1738,14 @@ function generateuser(req){
 }
 
 function generateuser2(req){
-    req.session.data['userfirstname2'] = "Bob";
+    req.session.data['userfirstname2'] = "Jenny";
     req.session.data['userlastname2'] = "Smith";
     req.session.data['usertelephone2'] = "Landline";
     req.session.data['usertelephonelandline2'] = "01234567892";
     req.session.data['usertelephonelandlineext2'] = "2243";
-    req.session.data['useremail2'] = "bob.smith@radienteco.org";
-    req.session.data['userjobtitle2'] = "Staff";
+    req.session.data['useremail2'] = "jenny.smith@radienteco.org";
     req.session.data['addeduser2'] = "true";
+    req.session.data['userthirdparty2'] = "Yes";
     req.session.data['adduserpermissionstransfer2'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers2'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement2'] = "Manage users";
@@ -1596,48 +1753,49 @@ function generateuser2(req){
     req.session.data['adduserpermissionsregistration2'] = "Add or edit heat network information";
 }
 
-function generateuser3(req){
 
-    req.session.data['userfirstname3'] = "Dan";
+function generateuser3(req){
+    req.session.data['userfirstname3'] = "Bob";
     req.session.data['userlastname3'] = "Smith";
-    req.session.data['usertelephone3'] = "Mobile";
-    req.session.data['usertelephonemobile3'] = "07334567893";
-    req.session.data['useremail3'] = "dan.smith@radienteco.org";
+    req.session.data['usertelephone3'] = "Landline";
+    req.session.data['usertelephonelandline3'] = "01234567892";
+    req.session.data['usertelephonelandlineext3'] = "2243";
+    req.session.data['useremail3'] = "bob.smith@radienteco.org";
     req.session.data['userjobtitle3'] = "Staff";
     req.session.data['addeduser3'] = "true";
-    req.session.data['userthirdparty3'] = "Yes";
+    req.session.data['userthirdparty3'] = "No";
     req.session.data['adduserpermissionstransfer3'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers3'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement3'] = "Manage users";
     req.session.data['adduserpermissionsmonitoring3'] = "Submit heat network information";
     req.session.data['adduserpermissionsregistration3'] = "Add or edit heat network information";
 
+
 }
 
 function generateuser4(req){
 
-    req.session.data['userfirstname4'] = "Jane";
+    req.session.data['userfirstname4'] = "Dan";
     req.session.data['userlastname4'] = "Smith";
     req.session.data['usertelephone4'] = "Mobile";
-    req.session.data['usertelephonemobile4'] = "0222567894";
-    req.session.data['useremail4'] = "jane.smith@radienteco.org";
+    req.session.data['usertelephonemobile4'] = "07334567893";
+    req.session.data['useremail4'] = "dan.smith@radienteco.org";
     req.session.data['userjobtitle4'] = "Staff";
     req.session.data['addeduser4'] = "true";
-    req.session.data['userthirdparty4'] = "No";
+    req.session.data['userthirdparty4'] = "Yes";
     req.session.data['adduserpermissionstransfer4'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers4'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement4'] = "Manage users";
+    req.session.data['adduserpermissionsmonitoring4'] = "Submit heat network information";
     req.session.data['adduserpermissionsregistration4'] = "Add or edit heat network information";
-
 }
 
 function generateuser5(req){
-
-    req.session.data['userfirstname5'] = "Donald";
+    req.session.data['userfirstname5'] = "Jane";
     req.session.data['userlastname5'] = "Smith";
     req.session.data['usertelephone5'] = "Mobile";
-    req.session.data['usertelephonemobile5'] = "0222567895";
-    req.session.data['useremail5'] = "donald.smith@radienteco.org";
+    req.session.data['usertelephonemobile5'] = "0222567894";
+    req.session.data['useremail5'] = "jane.smith@radienteco.org";
     req.session.data['userjobtitle5'] = "Staff";
     req.session.data['addeduser5'] = "true";
     req.session.data['userthirdparty5'] = "No";
@@ -1645,12 +1803,29 @@ function generateuser5(req){
     req.session.data['adduserpermissionsrightsandpowers5'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement5'] = "Manage users";
     req.session.data['adduserpermissionsregistration5'] = "Add or edit heat network information";
-    req.session.data['isdeleted5'] = true;
 
-    req.session.data['usertotal'] = "5";
 
 }
 
+
+function generateuser6(req){
+
+    req.session.data['userfirstname6'] = "Donald";
+    req.session.data['userlastname6'] = "Smith";
+    req.session.data['usertelephone6'] = "Mobile";
+    req.session.data['usertelephonemobile6'] = "0222567895";
+    req.session.data['useremail6'] = "donald.smith@radienteco.org";
+    req.session.data['userjobtitle6'] = "Staff";
+    req.session.data['addeduser6'] = "true";
+    req.session.data['userthirdparty6'] = "No";
+    req.session.data['adduserpermissionstransfer6'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers6'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement6'] = "Manage users";
+    req.session.data['adduserpermissionsregistration6'] = "Add or edit heat network information";
+    req.session.data['isdeleted6'] = true;
+
+    req.session.data['usertotal'] = "6";
+}
 
 
 
@@ -1664,7 +1839,7 @@ function clearediteduser(req) {
 
 /// Add user
 router.get('/' + version + '/manage-users/add-user', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user', {
         data: req.session.data
     });
@@ -1672,7 +1847,7 @@ router.get('/' + version + '/manage-users/add-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user', function (req, res) {
-    
+    clearvalidation(req);
 
 
     var useremail = req.session.data['useremail']
@@ -1683,6 +1858,14 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
         req.session.data.validationErrors.useremail = {
             "anchor": "useremail",
             "message": "Enter an email address"
+        }
+    }
+
+    if (useremail.length > 80) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.useremail = {
+            "anchor": "useremail",
+            "message": "Enter an email address using 80 characters or fewer"
         }
     }
 
@@ -1712,7 +1895,7 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 /// Add user details
 router.get('/' + version + '/manage-users/add-user-details', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-details', {
         data: req.session.data
     });
@@ -1720,7 +1903,7 @@ router.get('/' + version + '/manage-users/add-user-details', function (req, res)
 
 
 router.post('/' + version + '/manage-users/add-user-details', function (req, res) {
-    
+    clearvalidation(req);
 
 
     var userfirstname = req.session.data['userfirstname']
@@ -1753,7 +1936,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephone = {
             "anchor": "usertelephone",
-            "message": "Select a preferred contact method"
+            "message": "Select a preferred contact method for work"
         }
     }
 
@@ -1761,7 +1944,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonelandline = {
             "anchor": "usertelephonelandline",
-            "message": "Enter a landline telephone number"
+            "message": "Enter a landline number"
         }
     }
 
@@ -1770,7 +1953,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonemobile = {
             "anchor": "usertelephonemobile",
-            "message": "Enter a mobile telephone number"
+            "message": "Enter a mobile number"
         }
     }
 
@@ -1805,7 +1988,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
 
 /// Add user - third party
 router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-org', {
         data: req.session.data
     });
@@ -1813,7 +1996,7 @@ router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
-    
+    clearvalidation(req);
     var userorgname = req.session.data['userorgname']
     var userthirdparty = req.session.data['userthirdparty']
     var userjobtitle = req.session.data['userjobtitle']
@@ -1833,7 +2016,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.userjobtitle = {
             "anchor": "userjobtitle",
-            "message": "Enter a job title"
+            "message": "Enter the user’s job title"
         }
     }
     if (req.session.data.validationError == "true") {
@@ -1854,7 +2037,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 /// Add user permissions
 router.get('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-permissions', {
         data: req.session.data
     });
@@ -1862,7 +2045,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 
 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     req.session.data['adduserpermissionsview' + req.session.data['usertotal']] = req.session.data['adduserpermissionsview']
     req.session.data['adduserpermissionstransfer' + req.session.data['usertotal']] = req.session.data['adduserpermissionstransfer']
     req.session.data['adduserpermissionsrightsandpowers' + req.session.data['usertotal']] = req.session.data['adduserpermissionsrightsandpowers']
@@ -1875,8 +2058,11 @@ router.post('/' + version + '/manage-users/add-user-permissions', function (req,
 
 /// Edit user
 router.get('/' + version + '/manage-users/edit-user', function (req, res) {
-    
+    clearvalidation(req);
+    generateuser(req);
+
     const userid = req.query.id;
+    
     req.session.data['userid'] = userid;
 
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1886,30 +2072,29 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user', function (req, res) {
-    
+    clearvalidation(req);
     var source = req.query.source;
 
-    var userfirstname = req.session.data['edituserfirstname']
-    var userlastname = req.session.data['edituserlastname']
-    var usertelephone = req.session.data['editusertelephone']
-    var usertelephonemobile = req.session.data['editusertelephonemobile']
-    var usertelephonelandline = req.session.data['editusertelephonelandline']
-    var userjobtitle = req.session.data['edituserjobtitle']
+    var userfirstname = req.session.data['userfirstname']
+    var userlastname = req.session.data['userlastname']
+    var usertelephone = req.session.data['usertelephone']
+    var usertelephonemobile = req.session.data['usertelephonemobile']
+    var usertelephonelandline = req.session.data['usertelephonelandline']
 
 
 
     if (!userfirstname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserfirstname = {
-            "anchor": "edituserfirstname",
+        req.session.data.validationErrors.userfirstname = {
+            "anchor": "userfirstname",
             "message": "Enter a first name"
         }
     }
 
     if (!userlastname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserlastname = {
-            "anchor": "edituserlastname",
+        req.session.data.validationErrors.userlastname = {
+            "anchor": "userlastname",
             "message": "Enter a last name"
         }
     }
@@ -1917,36 +2102,30 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
     if (!usertelephone) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephone = {
-            "anchor": "editusertelephone",
-            "message": "Select a preferred contact method"
+        req.session.data.validationErrors.usertelephone = {
+            "anchor": "usertelephone",
+            "message": "Select a preferred contact method for work"
         }
     }
 
     if ((usertelephone == "Landline") && !usertelephonelandline) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonelandline = {
-            "anchor": "editusertelephonelandline",
-            "message": "Enter a landline telephone number"
+        req.session.data.validationErrors.usertelephonelandline = {
+            "anchor": "usertelephonelandline",
+            "message": "Enter a landline number"
         }
     }
 
 
     if ((usertelephone == "Mobile") && !usertelephonemobile) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonemobile = {
-            "anchor": "editusertelephonemobile",
-            "message": "Enter a mobile telephone number"
+        req.session.data.validationErrors.usertelephonemobile = {
+            "anchor": "usertelephonemobile",
+            "message": "Enter a mobile number"
         }
     }
 
-    if (!userjobtitle) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserjobtitle = {
-            "anchor": "edituserjobtitle",
-            "message": "Enter a job title"
-        }
-    }
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1958,20 +2137,14 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
     else {
-        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['edituserfirstname']
-        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['edituserlastname']
-        req.session.data['usertelephone' + req.session.data['usertotal']] = req.session.data['editusertelephone']
-        req.session.data['usertelephonelandline' + req.session.data['usertotal']] = req.session.data['editusertelephonelandline']
-        req.session.data['usertelephonelandlineext' + req.session.data['usertotal']] = req.session.data['editusertelephonelandlineext']
-        req.session.data['usertelephonemobile' + req.session.data['usertotal']] = req.session.data['editusertelephonemobile']
-
-        req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
-        if (source == "myprofile") {
+        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['userfirstname']
+        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['userlastname']
+        req.session.data['usertelephone' + req.session.data['userid']] = req.session.data['usertelephone']
+        req.session.data['usertelephonelandline' + req.session.data['userid']] = req.session.data['usertelephonelandline']
+        req.session.data['usertelephonelandlineext' + req.session.data['userid']] = req.session.data['usertelephonelandlineext']
+        req.session.data['usertelephonemobile' + req.session.data['userid']] = req.session.data['usertelephonemobile']
             res.redirect('/' + version + '/my-profile?notification=edituser');
-        }
-        else {
-            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser&id='+ req.session.data['userid']);
-        }
+
     }
 
 
@@ -1980,7 +2153,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 /// Edit user permissions
 router.get('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
     const urlParams = req.query.notification;
@@ -1995,7 +2168,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 
 
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = req.session.data['edituserpermissionsview']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']
     req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = req.session.data['edituserpermissionsmonitoring']
@@ -2009,7 +2182,7 @@ router.post('/' + version + '/manage-users/edit-user-permissions', function (req
 
 /// Edit user - third party
 router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -2021,7 +2194,7 @@ router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    
+    clearvalidation(req);
     var edituserthirdparty = req.session.data['edituserthirdparty']
     var edituserjobtitle = req.session.data['edituserjobtitle']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
@@ -2059,14 +2232,14 @@ router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 /// Reg change
 router.get('/' + version + '/manage-users/reg-change', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/reg-change', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/manage-users/reg-change', function (req, res) {
-    
+    clearvalidation(req);
     var regchange = req.session.data['regchange']
 
     if (regchange == "") {
@@ -2095,7 +2268,7 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
 
 /// Delete user
 router.get('/' + version + '/manage-users/delete-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -2110,7 +2283,7 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = ""
     req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = ""
@@ -2123,9 +2296,10 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
 
 });
 
+
 /// Cancel invite
 router.get('/' + version + '/manage-users/cancel-invite', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -2140,7 +2314,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -2151,7 +2325,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
 
 /// Remove user
 router.get('/' + version + '/manage-users/remove-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -2166,7 +2340,7 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -2174,10 +2348,9 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
 
 });
 
-
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -2191,7 +2364,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
 
     req.session.data['isdeleted' + req.session.data['userid']] = false;
@@ -2199,10 +2372,44 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
 
 });
 
+/// Invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/organisation-invite', function (req, res) {
+
+    var acceptinvite = req.session.data['acceptinvite']
+    clearvalidation(req);
+
+
+    if (acceptinvite != "yes" && acceptinvite != "no") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.acceptinvite = {
+            "anchor": "acceptinvite",
+            "message": "Select yes if you wish to accept this invitation"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/organisation-invite', {
+            data: req.session.data
+        });
+    }
+    else {
+    res.redirect('/' + version + '/account-information');
+    }
+
+});
+
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     const variant = req.query.v;
 
@@ -2213,6 +2420,8 @@ router.get('/' + version + '/manage-users', function (req, res) {
         generateuser3(req);
         generateuser4(req);
         generateuser5(req);
+        generateuser6(req);
+
     }
 
 
@@ -2224,7 +2433,7 @@ router.get('/' + version + '/manage-users', function (req, res) {
 
 
 router.post('/' + version + '/manage-users', function (req, res) {
-    
+    clearvalidation(req);
     clearaddeduser(req);
     res.redirect('/' + version + '/manage-users/add-user');
 });
@@ -2232,7 +2441,7 @@ router.post('/' + version + '/manage-users', function (req, res) {
 
 /// User profile
 router.get('/' + version + '/manage-users/user-profile', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     const userid = req.query.id;
@@ -2248,7 +2457,7 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
 /// User profile self
 router.get('/' + version + '/my-profile', function (req, res) {
     generateuser(req);
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     clearediteduser(req)
@@ -2259,6 +2468,16 @@ router.get('/' + version + '/my-profile', function (req, res) {
     });
 });
 
+
+/// Org invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+
+
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -7776,7 +7995,6 @@ router.post('/' + version + '/add-heat-network/consumerprotections/cancel', func
 
 
 
-
 ////////////////////////////////////////////////////////////////////////////// SMRI //////////////////////////////////////////////////////////////////////////////
 
 function setSMRIUser(req) {
@@ -7798,7 +8016,7 @@ function clearSMRIUser(req) {
 
 /// SMRI List
 router.get('/' + version + '/smri/list', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     const urlParamsVersion = req.query.v;
     req.session.data['smristatus'] = urlParamsVersion;
@@ -7827,112 +8045,27 @@ router.post('/' + version + '/smri/list', function (req, res) {
 
 });
 
-/// SMRI Personal
-router.get('/' + version + '/smri/personal', function (req, res) {
-    
-
-    res.render('/' + version + '/smri/personal', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/personal', function (req, res) {
-    
-    
-    const urlParams = req.query.id;
-
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-    var smridobday = req.session.data['smridobday']
-    var smridobmonth = req.session.data['smridobmonth']
-    var smridobyear = req.session.data['smridobyear']
-    const smridob = new Date(`${smridobyear}-${smridobmonth}-${smridobday}`);
-
-    if (!smrifirstname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrifirstname = {
-            "anchor": "smrifirstname",
-            "message": "Enter a first name"
-        }
-    }
-
-    if (!smrilastname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrilastname = {
-            "anchor": "smrilastname",
-            "message": "Enter a last name"
-        }
-    }
-
-
-
-    if ((smridobday.length > 2) || (smridobday.month > 2) || (smridobday.year > 4) || (isNaN(smridob))) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridobday",
-            "message": "Enter a valid date"
-        }
-    }
-
-    if (!smridobday || !smridobmonth || !smridobyear) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridob",
-            "message": "Enter a full date of birth"
-        }
-    }
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/personal', {
-            data: req.session.data
-        });
-    }
-    else {
-        if (urlParams) {
-            req.session.data['smritotal'] = urlParams;
-        }
-        else {
-        if (req.session.data.smritotal) {
-            req.session.data.smritotal = req.session.data.smritotal + 1
-        } 
-        else {
-            req.session.data.smritotal = 1
-        }
-    }
-        req.session.data['smrifirstname' + req.session.data['smritotal']] = req.session.data['smrifirstname']
-        req.session.data['smrilastname' + req.session.data['smritotal']] = req.session.data['smrilastname']
-        req.session.data['smridob' + req.session.data['smritotal']] = smridob
-        req.session.data['smridobday' + req.session.data['smritotal']] = req.session.data['smridobday']
-        req.session.data['smridobmonth' + req.session.data['smritotal']] = req.session.data['smridobmonth']
-        req.session.data['smridobyear' + req.session.data['smritotal']] = req.session.data['smridobyear']
-
-        res.redirect('/' + version + '/smri/process');
-    }
-});
-
-
-
-
 
 /// SMRI Process
 router.get('/' + version + '/smri/process', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/process', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/process', function (req, res) {
-    
+    clearvalidation(req);
     var smriprocess = req.session.data['smriprocess']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriprocess ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriprocess = {
             "anchor": "smriprocess",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious process or mismanagement while carrying out a regulated activity"
+            "message": "Select whether " + companyname + " has a process in place to ensure that all people with SMRI are fit and proper"
         }
     }
 
@@ -7949,24 +8082,24 @@ router.post('/' + version + '/smri/process', function (req, res) {
 
 /// SMRI assessments
 router.get('/' + version + '/smri/assessments', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/assessments', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/assessments', function (req, res) {
-    
+    clearvalidation(req);
     var smriassessments = req.session.data['smriassessments']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriassessments ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriassessments = {
             "anchor": "smriassessments",
-            "message": "Select whether regular assessments are carried out"
+            "message": "Select whether " + companyname + " carries out regular assessments to ensure all people with SMRI remain fit and proper"
         }
     }
 
@@ -7984,22 +8117,22 @@ router.post('/' + version + '/smri/assessments', function (req, res) {
 
 /// SMRI list
 router.get('/' + version + '/smri/smrilist', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/smrilist', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/smrilist', function (req, res) {
-    
+    clearvalidation(req);
     var smrilist = req.session.data['smrilist']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrilist ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrilist = {
             "anchor": "smrilist",
-            "message": "Select whether you have a list of all people with SMRI"
+            "message": "Select whether you have a list of all people at " + companyname + " with SMRI"
         }
     }
 
@@ -8021,22 +8154,22 @@ router.post('/' + version + '/smri/smrilist', function (req, res) {
 
 /// SMRI fitandproper
 router.get('/' + version + '/smri/fitandproper', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/fitandproper', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/fitandproper', function (req, res) {
-    
+    clearvalidation(req);
     var smrifitandproper = req.session.data['smrifitandproper']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrifitandproper ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrifitandproper = {
             "anchor": "smrifitandproper",
-            "message": "Select whether all people with SMRI are fit and proper"
+            "message": "Select whether everybody with SMRI at " + companyname + " is fit and proper"
         }
     }
 
@@ -8054,14 +8187,14 @@ router.post('/' + version + '/smri/fitandproper', function (req, res) {
 
 /// SMRI declaration
 router.get('/' + version + '/smri/declaration', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/declaration', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/declaration', function (req, res) {
-    
+    clearvalidation(req);
 
     var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -8076,9 +8209,7 @@ today = dd + '/' + mm + '/' + yyyy;
         res.redirect('/' + version + '/smri/list?notification=submitted');
 });
 
-
-
-//////////////// QUERY MANAGEMENT //////////////
+//////////////////////////////////////////////////////////////////////////// QUERY MANAGEMENT //////////////////////////////////////////////////////////////////////////
 
 
 // Help - type

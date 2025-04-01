@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "???" %}
+{% set cdnumber = "268" %}
 
 {% set company %}
   {% if data.companyname %}
@@ -55,7 +55,7 @@
     
     {% for user in users %}
     {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
-    {% set title = "Confirm you want to remove this user?" %}
+    {% set title = "Are you sure you want to remove this user?" %}
     <h1 class="govuk-heading-l">
       {{title}}
     </h1>
@@ -66,7 +66,7 @@
       </p>
     </div>
     <p class="govuk-body">Once removed, they will no longer appear in {{company}}'s list of users.</p>
-    <p class="govuk-body">You'll need to add this user again if you wish to re-invite them.</p>
+    <p class="govuk-body">You'll need to add this user again if you want them to use this service.</p>
     <form method="post" novalidate>
       <div class="govuk-button-group">
       <button class="govuk-button govuk-button--warning">

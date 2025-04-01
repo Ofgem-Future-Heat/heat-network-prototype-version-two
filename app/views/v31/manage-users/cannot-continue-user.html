@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Sorry, there is a problem with the service" %}
+{% set cdnumber = "043" %}
+
+{% set title = "You cannot add this user" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -8,26 +10,11 @@
 {% endblock %}
 
 
-{% set cdnumber = "161" %}
 {% block beforeContent %}
-
-<div class="govuk-grid-row">
-
-    <div class="govuk-grid-column-full">
-
-        {% include data.version + "/_partials/logout.html" %}
-
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
+{% include data.version + "/_partials/logout.html" %}
 
 
-    </div>
 
-</div>
 {% endblock %}
 
 {% block content %}
@@ -67,10 +54,11 @@
                     
 
 
-                    <p class="govuk-body">
-                        Try again later.
+                    <p class="govuk-body">	
+                        This user is already associated with your organisation account for the heat networks service.
                     </p>
-                    <p class="govuk-body">Contact <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a> if you continue to experience issues.</p>
+                    <p class="govuk-body">If they are not currently active you will either need to reactivate them or remove and re-add them.</p>
+                    <p class="govuk-body">If you want further information, contact  <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
 
 
                 </fieldset>
