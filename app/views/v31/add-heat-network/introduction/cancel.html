@@ -13,9 +13,9 @@ Seaton City Centre
 
 {% set title %}
 {% if data.introcomplete == "true" %}
-Are you sure you wish to cancel changing the information for {{hnname}}?
+Are you sure you wish to cancel making changes to {{hnname}}?
 {% else %}
-Are you sure you wish to cancel adding this heat network? 
+Are you sure you wish to cancel adding this heat network?
 {% endif %}
 {% endset %}
 
@@ -81,10 +81,7 @@ Are you sure you wish to cancel adding this heat network?
                         </h1>
                     </legend>
                     {% if data.introcomplete == "true" %}
-                    <p class="govuk-body">Any changes you have made will not be saved.</p>
-                    {% else %}
-                    <p class="govuk-body">Any information you have added will not be saved.</p>
-
+                    <p class="govuk-body">By continuing, any changes you’ve made will be lost.</p>
                     {% endif %}
                     {% if data.validationErrors.introcancel %}
                     <p class="govuk-error-message">

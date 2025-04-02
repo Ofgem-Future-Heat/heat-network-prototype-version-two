@@ -7704,13 +7704,25 @@ router.post('/' + version + '/add-heat-network/introduction/cancel', function (r
 
     var introcancel = req.session.data['introcancel']
     const urlParams = req.query.v;
+    var introcomplete = req.session.data['introcomplete']
+    var hnname = req.session.data['name'] || "Seaton City Centre"
+
 
 
     if (!introcancel) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.introcancel = {
-            "anchor": "introcancel",
-            "message": "Select yes to cancel",
+        if (introcomplete == "true") {
+            req.session.data.validationErrors.introcancel = {
+                "anchor": "introcancel",
+                "message": "Select yes if you wish to cancel making changes to " + hnname,
+            }
+        }
+        else {
+            req.session.data.validationErrors.introcancel = {
+                "anchor": "introcancel",
+                "message": "Select yes if you wish to cancel adding this heat network",
+
+            }
         }
     }
 

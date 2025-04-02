@@ -12,7 +12,7 @@ Seaton City Centre
 
 
 {% set title %}
-{% if data.introcomplete == "true" %}
+{% if data.buildingcomplete == "true" %}
 Are you sure you wish to cancel changing customers and metering information for {{hnname}}?
 {% else %}
 Are you sure you wish to cancel adding customers and metering information for {{hnname}}?
@@ -80,10 +80,10 @@ Are you sure you wish to cancel adding customers and metering information for {{
                             {{title}}
                         </h1>
                     </legend>
-                    {% if data.customerscomplete == "true" %}
+                    {% if data.buildingcomplete == "true" %}
                     <p class="govuk-body">Any changes you have made will not be saved.</p>
                     {% else %}
-                    <p class="govuk-body">Any information you have added will not be saved.</p>
+                    <p class="govuk-body">Any information you have entered will not be saved.</p>
 
                     {% endif %}
                     {% if data.validationErrors.customerscancel %}
