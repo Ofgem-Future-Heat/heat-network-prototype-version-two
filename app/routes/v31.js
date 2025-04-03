@@ -287,6 +287,14 @@ function generateSupplier2HN(req) {
 
 }
 
+function clearSetup(req) {
+    req.session.data['companyname'] = ""
+    req.session.data['networklist'] = ""
+    req.session.data['usertype'] = ""
+    req.session.data['organisationdetails'] = ""
+    req.session.data['smrideclaration'] = ""
+}
+
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
 router.get('/' + version + '/account-information', function (req, res) {
@@ -298,7 +306,6 @@ router.get('/' + version + '/account-information', function (req, res) {
 
     if (urlParams == "operator") {
         req.session.data['usertype'] = "operator";
-        req.session.data['organisationdetails'] = "Submitted";
         req.session.data['networklist'] = "";
         clearHN(req);
 
@@ -308,6 +315,7 @@ router.get('/' + version + '/account-information', function (req, res) {
     if (urlParams == "operatorcomplete") {
         req.session.data['usertype'] = "operator";
         req.session.data['organisationdetails'] = "Submitted";
+        req.session.data['smrideclaration'] = "Yes";
         req.session.data['networklist'] = "complete";
         generateOperatorHN(req);
     }
@@ -316,15 +324,16 @@ router.get('/' + version + '/account-information', function (req, res) {
     if (urlParams == "supplier") {
         req.session.data['usertype'] = "supplier";
         req.session.data['networklist'] = "complete";
-
-
+        req.session.data['smrideclaration'] = "Yes";
+        req.session.data['organisationdetails'] = "Submitted";
         generateSupplierHN(req);
     }
 
     if (urlParams == "supplier2") {
         req.session.data['usertype'] = "supplier2";
         req.session.data['networklist'] = "complete";
-
+        req.session.data['organisationdetails'] = "Submitted";
+        req.session.data['smrideclaration'] = "Yes";
         generateSupplier2HN(req);
     }
 
@@ -338,7 +347,9 @@ router.get('/' + version + '/account-information', function (req, res) {
 
 ///Company name
 router.get('/' + version + '/setup/company-name', function (req, res) {
-    
+    clearSetup(req);
+    clearHN(req);
+    clearaddeduser(req);
     res.render('/' + version + '/setup/company-name', {
         data: req.session.data
     });
@@ -367,6 +378,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
     }
 
     else {
+
             res.redirect('/' + version + '/setup/role');
 
     }

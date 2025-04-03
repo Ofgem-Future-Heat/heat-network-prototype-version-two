@@ -86,11 +86,7 @@
       <div class="govuk-!-padding-4 hn-box--grey">
       <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="organisation-details/organisation-details" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">Organisation details</a></h3>
       <p class="govuk-body">View, change and add organisation information.</p>
-      {% if data.usertype == "operator" or data.usertype == "supplier" or data.usertype == "supplier2" %}
-      <strong class="govuk-tag govuk-tag--green">
-        Submitted
-       </strong>
-       {% else %}
+
 
       {% if data.organisationdetails != "Submitted" %}
       <strong class="govuk-tag govuk-tag--red">
@@ -100,7 +96,6 @@
       <strong class="govuk-tag govuk-tag--green">
         Submitted
        </strong>
-      {% endif %}
       {% endif %}
     </div>
   </div>
@@ -114,21 +109,23 @@
     <p class="govuk-body">Submit a fit and proper declaration for people with significant managerial responsibility or influence (SMRI).</p>
 
 
+    
 
-{% if data.usertype %}
-    {% if data.usertype == "operator" or data.usertype == "supplier" or data.usertype == "supplier2" %}
+
+     {% if (data.smrideclaration == "Yes") %}
     <strong class="govuk-tag govuk-tag--green">
       Submitted
      </strong>
-    {% elif (data.variantname() == "expired") %}
+     {% elif data.variantname %}
+    {% if (data.variantname == "expired") %}
     <strong class="govuk-tag govuk-tag--red">
       Expired
      </strong>
-     {% elif (data.variantname() == "in review") %}
+     {% elif (data.variantname == "in review") %}
      <strong class="govuk-tag govuk-tag--blue">
        In review
       </strong>
-      {% elif (data.variantname() == "approved") %}
+      {% elif (data.variantname == "approved") %}
       <strong class="govuk-tag govuk-tag--green">
         Approved
        </strong>
@@ -140,18 +137,15 @@
         <strong class="govuk-tag govuk-tag--red">
           Not started
          </strong>
-    {% endif %}
+         {% endif %}
     {% else %}
-    {% if (data.smrideclaration == "Yes") %}
-    <strong class="govuk-tag govuk-tag--green">
-      Submitted
-     </strong>
-     {% else %}
-      <strong class="govuk-tag govuk-tag--red">
-        Not started
-       </strong>
-       {% endif %}
+    <strong class="govuk-tag govuk-tag--red">
+      Not started
+    </strong>
     {% endif %}
+
+
+
   </div>
   </div>
   {% endif %}
