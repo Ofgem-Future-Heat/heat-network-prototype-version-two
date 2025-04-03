@@ -350,6 +350,8 @@ router.get('/' + version + '/setup/company-name', function (req, res) {
     clearSetup(req);
     clearHN(req);
     clearaddeduser(req);
+    clearSMRIUser(req) ;
+    clearorgdetails(req);
     res.render('/' + version + '/setup/company-name', {
         data: req.session.data
     });
@@ -440,6 +442,43 @@ router.get('/' + version + '/emails/supplier-invite', function (req, res) {
 
 
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
+
+function clearorgdetails(req) {
+    req.session.data['orghasemailaddress'] = "";
+    req.session.data['orgemailaddress'] = "";
+    req.session.data['orgprofit'] = "";
+    req.session.data['orgsubtype'] = "";
+    req.session.data['orgsocialhousing'] = "";
+    req.session.data['orgfinancialstartday'] = "";
+    req.session.data['orgfinancialstartmonth'] = "";
+    req.session.data['orgfinancialendday'] = "";
+    req.session.data['orgfinancialendmonth'] = "";
+    req.session.data['orgaccounts'] = "";
+    req.session.data['orgsolvent'] = "";
+    req.session.data['financialprofit'] = "";
+    req.session.data['financialliquid'] = "";
+    req.session.data['financialexceed'] = "";
+    req.session.data['financialcosts'] = "";
+    req.session.data['financialmonthly'] = ""
+    req.session.data['financialincome'] = ""
+    req.session.data['financialhedged'] = ""
+    req.session.data['financiallength'] = ""
+    req.session.data['financialpercentage'] = ""
+    req.session.data['orgstructure'] = ""
+    req.session.data['parentsentered'] = ""
+    req.session.data['parentcompanyname1'] = ""
+    req.session.data['parentcompanyname2'] = ""
+    req.session.data['parentorgaddressSelect1'] = ""
+    req.session.data['parentorgaddressSelect2'] = ""
+    req.session.data['parentorgadded1'] = ""
+    req.session.data['parentorgadded2'] = ""
+
+}
+
+
+
+
+
 
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
