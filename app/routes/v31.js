@@ -3775,7 +3775,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     }
 
 
-    if ((introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
+    if ((role === "Supplier" || role === "Both") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildingcomplete = {
             "anchor": "buildingcomplete",

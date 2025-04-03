@@ -187,7 +187,7 @@
 
               
 
-                {% if (data.role == "Supplier" or data.role == "Both") and data.introhnbuildings > 0 %}
+                {% if (data.role == "Supplier" or data.role == "Both") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") %}
                 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
