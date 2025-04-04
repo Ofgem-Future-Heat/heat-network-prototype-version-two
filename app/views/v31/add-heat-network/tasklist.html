@@ -297,7 +297,10 @@
                 {% else %}
                     <p class="govuk-body">You do not have permission to submit this heat network. You need to ask someone with permission to submit it instead.</p>
                     {% endif %}
+                    {% if data.role != "Supplier" %}
+
                     <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
+                    {% endif %}
                 </div>
 
         </form>

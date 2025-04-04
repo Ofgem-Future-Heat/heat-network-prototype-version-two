@@ -746,7 +746,7 @@
 
 
             <p class="govuk-body">
-                {% if data.HNStatus != "Submitted" %}
+                {% if data.HNStatus != "Submitted" and data.role != "Supplier" %}
 
             <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
             {% endif %}
