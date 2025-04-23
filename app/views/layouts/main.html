@@ -28,7 +28,6 @@
   
   {% if (showhelp != false) and (data.noqm != true) and data.version and (data.version.replace('v', '')|int == 32)%}
         {% include data.version + "/_partials/needhelp.html" %}
-        {{ data.version }}
         
   {% endif %}
 

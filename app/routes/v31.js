@@ -4140,14 +4140,9 @@ if (req.session.data.validationError == "true") {
 }
 
 else {
-    if (introsupply20 == "Yes") {
-        res.redirect('/' + version + '/add-heat-network/introduction/authorisation');
 
-    }
-    else {
         res.redirect('/' + version + '/add-heat-network/introduction/changes');
 
-    }
 
 }
 });

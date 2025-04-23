@@ -15,9 +15,19 @@ function clearvalidation(req) {
 
 //////// PAGE SETUP //////
 router.use(function (req, res, next) {
+    req.session.data['version'] = version
     clearvalidation(req);
     next(); // Continue to the actual route handler
 });
+/////////////// BLANK //////////
+router.get('/' + version + '/blank', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/blank', {
+        data: req.session.data
+    });
+});
+
+
 
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
 
