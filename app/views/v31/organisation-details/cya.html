@@ -154,6 +154,18 @@ govukBackLink ({
               {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") and (data.orgsubtype != "Local housing authority") %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
+                  Do you have operation or supply continuity plans in place?   
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgcontinuity}}
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="continuity">Change<span class="govuk-visually-hidden"> whether you have operation or supply continuity plans in place</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                   Start and end dates of accounting period
                 </dt>
                 <dd class="govuk-summary-list__value">
@@ -241,17 +253,6 @@ govukBackLink ({
                 </dd>
               </div>
 
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Average monthly fixed costs for heat networks
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  £{{data.financialmonthly}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="financial-monthly">Change<span class="govuk-visually-hidden"> the average monthly fixed costs for running heat networks for previous financial year</span></a>
-                </dd>
-              </div>
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
