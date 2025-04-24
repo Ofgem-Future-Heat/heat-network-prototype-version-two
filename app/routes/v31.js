@@ -875,27 +875,21 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     else {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
-            if (orgprofit == "No" ) {
-                res.redirect('/' + version + '/organisation-details/socialhousing');
-            }
-
-            else {
-                res.redirect('/' + version + '/organisation-details/date');
-            }
-
-        }
-
-        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association") {
             res.redirect('/' + version + '/organisation-details/socialhousing');
         }
 
-        else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
-            res.redirect('/' + version + '/organisation-details/date');
+        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other public sector body") {
+            res.redirect('/' + version + '/organisation-details/socialhousing');
+        }
+
+        else if (orgprofit == "No" && orgsubtype == "Central government body" ) {
+            res.redirect('/' + version + '/organisation-details/structure');
+
 
         }
 
         else {
-            res.redirect('/' + version + '/organisation-details/structure');
+            res.redirect('/' + version + '/organisation-details/continuity');
 
         }
 
@@ -915,6 +909,8 @@ router.get('/' + version + '/organisation-details/socialhousing', function (req,
 router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
     clearvalidation(req);
     var orgsocialhousing = req.session.data['orgsocialhousing']
+    var orgsubtype = req.session.data['orgsubtype']
+
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
@@ -932,8 +928,8 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
         });
     }
     else {
-        if (orgsocialhousing == "No") {
-            res.redirect('/' + version + '/organisation-details/date');
+        if (orgsocialhousing == "No" && orgsubtype != "Local authority") {
+            res.redirect('/' + version + '/organisation-details/continuity');
         }
 
         else {
@@ -942,6 +938,43 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
     }
 
 });
+
+
+/// Org details - Continuity
+router.get('/' + version + '/organisation-details/continuity', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/continuity', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/continuity', function (req, res) {
+    clearvalidation(req);
+    var orgcontinuity = req.session.data['orgcontinuity']
+
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+
+    if (!orgcontinuity) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgcontinuity = {
+            "anchor": "orgcontinuity",
+            "message": "Select whether " +  companyname + " is ????"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/continuity', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/date');
+    }
+
+});
+
 
 
 
@@ -1148,7 +1181,7 @@ router.post('/' + version + '/organisation-details/financial-costs', function (r
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-monthly');
+        res.redirect('/' + version + '/organisation-details/financial-income');
     }
 
 });
