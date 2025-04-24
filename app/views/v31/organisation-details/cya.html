@@ -151,7 +151,7 @@ govukBackLink ({
               </div>
               {% endif %}
 
-              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") %}
+              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") and (data.orgsubtype != "Local housing authority") %}
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Start and end dates of accounting period

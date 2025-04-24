@@ -3841,6 +3841,8 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     var introhnbuildings = req.session.data['introhnbuildings']
     var introenergycentrehowmany = req.session.data['introenergycentrehowmany']
     var introsuppliers = req.session.data['introsuppliers']
+    var consumertypeindustrial = req.session.data['consumertypeindustrial']
+
 
     if (introcomplete != "true") {
         req.session.data.validationError = "true"
@@ -3867,7 +3869,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if ((role === "Supplier" || role === "Both") && (billingcomplete != "true")) {
+    if ((role === "Supplier" || role === "Both") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.billingcomplete = {
             "anchor": "billingcomplete",
@@ -3875,7 +3877,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if (((role === "Supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true")) {
+    if (((role === "Supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.protectionscomplete = {
             "anchor": "protectionscomplete",
@@ -6546,6 +6548,205 @@ router.post('/' + version + '/add-heat-network/energycentre/cya', function (req,
 
 
 
+// Buildings & consumers - Supply April
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/supply', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
+
+var supply20 = req.session.data['supply20']
+
+if (!supply20) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.supply20 = {
+        "anchor": "supply20",
+        "message": "Select yes if this heat network started providing heating, cooling or hot water to consumers before 1 April 2025"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/supply', {
+        data: req.session.data
+    });
+}
+
+else {
+
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/domestic');
+
+
+}
+});
+
+
+// Buildings & consumers - Domestic
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/domestic', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/domestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/domestic', function (req, res) {
+    
+
+    var customersdomestic = req.session.data['customersdomestic']
+    var customersdomestictotal = req.session.data['customersdomestictotal']
+
+    if (!customersdomestic) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestic = {
+            "anchor": "customersdomestic",
+            "message": "Select yes if this heat network contains domestic customers"
+        }
+    }
+
+    if (customersdomestic == "Yes" && !customersdomestictotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Enter the number of domestic customers"
+        }
+    }
+
+    if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Domestic customers must be a number"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/domestic', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic');
+        
+    }
+});
+
+
+
+
+// Buildings & consumers - Non nondomestic
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', function (req, res) {
+    
+    var customersdomestic = req.session.data['customersdomestic']
+
+    var customersnondomestic = req.session.data['customersnondomestic']
+    var customersnondomestictotal = req.session.data['customersnondomestictotal']
+
+    if (!customersnondomestic) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestic = {
+            "anchor": "customersnondomestic",
+            "message": "Select yes if this heat network contains nondomestic customers"
+        }
+    }
+
+    if (customersnondomestic == "Yes" && !customersnondomestictotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "Enter the number of nondomestic customers"
+        }
+    }
+
+    if (customersnondomestic == "Yes" && isNaN(customersnondomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "nondomestic customers must be a number"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', {
+            data: req.session.data
+        });
+    }
+    else {
+
+            if (customersnondomestic == "Yes"){   
+                if (customersdomestic == "Yes") {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/industrial');
+
+                }
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+                }
+        }
+
+        
+});
+
+
+
+// Buildings & consumers - Industrial
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/industrial', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/industrial', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/industrial', function (req, res) {
+    
+
+    var consumertypeindustrial = req.session.data['consumertypeindustrial']
+
+    if (!consumertypeindustrial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumertypeindustrial = {
+            "anchor": "consumertypeindustrial",
+            "message": "Select yes if this heat network contains domestic customers"
+        }
+    }
+
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/industrial', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumertypeindustrial == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+        } 
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+
+        }
+        
+    }
+});
+
+
 
 
 
@@ -6726,6 +6927,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumb
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', function (req, res) {
     
     var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
+    var customersdomestic = req.session.data['customersdomestic']
 
     if (!smallmediumbusinesses) {
         req.session.data.validationError = "true"
@@ -6742,7 +6944,13 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmedium
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+        if (customersdomestic == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+
+        }
 
     }
 });

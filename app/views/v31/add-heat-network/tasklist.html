@@ -187,7 +187,7 @@
 
               
 
-                {% if (data.role == "Supplier" or data.role == "Both") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") %}
+                {% if (data.role == "Supplier" or data.role == "Both") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") and (data.consumertypeindustrial != "Yes") %}
                 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
@@ -217,7 +217,7 @@
                 {% endif %}
 
                 
-                {% if (data.role == "Supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.buildingcustomersResidential > 0 or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes")  %}
+                {% if (data.role == "Supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.buildingcustomersResidential > 0 or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes") and (data.consumertypeindustrial != "Yes") %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">

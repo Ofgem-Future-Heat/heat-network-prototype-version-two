@@ -42,41 +42,75 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Which types of customer does your heat network contain? 
+                    Does the heat network contain domestic customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.customertype.length > 1 %}
-                    {% for customertype in data.customertype %}
-                    {{ customertype | replace("0", "-") | replace(",", "") | safe}}<br />
-                    {% endfor %}
-                    {% else %}
-                    {{ data.customertype}}
-                    {% endif %}
+                    {{data.customersdomestic}} 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    How many of each building type does the heat network contain?
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    {% for customertype in data.customertype %}
-                    {% set customers = "buildingcustomers" ~ customertype %}
-
-                    {{data[customers]}} {{customertype | replace("0", "-") | replace(",", ", ")}} customers<br />
-                    {% endfor %}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="customers">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers</span></a>
                 </dd>
             </div>
 
-            {% if (data.buildingtype == "Commercial") or (data.buildingcustomersCommercial >= 1)  %}
+            {% if data.customersdomestic == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Are any of your commercial customers 'microbusinesses'?
+                    Number of domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersdomestictotal}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers total</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does the heat network contain non-domestic customers?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersnondomestic}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="nondomestic">Change<span class="govuk-visually-hidden"> non-domestic customers</span></a>
+                </dd>
+            </div>
+
+            {% if data.customersnondomestic == "Yes" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of non-domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersnondomestictotal}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="nondomestic">Change<span class="govuk-visually-hidden"> non-domestic customers total</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if (data.customersnondomestic == "Yes") and (data.customersdomestic == "No") %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Is the heat network an industrial only network
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.consumertypeindustrial}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="industrial">Change<span class="govuk-visually-hidden"> whether the heat network is an industrial only network</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if ((data.customersnondomestic == "Yes") and (data.customersdomestic == "Yes")) or ((data.customersnondomestic == "Yes") and (data.customersdomestic == "No") and data.consumertypeindustrial == "No") %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are any of your non domestic customers 'microbusinesses'?
                 </dt>
                 <dd class="govuk-summary-list__value">
 
@@ -103,6 +137,8 @@
 
             {% endif %}
 
+            {% if (data.customersnondomestic == "No") or  ((data.customersnondomestic == "Yes") and (data.customersdomestic == "Yes")) or ((data.customersnondomestic == "Yes") and (data.customersdomestic == "No") and data.consumertypeindustrial == "No") %}
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Do any dwellings have pre-payment meters?
@@ -115,7 +151,8 @@
                 </dd>
             </div>
 
-          
+            {% endif %}
+
 
            
 

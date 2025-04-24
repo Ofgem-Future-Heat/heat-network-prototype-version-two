@@ -49,8 +49,14 @@
                         
 
 
+                        {% if data.role == "Supplier" %}
+                        <a href="supply" class="govuk-button">Continue</a>
 
-                    <a href="type" class="govuk-button">Continue</a>
+                        {% else %}
+                        <a href="type" class="govuk-button">Continue</a>
+
+                        {% endif %}
+
     </div>
 </div>
 
