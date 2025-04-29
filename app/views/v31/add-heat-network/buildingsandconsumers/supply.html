@@ -1,7 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "217" %}
+{% set cdnumber = "307" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 
-{% set title = "Did the heat network start providing heating, cooling or hot water to consumers after 1 April 2025?" %}
+{% set title %} 
+Did {{company}} start supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025? 
+{% endset %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -59,7 +69,7 @@
                 <fieldset class="govuk-fieldset" >
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                                {{title}}
                         </h1>

@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Is the heat network an industrial only network?" %}
+{% set cdnumber = "306" %}
+
+{% set title = "Is the heat network an industrial heat network?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -54,12 +56,15 @@
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - Customers and metering</span>
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">
+                        An industrial heat network is one where all of the heating, cooling or hot water is supplied for an industrial process, for example manufacturing. 
+                    </p>
                     {% if data.validationErrors.consumertypeindustrial %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>

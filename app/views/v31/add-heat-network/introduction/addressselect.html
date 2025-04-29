@@ -1,9 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% if (data.buildings >= 1) %}
-{% set title = "Building 1: Select an address" %}
-{% else %}
+{% set cdnumber = "313" %}
+
 {% set title = "Select an address" %}
-{% endif %}
 
 
 {% set _inError = data.validationError == "true"  %}

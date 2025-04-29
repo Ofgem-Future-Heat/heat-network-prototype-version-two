@@ -6560,12 +6560,14 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/supply', fun
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
 
 var supply20 = req.session.data['supply20']
+var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
 
 if (!supply20) {
     req.session.data.validationError = "true"
     req.session.data.validationErrors.supply20 = {
         "anchor": "supply20",
-        "message": "Select yes if this heat network started providing heating, cooling or hot water to consumers before 1 April 2025"
+        "message": "Select yes if " + companyname + " started supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025"
     }
 }
 
@@ -6603,7 +6605,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/domestic', 
         req.session.data.validationError = "true"
         req.session.data.validationErrors.customersdomestic = {
             "anchor": "customersdomestic",
-            "message": "Select yes if this heat network contains domestic customers"
+            "message": "Select yes if this heat network has domestic customers"
         }
     }
 
@@ -6619,7 +6621,15 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/domestic', 
         req.session.data.validationError = "true"
         req.session.data.validationErrors.customersdomestictotal = {
             "anchor": "customersdomestictotal",
-            "message": "Domestic customers must be a number"
+            "message": "Number of domestic customers must be a number"
+        }
+    }
+
+    if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Number of domestic customers must be 40 characters or less"
         }
     }
 
@@ -6658,7 +6668,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic
         req.session.data.validationError = "true"
         req.session.data.validationErrors.customersnondomestic = {
             "anchor": "customersnondomestic",
-            "message": "Select yes if this heat network contains nondomestic customers"
+            "message": "Select yes if this heat network has non-domestic customers"
         }
     }
 
@@ -6666,7 +6676,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic
         req.session.data.validationError = "true"
         req.session.data.validationErrors.customersnondomestictotal = {
             "anchor": "customersnondomestictotal",
-            "message": "Enter the number of nondomestic customers"
+            "message": "Enter the number of non-domestic customers"
         }
     }
 
@@ -6674,9 +6684,18 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic
         req.session.data.validationError = "true"
         req.session.data.validationErrors.customersnondomestictotal = {
             "anchor": "customersnondomestictotal",
-            "message": "nondomestic customers must be a number"
+            "message": "Number of non-domestic customers must be a number"
         }
     }
+
+    if (customersnondomestic == "Yes" && customersnondomestictotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "Number of non-domestic customers must be 40 characters or less"
+        }
+    }
+
 
 
     if (req.session.data.validationError == "true") {
@@ -6723,7 +6742,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/industrial'
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumertypeindustrial = {
             "anchor": "consumertypeindustrial",
-            "message": "Select yes if this heat network contains domestic customers"
+            "message": "Select yes if the heat network is an industrial heat network"
         }
     }
 

@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does this heat network contain non-domestic customers?" %}
+{% set cdnumber = "252" %}
+
+{% set title = "Does this heat network have non-domestic customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -54,12 +56,13 @@
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - Customers and metering</span>
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
+                    <p class="govuk-body">For example, customers that use the heating, cooling or hot water from the heat network for commercial or industrial purposes. </p>
                     {% if data.validationErrors.customersnondomestic %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -82,7 +85,7 @@
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="customersnondomestic-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.customersnondomestictotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="customersnondomestictotal">
-                                How many non-domestic customers are there?
+                                Number of non-domestic customers
                               </label>
                               {% if data.validationErrors.customersnondomestictotal %}
                               <p class="govuk-error-message">
