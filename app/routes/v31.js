@@ -4078,12 +4078,13 @@ router.get('/' + version + '/add-heat-network/introduction/role', function (req,
 router.post('/' + version + '/add-heat-network/introduction/role', function (req, res) {
     
     var role = req.session.data['role']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
     if (!role) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.role = {
             "anchor": "role",
-            "message": "Select an activity"
+            "message": "Select the regulated activities that " + company + " undertakes on the heat network"
         }
     }
 
@@ -5585,7 +5586,7 @@ router.post('/' + version + '/add-heat-network/introduction/buy', function (req,
 
 });
 
-// Introduction - Buy Heat
+// Introduction - Sell Heat
 router.get('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
     
     res.render('/' + version + '/add-heat-network/introduction/sell', {
@@ -5597,12 +5598,13 @@ router.get('/' + version + '/add-heat-network/introduction/sell', function (req,
 router.post('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
     
     var introsell = req.session.data['introsell']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
     if (!introsell) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introsell = {
             "anchor": "introsell",
-            "message": "Select whether the heat network buys or sells heat"
+            "message": "Select yes if " + company + " sells heating, cooling or hot water from this heat network to another heat network that is operated by a different organisation"
         }
     }
 
@@ -6916,7 +6918,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumertypemicrobusiness = {
             "anchor": "consumertypemicrobusiness",
-            "message": "Select whether the heat network supplies microbusinesses",
+            "message": "Select yes if any of your commercial customers are ‘microbusinesses’",
         }
     }
 

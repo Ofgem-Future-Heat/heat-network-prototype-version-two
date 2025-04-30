@@ -8,7 +8,7 @@ Only heat network operators can initiate adding heat network information
 {% elif data.introdropoutreason == "237" %}
 You do not need to register your organisation’s heat network
 {% else %}
-You cannot register your organisation’s heat network yet
+You cannot register this heat network yet
 {% endif %}
 {% endset %}
 
@@ -69,19 +69,13 @@ You cannot register your organisation’s heat network yet
             {% if data.introdropoutreason == "227" %}
 
             <p class="govuk-body">This is because your organisation does not operate all of the distribution pipework connecting the heat source to the buildings on this heat network.</p>
-            <p class="govuk-body">You may operate part of the heat network, but another organisation operates the energy centre and building connections.</p>
+            <p class="govuk-body">You can return to this service and register this heat network once you've checked with the other operators.</p>
             <p class="govuk-body">Where a network has multiple operators, we ask that they contact us so we can advise them in person how to tell us about their heat network.</p>
             {% endif %}
             
             {% if data.introdropoutreason == "232" %}
 
             <p class="govuk-body">You’ll need to return to this service and register the heat network once it’s started providing heating, cooling or hot water to consumers.</p>
-            <h2 class="govuk-heading-s">Temporary authorisation</h2>
-            <p class="govuk-body">If the heat network will start providing to consumers between 1 April 2025 and 27 January 2027, once registered, it will be covered by a temporary authorisation.</p>
-            <p class="govuk-body">After 27 January 2027, you'll need to convert this to a full authorisation.</p>
-            <h2 class="govuk-heading-s">Full authorisation</h2>
-            <p class="govuk-body">If the heat network will start providing to consumers from 27 January 2027, you’ll need to apply for full authorisation.</p>
-            <p class="govuk-body">We'll let you know how to do this nearer the time.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "233" %}
