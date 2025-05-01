@@ -960,7 +960,7 @@ router.post('/' + version + '/organisation-details/continuity', function (req, r
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgcontinuity = {
             "anchor": "orgcontinuity",
-            "message": "Select whether " +  companyname + " is ????"
+            "message": "Select yes if you have operation or supply continuity plans in place"
         }
     }
 

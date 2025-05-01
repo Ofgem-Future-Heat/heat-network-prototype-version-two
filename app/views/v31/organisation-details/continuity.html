@@ -2,8 +2,7 @@
 {% set cdnumber = "305" %}
 
 {% set title %}
-Do you have operation or supply continuity plans in place?  
-{% endset %}
+Do you have operation or supply continuity plans in place?{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -63,6 +62,18 @@ Do you have operation or supply continuity plans in place? 
                     {{title}}
                   </h1>
                 </legend>
+
+                <p class="govuk-body">
+                  In the event of the organisation ceasing to trade, or transferring its heat network activities to another organisation, these should detail: 
+                </p>
+
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>the information on the heat network's assets (where the organisation is an operator)</li>
+                  <li>the process - including key steps and contacts - for gathering customer data (where the organisation is a supplier)</li>
+                </ul>
+
+
+
 
                 {% if data.validationErrors.orgcontinuity %}
                 <p class="govuk-error-message">
