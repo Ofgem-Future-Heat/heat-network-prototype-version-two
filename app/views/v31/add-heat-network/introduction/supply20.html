@@ -1,7 +1,16 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "217" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 
-{% set title = "Did the heat network start providing heating, cooling or hot water to consumers after 1 April 2025?" %}
+{% set title %}
+Did {{company}} start a regulated activity on the heat network on or after 1 April 2025? 
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -65,6 +74,26 @@
                         </h1>
 
                         </legend>
+
+                        <details class="govuk-details">
+                            <summary class="govuk-details__summary">
+                              <span class="govuk-details__summary-text">
+                                Help with ‘regulated activity’
+                              </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <p class="govuk-body">This means: </p>
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>operating some or all of the heat network</li>
+                                    <li>supplying heating, cooling or hot water to some or all of the consumers on the heat network</li>
+                                </ul> 
+                            </div>
+                          </details>
+
+
+
+
+
                         {% if data.validationErrors.introsupply20 %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>

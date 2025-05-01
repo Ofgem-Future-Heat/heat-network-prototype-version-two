@@ -1059,6 +1059,7 @@ router.get('/' + version + '/organisation-details/financial-income', function (r
 router.post('/' + version + '/organisation-details/financial-income', function (req, res) {
     clearvalidation(req);
     var financialincome = req.session.data['financialincome']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
 
 
@@ -1066,7 +1067,23 @@ router.post('/' + version + '/organisation-details/financial-income', function (
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialincome = {
             "anchor": "financialincome",
-            "message": "Enter the average monthly income for the previous financial year"
+            "message": "Enter " + company + "'s total income for the previous financial year"
+        }
+    }
+
+    else if (!/^[-]?\d+(\.\d+)?$/.test(financialincome)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrors.financialincome = {
+            "anchor": "financialincome",
+            "message": "Total income for the previous financial year must only include numbers and leading hyphens"
+        };
+    }
+
+    else if (financialincome.length > 18) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialincome = {
+            "anchor": "financialincome",
+            "message": "Total income for the previous financial year must be 18 characters or less"
         }
     }
 
@@ -4160,12 +4177,13 @@ router.get('/' + version + '/add-heat-network/introduction/supply20', function (
 router.post('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
 
 var introsupply20 = req.session.data['introsupply20']
+var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
 if (!introsupply20) {
     req.session.data.validationError = "true"
     req.session.data.validationErrors.introsupply20 = {
         "anchor": "introsupply20",
-        "message": "Select yes if this heat network started providing heating, cooling or hot water to consumers before 1 April 2025"
+        "message": "Select yes if " + company + " started a regulated activity on the heat network on or after 1 April 2025"
     }
 }
 
