@@ -99,21 +99,8 @@ Organisation details
                   {% endif %}
                 </dd>
               </div>
+
               {% if data.companynumber %}
-
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                 Company number
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  {{data.companynumber}}
-
-                </dd>
-
-              </div>
-              {% endif %}
-
-              {% if data.accounttype == "UK company registered with Companies House" %}
               <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
                     Company number
@@ -144,7 +131,7 @@ Organisation details
             </dd>
           </div>
 
-          {% if data.organisationdetails == "Submitted" %}
+          
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Alternative email address
@@ -152,7 +139,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {% if data.orghasemailaddress == "Yes" %}{{data.orgemailaddress}}{% else %} {{data.orghasemailaddress}}{% endif %}
             </dd>
-
+ 
           </div>
 
           <div class="govuk-summary-list__row">
@@ -175,7 +162,8 @@ Organisation details
 
           </div>
 
-          {% if data.orgsocialhousing %}
+          {% if data.orgsubtype == "Other" or data.orgsubtype == "Registered social housing provider" or data.orgsubtype == "Other social housing provider" or data.orgsubtype == "Housing association" or data.orgsubtype == "Local authority" or data.orgsubtype == "Other public sector body" %}
+
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Subject to social housing regulations?
@@ -187,7 +175,18 @@ Organisation details
           </div>
           {% endif %}
 
-          {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") %}
+          {% if data.orgsubtype != "Central government body" and data.orgsocialhousing != "Yes" and data.orgsubtype != "Local authority" %}
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Operation or supply continuity plans in place?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{data.orgcontinuity}}
+
+            </dd>
+
+          </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Start and end dates of accounting period
@@ -207,7 +206,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               {{data.orgaccounts}}
             </dd>
-
+ 
           </div>
 
           <div class="govuk-summary-list__row">
@@ -228,7 +227,7 @@ Organisation details
             <dd class="govuk-summary-list__value">
               £{{data.financialprofit}}
             </dd>
-
+  
           </div>
 
 
@@ -263,19 +262,10 @@ Organisation details
 
           </div>
 
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Average monthly fixed costs for heat networks
-            </dt>
-            <dd class="govuk-summary-list__value">
-              £{{data.financialmonthly}}
-            </dd>
-
-          </div>
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Average monthly gross income from heat networks 
+              Total income for previous financial year
             </dt>
             <dd class="govuk-summary-list__value">
               £{{data.financialincome}}
@@ -363,10 +353,7 @@ Organisation details
         {% endfor %}
 
           {% endif %}
-          {% endif %}
-
         </dl>
-
             
             <ul class="govuk-summary-list__actions-list">
               <li class="govuk-summary-list__actions-list-item">

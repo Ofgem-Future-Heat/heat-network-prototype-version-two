@@ -137,7 +137,8 @@ govukBackLink ({
                 </dd>
               </div>
 
-              {% if data.orgsocialhousing %}
+              {% if data.orgsubtype == "Other" or data.orgsubtype == "Registered social housing provider" or data.orgsubtype == "Other social housing provider" or data.orgsubtype == "Housing association" or data.orgsubtype == "Local authority" or data.orgsubtype == "Other public sector body" %}
+
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Subject to social housing regulations?
@@ -151,10 +152,11 @@ govukBackLink ({
               </div>
               {% endif %}
 
-              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") and (data.orgsubtype != "Local housing authority") %}
+              {% if data.orgsubtype != "Central government body" and data.orgsocialhousing != "Yes" and data.orgsubtype != "Local authority" %}
+
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Do you have operation or supply continuity plans in place?   
+                  Operation or supply continuity plans in place?
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {{data.orgcontinuity}}
@@ -256,7 +258,7 @@ govukBackLink ({
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Average monthly gross income from heat networks 
+                  Total income for previous financial year
                 </dt>
                 <dd class="govuk-summary-list__value">
                   £{{data.financialincome}}

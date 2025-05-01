@@ -94,7 +94,7 @@ Radienteco Ltd
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Did the heat network start providing heating, cooling or hot water to consumers before 1 April 2025?
+                        Did {{company}} start a regulated activity on the heat network on or after 1 April 2025?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.introsupply20}}
@@ -126,7 +126,7 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    What is the address of the communal building?
+                    Communal building address
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% set address = data.buildingaddressSelected.toString() %}
@@ -139,7 +139,7 @@ Radienteco Ltd
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Does the heat network have its own energy centre?
+                        Does the communal heat network have its own energy centre?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.introenergycentre}}
@@ -152,7 +152,7 @@ Radienteco Ltd
                 {% if data.role == "Both" %} 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Is {{company}} the only heat supplier?
+                        Is {{company}} the only supplier selling to consumers?
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.introsuppliers}}
@@ -214,7 +214,7 @@ Radienteco Ltd
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Energy centres {{company}} operates on this heat network?
+                            Number of energy centres {{company}} operates on this heat network
                         </dt>
                         <dd class="govuk-summary-list__value">
                             {% if data.introenergycentre == "Yes" %}
@@ -287,7 +287,7 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network sell thermal energy to a heat network owned by another organisation?
+                    Does the heat network sell heating, cooling or hot water to a heat network operated by another organisation?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.introsell}}
@@ -316,7 +316,7 @@ Radienteco Ltd
             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
             <strong class="govuk-warning-text__text">
               <span class="govuk-visually-hidden">Warning</span>
-              Any changes made to these answers may require you to update information further on in the service.
+              If you change any of these answers after saving them, you may have to update information you provide further on in the service. 
             </strong>
           </div>
 {% endif %}

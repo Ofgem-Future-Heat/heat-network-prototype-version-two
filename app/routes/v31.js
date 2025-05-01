@@ -56,7 +56,6 @@ function generateSupplierHN(req) {
     req.session.data['energytype'] = ['Space heating', 'Process heating']
     req.session.data['techcapacity'] = "120"
     req.session.data['techtechnology'] = ['Biofuel boiler']
-    req.session.data['eccomplete'] = "true"
 
 }
 
@@ -283,7 +282,6 @@ function generateSupplier2HN(req) {
     req.session.data['techcapacity'] = ""
     req.session.data['techcoolingcapacity'] = ""
     req.session.data['techtechnology'] = ""
-    req.session.data['eccomplete'] = "true"
 
 }
 
@@ -882,7 +880,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
             res.redirect('/' + version + '/organisation-details/socialhousing');
         }
 
-        else if (orgprofit == "No" && orgsubtype == "Central government body" ) {
+        else if (orgsubtype == "Central government body" ) {
             res.redirect('/' + version + '/organisation-details/structure');
 
 
