@@ -6568,6 +6568,16 @@ router.post('/' + version + '/add-heat-network/energycentre/cya', function (req,
 
 
 
+
+// Buildings & consumers - Intro
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/intro', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/intro', {
+        data: req.session.data
+    });
+});
+
+
 // Buildings & consumers - Supply April
 router.get('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
     
@@ -7044,6 +7054,14 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/cya', funct
 
 
 
+// Billing - intro
+router.get('/' + version + '/add-heat-network/billing/intro', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/billing/intro', {
+        data: req.session.data
+    });
+
+});
 
 
 
@@ -7237,6 +7255,14 @@ router.post('/' + version + '/add-heat-network/billing/cya', function (req, res)
 
 
 
+// Consumer - intro
+router.get('/' + version + '/add-heat-network/consumerprotections/intro', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/consumerprotections/intro', {
+        data: req.session.data
+    });
+
+});
 
 
 
@@ -8088,6 +8114,14 @@ router.post('/' + version + '/add-heat-network/consumerprotections/cancel', func
     }
 });
 
+// Technical information - intro
+router.get('/' + version + '/add-heat-network/energycentre/intro', function (req, res) {
+
+    res.render('/' + version + '/add-heat-network/energycentre/intro', {
+        data: req.session.data
+    });
+});
+
 
 // Technical information - cancel
 router.get('/' + version + '/add-heat-network/energycentre/cancel', function (req, res) {
@@ -8129,6 +8163,14 @@ router.post('/' + version + '/add-heat-network/energycentre/cancel', function (r
          }
     
     }
+});
+
+// Suppliers - intro
+router.get('/' + version + '/add-heat-network/suppliers/intro', function (req, res) {
+
+    res.render('/' + version + '/add-heat-network/suppliers/intro', {
+        data: req.session.data
+    });
 });
 
 // Suppliers - cancel
