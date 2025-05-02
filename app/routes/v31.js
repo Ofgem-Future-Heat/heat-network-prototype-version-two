@@ -22,7 +22,7 @@ router.use(function (req, res, next) {
 
 
 function generateSupplierHN(req) {
-    req.session.data['role'] = "Supplier"
+    req.session.data['role'] = "Energy supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -251,7 +251,7 @@ function clearHN(req) {
 
 
 function generateSupplier2HN(req) {
-    req.session.data['role'] = "Supplier"
+    req.session.data['role'] = "Energy supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -3876,7 +3876,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     }
 
 
-    if ((role === "Supplier" || role === "Both") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
+    if ((role === "Energy supplier" || role === "Both") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildingcomplete = {
             "anchor": "buildingcomplete",
@@ -3884,7 +3884,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if ((role === "Supplier" || role === "Both") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
+    if ((role === "Energy supplier" || role === "Both") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.billingcomplete = {
             "anchor": "billingcomplete",
@@ -3892,7 +3892,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if (((role === "Supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
+    if (((role === "Energy supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.protectionscomplete = {
             "anchor": "protectionscomplete",

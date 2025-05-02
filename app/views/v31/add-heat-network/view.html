@@ -127,7 +127,7 @@
             
             {% if data.HNStatus == 'In progress' %}
             Continue editing
-            {% elif data.role == "Supplier" %}
+            {% elif data.role == "Energy supplier" %}
             Add further information
     
 
@@ -136,13 +136,13 @@
 
         </p>
         {% endif %}
-{% if (data.introcomplete == "true" and data.role != "Supplier") or (data.eccomplete == "true") or (data.buildingcomplete == "true") or (data.billingcomplete == "true") or (data.protectionscomplete == "true") or (data.role != "Supplier" and data.suppliercomplete) %}
+{% if (data.introcomplete == "true" and data.role != "Energy supplier") or (data.eccomplete == "true") or (data.buildingcomplete == "true") or (data.billingcomplete == "true") or (data.protectionscomplete == "true") or (data.role != "Energy supplier" and data.suppliercomplete) %}
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 <h2 class="govuk-heading-m">Heat network details</h2>
 {% endif %}
 
-            {% if data.introcomplete == "true" and data.role != "Supplier" %}
+            {% if data.introcomplete == "true" and data.role != "Energy supplier" %}
 
             <div class="govuk-summary-card">
                 <div class="govuk-summary-card__title-wrapper">
@@ -785,7 +785,7 @@
             {% endif %}
 
                                 
-            {% if data.role != "Supplier" %} 
+            {% if data.role != "Energy supplier" %} 
             {% if data.suppliercomplete %}
             <div class="govuk-summary-card">
                 <div class="govuk-summary-card__title-wrapper">
@@ -849,7 +849,7 @@
 
 
             <p class="govuk-body">
-                {% if data.HNStatus != "Submitted" and data.role != "Supplier" %}
+                {% if data.HNStatus != "Submitted" and data.role != "Energy supplier" %}
 
             <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
             {% endif %}
