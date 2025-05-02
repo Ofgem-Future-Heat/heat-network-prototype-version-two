@@ -6974,7 +6974,6 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumb
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', function (req, res) {
     
     var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
-    var customersdomestic = req.session.data['customersdomestic']
 
     if (!smallmediumbusinesses) {
         req.session.data.validationError = "true"
@@ -6986,6 +6985,40 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmedium
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses', {
+            data: req.session.data
+        });
+    }
+
+    else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
+
+    }
+});
+
+// Buildings & consumers -  Small medium businesses
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', function (req, res) {
+    
+    var smallenterprises = req.session.data['smallenterprises']
+    var customersdomestic = req.session.data['customersdomestic']
+
+    if (!smallenterprises) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smallenterprises = {
+            "anchor": "smallenterprises",
+            "message": "Select whether the heat network supplies small enterprises",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', {
             data: req.session.data
         });
     }
