@@ -3784,7 +3784,7 @@ function clearRegIntro(req) {
 
 // Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/intro', function (req, res) {
-    
+    clearHN(req);
     res.render('/' + version + '/add-heat-network/introduction/intro', {
         data: req.session.data
     });
