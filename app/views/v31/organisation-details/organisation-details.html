@@ -131,7 +131,8 @@ Organisation details
             </dd>
           </div>
 
-          
+          {% if data.organisationdetails == "Submitted" %}
+
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Alternative email address
@@ -353,6 +354,8 @@ Organisation details
         {% endfor %}
 
           {% endif %}
+          {% endif %}
+
         </dl>
             
             <ul class="govuk-summary-list__actions-list">

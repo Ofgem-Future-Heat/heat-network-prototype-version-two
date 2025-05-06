@@ -6735,7 +6735,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic
 
             if (customersnondomestic == "Yes"){   
                 if (customersdomestic == "Yes") {
-                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
                 }
                 else {
                     res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/industrial');
@@ -6786,7 +6786,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/industrial'
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
         } 
         else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
 
         }
         
@@ -6939,6 +6939,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusines
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {
     
     var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
+    var customersdomestic = req.session.data['customersdomestic']
 
     if (!consumertypemicrobusiness) {
         req.session.data.validationError = "true"
@@ -6955,7 +6956,13 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
+        if (customersdomestic == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+
+        }
 
     }
 });
@@ -7024,13 +7031,8 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallenterp
     }
 
     else {
-        if (customersdomestic == "Yes") {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
-        }
-        else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
 
-        }
 
     }
 });

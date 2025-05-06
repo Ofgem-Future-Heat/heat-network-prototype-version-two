@@ -108,18 +108,6 @@
             {% endif %}
 
             {% if ((data.customersnondomestic == "Yes") and (data.customersdomestic == "Yes")) or ((data.customersnondomestic == "Yes") and (data.customersdomestic == "No") and data.consumertypeindustrial == "No") %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Are any of your non domestic customers 'microbusinesses'?
-                </dt>
-                <dd class="govuk-summary-list__value">
-
-                        {{data.consumertypemicrobusiness}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
-                </dd>
-            </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -143,6 +131,18 @@
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="smallenterprises">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Are any of your non domestic customers 'microbusinesses'?
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.consumertypemicrobusiness}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
                 </dd>
             </div>
 
