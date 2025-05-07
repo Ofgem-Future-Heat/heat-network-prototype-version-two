@@ -60,6 +60,13 @@
               </a>
             </li>
 
+            {% if footerlink and footertext %}
+            <li class="govuk-footer__inline-list-item">
+              <a href="{{footerlink}}" class="govuk-footer__link">
+                {{footertext}}
+            </li>
+            {% endif %}
+
           </ul>
           <svg
             aria-hidden="true"
