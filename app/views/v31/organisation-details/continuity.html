@@ -1,8 +1,15 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "305" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 
 {% set title %}
-Do you have operation or supply continuity plans in place?
+Does {{company}} have operation or supply continuity plans in place?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -10,6 +17,8 @@ Do you have operation or supply continuity plans in place?
 {% block pageTitle %}
 {{title}}
 {% endblock %}
+
+
 
 {% block beforeContent %}
 
