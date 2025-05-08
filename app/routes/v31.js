@@ -210,6 +210,8 @@ function clearHN(req) {
     req.session.data['techcapacity'] = ""
     req.session.data['techtechnology'] = []
     req.session.data['eccomplete'] = ""
+    req.session.data['ecaddresslatitude'] = ""
+    req.session.data['ecaddresslongitude'] = ""
 
     // Customers Flow
     req.session.data['customertype'] = []
