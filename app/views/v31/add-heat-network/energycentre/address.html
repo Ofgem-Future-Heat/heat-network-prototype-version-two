@@ -78,18 +78,26 @@ What is the {{data.energycentretype}}'s postcode?
                     </p>
                     {% endif %}
                     <input class="govuk-input govuk-input--width-10 {% if data.validationErrors.ecaddressPostcode %}govuk-input--error{% endif %}" id="ecaddressPostcode" name="ecaddressPostcode" type="text" aria-describedby="address-postcode-error" autocomplete="postal-code" value="{{data.ecaddressPostcode}}">
+
+
                 </div>
 
             </fieldset>
             
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
-            {{
-                govukButton ({
-                    html: 'Find address'
-                })
-            }}
+            </div>
+
         </form>
-        <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+        <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
     </div>
 
 </div>
