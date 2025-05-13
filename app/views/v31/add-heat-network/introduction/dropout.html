@@ -137,8 +137,14 @@ You cannot register this heat network yet
         </div>
 
         {% if data.introcomplete == "true" %}
-        <p class="govuk-body">This heat network no longer falls within the scope of the heat network regulations. You should remove it from the service.</p>
-        <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-button govuk-button--warning">Remove this heat network</a>
+            {% if data.introdropoutreason == "203" %}
+            <p class="govuk-body">You should remove this heat network from the service and add it again once the shared ground loop feature is available.</p>
+
+            {% else %}
+            <p class="govuk-body">This heat network no longer falls within the scope of the heat network regulations. You should remove it from the service.</p>
+            {% endif %}
+
+            <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-button govuk-button--warning">Remove this heat network</a>
 
 
         {% else %}
