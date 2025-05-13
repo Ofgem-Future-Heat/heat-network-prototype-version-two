@@ -4298,42 +4298,78 @@ router.post('/' + version + '/add-heat-network/introduction/address', function (
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
+        const customSort = (a, b) => {
+            const extractNumber = (str) => {
+              const match = str.match(/^\d+/); // Extracts the leading number from the string
+              return match ? parseInt(match[0], 10) : NaN; // Converts the extracted number to integer
+            };
+          
+            const numA = extractNumber(a);
+            const numB = extractNumber(b);
+          
+            if (!isNaN(numA) && isNaN(numB)) {
+              return -1;
+            } else if (isNaN(numA) && !isNaN(numB)) {
+              return 1;
+            } else if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB; // Compare the numbers if both are numbers
+            } else {
+              return a.localeCompare(b); // Compare as strings if neither is a number
+            }
+          };
         async function postcode(postcode) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
+                    let totalResults = response.data.header.totalresults;
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
-
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.buildingaddressSelect = locationaddresses;
+        
+                        req.session.data.buildingaddressSelect = locationaddresses.sort(customSort);
                         req.session.data.ecorgaddressesnotfound = "";
-                        res.redirect('/' + version + '/add-heat-network/introduction/addressselect');
+                        if (totalResults > 99) {
+                            res.redirect('/' + version + '/add-heat-network/introduction/addresserror?reason=toomany');
+                        }
+                        else {
+                            res.redirect('/' + version + '/add-heat-network/introduction/addressselect');
+                        }
                     }
-
+        
                     else {
                         req.session.data.buildingaddressSelect = locationaddresses;
-                        req.session.data.buildingaddressesnotfound = true;
-                        res.redirect('/' + version + '/add-heat-network/introduction/addressmanual');
+                        req.session.data.orgaddressnotfound = true;
+                        res.redirect('/' + version + '/add-heat-network/introduction/addresserror');
+        
                     }
-
+        
                 });
-
+        
         }
         postcode(userpostcode);
-
-    }
+        }
 });
+
+
+
+
+
+
+
+
 
 
 
 // Introduction - Address Error
 router.get('/' + version + '/add-heat-network/introduction/addresserror', function (req, res) {
     
+    const urlParams = req.query.reason;
+    req.session.data['addresserrorreason'] = urlParams;
+
     res.render('/' + version + '/add-heat-network/introduction/addresserror', {
         data: req.session.data
     });
