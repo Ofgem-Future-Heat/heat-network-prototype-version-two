@@ -81,9 +81,9 @@ Are you sure you wish to cancel adding billing information for {{hnname}}?
                         </h1>
                     </legend>
                     {% if data.billingcomplete == "true" %}
-                    <p class="govuk-body">Any changes you have made will not be saved.</p>
+                    <p class="govuk-body">By continuing, any changes you’ve made will be lost.</p>
                     {% else %}
-                    <p class="govuk-body">Any information you have entered will not be saved.</p>
+                    <p class="govuk-body">By continuing, any information you've entered will not be saved.</p>
 
                     {% endif %}
                     {% if data.validationErrors.billingcancel %}

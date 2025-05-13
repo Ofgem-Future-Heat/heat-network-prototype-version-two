@@ -78,21 +78,19 @@
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumerconfirm-2" name="consumerconfirm" type="radio" value="No" data-aria-controls="consumerconfirmconditional" {% if data.consumerconfirm == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumerconfirm-2" name="consumerconfirm" type="radio" value="No" {% if data.consumerconfirm == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumerconfirm-2">
                                 No
                             </label>
                         </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="consumerconfirmconditional">
-                                <p class="govuk-body">You will need to confirm this is in place within 3 months.</p>
-                                                        </div>
+                 
 
                     </div>
 
                 </fieldset>
 
             </div>
-                            <p class="govuk-body">We may request this from you in the future.</p>
+                            <p class="govuk-body">It is a requirement for your organisation to have this in place. We may request it in the future.</p>
 
 
                         <div class="govuk-button-group">

@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you provide information on how customers' bills are calculated?" %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %} 
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title %}
+Does {{company}} provide information on how customers' bills are calculated?
+{% endset %}
+
+
+{% set cdnumber = "266" %}
 {% set _inError = data.validationError == "true"  %}
 
 

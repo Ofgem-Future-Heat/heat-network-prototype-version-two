@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "How often do you send bills to customers?" %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %} 
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title %}
+How often does {{company}} send bills to customers?
+{% endset %}
+
+
+{% set cdnumber = "265" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
