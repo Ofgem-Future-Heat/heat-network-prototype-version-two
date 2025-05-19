@@ -4441,7 +4441,6 @@ router.post('/' + version + '/add-heat-network/introduction/addressmanual', func
     var buildingaddressMLine1 = req.session.data['buildingaddressMLine1']
     var buildingaddressMTown = req.session.data['buildingaddressMTown']
     var buildingaddressMCounty = req.session.data['buildingaddressMCounty']
-    var buildingaddressMCountry = req.session.data['buildingaddressMCountry']
     var accounttype = req.session.data['accounttype']
 
     var buildingaddressMPostcode = req.session.data['buildingaddressMPostcode']
@@ -6831,7 +6830,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/industrial'
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
         } 
         else {
-            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
 
         }
         
@@ -7448,7 +7447,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/confirm', fun
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumerconfirm = {
             "anchor": "consumerconfirm",
-            "message": "Tell us whether you have a proecdure in place",
+            "message": "Select yes if there is a procedure in place for domestic consumers, small businesses and microbusinesses to raise a complaint",
         }
     }
 

@@ -70,9 +70,10 @@
                             {{title}}
                         </h1>
                     </legend>
-                    <div class="govuk-form-group">
+                    
+                    <div class="govuk-form-group {% if data.validationErrors.buildingaddressMLine1 %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="buildingaddressMLine1">
-                            Address line 1
+                           Street address
                         </label>
                         {% if data.validationErrors.buildingaddressMLine1 %}
                         <p class="govuk-error-message">
@@ -82,13 +83,8 @@
                         {% endif %}
                         <input class="govuk-input" id="buildingaddressMLine1" name="buildingaddressMLine1" type="text" autocomplete="address-line1" value="{{data.buildingaddressMLine1}}">
                     </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="buildingaddressMLine2">
-                            Address line 2 (optional)
-                        </label>
-                        <input class="govuk-input" id="buildingaddressMLine2" name="buildingaddressMLine2" type="text" autocomplete="address-line2" value="{{data.buildingaddressMLine2}}">
-                    </div>
-                    <div class="govuk-form-group">
+
+                    <div class="govuk-form-group {% if data.validationErrors.buildingaddressMTown %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="buildingaddressMTown">
                             Town or city
                         </label>
@@ -106,7 +102,7 @@
                         </label>
                         <input class="govuk-input govuk-!-width-two-thirds" id="buildingaddressMCounty" name="buildingaddressMCounty" type="text" value="{{data.buildingaddressMCounty}}">
                     </div>
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.buildingaddressMPostcode %}govuk-form-group--error{% endif %}">
                         <label class="govuk-label" for="buildingaddressMPostcode">
                             Postcode
                         </label>
