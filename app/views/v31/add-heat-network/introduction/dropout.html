@@ -139,6 +139,14 @@ You cannot register this heat network yet
         {% if data.introcomplete == "true" %}
             {% if data.introdropoutreason == "203" %}
             <p class="govuk-body">You should remove this heat network from the service and add it again once the shared ground loop feature is available.</p>
+            {% elif data.introdropoutreason == "238" %}
+            <p class="govuk-body">You should remove this heat network from the service and add your supply data once the operator has invited you.</p>
+            {% elif data.introdropoutreason == "232" %}
+            <p class="govuk-body">You should remove this heat network from the service and add it again once it's providing heating, cooling or hot water to consumers.</p>
+            {% elif data.introdropoutreason == "226" %}
+            <p class="govuk-body">You should remove this heat network from the service. The primary operator will add it on your behalf.</p>
+            {% elif data.introdropoutreason == "227" %}
+            <p class="govuk-body">You should remove this heat network if you are unable to contact other operators or get their agreement.</p>
 
             {% else %}
             <p class="govuk-body">This heat network no longer falls within the scope of the heat network regulations. You should remove it from the service.</p>

@@ -7833,9 +7833,18 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
       );
   
       // Return the filtered results
-      if (filteredOrgs.length > 0) {
+      if (filteredOrgs.length > 1) {
         req.session.data.supplierresults = filteredOrgs;
         res.redirect('/' + version + '/add-heat-network/suppliers/results');
+      }
+
+      else if (filteredOrgs.length == 1) {
+        const selected = filteredOrgs[0];
+        req.session.data.supplierresults = filteredOrgs;
+        req.session.data.suppliernameselected = selected.Name;
+        req.session.data.supplieraddressselected = selected.Address || selected.address || ''; // Adjust based on your JSON structure
+      
+        res.redirect('/' + version + '/add-heat-network/suppliers/confirm');
       }
 
       else {

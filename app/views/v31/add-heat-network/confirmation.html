@@ -64,16 +64,21 @@ Confirmation email
             You've told us that {{company}} is responsible for both operation and supply on the heat network heat {{data.name}}.         
             {% endif %}
           </p>
-          <p class="govuk-body">
+          
 
           {% if (data.introsupply20 == "Yes") or (data.supply20 == "Yes") %}
+          <p class="govuk-body">
           Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been ‘deemed authorised’ for the initial period of registration.
-
+        </p>
+        <p class="govuk-body">
           Prior to January 2028, we will convert this to an ‘enduring authorisation’ and may contact you for further information as part of this process
+        </p>
           {% else %}
+          <p class="govuk-body">
           You have now registered the authorised activity that you undertake on the heat network.
+        </p>
+
           {% endif %}
-          </p>
 
           <h2 class="govuk-heading-m">
             What you need to do next

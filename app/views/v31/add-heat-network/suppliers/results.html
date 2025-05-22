@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{{data.supplierresults.length}} results found
+Select a supplier
  {% endset %}
 
 
@@ -60,6 +60,8 @@
                 {{title}}
             </h1>
           </legend>
+          <p class="govuk-body">{{data.supplierresults.length}} results found for "{{data.suppliername}}"</p>
+
           {% if data.validationErrors.suppliernameselected %}
           <p class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span>

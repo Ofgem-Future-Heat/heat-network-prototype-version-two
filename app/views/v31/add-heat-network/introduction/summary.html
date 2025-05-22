@@ -51,8 +51,8 @@
                     {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centres</li> {% endif %}
                 </ul>
             </p>
-            <p class="govuk-body">If this is incorrect, you can <a href="buildingstotal" class="govuk-link govuk-link--no-visited-state">change your heat network information</a></p>
-            <h3 class="govuk-heading-m">Your heat network</h3>
+            <p class="govuk-body">If this is incorrect, you can <a href="buildingstotal" class="govuk-link govuk-link--no-visited-state">change the heat network information</a></p>
+            <h3 class="govuk-heading-m">This heat network</h3>
             {% set HN %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif%}{% else %}0{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
             <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px" class="govuk-!-margin-bottom-3" />    
 
