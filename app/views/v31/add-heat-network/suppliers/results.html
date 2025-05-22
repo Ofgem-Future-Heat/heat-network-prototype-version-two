@@ -70,9 +70,9 @@ Select a supplier
           {% endif %}
 
           {% if data.supplierresults.length > 0 %}
+          <div class="govuk-radios" data-module="govuk-radios">
 
           {% for org in data.supplierresults %}
-          <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="{{org.Name}}" name="suppliernameselected" type="radio" value="{{org.Name}}" data-address="{{org.Address}}" {% if data.suppliernameselected == org.Name %} checked {% endif %}>
               <label class="govuk-label govuk-radios__label" for="{{org.Name}}">
@@ -83,11 +83,11 @@ Select a supplier
 
 
       {% endfor %}
+      <input type="hidden" name="supplieraddressselected" id="supplieraddressselected">
 
+    </div>
             {% endif %}
-            <input type="hidden" name="supplieraddressselected" id="supplieraddressselected">
 
-          </div>
         </fieldset>
       </div>
       <p class="govuk-body"><a href="noresults" class="govuk-link govuk-link--no-visited-state">I cannot find my supplier</a></p>
