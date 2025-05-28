@@ -134,7 +134,13 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Are any of the non-domestic customers on this heat network ‘small businesses’?
+                  {% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘small business’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘small businesses’?
+
+{% endif %}
                 </dt>
                 <dd class="govuk-summary-list__value">
 
@@ -146,8 +152,12 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Are any of the non-domestic customers on this heat network ‘microbusinesses’?
-                </dt>
+{% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘microbusiness’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘microbusinesses’?
+{% endif %}                </dt>
                 <dd class="govuk-summary-list__value">
 
                         {{data.consumertypemicrobusiness}}

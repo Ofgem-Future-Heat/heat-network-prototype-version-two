@@ -2,7 +2,12 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
+{% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘microbusiness’?
+
+{% else %}
 Are any of the non-domestic customers on this heat network ‘microbusinesses’?
+{% endif %}
 {% endset %}
 
 {% set cdnumber = "253" %}
