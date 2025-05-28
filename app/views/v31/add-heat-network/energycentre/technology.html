@@ -1,10 +1,9 @@
 {% extends 'layouts/main.html' %}
-{% if data.technologies %}
-{% set title = "Which additional technology provides heat energy in this energy centre?" %}
 
-{% else %}
 {% set title = "Which technology provides the largest proportion of the heat energy in this energy centre?" %}
-{% endif %}
+
+{% set cdnumber = "293" %}
+
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}

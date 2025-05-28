@@ -120,7 +120,7 @@
                 </li>
                 {% endif %}
 
-                {% if (data.role == "Network operator" or data.role == "Both") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentrehowmany > 0)) %}  
+                {% if (data.role == "Network operator" or data.role == "Both") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentre == "Yes" )) %}  
                 
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
@@ -214,7 +214,7 @@
                 {% endif %}
 
                 
-                {% if (data.role == "Energy supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.buildingcustomersResidential > 0 or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") %}
+                {% if (data.role == "Energy supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.customersdomestic == "Yes" or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">

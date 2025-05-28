@@ -1,5 +1,14 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Check your answers" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd
+  {% endif %}
+{% endset %}    
+
+{% set cdnumber = "263" %}
 
 
 {% block pageTitle %}
@@ -36,26 +45,18 @@
             {{title}}
         </h1>
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
             {% if data.consumervulnerable %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network supply vulnerable customers?
+                    Number of vulnerable customers heat network provides heating, cooling or hot water to
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.consumervulnerable}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="vulnerable">Change</a>
-                </dd>
-            </div>
-            {% endif %}
-            {% if data.consumervulnerable == "Yes" %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Total number of vulnerable customers
-                </dt>
-                <dd class="govuk-summary-list__value">
+                    {% if data.consumervulnerable == "Yes" %}
                     {{data.consumervulnerableammount}}
+                    {% else %}
+                    None
+                    {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="vulnerable">Change</a>
@@ -64,8 +65,8 @@
             {% endif %}
             {% if data.consumerpsr %}
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Do you have a Priority Service Register (PSR)?
+                <dt class="govuk-summary-list__key">         	
+                    Does {{company}} have a Priority Service Register (PSR)?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerpsr}}
@@ -78,7 +79,7 @@
             {% if data.consumerconfirm %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Is there a procedure in place for domestic consumers and microbusinesses to raise a complaint?
+                    	Complaints procedure for domestic consumers, small businesses and SMEs?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerconfirm}}
@@ -91,7 +92,7 @@
             {% if data.consumerdifficulties %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you have a process for dealing with customers with payment difficulties, including issuing reminder letters?
+                   Process for dealing with customers with payment difficulties?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerdifficulties}}

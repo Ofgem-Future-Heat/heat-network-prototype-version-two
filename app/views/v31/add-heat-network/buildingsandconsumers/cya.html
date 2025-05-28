@@ -1,5 +1,14 @@
 {% extends 'layouts/main.html' %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+
 {% set title = "Check your answers" %}
+{% set cdnumber = "257" %}
 
 
 {% block pageTitle %}
@@ -39,10 +48,24 @@
         </h1>
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            {% if data.role == "Energy supplier" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Did {{company}} start supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersdomestic}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network contain domestic customers?
+                    Does this heat network have domestic customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.customersdomestic}} 
@@ -69,7 +92,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network contain non-domestic customers?
+                    Does this heat network have non-domestic customers? 
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.customersnondomestic}} 
@@ -96,7 +119,7 @@
             {% if (data.customersnondomestic == "Yes") and (data.customersdomestic == "No") %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Is the heat network an industrial only network
+                   Is the heat network an industrial heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumertypeindustrial}} 
@@ -111,38 +134,26 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network serve small and medium-sized businesses (SMEs)?
-                </dt>
-                <dd class="govuk-summary-list__value">
-
-                        {{data.smallmediumbusinesses}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="smallmediumbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Are any of your non-domestic customers 'small enterprises'?
+                   Are any of the non-domestic customers on this heat network ‘small businesses’?
                 </dt>
                 <dd class="govuk-summary-list__value">
 
                         {{data.smallenterprises}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="smallenterprises">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="smallenterprises">Change<span class="govuk-visually-hidden"> whether any of the non-domestic customers are small businesses</span></a>
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Are any of your non domestic customers 'microbusinesses'?
+                   Are any of the non-domestic customers on this heat network ‘microbusinesses’?
                 </dt>
                 <dd class="govuk-summary-list__value">
 
                         {{data.consumertypemicrobusiness}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> whether any of the non-domestic customers are microbusinesses!</span></a>
                 </dd>
             </div>
 
@@ -152,13 +163,13 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do any dwellings have pre-payment meters?
+                   How many customers on this heat network have pre-payment meters installed?
                 </dt>
                 <dd class="govuk-summary-list__value">
                    {{data.prepaymentmeters}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="prepaymentmeters">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="prepaymentmeters">Change </a>
                 </dd>
             </div>
 
@@ -169,7 +180,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you use an agent to deal with metering and billing?
+                    Does {{company}} use a metering or billing agent for this heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.meteringagent}}

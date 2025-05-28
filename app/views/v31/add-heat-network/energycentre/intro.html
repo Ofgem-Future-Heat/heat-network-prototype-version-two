@@ -40,26 +40,37 @@
                             {{title}}
                         </h1>
 
-                        {% if data.energycentres == 0 %}
+                      
                         
+ {% if data.introcommunal == "Yes" or data.energycentres == 1 %}  
+                        <p class="govuk-body">We need to know some information about this heat network's energy centre. You’ll need to tell us: </p>
 
-                        <p class="govuk-body">We need to know some information about this heat network's main plot connection. </p>
-                        <p class="govuk-body">
-                            You’ll need to tell us its address or grid coordinates.
-                        </p>
+ {% else %}
+    {% if data.energycentres == 0 %}
+    <p class="govuk-body">We need to know some information about this heat network's main plot connection. You’ll need to tell us its address or grid coordinates.</p>
+    {% else %}
+    <p class="govuk-body">We need to know some information about this heat network's primary energy centre. You’ll need to tell us:</p>
+    {% endif %}
+
+ {% endif %}
+ {% if data.energycentres != 0 %}
+ <ul class="govuk-list govuk-list--bullet">
+     {% if data.introcommunal != "Yes" %}
+        <li>its address or grid coordinates</li>
+        {% endif %}
+        <li>which types of heating, cooling or hot water it supplies to customers</li>
+        <li>if it provides heating or hot water, the combined heating and hot water capacity</li>
+        <li>if it provides cooling, the cooling capacity</li>
+        <li>which type of technology provides the largest proportion of the heat energy</li>
+    </ul>
+
+ {% endif %}
+
+
+
   
-                        {% else %}
-                        <p class="govuk-body">We need to know some information about this heat network's primary energy centre. You’ll need to tell us:</p>
-<ul class="govuk-list govuk-list--bullet">
-    <li>its address or grid coordinates</li>
-    <li>which types of heating, cooling or hot water it supplies to customers</li>
-    <li>if it provides heating or hot water, the combined heating and hot water capacity</li>
-    <li>if it provides cooling, the cooling capacity</li>
-    <li>which type of technology provides the largest proportion of its heat energy</li>
-</ul>
+                       
 
-                        {% endif %} 
-                        
                         <div class="govuk-button-group">
                             {% if data.introcommunal == "Yes" %}  
                             <a href="type" class="govuk-button">Continue</a>

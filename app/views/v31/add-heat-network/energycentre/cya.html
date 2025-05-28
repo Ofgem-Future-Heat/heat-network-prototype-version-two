@@ -6,6 +6,10 @@
 {{title}}
 {% endblock %}
 
+{% set cdnumber = "294" %}
+
+
+
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
@@ -41,20 +45,32 @@
             {% if data.introcommunal != "Yes" %}  
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Does the  {% if  data.energycentres == 0 %}plot connection point{% elif data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %} have a postcode
+                        {% if (data.energycentres > 1) %}
+                        Does the primary energy centre have a postcode?
+                        {% elif data.energycentres == 0 %} 
+                        Does the main plot connection point for this heat network have a postcode?
+                        {% else %}
+                        Does the energy centre have a postcode?
+                        {% endif %}                    
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {{data.ecaddressHasPostcode}}
 
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="addresspostcode">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                        <a class="govuk-link" href="addresspostcode">Change </a>
                     </dd>
                 </div>
                 {% if data.ecaddressHasPostcode == "Yes" %}
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} address
+                        {% if (data.energycentres > 1) %}
+                        Primary energy centre address
+                        {% elif data.energycentres == 0 %} 
+                        Plot connection point address
+                        {% else %}
+                       Energy centre address
+                        {% endif %}                         
                     </dt>
                     <dd class="govuk-summary-list__value">
                         {% set address = data.ecaddressSelected.toString() %}
@@ -62,13 +78,19 @@
 
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                        <a class="govuk-link" href="address">Change </a>
                     </dd>
                 </div>
                 {% else %}
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        {% if  data.energycentres == 0 %}Plot connection point{% elif data.energycentres == 1 %}Energy centre{% else %}Primary energy centre{% endif %} co-ordinates
+                        {% if (data.energycentres > 1) %}
+                        Primary energy centre grid coordinates
+                        {% elif data.energycentres == 0 %} 
+                        Plot connection point grid coordinates
+                        {% else %}
+                       Energy centre grid coordinates
+                        {% endif %}  
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
@@ -76,7 +98,7 @@
 
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="addresscoords">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                        <a class="govuk-link" href="addresscoords">Change</a>
                     </dd>
                 </div>
                 {% endif %}
@@ -84,53 +106,53 @@
             {% if data.energycentres >= 1 %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    What types of heating, cooling or hot water does the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %} supply?
+                   Which types of heating, cooling or hot water does the energy centre supply to customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     <p class="govuk-body">{% if data.energytype %}{% for type in data.energytype %}{{type}} <br /> {% endfor %} {% endif %}</p>
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="type">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="type">Change </a>
                 </dd>
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    What is the combined heating and hot water capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+What is the combined heating and hot water capacity of the energy centre?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     <p class="govuk-body">{{data.techcapacity}} kW</p>
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="capacity">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="capacity">Change </a>
                 </dd>
             </div>
             {% for energytype in data.energytype %}{% if energytype=='Cooling' %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    What is the cooling capacity of the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                    What is the cooling capacity of the energy centre?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     <p class="govuk-body">{{data.techcapacity}} kW</p>
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="coolingcapacity">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="coolingcapacity">Change </a>
                 </dd>
             </div>
             {% endif %}{% endfor %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Which technology provides the largest proportion of the heat energy in the {% if data.energycentres == 1 %}energy centre{% else %}primary energy centre{% endif %}?
+                    Which technology provides the largest proportion of the heat energy in the energy centre?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     <p class="govuk-body">{{data.techtechnology}}</p>
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="technology">Change<span class="govuk-visually-hidden"> network supply status</span></a>
+                    <a class="govuk-link" href="technology">Change </a>
                 </dd>
             </div>
             {% endif %}

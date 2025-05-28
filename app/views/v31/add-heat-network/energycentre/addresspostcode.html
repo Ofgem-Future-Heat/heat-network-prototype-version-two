@@ -1,20 +1,18 @@
 {% extends 'layouts/main.html' %}
-
-{% if (data.energycentres > 1) %}
 {% set title %}
+{% if (data.energycentres > 1) %}
+
 Does the primary energy centre have a postcode?
+{% elif data.energycentres == 0 %} 
+Does the main plot connection point for this heat network have a postcode?
+
+{% else %}
+Does the energy centre have a postcode?
+
+{% endif %}
 {% endset %}
-{% else %}
-{% if data.energycentres == 0 %} 
-{% set title = "Does the main plot connection for this heat network have a postcode?" %}
-
-{% else %}
-{% set title = "Does the energy centre have a postcode?" %}
-
-{% endif %}
-{% endif %}
 {% set _inError = data.validationError == "true"  %}
-
+{% set cdnumber = "284" %}
 
 {% block pageTitle %}
 {{title}}

@@ -3,12 +3,12 @@
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 
 {% set title %}
-Are any of {{company}}’s non-domestic customers ‘small businesses’?
+Are any of the non-domestic customers on this heat network ‘small businesses’?
 {% endset %}
 
 {% set cdnumber = "316" %}
 
-{% set _inError = data.validationError == "true"  %}
+{% set _inError = data.validationError == "true" %}
 
 
 {% block pageTitle %}
@@ -23,10 +23,10 @@ Are any of {{company}}’s non-domestic customers ‘small businesses’?
         {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
         }}
 
     </div>
@@ -59,7 +59,8 @@ Are any of {{company}}’s non-domestic customers ‘small businesses’?
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.smallenterprises %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.smallenterprises %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -71,18 +72,20 @@ Are any of {{company}}’s non-domestic customers ‘small businesses’?
 
                     </legend>
 
-                      <details class="govuk-details">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary">
-                          <span class="govuk-details__summary-text">
-                            Help with 'small enterprises'
-                          </span>
+                            <span class="govuk-details__summary-text">
+                                Help with 'small enterprises'
+                            </span>
                         </summary>
                         <div class="govuk-details__text">
-                            <p class="govuk-body">Any organisation larger than a microbusiness that has fewer than 250 employees and a turnover of less than €50 million.</p>
+                            <p class="govuk-body">
+                                Any organisation larger than a microbusiness that has fewer than 250 employees and a turnover of less than €50 million.
+                            </p>
                         </div>
-                      </details>
+                    </details>
 
-                    
+
                     {% if data.validationErrors.smallenterprises %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
@@ -93,33 +96,36 @@ Are any of {{company}}’s non-domestic customers ‘small businesses’?
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="smallenterprises" name="smallenterprises" type="radio" value="Yes" {% if data.smallenterprises == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="smallenterprises" name="smallenterprises"
+                                type="radio" value="Yes" {% if data.smallenterprises=="Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="smallenterprises">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="smallenterprises-2" name="smallenterprises" type="radio" value="No" {% if data.smallenterprises == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="smallenterprises-2" name="smallenterprises"
+                                type="radio" value="No" {% if data.smallenterprises=="No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="smallenterprises-2">
                                 No
                             </label>
                         </div>
                     </div>
 
-            </fieldset>
+                </fieldset>
 
 
-    </div>
-                <div class="govuk-button-group">
+            </div>
+            <div class="govuk-button-group">
                 {{
-                    govukButton ({
-                        html: 'Continue'
-                    })
+                govukButton ({
+                html: 'Continue'
+                })
                 }}
-                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}"
+                    class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
-</div>
+    </div>
 
 </div>
 

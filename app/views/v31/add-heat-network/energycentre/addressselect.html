@@ -1,8 +1,11 @@
 {% extends 'layouts/main.html' %}
-    {% if (data.energycentres >= 1) %}
-    {% set title = "Select the primary energy centre address" %}
+    {% if (data.energycentres > 1) %}
+    {% set title = "Select the primary energy centre's address" %}
+    {% elif (data.energycentres == 1) %}
+    {% set title = "Select the energy centre's address" %}
+
     {% else %}
-    {% set title = "Select an address" %}
+    {% set title = "Select the plot connection point’s address" %}
     {% endif %}
 
 {% set _inError = data.validationError == "true"  %}
@@ -11,7 +14,7 @@
 {% block pageTitle %}
 {{title}}
 {% endblock %}
-
+{% set cdnumber = "287" %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
@@ -63,6 +66,7 @@
                             {{title}}
                         </label>
                     </h1>
+            <p class="govuk-body">{{data.ecAddressSelect.length}} results for <strong>{{data.ecaddressPostcode}}</strong>. <a href="address" class="govuk-link govuk-link--no-visited-state">Change postcode</a></p>
 
                     <div class="govuk-form-group {% if data.validationErrors.ecaddressSelect %}govuk-form-group--error{% endif %}">
 
