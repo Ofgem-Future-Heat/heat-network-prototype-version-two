@@ -1,6 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% set title = "Suppliers" %}
+{% set cdnumber = "280" %}
 
 {% set _inError = data.validationError == "true"  %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}

@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set cdnumber = "281" %}
 
 {% set title %}
 Are you sure you want to remove {{data.suppliernameselected}}?

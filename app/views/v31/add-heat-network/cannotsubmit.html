@@ -1,9 +1,10 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-You cannot register your organisation’s heat network yet
+You cannot register this heat network yet
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
+{% set cdnumber = "248" %}
 
 {% block pageTitle %}
 {{title}}
@@ -63,9 +64,14 @@ You cannot register your organisation’s heat network yet
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">This is because your SMRI declaration has either expired or your regulatory contact has not submitted it yet.</p>
-                    <p class="govuk-body">You need to ask your regulatory contact to complete the SMRI declaration, then you can submit all of your heat network information.</p>
-                    <p class="govuk-body">We have saved your answers.</p>
+
+                    <p class="govuk-body">
+                        This is because your SMRI declaration has either expired or your regulatory contact has not submitted it yet.</p>
+                        <p class="govuk-body">
+                        You need to ask your regulatory contact to complete the SMRI declaration, then you can submit all of the heat network information.</p>
+                        <p class="govuk-body">
+                        We have saved your answers.
+                    </p>
 
 
                 </fieldset>

@@ -1,7 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Add other suppliers" %}
 
+{% set cdnumber = "276" %}
 
+{% set _inError = data.validationError == "true"  %}
 {% block pageTitle %}
 {{title}}
 {% endblock %}
