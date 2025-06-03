@@ -69,7 +69,7 @@
             <div class="govuk-inset-text">
                 {% if (data.variantname != "supplier" and data.variantname != "supplier2") %}
 
-                <p class="govuk-body">You’re registering a <strong>district heat network</strong> {% if data.role == "Network operator" or data.role == "Both" %}where you operate{% else %}that you supply to. This heat network contains{% endif %}:</p>
+                <p class="govuk-body">You’re registering a <strong>district heat network</strong> {% if data.role  == "Operator" or data.role  == "Operator and supplier" %}where you operate{% else %}that you supply to. This heat network contains{% endif %}:</p>
                 {% else %}
                 <p class="govuk-body">This is a <strong>district heat network</strong> containing:</p>
                 {% endif %}
@@ -97,7 +97,7 @@
 
 
             <ul class="govuk-task-list">
-                {% if data.role == "Network operator" or data.role == "Both" %}
+                {% if data.role  == "Operator" or data.role  == "Operator and supplier" %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
                         <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
@@ -120,7 +120,7 @@
                 </li>
                 {% endif %}
 
-                {% if (data.role == "Network operator" or data.role == "Both") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentre == "Yes" )) %}  
+                {% if (data.role  == "Operator" or data.role  == "Operator and supplier") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentre == "Yes" )) %}  
                 
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
@@ -151,7 +151,7 @@
                 </li>
                 {% endif %}
 
-                {% if (data.role == "Energy supplier" or data.role == "Both") and ((data.introhnbuildings > 0) or (data.introcommunal == "Yes")) and (data.introselfsupply != "Yes") %}
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and ((data.introhnbuildings > 0) or (data.introcommunal == "Yes")) and (data.introselfsupply != "Yes") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint  {% if data.validationErrors.buildingcomplete %}govuk-form-group--error{% endif %}">
                         {% if data.buildingcomplete == "true" %}
@@ -184,7 +184,7 @@
 
               
 
-                {% if (data.role == "Energy supplier" or data.role == "Both") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") and (data.consumertypeindustrial != "Yes") %}
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") and (data.consumertypeindustrial != "Yes") %}
                 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
@@ -214,7 +214,7 @@
                 {% endif %}
 
                 
-                {% if (data.role == "Energy supplier" or data.role == "Both") and data.buildingcomplete == "true" and (data.customersdomestic == "Yes" or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") %}
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and data.buildingcomplete == "true" and (data.customersdomestic == "Yes" or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">
@@ -247,7 +247,7 @@
 
 
 
-                {% if (data.role == "Network operator" or (data.role == "Both" and data.introsuppliers == "No")) %}
+                {% if (data.role  == "Operator" or (data.role  == "Operator and supplier" and data.introsuppliers == "No")) %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint {% if data.validationErrors.suppliercomplete %}govuk-form-group--error{% endif %}">
                         {% if data.suppliercomplete == "true" %}

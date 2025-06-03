@@ -48,16 +48,16 @@
         </h1>
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-            {% if data.role == "Energy supplier" %}
+            {% if data.role == "Supplier" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Did {{company}} start supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025? 
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.customersdomestic}} 
+                    {{data.supply20}} 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers</span></a>
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> supply</span></a>
                 </dd>
             </div>
             {% endif %}

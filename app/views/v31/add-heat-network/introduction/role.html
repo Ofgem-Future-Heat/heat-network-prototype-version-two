@@ -84,7 +84,7 @@ Which regulated activities does {{company}} undertake on the heat network?
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role" name="role" type="radio" value="Energy supplier" aria-describedby="role-item-hint" {% if data.role == "Energy supplier" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="role" name="role" type="radio" value="Supplier" aria-describedby="role-item-hint" {% if data.role == "Supplier" %}checked{% endif %} >
                             <label class="govuk-label govuk-radios__label" for="role">
                                 Supply only
                             </label>
@@ -93,7 +93,7 @@ Which regulated activities does {{company}} undertake on the heat network?
                             </div>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Network operator" aria-describedby="role-2-item-hint" {% if data.role == "Network operator" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Operator" aria-describedby="role-2-item-hint" {% if data.role == "Operator" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-2">
                                 Operation only
                             </label>
@@ -104,7 +104,7 @@ Which regulated activities does {{company}} undertake on the heat network?
                         <div class="govuk-radios__divider">or</div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Both" aria-describedby="role-3-item-hint" {% if data.role == "Both" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Operator and supplier" aria-describedby="role-3-item-hint" {% if data.role == "Operator and supplier" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-3">
                                 Both of these activities
                             </label>

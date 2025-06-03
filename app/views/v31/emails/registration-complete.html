@@ -24,12 +24,12 @@ Radienteco Ltd
             </h1>
             <p class="govuk-body">Your heat network registration ID is <strong>HN0001234</strong></p>
             <p class="govuk-body">
-              {% if data.role == "Energy supplier" %}
+              {% if data.role == "Supplier" %}
               You've confirmed that {{company}} is an energy supplier on the heat network {{data.name}}.
   
               {% else %}
   
-              You've told us that {{company}} is a {% if data.role == "Both" %}network operator and energy supplier{% else %}{% if data.role %}{{data.role | lower }}{% else %} network operator and energy supplier{% endif %} {% endif %} on the heat network {{data.name}}.
+              You've told us that {{company}} is a {% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{% if data.role %}{{data.role | lower }}{% else %} Operator and supplier{% endif %} {% endif %} on the heat network {{data.name}}.
               {% endif %}
             </p>            
             

@@ -67,12 +67,10 @@ Radienteco Ltd
                     Which regulated activities does {{company}} undertake?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% if data.role == "Network operator" %} 
-                    {{data.role}}
-                    {% elif data.role == "Energy supplier" %}
+                    {% if data.role == "Operator" %} 
                     {{data.role}}
                     {% else %}
-                    Network operator and energy supplier
+                    Operator and supplier
                     {% endif %}
                     
                 </dd>
@@ -149,7 +147,7 @@ Radienteco Ltd
                     </dd>
                 </div>
 
-                {% if data.role == "Both" %} 
+                {% if data.role  == "Operator and supplier" %} 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         Is {{company}} the only supplier selling to consumers?

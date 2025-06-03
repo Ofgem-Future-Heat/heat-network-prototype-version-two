@@ -2,9 +2,7 @@
 {% set cdnumber = "019" %}
 {% set showhelp = true %}
 
-{% block pageTitle %}
-    Account information
-{% endblock %}
+
 
 {% set company %}
   {% if data.companyname %}
@@ -13,6 +11,10 @@
   Radienteco Ltd 
   {% endif %}
 {% endset %}
+
+{% block pageTitle %}
+    {{company}}
+{% endblock %}
 {% block beforeContent %}
 
     <div class="govuk-grid-row">
@@ -216,37 +218,37 @@
           <tbody class="govuk-table__body">
             {% if data.usertype == "supplier" or data.usertype == "supplier2" %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a> <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role == "Both" %}Network operator and energy supplier{% else %}{{data.role}}{% endif %}</td>
+              <th scope="row" class="govuk-table__header"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}</a><br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %} <br /><span class="govuk-body-s">(ID: {{data.HNID}})</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{{data.role}}{% endif %}</td>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Submitted' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong></td>
             </tr>
             {% endif %}
             {% if data.introcomplete == "true" and (data.usertype != "supplier" and data.usertype != "supplier2") %}
 
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Name<br /></span>{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}<br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}</a><br /><span class="govuk-body-s">(ID: 123456789)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role == "Both" %}Network operator and energy supplier{% else %}{{data.role}}{% endif %}</td>
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}</a><br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}<br /><span class="govuk-body-s">(ID: 123456789)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{{data.role}}{% endif %}</td>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
             </tr>
             {% endif %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Leston hall<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 234567811)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Network operator</td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Leston hall</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong><br><span class="govuk-body-s">(ID: 234567811)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Thames Road Apartments<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 456895421)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Network operator and energy supplier</td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Thames Road Apartments</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong><br><span class="govuk-body-s">(ID: 456895421)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator and supplier</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Fallowfield Residences<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong></a><br><span class="govuk-body-s">(ID: 658522341)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Energy supplier</td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Fallowfield Residences</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong><br><span class="govuk-body-s">(ID: 658522341)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Supplier</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Paddington Green Police Station<br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong></a><br><span class="govuk-body-s">(ID: 788845211)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Network operator</td>
+              <th scope="row" class="govuk-table__header"><a href="#" class="govuk-link govuk-link--no-visited-state">Paddington Green Police Station</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong><br><span class="govuk-body-s">(ID: 788845211)</span></th>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
             </tr>
           </tbody>

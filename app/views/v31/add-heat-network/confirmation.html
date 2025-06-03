@@ -53,10 +53,10 @@ Confirmation email
           </p>
 
           <p class="govuk-body">
-            {% if data.role == "Energy supplier" %}
+            {% if data.role == "Supplier" %}
             You've confirmed that {{company}} is responsible for supplying the heat network {{data.name}}.
             
-            {% elif data.role == "Network operator" %}
+            {% elif data.role  == "Operator" %}
             You've told us that {{company}} is responsible for operation on the heat network {{data.name}}.
 
             {% else %}

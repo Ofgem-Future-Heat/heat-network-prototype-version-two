@@ -22,7 +22,7 @@ router.use(function (req, res, next) {
 
 
 function generateSupplierHN(req) {
-    req.session.data['role'] = "Energy supplier"
+    req.session.data['role'] = "Supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -61,7 +61,7 @@ function generateSupplierHN(req) {
 
 
 function generateOperatorHN(req) {
-    req.session.data['role'] = "Both"
+    req.session.data['role'] = "Operator and supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "In progress"
     req.session.data['introrelevant'] = "Yes"
@@ -99,7 +99,7 @@ function generateOperatorHN(req) {
 }
 
 function generateOperatorCompleteHN(req) {
-    req.session.data['role'] = "Both"
+    req.session.data['role'] = "Operator and supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Submitted"
     req.session.data['introrelevant'] = "Yes"
@@ -136,12 +136,13 @@ function generateOperatorCompleteHN(req) {
 
     
     // Customers Flow
-    req.session.data['customertype'] = ['Residential', 'Public', 'Commercial']
-    req.session.data['buildingcustomersResidential'] = "10"
-    req.session.data['buildingcustomersPublic'] = "5"
-    req.session.data['buildingcustomersCommercial'] = "1"
+    req.session.data['customersdomestic'] = "Yes"
+    req.session.data['customersdomestictotal'] = "10"
+    req.session.data['customersnondomestic'] = "Yes"
+    req.session.data['customersnondomestictotal'] = "5"
+    req.session.data['consumertypeindustrial'] = "No"
+    req.session.data['smallenterprises'] = "Yes"
     req.session.data['consumertypemicrobusiness'] = "Yes"
-    req.session.data['smallmediumbusinesses'] = "Yes"
     req.session.data['prepaymentmeters'] = "Some"
     req.session.data['meteringagent'] = "Yes"
     req.session.data['buildingcomplete'] = "true"
@@ -253,7 +254,7 @@ function clearHN(req) {
 
 
 function generateSupplier2HN(req) {
-    req.session.data['role'] = "Energy supplier"
+    req.session.data['role'] = "Supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -3869,7 +3870,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if (((role === "Network operator" || role === "Both") && (introcommunal !== "Yes" || (introcommunal === "Yes" && introenergycentrehowmany > 0))) && (eccomplete != "true")) {
+    if (((role === "Operator" || role === "Operator and supplier") && (introcommunal !== "Yes" || (introcommunal === "Yes" && introenergycentrehowmany > 0))) && (eccomplete != "true")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.eccomplete = {
             "anchor": "eccomplete",
@@ -3878,7 +3879,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     }
 
 
-    if ((role === "Energy supplier" || role === "Both") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
+    if ((role === "Supplier" || role === "Operator and supplier") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.buildingcomplete = {
             "anchor": "buildingcomplete",
@@ -3886,7 +3887,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if ((role === "Energy supplier" || role === "Both") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
+    if ((role === "Supplier" || role === "Operator and supplier") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.billingcomplete = {
             "anchor": "billingcomplete",
@@ -3894,7 +3895,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
         }
     }
 
-    if (((role === "Energy supplier" || role === "Both") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
+    if (((role === "Supplier" || role === "Operator and supplier") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.protectionscomplete = {
             "anchor": "protectionscomplete",
@@ -3903,7 +3904,7 @@ router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
     }
 
 
-    if ((role === "Network operator" || (role === "Both" && introsuppliers === "No")) && (suppliercomplete != "true")) {
+    if ((role === "Operator" || (role === "Operator and supplier" && introsuppliers === "No")) && (suppliercomplete != "true")) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.suppliercomplete = {
             "anchor": "suppliercomplete",
@@ -4112,7 +4113,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
     }
 
     else {
-        if ((role == "Energy supplier") || (role == "Neither")) {
+        if ((role == "Supplier") || (role == "Neither")) {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=238');
 
         }
@@ -4539,7 +4540,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
                 req.session.data['introenergycentrehowmany'] = 1
             }
 
-            if (role != "Network operator") {
+            if (role != "Operator") {
                 res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
             }
             else {
@@ -4584,7 +4585,7 @@ router.post('/' + version + '/add-heat-network/introduction/primary', function (
         });
     }
     else {        
-        if (role != "Network operator") {
+        if (role != "Operator") {
             res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
         }
         else {
@@ -4686,7 +4687,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
         }
         else {
             if (introbuildingshowmany == 1) {
-                if (role == "Network operator") {
+                if (role == "Operator") {
                     res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
                 }
                 else {
@@ -4696,7 +4697,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
             }
 
             else {
-                if (role == "Network operator" && (introbuildingshowmany ==  introcommunaloperatehowmany)) {
+                if (role == "Operator" && (introbuildingshowmany ==  introcommunaloperatehowmany)) {
                     res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
                 }
                 else {
@@ -4857,7 +4858,7 @@ router.post('/' + version + '/add-heat-network/introduction/buildingstotal', fun
     else {
         if (introbuildingstotal == 0) {
             
-            if (role == "Network operator") {
+            if (role == "Operator") {
                 res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
             }
             else {
@@ -4924,7 +4925,7 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
 
     else {
         if (introbuildingshowmany == '0') {
-            if (role == "Network operator") {
+            if (role == "Operator") {
                 res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
             }
             else {
@@ -4936,7 +4937,7 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
         if (introbuildings == "No") {
             if (introbuildingstotal == 1) {
 
-                if (role == "Network operator") {
+                if (role == "Operator") {
                     res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
                 }
                 else {
@@ -5767,7 +5768,7 @@ else {
 
 
 function populateIntrodata(req) {
-    req.session.data['role'] = "Both"
+    req.session.data['role'] = "Operator and supplier"
     req.session.data['introrelevant'] = "Yes"
     req.session.data['introgroundloop'] = "No"
     req.session.data['introcommunal'] = "No"

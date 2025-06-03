@@ -165,6 +165,11 @@ table.responsive thead {
 	box-sizing: border-box;
 	border: 0;
   }
+  table.responsive tr td.govuk-table__cell--numeric {
+	text-align: left;
+  }
+
+
   table.responsive tr th:last-child, table.responsive tr td:last-child {
 	border-bottom: 1px solid #b1b4b6;
 	margin-bottom: 20px;
