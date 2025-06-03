@@ -135,7 +135,7 @@
             <th scope="row" class="govuk-table__header">View all heat network information
               <div class="govuk-hint">Can view all heat network information for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</div>
             </th>
-            <td class="govuk-table__cell govuk-!-width-one-third">
+            <td class="govuk-table__cell hn-table--radios">
    
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
@@ -164,7 +164,7 @@
             <th scope="row" class="govuk-table__header">Add or edit heat network information
               <div class="govuk-hint">Can enter - but not send - information about {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks.</div>
             </th>
-            <td class="govuk-table__cell govuk-!-width-one-third">
+            <td class="govuk-table__cell hn-table--radios">
    
 
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
@@ -189,7 +189,7 @@
             <th scope="row" class="govuk-table__header">Send heat network information
               <div class="govuk-hint">Can send {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s heat network information to Ofgem.</div>
             </th>
-            <td class="govuk-table__cell govuk-!-width-one-third">
+            <td class="govuk-table__cell hn-table--radios">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="edituserpermissions-monitoring-1" name="edituserpermissionsmonitoring" type="radio" value="Send heat network information" {% if user.monitoring %}checked{% endif %}>
@@ -212,7 +212,7 @@
             <th scope="row" class="govuk-table__header">Manage users
               <div class="govuk-hint">Can add new users, edit user permissions or remove users from the service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}.</div>
             </th>
-            <td class="govuk-table__cell govuk-!-width-one-third">
+            <td class="govuk-table__cell hn-table--radios">
                 <div class="govuk-radios govuk-radios--inline govuk-radios--small" data-module="govuk-radios">
                   <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="edituserpermissions-usermanagement-1" name="edituserpermissionsusermanagement" type="radio" value="Manage users" {% if user.usermanagement %}checked{% endif %}>

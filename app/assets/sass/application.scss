@@ -345,3 +345,7 @@ table.responsive thead {
 	@include govuk-responsive-padding(2, "bottom");	
 	margin-bottom: -20px;
   }
+
+  .hn-table--radios {
+	min-width: 200px;
+  }
