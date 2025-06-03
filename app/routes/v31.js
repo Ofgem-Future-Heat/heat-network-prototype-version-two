@@ -7454,7 +7454,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/psr', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumerpsr = {
             "anchor": "consumerpsr",
-            "message": "Tell us whether you have a Priority Service Register (PSR)",
+            "message": "Select yes if there is a procedure in place for domestic customers, small businesses and microbusinesses to raise a complaint",
         }
     }
 
