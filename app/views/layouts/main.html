@@ -8,6 +8,11 @@
   {% set bodyClasses = 'app-ofgem' %}
   
   {% block header %}
+    {% if data.version and (data.version.replace('v', '')|int >= 31)%}
+
+          {% include data.version + "/_partials/cookiebanner.html" %}
+    {% endif %}
+
   {{ govukHeader({
     homepageUrl: "/",
     classes: "govuk-header--full-width-border"
@@ -42,7 +47,19 @@
               CD{{cdnumber}}
             </li>
             {% endif %}
+                {% if data.version and (data.version.replace('v', '')|int >= 31)%}
+              <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="/{{data.version}}/help/cookies">
+                Cookies
+              </a>
+            </li>
 
+              <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="https://www.ofgem.gov.uk/ofgem-privacy-policy" target="_blank" rel="external">
+                Privacy
+              </a>
+            </li>
+            {% endif %}
  
             <li class="govuk-footer__inline-list-item">
               <a class="govuk-footer__link" href="/manage-prototype">

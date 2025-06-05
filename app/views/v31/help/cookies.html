@@ -1,0 +1,184 @@
+{% extends 'layouts/main.html' %}
+{% set showhelp = false %}
+
+{% set title %}
+Cookies on {{serviceName}}
+{% endset %}
+{% set _inError = data.validationError == "true" %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/logout.html" %}
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+{% if data.cookiesnotification == "success" %}
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      Your cookie settings were saved
+    </h3>
+  </div>
+</div>
+{% endif %}
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+
+    <p>Cookies are files saved on your phone, tablet or computer when you visit a website.</p>
+    <p>We use cookies to collect and store information about how you use the {{serviceName}} website, such as the pages you visit. </p>
+    <p>This page has a detailed explanation of each type of cookie we use. </p>
+
+    <h2 class="govuk-heading-m">Essential cookies</h2>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header">Purpose</th>
+          <th scope="col" class="govuk-table__header">Expires</th>
+
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Cookie name 1</td>
+          <td class="govuk-table__cell">Lorem ipsum dolor sit amet</td>
+          <td class="govuk-table__cell">2 years</td>
+
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Cookie name 2</td>
+          <td class="govuk-table__cell">Lorem ipsum dolor sit amet</td>
+          <td class="govuk-table__cell">2 years</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Cookie name 3</td>
+          <td class="govuk-table__cell">Lorem ipsum dolor sit amet</td>
+          <td class="govuk-table__cell">2 years</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <div class="govuk-form-group govuk-!-margin-bottom-6 govuk-!-margin-top-6">
+      <fieldset class="govuk-fieldset" aria-describedby="hint-72581874">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+          <h2 class="govuk-fieldset__heading">Cookies that measure website use</h2>
+        </legend>
+        <div id="hint-72581874" class="govuk-hint">
+          <p class="govuk-body govuk-hint">We use Google Analytics cookies to measure how you use {{serviceName}}.</p>
+          <p class="govuk-body govuk-hint">These cookies collect information about:</p>
+          <ul class="govuk-list--bullet govuk-hint">
+            <li>how you got to the site</li>
+            <li>the pages you visit and how long you spend on each page</li>
+            <li>what you click on while you're visiting these sites</li>
+          </ul>
+          <p class="govuk-body govuk-hint">We do not allow Google to use or share this data for their own purposes.</p>
+
+
+          <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Purpose</th>
+                <th scope="col" class="govuk-table__header">Expires</th>
+
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">_ga</td>
+                <td class="govuk-table__cell">These help us count how many people visit {{serviceName}} by tracking if
+                  you’ve visited before</td>
+                <td class="govuk-table__cell">2 years</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">_gid</td>
+                <td class="govuk-table__cell">These help us count how many people visit {{serviceName}} by tracking if
+                  you’ve visited before</td>
+                <td class="govuk-table__cell">24 hours</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">_ga_S5RQ7FTGVR</td>
+                <td class="govuk-table__cell">Used by Google Analytics to find and track an individual session with your
+                  device</td>
+                <td class="govuk-table__cell">2 years</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+
+
+        </div>
+<form method="POST">
+        <div class="govuk-form-group">
+        <div class="govuk-radios">
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookies" id="cookies-0" value="yes" class="govuk-radios__input" {% if data.cookies == "yes" %}checked{% endif %}>
+
+            <label for="cookies-0" class="gem-c-label govuk-label govuk-radios__label">Use cookies that measure
+              my website use</label>
+
+
+          </div>
+
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookies" id="cookies-1" value="no" class="govuk-radios__input"
+              {% if data.cookies == "no" %}checked{% endif %}>
+
+            <label for="cookies-1" class="gem-c-label govuk-label govuk-radios__label">Do not use cookies that
+              measure my website use</label>
+
+
+          </div>
+
+
+
+        </div>
+        </div>
+              <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button" type="submit">
+        Save changes
+        </button>
+
+      </form>
+      </fieldset>
+
+
+
+
+      <div>
+        
+      </div>
+    </div>
+    {% endblock %}

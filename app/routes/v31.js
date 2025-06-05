@@ -344,6 +344,44 @@ router.get('/' + version + '/account-information', function (req, res) {
 });
 
 
+//////////////////////////////////////////////////////////// POLICY PAGES /////////////////////////////////////////////////////////
+
+router.get('/' + version + '/help/cookies', function (req, res) {
+
+ // Read the cookie and store it in session data
+  const existingCookie = req.cookies.cookies_additional
+
+    const urlParams = req.query.notification;
+    req.session.data['cookiesnotification'] = urlParams || "";
+
+  if (existingCookie) {
+    req.session.data['cookies'] = existingCookie
+  }
+
+    res.render('/' + version + '/help/cookies', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/help/cookies', function (req, res) {
+    
+  const cookies = req.session.data['cookies']
+
+  // Set cookie
+  res.cookie('cookies_additional', cookies, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+
+  // Redirect to confirmation or back to settings page
+            res.redirect('/' + version + '/help/cookies?notification=success');
+})
+
+
+
 //////////////////////////////////////////////////////////// SETUP PAGES /////////////////////////////////////////////////////////
 
 ///Company name
