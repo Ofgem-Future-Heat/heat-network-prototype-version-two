@@ -1,3 +1,10 @@
 {
-  "serviceName": "Comply with heat networks consumer protection regulations"
+  "serviceName": "Comply with heat networks consumer protection regulations",
+  "plugins": {
+  "govuk-frontend": {
+	"rebrand": true
+  }
 }
+}
+
+
