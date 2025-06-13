@@ -79,11 +79,13 @@ Organisation details
         </div>
         {% endif %}
        
-        <span class="govuk-caption-l">{% if data.companyname %}
+        <span class="govuk-caption-l">
+          {% if data.companyname %}
           {{data.companyname}}
           {% else %}
           Radienteco Ltd
-          {% endif %}</span>
+          {% endif %}
+        </span>
 
             <h1 class="govuk-heading-l">{{title}}</h1>
             <dl class="govuk-summary-list govuk-!-margin-bottom-3">
