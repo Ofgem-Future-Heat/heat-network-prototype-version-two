@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set showhelp = false %}
+{% set cdnumber = "997" %}
 
 {% set title %}
 Details about cookies on  {{serviceName | lower}}
@@ -60,32 +61,32 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlAnyoneDraftArticlesList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for the Draft Articles view in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlArchivedArticlesList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Archived Articles' in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlMyDraftArticlesList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Draft Articles' assigned to 'Me' in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlMyDraftTranslationsList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Draft Translations' in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlPublishedArticlesList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Published Articles' in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlPublishedTranslationsList</td>
       <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Published Translations' in Article Management.</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">&lt;namespace&gt;_sid</td>
@@ -105,17 +106,17 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">apex__EmailAddress</td>
       <td class="govuk-table__cell">Caches contact IDs associated with email addresses.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">BAYEAX_BROWSER</td>
       <td class="govuk-table__cell">Identify a unique browser subscribed to CometD streaming channels.</td>
-      <td class="govuk-table__cell">Expired on Creation</td>
+      <td class="govuk-table__cell">Expired on creation</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">BrowserId</td>
       <td class="govuk-table__cell">Used for security protections. Rendered on a subset of Salesforce domains.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">clientSrc</td>
@@ -130,12 +131,12 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">CookieConsent</td>
       <td class="govuk-table__cell">Used to apply end-user cookie consent preferences.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">CookieConsentPolicy</td>
       <td class="govuk-table__cell">Used to apply end-user cookie consent preferences set by our client-side utility.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">cookieSettingVerified</td>
@@ -180,12 +181,12 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">force-proxy-stream</td>
       <td class="govuk-table__cell">Ensures client requests hit the same proxy hosts and are more likely to retrieve content from cache.</td>
-      <td class="govuk-table__cell">3 Hours</td>
+      <td class="govuk-table__cell">3 hours</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">force-stream</td>
       <td class="govuk-table__cell">Used to redirect server requests for sticky sessions.</td>
-      <td class="govuk-table__cell">180 Minutes</td>
+      <td class="govuk-table__cell">180 minutes</td>
     </tr>
   </tbody>
 </table>
@@ -211,7 +212,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KMPage</span></td>
       <td class="govuk-table__cell">Remembers last user selection in Salesforce Classic (Find in View, Article Language, DataCategory, Validation Status).</td>
-      <td class="govuk-table__cell">1 Day</td>
+      <td class="govuk-table__cell">1 day</td>
     </tr>
     <!-- 2 -->
     <tr class="govuk-table__row">
@@ -313,7 +314,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">autocomplete</td>
       <td class="govuk-table__cell">Determines if login page remembers the user's username.</td>
-      <td class="govuk-table__cell">60 Days</td>
+      <td class="govuk-table__cell">60 days</td>
     </tr>
     <!-- 19 -->
     <tr class="govuk-table__row">
@@ -355,7 +356,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">login</td>
       <td class="govuk-table__cell">Fetches username for login hint after session expiry.</td>
-      <td class="govuk-table__cell">60 Days</td>
+      <td class="govuk-table__cell">60 days</td>
     </tr>
     <!-- 26 -->
     <tr class="govuk-table__row">
@@ -367,13 +368,13 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">oid</td>
       <td class="govuk-table__cell">Stores last logged-in org.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 28 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">pc-unit</td>
       <td class="govuk-table__cell">Sets preference for platform cache units (MB or KB).</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 29 -->
     <tr class="govuk-table__row">
@@ -391,43 +392,43 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">PreferredLanguage&lt;18‑char SiteID&gt;</td>
       <td class="govuk-table__cell">Stores user language preference in LWR sites.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 32 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">redirectionWarning</td>
       <td class="govuk-table__cell">Stores URLs exempt from redirect‑warning interstitials.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 33 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">rememberUn</td>
       <td class="govuk-table__cell">Tracks “Remember Me” checkbox for login hint.</td>
-      <td class="govuk-table__cell">60 Days</td>
+      <td class="govuk-table__cell">60 days</td>
     </tr>
     <!-- 34 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">showNewBuilderWarningMessage</td>
       <td class="govuk-table__cell">Shows or hides warning message for the new dashboard builder.</td>
-      <td class="govuk-table__cell">100 Years</td>
+      <td class="govuk-table__cell">100 years</td>
     </tr>
     <!-- 35 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">sidebarPinned</td>
       <td class="govuk-table__cell">Controls the Salesforce Classic sidebar state.</td>
-      <td class="govuk-table__cell">10 Years</td>
+      <td class="govuk-table__cell">10 years</td>
     </tr>
     <!-- 36 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">waveUserPrefFinderLeftNav</td>
       <td class="govuk-table__cell">Stores left navigation UI preference in CRM Analytics.</td>
-      <td class="govuk-table__cell">100 Years</td>
+      <td class="govuk-table__cell">100 years</td>
     </tr>
     <!-- 37 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">waveUserPrefFinderListView</td>
       <td class="govuk-table__cell">Stores list‑view preference in CRM Analytics.</td>
-      <td class="govuk-table__cell">100 Years</td>
+      <td class="govuk-table__cell">100 years</td>
     </tr>
   </tbody>
 </table>
@@ -462,7 +463,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">_ga</td>
       <td class="govuk-table__cell">Google Analytics tracking—used if site admin opts to track with GA ID.</td>
-      <td class="govuk-table__cell">2 Years</td>
+      <td class="govuk-table__cell">2 years</td>
     </tr>
                   <tr class="govuk-table__row">
                 <td class="govuk-table__cell">_gid</td>
@@ -480,7 +481,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">&lt;userId&gt;expid_[site prefix]</td>
       <td class="govuk-table__cell">Renders pages based on specified brand.</td>
-      <td class="govuk-table__cell">30 Days</td>
+      <td class="govuk-table__cell">30 days</td>
     </tr>
     <!-- 3 -->
     <tr class="govuk-table__row">
@@ -492,13 +493,13 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">cqcid</td>
       <td class="govuk-table__cell">Tracks guest shopper's browsing activity.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 5 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">webact</td>
-      <td class="govuk-table__cell">Collects per page-view metrics for personalization.</td>
-      <td class="govuk-table__cell">1 Year</td>
+      <td class="govuk-table__cell">Collects per page-view metrics for personalisation.</td>
+      <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 6 -->
     <tr class="govuk-table__row">
@@ -516,7 +517,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">auraBrokenDefGraph</td>
       <td class="govuk-table__cell">Tracks when a Lightning page has malformed HTML.</td>
-      <td class="govuk-table__cell">1 Week</td>
+      <td class="govuk-table__cell">1 week</td>
     </tr>
     <!-- 9 -->
     <tr class="govuk-table__row">
@@ -528,7 +529,7 @@ Details about cookies on  {{serviceName | lower}}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">t</td>
       <td class="govuk-table__cell">Avoids duplicate access checks.</td>
-      <td class="govuk-table__cell">Expired on Creation</td>
+      <td class="govuk-table__cell">Expired on creation</td>
     </tr>
   </tbody>
 </table>
