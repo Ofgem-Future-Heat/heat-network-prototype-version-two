@@ -57,14 +57,14 @@ You have now registered the regulated activity that {{company}} undertakes on th
 
           <p class="govuk-body">
             {% if data.role == "Supplier" %}
-            You've confirmed that {{company}} is responsible for supplying the heat network {{data.name}}.
+            You've confirmed that {{company}} is responsible for supply.
             
             {% elif data.role  == "Operator" %}
-            You've told us that {{company}} is responsible for operation on the heat network {{data.name}}.
+            You've told us that {{company}} is responsible for operation.
 
             {% else %}
 
-            You've told us that {{company}} is responsible for both operation and supply on the heat network heat {{data.name}}.         
+            You've told us that {{company}} is responsible for both operation and supply.       
             {% endif %}
           </p>
           
