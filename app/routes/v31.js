@@ -350,12 +350,21 @@ router.get('/' + version + '/help/cookies', function (req, res) {
 
  // Read the cookie and store it in session data
   const existingCookie = req.cookies.cookies_additional
+  const cookiesuse = req.cookies.cookies_use
+  const cookiespreferences = req.cookies.cookies_preferences
 
     const urlParams = req.query.notification;
     req.session.data['cookiesnotification'] = urlParams || "";
 
   if (existingCookie) {
     req.session.data['cookies'] = existingCookie
+  }
+    if (cookiesuse) {
+    req.session.data['cookiesuse'] = cookiesuse
+  }
+
+    if (cookiespreferences) {
+    req.session.data['cookiespreferences'] = cookiespreferences
   }
 
     res.render('/' + version + '/help/cookies', {
@@ -365,10 +374,26 @@ router.get('/' + version + '/help/cookies', function (req, res) {
 
 router.post('/' + version + '/help/cookies', function (req, res) {
     
-  const cookies = req.session.data['cookies']
+  const cookies = "no"
+  const cookiesuse = req.session.data['cookiesuse']
+  const cookiespreferences = req.session.data['cookiespreferences']
 
-  // Set cookie
+  // Set cookies
   res.cookie('cookies_additional', cookies, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+    res.cookie('cookies_use', cookiesuse, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+      res.cookie('cookies_preferences', cookiespreferences, {
     maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
     httpOnly: false,
     secure: false,
@@ -380,6 +405,15 @@ router.post('/' + version + '/help/cookies', function (req, res) {
             res.redirect('/' + version + '/help/cookies?notification=success');
 })
 
+
+
+router.get('/' + version + '/help/cookie-details', function (req, res) {
+
+ // Read the cookie and store it in session data
+    res.render('/' + version + '/help/cookie-details', {
+        data: req.session.data
+    });
+});
 
 
 //////////////////////////////////////////////////////////// SETUP PAGES /////////////////////////////////////////////////////////
