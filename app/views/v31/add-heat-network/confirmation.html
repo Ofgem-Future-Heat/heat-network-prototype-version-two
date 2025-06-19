@@ -51,6 +51,9 @@ Confirmation email
           <p class="govuk-body">
             We have sent you a confirmation email.
           </p>
+          <p class="govuk-body">
+You have now registered the regulated activity that {{company}} undertakes on the heat network {{data.name}}.
+</p>
 
           <p class="govuk-body">
             {% if data.role == "Supplier" %}
@@ -68,16 +71,11 @@ Confirmation email
 
           {% if (data.introsupply20 == "Yes") or (data.supply20 == "Yes") %}
           <p class="govuk-body">
-          Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been ‘deemed authorised’ for the initial period of registration.
+          Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been ‘deemed authorised’ for the initial period of regulation.
         </p>
         <p class="govuk-body">
-          Prior to January 2028, we will convert this to an ‘enduring authorisation’ and may contact you for further information as part of this process
+          Prior to January 2028, we may contact you for further information in order to make this authorisation enduring beyond the initial period of regulation.
         </p>
-          {% else %}
-          <p class="govuk-body">
-          You have now registered the authorised activity that you undertake on the heat network.
-        </p>
-
           {% endif %}
 
           <h2 class="govuk-heading-m">
@@ -109,6 +107,14 @@ Confirmation email
           <p class="govuk-body">
             We may contact you if we need any further information about this registration.
           </p>
+
+<h2 class="govuk-heading-m">Making changes to this heat network</h2>
+<p class="govuk-body">
+  There will be a process to follow if you need to tell us about any changes to the information you submitted about this regulated activity.
+  </p>
+  <p class="govuk-body">Guidance is available at: <a href="#" class="govuk-link" target="_blank">TBC</a></p>
+
+
         <a href="/{{data.version}}/account-information" class="govuk-button">Go to heat networks home</a>
     </div>
 
