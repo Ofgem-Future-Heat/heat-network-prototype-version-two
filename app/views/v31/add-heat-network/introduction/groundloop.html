@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "230" %}
 
-{% set title = "Does the heat network include 2 or more ground source heat pumps connected by a shared ground loop?" %}
+{% set title = "Is the heat network a shared ground loop (SGL) heat network?" %}
 {% set _inError = data.validationError == "true" %}
 
 
@@ -75,7 +75,7 @@
                           </span>
                         </summary>
                         <div class="govuk-details__text">
-                            This is a heat network that relies on ground or water loops for heat generation, in combination with individual consumer heat pumps.
+                           This is a heat network that relies entirely on closed ground or water loops for heat generation, in combination with individual consumer heat pumps.
                         </div>
                       </details>
                     

@@ -4132,7 +4132,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introgroundloop = {
             "anchor": "introgroundloop",
-            "message": "Select whether the heat network includes 2 or more ground source heat pumps connected by a shared ground loop"
+            "message": "Select yes if the heat network is a shared ground loop (SGL) heat network"
         }
     }
 
