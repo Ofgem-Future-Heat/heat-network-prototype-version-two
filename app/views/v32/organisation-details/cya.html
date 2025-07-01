@@ -16,7 +16,7 @@ Check your answers
 
   <div class="govuk-grid-column-full">
 
-{% include data.version + "/_partials/logout.html" %}
+{% include data.version + "/_partials/headerlinks.html" %}
       {{
 govukBackLink ({
                   text: 'Back',
@@ -137,7 +137,8 @@ govukBackLink ({
                 </dd>
               </div>
 
-              {% if data.orgsocialhousing %}
+              {% if data.orgsubtype == "Other" or data.orgsubtype == "Registered social housing provider" or data.orgsubtype == "Other social housing provider" or data.orgsubtype == "Housing association" or data.orgsubtype == "Local authority" or data.orgsubtype == "Other public sector body" %}
+
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Subject to social housing regulations?
@@ -151,7 +152,20 @@ govukBackLink ({
               </div>
               {% endif %}
 
-              {% if (data.orgprofit == "Yes") or (data.orgsubtype == "Resident-owned property management company") or (data.orgsocialhousing == "No") %}
+              {% if data.orgsubtype != "Central government body" and data.orgsocialhousing != "Yes" and data.orgsubtype != "Local authority" %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Operation or supply continuity plans in place?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{data.orgcontinuity}}
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link govuk-link--no-visited-state" href="continuity">Change<span class="govuk-visually-hidden"> whether you have operation or supply continuity plans in place</span></a>
+                </dd>
+              </div>
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                   Start and end dates of accounting period
@@ -241,21 +255,10 @@ govukBackLink ({
                 </dd>
               </div>
 
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Average monthly fixed costs for heat networks
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  £{{data.financialmonthly}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link govuk-link--no-visited-state" href="financial-monthly">Change<span class="govuk-visually-hidden"> the average monthly fixed costs for running heat networks for previous financial year</span></a>
-                </dd>
-              </div>
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Average monthly gross income from heat networks 
+                  Total income for previous financial year
                 </dt>
                 <dd class="govuk-summary-list__value">
                   £{{data.financialincome}}

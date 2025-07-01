@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Find building address" %}
+{% set cdnumber = "312" %}
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -81,9 +82,12 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
             </div>
         </form>
+        <p class="govuk-body"><a href="addressmanual" class="govuk-link govuk-link--no-visited-state">Enter address manually</a></p>
+
     </div>
 
 </div>

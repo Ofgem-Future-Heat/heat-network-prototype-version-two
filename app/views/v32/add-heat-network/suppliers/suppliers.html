@@ -1,6 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% set title = "Suppliers" %}
+{% set cdnumber = "280" %}
 
 {% set _inError = data.validationError == "true"  %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
@@ -120,7 +121,7 @@
                           <td class="govuk-table__cell">{{supplier.address}}</td>
   
                           <td class="govuk-table__cell govuk-table__cell--numeric">
-                              <a href="remove?id={{ supplier.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{supplier.firstname}} {{supplier.lastname}}</span></a>
+                              <a href="remove?id={{ supplier.id }}" class="govuk-link link-red govuk-link--no-visited-state">Remove <span class="govuk-visually-hidden">{{supplier.name}}</span></a>
                           </td>
                       </tr>
                   {% endif %}
@@ -134,6 +135,8 @@
 
 
         </div>
+        {% else %}
+        <p class="govuk-body">You have not yet added any suppliers.</p>
 
     {% endif %}
 </div>
@@ -148,7 +151,7 @@
             <a href="name" class="govuk-button govuk-button--secondary">Add a supplier</a>
             {{
                 govukButton ({
-                    html: 'Submit suppliers'
+                    html: 'Confirm suppliers'
                 })
               }}
             {% else %}
@@ -157,7 +160,9 @@
 
 
           </div>
-          <p class="govuk-body"><a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a></p>
+          <p class="govuk-body">        
+            <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+          </p>
 
 
     </div>

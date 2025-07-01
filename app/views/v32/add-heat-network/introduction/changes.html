@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "205" %}
 
-{% set title = "How to handle heat network information that changes over time" %}
+{% set title = "How to handle heat network information that changes over time" %}
 
 
 {% block pageTitle %}
@@ -41,7 +41,7 @@
                         </h1>
                         <p class="govuk-body">Some of your answers to the upcoming questions will likely change over time.</p>
                         <p class="govuk-body">We need you to give answers that reflect the current state of the heat network.</p>
-                        <p class="govuk-body">For information on how to report changes to the heat network, see <a href="#" class="govuk-link">Guidance on monitoring, reporting and amendments (opens in a new window or tab)</a></p>
+                        <p class="govuk-body">For information on how to report changes to the heat network, <a href="https://www.ofgem.gov.uk/energy-policy-and-regulation/policy-and-regulatory-programmes/heat-networks" class="govuk-link">view the guidance on monitoring, reporting and amendments (opens in a new window or tab)</a>.</p>
 
     
             </div>
@@ -53,7 +53,8 @@
                             html: 'Continue'
                         })
                     }}
-                    <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+                    <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
                 </div>
                 </form>
 

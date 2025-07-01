@@ -1,5 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are you sure you want to submit your application?" %}
+{% set title %}
+Are you sure you want to submit {{data.name}}?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -56,12 +58,12 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Authorisation for {{data.name}}</span>
+                        <span class="govuk-caption-l">Add a heat network</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">By submitting this application, you are confirming that:</p>
+                    <p class="govuk-body">By submitting this heat network information, you are confirming that:</p>
                     <ul class="govuk-list govuk-list--bullet">
                         <li>you have the authority to provide this information, or are acting on behalf of someone who has delegated this authority to you</li>
                         <li>all the information you are providing is correct to the best of your knowledge</li>
@@ -106,7 +108,6 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
             </div>
         </form>
     </div>

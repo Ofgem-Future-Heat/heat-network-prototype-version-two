@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "200" %}
+{% set cdnumber = "264" %}
 
 {% set title = "Introduction" %}
 
@@ -41,14 +41,17 @@
                         </h1>
                         <p class="govuk-body">We need to know about your organisation’s current billing process. You’ll need to tell us:</p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>how often you send bills to customers</li>
-                            <li>whether you provide customers with information on how their bills are calculated</li>
-                            <li>whether you provide customers with information that allows them to compare your charges with other energy suppliers</li>
-                            <li>what other information is included with your customers’ bills, for example, current energy prices or their consumption</li>
-                        </ul>
+                            <li>how often your organisation sends bills to customers</li>
+                            <li>whether your organisation provides customers with information on how their bills are calculated</li>
+                            <li>whether your organisation provides customers with information that allows them to compare your charges with other energy suppliers</li>
+                            <li>what other information is included with your customers’ bills, for example, current energy prices or their consumption                        </ul></li>
                         
 
-                    <a href="often" class="govuk-button">Continue</a>
+                    <div class="govuk-button-group">
+                        <a href="often" class="govuk-button">Continue</a>
+                        <a href="/{{data.version}}/add-heat-network/billing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                    </div>
+
     </div>
 </div>
 

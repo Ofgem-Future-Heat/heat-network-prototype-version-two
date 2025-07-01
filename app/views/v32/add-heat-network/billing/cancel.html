@@ -1,5 +1,24 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you have a supply continuity plan in place?" %}
+{% set cdnumber = "239" %}
+
+
+{% set hnname %}
+{% if data.name %}
+{{data.name}}
+{% else %}
+Seaton City Centre
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+{% if data.introcomplete == "true" %}
+Are you sure you wish to cancel changing billing information for {{hnname}}?
+{% else %}
+Are you sure you wish to cancel adding billing information for {{hnname}}?
+{% endif %}
+{% endset %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -51,45 +70,38 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.financialsupply %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.billingcancel %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - continuity of operation and supply</span>
+                        <span class="govuk-caption-l">Add a heat network - billing</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-
                     </legend>
+                    {% if data.billingcomplete == "true" %}
+                    <p class="govuk-body">By continuing, any changes you’ve made will be lost.</p>
+                    {% else %}
+                    <p class="govuk-body">By continuing, any information you've entered will not be saved.</p>
 
-                    <p class="govuk-body">This should detail key steps for maintaining heat supply, 
-                        particularly interim measures in the event that heat is lost 
-                        suddenly.    </p>
-
-
-
-
-
-
-
-
-                    {% if data.validationErrors.financialsupply %}
+                    {% endif %}
+                    {% if data.validationErrors.billingcancel %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.financialsupply.message}}
+                        {{data.validationErrors.billingcancel.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="financialsupply" name="financialsupply" type="radio" value="Yes" {% if data.financialsupply == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="financialsupply">
+                            <input class="govuk-radios__input" id="cancel" name="billingcancel" type="radio" value="Yes" >
+                            <label class="govuk-label govuk-radios__label" for="cancel">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="financialsupply-2" name="financialsupply" type="radio" value="No" {% if data.financialsupply == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="financialsupply-2">
+                            <input class="govuk-radios__input" id="cancel-2" name="billingcancel" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="cancel-2">
                                 No
                             </label>
                         </div>
@@ -100,15 +112,13 @@
 
 
             </div>
-                        <div class="govuk-button-group">
-                {{
-                    govukButton ({
-                        html: 'Continue'
-                    })
-                }}
-                <a href="cancel" class="govuk-link">Cancel</a>
-            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
         </form>
+
     </div>
 
 </div>

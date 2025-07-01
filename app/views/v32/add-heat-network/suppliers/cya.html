@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Check your answers" %}
+{% set cdnumber = "282" %}
 
 
 {% block pageTitle %}
@@ -73,7 +74,7 @@
                             {{supplier.address| replace(", ",",<br />")| safe}}
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="often">Change</a>
+                            <a class="govuk-link" href="suppliers">Change</a>
                         </dd>
                         </div>
 
@@ -90,11 +91,17 @@
 
         <form method="POST" novalidate>
             <input type="hidden" id="suppliercomplete" name="suppliercomplete" value="true" />
-            {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-            }}
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+
+            <div class="govuk-button-group">
+                {{
+                  govukButton ({
+                      html: 'Save and continue'
+                  })
+                }}
+                <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+    
+              </div>
         </form>
 
 

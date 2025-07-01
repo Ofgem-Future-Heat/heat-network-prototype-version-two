@@ -1,0 +1,52 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "242" %}
+
+{% set title = "Your organisation has already registered a communal heat network with this postcode" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">You should only continue if you need to register a different heat network with the same postcode.                        </p>
+                        <p class="govuk-body">To check which heat networks you’ve already registered, <a class="govuk-link govuk-link--no-visited-state" href="/{{data.version}}/account-information" target="_blank">view your heat networks list (opens in a new window or tab)</a>.</p>
+                <div class="govuk-button-group">
+                    <a href="energycentre" class="govuk-button">Continue</a>
+                    <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+
+                </div>
+                </div>
+</div>
+
+{% endblock %}

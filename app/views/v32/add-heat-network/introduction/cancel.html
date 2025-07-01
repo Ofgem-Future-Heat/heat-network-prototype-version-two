@@ -1,7 +1,24 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "239" %}
 
-{% set title = "Are you sure you wish to cancel adding this heat network?" %}
+
+{% set hnname %}
+{% if data.name %}
+{{data.name}}
+{% else %}
+Seaton City Centre
+{% endif %}
+{% endset %}
+
+
+{% set title %}
+{% if data.introcomplete == "true" %}
+Are you sure you wish to cancel making changes to {{hnname}}?
+{% else %}
+Are you sure you wish to cancel adding this heat network?
+{% endif %}
+{% endset %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -53,7 +70,7 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.cancels %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.introcancel %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -63,22 +80,24 @@
                             {{title}}
                         </h1>
                     </legend>
-
-                    {% if data.validationErrors.cancels %}
+                    {% if data.introcomplete == "true" %}
+                    <p class="govuk-body">By continuing, any changes you’ve made will be lost.</p>
+                    {% endif %}
+                    {% if data.validationErrors.introcancel %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.cancels.message}}
+                        {{data.validationErrors.introcancel.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="cancel" name="cancels" type="radio" value="Yes" {% if data.cancels == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="cancel" name="introcancel" type="radio" value="Yes" >
                             <label class="govuk-label govuk-radios__label" for="cancel">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="cancel-2" name="cancels" type="radio" value="No" {% if data.cancels == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="cancel-2" name="introcancel" type="radio" value="No">
                             <label class="govuk-label govuk-radios__label" for="cancel-2">
                                 No
                             </label>

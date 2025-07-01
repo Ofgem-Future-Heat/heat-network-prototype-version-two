@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "215" %}
+{% set cdnumber = "241" %}
 
 {% set company %}
 {% if data.companyname %}
@@ -10,7 +10,7 @@ Radienteco Ltd
 {% endset %}
 
 {% set title %}
-Have the other operators agreed that you can provide heat network information on their behalf?
+Have the other operators on this heat network agreed that you can provide information on their behalf?
 {% endset %}
 
 
@@ -80,11 +80,15 @@ Have the other operators agreed that you can provide heat network information on
 
                     </legend>
                     <p class="govuk-body">
-                        By providing network information on behalf of another operator, you’re confirming that they undertake a regulated activity.
+                        You’ve told us that your organisation does not operate all of the distribution pipework on this heat network. This means that there is at least one other operator. 
                     </p>
                     <p class="govuk-body">
-                        We’ll check that the information provided is correct and may contact your organisation or the other operators for further details.
+                        All other operators must agree that your organisation can provide heat network information on their behalf. 
 	                    </p>
+
+                        <p class="govuk-body">
+                            By providing network information on behalf of another operator, you’re confirming that they undertake a regulated activity.
+                            </p>
 
                     {% if data.validationErrors.introresponsible %}
                     <p class="govuk-error-message">
@@ -119,7 +123,8 @@ Have the other operators agreed that you can provide heat network information on
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>

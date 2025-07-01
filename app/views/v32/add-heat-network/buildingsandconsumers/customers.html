@@ -61,7 +61,7 @@
 
         <div class="govuk-form-group ">
 
-            <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+            <span class="govuk-caption-l">Add a heat network - customers and metering</span>
             <h1 class="govuk-heading-l">
                 {{title}}
             </h1>
@@ -142,7 +142,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
     </div>

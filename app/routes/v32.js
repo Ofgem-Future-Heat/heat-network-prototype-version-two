@@ -8,13 +8,15 @@ function clearvalidation(req) {
     req.session.data.validationErrors = {}
     req.session.data.validationError = "false"
     req.session.data.includeValidation = req.query.iv || req.session.data.includeValidation
-    req.session.data['version'] = version
 
 }
 
+
 //////// PAGE SETUP //////
 router.use(function (req, res, next) {
+    req.session.data['version'] = version
     clearvalidation(req);
+    req.session.lastPage = req.originalUrl;
     next(); // Continue to the actual route handler
 });
 
@@ -30,8 +32,9 @@ function generateSupplierHN(req) {
     req.session.data['introbuildingshowmany'] = "3"
     req.session.data['introcommunaloperate'] = "Yes"
     req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introhnbuildings'] = "2"
     req.session.data['introenergycentre'] = "Yes"
-    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['introenergycentrehowmany'] = "2"
     req.session.data['intropipework'] = "Yes"
     req.session.data['introsuppliers'] = "No"
     req.session.data['introsupplycurrent'] = "Yes"
@@ -39,20 +42,216 @@ function generateSupplierHN(req) {
     req.session.data['introselfsupply'] = "No"
     req.session.data['introbuy'] = "Yes"
     req.session.data['introsell'] = "No"
-    req.session.data['name'] = "Seaton (City Centre)"
-    req.session.data['introhnbuildings'] = "2"
-    req.session.data['introauthorised'] = "Yes"
+    req.session.data['name'] = "Seaton City Centre"
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes";
+
     req.session.data['operator'] = "British Gas"
+
     req.session.data['ecaddressHasPostcode'] = "Yes"
-    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
     req.session.data['energytype'] = ['Space heating', 'Process heating']
     req.session.data['techcapacity'] = "120"
-    req.session.data['technologies'] = ['Biofuel boiler', 'Expander']
+    req.session.data['techtechnology'] = ['Biofuel boiler']
+
+}
+
+
+function generateOperatorHN(req) {
+    req.session.data['role'] = "Operator and supplier"
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "In progress"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "3"
+    req.session.data['introbuildingshowmany'] = "3"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introhnbuildings'] = "2"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "2"
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "London Road Tower"
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes";
+    req.session.data['operator'] = "British Gas"
+
+    req.session.data['ecaddressHasPostcode'] = "Yes"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddresslatitude'] = "57.15340080950945"
+    req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
+    req.session.data['energytype'] = ['Space heating', 'Process heating']
+    req.session.data['techcapacity'] = "120"
+    req.session.data['techtechnology'] = ['Biofuel boiler']
     req.session.data['eccomplete'] = "true"
 
 }
+
+function generateOperatorCompleteHN(req) {
+    req.session.data['role'] = "Operator and supplier"
+    req.session.data['HNID'] = "496458931"
+    req.session.data['HNStatus'] = "Submitted"
+    req.session.data['introrelevant'] = "Yes"
+    req.session.data['introgroundloop'] = "No"
+    req.session.data['introcommunal'] = "No"
+    req.session.data['introbuildingstotal'] = "5"
+    req.session.data['introbuildingshowmany'] = "5"
+    req.session.data['introcommunaloperate'] = "Yes"
+    req.session.data['introcommunaloperatehowmany'] = "1"
+    req.session.data['introhnbuildings'] = "4"
+    req.session.data['introenergycentre'] = "Yes"
+    req.session.data['introenergycentrehowmany'] = "1"
+    req.session.data['energycentres'] =  req.session.data['introenergycentrehowmany']
+    req.session.data['intropipework'] = "Yes"
+    req.session.data['introsuppliers'] = "No"
+    req.session.data['introsupplycurrent'] = "Yes"
+    req.session.data['supplywhen'] = "2022"
+    
+    req.session.data['introselfsupply'] = "No"
+    req.session.data['introbuy'] = "Yes"
+    req.session.data['introsell'] = "No"
+    req.session.data['name'] = "Seaton Town Centre"
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes"
+
+    // EC Flow
+    req.session.data['ecaddressHasPostcode'] = "Yes"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['energytype'] = ['Space heating', 'Process heating']
+    req.session.data['techcapacity'] = "120"
+    req.session.data['techtechnology'] = ['Biofuel boiler']
+    req.session.data['eccomplete'] = "true"
+
+    
+    // Customers Flow
+    req.session.data['customersdomestic'] = "Yes"
+    req.session.data['customersdomestictotal'] = "10"
+    req.session.data['customersnondomestic'] = "Yes"
+    req.session.data['customersnondomestictotal'] = "5"
+    req.session.data['consumertypeindustrial'] = "No"
+    req.session.data['smallenterprises'] = "Yes"
+    req.session.data['consumertypemicrobusiness'] = "Yes"
+    req.session.data['prepaymentmeters'] = "Some"
+    req.session.data['meteringagent'] = "Yes"
+    req.session.data['buildingcomplete'] = "true"
+
+    // Billing
+    req.session.data['billingoften'] = ['Quarterly']
+    req.session.data['billingcalculated'] = "Yes"
+    req.session.data['billingcompare'] = "Yes"
+    req.session.data['billinginfo'] = ['Current energy prices charged to customers', "Information about the customers' recent energy consumption"];
+    req.session.data['billingcomplete'] = "true"
+
+    //Consumer protections
+    req.session.data['consumervulnerable'] = "Yes"
+    req.session.data['consumervulnerableammount'] = "2"
+    req.session.data['consumerpsr'] = "Yes"
+    req.session.data['consumerconfirm'] = "Yes"
+    req.session.data['consumerdifficulties'] = "No"
+    req.session.data['protectionscomplete'] = "true"
+
+    //Suppliers
+    req.session.data['addedsupplier1'] = "true"
+    req.session.data['suppliernameselected1'] = "BRITISH GAS"
+    req.session.data['supplieraddressselected1'] = "Millstream, Maidenhead Road, Windsor, Berkshire, SL4 5GD"
+    req.session.data['addedsupplier2'] = "true"
+    req.session.data['suppliernameselected2'] = "E.ON NEXT ENERGY LTD."
+    req.session.data['supplieraddressselected2'] = "WESTWOOD WAY, WESTWOOD BUSINESS PARK, COVENTRY, CV4 8LG, UNITED KINGDOM"
+    req.session.data['suppliercomplete'] = "true"
+
+
+
+}
+
+
+function clearHN(req) {
+    req.session.data['role'] = ""
+    req.session.data['HNID'] = ""
+    req.session.data['HNStatus'] = ""
+    req.session.data['introrelevant'] = ""
+    req.session.data['introgroundloop'] = ""
+    req.session.data['introcommunal'] = ""
+    req.session.data['introbuildingstotal'] = ""
+    req.session.data['introbuildingshowmany'] = ""
+    req.session.data['introcommunaloperate'] = ""
+    req.session.data['introcommunaloperatehowmany'] = ""
+    req.session.data['introhnbuildings'] = ""
+    req.session.data['introenergycentre'] = ""
+    req.session.data['introenergycentrehowmany'] = ""
+    req.session.data['energycentres'] = ""
+    req.session.data['intropipework'] = ""
+    req.session.data['introsuppliers'] = ""
+    req.session.data['introsupplycurrent'] = ""
+    req.session.data['supplywhen'] = ""
+
+    req.session.data['introselfsupply'] = ""
+    req.session.data['introbuy'] = ""
+    req.session.data['introsell'] = ""
+    req.session.data['name'] = ""
+    req.session.data['introcomplete'] = ""
+    req.session.data['introsupply20'] = ""
+    req.session.data['introresponsible'] = ""
+
+    // EC Flow
+    req.session.data['ecaddressHasPostcode'] = ""
+    req.session.data['ecaddressSelected'] = ""
+    req.session.data['energytype'] = []
+    req.session.data['techcapacity'] = ""
+    req.session.data['techtechnology'] = []
+    req.session.data['eccomplete'] = ""
+    req.session.data['ecaddresslatitude'] = ""
+    req.session.data['ecaddresslongitude'] = ""
+
+    // Customers Flow
+    req.session.data['customertype'] = []
+    req.session.data['buildingcustomersResidential'] = ""
+    req.session.data['buildingcustomersPublic'] = ""
+    req.session.data['buildingcustomersCommercial'] = ""
+    req.session.data['consumertypemicrobusiness'] = ""
+    req.session.data['smallmediumbusinesses'] = ""
+    req.session.data['prepaymentmeters'] = ""
+    req.session.data['meteringagent'] = ""
+    req.session.data['buildingcomplete'] = ""
+
+    // Billing
+    req.session.data['billingoften'] = []
+    req.session.data['billingcalculated'] = ""
+    req.session.data['billingcompare'] = ""
+    req.session.data['billinginfo'] = []
+    req.session.data['billingcomplete'] = ""
+
+    // Consumer Protections
+    req.session.data['consumervulnerable'] = ""
+    req.session.data['consumervulnerableammount'] = ""
+    req.session.data['consumerpsr'] = ""
+    req.session.data['consumerconfirm'] = ""
+    req.session.data['consumerdifficulties'] = ""
+    req.session.data['protectionscomplete'] = ""
+
+    // Suppliers
+    req.session.data['addedsupplier1'] = ""
+    req.session.data['suppliernameselected1'] = ""
+    req.session.data['supplieraddressselected1'] = ""
+    req.session.data['addedsupplier2'] = ""
+    req.session.data['suppliernameselected2'] = ""
+    req.session.data['supplieraddressselected2'] = ""
+    req.session.data['suppliercomplete'] = ""
+}
+
+
+
 
 function generateSupplier2HN(req) {
     req.session.data['role'] = "Supplier"
@@ -77,16 +276,24 @@ function generateSupplier2HN(req) {
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
     req.session.data['operator'] = "British Gas"
+
     req.session.data['ecaddressHasPostcode'] = "No"
-    req.session.data['ecAddress'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
+    req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"
     req.session.data['ecaddresslatitude'] = "57.15340080950945"
     req.session.data['ecaddresslongitude'] = "-2.0840666225762705"
     req.session.data['energytype'] = ""
     req.session.data['techcapacity'] = ""
     req.session.data['techcoolingcapacity'] = ""
-    req.session.data['technologies'] = ""
-    req.session.data['eccomplete'] = "true"
+    req.session.data['techtechnology'] = ""
 
+}
+
+function clearSetup(req) {
+    req.session.data['companyname'] = ""
+    req.session.data['networklist'] = ""
+    req.session.data['usertype'] = ""
+    req.session.data['organisationdetails'] = ""
+    req.session.data['smrideclaration'] = ""
 }
 
 ///////////////////////////////////////////////////////////////// DASHBOARD ////////////////////////////////////////////////////
@@ -98,20 +305,36 @@ router.get('/' + version + '/account-information', function (req, res) {
     req.session.data['variantname'] = urlParams
 
 
-    if (urlParams == "ur") {
-        req.session.data['organisationdetails'] = "Submitted";
+    if (urlParams == "operator") {
+        req.session.data['usertype'] = "operator";
+        req.session.data['networklist'] = "";
+        clearHN(req);
+
+
     }
 
-    if (urlParams == "noqm") {
-        req.session.data['noqm'] = true;
+    if (urlParams == "operatorcomplete") {
+        req.session.data['usertype'] = "operator";
+        req.session.data['organisationdetails'] = "Submitted";
+        req.session.data['smrideclaration'] = "Yes";
+        req.session.data['networklist'] = "complete";
+        generateOperatorHN(req);
     }
 
 
     if (urlParams == "supplier") {
+        req.session.data['usertype'] = "supplier";
+        req.session.data['networklist'] = "complete";
+        req.session.data['smrideclaration'] = "Yes";
+        req.session.data['organisationdetails'] = "Submitted";
         generateSupplierHN(req);
     }
 
     if (urlParams == "supplier2") {
+        req.session.data['usertype'] = "supplier2";
+        req.session.data['networklist'] = "complete";
+        req.session.data['organisationdetails'] = "Submitted";
+        req.session.data['smrideclaration'] = "Yes";
         generateSupplier2HN(req);
     }
 
@@ -121,11 +344,87 @@ router.get('/' + version + '/account-information', function (req, res) {
 });
 
 
+//////////////////////////////////////////////////////////// POLICY PAGES /////////////////////////////////////////////////////////
+
+router.get('/' + version + '/help/cookies', function (req, res) {
+
+ // Read the cookie and store it in session data
+  const existingCookie = req.cookies.cookies_additional
+  const cookiesuse = req.cookies.cookies_use
+  const cookiespreferences = req.cookies.cookies_preferences
+
+    const urlParams = req.query.notification;
+    req.session.data['cookiesnotification'] = urlParams || "";
+
+  if (existingCookie) {
+    req.session.data['cookies'] = existingCookie
+  }
+    if (cookiesuse) {
+    req.session.data['cookiesuse'] = cookiesuse
+  }
+
+    if (cookiespreferences) {
+    req.session.data['cookiespreferences'] = cookiespreferences
+  }
+
+    res.render('/' + version + '/help/cookies', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/help/cookies', function (req, res) {
+    
+  const cookies = "no"
+  const cookiesuse = req.session.data['cookiesuse']
+  const cookiespreferences = req.session.data['cookiespreferences']
+
+  // Set cookies
+  res.cookie('cookies_additional', cookies, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+    res.cookie('cookies_use', cookiesuse, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+      res.cookie('cookies_preferences', cookiespreferences, {
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  })
+
+
+  // Redirect to confirmation or back to settings page
+            res.redirect('/' + version + '/help/cookies?notification=success');
+})
+
+
+
+router.get('/' + version + '/help/cookie-details', function (req, res) {
+
+ // Read the cookie and store it in session data
+    res.render('/' + version + '/help/cookie-details', {
+        data: req.session.data
+    });
+});
+
+
 //////////////////////////////////////////////////////////// SETUP PAGES /////////////////////////////////////////////////////////
 
 ///Company name
 router.get('/' + version + '/setup/company-name', function (req, res) {
-    
+    clearSetup(req);
+    clearHN(req);
+    clearaddeduser(req);
+    clearSMRIUser(req) ;
+    clearorgdetails(req);
     res.render('/' + version + '/setup/company-name', {
         data: req.session.data
     });
@@ -155,9 +454,53 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/account-information?v=ur');
+            res.redirect('/' + version + '/setup/role');
+
     }
 
+});
+
+
+
+// Setup - Role
+router.get('/' + version + '/setup/role', function (req, res) {
+    
+    res.render('/' + version + '/setup/role', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/setup/role', function (req, res) {
+    
+    var setuprole = req.session.data['setuprole']
+
+    if (!setuprole) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.setuprole = {
+            "anchor": "setuprole",
+            "message": "Select an activity"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/setup/role', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (setuprole == "supplier") {
+            res.redirect('/' + version + '/emails/supplier-invite');
+        }
+        else if (setuprole == "operatorcomplete") {
+            res.redirect('/' + version + '/account-information?v=' + setuprole);
+        }
+        else {
+            res.redirect('/' + version + '/account-information?v=' + setuprole );
+        }
+            
+        }
 });
 
 //////////////////////////////////////////////////////////// EMAILS /////////////////////////////////////////////////////////
@@ -173,9 +516,46 @@ router.get('/' + version + '/emails/supplier-invite', function (req, res) {
 
 //////////////////////////////////////////////////////////// ORG DETAILS /////////////////////////////////////////////////////////
 
+function clearorgdetails(req) {
+    req.session.data['orghasemailaddress'] = "";
+    req.session.data['orgemailaddress'] = "";
+    req.session.data['orgprofit'] = "";
+    req.session.data['orgsubtype'] = "";
+    req.session.data['orgsocialhousing'] = "";
+    req.session.data['orgfinancialstartday'] = "";
+    req.session.data['orgfinancialstartmonth'] = "";
+    req.session.data['orgfinancialendday'] = "";
+    req.session.data['orgfinancialendmonth'] = "";
+    req.session.data['orgaccounts'] = "";
+    req.session.data['orgsolvent'] = "";
+    req.session.data['financialprofit'] = "";
+    req.session.data['financialliquid'] = "";
+    req.session.data['financialexceed'] = "";
+    req.session.data['financialcosts'] = "";
+    req.session.data['financialmonthly'] = ""
+    req.session.data['financialincome'] = ""
+    req.session.data['financialhedged'] = ""
+    req.session.data['financiallength'] = ""
+    req.session.data['financialpercentage'] = ""
+    req.session.data['orgstructure'] = ""
+    req.session.data['parentsentered'] = ""
+    req.session.data['parentcompanyname1'] = ""
+    req.session.data['parentcompanyname2'] = ""
+    req.session.data['parentorgaddressSelect1'] = ""
+    req.session.data['parentorgaddressSelect2'] = ""
+    req.session.data['parentorgadded1'] = ""
+    req.session.data['parentorgadded2'] = ""
+
+}
+
+
+
+
+
+
 ///Org details
 router.get('/' + version + '/organisation-details/organisation-details', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['orgdetailsnotification'] = urlParams;
 
@@ -186,7 +566,7 @@ router.get('/' + version + '/organisation-details/organisation-details', functio
 
 /// Org details - Email address
 router.get('/' + version + '/organisation-details/email-address', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/email-address', {
         data: req.session.data
     });
@@ -194,7 +574,7 @@ router.get('/' + version + '/organisation-details/email-address', function (req,
 
 
 router.post('/' + version + '/organisation-details/email-address', function (req, res) {
-    
+    clearvalidation(req);
     var orghasemailaddress = req.session.data['orghasemailaddress']
     var orgemailaddress = req.session.data['orgemailaddress']
 
@@ -231,7 +611,7 @@ router.post('/' + version + '/organisation-details/email-address', function (req
 
 /// Org details - Accounts
 router.get('/' + version + '/organisation-details/accounts', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/accounts', {
         data: req.session.data
     });
@@ -239,7 +619,7 @@ router.get('/' + version + '/organisation-details/accounts', function (req, res)
 
 
 router.post('/' + version + '/organisation-details/accounts', function (req, res) {
-    
+    clearvalidation(req);
     var orgaccounts = req.session.data['orgaccounts']
 
 
@@ -266,7 +646,7 @@ router.post('/' + version + '/organisation-details/accounts', function (req, res
 
 /// Org details - Financial year date
 router.get('/' + version + '/organisation-details/date', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/date', {
         data: req.session.data
     });
@@ -274,7 +654,7 @@ router.get('/' + version + '/organisation-details/date', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/date', function (req, res) {
-    
+    clearvalidation(req);
     var financialstartday = req.session.data['orgfinancialstartday']
     var financialstartmonth = req.session.data['orgfinancialstartmonth']
     var financialendday = req.session.data['orgfinancialendday']
@@ -441,9 +821,10 @@ if (!financialendday && !financialendmonth) {
     }
 
 });
+
 /// Org details - Solvent
 router.get('/' + version + '/organisation-details/solvent', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/solvent', {
         data: req.session.data
     });
@@ -451,7 +832,7 @@ router.get('/' + version + '/organisation-details/solvent', function (req, res) 
 
 
 router.post('/' + version + '/organisation-details/solvent', function (req, res) {
-    
+    clearvalidation(req);
     var orgsolvent = req.session.data['orgsolvent']
     var orgaccounts = req.session.data['orgaccounts']
 
@@ -484,7 +865,7 @@ router.post('/' + version + '/organisation-details/solvent', function (req, res)
 
 /// Org details - Profit
 router.get('/' + version + '/organisation-details/profit', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/profit', {
         data: req.session.data
     });
@@ -492,7 +873,7 @@ router.get('/' + version + '/organisation-details/profit', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/profit', function (req, res) {
-    
+    clearvalidation(req);
     var orgprofit = req.session.data['orgprofit']
 
 
@@ -519,7 +900,7 @@ router.post('/' + version + '/organisation-details/profit', function (req, res) 
 
 /// Org details - What
 router.get('/' + version + '/organisation-details/what', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/what', {
         data: req.session.data
     });
@@ -527,10 +908,11 @@ router.get('/' + version + '/organisation-details/what', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/what', function (req, res) {
-    
+    clearvalidation(req);
     var orgsubtype = req.session.data['orgsubtype']
     var orgsubtypeother = req.session.data['orgsubtypeother']
     var orgprofit = req.session.data['orgprofit']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
 
@@ -538,7 +920,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.orgsubtype = {
             "anchor": "orgsubtype",
-            "message": "Select an organisation description"
+            "message": "Select the option that best describes the work " + companyname +" does"
         }
     }
 
@@ -550,6 +932,14 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
         }
     }
 
+    if ((orgsubtype == "Other") && orgsubtypeother.length > 50) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgsubtypeother = {
+            "anchor": "orgtradingpostcode",
+            "message": "Enter the organisation’s description"
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/organisation-details/what', {
             data: req.session.data
@@ -558,27 +948,21 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
     else {
         if (orgsubtype == "Other") {
             req.session.data['orgsubtype'] = orgsubtypeother;
-            if (orgprofit == "No" ) {
-                res.redirect('/' + version + '/organisation-details/socialhousing');
-            }
-
-            else {
-                res.redirect('/' + version + '/organisation-details/date');
-            }
-
-        }
-
-        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association") {
             res.redirect('/' + version + '/organisation-details/socialhousing');
         }
 
-        else if (orgprofit == "Yes" | orgsubtype == "Resident-owned property management company" ) {
-            res.redirect('/' + version + '/organisation-details/date');
+        else if (orgsubtype == "Registered social housing provider" || orgsubtype == "Other social housing provider" || orgsubtype == "Housing association" || orgsubtype == "Local authority" || orgsubtype == "Other public sector body") {
+            res.redirect('/' + version + '/organisation-details/socialhousing');
+        }
+
+        else if (orgsubtype == "Central government body" ) {
+            res.redirect('/' + version + '/organisation-details/structure');
+
 
         }
 
         else {
-            res.redirect('/' + version + '/organisation-details/structure');
+            res.redirect('/' + version + '/organisation-details/continuity');
 
         }
 
@@ -588,7 +972,7 @@ router.post('/' + version + '/organisation-details/what', function (req, res) {
 
 /// Org details - Social housing
 router.get('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/socialhousing', {
         data: req.session.data
     });
@@ -596,8 +980,10 @@ router.get('/' + version + '/organisation-details/socialhousing', function (req,
 
 
 router.post('/' + version + '/organisation-details/socialhousing', function (req, res) {
-    
+    clearvalidation(req);
     var orgsocialhousing = req.session.data['orgsocialhousing']
+    var orgsubtype = req.session.data['orgsubtype']
+
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
 
@@ -615,8 +1001,8 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
         });
     }
     else {
-        if (orgsocialhousing == "No") {
-            res.redirect('/' + version + '/organisation-details/date');
+        if (orgsocialhousing == "No" && orgsubtype != "Local authority") {
+            res.redirect('/' + version + '/organisation-details/continuity');
         }
 
         else {
@@ -627,11 +1013,48 @@ router.post('/' + version + '/organisation-details/socialhousing', function (req
 });
 
 
+/// Org details - Continuity
+router.get('/' + version + '/organisation-details/continuity', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/continuity', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/continuity', function (req, res) {
+    clearvalidation(req);
+    var orgcontinuity = req.session.data['orgcontinuity']
+
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+
+    if (!orgcontinuity) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.orgcontinuity = {
+            "anchor": "orgcontinuity",
+            "message": "Select yes if you have operation or supply continuity plans in place"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/continuity', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/organisation-details/date');
+    }
+
+});
+
+
+
 
 
 /// Org details - Financial protfit
 router.get('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-profit', {
         data: req.session.data
     });
@@ -639,7 +1062,7 @@ router.get('/' + version + '/organisation-details/financial-profit', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-profit', function (req, res) {
-    
+    clearvalidation(req);
     var financialprofit = req.session.data['financialprofit']
 
 
@@ -665,7 +1088,7 @@ router.post('/' + version + '/organisation-details/financial-profit', function (
 
 /// Org details - Financial monthly
 router.get('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-monthly', {
         data: req.session.data
     });
@@ -673,7 +1096,7 @@ router.get('/' + version + '/organisation-details/financial-monthly', function (
 
 
 router.post('/' + version + '/organisation-details/financial-monthly', function (req, res) {
-    
+    clearvalidation(req);
     var financialmonthly = req.session.data['financialmonthly']
 
 
@@ -699,7 +1122,7 @@ router.post('/' + version + '/organisation-details/financial-monthly', function 
 
 /// Org details - Financial income
 router.get('/' + version + '/organisation-details/financial-income', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-income', {
         data: req.session.data
     });
@@ -707,8 +1130,9 @@ router.get('/' + version + '/organisation-details/financial-income', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-income', function (req, res) {
-    
+    clearvalidation(req);
     var financialincome = req.session.data['financialincome']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
 
 
@@ -716,7 +1140,23 @@ router.post('/' + version + '/organisation-details/financial-income', function (
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialincome = {
             "anchor": "financialincome",
-            "message": "Enter the average monthly income for the previous financial year"
+            "message": "Enter " + company + "'s total income for the previous financial year"
+        }
+    }
+
+    else if (!/^[-]?\d+(\.\d+)?$/.test(financialincome)) {
+        req.session.data.validationError = "true";
+        req.session.data.validationErrors.financialincome = {
+            "anchor": "financialincome",
+            "message": "Total income for the previous financial year must only include numbers and leading hyphens"
+        };
+    }
+
+    else if (financialincome.length > 18) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.financialincome = {
+            "anchor": "financialincome",
+            "message": "Total income for the previous financial year must be 18 characters or less"
         }
     }
 
@@ -736,7 +1176,7 @@ router.post('/' + version + '/organisation-details/financial-income', function (
 
 /// Org details - Financial liquid
 router.get('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-liquid', {
         data: req.session.data
     });
@@ -744,7 +1184,7 @@ router.get('/' + version + '/organisation-details/financial-liquid', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-liquid', function (req, res) {
-    
+    clearvalidation(req);
     var financialliquid = req.session.data['financialliquid']
 
 
@@ -770,7 +1210,7 @@ router.post('/' + version + '/organisation-details/financial-liquid', function (
 
 /// Org details - Financial exceed
 router.get('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-exceed', {
         data: req.session.data
     });
@@ -778,7 +1218,7 @@ router.get('/' + version + '/organisation-details/financial-exceed', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-exceed', function (req, res) {
-    
+    clearvalidation(req);
     var financialexceed = req.session.data['financialexceed']
 
 
@@ -804,7 +1244,7 @@ router.post('/' + version + '/organisation-details/financial-exceed', function (
 
 /// Org details - Financial costs
 router.get('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-costs', {
         data: req.session.data
     });
@@ -812,7 +1252,7 @@ router.get('/' + version + '/organisation-details/financial-costs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-costs', function (req, res) {
-    
+    clearvalidation(req);
     var financialcosts = req.session.data['financialcosts']
 
 
@@ -831,7 +1271,7 @@ router.post('/' + version + '/organisation-details/financial-costs', function (r
         });
     }
     else {
-        res.redirect('/' + version + '/organisation-details/financial-monthly');
+        res.redirect('/' + version + '/organisation-details/financial-income');
     }
 
 });
@@ -840,7 +1280,7 @@ router.post('/' + version + '/organisation-details/financial-costs', function (r
 
 /// Org details - Financial needs
 router.get('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-needs', {
         data: req.session.data
     });
@@ -848,7 +1288,7 @@ router.get('/' + version + '/organisation-details/financial-needs', function (re
 
 
 router.post('/' + version + '/organisation-details/financial-needs', function (req, res) {
-    
+    clearvalidation(req);
     var financialneeds = req.session.data['financialneeds']
 
 
@@ -875,7 +1315,7 @@ router.post('/' + version + '/organisation-details/financial-needs', function (r
 
 /// Org details - Financial authorised
 router.get('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-authorised', {
         data: req.session.data
     });
@@ -883,7 +1323,7 @@ router.get('/' + version + '/organisation-details/financial-authorised', functio
 
 
 router.post('/' + version + '/organisation-details/financial-authorised', function (req, res) {
-    
+    clearvalidation(req);
     var financialauthorised = req.session.data['financialauthorised']
 
 
@@ -907,10 +1347,9 @@ router.post('/' + version + '/organisation-details/financial-authorised', functi
 
 });
 
-
 /// Org details - Financial percentage
 router.get('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-percentage', {
         data: req.session.data
     });
@@ -918,7 +1357,7 @@ router.get('/' + version + '/organisation-details/financial-percentage', functio
 
 
 router.post('/' + version + '/organisation-details/financial-percentage', function (req, res) {
-    
+    clearvalidation(req);
     var financialpercentage = req.session.data['financialpercentage']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
     const regex = /^[0-9,\s.]+$/; // Allowed characters: numbers (0-9), commas (,), spaces (\s), and decimal points (.)
@@ -960,11 +1399,9 @@ router.post('/' + version + '/organisation-details/financial-percentage', functi
 });
 
 
-
-
 /// Org details - Financial hedged
 router.get('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-hedged', {
         data: req.session.data
     });
@@ -972,14 +1409,15 @@ router.get('/' + version + '/organisation-details/financial-hedged', function (r
 
 
 router.post('/' + version + '/organisation-details/financial-hedged', function (req, res) {
-    
+    clearvalidation(req);
     var financialhedged = req.session.data['financialhedged']
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!financialhedged) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.financialhedged = {
             "anchor": "financialhedged",
-            "message": "Enter the number of months"
+            "message": "Select whether " + companyname + " hedges their gas, electricity, biomass or other fuel input requirementss"
         }
     }
 
@@ -1002,7 +1440,7 @@ router.post('/' + version + '/organisation-details/financial-hedged', function (
 
 /// Org details - Financial hedged months
 router.get('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/financial-hedged-months', {
         data: req.session.data
     });
@@ -1010,7 +1448,7 @@ router.get('/' + version + '/organisation-details/financial-hedged-months', func
 
 
 router.post('/' + version + '/organisation-details/financial-hedged-months', function (req, res) {
-    
+    clearvalidation(req);
     var financiallength = req.session.data['financiallength']
 
     if (!financiallength) {
@@ -1036,14 +1474,11 @@ router.post('/' + version + '/organisation-details/financial-hedged-months', fun
 
 function clearparentdata(req) {
     req.session.data['parentcompanyname'] = "";
-    req.session.data['parentcompanynumber'] = "";
     req.session.data['parentorgaddressMLine1'] = "";
     req.session.data['parentorgaddressMTown'] = "";
     req.session.data['parentorgaddressMCounty'] = "";
     req.session.data['parentorgaddressMPostcode'] = "";
     req.session.data['parentorgaddressMCountry'] = "";
-    req.session.data['parentaccounttype'] = "";
-    req.session.data['parentorgaddressPostcode'] = "";
     req.session.data['parentorgaddressSelect'] = "";
 
 
@@ -1052,7 +1487,7 @@ function clearparentdata(req) {
 
 /// Org details - Structure
 router.get('/' + version + '/organisation-details/structure', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/organisation-details/structure', {
         data: req.session.data
     });
@@ -1060,7 +1495,7 @@ router.get('/' + version + '/organisation-details/structure', function (req, res
 
 
 router.post('/' + version + '/organisation-details/structure', function (req, res) {
-    
+    clearvalidation(req);
     var orgstructure = req.session.data['orgstructure']
 
 
@@ -1080,13 +1515,9 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
     }
     else {
         clearparentdata(req);
-        req.session.data['parenttotal'] = "";
-        req.session.data['parentsentered'] = "";
+        req.session.data['parentsentered'] = 1;
 
-        if(orgstructure == "Joint venture") {
-            res.redirect('/' + version + '/organisation-details/parent-total');
-        }
-        else if(orgstructure == "Neither of these") {
+        if(orgstructure == "Neither of these") {
             res.redirect('/' + version + '/organisation-details/cya');
         }
         else {
@@ -1098,47 +1529,39 @@ router.post('/' + version + '/organisation-details/structure', function (req, re
 
 
 
-/// Org details - Parent total
-router.get('/' + version + '/organisation-details/parent-total', function (req, res) {
-    
-    res.render('/' + version + '/organisation-details/parent-total', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/organisation-details/parent-total', function (req, res) {
-    
-    var parenttotal = req.session.data['parenttotal']
-
-
-
-    if (!parenttotal) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.parenttotal = {
-            "anchor": "parenttotal",
-            "message": "Enter the number of parent companies"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/organisation-details/parent-total', {
-            data: req.session.data
-        });
-    }
-    else {
-        req.session.data['parentsentered'] = 1
-            res.redirect('/' + version + '/organisation-details/company-name');
-    }
-
-});
-
-
-
 
 ///Parent Company name
 router.get('/' + version + '/organisation-details/company-name', function (req, res) {
-    
+    clearvalidation(req);
+    const urlParams = req.query.id;
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+        req.session.data['parentcompanyname'] = req.session.data['parentcompanyname' + urlParams]
+    }
+
+    else {
+        req.session.data['parentid'] = ""
+    }
+
+    const addanother = req.query.another;
+
+    if (addanother) {
+        req.session.data['parentcompanyname'] = ""
+        req.session.data['parentorgaddressMLine1'] = ""
+        req.session.data['parentorgaddressMTown'] = ""
+        req.session.data['parentorgaddressMCountry'] = ""
+        req.session.data['parentorgaddressMPostcode'] = ""
+        req.session.data['parentsaddanother'] = "Yes"
+    }
+
+    else {
+        req.session.data['parentsaddanother'] = "No"
+    }
+
+
+
+
     res.render('/' + version + '/organisation-details/company-name', {
         data: req.session.data
     });
@@ -1146,7 +1569,10 @@ router.get('/' + version + '/organisation-details/company-name', function (req, 
 
 
 router.post('/' + version + '/organisation-details/company-name', function (req, res) {
-    
+    clearvalidation(req);
+    const urlParams = req.query.id;
+
+
     var parentcompanyname = req.session.data['parentcompanyname']
     req.session.data['parentaccounttype'] == "Overseas organisation"
     
@@ -1168,11 +1594,18 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
     }
 
     else {
-        if (req.session.data.parentsentered) {
-        req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
+        if (urlParams) {
+            req.session.data['parentcompanyname' + urlParams] = req.session.data['parentcompanyname']
+            res.redirect('/' + version + '/organisation-details/addressmanual?id=' + urlParams);
+
         }
 
+        else {
+            req.session.data['parentcompanyname' + req.session.data['parentsentered']] = req.session.data['parentcompanyname']
             res.redirect('/' + version + '/organisation-details/addressmanual');
+
+        }
+    
 
     }
 
@@ -1180,9 +1613,32 @@ router.post('/' + version + '/organisation-details/company-name', function (req,
 
 
 
+
+
 // Parent Company - Address manual
 router.get('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    
+    clearvalidation(req);
+
+    const urlParams = req.query.id;
+
+    if (urlParams) {
+        req.session.data['parentid'] = urlParams
+
+
+        req.session.data['parentorgaddressMLine1'] = req.session.data['parentorgaddressMLine1' + urlParams]
+
+        req.session.data['parentorgaddressMTown'] = req.session.data['parentorgaddressMTown' + urlParams]
+        req.session.data['parentorgaddressMCountry'] = req.session.data['parentorgaddressMCountry' + urlParams]
+        req.session.data['parentorgaddressMPostcode'] = req.session.data['parentorgaddressMPostcode' + urlParams]
+        }
+
+    else {
+
+        req.session.data['parentid'] = ""
+    }
+
+
+
     res.render('/' + version + '/organisation-details/addressmanual', {
         data: req.session.data
     });
@@ -1190,14 +1646,14 @@ router.get('/' + version + '/organisation-details/addressmanual', function (req,
 
 
 router.post('/' + version + '/organisation-details/addressmanual', function (req, res) {
-    
+    const urlParams = req.query.id;
+
+    clearvalidation(req);
     var parentorgaddressMLine1 = req.session.data['parentorgaddressMLine1']
     var parentorgaddressMTown = req.session.data['parentorgaddressMTown']
     var parentorgaddressMCountry = req.session.data['parentorgaddressMCountry']
-
+    var orgstructure = req.session.data['orgstructure']
     var parentorgaddressMPostcode = req.session.data['parentorgaddressMPostcode']
-    var parentsentered = req.session.data['parentsentered']
-    var parenttotal = req.session.data['parenttotal']
 
     if (!parentorgaddressMLine1) {
         req.session.data.validationError = "true"
@@ -1220,14 +1676,15 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentorgaddressMPostcode = {
             "anchor": "parentorgaddressMPostcode",
-            "message": "Enter a postal code or zip code",
+            "message": "Enter a postcode",
         }
     }
+
     if (!parentorgaddressMCountry) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.parentorgaddressMCountry = {
             "anchor": "parentorgaddressMCountry",
-            "message": "Enter a country",
+            "message": "Enter a postcode",
         }
     }
 
@@ -1238,31 +1695,152 @@ router.post('/' + version + '/organisation-details/addressmanual', function (req
     }
 
     else {
-            req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
+        req.session.data.parentorgaddressSelect = parentorgaddressMLine1 + ', ' + parentorgaddressMTown + ', ' + parentorgaddressMPostcode + ', ' + parentorgaddressMCountry
 
-        if (req.session.data.parentsentered) {
-            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
-            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
-        }        
-        if (parenttotal == parentsentered) {
+        if (urlParams) {
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgaddressMLine1' + urlParams] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + urlParams] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + urlParams] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + urlParams] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + urlParams] = req.session.data['parentorgaddressSelect']
+
             res.redirect('/' + version + '/organisation-details/cya');
 
         }
+
         else {
-            clearparentdata(req);
-            res.redirect('/' + version + '/organisation-details/company-name');
+            req.session.data['parentorgaddressMLine1' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMLine1']
+            req.session.data['parentorgaddressMTown' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMTown']
+            req.session.data['parentorgaddressMPostcode' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMPostcode']
+            req.session.data['parentorgaddressMCountry' + req.session.data['parentsentered']] = req.session.data['parentorgaddressMCountry']
+
+            req.session.data['parentorgaddressSelect' + req.session.data['parentsentered']] = req.session.data['parentorgaddressSelect']
+            req.session.data['parentorgadded' + req.session.data['parentsentered']] = "Yes";
+            req.session.data['parentsentered'] = req.session.data['parentsentered'] + 1;
+
+    
+            if (orgstructure == "Joint venture") {
+                res.redirect('/' + version + '/organisation-details/parent-another');
+            }
+    
+            else {
+                res.redirect('/' + version + '/organisation-details/cya');
+            }
         }
 
-        console.log(parenttotal)
-        console.log(parentsentered)
 
     }
 });
 
 
+
+
+///Parent Another
+router.get('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/organisation-details/parent-another', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/organisation-details/parent-another', function (req, res) {
+    clearvalidation(req);
+    var parentsentered = req.session.data['parentsentered']
+    var parentaddanother = req.session.data['parentaddanother']
+
+    
+    const parents = [];
+    for (let i = 1; i <= parentsentered; i++) {
+        parents.push({
+            id: i,
+            name: req.session.data[`parentcompanyname${i}`],
+            address: req.session.data[`parentorgaddressSelect${i}`],
+            added: req.session.data[`parentorgadded${i}`]
+        });
+    }
+
+    const totalYes = parents.filter(parent => parent.added === "Yes").length;
+    req.session.data['parentsactual'] = totalYes;
+
+    if (!parentaddanother) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Select whether you'd like to add another parent organisation"
+            }
+
+    }
+
+    if (totalYes < 2 && parentaddanother == "No" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "Joint ventures must have at least 2 parent orgnisations"
+            }
+
+    }
+
+    if (totalYes == 6 && parentaddanother == "Yes" ) {
+        req.session.data.validationError = "true";
+            req.session.data.validationErrors.parentaddanother = {
+                "anchor": "parentaddanother",
+                "message": "You cannot add more than 6 parents organisations"
+            }
+
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/organisation-details/parent-another', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        clearparentdata(req);
+
+        if (parentaddanother == "Yes") {
+            res.redirect('/' + version + '/organisation-details/company-name?another=yes');
+        }
+
+        else {
+            res.redirect('/' + version + '/organisation-details/cya');
+        }
+
+    }
+
+});
+
+
+
+
+
+///Parent Remove
+router.post('/' + version + '/organisation-details/remove-parent', function (req, res) {
+    const parentId = req.body.parentId;
+
+    // Example: Remove parent logic
+    console.log(`Removing parent with ID: ${parentId}`);
+    // Perform the necessary action (e.g., update session or database)
+    req.session.data['parentorgadded' + parentId] = "No"
+
+    res.redirect('/' + version + '/organisation-details/parent-another');
+
+
+
+
+
+});
+
+
+
+
 ///CYA
 router.get('/' + version + '/organisation-details/cya', function (req, res) {
-    
+    clearvalidation(req);
+    clearparentdata(req);
 
     res.render('/' + version + '/organisation-details/cya', {
         data: req.session.data
@@ -1271,11 +1849,17 @@ router.get('/' + version + '/organisation-details/cya', function (req, res) {
 
 
 router.post('/' + version + '/organisation-details/cya', function (req, res) {
+
+
+        clearvalidation(req);
+        req.session.data['organisationdetails'] = 'Submitted';
+        res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
     
-    req.session.data['organisationdetails'] = 'Submitted';
-    res.redirect('/' + version + '/organisation-details/organisation-details?notification=submitted');
+
 
 });
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////  User Management  ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1299,6 +1883,7 @@ function clearaddeduser(req) {
     req.session.data['adduserpermissionsregistration'] = ""
 }
 
+
 function generateuser(req){
 
     var useradded = req.session.data['addeduser1']
@@ -1311,6 +1896,8 @@ function generateuser(req){
     req.session.data['useremail1'] = "john.smith@radienteco.org";
     req.session.data['userjobtitle1'] = "Director";
     req.session.data['addeduser1'] = "true";
+    req.session.data['userthirdparty1'] = "No";
+
     req.session.data['adduserpermissionstransfer1'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers1'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement1'] = "Manage users";
@@ -1325,14 +1912,14 @@ function generateuser(req){
 }
 
 function generateuser2(req){
-    req.session.data['userfirstname2'] = "Bob";
+    req.session.data['userfirstname2'] = "Jenny";
     req.session.data['userlastname2'] = "Smith";
     req.session.data['usertelephone2'] = "Landline";
     req.session.data['usertelephonelandline2'] = "01234567892";
     req.session.data['usertelephonelandlineext2'] = "2243";
-    req.session.data['useremail2'] = "bob.smith@radienteco.org";
-    req.session.data['userjobtitle2'] = "Staff";
+    req.session.data['useremail2'] = "jenny.smith@radienteco.org";
     req.session.data['addeduser2'] = "true";
+    req.session.data['userthirdparty2'] = "Yes";
     req.session.data['adduserpermissionstransfer2'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers2'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement2'] = "Manage users";
@@ -1340,48 +1927,49 @@ function generateuser2(req){
     req.session.data['adduserpermissionsregistration2'] = "Add or edit heat network information";
 }
 
-function generateuser3(req){
 
-    req.session.data['userfirstname3'] = "Dan";
+function generateuser3(req){
+    req.session.data['userfirstname3'] = "Bob";
     req.session.data['userlastname3'] = "Smith";
-    req.session.data['usertelephone3'] = "Mobile";
-    req.session.data['usertelephonemobile3'] = "07334567893";
-    req.session.data['useremail3'] = "dan.smith@radienteco.org";
+    req.session.data['usertelephone3'] = "Landline";
+    req.session.data['usertelephonelandline3'] = "01234567892";
+    req.session.data['usertelephonelandlineext3'] = "2243";
+    req.session.data['useremail3'] = "bob.smith@radienteco.org";
     req.session.data['userjobtitle3'] = "Staff";
     req.session.data['addeduser3'] = "true";
-    req.session.data['userthirdparty3'] = "Yes";
+    req.session.data['userthirdparty3'] = "No";
     req.session.data['adduserpermissionstransfer3'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers3'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement3'] = "Manage users";
     req.session.data['adduserpermissionsmonitoring3'] = "Submit heat network information";
     req.session.data['adduserpermissionsregistration3'] = "Add or edit heat network information";
 
+
 }
 
 function generateuser4(req){
 
-    req.session.data['userfirstname4'] = "Jane";
+    req.session.data['userfirstname4'] = "Dan";
     req.session.data['userlastname4'] = "Smith";
     req.session.data['usertelephone4'] = "Mobile";
-    req.session.data['usertelephonemobile4'] = "0222567894";
-    req.session.data['useremail4'] = "jane.smith@radienteco.org";
+    req.session.data['usertelephonemobile4'] = "07334567893";
+    req.session.data['useremail4'] = "dan.smith@radienteco.org";
     req.session.data['userjobtitle4'] = "Staff";
     req.session.data['addeduser4'] = "true";
-    req.session.data['userthirdparty4'] = "No";
+    req.session.data['userthirdparty4'] = "Yes";
     req.session.data['adduserpermissionstransfer4'] = "Initiate transfer of ownership";
     req.session.data['adduserpermissionsrightsandpowers4'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement4'] = "Manage users";
+    req.session.data['adduserpermissionsmonitoring4'] = "Submit heat network information";
     req.session.data['adduserpermissionsregistration4'] = "Add or edit heat network information";
-
 }
 
 function generateuser5(req){
-
-    req.session.data['userfirstname5'] = "Donald";
+    req.session.data['userfirstname5'] = "Jane";
     req.session.data['userlastname5'] = "Smith";
     req.session.data['usertelephone5'] = "Mobile";
-    req.session.data['usertelephonemobile5'] = "0222567895";
-    req.session.data['useremail5'] = "donald.smith@radienteco.org";
+    req.session.data['usertelephonemobile5'] = "0222567894";
+    req.session.data['useremail5'] = "jane.smith@radienteco.org";
     req.session.data['userjobtitle5'] = "Staff";
     req.session.data['addeduser5'] = "true";
     req.session.data['userthirdparty5'] = "No";
@@ -1389,12 +1977,29 @@ function generateuser5(req){
     req.session.data['adduserpermissionsrightsandpowers5'] = "Apply for rights and powers licence";
     req.session.data['adduserpermissionsusermanagement5'] = "Manage users";
     req.session.data['adduserpermissionsregistration5'] = "Add or edit heat network information";
-    req.session.data['isdeleted5'] = true;
 
-    req.session.data['usertotal'] = "5";
 
 }
 
+
+function generateuser6(req){
+
+    req.session.data['userfirstname6'] = "Donald";
+    req.session.data['userlastname6'] = "Smith";
+    req.session.data['usertelephone6'] = "Mobile";
+    req.session.data['usertelephonemobile6'] = "0222567895";
+    req.session.data['useremail6'] = "donald.smith@radienteco.org";
+    req.session.data['userjobtitle6'] = "Staff";
+    req.session.data['addeduser6'] = "true";
+    req.session.data['userthirdparty6'] = "No";
+    req.session.data['adduserpermissionstransfer6'] = "Initiate transfer of ownership";
+    req.session.data['adduserpermissionsrightsandpowers6'] = "Apply for rights and powers licence";
+    req.session.data['adduserpermissionsusermanagement6'] = "Manage users";
+    req.session.data['adduserpermissionsregistration6'] = "Add or edit heat network information";
+    req.session.data['isdeleted6'] = true;
+
+    req.session.data['usertotal'] = "6";
+}
 
 
 
@@ -1408,7 +2013,7 @@ function clearediteduser(req) {
 
 /// Add user
 router.get('/' + version + '/manage-users/add-user', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user', {
         data: req.session.data
     });
@@ -1416,7 +2021,7 @@ router.get('/' + version + '/manage-users/add-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user', function (req, res) {
-    
+    clearvalidation(req);
 
 
     var useremail = req.session.data['useremail']
@@ -1427,6 +2032,14 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
         req.session.data.validationErrors.useremail = {
             "anchor": "useremail",
             "message": "Enter an email address"
+        }
+    }
+
+    if (useremail.length > 80) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.useremail = {
+            "anchor": "useremail",
+            "message": "Enter an email address using 80 characters or fewer"
         }
     }
 
@@ -1456,7 +2069,7 @@ router.post('/' + version + '/manage-users/add-user', function (req, res) {
 
 /// Add user details
 router.get('/' + version + '/manage-users/add-user-details', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-details', {
         data: req.session.data
     });
@@ -1464,7 +2077,7 @@ router.get('/' + version + '/manage-users/add-user-details', function (req, res)
 
 
 router.post('/' + version + '/manage-users/add-user-details', function (req, res) {
-    
+    clearvalidation(req);
 
 
     var userfirstname = req.session.data['userfirstname']
@@ -1497,7 +2110,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephone = {
             "anchor": "usertelephone",
-            "message": "Select a preferred contact method"
+            "message": "Select a preferred contact method for work"
         }
     }
 
@@ -1505,7 +2118,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonelandline = {
             "anchor": "usertelephonelandline",
-            "message": "Enter a landline telephone number"
+            "message": "Enter a landline number"
         }
     }
 
@@ -1514,7 +2127,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
         req.session.data.validationError = "true"
         req.session.data.validationErrors.usertelephonemobile = {
             "anchor": "usertelephonemobile",
-            "message": "Enter a mobile telephone number"
+            "message": "Enter a mobile number"
         }
     }
 
@@ -1549,7 +2162,7 @@ router.post('/' + version + '/manage-users/add-user-details', function (req, res
 
 /// Add user - third party
 router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-org', {
         data: req.session.data
     });
@@ -1557,7 +2170,7 @@ router.get('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
-    
+    clearvalidation(req);
     var userorgname = req.session.data['userorgname']
     var userthirdparty = req.session.data['userthirdparty']
     var userjobtitle = req.session.data['userjobtitle']
@@ -1577,7 +2190,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.userjobtitle = {
             "anchor": "userjobtitle",
-            "message": "Enter a job title"
+            "message": "Enter the user’s job title"
         }
     }
     if (req.session.data.validationError == "true") {
@@ -1598,7 +2211,7 @@ router.post('/' + version + '/manage-users/add-user-org', function (req, res) {
 
 /// Add user permissions
 router.get('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/add-user-permissions', {
         data: req.session.data
     });
@@ -1606,7 +2219,7 @@ router.get('/' + version + '/manage-users/add-user-permissions', function (req, 
 
 
 router.post('/' + version + '/manage-users/add-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     req.session.data['adduserpermissionsview' + req.session.data['usertotal']] = req.session.data['adduserpermissionsview']
     req.session.data['adduserpermissionstransfer' + req.session.data['usertotal']] = req.session.data['adduserpermissionstransfer']
     req.session.data['adduserpermissionsrightsandpowers' + req.session.data['usertotal']] = req.session.data['adduserpermissionsrightsandpowers']
@@ -1619,8 +2232,11 @@ router.post('/' + version + '/manage-users/add-user-permissions', function (req,
 
 /// Edit user
 router.get('/' + version + '/manage-users/edit-user', function (req, res) {
-    
+    clearvalidation(req);
+    generateuser(req);
+
     const userid = req.query.id;
+    
     req.session.data['userid'] = userid;
 
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1630,30 +2246,29 @@ router.get('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user', function (req, res) {
-    
+    clearvalidation(req);
     var source = req.query.source;
 
-    var userfirstname = req.session.data['edituserfirstname']
-    var userlastname = req.session.data['edituserlastname']
-    var usertelephone = req.session.data['editusertelephone']
-    var usertelephonemobile = req.session.data['editusertelephonemobile']
-    var usertelephonelandline = req.session.data['editusertelephonelandline']
-    var userjobtitle = req.session.data['edituserjobtitle']
+    var userfirstname = req.session.data['userfirstname']
+    var userlastname = req.session.data['userlastname']
+    var usertelephone = req.session.data['usertelephone']
+    var usertelephonemobile = req.session.data['usertelephonemobile']
+    var usertelephonelandline = req.session.data['usertelephonelandline']
 
 
 
     if (!userfirstname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserfirstname = {
-            "anchor": "edituserfirstname",
+        req.session.data.validationErrors.userfirstname = {
+            "anchor": "userfirstname",
             "message": "Enter a first name"
         }
     }
 
     if (!userlastname) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserlastname = {
-            "anchor": "edituserlastname",
+        req.session.data.validationErrors.userlastname = {
+            "anchor": "userlastname",
             "message": "Enter a last name"
         }
     }
@@ -1661,36 +2276,30 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
     if (!usertelephone) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephone = {
-            "anchor": "editusertelephone",
-            "message": "Select a preferred contact method"
+        req.session.data.validationErrors.usertelephone = {
+            "anchor": "usertelephone",
+            "message": "Select a preferred contact method for work"
         }
     }
 
     if ((usertelephone == "Landline") && !usertelephonelandline) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonelandline = {
-            "anchor": "editusertelephonelandline",
-            "message": "Enter a landline telephone number"
+        req.session.data.validationErrors.usertelephonelandline = {
+            "anchor": "usertelephonelandline",
+            "message": "Enter a landline number"
         }
     }
 
 
     if ((usertelephone == "Mobile") && !usertelephonemobile) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.editusertelephonemobile = {
-            "anchor": "editusertelephonemobile",
-            "message": "Enter a mobile telephone number"
+        req.session.data.validationErrors.usertelephonemobile = {
+            "anchor": "usertelephonemobile",
+            "message": "Enter a mobile number"
         }
     }
 
-    if (!userjobtitle) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.edituserjobtitle = {
-            "anchor": "edituserjobtitle",
-            "message": "Enter a job title"
-        }
-    }
+
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/manage-users/edit-user', {
@@ -1702,20 +2311,14 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 
     else {
-        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['edituserfirstname']
-        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['edituserlastname']
-        req.session.data['usertelephone' + req.session.data['usertotal']] = req.session.data['editusertelephone']
-        req.session.data['usertelephonelandline' + req.session.data['usertotal']] = req.session.data['editusertelephonelandline']
-        req.session.data['usertelephonelandlineext' + req.session.data['usertotal']] = req.session.data['editusertelephonelandlineext']
-        req.session.data['usertelephonemobile' + req.session.data['usertotal']] = req.session.data['editusertelephonemobile']
-
-        req.session.data['userjobtitle' + req.session.data['userid']] = req.session.data['edituserjobtitle']
-        if (source == "myprofile") {
+        req.session.data['userfirstname' + req.session.data['userid']] = req.session.data['userfirstname']
+        req.session.data['userlastname' + req.session.data['userid']] = req.session.data['userlastname']
+        req.session.data['usertelephone' + req.session.data['userid']] = req.session.data['usertelephone']
+        req.session.data['usertelephonelandline' + req.session.data['userid']] = req.session.data['usertelephonelandline']
+        req.session.data['usertelephonelandlineext' + req.session.data['userid']] = req.session.data['usertelephonelandlineext']
+        req.session.data['usertelephonemobile' + req.session.data['userid']] = req.session.data['usertelephonemobile']
             res.redirect('/' + version + '/my-profile?notification=edituser');
-        }
-        else {
-            res.redirect('/' + version + '/manage-users/user-profile?notification=edituser&id='+ req.session.data['userid']);
-        }
+
     }
 
 
@@ -1724,7 +2327,7 @@ router.post('/' + version + '/manage-users/edit-user', function (req, res) {
 
 /// Edit user permissions
 router.get('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
     const urlParams = req.query.notification;
@@ -1739,7 +2342,7 @@ router.get('/' + version + '/manage-users/edit-user-permissions', function (req,
 
 
 router.post('/' + version + '/manage-users/edit-user-permissions', function (req, res) {
-    
+    clearvalidation(req);
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = req.session.data['edituserpermissionsview']
     req.session.data['adduserpermissionsusermanagement' + req.session.data['userid']] = req.session.data['edituserpermissionsusermanagement']
     req.session.data['adduserpermissionsmonitoring' + req.session.data['userid']] = req.session.data['edituserpermissionsmonitoring']
@@ -1753,7 +2356,7 @@ router.post('/' + version + '/manage-users/edit-user-permissions', function (req
 
 /// Edit user - third party
 router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1765,7 +2368,7 @@ router.get('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 
 router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
-    
+    clearvalidation(req);
     var edituserthirdparty = req.session.data['edituserthirdparty']
     var edituserjobtitle = req.session.data['edituserjobtitle']
     var companyname = req.session.data['companyname'] || "Radienteco Ltd"
@@ -1803,14 +2406,14 @@ router.post('/' + version + '/manage-users/edit-user-org', function (req, res) {
 
 /// Reg change
 router.get('/' + version + '/manage-users/reg-change', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/manage-users/reg-change', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/manage-users/reg-change', function (req, res) {
-    
+    clearvalidation(req);
     var regchange = req.session.data['regchange']
 
     if (regchange == "") {
@@ -1839,7 +2442,7 @@ router.post('/' + version + '/manage-users/reg-change', function (req, res) {
 
 /// Delete user
 router.get('/' + version + '/manage-users/delete-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1854,7 +2457,7 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
     req.session.data['adduserpermissionsview' + req.session.data['userid']] = ""
     req.session.data['adduserpermissionstransfer' + req.session.data['userid']] = ""
@@ -1867,9 +2470,10 @@ router.post('/' + version + '/manage-users/delete-user', function (req, res) {
 
 });
 
+
 /// Cancel invite
 router.get('/' + version + '/manage-users/cancel-invite', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1884,7 +2488,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -1895,7 +2499,7 @@ router.post('/' + version + '/manage-users/cancel-invite', function (req, res) {
 
 /// Remove user
 router.get('/' + version + '/manage-users/remove-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1910,7 +2514,7 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deleteduseremail'] = req.session.data['useremail' + req.session.data['userid']];
 
     req.session.data['addeduser' + req.session.data['userid']] = false;
@@ -1918,10 +2522,9 @@ router.post('/' + version + '/manage-users/remove-user', function (req, res) {
 
 });
 
-
 /// Reactivate user
 router.get('/' + version + '/manage-users/reactivate-user', function (req, res) {
-    
+    clearvalidation(req);
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
@@ -1935,7 +2538,7 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
     const userid = req.query.id;
     req.session.data['userid'] = userid;
 
-    
+    clearvalidation(req);
     req.session.data['deletedusername'] = req.session.data['userfirstname' + req.session.data['userid']] + " " + req.session.data['userlastname' + req.session.data['userid']];
 
     req.session.data['isdeleted' + req.session.data['userid']] = false;
@@ -1943,10 +2546,44 @@ router.post('/' + version + '/manage-users/reactivate-user', function (req, res)
 
 });
 
+/// Invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/manage-users/organisation-invite', function (req, res) {
+
+    var acceptinvite = req.session.data['acceptinvite']
+    clearvalidation(req);
+
+
+    if (acceptinvite != "yes" && acceptinvite != "no") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.acceptinvite = {
+            "anchor": "acceptinvite",
+            "message": "Select yes if you wish to accept this invitation"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/manage-users/organisation-invite', {
+            data: req.session.data
+        });
+    }
+    else {
+    res.redirect('/' + version + '/account-information');
+    }
+
+});
+
 /// Manage users
 router.get('/' + version + '/manage-users', function (req, res) {
     generateuser(req);
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     const variant = req.query.v;
 
@@ -1957,6 +2594,8 @@ router.get('/' + version + '/manage-users', function (req, res) {
         generateuser3(req);
         generateuser4(req);
         generateuser5(req);
+        generateuser6(req);
+
     }
 
 
@@ -1968,7 +2607,7 @@ router.get('/' + version + '/manage-users', function (req, res) {
 
 
 router.post('/' + version + '/manage-users', function (req, res) {
-    
+    clearvalidation(req);
     clearaddeduser(req);
     res.redirect('/' + version + '/manage-users/add-user');
 });
@@ -1976,7 +2615,7 @@ router.post('/' + version + '/manage-users', function (req, res) {
 
 /// User profile
 router.get('/' + version + '/manage-users/user-profile', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     const userid = req.query.id;
@@ -1992,7 +2631,7 @@ router.get('/' + version + '/manage-users/user-profile', function (req, res) {
 /// User profile self
 router.get('/' + version + '/my-profile', function (req, res) {
     generateuser(req);
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     req.session.data['manageusersnotification'] = urlParams;
     clearediteduser(req)
@@ -2003,6 +2642,16 @@ router.get('/' + version + '/my-profile', function (req, res) {
     });
 });
 
+
+/// Org invite accept
+router.get('/' + version + '/manage-users/organisation-invite', function (req, res) {
+    clearvalidation(req);
+
+
+    res.render('/' + version + '/manage-users/organisation-invite', {
+        data: req.session.data
+    });
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  Account creation //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -3206,49 +3855,11 @@ function clearRegIntro(req) {
 }
 
 
-// Introduction - Cancel
-router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    req.session.data['cancels'] = "";
-    backURL = req.header('Referer')
-    res.render('/' + version + '/add-heat-network/introduction/cancel', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    var cancels = req.session.data['cancels']
-
-    if (!cancels) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.cancels = {
-            "anchor": "cancels",
-            "message": "Select whether you wish to cancel"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/cancel', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (cancels == "Yes") {
-            res.redirect('/' + version + '/account-information');
-        } else {
-            res.redirect(backURL);
-        }
-    }
-
-});
 
 
 // Introduction - Initial
 router.get('/' + version + '/add-heat-network/introduction/intro', function (req, res) {
-    
+    clearHN(req);
     res.render('/' + version + '/add-heat-network/introduction/intro', {
         data: req.session.data
     });
@@ -3291,11 +3902,100 @@ router.get('/' + version + '/add-heat-network/tasklist', function (req, res) {
             populateIntrodata(req)
 
         }
+
+        if (!req.session.data['HNStatus']) {
+            req.session.data['HNStatus'] = "In progress"
+
+        }
     }
     
     res.render('/' + version + '/add-heat-network/tasklist', {
         data: req.session.data
     });
+});
+
+router.post('/' + version + '/add-heat-network/tasklist', function (req, res) {
+    
+    var introcomplete = req.session.data['introcomplete']
+    var eccomplete = req.session.data['eccomplete']
+    var billingcomplete = req.session.data['billingcomplete']
+    var protectionscomplete = req.session.data['protectionscomplete']
+    var suppliercomplete = req.session.data['suppliercomplete']
+    var buildingcomplete = req.session.data['buildingcomplete']
+
+    var role = req.session.data['role']
+    var buildingcustomersResidential = req.session.data['buildingcustomersResidential']
+    var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
+    var smallmediumbusinesses = req.session.data['smallmediumbusinesses']
+    var introcommunal = req.session.data['introcommunal']
+    var introhnbuildings = req.session.data['introhnbuildings']
+    var introenergycentrehowmany = req.session.data['introenergycentrehowmany']
+    var introsuppliers = req.session.data['introsuppliers']
+    var consumertypeindustrial = req.session.data['consumertypeindustrial']
+
+
+    if (introcomplete != "true") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introcomplete = {
+            "anchor": "introcomplete",
+            "message": "Introduction must be complete"
+        }
+    }
+
+    if (((role === "Operator" || role === "Operator and supplier") && (introcommunal !== "Yes" || (introcommunal === "Yes" && introenergycentrehowmany > 0))) && (eccomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.eccomplete = {
+            "anchor": "eccomplete",
+            "message": "Technical information must be complete"
+        }
+    }
+
+
+    if ((role === "Supplier" || role === "Operator and supplier") && (introhnbuildings > 0 || introcommunal === "Yes") && (buildingcomplete != "true") ) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.buildingcomplete = {
+            "anchor": "buildingcomplete",
+            "message": "Customers and metering must be complete"
+        }
+    }
+
+    if ((role === "Supplier" || role === "Operator and supplier") && (billingcomplete != "true") && (consumertypeindustrial != "Yes")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcomplete = {
+            "anchor": "billingcomplete",
+            "message": "Billing must be complete"
+        }
+    }
+
+    if (((role === "Supplier" || role === "Operator and supplier") && buildingcomplete === "true" && (buildingcustomersResidential > 0 || consumertypemicrobusiness === "Yes" || smallmediumbusinesses === "Yes")) && (protectionscomplete != "true") && (consumertypeindustrial != "Yes")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.protectionscomplete = {
+            "anchor": "protectionscomplete",
+            "message": "Consumer protections must be complete"
+        }
+    }
+
+
+    if ((role === "Operator" || (role === "Operator and supplier" && introsuppliers === "No")) && (suppliercomplete != "true")) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.suppliercomplete = {
+            "anchor": "suppliercomplete",
+            "message": "Other suppliers must be complete"
+        }    
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/tasklist', {
+            data: req.session.data
+        });
+    }
+    
+
+    else {
+            res.redirect('/' + version + '/add-heat-network/confirmsubmit');
+
+    }
+
 });
 
 
@@ -3339,6 +4039,14 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
         generateSupplierHN(req);
     }
 
+    if (urlParams == "operator") {
+        generateOperatorHN(req);
+    }
+
+    if (urlParams == "operatorcomplete") {
+        generateOperatorCompleteHN(req);
+    }
+    
     if (urlParams == "supplier2") {
         generateSupplier2HN(req);
     }
@@ -3352,23 +4060,13 @@ router.get('/' + version + '/add-heat-network/view', function (req, res) {
 
 // Add Heat Network - Intro
 
-// Introduction - Intro
-router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    req.session.data['cancels'] = "";
-    
-    backURL = req.header('Referer')
-    res.render('/' + version + '/add-heat-network/introduction/cancel', {
-        data: req.session.data
-    });
-});
+
 
 // Introduction - dropout
 router.get('/' + version + '/add-heat-network/introduction/dropout', function (req, res) {
     
     const urlParams = req.query.v;
     req.session.data['introdropoutreason'] = urlParams;
-    
 
     backURL = req.header('Referer')
     res.render('/' + version + '/add-heat-network/introduction/dropout', {
@@ -3376,34 +4074,6 @@ router.get('/' + version + '/add-heat-network/introduction/dropout', function (r
     });
 });
 
-
-router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
-    
-    var cancels = req.session.data['cancels']
-
-    if (!cancels) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.cancels = {
-            "anchor": "cancels",
-            "message": "Select whether you wish to cancel"
-        }
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/cancel', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (cancels == "Yes") {
-            res.redirect('/' + version + '/account-information');
-        } else {
-            res.redirect(backURL);
-        }
-    }
-
-});
 
 
 
@@ -3462,7 +4132,7 @@ router.post('/' + version + '/add-heat-network/introduction/groundloop', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introgroundloop = {
             "anchor": "introgroundloop",
-            "message": "Select whether the heat network includes 2 or more ground source heat pumps connected by a shared ground loop"
+            "message": "Select yes if the heat network is a shared ground loop (SGL) heat network"
         }
     }
 
@@ -3498,12 +4168,13 @@ router.get('/' + version + '/add-heat-network/introduction/role', function (req,
 router.post('/' + version + '/add-heat-network/introduction/role', function (req, res) {
     
     var role = req.session.data['role']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
     if (!role) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.role = {
             "anchor": "role",
-            "message": "Select an activity"
+            "message": "Select the regulated activities that " + company + " undertakes on the heat network"
         }
     }
 
@@ -3514,7 +4185,7 @@ router.post('/' + version + '/add-heat-network/introduction/role', function (req
     }
 
     else {
-        if ((role == "Heat supplier") || (role == "Neither")) {
+        if ((role == "Supplier") || (role == "Neither")) {
             res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=238');
 
         }
@@ -3579,12 +4250,13 @@ router.get('/' + version + '/add-heat-network/introduction/supply20', function (
 router.post('/' + version + '/add-heat-network/introduction/supply20', function (req, res) {
 
 var introsupply20 = req.session.data['introsupply20']
+var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
 if (!introsupply20) {
     req.session.data.validationError = "true"
     req.session.data.validationErrors.introsupply20 = {
         "anchor": "introsupply20",
-        "message": "Select yes if this heat network started providing heating, cooling or hot water to consumers before 1 April 2025"
+        "message": "Select yes if " + company + " started a regulated activity on the heat network on or after 1 April 2025"
     }
 }
 
@@ -3595,14 +4267,9 @@ if (req.session.data.validationError == "true") {
 }
 
 else {
-    if (introsupply20 == "Yes") {
-        res.redirect('/' + version + '/add-heat-network/introduction/authorisation');
 
-    }
-    else {
         res.redirect('/' + version + '/add-heat-network/introduction/changes');
 
-    }
 
 }
 });
@@ -3704,39 +4371,82 @@ router.post('/' + version + '/add-heat-network/introduction/address', function (
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
+        const customSort = (a, b) => {
+            const extractNumber = (str) => {
+              const match = str.match(/^\d+/); // Extracts the leading number from the string
+              return match ? parseInt(match[0], 10) : NaN; // Converts the extracted number to integer
+            };
+          
+            const numA = extractNumber(a);
+            const numB = extractNumber(b);
+          
+            if (!isNaN(numA) && isNaN(numB)) {
+              return -1;
+            } else if (isNaN(numA) && !isNaN(numB)) {
+              return 1;
+            } else if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB; // Compare the numbers if both are numbers
+            } else {
+              return a.localeCompare(b); // Compare as strings if neither is a number
+            }
+          };
         async function postcode(postcode) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
+                    let totalResults = response.data.header.totalresults;
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
-
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.buildingaddressSelect = locationaddresses;
+        
+                        req.session.data.buildingaddressSelect = locationaddresses.sort(customSort);
                         req.session.data.ecorgaddressesnotfound = "";
-                        res.redirect('/' + version + '/add-heat-network/introduction/addressselect');
+                        if (totalResults > 99) {
+                            res.redirect('/' + version + '/add-heat-network/introduction/addresserror?reason=toomany');
+                        }
+                        else {
+                            res.redirect('/' + version + '/add-heat-network/introduction/addressselect');
+                        }
                     }
-
+        
                     else {
                         req.session.data.buildingaddressSelect = locationaddresses;
-                        req.session.data.buildingaddressesnotfound = true;
-                        res.redirect('/' + version + '/add-heat-network/introduction/addressmanual');
+                        req.session.data.orgaddressnotfound = true;
+                        res.redirect('/' + version + '/add-heat-network/introduction/addresserror');
+        
                     }
-
+        
                 });
-
+        
         }
         postcode(userpostcode);
-
-    }
+        }
 });
 
 
 
+
+
+
+
+
+
+
+
+// Introduction - Address Error
+router.get('/' + version + '/add-heat-network/introduction/addresserror', function (req, res) {
+    
+    const urlParams = req.query.reason;
+    req.session.data['addresserrorreason'] = urlParams;
+
+    res.render('/' + version + '/add-heat-network/introduction/addresserror', {
+        data: req.session.data
+    });
+});
 
 
 
@@ -3785,7 +4495,7 @@ router.get('/' + version + '/add-heat-network/introduction/addressconfirm', func
 });
 
 router.post('/' + version + '/add-heat-network/introduction/addressconfirm', function (req, res) {
-        res.redirect('/' + version + '/add-heat-network/introduction/energycentre');
+        res.redirect('/' + version + '/add-heat-network/introduction/similarcommunal');
 });
 
 
@@ -3804,7 +4514,6 @@ router.post('/' + version + '/add-heat-network/introduction/addressmanual', func
     var buildingaddressMLine1 = req.session.data['buildingaddressMLine1']
     var buildingaddressMTown = req.session.data['buildingaddressMTown']
     var buildingaddressMCounty = req.session.data['buildingaddressMCounty']
-    var buildingaddressMCountry = req.session.data['buildingaddressMCountry']
     var accounttype = req.session.data['accounttype']
 
     var buildingaddressMPostcode = req.session.data['buildingaddressMPostcode']
@@ -3903,7 +4612,7 @@ router.post('/' + version + '/add-heat-network/introduction/energycentre', funct
                 req.session.data['introenergycentrehowmany'] = 1
             }
 
-            if (role != "Network operator") {
+            if (role != "Operator") {
                 res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
             }
             else {
@@ -3948,7 +4657,7 @@ router.post('/' + version + '/add-heat-network/introduction/primary', function (
         });
     }
     else {        
-        if (role != "Network operator") {
+        if (role != "Operator") {
             res.redirect('/' + version + '/add-heat-network/introduction/suppliers');
         }
         else {
@@ -4014,6 +4723,7 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
     var introcommunaloperate = req.session.data['introcommunaloperate']
     var introcommunaloperatehowmany = req.session.data['introcommunaloperatehowmany']
     var introbuildingshowmany = req.session.data['introbuildingshowmany']
+    var role = req.session.data['role']
 
 
     if (!introcommunaloperate) {
@@ -4049,13 +4759,23 @@ router.post('/' + version + '/add-heat-network/introduction/communaloperate', fu
         }
         else {
             if (introbuildingshowmany == 1) {
-                req.session.data['introhnbuildings'] = 0
-                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+                if (role == "Operator") {
+                    res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
+                }
+                else {
+                    req.session.data['introhnbuildings'] = 0
+                    res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+                    }
             }
 
             else {
-                req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
-                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+                if (role == "Operator" && (introbuildingshowmany ==  introcommunaloperatehowmany)) {
+                    res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
+                }
+                else {
+                    req.session.data['introhnbuildings'] = req.session.data['introbuildingshowmany'] - introcommunaloperatehowmany;
+                    res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+                }
                 }
         }
 
@@ -4190,6 +4910,7 @@ router.get('/' + version + '/add-heat-network/introduction/buildingstotal', func
 router.post('/' + version + '/add-heat-network/introduction/buildingstotal', function (req, res) {
     
     var introbuildingstotal = req.session.data['introbuildingstotal']
+    var role = req.session.data['role']
 
     if (!introbuildingstotal) {
         req.session.data.validationError = "true"
@@ -4208,8 +4929,17 @@ router.post('/' + version + '/add-heat-network/introduction/buildingstotal', fun
 
     else {
         if (introbuildingstotal == 0) {
-            req.session.data['introhnbuildings'] = 0;
-            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+            
+            if (role == "Operator") {
+                res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
+            }
+            else {
+                req.session.data['introhnbuildings'] = 0;
+                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+            }
+
+
+            // ADD LOGIC HERE ASH 
         }
         else {
             res.redirect('/' + version + '/add-heat-network/introduction/buildings');
@@ -4237,6 +4967,8 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
     var introbuildings = req.session.data['introbuildings']
     var introbuildingshowmany = req.session.data['introbuildingshowmany']
     var company = req.session.data['companyname'] || 'Radienteco Ltd';
+    var role = req.session.data['role']
+
 
     if (!introbuildings) {
         req.session.data.validationError = "true"
@@ -4265,12 +4997,26 @@ router.post('/' + version + '/add-heat-network/introduction/buildings', function
 
     else {
         if (introbuildingshowmany == '0') {
-            res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+            if (role == "Operator") {
+                res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
+            }
+            else {
+                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate');
+            }
         }
+
+
         if (introbuildings == "No") {
             if (introbuildingstotal == 1) {
-                req.session.data['introhnbuildings'] == 0
-                res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate')
+
+                if (role == "Operator") {
+                    res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=244');
+                }
+                else {
+                    req.session.data['introhnbuildings'] = 0
+                    res.redirect('/' + version + '/add-heat-network/introduction/energycentreoperate')
+    
+                }
             }
 
             else {
@@ -4973,7 +5719,7 @@ router.post('/' + version + '/add-heat-network/introduction/buy', function (req,
 
 });
 
-// Introduction - Buy Heat
+// Introduction - Sell Heat
 router.get('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
     
     res.render('/' + version + '/add-heat-network/introduction/sell', {
@@ -4985,12 +5731,13 @@ router.get('/' + version + '/add-heat-network/introduction/sell', function (req,
 router.post('/' + version + '/add-heat-network/introduction/sell', function (req, res) {
     
     var introsell = req.session.data['introsell']
+    var company = req.session.data['companyname'] || 'Radienteco Ltd';
 
     if (!introsell) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.introsell = {
             "anchor": "introsell",
-            "message": "Select whether the heat network buys or sells heat"
+            "message": "Select yes if " + company + " sells heating, cooling or hot water from this heat network to another heat network that is operated by a different organisation"
         }
     }
 
@@ -5017,6 +5764,7 @@ router.get('/' + version + '/add-heat-network/introduction/name', function (req,
 router.post('/' + version + '/add-heat-network/introduction/name', function (req, res) {
     
     var name = req.session.data['name']
+    var introcommunal = req.session.data['introcommunal']
 
     if (!name) {
         req.session.data.validationError = "true"
@@ -5033,7 +5781,12 @@ router.post('/' + version + '/add-heat-network/introduction/name', function (req
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/introduction/cya');
+        if (introcommunal == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/introduction/cya');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/introduction/similardistrict');
+        }
 
     }
 });
@@ -5083,70 +5836,11 @@ else {
 
 
 
-// Introduction - Sharedfacilities
-router.get('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/introduction/sharedfacilities', function (req, res) {
-    
-    var sharedfacilities = req.session.data['sharedfacilities']
-    var sharednumnber = parseInt(req.session.data['sharedfacilitieshowmany'])
-    var buildings = parseInt(req.session.data['buildings'])
-
-
-    if (!sharedfacilities) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.sharedfacilities = {
-            "anchor": "sharedfacilities",
-            "message": "Select if there are any shared facilities"
-        }
-    }
-    if (buildings > 1) {
-        if (sharedfacilities == "Yes" && !sharednumnber)  {
-            req.session.data.validationError = "true"
-            req.session.data.validationErrors.sharedfacilitieshowmany = {
-                "anchor": "sharedfacilitieshowmany",
-                "message": "Enter the number of buildings with shared facilities"
-            }
-        }
-    
-    }
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/introduction/sharedfacilities', {
-            data: req.session.data
-        });
-    }
-
-    else {
-        if (sharedfacilities == "Yes") {
-            if (sharednumnber) {
-                if (sharednumnber >= buildings) {
-                    res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-                }
-                else {
-                    res.redirect('/' + version + '/add-heat-network/introduction/selfsupply');
-                }    
-            }
-            else {
-                res.redirect('/' + version + '/add-heat-network/introduction/dropout');
-            }
-        } else {
-            res.redirect('/' + version + '/add-heat-network/introduction/name');
-        }
-    }
-
-});
 
 
 
 function populateIntrodata(req) {
-    req.session.data['role'] = "Both"
+    req.session.data['role'] = "Operator and supplier"
     req.session.data['introrelevant'] = "Yes"
     req.session.data['introgroundloop'] = "No"
     req.session.data['introcommunal'] = "No"
@@ -5165,7 +5859,9 @@ function populateIntrodata(req) {
     req.session.data['introbuy'] = "Yes"
     req.session.data['introsell'] = "No"
     req.session.data['name'] = "Heat Network One"
-    req.session.data['introcomplete'] = "true";
+    req.session.data['introcomplete'] = "true"
+    req.session.data['introsupply20'] = "No"
+    req.session.data['introresponsible'] = "Yes";
 }
 
 
@@ -5400,7 +6096,15 @@ router.post('/' + version + '/add-heat-network/energycentre/addresscoords', func
         });
     }
     else {
-            res.redirect('/' + version + '/add-heat-network/energycentre/addressconfirm');
+            var energycentres = req.session.data['energycentres'] 
+
+    if (energycentres == 0) {
+        res.redirect('/' + version + '/add-heat-network/energycentre/cya');
+
+    }
+    else {
+        res.redirect('/' + version + '/add-heat-network/energycentre/type');
+    }
     }
 });
 
@@ -5460,38 +6164,76 @@ router.post('/' + version + '/add-heat-network/energycentre/address', function (
 
         const apiKey = 'HDNGKBm2TGbHTt2mr4RxS2Ta0l2Gwth6';
 
+        const customSort = (a, b) => {
+            const extractNumber = (str) => {
+              const match = str.match(/^\d+/); // Extracts the leading number from the string
+              return match ? parseInt(match[0], 10) : NaN; // Converts the extracted number to integer
+            };
+          
+            const numA = extractNumber(a);
+            const numB = extractNumber(b);
+          
+            if (!isNaN(numA) && isNaN(numB)) {
+              return -1;
+            } else if (isNaN(numA) && !isNaN(numB)) {
+              return 1;
+            } else if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB; // Compare the numbers if both are numbers
+            } else {
+              return a.localeCompare(b); // Compare as strings if neither is a number
+            }
+          };
         async function postcode(postcode) {
             axios.get('https://api.os.uk/search/places/v1/postcode?postcode=' + postcode + '&dataset=LPI&key=' + apiKey, { httpsAgent })
                 .then(function (response) {
                     var output = JSON.stringify(response.data, null, 2);
+                    let totalResults = response.data.header.totalresults;
                     let parsed = JSON.parse(output).results;
                     let locationaddresses = [];
                     if (parsed != undefined) {
-
                         for (var i = 0; i < parsed.length; i++) {
                             let obj = parsed[i];
                             locationaddresses.push(obj.LPI.ADDRESS);
                         }
-                        req.session.data.ecAddressSelect = locationaddresses;
+        
+                        req.session.data.ecAddressSelect = locationaddresses.sort(customSort);
                         req.session.data.ecorgaddressesnotfound = "";
-                        res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+                        if (totalResults > 99) {
+                            res.redirect('/' + version + '/add-heat-network/energycentre/addresserror?reason=toomany');
+                        }
+                        else {
+                            res.redirect('/' + version + '/add-heat-network/energycentre/addressselect');
+                        }
                     }
-
+        
                     else {
                         req.session.data.ecAddressSelect = locationaddresses;
-                        req.session.data.ecaddressesnotfound = true;
-                        res.redirect('/' + version + '/add-heat-network/energycentre/addressmanual');
+                        req.session.data.orgaddressnotfound = true;
+                        res.redirect('/' + version + '/add-heat-network/energycentre/addresserror');
+        
                     }
-
+        
                 });
-
+        
         }
         postcode(userpostcode);
-
-    }
+        }
 });
 
 
+
+
+
+// Energy center - Address Error
+router.get('/' + version + '/add-heat-network/energycentre/addresserror', function (req, res) {
+    
+    const urlParams = req.query.reason;
+    req.session.data['addresserrorreason'] = urlParams;
+
+    res.render('/' + version + '/add-heat-network/energycentre/addresserror', {
+        data: req.session.data
+    });
+});
 
 
 
@@ -5988,6 +6730,234 @@ router.post('/' + version + '/add-heat-network/energycentre/cya', function (req,
 
 
 
+// Buildings & consumers - Intro
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/intro', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/intro', {
+        data: req.session.data
+    });
+});
+
+
+// Buildings & consumers - Supply April
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/supply', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/supply', function (req, res) {
+
+var supply20 = req.session.data['supply20']
+var companyname = req.session.data['companyname'] || "Radienteco Ltd"
+
+
+if (!supply20) {
+    req.session.data.validationError = "true"
+    req.session.data.validationErrors.supply20 = {
+        "anchor": "supply20",
+        "message": "Select yes if " + companyname + " started supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025"
+    }
+}
+
+if (req.session.data.validationError == "true") {
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/supply', {
+        data: req.session.data
+    });
+}
+
+else {
+
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/domestic');
+
+
+}
+});
+
+
+// Buildings & consumers - Domestic
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/domestic', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/domestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/domestic', function (req, res) {
+    
+
+    var customersdomestic = req.session.data['customersdomestic']
+    var customersdomestictotal = req.session.data['customersdomestictotal']
+
+    if (!customersdomestic) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestic = {
+            "anchor": "customersdomestic",
+            "message": "Select yes if this heat network has domestic customers"
+        }
+    }
+
+    if (customersdomestic == "Yes" && !customersdomestictotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Enter the number of domestic customers"
+        }
+    }
+
+    if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Number of domestic customers must be a number"
+        }
+    }
+
+    if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersdomestictotal = {
+            "anchor": "customersdomestictotal",
+            "message": "Number of domestic customers must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/domestic', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic');
+        
+    }
+});
+
+
+
+
+// Buildings & consumers - Non nondomestic
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', function (req, res) {
+    
+    var customersdomestic = req.session.data['customersdomestic']
+
+    var customersnondomestic = req.session.data['customersnondomestic']
+    var customersnondomestictotal = req.session.data['customersnondomestictotal']
+
+    if (!customersnondomestic) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestic = {
+            "anchor": "customersnondomestic",
+            "message": "Select yes if this heat network has non-domestic customers"
+        }
+    }
+
+    if (customersnondomestic == "Yes" && !customersnondomestictotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "Enter the number of non-domestic customers"
+        }
+    }
+
+    if (customersnondomestic == "Yes" && isNaN(customersnondomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "Number of non-domestic customers must be a number"
+        }
+    }
+
+    if (customersnondomestic == "Yes" && customersnondomestictotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customersnondomestictotal = {
+            "anchor": "customersnondomestictotal",
+            "message": "Number of non-domestic customers must be 40 characters or less"
+        }
+    }
+
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', {
+            data: req.session.data
+        });
+    }
+    else {
+
+            if (customersnondomestic == "Yes"){   
+                if (customersdomestic == "Yes") {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/industrial');
+
+                }
+                }
+                else {
+                    res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+                }
+        }
+
+        
+});
+
+
+
+// Buildings & consumers - Industrial
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/industrial', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/industrial', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/industrial', function (req, res) {
+    
+
+    var consumertypeindustrial = req.session.data['consumertypeindustrial']
+
+    if (!consumertypeindustrial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumertypeindustrial = {
+            "anchor": "consumertypeindustrial",
+            "message": "Select yes if the heat network is an industrial heat network"
+        }
+    }
+
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/industrial', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumertypeindustrial == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+        } 
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
+
+        }
+        
+    }
+});
+
+
+
 
 
 // Buildings & consumers - Type
@@ -6132,12 +7102,13 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusines
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {
     
     var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
+    var customersdomestic = req.session.data['customersdomestic']
 
     if (!consumertypemicrobusiness) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumertypemicrobusiness = {
             "anchor": "consumertypemicrobusiness",
-            "message": "Select whether the heat network supplies microbusinesses",
+            "message": "Select yes if any of your commercial customers are ‘microbusinesses’",
         }
     }
 
@@ -6148,7 +7119,13 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallmediumbusinesses');
+        if (customersdomestic == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+        }
+        else {
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/agent');
+
+        }
 
     }
 });
@@ -6183,7 +7160,42 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallmedium
     }
 
     else {
-        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
+            res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
+
+    }
+});
+
+// Buildings & consumers -  Small medium businesses
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', function (req, res) {
+    
+    var smallenterprises = req.session.data['smallenterprises']
+    var customersdomestic = req.session.data['customersdomestic']
+
+    if (!smallenterprises) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.smallenterprises = {
+            "anchor": "smallenterprises",
+            "message": "Select whether the heat network supplies small enterprises",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses');
+
 
     }
 });
@@ -6238,6 +7250,14 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/cya', funct
 
 
 
+// Billing - intro
+router.get('/' + version + '/add-heat-network/billing/intro', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/billing/intro', {
+        data: req.session.data
+    });
+
+});
 
 
 
@@ -6431,117 +7451,15 @@ router.post('/' + version + '/add-heat-network/billing/cya', function (req, res)
 
 
 
-// Financial - plan
-router.get('/' + version + '/add-heat-network/financial/plan', function (req, res) {
+// Consumer - intro
+router.get('/' + version + '/add-heat-network/consumerprotections/intro', function (req, res) {
     
-    res.render('/' + version + '/add-heat-network/financial/plan', {
+    res.render('/' + version + '/add-heat-network/consumerprotections/intro', {
         data: req.session.data
     });
 
 });
 
-
-router.post('/' + version + '/add-heat-network/financial/plan', function (req, res) {
-    
-    var financialplan = req.session.data['financialplan']
-
-    if (!financialplan) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialplan = {
-            "anchor": "financialplan",
-            "message": "Tell us whether you have an operation continuity plan in place",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/financial/plan', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/financial/arrangement');
-    }
-});
-
-
-// Financial - supply
-router.get('/' + version + '/add-heat-network/financial/supply', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/financial/supply', {
-        data: req.session.data
-    });
-
-});
-
-
-router.post('/' + version + '/add-heat-network/financial/supply', function (req, res) {
-    
-    var financialsupply = req.session.data['financialsupply']
-
-    if (!financialsupply) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialsupply = {
-            "anchor": "financialsupply",
-            "message": "Tell us whether you have a supply continuity plan in place",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/financial/supply', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/financial/plan');
-    }
-});
-
-// Financial - arrangement
-router.get('/' + version + '/add-heat-network/financial/arrangement', function (req, res) {
-    
-    res.render('/' + version + '/add-heat-network/financial/arrangement', {
-        data: req.session.data
-    });
-
-});
-
-
-router.post('/' + version + '/add-heat-network/financial/arrangement', function (req, res) {
-    
-    var financialarrangement = req.session.data['financialarrangement']
-
-    if (!financialarrangement) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.financialarrangement = {
-            "anchor": "financialarrangement",
-            "message": "Tell us whether you have a continuity arrangement in place",
-        }
-    }
-
-
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/add-heat-network/financial/arrangement', {
-            data: req.session.data
-        });
-    }
-    else {
-        res.redirect('/' + version + '/add-heat-network/financial/cya');
-    }
-});
-
-// Financial - cya
-router.get('/' + version + '/add-heat-network/financial/cya', function (req, res) {
-    res.render('/' + version + '/add-heat-network/financial/cya', {
-        data: req.session.data
-    });
-});
-
-
-router.post('/' + version + '/add-heat-network/financial/cya', function (req, res) {
-    res.redirect('/' + version + '/add-heat-network/tasklist');
-});
 
 
 
@@ -6609,7 +7527,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/psr', functio
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumerpsr = {
             "anchor": "consumerpsr",
-            "message": "Tell us whether you have a Priority Service Register (PSR)",
+            "message": "Select yes if there is a procedure in place for domestic customers, small businesses and microbusinesses to raise a complaint",
         }
     }
 
@@ -6648,7 +7566,7 @@ router.post('/' + version + '/add-heat-network/consumerprotections/confirm', fun
         req.session.data.validationError = "true"
         req.session.data.validationErrors.consumerconfirm = {
             "anchor": "consumerconfirm",
-            "message": "Tell us whether you have a proecdure in place",
+            "message": "Select yes if there is a procedure in place for domestic consumers, small businesses and microbusinesses to raise a complaint",
         }
     }
 
@@ -6741,10 +7659,73 @@ if (confirmsubmit == "No") {
 }
 
 else {
+    req.session.data['HNStatus'] = "Submitted"
     res.redirect('/' + version + '/add-heat-network/confirmation');
 
 }
    }
+});
+
+// Confirmation reg
+router.get('/' + version + '/add-heat-network/confirmation', function (req, res) {
+    res.render('/' + version + '/add-heat-network/confirmation', {
+        data: req.session.data
+    });
+});
+
+
+// Confirm remove
+router.get('/' + version + '/add-heat-network/confirmremove', function (req, res) {
+    res.render('/' + version + '/add-heat-network/confirmremove', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/confirmremove', function (req, res) {
+    var confirmremove = req.session.data['confirmremove']
+    const referrer = req.query.ref;
+
+
+
+    if (!confirmremove) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.confirmremove = {
+            "anchor": "confirmremove",
+            "message": "Select yes if you want to remove this heat network",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/confirmremove', {
+            data: req.session.data
+        });
+    }
+   
+   else {
+if (confirmremove == "No") {
+    res.redirect(referrer);
+
+}
+
+else {
+    res.redirect('/' + version + '/account-information');
+
+}
+   }
+});
+
+
+
+
+
+
+
+// Confirm remove
+router.get('/' + version + '/add-heat-network/cannotsubmit', function (req, res) {
+    res.render('/' + version + '/add-heat-network/cannotsubmit', {
+        data: req.session.data
+    });
 });
 
 
@@ -6758,7 +7739,6 @@ function setSupplier(req, id) {
     req.session.data['suppliernameselected'] = req.session.data['suppliernameselected' + id]
     req.session.data['supplieraddressselected'] = req.session.data['supplieraddressselected' + id]
     req.session.data['addedsupplier'] = req.session.data['addedsupplier' + id]
-    req.session.data['supplierbuildings'] = req.session.data['supplierbuildings' + id]
     req.session.data['supplierid'] = id
 }
 
@@ -6767,7 +7747,6 @@ function clearSupplier(req) {
     req.session.data['suppliernameselected'] = ""
     req.session.data['supplieraddressselected'] = ""
     req.session.data['addedsupplier'] = ""
-    req.session.data['supplierbuildings'] = ""
     req.session.data['supplierid'] = ""
     req.session.data['supplierremove'] = ""
 
@@ -6778,14 +7757,7 @@ function removeSupplier(req, id) {
     req.session.data['suppliernameselected' + id] = ""
     req.session.data['supplieraddressselected' + id] = ""
     req.session.data['addedsupplier' + id] = ""
-    req.session.data['supplierbuildings' + id] = ""
-    var buildings = req.session.data['buildings']
-    buildings.forEach((building) => {
-        if (building.supplied == id) {
-            building.supplied = 0 
-        }
-    })
-    req.session.data['buildings'] = buildings
+
 
 }
 
@@ -6980,9 +7952,18 @@ router.post('/' + version + '/add-heat-network/suppliers/name', function (req, r
       );
   
       // Return the filtered results
-      if (filteredOrgs.length > 0) {
+      if (filteredOrgs.length > 1) {
         req.session.data.supplierresults = filteredOrgs;
         res.redirect('/' + version + '/add-heat-network/suppliers/results');
+      }
+
+      else if (filteredOrgs.length == 1) {
+        const selected = filteredOrgs[0];
+        req.session.data.supplierresults = filteredOrgs;
+        req.session.data.suppliernameselected = selected.Name;
+        req.session.data.supplieraddressselected = selected.Address || selected.address || ''; // Adjust based on your JSON structure
+      
+        res.redirect('/' + version + '/add-heat-network/suppliers/confirm');
       }
 
       else {
@@ -7149,6 +8130,339 @@ router.post('/' + version + '/add-heat-network/suppliers/remove', function (req,
 });
 
 
+///// CANCEL PAGES
+
+
+
+// Introduction - Cancel
+router.get('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+    req.session.data['introcancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/introduction/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/cancel', function (req, res) {
+
+    var introcancel = req.session.data['introcancel']
+    const urlParams = req.query.v;
+    var introcomplete = req.session.data['introcomplete']
+    var hnname = req.session.data['name'] || "Seaton City Centre"
+
+
+
+    if (!introcancel) {
+        req.session.data.validationError = "true"
+        if (introcomplete == "true") {
+            req.session.data.validationErrors.introcancel = {
+                "anchor": "introcancel",
+                "message": "Select yes if you wish to cancel making changes to " + hnname,
+            }
+        }
+        else {
+            req.session.data.validationErrors.introcancel = {
+                "anchor": "introcancel",
+                "message": "Select yes if you wish to cancel adding this heat network",
+
+            }
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/cancel', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (introcancel == "Yes") {
+            res.redirect('/' + version + '/account-information');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+
+// Billing - cancel
+router.get('/' + version + '/add-heat-network/billing/cancel', function (req, res) {
+    req.session.data['billingcancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/billing/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/billing/cancel', function (req, res) {
+
+    var billingcancel = req.session.data['billingcancel']
+    const urlParams = req.query.v;
+
+
+    if (!billingcancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.billingcancel = {
+            "anchor": "billingcancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/billing/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (billingcancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+// Customers - cancel
+router.get('/' + version + '/add-heat-network/buildingsandconsumers/cancel', function (req, res) {
+    req.session.data['customerscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/buildingsandconsumers/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/buildingsandconsumers/cancel', function (req, res) {
+
+    var customerscancel = req.session.data['customerscancel']
+    const urlParams = req.query.v;
+
+
+    if (!customerscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.customerscancel = {
+            "anchor": "customerscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/buildingsandconsumers/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (customerscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
+// Consumer protections - cancel
+router.get('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+    req.session.data['consumerprotectionscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+
+    var consumerprotectionscancel = req.session.data['consumerprotectionscancel']
+    const urlParams = req.query.v;
+
+
+    if (!consumerprotectionscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerprotectionscancel = {
+            "anchor": "consumerprotectionscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumerprotectionscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Technical information - intro
+router.get('/' + version + '/add-heat-network/energycentre/intro', function (req, res) {
+
+    res.render('/' + version + '/add-heat-network/energycentre/intro', {
+        data: req.session.data
+    });
+});
+
+
+// Technical information - cancel
+router.get('/' + version + '/add-heat-network/energycentre/cancel', function (req, res) {
+    req.session.data['energycentrecancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/energycentre/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/energycentre/cancel', function (req, res) {
+
+    var energycentrecancel = req.session.data['energycentrecancel']
+    const urlParams = req.query.v;
+
+
+    if (!energycentrecancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.energycentrecancel = {
+            "anchor": "energycentrecancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/energycentre/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (energycentrecancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Suppliers - intro
+router.get('/' + version + '/add-heat-network/suppliers/intro', function (req, res) {
+
+    res.render('/' + version + '/add-heat-network/suppliers/intro', {
+        data: req.session.data
+    });
+});
+
+// Suppliers - cancel
+router.get('/' + version + '/add-heat-network/suppliers/cancel', function (req, res) {
+    req.session.data['supplierscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/suppliers/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/suppliers/cancel', function (req, res) {
+
+    var supplierscancel = req.session.data['supplierscancel']
+    const urlParams = req.query.v;
+
+
+    if (!supplierscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.supplierscancel = {
+            "anchor": "supplierscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/suppliers/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (supplierscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Consumer protections - cancel
+router.get('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+    req.session.data['consumerprotectionscancel'] = ""
+
+    res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/consumerprotections/cancel', function (req, res) {
+
+    var consumerprotectionscancel = req.session.data['consumerprotectionscancel']
+    const urlParams = req.query.v;
+
+
+    if (!consumerprotectionscancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.consumerprotectionscancel = {
+            "anchor": "consumerprotectionscancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/consumerprotections/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (consumerprotectionscancel == "Yes") {
+            res.redirect('/' + version + '/add-heat-network/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+
 
 
 
@@ -7174,7 +8488,7 @@ function clearSMRIUser(req) {
 
 /// SMRI List
 router.get('/' + version + '/smri/list', function (req, res) {
-    
+    clearvalidation(req);
     const urlParams = req.query.notification;
     const urlParamsVersion = req.query.v;
     req.session.data['smristatus'] = urlParamsVersion;
@@ -7203,112 +8517,27 @@ router.post('/' + version + '/smri/list', function (req, res) {
 
 });
 
-/// SMRI Personal
-router.get('/' + version + '/smri/personal', function (req, res) {
-    
-
-    res.render('/' + version + '/smri/personal', {
-        data: req.session.data
-    });
-});
-
-router.post('/' + version + '/smri/personal', function (req, res) {
-    
-    
-    const urlParams = req.query.id;
-
-    var smrifirstname = req.session.data['smrifirstname']
-    var smrilastname = req.session.data['smrilastname']
-    var smridobday = req.session.data['smridobday']
-    var smridobmonth = req.session.data['smridobmonth']
-    var smridobyear = req.session.data['smridobyear']
-    const smridob = new Date(`${smridobyear}-${smridobmonth}-${smridobday}`);
-
-    if (!smrifirstname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrifirstname = {
-            "anchor": "smrifirstname",
-            "message": "Enter a first name"
-        }
-    }
-
-    if (!smrilastname) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smrilastname = {
-            "anchor": "smrilastname",
-            "message": "Enter a last name"
-        }
-    }
-
-
-
-    if ((smridobday.length > 2) || (smridobday.month > 2) || (smridobday.year > 4) || (isNaN(smridob))) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridobday",
-            "message": "Enter a valid date"
-        }
-    }
-
-    if (!smridobday || !smridobmonth || !smridobyear) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.smridob = {
-            "anchor": "smridob",
-            "message": "Enter a full date of birth"
-        }
-    }
-    if (req.session.data.validationError == "true") {
-        res.render('/' + version + '/smri/personal', {
-            data: req.session.data
-        });
-    }
-    else {
-        if (urlParams) {
-            req.session.data['smritotal'] = urlParams;
-        }
-        else {
-        if (req.session.data.smritotal) {
-            req.session.data.smritotal = req.session.data.smritotal + 1
-        } 
-        else {
-            req.session.data.smritotal = 1
-        }
-    }
-        req.session.data['smrifirstname' + req.session.data['smritotal']] = req.session.data['smrifirstname']
-        req.session.data['smrilastname' + req.session.data['smritotal']] = req.session.data['smrilastname']
-        req.session.data['smridob' + req.session.data['smritotal']] = smridob
-        req.session.data['smridobday' + req.session.data['smritotal']] = req.session.data['smridobday']
-        req.session.data['smridobmonth' + req.session.data['smritotal']] = req.session.data['smridobmonth']
-        req.session.data['smridobyear' + req.session.data['smritotal']] = req.session.data['smridobyear']
-
-        res.redirect('/' + version + '/smri/process');
-    }
-});
-
-
-
-
 
 /// SMRI Process
 router.get('/' + version + '/smri/process', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/process', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/process', function (req, res) {
-    
+    clearvalidation(req);
     var smriprocess = req.session.data['smriprocess']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriprocess ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriprocess = {
             "anchor": "smriprocess",
-            "message": "Select whether " + smrifirstname + " " + smrilastname + " has been responsible for, contributed to or facilitated any serious process or mismanagement while carrying out a regulated activity"
+            "message": "Select whether " + companyname + " has a process in place to ensure that all people with SMRI are fit and proper"
         }
     }
 
@@ -7325,24 +8554,24 @@ router.post('/' + version + '/smri/process', function (req, res) {
 
 /// SMRI assessments
 router.get('/' + version + '/smri/assessments', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/assessments', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/assessments', function (req, res) {
-    
+    clearvalidation(req);
     var smriassessments = req.session.data['smriassessments']
     var smrifirstname = req.session.data['smrifirstname']
     var smrilastname = req.session.data['smrilastname']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smriassessments ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smriassessments = {
             "anchor": "smriassessments",
-            "message": "Select whether regular assessments are carried out"
+            "message": "Select whether " + companyname + " carries out regular assessments to ensure all people with SMRI remain fit and proper"
         }
     }
 
@@ -7360,22 +8589,22 @@ router.post('/' + version + '/smri/assessments', function (req, res) {
 
 /// SMRI list
 router.get('/' + version + '/smri/smrilist', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/smrilist', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/smrilist', function (req, res) {
-    
+    clearvalidation(req);
     var smrilist = req.session.data['smrilist']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrilist ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrilist = {
             "anchor": "smrilist",
-            "message": "Select whether you have a list of all people with SMRI"
+            "message": "Select whether you have a list of all people at " + companyname + " with SMRI"
         }
     }
 
@@ -7397,22 +8626,22 @@ router.post('/' + version + '/smri/smrilist', function (req, res) {
 
 /// SMRI fitandproper
 router.get('/' + version + '/smri/fitandproper', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/fitandproper', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/fitandproper', function (req, res) {
-    
+    clearvalidation(req);
     var smrifitandproper = req.session.data['smrifitandproper']
-
+    var companyname = req.session.data['companyname'] || "Radienteco Ltd"
 
     if (!smrifitandproper ) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.smrifitandproper = {
             "anchor": "smrifitandproper",
-            "message": "Select whether all people with SMRI are fit and proper"
+            "message": "Select whether everybody with SMRI at " + companyname + " is fit and proper"
         }
     }
 
@@ -7430,14 +8659,14 @@ router.post('/' + version + '/smri/fitandproper', function (req, res) {
 
 /// SMRI declaration
 router.get('/' + version + '/smri/declaration', function (req, res) {
-    
+    clearvalidation(req);
     res.render('/' + version + '/smri/declaration', {
         data: req.session.data
     });
 });
 
 router.post('/' + version + '/smri/declaration', function (req, res) {
-    
+    clearvalidation(req);
 
     var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -7452,9 +8681,7 @@ today = dd + '/' + mm + '/' + yyyy;
         res.redirect('/' + version + '/smri/list?notification=submitted');
 });
 
-
-
-//////////////// QUERY MANAGEMENT //////////////
+//////////////////////////////////////////////////////////////////////////// QUERY MANAGEMENT //////////////////////////////////////////////////////////////////////////
 
 
 // Help - type
@@ -7531,17 +8758,8 @@ router.post('/' + version + '/help/details', function (req, res) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.helpdetails = {
             "anchor": "helpdetails",
-            "message": "Enter the details of your enquiry",
+            "message": "Add further details",
         }
-    }
-
-    if (helpdetails.length > 32000) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.helpdetails = {
-            "anchor": "helpdetails",
-            "message": "Details of enquiry must be 32,000 characters or fewer",
-        }
-
     }
 
 

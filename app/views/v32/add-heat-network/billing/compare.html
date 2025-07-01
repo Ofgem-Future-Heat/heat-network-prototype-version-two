@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you provide information so customers can compare your charges with other energy suppliers?" %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %} 
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title %}
+Does {{company}} provide information so customers can compare your charges with other energy suppliers?
+{% endset %}
+
+
+{% set cdnumber = "273" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -94,7 +106,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/billing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>
     </div>

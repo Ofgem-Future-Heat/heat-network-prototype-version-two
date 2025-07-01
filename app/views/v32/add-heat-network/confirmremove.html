@@ -1,6 +1,10 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are any of your commercial customers small and medium-sized enterprises (SMEs)?" %}
+{% set title %}
+Are you sure you want to remove {{data.name}}?
+{% endset %}
 {% set _inError = data.validationError == "true"  %}
+{% set cdnumber = "247" %}
+
 
 
 {% block pageTitle %}
@@ -51,67 +55,56 @@
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.smallmediumbusinesses %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.confirmremove %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+                        <span class="govuk-caption-l">Add a heat network</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
-
                     </legend>
+                    <p class="govuk-body">By continuing, this heat network and all of the information you’ve entered will be removed.</p>
+                    <p class="govuk-body">If you want to add this heat network again, you’ll have to re-enter all of your answers. </p>
 
-                      <details class="govuk-details">
-                        <summary class="govuk-details__summary">
-                          <span class="govuk-details__summary-text">
-                            Help with 'small and medium-sized enterprises (SMEs)'
-                          </span>
-                        </summary>
-                        <div class="govuk-details__text">
-                            <p class="govuk-body">Any organisation larger than a microbusiness that has fewer than 250 employees and a turnover of less than €50 million.</p>
-                        </div>
-                      </details>
 
-                    
-                    {% if data.validationErrors.smallmediumbusinesses %}
+
+                    {% if data.validationErrors.confirmremove %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.smallmediumbusinesses.message}}
+                        {{data.validationErrors.confirmremove.message}}
                     </p>
                     {% endif %}
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="smallmediumbusinesses" name="smallmediumbusinesses" type="radio" value="Yes" {% if data.smallmediumbusinesses == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="smallmediumbusinesses">
+                            <input class="govuk-radios__input" id="confirm" name="confirmremove" type="radio" value="Yes" {% if data.confirmremove=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="smallmediumbusinesses-2" name="smallmediumbusinesses" type="radio" value="No" {% if data.smallmediumbusinesses == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="smallmediumbusinesses-2">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirmremove" type="radio" value="No" {% if data.confirmremove=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">
                                 No
                             </label>
                         </div>
                     </div>
 
-            </fieldset>
+
+                </fieldset>
 
 
-    </div>
-                <div class="govuk-button-group">
+            </div>
+                        <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
             </div>
         </form>
-</div>
+    </div>
 
 </div>
 

@@ -66,6 +66,17 @@
 
                         </legend>
 
+                        <details class="govuk-details">
+                            <summary class="govuk-details__summary">
+                              <span class="govuk-details__summary-text">
+                                Help with ‘consumer’
+                              </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                A consumer is a person who purchases heating, cooling or hot water that was provided by a heat network. They can use the heating, cooling or hot water for their own consumption or supply it to another heat network.
+                            </div>
+                          </details>
+
                         {% if data.validationErrors.introsupplycurrent %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
@@ -97,7 +108,8 @@
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>

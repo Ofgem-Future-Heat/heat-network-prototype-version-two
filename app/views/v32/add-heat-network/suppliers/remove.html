@@ -1,5 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+{% set cdnumber = "281" %}
 
 {% set title %}
 Are you sure you want to remove {{data.suppliernameselected}}?
@@ -62,7 +63,6 @@ Are you sure you want to remove {{data.suppliernameselected}}?
       {{title}}
     </h1>
   </label>
-  <p class="govuk-body">You’ll need to reallocate any buildings associated with this supplier.</p>
   <div class="govuk-form-group {% if data.validationErrors.supplierremove %}govuk-form-group--error{% endif %}">
 
         {% if data.validationErrors.supplierremove %}
@@ -98,7 +98,8 @@ Are you sure you want to remove {{data.suppliernameselected}}?
               html: 'Continue'
           })
         }}
-        <a href="cancel" class="govuk-link">Cancel</a>
+        <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
 
       </div>
 </form>

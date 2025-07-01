@@ -2,6 +2,7 @@
 {% set title %}
 Confirm supplier
  {% endset %}
+{% set cdnumber = "279" %}
 
 
 {% block pageTitle %}
@@ -44,7 +45,13 @@ Confirm supplier
 
           </div>
 
+          
+          {% if data.supplierresults.length == 1 %}
+          <p class="govuk-body"><a href="dropout" class="govuk-link govuk-link--no-visited-state">I cannot find my supplier</a></p>
+          {% else %}
           <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Change supplier</a></p>
+          {% endif %}
+
 
 
 
@@ -56,7 +63,8 @@ Confirm supplier
                   html: 'Confirm and continue'
               })
             }}
-            <a href="cancel" class="govuk-link">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
           </div>
     </form>
 

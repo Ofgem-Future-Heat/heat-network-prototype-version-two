@@ -1,8 +1,21 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Heat network submitted" %}
 {% set _inError = data.validationError == "true"  %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
 
-{% set cdnumber = "009" %}
+{% set cdnumber = "246" %}
+{% set footerlink %}
+/{{data.version}}/emails/registration-complete
+{% endset %}
+{% set footertext %}
+Confirmation email
+{% endset %}
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
@@ -11,12 +24,7 @@
 
         {% include data.version + "/_partials/logout.html" %}
 
-        {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
-        }}
+
 
 
     </div>
@@ -37,19 +45,77 @@
               {{title}}
             </h1>
             <div class="govuk-panel__body">
-              Heat Network ID: HN0001234
+              Heat network registration ID: HN0001234
             </div>
           </div>
-          <h2 class="govuk-heading-m">
-            What happens next
-          </h2>
           <p class="govuk-body">
-            We'll send you a confirmation email. This will tell you what your future obligations are, for example how to keep this heat network compliant and your data up to date.
+            We have sent you a confirmation email.
           </p>
-          {% if data.introcommunaloperate == "Yes" %}
-          <p class="govuk-body">You must submit separate registrations for your {{data.introcommunaloperatehowmany}} communal buildings.</p>
+          <p class="govuk-body">
+You have now registered the regulated activity that {{company}} undertakes on the heat network {{data.name}}.
+</p>
+
+          <p class="govuk-body">
+            {% if data.role == "Supplier" %}
+            You've confirmed that {{company}} is responsible for supply.
+            
+            {% elif data.role  == "Operator" %}
+            You've told us that {{company}} is responsible for operation.
+
+            {% else %}
+
+            You've told us that {{company}} is responsible for both operation and supply.       
             {% endif %}
-        <a href="/{{data.version}}/account-information" class="govuk-button">Go to account home</a>
+          </p>
+          
+
+          {% if (data.introsupply20 == "Yes") or (data.supply20 == "Yes") %}
+          <p class="govuk-body">
+          Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been ‘deemed authorised’ for the initial period of regulation.
+        </p>
+        <p class="govuk-body">
+          Prior to January 2028, we may contact you for further information in order to make this authorisation enduring beyond the initial period of regulation.
+        </p>
+          {% endif %}
+
+          <h2 class="govuk-heading-m">
+            What you need to do next
+          </h2>
+            {% if data.introcommunaloperate == "Yes" %}
+            <div class="govuk-inset-text">
+
+            {% if data.introcommunaloperatehowmany > 1 %}
+            <p class="govuk-body">You must submit separate registrations for your {{data.introcommunaloperatehowmany}} communal buildings.</p>
+
+            {% else %}
+            <p class="govuk-body">You must submit a separate registration for your communal building.</p>
+
+            {% endif %}
+          </div>
+
+          {% endif %}
+
+
+          <p class="govuk-body">
+            	
+
+          You must also ensure {{company}} remains compliant with the general authorisation conditions for heat network authorisation, related to its regulated activity on the heat network. You can view these at: <a href="#" class="govuk-link" target="_blank">TBC</a>
+          </p>
+          <p class="govuk-body">
+            This includes submitting regular data about your organisation and this heat network so that we can monitor compliance. We’ll let you know when and how to do this nearer the time.
+          </p>
+          <p class="govuk-body">
+            We may contact you if we need any further information about this registration.
+          </p>
+
+<h2 class="govuk-heading-m">Making changes to this heat network</h2>
+<p class="govuk-body">
+  There will be a process to follow if you need to tell us about any changes to the information you submitted about this regulated activity.
+  </p>
+  <p class="govuk-body">Guidance is available at: <a href="#" class="govuk-link" target="_blank">TBC</a></p>
+
+
+        <a href="/{{data.version}}/account-information" class="govuk-button">Go to heat networks home</a>
     </div>
 
 </div>

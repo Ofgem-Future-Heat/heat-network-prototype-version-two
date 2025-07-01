@@ -1,20 +1,18 @@
 {% extends 'layouts/main.html' %}
-
-{% if (data.energycentres > 1) %}
 {% set title %}
+{% if (data.energycentres > 1) %}
+
 Does the primary energy centre have a postcode?
+{% elif data.energycentres == 0 %} 
+Does the main plot connection point for this heat network have a postcode?
+
+{% else %}
+Does the energy centre have a postcode?
+
+{% endif %}
 {% endset %}
-{% else %}
-{% if data.energycentres == 0 %} 
-{% set title = "Does the main plot connection for this heat network have a postcode?" %}
-
-{% else %}
-{% set title = "Does the energy centre have a postcode?" %}
-
-{% endif %}
-{% endif %}
 {% set _inError = data.validationError == "true"  %}
-
+{% set cdnumber = "284" %}
 
 {% block pageTitle %}
 {{title}}
@@ -74,6 +72,21 @@ Does the primary energy centre have a postcode?
                 </h1>
 
                 </legend>
+
+                {% if data.energycentres == 0 %} 
+                <details class="govuk-details">
+                    <summary class="govuk-details__summary">
+                      <span class="govuk-details__summary-text">
+                        Help with ‘plot connection’
+                      </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        This is the point where the heat network gets its heating, cooling or hot water from another heat network. 
+                    </div>
+                  </details>
+                {% endif %}
+               
+
         {% if data.validationErrors.ecaddressHasPostcode %}
         <p class="govuk-error-message">
             <span class="govuk-visually-hidden">Error:</span>
@@ -100,13 +113,18 @@ Does the primary energy centre have a postcode?
             </fieldset>
             
 
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
         </form>
-        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
     </div>
 
 </div>

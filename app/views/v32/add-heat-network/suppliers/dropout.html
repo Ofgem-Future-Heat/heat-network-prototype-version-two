@@ -1,6 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Supplier not found" %}
 {% set showhelp = false %}
+{% set cdnumber = "319" %}
 
 
 {% block pageTitle %}
@@ -38,24 +39,20 @@
                             {{title}}
                         </h1>
 
-                        <p class="govuk-body">If you cannot find your supplier, they need to enable their organisation to use the heat network service. </p>
+                        <p class="govuk-body">If you cannot find your supplier, they need to enable their organisation to use the heat networks service.</p>
                         <p class="govuk-body">Ask them to do this, and when they’ve finished, you can come back and add them to this heat network.</p>
 
 
                         <p class="govuk-body">
-                            For further information, you can contact us either via:
+                            For further information, you can contact us at <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Registering%20a%20heat%20network&body=Account%20email%3A%20{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}%0AContact%20reason%3A%20Cannot%20register%20a%20heat%20network%0A%0AFurther%20details%3A%0A" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>
                         </p>
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li><a href="/{{data.version}}/help/details?type=Registering%20a%20heat%20network" class="govuk-link govuk-link--no-visited-state">Web form</a></li>
-                            <li>Email: <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Registering%20a%20heat%20network&body=Account%20email%3A%20{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}%0AContact%20reason%3A%20Cannot%20register%20a%20heat%20network%0A%0AFurther%20details%3A%0A" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></li>
-            
-                        </ul>
+  
                         <p class="govuk-body">
                             We'll aim to respond within 5 working days.
                         </p>
             </div>
             <div class="govuk-button-group">
-                <a href="suppliers" class="govuk-button">Return to Suppliers</a>
+                <a href="suppliers" class="govuk-button">Return to suppliers</a>
 
                 <a href="../tasklist" class="govuk-link">Cancel</a>
         

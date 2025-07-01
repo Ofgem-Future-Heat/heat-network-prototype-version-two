@@ -1,12 +1,13 @@
 {% extends 'layouts/main.html' %}
 
-{% set title = "What types of heating, cooling or hot water does the energy centre supply to customers?" %}
+{% set title = "Which types of heating, cooling or hot water does this energy centre supply to customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
 {{title}}
 {% endblock %}
+{% set cdnumber = "290" %}
 
 {% block beforeContent %}
 
@@ -120,7 +121,8 @@
                 })
     }}
     </form>
-    <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+    <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
 </div>
 
 </div>

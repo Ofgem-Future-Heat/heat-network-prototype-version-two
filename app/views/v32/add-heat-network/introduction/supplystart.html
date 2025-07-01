@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "229" %}
 
-{% set title = "Will the heat network start providing heating, cooling or hot water to consumers before 27 January 2027?" %}
+{% set title = "Will the heat network start providing heating, cooling or hot water to consumers on or before 26 January 2027?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -96,7 +96,8 @@
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>

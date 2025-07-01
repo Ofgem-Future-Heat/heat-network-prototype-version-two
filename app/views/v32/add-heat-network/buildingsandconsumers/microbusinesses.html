@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Are any of your commercial customers 'microbusinesses'?" %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+{% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘microbusiness’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘microbusinesses’?
+{% endif %}
+{% endset %}
+
+{% set cdnumber = "253" %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -56,7 +68,7 @@
                 <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
@@ -71,9 +83,8 @@
                         <div class="govuk-details__text">
                             <p class="govuk-body">These are businesses that either:</p>
                             <ul class="govuk-list govuk-list--bullet">
-                                <li>consume less than 247,000 kWh of heat per year</li>
-                                <li>have less than 10 full-time employees</li>
-                                <li>turn over less than &pound;2 million per year</li>
+                                <li>have fewer than 10 full-time employees</li>
+                                <li>turn over less than £2 million per year</li>
                             </ul>
                             <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
                                 </div>
@@ -112,7 +123,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
 </div>

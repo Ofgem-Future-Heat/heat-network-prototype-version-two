@@ -78,7 +78,7 @@ How many buildings does this heat network provide heating, cooling or hot water 
 
                         </h1>
 
-                        <p class="govuk-body">You should count a communal block.</p>
+                        <p class="govuk-body">You should count a communal block as one building.</p>
                         <p class="govuk-body">If the heat network does not provide heating, cooling or hot water to any buildings, enter '0'.</p>
 
 
@@ -100,7 +100,8 @@ How many buildings does this heat network provide heating, cooling or hot water 
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>

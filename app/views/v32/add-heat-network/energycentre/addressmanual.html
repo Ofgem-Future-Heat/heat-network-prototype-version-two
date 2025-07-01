@@ -1,13 +1,21 @@
 {% extends 'layouts/main.html' %}
-{% if (data.energycentres > 1) %}
-{% set title = "What is the primary energy centre's address?" %}
-{% else %}
+
 {% set title %}
-What is the {{data.energycentretype}}'s address? 
-{% endset %}
+{% if (data.energycentres > 1) %}
+
+What is the primary energy centre's address?
+{% elif data.energycentres == 0 %} 
+What is the plot connection point’s address?
+
+{% else %}
+What is the energy centre’s address?
+
 {% endif %}
+{% endset %}
+
 
 {% set _inError = data.validationError == "true"  %}
+{% set cdnumber = "288" %}
 
 
 {% block pageTitle %}
@@ -130,13 +138,18 @@ What is the {{data.energycentretype}}'s address?
 
 
             </div>
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
         </form>
-        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
 
     </div>
 

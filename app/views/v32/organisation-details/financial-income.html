@@ -2,7 +2,7 @@
 {% set cdnumber = "075" %}
 
 {% set title %}
-What was {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s average monthly gross income from heat sales on its heat networks for the previous financial year?
+What was {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}’s total income for the previous financial year?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -17,7 +17,7 @@ What was {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{%
 
     <div class="govuk-grid-column-full">
 
-{% include data.version + "/_partials/logout.html" %}
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',

@@ -1,11 +1,14 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Does the heat network provide heating, cooling or hot water to any vulnerable customers?" %}
+{% set title = "Does this heat network provide heating, cooling or hot water to any vulnerable customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 
 {% block pageTitle %}
 {{title}}
 {% endblock %}
+
+{% set cdnumber = "259" %}
+
 
 {% block beforeContent %}
 
@@ -112,7 +115,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
     </div>

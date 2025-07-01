@@ -1,5 +1,17 @@
 {% extends 'layouts/main.html' %}
-{% set title = "Do you have a process for dealing with customers with payment difficulties, including issuing reminder letters?" %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %} 
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title %}
+Does {{company}} have a process for dealing with customers with payment difficulties, including issuing reminder letters?
+{% endset %}
+{% set cdnumber = "262" %}
+
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -78,14 +90,12 @@
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumerdifficulties-2" name="consumerdifficulties" type="radio" value="No" data-aria-controls="consumerdifficultiesconditional" {% if data.consumerdifficulties == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumerdifficulties-2" name="consumerdifficulties" type="radio" value="No" {% if data.consumerdifficulties == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumerdifficulties-2">
                                 No
                             </label>
                         </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="consumerdifficultiesconditional">
-                                <p class="govuk-body">You will need to confirm this is in place within 3 months.</p>
-                            </div>
+       
 
 
                     </div>
@@ -93,7 +103,7 @@
                 </fieldset>
 
             </div>
-                            <p class="govuk-body">We may request this from you in the future.</p>
+                            <p class="govuk-body">It is a requirement for your organisation to have this in place. We may request it in the future.</p>
 
 
                         <div class="govuk-button-group">
@@ -102,7 +112,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
     </div>

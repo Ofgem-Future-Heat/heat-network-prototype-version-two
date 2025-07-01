@@ -9,6 +9,8 @@ What are the {{data.energycentretype}}'s grid coordinates?
 {% endif %}
 {% set _inError = data.validationError == "true"  %}
 
+{% set cdnumber = "285" %}
+
 
 {% block pageTitle %}
 {{title}}
@@ -63,8 +65,16 @@ What are the {{data.energycentretype}}'s grid coordinates?
                         <h1 class="govuk-heading-l">
                                  {{title}}
                           </h1>
+
+                          {% if data.energycentres == 0 %} 
+                                  <p class="govuk-body">To find the coordinates of the plot connection point go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The coordinates will be the first option in the list.</p>
+
+
+                          {% else %}
+                                                            <p class="govuk-body">To find the coordinates of this energy centre go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The coordinates will be the first option in the list.</p>
+
+                          {% endif %}
           
-        <p class="govuk-body">To find the coordinates of the {{data.energycentretype}} go to <a href="https://www.google.co.uk/maps" target="_blank" class="govuk-link">Google maps</a> and right click the location of your energy centre. The coordinates will be the first option in the list.</p>
         <p class="govuk-body">You can then paste these coordinates directly into the box below.</p>
 
                 <div class="govuk-form-group {% if data.validationErrors.ecaddresslatitude %}govuk-form-group--error{% endif %}">
@@ -97,15 +107,19 @@ What are the {{data.energycentretype}}'s grid coordinates?
                 </div>
 
             </fieldset>
-            
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
+            </div>
+
+
         </form>
-        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a>
     </div>
 
 </div>

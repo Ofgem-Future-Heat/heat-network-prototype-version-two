@@ -59,7 +59,7 @@
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Add a heat network - buildings, customers and metering</span>
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
 
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -75,7 +75,7 @@
                     </p>
                     {% endif %}
 
-                                {% set customertypes = [['Residential', 'For example, houses and flats'], ['Public', 'For example, local authority or other government customers, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses']] %}
+                                {% set customertypes = [['Residential', 'For example, houses, flats and care homes'], ['Public', 'For example, local authority or other government customers, libraries, schools and healthcare facilities'], ['Commercial', 'For example, shops or offices'], ['Industrial', 'For example, factories or warehouses']] %}
 
                                 <div class="govuk-{{inputtype}}" data-module="govuk-{{inputtype}}">
 
@@ -102,7 +102,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
     </div>

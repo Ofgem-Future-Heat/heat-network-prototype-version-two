@@ -1,5 +1,15 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Check your answers" %}
+{% set cdnumber = "275" %}
+{% set _inError = data.validationError == "true"  %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd
+{% endif %}
+{% endset %}
 
 
 {% block pageTitle %}
@@ -40,7 +50,7 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    How often do you send bills to customers?
+                    How often does {{company}} send bills to customers?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% if data.billingoften == "Other" %}
@@ -55,7 +65,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Information on how customers' bills are calculated?
+                    Information provided on how customers' bills are calculated?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.billingcalculated}}
@@ -66,7 +76,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Information so customers can compare your charges
+                    Information provided so customers can compare your charges?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.billingcompare}}
@@ -75,10 +85,9 @@
                     <a class="govuk-link" href="compare">Change</a>
                 </dd>
             </div>
-            {% if data.billinginfo %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    What other information is included with customers' billing information
+                    Other information included with customers' bills
                 </dt>
                 <dd class="govuk-summary-list__value">
                      <ul class="govuk-list">
@@ -91,21 +100,23 @@
                     <a class="govuk-link" href="otherinfo">Change</a>
                 </dd>
             </div>
-            {% endif %}
 
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="billingcomplete" name="billingcomplete" value="true" />
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+            <div class="govuk-button-group">
             {{
                 govukButton ({
                     html: 'Save and continue'
                 })
             }}
-        </form>
-        {% if data.billingcomplete == "true" %}
+            <a href="/{{data.version}}/add-heat-network/billing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
 
-        <a href="cancel" class="govuk-link">Cancel changes</a>
-        {% endif %}
+        </div>
+        </form>
+
+
 
     </div>
 

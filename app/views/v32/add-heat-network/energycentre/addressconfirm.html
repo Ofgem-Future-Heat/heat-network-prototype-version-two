@@ -1,24 +1,20 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-{% if (data.energycentres > 1) %}
-
-{% if data.ecaddressHasPostcode == "Yes" %}
-Confirm primary energy centre's address
-{% else %}
-Confirm primary energy centre's coordinates
-{% endif %}
-{% else %}
-{% if data.ecaddressHasPostcode == "Yes" %}
-Confirm {{data.energycentretype}} address
-{% else %}
-Confirm {{data.energycentretype}} coordinates
-{% endif %}
-{% endif %}
+    {% if (data.energycentres > 1) %}
+Confirm primary energy centre’s address
+    {% elif (data.energycentres == 1) %}
+Confirm energy centre’s address
+    {% else %}
+Confirm plot connection point’s address
+    {% endif %}
 {% endset %}
-
 {% block pageTitle %}
 {{title}}
 {% endblock %}
+
+{% set cdnumber = "289" %}
+
+{% set _inError = data.validationError == "true"  %}
 
 {% block beforeContent %}
 
@@ -73,22 +69,23 @@ Confirm {{data.energycentretype}} coordinates
 
 
             </div>
-            {% if data.ecaddressHasPostcode == "Yes" %}
-            {{
-                govukButton ({
-                    html: 'Use this address'
-                })
-            }}
-{% else %}
-{{
-    govukButton ({
-        html: 'Use these coordinates'
-    })
-}}
-{% endif %}
+            <p class="govuk-body"><a href="address" class="govuk-link govuk-link--no-visited-state">Change address</a></p>
 
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
+
+
+          
         </form>
-        <a href="../tasklist" class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
     </div>
 

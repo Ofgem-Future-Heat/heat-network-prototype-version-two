@@ -17,7 +17,7 @@
 
     <div class="govuk-grid-column-full">
 
-{% include data.version + "/_partials/logout.html" %}
+{% include data.version + "/_partials/headerlinks.html" %}
         {{
  govukBackLink ({
                     text: 'Back',
@@ -65,7 +65,7 @@
                     {{title}}
                   </h1>
                 </legend>
-                <p class="govuk-body">All regulatory notices and other documents that we may need to send regarding your organisation's heat networks will go to your email address, as the regulatory contact:  <strong>{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}</strong></p>
+                <p class="govuk-body">All regulatory notices and other documents that we may need to send regarding heat networks will go to your email address, as the regulatory contact: <strong>{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}</strong></p>
 
                 <p class="govuk-body">You can provide an alternative email address for occasions where you are not available, or so additional members of your team receive legal correspondence. The email address can be for a shared mailbox.</p>
 

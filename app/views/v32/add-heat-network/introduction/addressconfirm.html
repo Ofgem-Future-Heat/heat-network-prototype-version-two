@@ -1,4 +1,6 @@
 {% extends 'layouts/main.html' %}
+{% set cdnumber = "315" %}
+
 {% set title %}
 Confirm address
 {% endset %}
@@ -47,6 +49,9 @@ Confirm address
                             {% set address = data.buildingaddressSelected.toString() %}
                             {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
                         </div>
+                        <p class="govuk-body">                                                
+                            <a href="address" class="govuk-link govuk-link--no-visited-state">Change address</a>
+                        </p>
 
 
 
@@ -58,10 +63,11 @@ Confirm address
             <div class="govuk-button-group">
                 {{
                     govukButton ({
-                        html: 'Continue'
+                        html: 'Confirm'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
             </div>
 
         </form>

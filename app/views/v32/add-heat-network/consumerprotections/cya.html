@@ -1,5 +1,14 @@
 {% extends 'layouts/main.html' %}
 {% set title = "Check your answers" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd
+  {% endif %}
+{% endset %}    
+
+{% set cdnumber = "263" %}
 
 
 {% block pageTitle %}
@@ -31,31 +40,23 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Add a heat network - financial resilience</span>
+        <span class="govuk-caption-l">Add a heat network - consumer protections</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
             {% if data.consumervulnerable %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network supply vulnerable customers?
+                    Number of vulnerable customers heat network provides heating, cooling or hot water to
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {{data.consumervulnerable}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="vulnerable">Change</a>
-                </dd>
-            </div>
-            {% endif %}
-            {% if data.consumervulnerable == "Yes" %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Total number of vulnerable customers
-                </dt>
-                <dd class="govuk-summary-list__value">
+                    {% if data.consumervulnerable == "Yes" %}
                     {{data.consumervulnerableammount}}
+                    {% else %}
+                    None
+                    {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="vulnerable">Change</a>
@@ -64,8 +65,8 @@
             {% endif %}
             {% if data.consumerpsr %}
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Do you have a Priority Service Register (PSR)?
+                <dt class="govuk-summary-list__key">         	
+                    Does {{company}} have a Priority Service Register (PSR)?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerpsr}}
@@ -78,7 +79,7 @@
             {% if data.consumerconfirm %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Is there a procedure in place for domestic consumers and microbusinesses to raise a complaint?
+                    	Complaints procedure for domestic customers, small businesses and SMEs?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerconfirm}}
@@ -91,7 +92,7 @@
             {% if data.consumerdifficulties %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you have a process for dealing with customers with payment difficulties, including issuing reminder letters?
+                   Process for dealing with customers with payment difficulties?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.consumerdifficulties}}
@@ -106,18 +107,20 @@
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="protectionscomplete" name="protectionscomplete" value="true" />
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
 
-            {{
-                govukButton ({
-                    html: 'Save and continue'
-                })
-            }}
+
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Save and continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
         </form>
 
-        {% if data.protectionscomplete == "true" %}
 
-        <a href="cancel" class="govuk-link">Cancel changes</a>
-        {% endif %}
 
     </div>
 

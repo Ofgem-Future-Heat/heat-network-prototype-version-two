@@ -82,41 +82,34 @@ Which regulated activities does {{company}} undertake on the heat network?
                     {% endif %}
 
 
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role" name="role" type="radio" value="Heat supplier" aria-describedby="role-item-hint" {% if data.role == "Heat supplier" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="role" name="role" type="radio" value="Supplier" aria-describedby="role-item-hint" {% if data.role == "Supplier" %}checked{% endif %} >
                             <label class="govuk-label govuk-radios__label" for="role">
                                 Supply only
                             </label>
                             <div id="role-item-hint" class="govuk-hint govuk-radios__hint">
-                                Your organisation has a contract to provide heating, cooling or hot water to some or all of the consumers on the network. A consumer is someone who has a contract for the purchase of heating, cooling or hot water, for example a bill payer.
+                                Your organisation has a contract to provide heating, cooling or hot water to some or all of the consumers on the heat network. A consumer is someone who has a contract for the purchase of heating, cooling or hot water, for example a bill payer. 
                             </div>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Network operator" aria-describedby="role-2-item-hint" {% if data.role == "Network operator" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Operator" aria-describedby="role-2-item-hint" {% if data.role == "Operator" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-2">
-                                Network operator only
+                                Operation only
                             </label>
                             <div id="role-2-item-hint" class="govuk-hint govuk-radios__hint">
-                                Your organisation owns some or all of the assets on the heat network (for example the pipework, heat exchangers, substations or energy centres) or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs and maintenance to support its continued operation.
-                            </div>
+                                Your organisation owns some or all of the assets on the heat network (for example the pipework, heat exchangers, substations or energy centres) or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs and maintenance to support its continued operation. 
+                                                        </div>
                         </div>
+                        <div class="govuk-radios__divider">or</div>
+
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Both" aria-describedby="role-3-item-hint" {% if data.role == "Both" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Operator and supplier" aria-describedby="role-3-item-hint" {% if data.role == "Operator and supplier" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="role-3">
                                 Both of these activities
                             </label>
                         </div>
-                        <div class="govuk-radios__divider">or</div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-4" name="role" type="radio" value="Neither" aria-describedby="role-3-item-hint" {% if data.role == "neither" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="role-4">
-                                Neither of these activities
-                            </label>
-                        </div>
+  
 
                     </div>
 
@@ -130,7 +123,8 @@ Which regulated activities does {{company}} undertake on the heat network?
             html: 'Continue'
             })
             }}
-            <a href="cancel" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
         </div>
 
         </form>

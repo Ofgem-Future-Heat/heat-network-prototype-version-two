@@ -59,10 +59,10 @@
            You've removed {{data.deleteduseremail}} from the heat networks service for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
            {% elif data.manageusersnotification == 'inviteremoved'  %}
-           You've cancelled the invitation for {{data.deleteduseremail}} to act on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+           You've cancelled the invitation for {{data.deleteduseremail}} to use the heat networks service on behalf of {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
 
             {% elif data.manageusersnotification == 'adduserpermissions' %}
-            You've changed additional permissions for {{data.useremail}}
+            You've added additional permissions for {{data.useremail}}
 
             {% elif data.manageusersnotification == 'regchange' %}
             You've made {{data.regcontactname}} the regulatory contact for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}'s heat networks
@@ -70,7 +70,7 @@
           </h3>
           {% if data.manageusersnotification == 'inviteremoved' %}
           <p class="govuk-body">They've also been removed from the heat networks service for {{company}}. We've let them know via email.</p>
-          {% elif data.manageusersnotification != 'removed' %}
+          {% elif (data.manageusersnotification != 'removed') and (data.manageusersnotification != 'adduserpermissions') %}
           <p class="govuk-body">We've let them know via email.</p>
           {% endif %}
         </div>
@@ -88,7 +88,7 @@
                             {{title}}
                         </h1>
 
-                        <table class="govuk-table">
+                        <table class="govuk-table responsive">
                           <caption class="govuk-table__caption govuk-table__caption--m">Users</caption>
                           <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
@@ -144,7 +144,7 @@
 
                           {% if user.added == "true" %}
                                 <tr class="govuk-table__row">
-                                  {% if (user.id == "3") or (user.id == "4") %}
+                                  {% if (user.id == "4") or (user.id == "5") %}
                                   <td class="govuk-table__cell">-
 
                                   {% else %}
@@ -159,9 +159,9 @@
                                   <td class="govuk-table__cell">
                                     {% if user.deleted == true %}
                                     <span class="govuk-tag govuk-tag--red no-wrap">Deactivated</span>
-                                    {% elif (user.id == "3") %}
-                                    <span class="govuk-tag govuk-tag--yellow no-wrap">Invitation sent</span>
                                     {% elif (user.id == "4") %}
+                                    <span class="govuk-tag govuk-tag--yellow no-wrap">Invitation sent</span>
+                                    {% elif (user.id == "5") %}
                                     <span class="govuk-tag govuk-tag--orange no-wrap">Invitation refused</span>
 
                                     {% else %}
@@ -170,9 +170,9 @@
                                           {% endif %}
                                   </td>
                                   <td class="govuk-table__cell govuk-table__cell--numeric">
-                                    {% if (user.id == "3") %}
+                                    {% if (user.id == "4") %}
                                     <a href="manage-users/cancel-invite?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Cancel invitation</a>
-                                    {% elif (user.id == "4") %}
+                                    {% elif (user.id == "5") %}
                                     <a href="manage-users/remove-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Remove user</a>
                                     {% elif (user.deleted == true) %}
                                     <a href="manage-users/reactivate-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Reactivate user</a>

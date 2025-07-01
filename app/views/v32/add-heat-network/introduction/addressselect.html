@@ -1,9 +1,7 @@
 {% extends 'layouts/main.html' %}
-{% if (data.buildings >= 1) %}
-{% set title = "Building 1: Select an address" %}
-{% else %}
+{% set cdnumber = "313" %}
+
 {% set title = "Select an address" %}
-{% endif %}
 
 
 {% set _inError = data.validationError == "true"  %}
@@ -64,6 +62,7 @@
                 {{title}}
               </label>
             </h1>
+            <p class="govuk-body">{{data.buildingaddressSelect.length}} results for <strong>{{data.buildingaddressPostcode}}</strong>. <a href="address" class="govuk-link govuk-link--no-visited-state">Change postcode</a></p>
 
 
                     <p class="govuk-body">If the building has multiple premises in it, select the address for the whole building. If the list only contains premises within the building, select any of these.</p>
@@ -105,7 +104,8 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="cancel" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
             </div>
         </form>
 </div>
