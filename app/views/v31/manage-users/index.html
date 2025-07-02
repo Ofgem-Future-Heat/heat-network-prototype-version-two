@@ -129,7 +129,7 @@
                                               <span class="govuk-tag govuk-tag--green">Active</span>
                                       </td>
                                       <td class="govuk-table__cell govuk-table__cell--numeric">
-                                          <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                          <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">{{user.firstname}} {{user.lastname}}</span></a>
                                           {% if (data.currentuserid == user.id) and (data.usertotal > 1) %}
                                           <br /><a href="manage-users/reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
                                           {% endif %}
@@ -171,14 +171,14 @@
                                   </td>
                                   <td class="govuk-table__cell govuk-table__cell--numeric">
                                     {% if (user.id == "4") %}
-                                    <a href="manage-users/cancel-invite?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Cancel invitation</a>
+                                    <a href="manage-users/cancel-invite?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Cancel invitation <span class="govuk-visually-hidden">for {{ user.email }}</span></a>
                                     {% elif (user.id == "5") %}
-                                    <a href="manage-users/remove-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Remove user</a>
+                                    <a href="manage-users/remove-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Remove user <span class="govuk-visually-hidden">{{ user.email }}</span></a>
                                     {% elif (user.deleted == true) %}
-                                    <a href="manage-users/reactivate-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Reactivate user</a>
+                                    <a href="manage-users/reactivate-user?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">Reactivate user <span class="govuk-visually-hidden">{{ user.email }}</span></a>
 
                                     {% else %}
-                                      <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">user</span></a>
+                                      <a href="manage-users/user-profile?id={{ user.id }}" class="govuk-link govuk-link--no-visited-state">View <span class="govuk-visually-hidden">{{user.firstname}} {{user.lastname}}</span></a>
                                     {% endif %}
                                   </td>
                               </tr>
