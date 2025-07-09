@@ -102,9 +102,15 @@ Does {{company}} provide information so customers can compare your charges with 
                             </label>
                         </div>
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="billinginfo-4" name="billinginfo" type="checkbox" value="Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products" {% for infoitem in data.billinginfo %}{% if infoitem == "Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products" %}checked{% endif %} {% endfor %} >
+                            <input class="govuk-checkboxes__input" id="billinginfo-4" name="billinginfo" type="checkbox" value="Contact information for organisations that provide energy-efficiency measures and technical specifications for energy-consuming products" {% for infoitem in data.billinginfo %}{% if infoitem == "Contact information for organisations that provide energy-efficiency measures and technical specifications for energy-consuming products" %}checked{% endif %} {% endfor %} >
                             <label class="govuk-label govuk-checkboxes__label" for="billinginfo-4">
-                                Contact information for organisations providing energy-efficiency measures and technical specifications for energy-consuming products
+                                Contact information for organisations that provide energy-efficiency measures and technical specifications for energy-consuming products
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="billinginfo-4" name="billinginfo" type="checkbox" value="Contact information for organisations that provide support and consumer advice to heat network customers" {% for infoitem in data.billinginfo %}{% if infoitem == "Contact information for organisations that provide support and consumer advice to heat network customers" %}checked{% endif %} {% endfor %} >
+                            <label class="govuk-label govuk-checkboxes__label" for="billinginfo-4">
+                                Contact information for organisations that provide support and consumer advice to heat network customers
                             </label>
                         </div>
 
