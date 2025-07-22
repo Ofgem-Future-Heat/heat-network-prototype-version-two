@@ -344,6 +344,7 @@ router.get('/' + version + '/account-information', function (req, res) {
 });
 
 
+
 //////////////////////////////////////////////////////////// POLICY PAGES /////////////////////////////////////////////////////////
 
 router.get('/' + version + '/help/cookies', function (req, res) {
@@ -413,6 +414,38 @@ router.get('/' + version + '/help/cookie-details', function (req, res) {
     res.render('/' + version + '/help/cookie-details', {
         data: req.session.data
     });
+});
+
+router.get('/' + version + '/blank', function (req, res) {
+ // Read the cookie and store it in session data
+
+  const cookies = ""
+
+  // Set cookies
+res.clearCookie('cookies_additional', {
+  httpOnly: false,
+  secure: false,
+  sameSite: 'Lax'
+});
+res.clearCookie('cookies_use', {
+  httpOnly: false,
+  secure: false,
+  sameSite: 'Lax'
+});
+res.clearCookie('cookies_preferences', {
+  httpOnly: false,
+  secure: false,
+  sameSite: 'Lax'
+});
+
+
+    res.render('/' + version + '/blank', {
+        data: req.session.data
+    });
+
+
+
+    
 });
 
 

@@ -3,3 +3,19 @@
 {% block pageTitle %}
     Header and footer
 {% endblock %}
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {% include data.version + "/_partials/headerlinks.html" %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
