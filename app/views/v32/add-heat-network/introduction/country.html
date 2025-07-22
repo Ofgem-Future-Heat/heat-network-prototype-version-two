@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "204" %}
+{% set cdnumber = "321" %}
 
 {% set company %}
 {% if data.companyname %}
@@ -9,7 +9,7 @@ Radienteco Ltd
 {% endif %}
 {% endset %}
 {% set title %}
-Which regulated activities does {{company}} undertake on the heat network?
+Which country are the heat network’s consumers located in?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -44,7 +44,7 @@ Which regulated activities does {{company}} undertake on the heat network?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" introcountry="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -61,7 +61,7 @@ Which regulated activities does {{company}} undertake on the heat network?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.role %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.introcountry %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -72,41 +72,35 @@ Which regulated activities does {{company}} undertake on the heat network?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating.</p>
+                    <!-- <p class="govuk-body">These are specific activities that Ofgem is responsible for regulating.</p> -->
 
-                    {% if data.validationErrors.role %}
+                    {% if data.validationErrors.introcountry %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.role.message}}
+                        {{data.validationErrors.introcountry.message}}
                     </p>
                     {% endif %}
 
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role" name="role" type="radio" value="Supplier" aria-describedby="role-item-hint" {% if data.role == "Supplier" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="role">
-                                Supply only
+                            <input class="govuk-radios__input" id="introcountry" name="introcountry" type="radio" value="England" {% if data.introcountry == "England" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="introcountry">
+                                England
                             </label>
-                            <div id="role-item-hint" class="govuk-hint govuk-radios__hint">
-                                Your organisation has a contract to provide heating, cooling or hot water to some or all of the consumers on the heat network. A consumer is someone who has a contract for the purchase of heating, cooling or hot water, for example a bill payer. 
-                            </div>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-2" name="role" type="radio" value="Operator" aria-describedby="role-2-item-hint" {% if data.role == "Operator" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="role-2">
-                                Operation only
+                            <input class="govuk-radios__input" id="introcountry-2" name="introcountry" type="radio" value="Scotland" {% if data.introcountry == "Scotland" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introcountry-2">
+                                Scotland
                             </label>
-                            <div id="role-2-item-hint" class="govuk-hint govuk-radios__hint">
-                                Your organisation owns some or all of the assets on the heat network (for example the pipework, heat exchangers, substations or energy centres) or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs and maintenance to support its continued operation. 
-                                                        </div>
+
                         </div>
-                        <div class="govuk-radios__divider">or</div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="role-3" name="role" type="radio" value="Operator and supplier" aria-describedby="role-3-item-hint" {% if data.role == "Operator and supplier" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="role-3">
-                                Both of these activities
+                            <input class="govuk-radios__input" id="introcountry-3" name="introcountry" type="radio" value="Wales" {% if data.introcountry == "Wales" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="introcountry-3">
+                                Wales
                             </label>
                         </div>
   

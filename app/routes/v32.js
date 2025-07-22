@@ -4573,9 +4573,46 @@ router.get('/' + version + '/add-heat-network/introduction/changes', function (r
 
 router.post('/' + version + '/add-heat-network/introduction/changes', function (req, res) {
     
-    res.redirect('/' + version + '/add-heat-network/introduction/communal');
+    res.redirect('/' + version + '/add-heat-network/introduction/country');
 
 });
+
+
+
+// Introduction - Energy centre
+router.get('/' + version + '/add-heat-network/introduction/country', function (req, res) {
+    
+    res.render('/' + version + '/add-heat-network/introduction/country', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/add-heat-network/introduction/country', function (req, res) {
+    
+    var introcountry = req.session.data['introcountry']
+
+    if (!introcountry) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.introcountry = {
+            "anchor": "introcountry",
+            "message": "Select the country that the heat network’s consumers are located in"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/add-heat-network/introduction/country', {
+            data: req.session.data
+        });
+    }
+    else {      
+                res.redirect('/' + version + '/add-heat-network/introduction/communal');
+
+
+        }  
+
+});
+
 
 
 

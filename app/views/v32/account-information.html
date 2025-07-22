@@ -195,9 +195,9 @@
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m">Heat networks</h2>
         {% if data.introcomplete == "true" %}
-        <p class="govuk-body">{{company}} has added <strong>5</strong> heat networks with <strong>1</strong> in progress.</p>
+        <p class="govuk-body">{{company}} has <strong>5</strong> heat networks. <strong>1</strong> in progress.</p>
         {% else %}
-        <p class="govuk-body">{{company}} has added <strong>4</strong> heat networks with <strong>0</strong> in progress.</p>
+        <p class="govuk-body">{{company}} has <strong>4</strong> heat networks. <strong>0</strong> in progress.</p>
         {% endif %}
 
           {{ govukButton ({
@@ -283,7 +283,7 @@
 
 
 
-      <p class="govuk-body">We need a bit more information about your organisation before you can start providing heat network information. Go to <a href="#" class="govuk-link">organisation details</a></p>
+      <p class="govuk-body">We need a bit more information about your organisation before you can register any heat networks. Go to <a href="/{{data.version}}/organisation-details/organisation-details" class="govuk-link">organisation details</a></p>
     </div>
 
       {% endif %}

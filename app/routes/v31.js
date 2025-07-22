@@ -46,6 +46,7 @@ function generateSupplierHN(req) {
     req.session.data['introcomplete'] = "true"
     req.session.data['introsupply20'] = "No"
     req.session.data['introresponsible'] = "Yes";
+    req.session.data['introcountry'] = "England"
 
     req.session.data['operator'] = "British Gas"
 
@@ -81,6 +82,7 @@ function generateOperatorHN(req) {
     req.session.data['introselfsupply'] = "No"
     req.session.data['introbuy'] = "Yes"
     req.session.data['introsell'] = "No"
+    req.session.data['introcountry'] = "England"
     req.session.data['name'] = "London Road Tower"
     req.session.data['introcomplete'] = "true"
     req.session.data['introsupply20'] = "No"
@@ -125,6 +127,7 @@ function generateOperatorCompleteHN(req) {
     req.session.data['introcomplete'] = "true"
     req.session.data['introsupply20'] = "No"
     req.session.data['introresponsible'] = "Yes"
+    req.session.data['introcountry'] = "England"
 
     // EC Flow
     req.session.data['ecaddressHasPostcode'] = "Yes"
@@ -203,6 +206,7 @@ function clearHN(req) {
     req.session.data['introcomplete'] = ""
     req.session.data['introsupply20'] = ""
     req.session.data['introresponsible'] = ""
+    req.session.data['introcountry'] = ""
 
     // EC Flow
     req.session.data['ecaddressHasPostcode'] = ""
@@ -276,6 +280,7 @@ function generateSupplier2HN(req) {
     req.session.data['introhnbuildings'] = "2"
     req.session.data['introauthorised'] = "Yes"
     req.session.data['operator'] = "British Gas"
+    req.session.data['introcountry'] = "England"
 
     req.session.data['ecaddressHasPostcode'] = "No"
     req.session.data['ecaddressSelected'] = "329-271, Links Rd, Aberdeen, AB2 45DJ"

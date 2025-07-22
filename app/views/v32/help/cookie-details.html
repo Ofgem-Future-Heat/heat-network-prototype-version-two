@@ -11,6 +11,8 @@ Details about cookies on  {{serviceName | lower}}
 {{title}}
 {% endblock %}
 
+
+
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
@@ -19,7 +21,12 @@ Details about cookies on  {{serviceName | lower}}
 
 
     {% include data.version + "/_partials/logout.html" %}
-
+    {{
+    govukBackLink ({
+    text: 'Back',
+    href: 'javascript:history.back()'
+    })
+    }}
   </div>
 
 </div>
@@ -196,7 +203,7 @@ Details about cookies on  {{serviceName | lower}}
       <fieldset class="govuk-fieldset" aria-describedby="hint-72581874">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
 
-          <h2 class="govuk-fieldset__heading">Cookies that store website preferences</h2>
+          <h2 class="govuk-fieldset__heading">Cookies that remember your settings</h2>
         </legend>
          <p class="govuk-body">Used by {{serviceName | lower}} to remember choices made previously. Language settings are an example of a preference type cookie.</p>
 <table class="govuk-table">
