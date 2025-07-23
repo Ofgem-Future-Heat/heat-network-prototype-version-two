@@ -15,7 +15,7 @@
 
   
   {% block header %}
-    {% if data.version and (data.version.replace('v', '')|int >= 31)%}
+    {% if data.version and (data.version.replace('v', '')|int >= 31) and cookibanner != "hidden"%}
 
           {% include data.version + "/_partials/cookiebanner.html" %}
               
