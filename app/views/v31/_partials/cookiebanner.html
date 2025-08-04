@@ -1,3 +1,27 @@
+
+{% if data.cookieerror and (data.cookieerror == "true") %}
+
+<div class="govuk-cookie-banner govuk-cookie-banner-error" data-nosnippet role="region" aria-label="Cookies on [name of service]">
+  <div class="govuk-cookie-banner__message govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-cookie-banner__heading govuk-heading-m">
+          Something went wrong
+        </h2>
+        <div class="govuk-cookie-banner__content">
+          <p class="govuk-body"><span class="govuk-cookie-banner-error-text">Your cookie preferences could not be saved. You will remain opted out of additional cookies. You can <a class="govuk-link" href="/{{data.version}}/help/cookies">change your cookie settings</a> at any time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="govuk-button-group">
+      <button value="yes" type="submit" name="cookies[hide]" class="govuk-button" data-module="govuk-button">
+        Hide cookie message
+      </button>
+    </div>
+  </div>
+</div>
+{% else %}
+
 <div class="govuk-cookie-banner govuk-cookie-banner-main" data-nosnippet role="region" aria-label="Cookies on {{serviceName}}">
   <div class="govuk-cookie-banner__message govuk-width-container">
     <div class="govuk-grid-row">
@@ -41,6 +65,8 @@
   </div>
 </div>
 
+{% endif %}
+
 
 <script>
   // Set a cookie with a given name, value and expiration in days
@@ -55,6 +81,8 @@
     const buttons = document.querySelectorAll('button[name="cookies[additional]"]');
     const banner = document.querySelector('.govuk-cookie-banner-main');
     const banneralt = document.querySelector('.govuk-cookie-banner-alt');
+        const bannererror = document.querySelector('.govuk-cookie-banner-error');
+
  const hideButton = document.querySelector('button[name="cookies[hide]"]');
 
 
@@ -80,9 +108,12 @@
 
     hideButton?.addEventListener('click', function (e) {
       e.preventDefault(); // Prevent form submission if applicable
-if (banneralt) banneralt.style.display = 'none';    });
-
+if (banneralt) banneralt.style.display = 'none';
+if (bannererror) bannererror.style.display = 'none'; 
+    });
+   
 
 
   });
 </script>
+

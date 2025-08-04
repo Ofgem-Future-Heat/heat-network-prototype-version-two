@@ -424,6 +424,15 @@ router.get('/' + version + '/help/cookie-details', function (req, res) {
 
 
 router.get('/' + version + '/blank', function (req, res) {
+
+    const urlParams = req.query.cookieerror;
+
+    if (urlParams) {
+    req.session.data['cookieerror'] = urlParams;
+    } else {   
+    req.session.data['cookieerror'] = "";
+    }
+
  // Read the cookie and store it in session data
 
   const cookies = ""
