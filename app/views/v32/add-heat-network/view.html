@@ -129,7 +129,7 @@
             
             {% if data.HNStatus == 'In progress' %}
             Continue editing
-            {% elif data.role == "Supplier" %}
+            {% elif data.role == "Energy supplier" %}
             Add further information
     
 
@@ -180,7 +180,7 @@
                             <dd class="govuk-summary-list__value">
                                 {% if data.role  == "Operator" %} 
                                 {{data.role}}
-                                {% elif data.role == "Supplier" %}
+                                {% elif data.role == "Energy supplier" %}
                                 {{data.role}}
                                 {% else %}
                                 Operator and supplier
@@ -548,7 +548,7 @@ What is the combined heating and hot water capacity of the energy centre?
                 </div>
                 <div class="govuk-summary-card__content govuk-!-display-none" id="HN3Content" >
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-            {% if data.role == "Supplier" %}
+            {% if data.role == "Energy supplier" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Did {{company}} start supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025? 

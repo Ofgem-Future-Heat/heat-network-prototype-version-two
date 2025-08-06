@@ -22,7 +22,7 @@ router.use(function (req, res, next) {
 
 
 function generateSupplierHN(req) {
-    req.session.data['role'] = "Supplier"
+    req.session.data['role'] = "Energy supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
@@ -254,7 +254,7 @@ function clearHN(req) {
 
 
 function generateSupplier2HN(req) {
-    req.session.data['role'] = "Supplier"
+    req.session.data['role'] = "Energy supplier"
     req.session.data['HNID'] = "496458931"
     req.session.data['HNStatus'] = "Not started"
     req.session.data['introrelevant'] = "Yes"
