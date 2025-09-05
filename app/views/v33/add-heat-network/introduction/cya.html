@@ -1,0 +1,354 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "224" %}
+
+{% set title = "Check your answers" %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd 
+{% endif %}
+{% endset %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - introduction</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    	
+
+                Does the heat network include 2 or more ground source heat pumps connected by a shared ground loop? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introgroundloop}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="groundloop">Change<span class="govuk-visually-hidden"> whether the heat network includes 2 or more ground source heat pumps connected by a shared ground loop!</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Which regulated activities does {{company}} undertake?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.role == "Operator" %} 
+                    {{data.role}}
+                    {% else %}
+                    Operator and supplier
+                    {% endif %}
+                    
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="role">Change<span class="govuk-visually-hidden"> which regulated activities your organisation undertakes on the heat network</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Is the heat network already providing heating, cooling or hot water to consumers?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsupplycurrent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="supplycurrent">Change<span class="govuk-visually-hidden"> whether the heat network is already providing heating, cooling or hot water</span></a>
+                </dd>
+            </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Did {{company}} start a regulated activity on the heat network on or after 1 April 2025?
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.introsupply20}}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="supply20">Change<span class="govuk-visually-hidden"> whether the heat network started providing heating, cooling or hot water to consumers before 1 April 2025</span></a>
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Which country are the heat network’s consumers located in?
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.introcountry}}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="country">Change<span class="govuk-visually-hidden"> the country the heat network's customers are located in</span></a>
+                    </dd>
+                </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Type of heat network
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.introcommunal == "Yes" %} 
+                    Communal
+                    {% else %}
+                    District
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="communal">Change<span class="govuk-visually-hidden"> whether the heat network is a single communal block</span></a>
+                </dd>
+            </div>
+
+
+            <!---------///////////////////////  COMMUNAL  /////////////////////// ------------>
+            {% if data.introcommunal == "Yes" %} 
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Communal building address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% set address = data.buildingaddressSelected.toString() %}
+                    {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+        </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="address">Change<span class="govuk-visually-hidden"> the address of the communal building</span></a>
+                </dd>
+            </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Does the communal heat network have its own energy centre?
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.introenergycentre}}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="energycentre">Change<span class="govuk-visually-hidden"> whether the heat network is a revelant heat network</span></a>
+                    </dd>
+                </div>
+
+                {% if data.role  == "Operator and supplier" %} 
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Is {{company}} the only supplier selling to consumers?
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        {{data.introsuppliers}}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether {{company}} is the only supplier</span></a>
+                    </dd>
+                </div>
+                {% endif %}
+
+
+
+            {% else %}
+
+                <!---------/////////////////////// District ///////////////////////  ------------>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Number of buildings on this heat network
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introbuildingstotal}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> how many buildings this heat network provides heating, cooling or hot water to</span></a>
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Number of buildings {{company}} is responsible for on this heat network
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introbuildingshowmany}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="buildingstotal">Change<span class="govuk-visually-hidden"> how many buildings your organisation is responsible for on this heat network!</span></a>
+                        </dd>
+                    </div>
+                    
+                    {% if data.introcommunaloperate %}
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Communal buildings {{company}} provides heating, cooling or hot water to
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {% if data.introcommunaloperate == "Yes" %}
+                            {{data.introcommunaloperatehowmany}} <br /><span class="govuk-body-s">(Do not register as part of this heat network)</span>
+                            {% else %}
+                            0
+                            {% endif %}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="buildings">Change<span class="govuk-visually-hidden"> how many communal buildings your organisation provides heating, cooling or hot water to!</span></a>
+                        </dd>
+                    </div>
+                    {% endif %}
+
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Number of energy centres {{company}} operates on this heat network
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {% if data.introenergycentre == "Yes" %}
+                            {{data.introenergycentrehowmany}}
+                            {% else %}
+                            0
+                            {% endif %}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> how many energy centres your organisation operates on this heat network</span></a>
+                        </dd>
+                    </div>
+
+                    
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Do you operate all the distribution pipework on the heat network?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.intropipework}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="pipework">Change<span class="govuk-visually-hidden"> whether your organisation operates all the distribution pipework on this heat network</span></a>
+                        </dd>
+                    </div>
+                    {% if data.intropipework == "No" %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Have the other operators agreed that you can provide heat network information on their behalf?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introresponsible}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="responsible">Change<span class="govuk-visually-hidden"> whether the others operators have agreed that you can provide heat network information on their behalf</span></a>
+                        </dd>
+                    </div>
+                    {% endif %}
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Is the heat network a 'self-supply' network?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introselfsupply}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="selfsupply">Change<span class="govuk-visually-hidden"> whether the heat network is a self supply network!</span></a>
+                        </dd>
+                    </div>   
+    
+
+                    {% if data.introsuppliers and  data.introselfsupply == "No"%}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Is {{company}} the only supplier selling to consumers?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{data.introsuppliers}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="suppliers">Change<span class="govuk-visually-hidden"> whether your organisation is the only supplier selling to consumers</span></a>
+                        </dd>
+                    </div>
+                    {% endif %}
+
+
+
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does the heat network sell heating, cooling or hot water to a heat network operated by another organisation?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.introsell}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="energycentreoperate">Change<span class="govuk-visually-hidden"> whether the heat network sells thermal energy to a heat network that’s owned by another organisation</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Heat network name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.name}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="name">Change<span class="govuk-visually-hidden"> he heat network’s name</span></a>
+                </dd>
+            </div>
+        </dl>
+
+
+        {% if data.introcomplete == "true" %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+              If you have changed any of these answers and save them again, you may have to update any additional information you provided about this heat network. 
+            </strong>
+          </div>
+{% endif %}
+
+                <form method="POST" novalidate>
+    <input type="hidden" id="introcomplete" name="introcomplete" value="true" />
+    <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+    <div class="govuk-button-group">
+        {{
+          govukButton ({
+              html: 'Save and continue'
+          })
+        }}
+        <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+      </div>
+         </form>
+
+
+
+    </div>
+
+</div>
+
+{% endblock %}

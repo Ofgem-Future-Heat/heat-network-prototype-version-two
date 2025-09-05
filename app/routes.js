@@ -30,3 +30,4 @@ require('./routes/v29.js');
 require('./routes/v30.js');
 require('./routes/v31.js');
 require('./routes/v32.js');
+require('./routes/v33.js');
