@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Supplier not found" %}
+{% set showhelp = false %}
+{% set cdnumber = "319" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - suppliers</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        <p class="govuk-body">If you cannot find your supplier, they need to enable their organisation to use the heat networks service.</p>
+                        <p class="govuk-body">Ask them to do this, and when they’ve finished, you can come back and add them to this heat network.</p>
+
+
+                        <p class="govuk-body">
+                            For further information, you can contact us at <a href="mailto:support@registerheatnetworks.service.gov.uk?subject=Registering%20a%20heat%20network&body=Account%20email%3A%20{% if data.onelingemail %}{{data.oneloginemail}}{% else %}john.smith@heatco.org{% endif %}%0AContact%20reason%3A%20Cannot%20register%20a%20heat%20network%0A%0AFurther%20details%3A%0A" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>
+                        </p>
+  
+                        <p class="govuk-body">
+                            We'll aim to respond within 5 working days.
+                        </p>
+            </div>
+            <div class="govuk-button-group">
+                <a href="suppliers" class="govuk-button">Return to suppliers</a>
+
+                <a href="../tasklist" class="govuk-link">Cancel</a>
+        
+              </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

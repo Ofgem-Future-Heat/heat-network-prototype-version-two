@@ -1,0 +1,112 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+{% set cdnumber = "282" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - suppliers</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+
+
+        {% set suppliers = [] %}
+
+        {% for i in range(1, 100) %}
+            {% set suppliers = suppliers.concat([{
+                "added": data["addedsupplier" ~ i],
+                "name": data["suppliernameselected" ~ i],
+                "id": i,
+                "address": data["supplieraddressselected" ~ i],
+                "buildings": data["supplierbuildings" ~ i]
+    
+            }]) %}
+        {% endfor %}
+
+    
+       
+    
+
+    
+        <dl class="govuk-summary-list">
+   
+                        
+            {% set suppliercount = 0 %}
+            {% for supplier in suppliers %}
+    
+                      {% if supplier.added == "true" %}
+                      {% set suppliercount = suppliercount + 1 %}
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Supplier {{suppliercount}}
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{supplier.name}}
+                            {{supplier.address| replace(", ",",<br />")| safe}}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="suppliers">Change</a>
+                        </dd>
+                        </div>
+
+                      {% endif %}
+    
+                  {% endfor %}
+    
+                </dl>
+    
+
+
+
+
+
+        <form method="POST" novalidate>
+            <input type="hidden" id="suppliercomplete" name="suppliercomplete" value="true" />
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+
+            <div class="govuk-button-group">
+                {{
+                  govukButton ({
+                      html: 'Save and continue'
+                  })
+                }}
+                <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+    
+              </div>
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
