@@ -35,6 +35,21 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Important
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <p class="govuk-notification-banner__heading">
+            You need to add monitoring data for X heat networks. You can add this data from 1 October 2026. 
+            Check the list below to see which heat networks are missing data.
+          </p>
+        </div>
+      </div>
+
       {% if data.usertype %}
       {% if data.usertype == "supplier" %}
       <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -48,7 +63,7 @@
             {{data.name}} has been assigned to your organisation for further information
           </h3>
           <p class="govuk-body">You can find this heat network in the list below.</p>
-  
+
         </div>
       </div>
       {% endif %}
