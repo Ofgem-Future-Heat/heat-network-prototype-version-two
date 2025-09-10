@@ -27,6 +27,9 @@
                 <li class="govuk-breadcrumbs__list-item">
                     <a class="govuk-breadcrumbs__link" href="../account-information?v=operatorcomplete">Account home</a>
                 </li>
+                <li class="govuk-breadcrumbs__list-item">
+                    <a class="govuk-breadcrumbs__link" href="../add-heat-network/view?v=operatorcomplete">Seaton Town Centre</a>
+                </li>
             </ol>
         </div>
 
@@ -46,29 +49,28 @@
 
         <div class="govuk-form-group">
 
-            <span class="govuk-caption-l">{{company}}</span>
+            <span class="govuk-caption-l">Seaton Town Centre</span>
             <h1 class="govuk-heading-l">
-                {{title}} <br />
-                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}  
-                <strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Complete' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong>
+                {{title}}
             </h1>
         
             
-            <h2 class="govuk-heading-m">Monitoring activity</h2>
       
             <div class="govuk-grid-row hn-flex">
               <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4 hn-box">
               <div class="govuk-!-padding-4 hn-box--grey">
-                <h3 class="govuk-heading-s govuk-!-font-weight-bold">Next quarterly submission due</h3>
-                <p class="govuk-body">Apr to Jun 2026 <strong class="govuk-tag govuk-tag--red">Overdue</strong></p>
+                <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next quarterly submission</h3>
+                <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr to Jun 2026</strong> <strong class="govuk-tag govuk-tag--red">Overdue</strong></p>
+                <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Jul 2026</p>
                 <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state">Submit quarterly data</a></p>
               </div>
               </div>
 
               <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4 hn-box">
               <div class="govuk-!-padding-4 hn-box--grey">
-                <h3 class="govuk-heading-s govuk-!-font-weight-bold">Next annual submission due</h3>
-                <p class="govuk-body">Apr 2026 to Mar 2027 <strong class="govuk-tag govuk-tag--green">Due</strong></p>
+                <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next annual submission</h3>
+                <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr 2026 to Mar 2027</strong> <strong class="govuk-tag govuk-tag--green">Due</strong></p>
+                <p class="govuk-body govuk-!-margin-top-1">Due by: 30 Apr 2027</p>
                 <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state">Submit annual data</a></p>
               </div>
               </div>
