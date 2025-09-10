@@ -35,6 +35,19 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Important
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">Monitoring data due</h3>
+          <p class="govuk-body">You need to add monitoring data for 4 heat networks. You can find these in the list below.</p>
+        </div>
+      </div>
+
       {% if data.usertype %}
       {% if data.usertype == "supplier" %}
       <div class="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
@@ -48,7 +61,7 @@
             {{data.name}} has been assigned to your organisation for further information
           </h3>
           <p class="govuk-body">You can find this heat network in the list below.</p>
-  
+
         </div>
       </div>
       {% endif %}
@@ -186,7 +199,7 @@
     </div>
 
 </div></div>
-        <div class="govuk-grid-row govuk-!-margin-top-8">
+        <div class="govuk-grid-row govuk-!-margin-top-8" id="hn-list">
 
 
 
@@ -208,11 +221,14 @@
         <div class="govuk-grid-column-full">
 
         <table class="govuk-table responsive">
+          
+          
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">Name</th>
               <th scope="col" class="govuk-table__header">Role</th>
               <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Monitoring data</th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
@@ -225,31 +241,40 @@
             {% endif %}
             {% if data.introcomplete == "true" and (data.usertype != "supplier" and data.usertype != "supplier2") %}
 
+
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}</a><br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}<br /><span class="govuk-body-s">(ID: 123456789)</span></th>
-              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{{data.role}}{% endif %}</td>
-            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+                  <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}</a><br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}<br /><span class="govuk-body-s">(ID: 123456789)</span></th>
+                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{{data.role}}{% endif %}</td>
+                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Monitoring data<br /></span><strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-1">Not applicable</strong></td>
             </tr>
+            
+                  
+                
             {% endif %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v=operatorcomplete" class="govuk-link govuk-link--no-visited-state">Leston hall</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong><br><span class="govuk-body-s">(ID: 234567811)</span></th>
+              <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v=operatorcomplete" class="govuk-link govuk-link--no-visited-state">Seaton Town Centre</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong><br><span class="govuk-body-s">(ID: 234567811)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Action<br /></span><strong class="govuk-tag govuk-tag--red govuk-!-margin-top-1">Overdue</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v=operatorcomplete" class="govuk-link govuk-link--no-visited-state">Thames Road Apartments</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong><br><span class="govuk-body-s">(ID: 456895421)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator and supplier</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Action<br /></span><strong class="govuk-tag govuk-tag--red govuk-!-margin-top-1">Overdue</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v=operatorcomplete" class="govuk-link govuk-link--no-visited-state">Fallowfield Residences</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong><br><span class="govuk-body-s">(ID: 658522341)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Supplier</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Action<br /></span><strong class="govuk-tag govuk-tag--red govuk-!-margin-top-1">Overdue</strong></td>
             </tr>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><a href="add-heat-network/view?v=operatorcomplete" class="govuk-link govuk-link--no-visited-state">Paddington Green Police Station</a><br /><strong class="govuk-tag govuk-!-font-size-16 govuk-tag--turquoise govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong><br><span class="govuk-body-s">(ID: 788845211)</span></th>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>Operator</td>
               <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-tag--green govuk-!-margin-top-1">Submitted</strong></td>
+              <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Action<br /></span><strong class="govuk-tag govuk-tag--red govuk-!-margin-top-1">Overdue</strong></td>
             </tr>
           </tbody>
         </table>

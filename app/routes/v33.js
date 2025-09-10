@@ -498,7 +498,7 @@ router.post('/' + version + '/setup/company-name', function (req, res) {
 
     else {
 
-            res.redirect('/' + version + '/setup/role');
+            res.redirect('/' + version + '/emails/monitoring-due');
 
     }
 

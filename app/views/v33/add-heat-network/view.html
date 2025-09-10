@@ -25,7 +25,7 @@
         <div class="govuk-breadcrumbs">
             <ol class="govuk-breadcrumbs__list">
                 <li class="govuk-breadcrumbs__list-item">
-                    <a class="govuk-breadcrumbs__link" href="../account-information">Account home</a>
+                    <a class="govuk-breadcrumbs__link" href="../account-information?v=operatorcomplete">Account home</a>
                 </li>
             </ol>
         </div>
@@ -139,6 +139,28 @@
         </p>
         {% endif %}
 {% if (data.introcomplete == "true" and data.role != "Supplier") or (data.eccomplete == "true") or (data.buildingcomplete == "true") or (data.billingcomplete == "true") or (data.protectionscomplete == "true") or (data.role != "Supplier" and data.suppliercomplete) %}
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<h2 class="govuk-heading-m">Monitoring data</h2>
+        
+            <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales consequat tincidunt. Suspendisse pharetra ac mauris sit amet vulputate. Maecenas ac ipsum sed sapien venenatis varius. Phasellus varius, neque in ultrices volutpat, libero sapien porta dolor, sit amet porttitor enim orci eu tortor.</p>
+                <details class="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                
+                            Help with 'monitoring data'
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                
+                        text here
+                    </div>
+                </details>
+ 
+            <p class="govuk-body"><a href="/v33/monitoring/monitoring-information?v=operatorcomplet" class="govuk-link govuk-link--no-visited-state">View monitoring data for Seaton Town Centre</a></p>
+        
+
+
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 <h2 class="govuk-heading-m">Heat network details</h2>
@@ -898,10 +920,6 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
             <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
             {% endif %}
         </p>
-
-
-
-    
 
         </div>
     </div>
