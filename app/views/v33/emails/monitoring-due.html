@@ -1,11 +1,5 @@
 {% extends 'layouts/email.html' %}
-{% set company %}
-{% if data.companyname %}
-{{data.companyname }}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% set company %}{% if data.companyname %}{{data.companyname }}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set title %}
 
 Monitoring data is due for your heat networks
