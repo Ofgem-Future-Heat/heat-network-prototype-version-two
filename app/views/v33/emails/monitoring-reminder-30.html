@@ -1,14 +1,9 @@
 {% extends 'layouts/email.html' %}
 {% set company %}
-{% if data.companyname %}
-{{data.companyname }}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
+{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set title %}
 
-Monitoring data is due for your heat networks
+Reminder: 30 days left to submit heat network monitoring data
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -25,7 +20,7 @@ Monitoring data is due for your heat networks
             <h1 class="govuk-heading-l">
               {{title}}
             </h1>
-<p class="govuk-body">You need to submit monitoring data for 4 heat networks on behalf of {{company}}.</p>
+<p class="govuk-body">You have 30 days to submit monitoring data for 4 heat networks on behalf of {{company}}.</p>
 
           <p class="govuk-body">View your monitoring deadlines and submit your data at <a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-link">https://heat-networks-consumer-regulations.service.gov.uk/</a></p>
 

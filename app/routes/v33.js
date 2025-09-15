@@ -8862,3 +8862,36 @@ router.get('/' + version + '/help/sent', function (req, res) {
     });
 
 });
+
+
+
+///////////////////////////////////////////////// MONITORING /////////////////////////////////////////////////////////////////////////////
+
+// Monitoring - Information
+router.get('/' + version + '/monitoring/mointoring-information', function (req, res) {
+    
+    res.render('/' + version + '/mointoring/mointoring-information', {
+        data: req.session.data
+    });
+
+});
+
+
+
+// Monitoring - Quarterly data intro
+router.get('/' + version + '/monitoring/quarterly-data/intro', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/intro', {
+        data: req.session.data
+    });
+
+});
+
+// Monitoring - Annual data intro
+router.get('/' + version + '/monitoring/annual-data/intro', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/annual-data/intro', {
+        data: req.session.data
+    });
+
+});
