@@ -319,6 +319,11 @@ table.responsive thead {
   .no-wrap {
 	white-space: nowrap;
   }
+
+  .hn-tag {
+	white-space: nowrap;
+	max-width: unset;
+  }
   
   .hn-accordion {
 	.govuk-accordion__controls {

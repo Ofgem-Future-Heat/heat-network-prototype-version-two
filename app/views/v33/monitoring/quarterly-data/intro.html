@@ -1,6 +1,8 @@
 {% extends 'layouts/main.html' %}
 
-{% set title %}Add further information about {% if data.companyname %}{{data.companyname}}{% else %}Seaton Town Centre{% endif %}{% endset %}
+{% set title %}
+Submit quarterly monitoring data for 1 April to 30 June 2026 
+{% endset %}
 
 
 {% block pageTitle %}
@@ -34,59 +36,31 @@
             <div class="govuk-form-group ">
 
                 <span class="govuk-caption-l">
-                    Organisation details
+                    Seaton Town Centre
                   </span>
-                        <h1 class="govuk-heading-l">
+                        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
                             {{title}}
                         </h1>
                         <p class="govuk-body">
-                          When you've finished adding this information, you'll have full access to the service and can start providing heat network data.
-                        </p>
-                        <h2 class="govuk-heading-m">Before you start</h2>
-                        <p class="govuk-body">We need to ask quite specific questions about your organisation, its accounts and finances. In order to protect customers, we must identify any suppliers or operators that pose a risk of failure. The questions we ask help us identify these early on.</p>
-                        
-                        
-                        <details class="govuk-details">
-                          <summary class="govuk-details__summary">
-                            <span class="govuk-details__summary-text">
-                              What questions you’ll need to answer about your organisation
-                            </span>
-                          </summary>
-                          <div class="govuk-details__text">
-                        
-                        
-                        <p class="govuk-body">
-                          You'll need to answer questions about:
-                        </p>
-                <ul class="govuk-list govuk-list--bullet">
-                  <li>the type of work your organisation does</li>
-                  <li>whether your organisation is part of a joint venture, special purpose vehicle or is a wholly owned subsidiary of another organisation, and if so, the details of up to 5 parent organisations</li>
-                                </ul>
-                <p class="govuk-body">Unless your organisation is a housing association, local authority, central government or other public sector body, registered social housing provider, or subject to social housing regulations, we'll ask:</p>
-                
-<ul class="govuk-list govuk-list--bullet">
-  <li>whether your organisation has operation or supply continuity plans in place</li>
-  <li>for the start and end dates of your organisation’s accounting period</li>
-  <li>whether your organisation has signed-off accounts for its most recent accounting period</li>
-  <li>whether your organisation reasonably expects to have the finance and resources to carry on heat network activity for the next 12 months</li>
-</ul>
-<p class="govuk-body">If your organisation has accounts for the most recent account period, we’ll also ask for financial resilience information:</p>
-                
-<ul class="govuk-list govuk-list--bullet">
-  <li>the net profit or loss for the most recent financial year</li>
-  <li>the total value of liquid assets that the organisation controls or has unrestricted access to</li>
-  <li>whether assets exceeded liabilities at the end of the most recent financial year</li>
-  <li>the total running costs for the previous financial year</li>
-  <li>the total income for the previous financial year</li>
-  <li>whether the organisation hedges its gas or electricity requirements, and if so, what percentage volume of costs, and for how many months ahead</li>
-</ul>
-                
-                
-                
-                
+                                                    <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
 
-                    </div>
-                  </details>
+                          <strong class="govuk-tag govuk-tag--red">Overdue</strong>
+                        </p>
+
+                        <p class="govuk-body">We need to know some information about this heat network during the period of 1 April 2026 to 30 June 2026. You’ll need to tell us about information relating to:</p>
+
+                        <ul class="govuk-list govuk-list--bullet">
+                          <li>
+                            number of warrants granted and meters installed
+                          </li>
+                          <li>pricing information for heating, cooling or hot water</li>
+                          <li>the quality of service provided to end consumers, for example number of complaints or interruptions</li>
+                          <li>details about any vulnerable customers</li>
+                          <li>the value of any customer debt</li>
+                        </ul>
+
+                        
+   
             </div>
         <a href="../../emails/monitoring-reminder-7" class="govuk-button">Continue</a>
     </div>

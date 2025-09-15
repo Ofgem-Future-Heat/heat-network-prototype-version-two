@@ -143,8 +143,13 @@
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 <h2 class="govuk-heading-m">Monitoring data</h2>
         
-            <p class="govuk-body">You must submit monitoring data for your heat networks both quarterly and annually.</p>
-            <p class="govuk-body">If you start with the earliest submission period, you can then copy these answers into your organisation's future submissions to save time.</p>
+            <p class="govuk-body">Your organistion must submit monitoring data for all of its heat networks both quarterly and annually.</p>
+            <p class="govuk-body">{{data.name}}'s monitoring submission status:</p>
+                <ul class="govuk-list ">
+                <li><strong class="govuk-tag govuk-tag--red govuk-!-margin-bottom-1">2 overdue</strong></li>
+                <li><strong class="govuk-tag govuk-tag--yellow">2 due</strong></li>
+
+                </ul>
                 <details class="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
@@ -152,11 +157,11 @@
                         </span>
                     </summary>
                         <div class="govuk-details__text">
-                            You can add data online through this service. You'll need to provide figures for each quarter of the operating year.
+                            Ofgem requires additional data about each heat network to monitor compliance with consumer regulations. This includes data about metering, pricing, quality of service and vulnerability and debt. 
                         </div>
                 </details>
  
-            <p class="govuk-body"><a href="/{{data.version}}/monitoring/monitoring-information" class="govuk-link govuk-link--no-visited-state">View monitoring data</a></p>
+            <a href="/{{data.version}}/monitoring/monitoring-information" class="govuk-button">View monitoring data</a>
         
 
 
