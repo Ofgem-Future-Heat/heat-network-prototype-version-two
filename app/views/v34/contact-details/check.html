@@ -1,0 +1,227 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Check your answers from this section
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="../account-information">
+
+                <h1 class="govuk-heading-l">Check your answers from this section</h1>
+
+                <h2 class="govuk-heading-m">
+                    Contact details
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Full name'
+                            },
+                            value: {
+                                text: data['admin-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'admin-name',
+                                        visuallyHiddenText: ' administrative contact name'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Job title'
+                            },
+                            value: {
+                                text: data['admin-title']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'admin-title',
+                                        visuallyHiddenText: ' administrative contact job title'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Email address'
+                            },
+                            value: {
+                                text: data['admin-email']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'admin-email',
+                                        visuallyHiddenText: ' administrative contact email address'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Telephone number'
+                            },
+                            value: {
+                                text: data['admin-telephone']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'admin-telephone',
+                                        visuallyHiddenText: ' administrative contact telephone number'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }) }}
+
+                <br>
+
+                {% if data['choose-organisation-role'] == "Heat supplier / heat network operator"%}
+                
+                <h2 class="govuk-heading-m">
+                    Regulatory contact details
+                </h2>
+
+                {{ govukSummaryList ({
+                    rows: [
+                        {
+                            key: {
+                                text: 'Same as administrative contact?'
+                            },
+                            value: {
+                                text: data['regulatory-check']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-check',
+                                        visuallyHiddenText: ' whether regulatory contact is same as administrative contact'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            key: {
+                                text: 'Full name'
+                            },
+                            value: {
+                                text: data['regulatory-name']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-name',
+                                        visuallyHiddenText: ' regulatory contact name'
+                                    }
+                                ]
+                            }
+                        } if data['regulatory-check'] !== 'Yes',
+                        {
+                            key: {
+                                text: 'Job title'
+                            },
+                            value: {
+                                text: data['regulatory-title']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-title',
+                                        visuallyHiddenText: ' regulatory contact job title'
+                                    }
+                                ]
+                            }
+                        } if data['regulatory-check'] !== 'Yes',
+                        {
+                            key: {
+                                text: 'Email address'
+                            },
+                            value: {
+                                text: data['regulatory-email']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-email',
+                                        visuallyHiddenText: ' regulatory contact email address'
+                                    }
+                                ]
+                            }
+                        } if data['regulatory-check'] !== 'Yes',
+                        {
+                            key: {
+                                text: 'Telephone number'
+                            },
+                            value: {
+                                text: data['regulatory-telephone']
+                            },
+                            actions: {
+                                items: [
+                                    {
+                                        text: 'Change',
+                                        href: 'regulatory-telephone',
+                                        visuallyHiddenText: ' regulatory contact telephone number'
+                                    }
+                                ]
+                            }
+                        } if data['regulatory-check'] !== 'Yes'
+                    }
+                }) }}
+
+                {% endif %}
+
+                <input type="hidden" name="section-contact-details" value="complete">                 
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

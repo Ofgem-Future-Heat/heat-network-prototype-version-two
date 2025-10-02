@@ -1,0 +1,71 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Enter a job title
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="admin-email">
+
+                <h1 class="govuk-heading-l">Enter a job title for {{ data['admin-name'] }}</h1>
+
+                     
+
+                
+
+                {{ govukInput ({
+                    id: 'admin-title',
+                    name: 'admin-title',
+                    value: data['admin-title'] if data['admin-title'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Job title',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

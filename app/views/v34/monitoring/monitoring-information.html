@@ -1,0 +1,202 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "Monitoring data" %}
+
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../account-information?v=operatorcomplete">Account home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../add-heat-network/view?v=operatorcomplete">Seaton Town Centre</a>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+
+    <div class="govuk-form-group">
+
+      <span class="govuk-caption-l">Seaton Town Centre</span>
+      <h1 class="govuk-heading-l">
+        {{title}}
+      </h1>
+
+
+
+      <div class="govuk-grid-row hn-flex">
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4 hn-box">
+          <div class="govuk-!-padding-4 hn-box--grey">
+            <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next quarterly submission</h3>
+            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr to Jun 2026</strong> <strong
+                class="govuk-tag govuk-tag--red">Overdue</strong></p>
+            <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Jul 2026</p>
+            <p class="govuk-body"><a href="/{{data.version}}/monitoring/quarterly-data/intro"
+                class="govuk-link govuk-link--no-visited-state">Submit quarterly data</a></p>
+          </div>
+        </div>
+
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4 hn-box">
+          <div class="govuk-!-padding-4 hn-box--grey">
+            <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next annual submission</h3>
+            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr 2026 to Mar 2027</strong> <strong
+                class="govuk-tag govuk-tag--yellow">Due</strong></p>
+            <p class="govuk-body govuk-!-margin-top-1">Due by: 30 Apr 2027</p>
+            <p class="govuk-body"><a href="/{{data.version}}/monitoring/annual-data/intro"
+                class="govuk-link govuk-link--no-visited-state">Submit annual data</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="govuk-grid-row govuk-!-margin-top-8" id="hn-list">
+        <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-m">Monitoring data</h2>
+          <p class="govuk-body">Seaton Town Centre has <strong>5</strong> outstanding monitoring submissions,
+            <strong>3</strong> are overdue.</p>
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+    You should start with the earliest submission period. You can then save time by copying these answers into later submissions for this heat network.
+  </strong>
+</div>
+        </div>
+      </div>
+
+      <table class="govuk-table responsive">
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Due by</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/quarterly-data/intro"
+                class="govuk-link govuk-link--no-visited-state">
+                Apr to Jun 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Jul 2026</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--red">Overdue</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="#" class="govuk-link govuk-link--no-visited-state">
+                Jul to Sep 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Oct 2026</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--red">Overdue</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="#" class="govuk-link govuk-link--no-visited-state">
+                Oct to Dec 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Jan 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--red">Overdue</strong></td>
+          </tr>
+                    <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="#" class="govuk-link govuk-link--no-visited-state">
+                Jan to Mar 2027
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>30 Apr 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--yellow">Due</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/annual-data/intro" class="govuk-link govuk-link--no-visited-state">
+                Apr 2026 to Mar 2027
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--green govuk-!-margin-top-1 govuk-!-margin-bottom-1">Annual
+                submission</strong>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>30 Apr 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--yellow">Due</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[id^='HN'][id$='Link']").forEach(toggleLink => {
+      const contentId = toggleLink.id.replace("Link", "Content");
+      const content = document.getElementById(contentId);
+
+      toggleLink.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+
+        content.classList.toggle("govuk-!-display-none");
+        const isHidden = content.classList.contains("govuk-!-display-none");
+
+        toggleLink.innerHTML = `<span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--${isHidden ? 'down' : 'up'} govuk-!-margin-right-1"></span>${isHidden ? 'Show' : 'Hide'}`;
+      });
+    });
+  });
+
+</script>
+{% endblock %}

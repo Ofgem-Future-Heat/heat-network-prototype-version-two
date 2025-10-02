@@ -1,0 +1,105 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Account information
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+            
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+    
+      <h1 class="govuk-caption-l">Lumosense Energy Limited</h1>
+      <h1 class="govuk-heading-l">Manage heat networks</h1>
+
+    
+      <h2 class="govuk-heading-m">Supplier/network operator account information</h2>
+      
+      <div class="govuk-grid-row ds-grid-row">
+
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+      <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="third/check" class="govuk-link govuk-!-font-weight-bold">Account details</a></h3>
+      <p class="govuk-body">View, change and add account information.</p>
+      
+      
+      {% if data['third-party-details'] == 'complete' %}
+        {{ govukTag({
+          id: 'third-party-status',  
+          text: "Completed"
+        }) }}
+      {% else %}
+        {{ govukTag({
+          id: 'third-party-status',  
+          text: "Not started",
+          classes: 'govuk-tag--grey'
+        }) }}
+      {% endif %}
+
+    </div>
+ 
+
+    </div>
+
+    <br>
+    <br>
+  
+      <h2 class="govuk-heading-m">Heat networks</h2>
+
+      <div class="govuk-grid-row ds-grid-row">
+
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+        <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="hn-intro/start" class="govuk-link govuk-!-font-weight-bold">Add a heat network</a></h3>
+        <p class="govuk-body">Register a single heat network</p>
+      
+      </div>
+
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+        <h3 class="govuk-heading-s govuk-!-font-weight-bold"><a href="" class="govuk-link govuk-!-font-weight-bold">Add multiple heat networks at once</a></h3>
+        <p class="govuk-body">Register multiple heat networks by using bulk upload</p>
+
+      </div>
+
+      {% if data['section-heat-network'] == 'complete' %}
+      <div class="ds-grid-row--item govuk-!-padding-4 dwp-!-background-grey">
+        <h3 class="govuk-heading-s govuk-!-font-weight-bold">
+          <a href="hn-intro/start" class="govuk-link govuk-!-font-weight-bold">
+            {{ data['network-name']}}
+          </a>
+        </h3>
+        <p class="govuk-body">
+          View or change the information on the register
+        </p>
+        {{ govukTag({
+          id: 'submitted-heat-network',  
+          text: "Submitted",
+          classes: 'govuk-tag--green'
+        }) }}
+      </div>
+      {% endif %}
+
+
+   
+
+  </div>
+{% endblock %}

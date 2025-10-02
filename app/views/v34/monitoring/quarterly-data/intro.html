@@ -1,0 +1,70 @@
+{% extends 'layouts/main.html' %}
+
+{% set title %}
+Submit quarterly monitoring data for 1 April to 30 June 2026 
+{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">
+                    Seaton Town Centre
+                  </span>
+                        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">
+                                                    <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
+
+                          <strong class="govuk-tag govuk-tag--red">Overdue</strong>
+                        </p>
+
+                        <p class="govuk-body">We need to know some information about this heat network during the period of 1 April 2026 to 30 June 2026. You’ll need to tell us about information relating to:</p>
+
+                        <ul class="govuk-list govuk-list--bullet">
+                          <li>
+                            number of warrants granted and meters installed
+                          </li>
+                          <li>pricing information for heating, cooling or hot water</li>
+                          <li>the quality of service provided to end consumers, for example number of complaints or interruptions</li>
+                          <li>details about any vulnerable customers</li>
+                          <li>the value of any customer debt</li>
+                        </ul>
+
+                        
+   
+            </div>
+        <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/intro" class="govuk-button">Continue</a>
+        
+    </div>
+</div>
+
+{% endblock %}

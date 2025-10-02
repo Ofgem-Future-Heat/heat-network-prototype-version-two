@@ -1,0 +1,69 @@
+{% extends 'layouts/main.html' %}
+
+{% block pageTitle %}
+    Enter an email address
+{% endblock %}
+
+{% block beforeContent %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+
+            {{ super() }}
+
+            {{ govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            }) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="regulatory-telephone">
+
+                <h1 class="govuk-heading-l">Enter an email address for {{ data['regulatory-name'] }}</h1>
+
+                
+
+                {{ govukInput ({
+                    id: 'regulatory-email',
+                    name: 'regulatory-email',
+                    value: data['regulatory-email'] if data['regulatory-email'] else '',
+                    classes: 'govuk-input--width-20',
+                    label: {
+                        text: 'Email address',
+                        classes: 'govuk-input--width-20'
+                    }
+                }) }}
+
+                
+
+                {{ govukButton ({
+                    html: 'Continue'
+                }) }}
+
+                <br>
+
+                {{ govukButton ({
+                    html: 'Save and return later',
+                    classes: 'govuk-button--secondary',
+                    href: '#'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}

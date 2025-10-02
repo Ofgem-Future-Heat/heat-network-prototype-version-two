@@ -1,0 +1,187 @@
+{% extends 'layouts/main.html' %}
+
+
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+
+    {% include data.version + "/_partials/logout.html" %}
+    {{
+      govukBackLink ({
+      text: 'Back',
+      href: '/' + data.version + '/account-information'
+      })
+      }}
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set users = [] %}
+
+    {% for i in range(data.currentuserid, data.currentuserid + 1) %}
+        {% set users = users.concat([{
+            "email": data["useremail" ~ i],
+            "firstname": data["userfirstname" ~ i],
+            "lastname": data["userlastname" ~ i],
+            "telephone": data["usertelephone" ~ i],
+            "jobtitle": data["userjobtitle" ~ i],
+            "id": i,
+            "permissions": [
+            data["adduserpermissionstransfer" ~ i],
+            data["adduserpermissionsrightsandpowers" ~ i],
+            data["adduserpermissionsusermanagement" ~ i],
+            data["adduserpermissionsmonitoring" ~ i],
+            data["adduserpermissionsregistration" ~ i]
+        ]
+      }]) %}
+    {% endfor %}
+  
+  {% for user in users %}
+  {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+{% set title = name %}
+    {% if data.manageusersnotification %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if data.manageusersnotification == 'edituser' %}
+          You have updated your details.
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+{% endif %}
+
+
+
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                {% for name, item in data.validationErrors %}
+                <li>
+                    <a href="#{{item.anchor}}">{{item.message}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <span class="govuk-caption-l">
+      {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}
+    </span>
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+      {% if (data.regchange == data.currentuserid) %}
+      <br/>
+      <strong class="govuk-tag">
+        Regulatory contact
+      </strong>
+      {% endif %}
+    </h1>
+    
+
+
+ 
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.email}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.firstname}} {{user.lastname}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.telephone}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Job title
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.jobtitle}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Additional permissions
+        </dt>
+        <dd class="govuk-summary-list__value">
+            <ul class="govuk-list">
+              {% if (data.regchange == user.id) %}
+              <li>Add or edit all heat network information</li>
+              <li>Submit all heat network information</li>
+              <li>Manage users</li>
+              <li>Apply for rights and powers licence</li>
+              <li>Initiate transfer of ownership</li>
+
+              {% else %}
+
+              {% if user.permissions == ",,,," %}
+              No additional permissions
+
+            {% else %}
+            {% for permission in user.permissions %}
+            {% if permission %}{{permission}}<br />{% endif %}
+            {% endfor %}
+
+            {% endif %}
+            {% endif %}
+            </ul>
+        </dd>
+      </div>
+    </dl>
+
+    <ul class="govuk-summary-list__actions-list">
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="manage-users/edit-user?id={{data.currentuserid}}&source=myprofile" class="govuk-link govuk-link--no-visited-state">Edit your details</a>
+      </li>
+  </ul>
+{% endfor %}
+
+
+  </div>
+</div>
+
+{% endblock %}
