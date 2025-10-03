@@ -136,8 +136,8 @@ function generateOperatorCompleteHN(req) {
 
     
     // Customers Flow
-    req.session.data['customersdomestic'] = "Yes"
-    req.session.data['customersdomestictotal'] = "10"
+    req.session.data['mqcustomersdomestic'] = "Yes"
+    req.session.data['mqcustomersdomestictotal'] = "10"
     req.session.data['customersnondomestic'] = "Yes"
     req.session.data['customersnondomestictotal'] = "5"
     req.session.data['consumertypeindustrial'] = "No"
@@ -6870,37 +6870,37 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/domestic', f
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/domestic', function (req, res) {
     
 
-    var customersdomestic = req.session.data['customersdomestic']
-    var customersdomestictotal = req.session.data['customersdomestictotal']
+    var mqcustomersdomestic = req.session.data['mqcustomersdomestic']
+    var mqcustomersdomestictotal = req.session.data['mqcustomersdomestictotal']
 
-    if (!customersdomestic) {
+    if (!mqcustomersdomestic) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.customersdomestic = {
-            "anchor": "customersdomestic",
+        req.session.data.validationErrors.mqcustomersdomestic = {
+            "anchor": "mqcustomersdomestic",
             "message": "Select yes if this heat network has domestic customers"
         }
     }
 
-    if (customersdomestic == "Yes" && !customersdomestictotal) {
+    if (mqcustomersdomestic == "Yes" && !mqcustomersdomestictotal) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.customersdomestictotal = {
-            "anchor": "customersdomestictotal",
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
             "message": "Enter the number of domestic customers"
         }
     }
 
-    if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
+    if (mqcustomersdomestic == "Yes" && isNaN(mqcustomersdomestictotal)) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.customersdomestictotal = {
-            "anchor": "customersdomestictotal",
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
             "message": "Number of domestic customers must be a number"
         }
     }
 
-    if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
+    if (mqcustomersdomestic == "Yes" && mqcustomersdomestictotal.length > 40) {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.customersdomestictotal = {
-            "anchor": "customersdomestictotal",
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
             "message": "Number of domestic customers must be 40 characters or less"
         }
     }
@@ -6931,7 +6931,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic'
 
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic', function (req, res) {
     
-    var customersdomestic = req.session.data['customersdomestic']
+    var mqcustomersdomestic = req.session.data['mqcustomersdomestic']
 
     var customersnondomestic = req.session.data['customersnondomestic']
     var customersnondomestictotal = req.session.data['customersnondomestictotal']
@@ -6978,7 +6978,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/nondomestic
     else {
 
             if (customersnondomestic == "Yes"){   
-                if (customersdomestic == "Yes") {
+                if (mqcustomersdomestic == "Yes") {
                     res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises');
                 }
                 else {
@@ -7183,7 +7183,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/microbusines
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusinesses', function (req, res) {
     
     var consumertypemicrobusiness = req.session.data['consumertypemicrobusiness']
-    var customersdomestic = req.session.data['customersdomestic']
+    var mqcustomersdomestic = req.session.data['mqcustomersdomestic']
 
     if (!consumertypemicrobusiness) {
         req.session.data.validationError = "true"
@@ -7200,7 +7200,7 @@ router.post('/' + version + '/add-heat-network/buildingsandconsumers/microbusine
     }
 
     else {
-        if (customersdomestic == "Yes") {
+        if (mqcustomersdomestic == "Yes") {
             res.redirect('/' + version + '/add-heat-network/buildingsandconsumers/prepaymentmeters');
         }
         else {
@@ -7258,7 +7258,7 @@ router.get('/' + version + '/add-heat-network/buildingsandconsumers/smallenterpr
 router.post('/' + version + '/add-heat-network/buildingsandconsumers/smallenterprises', function (req, res) {
     
     var smallenterprises = req.session.data['smallenterprises']
-    var customersdomestic = req.session.data['customersdomestic']
+    var mqcustomersdomestic = req.session.data['mqcustomersdomestic']
 
     if (!smallenterprises) {
         req.session.data.validationError = "true"
@@ -8896,7 +8896,82 @@ router.get('/' + version + '/monitoring/annual-data/intro', function (req, res) 
 
 });
 
-//Colin
+
+
+
+
+// Monitoring - Quarterly data - Tasklist
+router.get('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
+    
+
+    const urlParams = req.query.v;
+    req.session.data['variantname'] = urlParams
+
+    if (urlParams == "supplier") {
+        generateSupplierHN(req)
+    }
+
+    if (urlParams == "supplier2") {
+        generateSupplier2HN(req)
+    }
+
+    else {
+        if (req.session.data['introcomplete'] != "true") {
+            populateIntrodata(req)
+
+        }
+
+        if (!req.session.data['HNStatus']) {
+            req.session.data['HNStatus'] = "In progress"
+
+        }
+    }
+    
+    res.render('/' + version + '/monitoring/quarterly-data/tasklist', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
+    var vulnerabilitycomplete = req.session.data['vulnerabilitycomplete']
+    var qualitycomplete = req.session.data['qualitycomplete']
+
+
+    if (vulnerabilitycomplete != "true") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.vulnerabilitycomplete = {
+            "anchor": "vulnerabilitycomplete",
+            "message": "Vulnerability and debt must be complete"
+        }
+    }
+
+
+
+
+    if (qualitycomplete != "true") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.qualitycomplete = {
+            "anchor": "qualitycomplete",
+            "message": "Quality of service must be complete"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/tasklist', {
+            data: req.session.data
+        });
+    }
+    
+
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/confirmsubmit');
+
+    }
+
+});
+
+
 
 // Monitoring - Quarterly data - Vulnerability Debt Intro
 router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/intro', function (req, res) {
@@ -8904,4 +8979,566 @@ router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/intro'
     res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/intro', {
         data: req.session.data
     });
+});
+
+// Monitoring - Quarterly data - Vulnerability Debt - Domestic
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic', function (req, res) {
+    
+
+    var mqcustomersdomestic = req.session.data['mqcustomersdomestic']
+    var mqcustomersdomestictotal = req.session.data['mqcustomersdomestictotal']
+
+    if (!mqcustomersdomestic) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdomestic = {
+            "anchor": "mqcustomersdomestic",
+            "message": "Select yes if this heat network has domestic customers"
+        }
+    }
+
+    if (mqcustomersdomestic == "Yes" && !mqcustomersdomestictotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
+            "message": "Enter the number of domestic customers"
+        }
+    }
+
+    if (mqcustomersdomestic == "Yes" && isNaN(mqcustomersdomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
+            "message": "Number of domestic customers must be a number"
+        }
+    }
+
+    if (mqcustomersdomestic == "Yes" && mqcustomersdomestictotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdomestictotal = {
+            "anchor": "mqcustomersdomestictotal",
+            "message": "Number of domestic customers must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic', {
+            data: req.session.data
+        });
+    }
+    else {
+            if (mqcustomersdomestic == "Yes") {
+
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/debt');
+            } else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cya');
+            }
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - Debt
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/debt', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/debt', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/debt', function (req, res) {
+    
+
+    var mqcustomersdebt = req.session.data['mqcustomersdebt']
+    var mqcustomersdebttotal = req.session.data['mqcustomersdebttotal']
+        var mqcustomersdomestictotal = req.session.data['mqcustomersdomestictotal']
+
+
+    if (!mqcustomersdebt) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdebt = {
+            "anchor": "mqcustomersdebt",
+            "message": "Select yes if any of the customers are in debt"
+        }
+    }
+
+    if (mqcustomersdebt == "Yes" && !mqcustomersdebttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdebttotal = {
+            "anchor": "mqcustomersdebttotal",
+            "message": "Enter the number of domestic customers in debt"
+        }
+    }
+
+    if (mqcustomersdebt == "Yes" && isNaN(mqcustomersdebttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdebttotal = {
+            "anchor": "mqcustomersdebttotal",
+            "message": "Number of domestic customers in debt must be a number"
+        }
+    }
+
+
+    if (Number(mqcustomersdebttotal) > Number(mqcustomersdomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdebttotal = {
+            "anchor": "mqcustomersdebttotal",
+            "message": "Number of domestic customers in debt cannot be more than the total number of domestic customers"
+        }
+        console.log(mqcustomersdebttotal + " vs " + mqcustomersdomestictotal)
+    }
+
+    if (mqcustomersdebt == "Yes" && mqcustomersdebttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdebttotal = {
+            "anchor": "mqcustomersdebttotal",
+            "message": "Number of domestic customers in debt must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/debt', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnections');
+        
+    }
+});
+
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - Disconnections
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnections', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnections', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnections', function (req, res) {
+    
+
+    var mqcustomersdisconnect = req.session.data['mqcustomersdisconnect']
+    var mqcustomersdisconnecttotal = req.session.data['mqcustomersdisconnecttotal']
+
+
+    if (!mqcustomersdisconnect) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnect = {
+            "anchor": "mqcustomersdisconnect",
+            "message": "Select yes if there were any self disconnections"
+        }
+    }
+
+    if (mqcustomersdisconnect == "Yes" && !mqcustomersdisconnecttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnecttotal = {
+            "anchor": "mqcustomersdisconnecttotal",
+            "message": "Enter the number of customers who self disconnected"
+        }
+    }
+
+    if (mqcustomersdisconnect == "Yes" && isNaN(mqcustomersdisconnecttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnecttotal = {
+            "anchor": "mqcustomersdisconnecttotal",
+            "message": "Number of customers who self disconnected must be a number"
+        }
+    }
+
+
+
+    if (mqcustomersdisconnect == "Yes" && mqcustomersdisconnecttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnecttotal = {
+            "anchor": "mqcustomersdisconnecttotal",
+            "message": "Number of customers who self disconnected must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnections', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnected');
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - disconnected
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnected', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnected', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnected', function (req, res) {
+    
+
+    var mqcustomersdisconnected = req.session.data['mqcustomersdisconnected']
+    var mqcustomersdisconnectedtotal = req.session.data['mqcustomersdisconnectedtotal']
+
+
+    if (!mqcustomersdisconnected) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnected = {
+            "anchor": "mqcustomersdisconnected",
+            "message": "Select yes if there were customers disconnected"
+        }
+    }
+
+    if (mqcustomersdisconnected == "Yes" && !mqcustomersdisconnectedtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnectedtotal = {
+            "anchor": "mqcustomersdisconnectedtotal",
+            "message": "Enter the number of customers who were disconnected"
+        }
+    }
+
+    if (mqcustomersdisconnected == "Yes" && isNaN(mqcustomersdisconnectedtotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnectedtotal = {
+            "anchor": "mqcustomersdisconnectedtotal",
+            "message": "Number of customers who disconnected must be a number"
+        }
+    }
+
+
+
+    if (mqcustomersdisconnected == "Yes" && mqcustomersdisconnectedtotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersdisconnectedtotal = {
+            "anchor": "mqcustomersdisconnectedtotal",
+            "message": "Number of customers who disconnected must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disconnected', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment');
+        
+    }
+});
+
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - repayment plan
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', function (req, res) {
+    
+
+    var mqcustomersrepayment = req.session.data['mqcustomersrepayment']
+    var mqcustomersrepaymenttotal = req.session.data['mqcustomersrepaymenttotal']
+        var mqcustomersdomestictotal = req.session.data['mqcustomersdomestictotal']
+
+
+    if (!mqcustomersrepayment) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersrepayment = {
+            "anchor": "mqcustomersrepayment",
+            "message": "Select yes if there were customers on a repayment plan"
+        }
+    }
+
+    if (mqcustomersrepayment == "Yes" && !mqcustomersrepaymenttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersrepaymenttotal = {
+            "anchor": "mqcustomersrepaymenttotal",
+            "message": "Enter the number of customers on a repayment plan"
+        }
+    }
+
+    if (mqcustomersrepayment == "Yes" && isNaN(mqcustomersrepaymenttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersrepaymenttotal = {
+            "anchor": "mqcustomersrepaymenttotal",
+            "message": "Number of customers on a repayment plan must be a number"
+        }
+    }
+
+
+    if (Number(mqcustomersrepaymenttotal) > Number(mqcustomersdomestictotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersrepaymenttotal = {
+            "anchor": "mqcustomersrepaymenttotal",
+            "message": "Number of customers on a repayment plan cannot be more than the total number of domestic customers"
+        }
+    }
+
+    if (mqcustomersrepayment == "Yes" && mqcustomersrepaymenttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersrepaymenttotal = {
+            "anchor": "mqcustomersrepaymenttotal",
+            "message": "Number of customers on a repayment plan must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/reconnections');
+        
+    }
+});
+
+// Monitoring - Quarterly data - Vulnerability Debt - Reconnections
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/reconnections', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/reconnections', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/reconnections', function (req, res) {
+    
+
+    var mqcustomersreconnect = req.session.data['mqcustomersreconnect']
+    var mqcustomersreconnecttotal = req.session.data['mqcustomersreconnecttotal']
+
+
+    if (!mqcustomersreconnect) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersreconnect = {
+            "anchor": "mqcustomersreconnect",
+            "message": "Select yes if there were any self reconnections"
+        }
+    }
+
+    if (mqcustomersreconnect == "Yes" && !mqcustomersreconnecttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersreconnecttotal = {
+            "anchor": "mqcustomersreconnecttotal",
+            "message": "Enter the number of customers who self reconnected"
+        }
+    }
+
+    if (mqcustomersreconnect == "Yes" && isNaN(mqcustomersreconnecttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersreconnecttotal = {
+            "anchor": "mqcustomersreconnecttotal",
+            "message": "Number of customers who self reconnected must be a number"
+        }
+    }
+
+
+
+    if (mqcustomersreconnect == "Yes" && mqcustomersreconnecttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersreconnecttotal = {
+            "anchor": "mqcustomersreconnecttotal",
+            "message": "Number of customers who self reconnected must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/reconnections', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/prepayment');
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - Prepayment meters
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/prepayment', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/prepayment', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/prepayment', function (req, res) {
+    
+
+    var mqcustomersprepayment = req.session.data['mqcustomersprepayment']
+    var mqcustomersprepaymenttotal = req.session.data['mqcustomersprepaymenttotal']
+
+
+    if (!mqcustomersprepayment) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersprepayment = {
+            "anchor": "mqcustomersprepayment",
+            "message": "Select yes if there were meters switched to prepayment"
+        }
+    }
+
+    if (mqcustomersprepayment == "Yes" && !mqcustomersprepaymenttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersprepaymenttotal = {
+            "anchor": "mqcustomersprepaymenttotal",
+            "message": "Enter the number of meters switched to prepayment"
+        }
+    }
+
+    if (mqcustomersprepayment == "Yes" && isNaN(mqcustomersprepaymenttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersprepaymenttotal = {
+            "anchor": "mqcustomersprepaymenttotal",
+            "message": "Number of meters must be a number"
+        }
+    }
+
+
+
+    if (mqcustomersprepayment == "Yes" && mqcustomersprepaymenttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcustomersprepaymenttotal = {
+            "anchor": "mqcustomersprepaymenttotal",
+            "message": "Number of meters must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/prepayment', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cya');
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Vulnerability Debt - cya
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cya', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cya', function (req, res) {
+    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+});
+
+
+// Monitoring - Quarterly data - Quality of service - Intro
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/intro', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/intro', {
+        data: req.session.data
+    });
+});
+
+
+
+
+
+
+// Monitoring - Quarterly data - Quality of service - cya
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/cya', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/cya', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/cya', function (req, res) {
+    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+});
+
+
+// Monitoring - Quarterly data - Quality of service  - Complaints
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints', function (req, res) {
+    
+
+    var mqcomplaints = req.session.data['mqcomplaints']
+    var mqcomplaintstotal = req.session.data['mqcomplaintstotal']
+
+
+    if (!mqcomplaints) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcomplaints = {
+            "anchor": "mqcomplaints",
+            "message": "Select yes if there were customers complaints"
+        }
+    }
+
+    if (mqcomplaints == "Yes" && !mqcomplaintstotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcomplaintstotal = {
+            "anchor": "mqcomplaintstotal",
+            "message": "Enter the number of customers who were complaints"
+        }
+    }
+
+    if (mqcomplaints == "Yes" && isNaN(mqcomplaintstotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcomplaintstotal = {
+            "anchor": "mqcomplaintstotal",
+            "message": "Number of customers who complaints must be a number"
+        }
+    }
+
+
+
+    if (mqcomplaints == "Yes" && mqcomplaintstotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcomplaintstotal = {
+            "anchor": "mqcomplaintstotal",
+            "message": "Number of customers who complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/repayment');
+        
+    }
 });
