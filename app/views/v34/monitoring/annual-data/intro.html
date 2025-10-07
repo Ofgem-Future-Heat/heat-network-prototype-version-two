@@ -1,0 +1,70 @@
+{% extends 'layouts/main.html' %}
+
+{% set title %}
+Submit annual monitoring data for 1 April 2026 to 31 March 2027 
+{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">
+                    Seaton Town Centre
+                  </span>
+                        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">
+                          <strong class="govuk-tag govuk-tag--green">Annual submission</strong>
+
+                          <strong class="govuk-tag govuk-tag--yellow">Due</strong>
+                        </p>
+
+                        <p class="govuk-body">We need to know some information about this heat network during the period of 1 April 2026 to 31 March 2027. You’ll need to tell us about:</p>
+
+                        <ul class="govuk-list govuk-list--bullet">
+                          <li>
+                            whether there are any domestic or non-domestic customers
+                          </li>
+                          <li>customer billing frequency and payment methods</li>
+                          <li>any vulnerable customers</li>
+                          <li>the value of any customer debt</li>
+                          <li>customer meters</li>
+                          <li>operation and supply continuity plans</li>
+                        </ul>
+
+                        
+   
+            </div>
+        <a href="../../emails/monitoring-reminder-7" class="govuk-button">Continue</a>
+    </div>
+</div>
+
+{% endblock %}

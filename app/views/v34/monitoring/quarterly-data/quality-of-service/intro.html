@@ -1,0 +1,58 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title = "Introduction" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Quarterly monitoring - Quality of service</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. You’ll need to tell us:</p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>                       
+                        </ul>
+                        
+                    <div class="govuk-button-group">
+                        <a href="complaints" class="govuk-button">Continue</a>
+                        <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                    </div>
+
+    </div>
+</div>
+
+{% endblock %}

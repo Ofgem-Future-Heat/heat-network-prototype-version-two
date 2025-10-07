@@ -1,0 +1,129 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Check your answers" %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd
+  {% endif %}
+{% endset %}    
+
+{% set cdnumber = "263" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - consumer protections</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+            {% if data.consumervulnerable %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of vulnerable customers heat network provides heating, cooling or hot water to
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.consumervulnerable == "Yes" %}
+                    {{data.consumervulnerableammount}}
+                    {% else %}
+                    None
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="vulnerable">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            {% if data.consumerpsr %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">         	
+                    Does {{company}} have a Priority Service Register (PSR)?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.consumerpsr}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="psr">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            {% if data.consumerconfirm %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    	Complaints procedure for domestic customers, small businesses and SMEs?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.consumerconfirm}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="confirm">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+            {% if data.consumerdifficulties %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Process for dealing with customers with payment difficulties?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.consumerdifficulties}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="difficulties">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="protectionscomplete" name="protectionscomplete" value="true" />
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+
+
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Save and continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
+        </form>
+
+
+
+    </div>
+
+</div>
+
+{% endblock %}

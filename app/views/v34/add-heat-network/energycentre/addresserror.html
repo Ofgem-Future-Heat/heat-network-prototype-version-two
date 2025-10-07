@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+{% if data.addresserrorreason == "toomany" %}
+Cannot display any addresses for this postcode
+{% else %}
+No address found
+{% endif %}
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% set cdnumber = "320" %}
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+                        <span class="govuk-caption-l">Add a heat network - technical information</span>
+
+        <h1 class="govuk-heading-l">{{title}}</h1>
+        <p class="govuk-body">
+            {% if data.addresserrorreason == "toomany" %}
+            Too many addresses match <strong>{{data.buildingaddressPostcode}}</strong>. You can search again or enter the address manually.
+{% else %}
+We could not find an address that matches <strong>{{data.buildingaddressPostcode}}</strong>. You can search again or enter the address manually.
+{% endif %}
+            
+            </p>
+        <p class="govuk-body">
+            <a href="address" class="govuk-link">Search again</a>
+            </p>
+            <p class="govuk-body">
+            <a href="addressmanual" class="govuk-link">Enter address manually</a>
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+    {% if (data.energycentres > 1) %}
+Confirm primary energy centre’s address
+    {% elif (data.energycentres == 1) %}
+Confirm energy centre’s address
+    {% else %}
+Confirm plot connection point’s address
+    {% endif %}
+{% endset %}
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% set cdnumber = "289" %}
+
+{% set _inError = data.validationError == "true"  %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="POST" novalidate>
+
+
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">Add a heat network - technical information</span>
+                <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        {% if data.ecaddressHasPostcode == "Yes" and data.ecAddress %}
+                        <div class="govuk-inset-text">
+                            {% set address = data.ecAddress.toString() %}
+                            {{address | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                        </div>
+                        {% else %}
+                        <p class="govuk-body"><strong>Latitude:</strong> {{data.ecaddresslatitude}}<br />
+                            <strong>Longitude:</strong> {{data.ecaddresslongitude}}</p>
+                        {% endif %}
+
+
+
+
+
+
+
+            </div>
+            <p class="govuk-body"><a href="address" class="govuk-link govuk-link--no-visited-state">Change address</a></p>
+
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+
+    
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
+
+
+          
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "283" %}
+
+{% set title = "Introduction" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">Add a heat network - technical information</span>
+                <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                      
+                        
+ {% if data.introcommunal == "Yes" or data.energycentres == 1 %}  
+                        <p class="govuk-body">We need to know some information about this heat network's energy centre. You’ll need to tell us: </p>
+
+ {% else %}
+    {% if data.energycentres == 0 %}
+    <p class="govuk-body">We need to know some information about this heat network's main plot connection. You’ll need to tell us its address or grid coordinates.</p>
+    {% else %}
+    <p class="govuk-body">We need to know some information about this heat network's primary energy centre. You’ll need to tell us:</p>
+    {% endif %}
+
+ {% endif %}
+ {% if data.energycentres != 0 %}
+ <ul class="govuk-list govuk-list--bullet">
+     {% if data.introcommunal != "Yes" %}
+        <li>its address or grid coordinates</li>
+        {% endif %}
+        <li>which types of heating, cooling or hot water it supplies to customers</li>
+        <li>if it provides heating or hot water, the combined heating and hot water capacity</li>
+        <li>if it provides cooling, the cooling capacity</li>
+        <li>which type of technology provides the largest proportion of the heat energy</li>
+    </ul>
+
+ {% endif %}
+
+
+
+  
+                       
+
+                        <div class="govuk-button-group">
+                            {% if data.introcommunal == "Yes" %}  
+                            <a href="type" class="govuk-button">Continue</a>
+                            
+                            {% else %}
+                            <a href="addresspostcode" class="govuk-button">Continue</a>
+                            
+                            {% endif %}
+                
+                            <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            
+                        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock %}
