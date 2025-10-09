@@ -3,7 +3,7 @@
 {% if (data.energycentres > 1) %}
 
 Does the primary energy centre have a postcode?
-{% elif data.energycentres == 0 %} 
+{% elif data.energycentres == 0 %}
 Does the main plot connection point for this heat network have a postcode?
 
 {% else %}
@@ -23,8 +23,6 @@ Does the energy centre have a postcode?
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-
-
         {{
             govukBackLink ({
                 text: 'Back',
@@ -62,56 +60,64 @@ Does the energy centre have a postcode?
         <form method="POST" novalidate>
 
 
-        <fieldset class="govuk-fieldset" >
-            <div class="govuk-form-group {% if data.validationErrors.ecaddressHasPostcode %}govuk-form-group--error{% endif %}">
+            <fieldset class="govuk-fieldset">
+                <div
+                    class="govuk-form-group {% if data.validationErrors.ecaddressHasPostcode %}govuk-form-group--error{% endif %}">
 
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <span class="govuk-caption-l">Add a heat network - technical information</span>
-              <h1 class="govuk-fieldset__heading">
-                       {{title}}
-                </h1>
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - technical information</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                        
+                    </legend>
 
-                </legend>
+                    {% if (data.energycentres > 1) %}
+                        <p class="govuk-body">If the energy centre is located within another building, for example a basement, enter the postcode for that building.</p>
+                    {% endif %}
 
-                {% if data.energycentres == 0 %} 
-                <details class="govuk-details">
-                    <summary class="govuk-details__summary">
-                      <span class="govuk-details__summary-text">
-                        Help with ‘plot connection’
-                      </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        This is the point where the heat network gets its heating, cooling or hot water from another heat network. 
-                    </div>
-                  </details>
-                {% endif %}
-               
+                    {% if data.energycentres == 0 %}
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with ‘plot connection’
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            This is the point where the heat network gets its heating, cooling or hot water from another
+                            heat network. 
+                        </div>
+                    </details>
+                    {% endif %}
 
-        {% if data.validationErrors.ecaddressHasPostcode %}
-        <p class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span>
-            {{data.validationErrors.ecaddressHasPostcode.message}}
-        </p>
-        {% endif %}
+
+                    {% if data.validationErrors.ecaddressHasPostcode %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.ecaddressHasPostcode.message}}
+                    </p>
+                    {% endif %}
 
 
                     <div class="govuk-radios govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="ecaddressHasPostcode" name="ecaddressHasPostcode" type="radio" value="Yes" {% if data.ecaddressHasPostcode == "Yes" %}checked{% endif %}>
-                          <label class="govuk-label govuk-radios__label" for="ecaddressHasPostcode">
-                            Yes
-                          </label>
-                        </div>
+                            <input class="govuk-radios__input" id="ecaddressHasPostcode" name="ecaddressHasPostcode"
+                                type="radio" value="Yes" {% if data.ecaddressHasPostcode == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="ecaddressHasPostcode">
+                                Yes
+                            </label>
+</div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="ecaddressHasPostcode-2" name="ecaddressHasPostcode" type="radio" value="No" {% if data.ecaddressHasPostcode == "No" %}checked{% endif %}>
-                          <label class="govuk-label govuk-radios__label" for="ecaddressHasPostcode-2">
-                            No
-                          </label>
+                            <input class="govuk-radios__input" id="ecaddressHasPostcode-2" name="ecaddressHasPostcode"
+                                type="radio" value="No" {% if data.ecaddressHasPostcode == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="ecaddressHasPostcode-2">
+                                No
+                            </label>
                         </div>
-                      </div>   
-                    </div>               
+                    </div>
+                </div>
             </fieldset>
-            
+
 
             <div class="govuk-button-group">
                 {{
@@ -119,8 +125,9 @@ Does the energy centre have a postcode?
                         html: 'Continue'
                     })
                 }}
-    
-                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}"
+                    class="govuk-link govuk-link--no-visited-state">Cancel</a>
 
             </div>
         </form>
