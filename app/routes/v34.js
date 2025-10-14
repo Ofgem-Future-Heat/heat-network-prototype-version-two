@@ -136,8 +136,8 @@ function generateOperatorCompleteHN(req) {
 
     
     // Customers Flow
-    req.session.data['mqcustomersdomestic'] = "Yes"
-    req.session.data['mqcustomersdomestictotal'] = "10"
+    req.session.data['customersdomestic'] = "Yes"
+    req.session.data['customersdomestictotal'] = "10"
     req.session.data['customersnondomestic'] = "Yes"
     req.session.data['customersnondomestictotal'] = "5"
     req.session.data['consumertypeindustrial'] = "No"
@@ -9246,7 +9246,7 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/disco
 
 
 
-// Monitoring - Quarterly data - Vulnerability Debt - repayment plan
+// Monitoring - Quarterly data - vulnerability Debt - repayment plan
 router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', function (req, res) {
     
     res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/repayment', {
@@ -9501,7 +9501,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqcomplaints = {
             "anchor": "mqcomplaints",
-            "message": "Select yes if there were customers complaints"
+            "message": "Select yes if there were complaints"
         }
     }
 
@@ -9509,7 +9509,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqcomplaintstotal = {
             "anchor": "mqcomplaintstotal",
-            "message": "Enter the number of customers who were complaints"
+            "message": "Enter the number of complaints"
         }
     }
 
@@ -9517,7 +9517,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqcomplaintstotal = {
             "anchor": "mqcomplaintstotal",
-            "message": "Number of customers who complaints must be a number"
+            "message": "Number of complaints must be a number"
         }
     }
 
@@ -9527,7 +9527,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqcomplaintstotal = {
             "anchor": "mqcomplaintstotal",
-            "message": "Number of customers who complaints must be 40 characters or less"
+            "message": "Number of complaints must be 40 characters or less"
         }
     }
 
@@ -9538,7 +9538,356 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
         });
     }
     else {
-            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/repayment');
+    if (mqcomplaints == "Yes") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+    }
+    else {
+       res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/cya');
+
+    }
         
+    }
+});
+
+// Monitoring - Quarterly data - Quality of service  - Ombudsman
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman', function (req, res) {
+    
+
+    var mqombudsman = req.session.data['mqombudsman']
+    var mqombudsmantotal = req.session.data['mqombudsmantotal']
+
+
+    if (!mqombudsman) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqombudsman = {
+            "anchor": "mqombudsman",
+            "message": "Select yes if there were complaints reffered to the Ombudsman"
+        }
+    }
+
+    if (mqombudsman == "Yes" && !mqombudsmantotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqombudsmantotal = {
+            "anchor": "mqombudsmantotal",
+            "message": "Enter the number of complaints reffered to the Ombudsman"
+        }
+    }
+
+    if (mqombudsman == "Yes" && isNaN(mqombudsmantotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqombudsmantotal = {
+            "anchor": "mqombudsmantotal",
+            "message": "Number of complaints reffered to the Ombudsman must be a number"
+        }
+    }
+
+
+
+    if (mqombudsman == "Yes" && mqombudsmantotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqombudsmantotal = {
+            "anchor": "mqombudsmantotal",
+            "message": "Number of complaints reffered to the Ombudsman must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/nextday');
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Quality of service  - Next Day
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/nextday', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/nextday', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/nextday', function (req, res) {
+    
+
+    var mqnextday = req.session.data['mqnextday']
+    var mqnextdaytotal = req.session.data['mqnextdaytotal']
+
+
+    if (!mqnextday) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqnextday = {
+            "anchor": "mqnextday",
+            "message": "Select yes if the complaints were resolved by the end of the next working day"
+        }
+    }
+
+    if (mqnextday == "Yes" && !mqnextdaytotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqnextdaytotal = {
+            "anchor": "mqnextdaytotal",
+            "message": "Enter the number of complaints resolved by the end of the next working day"
+        }
+    }
+
+    if (mqnextday == "Yes" && isNaN(mqnextdaytotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqnextdaytotal = {
+            "anchor": "mqnextdaytotal",
+            "message": "Number of resolved complaints must be a number"
+        }
+    }
+
+
+
+    if (mqnextday == "Yes" && mqnextdaytotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqnextdaytotal = {
+            "anchor": "mqnextdaytotal",
+            "message": "Number of resolved complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/nextday', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/eight');
+        
+    }
+});
+
+
+// Monitoring - Quarterly data - Quality of service  - Eight weeks
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/eight', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/eight', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/eight', function (req, res) {
+    
+
+    var mqeight = req.session.data['mqeight']
+    var mqeighttotal = req.session.data['mqeighttotal']
+
+
+    if (!mqeight) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqeight = {
+            "anchor": "mqeight",
+            "message": "Select yes if the complaints were resolved with in eight weeks"
+        }
+    }
+
+    if (mqeight == "Yes" && !mqeighttotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqeighttotal = {
+            "anchor": "mqeighttotal",
+            "message": "Enter the number of complaints resolved with in eight weeks"
+        }
+    }
+
+    if (mqeight == "Yes" && isNaN(mqeighttotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqeighttotal = {
+            "anchor": "mqeighttotal",
+            "message": "Number of complaints resolved with in eight weeks must be a number"
+        }
+    }
+
+
+
+    if (mqeight == "Yes" && mqeighttotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqeighttotal = {
+            "anchor": "mqeighttotal",
+            "message": "Number of complaints resolved with in eight weeks must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/eight', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/cya');
+        
+    }
+});
+
+
+/// Quality of service - Initial
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
+    clearvalidation(req);
+    var mqqualityinitial = req.session.data['mqqualityinitial']
+
+
+
+    if (!mqqualityinitial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitial = {
+            "anchor": "mqqualityinitial",
+            "message": "Select whether you have the correct information to continue"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/xxxxx');
+    }
+
+});
+
+
+/// Vulnerability and debt< - Initial
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
+    clearvalidation(req);
+    var mqdebtinitial = req.session.data['mqdebtinitial']
+
+
+
+    if (!mqdebtinitial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqdebtinitial = {
+            "anchor": "mqdebtinitial",
+            "message": "Select whether you have the correct information to continue"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
+            data: req.session.data
+        });
+    }
+    else {
+        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/xxxxx');
+    }
+
+});
+
+
+// Quality of service - cancel
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/cancel', function (req, res) {
+    req.session.data['mqqualitycancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/cancel', function (req, res) {
+
+    var mqqualitycancel = req.session.data['mqqualitycancel']
+    const urlParams = req.query.v;
+
+
+    if (!mqqualitycancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualitycancel = {
+            "anchor": "mqqualitycancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqqualitycancel == "Yes") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Vulnerabiliy debt - cancel
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cancel', function (req, res) {
+    req.session.data['mqvulnerabilitycancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cancel', function (req, res) {
+
+    var mqvulnerabilitycancel = req.session.data['mqvulnerabilitycancel']
+    const urlParams = req.query.v;
+
+
+    if (!mqvulnerabilitycancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqvulnerabilitycancel = {
+            "anchor": "mqvulnerabilitycancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqvulnerabilitycancel == "Yes") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
     }
 });

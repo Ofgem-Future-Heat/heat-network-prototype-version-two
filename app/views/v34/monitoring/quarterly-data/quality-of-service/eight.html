@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at the end of this quarter?
+Have the complaints been resolved within eight weeks this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqcustomersdebt="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqeight="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,27 +53,28 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdebt %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqeight %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - vulnerability and debt</span>
+                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
                     <p class="govuk-body">
-                         This is where charges have been outstanding for three months or more after the date the bill has been issued, and outstanding charges are more than the amount specified by the authority for these purposes and the consumer is not on, or transitioning, to a repayment plan.  
+                        For example....
                     </p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
+                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
                     </div>
-                    {% if data.validationErrors.mqcustomersdebt %}
+
+                    {% if data.validationErrors.mqeight %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqcustomersdebt.message}}
+                        {{data.validationErrors.mqeight.message}}
                     </p>
                     {% endif %}
 
@@ -84,28 +85,28 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdebt-yes" name="mqcustomersdebt" type="radio" value="Yes" data-aria-controls="mqcustomersdebt-conditional" {% if data.mqcustomersdebt == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdebt-yes">
+                            <input class="govuk-radios__input" id="mqeight-yes" name="mqeight" type="radio" value="Yes" data-aria-controls="mqeight-conditional" {% if data.mqeight == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqeight-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqcustomersdebt-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdebttotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqcustomersdebttotal">
-                                Number of domestic customers in debt at the end of this quarter
+                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqeight-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqeighttotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqeighttotal">
+                                Number of complaints received this quarter
                               </label>
-                              {% if data.validationErrors.mqcustomersdebttotal %}
+                              {% if data.validationErrors.mqeighttotal %}
                               <p class="govuk-error-message">
                                   <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqcustomersdebttotal.message}}
+                                  {{data.validationErrors.mqeighttotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqcustomersdebttotal" name="mqcustomersdebttotal" type="text" value="{{data.mqcustomersdebttotal}}">
+                              <input class="govuk-input govuk-!-width-one-third" id="mqeighttotal" name="mqeighttotal" type="text" value="{{data.mqeighttotal}}">
                             </div>
                           </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdebt-no" name="mqcustomersdebt" type="radio" value="No" {% if data.mqcustomersdebt == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdebt-no">
+                            <input class="govuk-radios__input" id="mqeight-no" name="mqeight" type="radio" value="No" {% if data.mqeight == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqeight-no">
                                 No
                             </label>
                         </div>
@@ -123,7 +124,7 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>
 
