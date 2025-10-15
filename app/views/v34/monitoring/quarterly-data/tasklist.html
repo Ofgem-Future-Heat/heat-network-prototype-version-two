@@ -117,9 +117,15 @@ Seaton Town Centre
                         {% if data.mqqualitycomplete == "true" %}
                         Completed
                         {% else %}
+                        {% if data.mqqualityuncomplete == "true" %}
+                        <strong class="govuk-tag govuk-tag--red">
+                        Can not complete
+                        </strong>
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Incomplete
                         </strong>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </li>

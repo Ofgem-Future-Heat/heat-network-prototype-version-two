@@ -9733,12 +9733,15 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/eight
     }
     else {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/cya');
+        }
         
-    }
 });
 
 
 /// Quality of service - Initial
+
+
+
 router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
@@ -9750,6 +9753,7 @@ router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/initia
 router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
     clearvalidation(req);
     var mqqualityinitial = req.session.data['mqqualityinitial']
+    var mqqualityinitialtotal = req.session.data['mqqualityinitialtotal']
 
 
 
@@ -9761,19 +9765,48 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         }
     }
 
+    if (mqqualityinitial == "No" && !mqqualityinitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitialtotal = {
+            "anchor": "mqqualityinitialtotal",
+            "message": "Enter a reason ???? ???????"
+        }
+    }
+
+    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitialtotal = {
+            "anchor": "mqqualityinitialtotal",
+            "message": "Reason why you can't complete this section"
+        }
+    }
+     if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitialtotal = {
+            "anchor": "mqqualityinitialtotal",
+            "message": "Reason why you can't complete this section must be 40 characters or less"
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
             data: req.session.data
         });
     }
     else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/xxxxx');
+        if (mqqualityinitial == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/complaints');
+
+        } else {
+        res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+
+        }
     }
 
 });
 
 
-/// Vulnerability and debt< - Initial
+/// Vulnerability and debt - Initial
 router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
