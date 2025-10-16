@@ -9773,13 +9773,13 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         }
     }
 
-    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.mqqualityinitialtotal = {
-            "anchor": "mqqualityinitialtotal",
-            "message": "Reason why you can't complete this section"
-        }
-    }
+//    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
+ //       req.session.data.validationError = "true"
+  //      req.session.data.validationErrors.mqqualityinitialtotal = {
+   //         "anchor": "mqqualityinitialtotal",
+    //        "message": "Reason why you can't complete this section"
+     //   }
+    //}
      if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualityinitialtotal = {
@@ -9795,15 +9795,26 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
     }
     else {
         if (mqqualityinitial == "Yes"){
-        res.redirect('/' + version + '/monitoring/quarterly-data/complaints');
-
-        } else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints');
+        } 
+         if (mqqualityinitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/help');
 
         }
     }
 
 });
+
+
+
+// Monitoring - Quarterly data - Quality of service - Help
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/help', {
+        data: req.session.data
+    });
+});
+
 
 
 /// Vulnerability and debt - Initial
@@ -9933,7 +9944,83 @@ router.get('/' + version + '/account-creation/dropout-private-beta', function (r
 
     backURL = req.header('Referer')
     res.render('/' + version + '/account-creation/dropout-private-beta', {
-        data: req.session.data
+                data: req.session.data
     });
 });
 
+
+// QS Checkboxes
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+    req.session.data['mqtypescancel'] = ""
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+        data: req.session.data
+    });
+});
+ 
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+   
+    var complaintsTypes = req.session.data['complaintsTypes']
+ 
+    if (!complaintsTypes) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.complaintsTypes = {
+            "anchor": "debt",
+            "message": "???????"
+        }
+    }
+ 
+ 
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+            data: req.session.data
+        });
+    }
+ 
+    else {
+        if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+ 
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing');
+        }
+       
+        else if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+   
+    }
+ 
+});
+ 
+ 
+// QS type debt
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', function (req, res) {
+    req.session.data['mqtype-debtcancel'] = ""
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', {
+        data: req.session.data
+    });
+});
