@@ -9978,37 +9978,38 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/types
     }
  
     else {
+        /*console.log(complaintsTypes)*/
         if (complaintsTypes == "debt") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
         }
  
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "disputes") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "customerService") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "pricing") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "metering") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "billingService") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "backBilling") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing');
         }
        
-        else if (complaintsTypes == "debt") {
+        else if (complaintsTypes == "other") {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
-        }
+        } 
    
     }
  

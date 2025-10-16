@@ -54,7 +54,13 @@ Types
         
 <form id="sectionForm" method="POST" novalidate>
   
-    <fieldset class="govuk-fieldset">
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+         </legend>
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="complaintsTypes-debt" name="complaintsTypes" type="checkbox" value="debt" {% if data.complaintsTypes == "debt" %}checked{% endif %} >
@@ -69,38 +75,38 @@ Types
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-customerService" name="complaintsTypes" type="checkbox" value="customerService" {% if data.complaintsTypes == "customerService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-customerService">
             Customer service
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-pricing" name="complaintsTypes" type="checkbox" value="pricing" {% if data.complaintsTypes == "pricing" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-pricing">
             Pricing
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-metering" name="complaintsTypes" type="checkbox" value="metering" {% if data.complaintsTypes == "metering" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-metering">
             Metering
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-billingService" name="complaintsTypes" type="checkbox" value="billingService" {% if data.complaintsTypes == "billingService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-billingService">
             Billing service
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-backBilling" name="complaintsTypes" type="checkbox" value="backBilling" {% if data.complaintsTypes == "backBilling" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-backBilling">
             Back billing
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
+            <input class="govuk-checkboxes__input" id="complaintsTypes-other" name="complaintsTypes" type="checkbox" value="other" {% if data.complaintsTypes == "other" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-other">
             Other
             </label>
         </div>
