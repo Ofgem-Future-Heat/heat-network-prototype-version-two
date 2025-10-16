@@ -9773,13 +9773,13 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         }
     }
 
-    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
-        req.session.data.validationError = "true"
-        req.session.data.validationErrors.mqqualityinitialtotal = {
-            "anchor": "mqqualityinitialtotal",
-            "message": "Reason why you can't complete this section"
-        }
-    }
+//    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
+ //       req.session.data.validationError = "true"
+  //      req.session.data.validationErrors.mqqualityinitialtotal = {
+   //         "anchor": "mqqualityinitialtotal",
+    //        "message": "Reason why you can't complete this section"
+     //   }
+    //}
      if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualityinitialtotal = {
@@ -9795,15 +9795,26 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
     }
     else {
         if (mqqualityinitial == "Yes"){
-        res.redirect('/' + version + '/monitoring/quarterly-data/complaints');
-
-        } else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints');
+        } 
+         if (mqqualityinitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/help');
 
         }
     }
 
 });
+
+
+
+// Monitoring - Quarterly data - Quality of service - Help
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/help', {
+        data: req.session.data
+    });
+});
+
 
 
 /// Vulnerability and debt - Initial
@@ -9923,4 +9934,59 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cance
          }
     
     }
+});
+
+
+// QS Checkboxes 
+
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+    req.session.data['mqtypescancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+    
+    var complaintsTypes = req.session.data['complaintsTypes']
+
+    if (!complaintsTypes) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.complaintsTypes = {
+            "anchor": "debt",
+            "message": "???????"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+            data: req.session.data
+        });
+    }
+
+    else {
+        if (complaintsTypes == "debt") {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+    
+    }
+
+});
+
+
+
+
+
+
+
+// QS Sections
+
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/section1', function (req, res) {
+    req.session.data['mqsection1cancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/section1', {
+        data: req.session.data
+    });
 });
