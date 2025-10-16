@@ -9924,3 +9924,16 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cance
     
     }
 });
+
+// Account Creation - Private Beta Dropout
+router.get('/' + version + '/account-creation/dropout-private-beta', function (req, res) {
+    
+    const urlParams = req.query.v;
+    req.session.data['privatebetadropout'] = urlParams;
+
+    backURL = req.header('Referer')
+    res.render('/' + version + '/account-creation/dropout-private-beta', {
+        data: req.session.data
+    });
+});
+
