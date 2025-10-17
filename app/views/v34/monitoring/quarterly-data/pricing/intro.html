@@ -1,0 +1,61 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title = "Introduction" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Quarterly monitoring - vulnerability and debt</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">We need to know some information about [______] heat network. You’ll need to tell us: </p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>If there were any domestic customers on this heat network at the end of this quarter</li>
+                            <li>Whether any domestic customers have outstanding charges for three months or more</li>
+                            <li>If any domestic customers self-disconnected </li>
+                            <li>If any domestic customers disconnected for non payment </li>
+                            <li>Whether any domestic customers were on a repayment plan  </li>
+                            <li>Were any domestic customers reconnected </li>
+                            <li>Were any domestic customers meters switched to prepayment meters  </li>                       
+                        </ul>
+                        
+                    <div class="govuk-button-group">
+                        <a href="domestic" class="govuk-button">Continue</a>
+                        <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                    </div>
+
+    </div>
+</div>
+
+{% endblock %}
