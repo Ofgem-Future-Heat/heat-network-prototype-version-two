@@ -8933,14 +8933,14 @@ router.get('/' + version + '/monitoring/quarterly-data/tasklist', function (req,
 });
 
 router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
-    var vulnerabilitycomplete = req.session.data['vulnerabilitycomplete']
-    var qualitycomplete = req.session.data['qualitycomplete']
+    var mqvulnerabilitycomplete = req.session.data['mqvulnerabilitycomplete']
+    var mqqualitycomplete = req.session.data['mqqualitycomplete']
 
 
-    if (vulnerabilitycomplete != "true") {
+    if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.vulnerabilitycomplete = {
-            "anchor": "vulnerabilitycomplete",
+        req.session.data.validationErrors.mqvulnerabilitycomplete = {
+            "anchor": "mqvulnerabilitycomplete",
             "message": "Vulnerability and debt must be complete"
         }
     }
@@ -8948,10 +8948,10 @@ router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req
 
 
 
-    if (qualitycomplete != "true") {
+    if (mqqualitycomplete != "true") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.qualitycomplete = {
-            "anchor": "qualitycomplete",
+        req.session.data.validationErrors.mqqualitycomplete = {
+            "anchor": "mqqualitycomplete",
             "message": "Quality of service must be complete"
         }
     }
