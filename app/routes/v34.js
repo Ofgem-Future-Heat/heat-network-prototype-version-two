@@ -8868,9 +8868,9 @@ router.get('/' + version + '/help/sent', function (req, res) {
 ///////////////////////////////////////////////// MONITORING /////////////////////////////////////////////////////////////////////////////
 
 // Monitoring - Information
-router.get('/' + version + '/monitoring/mointoring-information', function (req, res) {
+router.get('/' + version + '/monitoring/monitoring-information', function (req, res) {
     
-    res.render('/' + version + '/mointoring/mointoring-information', {
+    res.render('/' + version + '/monitoring/monitoring-information', {
         data: req.session.data
     });
 
@@ -9826,7 +9826,7 @@ router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initia
 });
 
 
-router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
     clearvalidation(req);
     var mqdebtinitial = req.session.data['mqdebtinitial']
 
