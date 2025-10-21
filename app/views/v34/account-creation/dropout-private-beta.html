@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "You do not have access to this service" %}
+{% set title = "You need to request access to use this service" %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -12,21 +12,15 @@
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-full">
-
         {% include data.version + "/_partials/logout.html" %}
-
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
-
     </div>
-
 </div>
 {% endblock %}
 
@@ -51,12 +45,10 @@
         </div>
         {% endif %}
         <form method="POST" novalidate>
-
             <div
                 class="govuk-form-group {% if data.validationErrors.companynumber %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
-
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
@@ -64,8 +56,32 @@
                     </legend>
 
                     <p class="govuk-body">
-                         You do not have access to the service as it's in private beta.
+                        This service is currently in private beta.
                     </p>
+                    <p class="govuk-body">
+                        To use it, you need to request access by emailing <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>
+                    </p>
+
+                    <h2 class="govuk-heading-s">When you email, include:</h2>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>your organisation name</li>
+                        <li>your full name</li>
+                        <li>the email address you want to use to access the service</li>
+                    </ul>
+
+                    <h2 class="govuk-heading-s">When you email, include:</h2>
+                    <ol class="govuk-list govuk-list--number">
+                        <li>We'll review your request and aim to grant access within 5 working days.</li>
+                        <li>You'll receive an email confirming when you can start using the service.</li>
+                        <li>Once you're set up, you'll be able to create an account for your organisation.</li>
+                        <li>You can then invite other users from your organisation - they'll be automatically approved
+                            to use the private beta and won't need to email us.</li>
+                    </ol>
+
+                    <p class="govuk-body">
+                        If you think you've received this message in error, or are having issues accessing the service you can email us at <a href="#" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>.
+                    </p>
+
                 </fieldset>
             </div>
         </form>
