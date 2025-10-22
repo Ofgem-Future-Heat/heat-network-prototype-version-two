@@ -50,7 +50,21 @@ Radienteco Ltd
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Have there been complaints this quarter?  
+                    Do you have the information you’ll need
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    
+                    {{data.mqqualityinitial}}{% if data.mqqualityinitial == "No" %}<br />
+                    {{data.mqqualityinitialtotal}} 
+                    {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="initial">Change</a>
+                </dd>
+             </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of customers that made a complaint
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
@@ -65,7 +79,7 @@ Radienteco Ltd
             {% if data.mqcomplaints == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Ombudsman this quarter? 
+                    Number of complaints referred to the Ombudsman
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
@@ -80,7 +94,7 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Next working day this quarter? 
+                    Number of complaints complaints resolved by the end of the next working day
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
@@ -95,7 +109,7 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    8 weeks this quarter? 
+                    Number of complaints resolved within 8 weeks
                 </dt>
                 <dd class="govuk-summary-list__value">
                     

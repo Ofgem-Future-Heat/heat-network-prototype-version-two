@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Help with collecting the correct data
+Help with quality of service data
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -40,29 +40,23 @@ Help with collecting the correct data
                         <h1 class="govuk-heading-l">
                             {{title}}
                         </h1>
-                        <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. You’ll need to tell us:</p>
-
-                        
-                            <h2 class="govuk-heading-m">Next steps</h2>
-                            <p class="govuk-body">Once you've gathered the contact information you need from below, click ‘Continue’ to return to the list. From there, you can either complete another section or click ‘Submit’ once you've finished the sections you're ready to submit.</p>
-                                <div class="govuk-warning-text">
-                                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                                    <strong class="govuk-warning-text__text">
-                                        <span class="govuk-visually-hidden">Warning</span>
-                                        Since this data is not currently available for submission, you may proceed with submitting the other sections in the list. However, this particular section will need to be revisited and updated at a later date. If you need assistance, please refer to the contact information provided below.
-                                    </strong>
-                                </div>
-                            
-                                <h3 class="govuk-heading-s">Email</h3>
-
-                                    <ul class="govuk-list">
-                                    <li><a class="govuk-link" href="#">name@example.com</a></li>
-                                    <li>We aim to respond within 2 working days</li>
-                                    </ul>
+                       <p class="govuk-body">You’ve told us that you do not have all of the information required to complete the quality of service section of this quarterly monitoring submission. You can still submit your data without it. </p>
+                        <p class="govuk-body">If you can get this information before you submit the monitoring data for this quarter, you can return and add it. Once you’ve submitted the data, you will not be able to amend your submission.  </p>
+                        <p class="govuk-body">Your reason for not being able to provide this information will be sent to us. We may get in touch to request further details. </p>
+                            <h2 class="govuk-heading-m">Get help</h2>
+                            <p class="govuk-body">If you do not want to submit your data without this section, you can email <a class="govuk-link" href="#">name@example.com</a>. We will usually respond within 2 working days.</p>
+                            <p class="govuk-body">In your email, include: </p>    
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat network ID</li>
+                                    <li>monitoring period your query relates to</li>
+                                    <li>the issue you are having</li>
+                                </ul>
                         
                     <form method="POST" novalidate>
-                    <input type="hidden" id="mqqualityuncomplete" name="mqqualityuncomplete" value="true" />
-                    <input type="hidden" id="mqstatus" name="mqstatus" value="Can not complete" />
+
+
+                    
+
                     <div class="govuk-button-group govuk-!-margin-top-5">
                                 <a href="/{{data.version}}/monitoring/quarterly-data/tasklist" class="govuk-button">Continue</a>
                                 <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>

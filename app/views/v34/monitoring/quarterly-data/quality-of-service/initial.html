@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Initial information you'll need
+Information you’ll need
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,7 +53,7 @@ Initial information you'll need
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqqualityinitial %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,15 +64,18 @@ Initial information you'll need
                         </h1>
 
                     </legend>
-                     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. . We'll provide definitions and guidance for any possibly unfamiliar concepts.</p>
+                     <p class="govuk-body">We need to know some details about the quality of service that your organisation provides for customers on this heat network.  </p>
 
-                        <p class="govuk-body">You'll need the following information:</p>
+                        <p class="govuk-body">If your organisation received any complaints about the heat network during this quarter, you’ll need to tell us how many were:</p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            <li>referred to the Ombudsman </li>
+                            <li>resolved by the end of the next working day</li>
+                            <li>resolved within 8 weeks</li>
                         </ul>
+                    <div class="govuk-form-group {% if data.validationErrors.mqqualityinitial %}govuk-form-group--error{% endif %}">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Are you able to provide this information?
+                    </legend>
 
                     {% if data.validationErrors.mqqualityinitial %}
                     <p class="govuk-error-message">
@@ -80,12 +83,6 @@ Initial information you'll need
                         {{data.validationErrors.mqqualityinitial.message}}
                     </p>
                     {% endif %}
-
-
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Do you have the data you need to progress now?
-                    </legend>
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
@@ -104,7 +101,7 @@ Initial information you'll need
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqqualityinitial-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqqualityinitialtotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqqualityinitialtotal">
-                                Reason why you don’t have the information needed?
+                                Why are you unable to provide this information?
                               </label>
                               {% if data.validationErrors.mqqualityinitialtotal %}
                               <p class="govuk-error-message">
@@ -112,10 +109,11 @@ Initial information you'll need
                                   {{data.validationErrors.mqqualityinitialtotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqqualityinitialtotal" name="mqqualityinitialtotal" type="text" value="{{data.mqqualityinitialtotal}}">
+                              <textarea class="govuk-textarea" id="mqqualityinitialtotal" name="mqqualityinitialtotal" rows="5" value="{{data.mqqualityinitialtotal}}"></textarea>
                             </div>
                           </div>
 
+                    </div>
                     </div>
 
                     
