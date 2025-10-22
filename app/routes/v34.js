@@ -8935,13 +8935,21 @@ router.get('/' + version + '/monitoring/quarterly-data/tasklist', function (req,
 router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
     var mqvulnerabilitycomplete = req.session.data['mqvulnerabilitycomplete']
     var mqqualitycomplete = req.session.data['mqqualitycomplete']
-
-
+/*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqvulnerabilitycomplete = {
             "anchor": "mqvulnerabilitycomplete",
             "message": "Vulnerability and debt must be complete"
+        }
+    }
+*/
+
+    if (mqvulnerabilitycomplete != "true") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqvulnerabilitycomplete = {
+            "anchor": "mqvulnerabilitycomplete",
+            "message": "Vulnerability and debt must be marked as complete"
         }
     }
 
@@ -8952,7 +8960,7 @@ router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualitycomplete = {
             "anchor": "mqqualitycomplete",
-            "message": "Quality of service must be complete"
+            "message": "Quality of service must be marked as complete"
         }
     }
 
@@ -8965,10 +8973,59 @@ router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req
     
 
     else {
-            res.redirect('/' + version + '/monitoring/quarterly-data/confirmsubmit');
+            res.redirect('/' + version + '/monitoring/quarterly-data/confirm-submit');
 
     }
 
+});
+
+
+// Confirm submit monitoring
+router.get('/' + version + '/monitoring/quarterly-data/confirm-submit', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/confirm-submit', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/confirm-submit', function (req, res) {
+    var mqconfirmsubmit = req.session.data['mqconfirmsubmit']
+
+    if (!mqconfirmsubmit) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqconfirmsubmit = {
+            "anchor": "mqconfirmsubmit",
+            "message": "Tell us whether you wish to confirm and submit your applicaton",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/confirm-submit', {
+            data: req.session.data
+        });
+    }
+   
+   else {
+if (mqconfirmsubmit == "No") {
+    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+
+}
+
+else {
+    req.session.data['HNStatus'] = "Submitted"
+    res.redirect('/' + version + '/monitoring/quarterly-data/confirmation');
+
+}
+   }
+});
+
+
+
+// Confirmation monitoring
+router.get('/' + version + '/monitoring/quarterly-data/confirmation', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/confirmation', {
+        data: req.session.data
+    });
 });
 
 
@@ -9739,9 +9796,6 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/eight
 
 
 /// Quality of service - Initial
-
-
-
 router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
@@ -9769,17 +9823,10 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualityinitialtotal = {
             "anchor": "mqqualityinitialtotal",
-            "message": "Enter a reason ???? ???????"
+            "message": "Enter a reason why are you unable to provide this information?"
         }
     }
 
-//    if (mqqualityinitial == "No" && isNaN(mqqualityinitialtotal)) {
- //       req.session.data.validationError = "true"
-  //      req.session.data.validationErrors.mqqualityinitialtotal = {
-   //         "anchor": "mqqualityinitialtotal",
-    //        "message": "Reason why you can't complete this section"
-     //   }
-    //}
      if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualityinitialtotal = {
@@ -9825,11 +9872,10 @@ router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initia
     });
 });
 
-
 router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
     clearvalidation(req);
     var mqdebtinitial = req.session.data['mqdebtinitial']
-
+    var mqdebtinitialtotal = req.session.data['mqdebtinitialtotal']
 
 
     if (!mqdebtinitial) {
@@ -9839,16 +9885,45 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initi
             "message": "Select whether you have the correct information to continue"
         }
     }
+    if (mqdebtinitial == "No" && !mqdebtinitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqdebtinitialtotal = {
+            "anchor": "mqdebtinitialtotal",
+            "message": "Enter a reason why are you unable to provide this information?"
+        }
+    }
+
+     if (mqdebtinitial == "No" && mqdebtinitialtotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqdebtinitialtotal = {
+            "anchor": "mqdebtinitialtotal",
+            "message": "Reason why you can't complete this section must be 40 characters or less"
+        }
+    }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
             data: req.session.data
         });
     }
-    else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/xxxxx');
+     else {
+        if (mqdebtinitial == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic');
+        } 
+         if (mqdebtinitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help');
+
+        }
     }
 
+});
+
+// Monitoring - Quarterly data - Vulnerability and debt - Help
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help', {
+        data: req.session.data
+    });
 });
 
 

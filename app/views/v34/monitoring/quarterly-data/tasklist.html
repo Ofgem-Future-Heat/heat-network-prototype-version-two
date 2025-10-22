@@ -71,20 +71,16 @@ Seaton Town Centre
                         </h1>
 
                         <p class="govuk-body govuk-!-margin-bottom-7">
-                           
-                        <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
-
-                          <strong class="govuk-tag govuk-tag--red">Overdue</strong>                        {% if data.mqstatus %}
-                        <strong class="govuk-tag govuk-tag--blue">{{data.mqstatus}}</strong>
-                        {% endif %}
-                          </p>
+                            <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
+                            <strong class="govuk-tag govuk-tag--red">Overdue</strong>                        
+                        </p>
 
 
 
             <ul class="govuk-task-list">
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqvulnerabilitycomplete == "true" %}href="vulnerability-debt/cya"{% else %}href="vulnerability-debt/intro"{% endif %} aria-describedby="company-details-1-status">Vulnerability and debt</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqvulnerabilitycomplete == "true" %}href="vulnerability-debt/cya"{% else %}href="vulnerability-debt/initial"{% endif %} aria-describedby="company-details-1-status">Vulnerability and debt</a>
                         {% if data.validationErrors.mqvulnerabilitycomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -96,16 +92,20 @@ Seaton Town Centre
                         {% if data.mqvulnerabilitycomplete == "true" %}
                         Completed
                         {% else %}
+                        {% if data.mqvulnerabilitycomplete == "cannot" %}
+                        Unable to provide
+                        {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Incomplete
                         </strong>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </li>
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqqualitycomplete == "true" %}href="quality-of-service/cya"{% else %}href="quality-of-service/intro"{% endif %} aria-describedby="company-details-1-status">Quality of service</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqqualitycomplete == "true" %}href="quality-of-service/cya"{% else %}href="quality-of-service/initial"{% endif %} aria-describedby="company-details-1-status">Quality of service</a>
                         {% if data.validationErrors.mqqualitycomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -118,9 +118,7 @@ Seaton Town Centre
                         Completed
                         {% else %}
                         {% if data.mqqualitycomplete == "cannot" %}
-                        <strong class="govuk-tag govuk-tag--red">
-                        Can not complete
-                        </strong>
+                        Unable to provide
                         {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
                             Incomplete
