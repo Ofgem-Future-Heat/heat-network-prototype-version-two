@@ -8868,9 +8868,9 @@ router.get('/' + version + '/help/sent', function (req, res) {
 ///////////////////////////////////////////////// MONITORING /////////////////////////////////////////////////////////////////////////////
 
 // Monitoring - Information
-router.get('/' + version + '/monitoring/mointoring-information', function (req, res) {
+router.get('/' + version + '/monitoring/monitoring-information', function (req, res) {
     
-    res.render('/' + version + '/mointoring/mointoring-information', {
+    res.render('/' + version + '/monitoring/monitoring-information', {
         data: req.session.data
     });
 
@@ -8933,26 +8933,34 @@ router.get('/' + version + '/monitoring/quarterly-data/tasklist', function (req,
 });
 
 router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
-    var vulnerabilitycomplete = req.session.data['vulnerabilitycomplete']
-    var qualitycomplete = req.session.data['qualitycomplete']
-
-
-    if (vulnerabilitycomplete != "true") {
+    var mqvulnerabilitycomplete = req.session.data['mqvulnerabilitycomplete']
+    var mqqualitycomplete = req.session.data['mqqualitycomplete']
+/*
+    if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.vulnerabilitycomplete = {
-            "anchor": "vulnerabilitycomplete",
+        req.session.data.validationErrors.mqvulnerabilitycomplete = {
+            "anchor": "mqvulnerabilitycomplete",
             "message": "Vulnerability and debt must be complete"
+        }
+    }
+*/
+
+    if (mqvulnerabilitycomplete != "true" && mqvulnerabilitycomplete != "cannot") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqvulnerabilitycomplete = {
+            "anchor": "mqvulnerabilitycomplete",
+            "message": "Vulnerability and debt must be marked as complete"
         }
     }
 
 
 
 
-    if (qualitycomplete != "true") {
+    if (mqqualitycomplete != "true" && mqqualitycomplete != "cannot") {
         req.session.data.validationError = "true"
-        req.session.data.validationErrors.qualitycomplete = {
-            "anchor": "qualitycomplete",
-            "message": "Quality of service must be complete"
+        req.session.data.validationErrors.mqqualitycomplete = {
+            "anchor": "mqqualitycomplete",
+            "message": "Quality of service must be marked as complete"
         }
     }
 
@@ -8965,10 +8973,59 @@ router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req
     
 
     else {
-            res.redirect('/' + version + '/monitoring/quarterly-data/confirmsubmit');
+            res.redirect('/' + version + '/monitoring/quarterly-data/confirm-submit');
 
     }
 
+});
+
+
+// Confirm submit monitoring
+router.get('/' + version + '/monitoring/quarterly-data/confirm-submit', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/confirm-submit', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/confirm-submit', function (req, res) {
+    var mqconfirmsubmit = req.session.data['mqconfirmsubmit']
+
+    if (!mqconfirmsubmit) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqconfirmsubmit = {
+            "anchor": "mqconfirmsubmit",
+            "message": "Tell us whether you wish to confirm and submit your applicaton",
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/confirm-submit', {
+            data: req.session.data
+        });
+    }
+   
+   else {
+if (mqconfirmsubmit == "No") {
+    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+
+}
+
+else {
+    req.session.data['HNStatus'] = "Submitted"
+    res.redirect('/' + version + '/monitoring/quarterly-data/confirmation');
+
+}
+   }
+});
+
+
+
+// Confirmation monitoring
+router.get('/' + version + '/monitoring/quarterly-data/confirmation', function (req, res) {
+    res.render('/' + version + '/monitoring/quarterly-data/confirmation', {
+        data: req.session.data
+    });
 });
 
 
@@ -9539,7 +9596,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/compl
     }
     else {
     if (mqcomplaints == "Yes") {
-            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/types');
     }
     else {
        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/cya');
@@ -9733,8 +9790,8 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/eight
     }
     else {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/cya');
+        }
         
-    }
 });
 
 
@@ -9750,6 +9807,7 @@ router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/initia
 router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
     clearvalidation(req);
     var mqqualityinitial = req.session.data['mqqualityinitial']
+    var mqqualityinitialtotal = req.session.data['mqqualityinitialtotal']
 
 
 
@@ -9761,19 +9819,52 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         }
     }
 
+    if (mqqualityinitial == "No" && !mqqualityinitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitialtotal = {
+            "anchor": "mqqualityinitialtotal",
+            "message": "Enter a reason why are you unable to provide this information?"
+        }
+    }
+
+     if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualityinitialtotal = {
+            "anchor": "mqqualityinitialtotal",
+            "message": "Reason why you can't complete this section must be 40 characters or less"
+        }
+    }
+
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', {
             data: req.session.data
         });
     }
     else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/xxxxx');
+        if (mqqualityinitial == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/complaints');
+        } 
+         if (mqqualityinitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/help');
+
+        }
     }
 
 });
 
 
-/// Vulnerability and debt< - Initial
+
+// Monitoring - Quarterly data - Quality of service - Help
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/help', {
+        data: req.session.data
+    });
+});
+
+
+
+/// Vulnerability and debt - Initial
 router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
@@ -9781,11 +9872,10 @@ router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initia
     });
 });
 
-
-router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initial', function (req, res) {
+router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', function (req, res) {
     clearvalidation(req);
     var mqdebtinitial = req.session.data['mqdebtinitial']
-
+    var mqdebtinitialtotal = req.session.data['mqdebtinitialtotal']
 
 
     if (!mqdebtinitial) {
@@ -9795,16 +9885,45 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
             "message": "Select whether you have the correct information to continue"
         }
     }
+    if (mqdebtinitial == "No" && !mqdebtinitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqdebtinitialtotal = {
+            "anchor": "mqdebtinitialtotal",
+            "message": "Enter a reason why are you unable to provide this information?"
+        }
+    }
+
+     if (mqdebtinitial == "No" && mqdebtinitialtotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqdebtinitialtotal = {
+            "anchor": "mqdebtinitialtotal",
+            "message": "Reason why you can't complete this section must be 40 characters or less"
+        }
+    }
 
     if (req.session.data.validationError == "true") {
         res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initial', {
             data: req.session.data
         });
     }
-    else {
-        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/xxxxx');
+     else {
+        if (mqdebtinitial == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/domestic');
+        } 
+         if (mqdebtinitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help');
+
+        }
     }
 
+});
+
+// Monitoring - Quarterly data - Vulnerability and debt - Help
+router.get('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/vulnerability-debt/help', {
+        data: req.session.data
+    });
 });
 
 
@@ -9891,3 +10010,562 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cance
     
     }
 });
+
+// Account Creation - Private Beta Dropout
+router.get('/' + version + '/account-creation/dropout-private-beta', function (req, res) {
+    
+    const urlParams = req.query.v;
+    req.session.data['privatebetadropout'] = urlParams;
+
+    backURL = req.header('Referer')
+    res.render('/' + version + '/account-creation/dropout-private-beta', {
+                data: req.session.data
+    });
+});
+
+
+// QS Checkboxes
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+    req.session.data['mqtypescancel'] = ""
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+        data: req.session.data
+    });
+});
+ 
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/types', function (req, res) {
+   
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+ 
+    if (!mqcomplaintsTypes) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqcomplaintsTypes = {
+            "anchor": "mqcomplaintsTypes-debt",
+            "message": "Select a complaint type"
+        }
+    }
+ 
+ 
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/types', {
+            data: req.session.data
+        });
+    }
+ 
+    else {
+        if (mqcomplaintsTypes.includes("Back billing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing');
+        }
+        else if (mqcomplaintsTypes.includes("Billing service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service');
+        }
+        else if (mqcomplaintsTypes.includes("Charge disputes")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes');
+        }
+
+        else if (mqcomplaintsTypes.includes("Customer service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
+        }
+        else if (mqcomplaintsTypes.includes("Debt and debt related disconnections")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+        else if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+
+   
+    }
+ 
+});
+ 
+// QS type back billing
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', function (req, res) { 
+    var mqTypeBackBillingTotal = req.session.data['mqTypeBackBillingTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeBackBillingTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeBackBillingTotal = {
+            "anchor": "mqTypeBackBillingTotal",
+            "message": "Enter the number of back billing related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeBackBillingTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeBackBillingTotal = {
+            "anchor": "mqTypeBackBillingTotal",
+            "message": "Number back billing related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Billing service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service');
+        }
+        else if (mqcomplaintsTypes.includes("Charge disputes")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes');
+        }
+
+        else if (mqcomplaintsTypes.includes("Customer service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
+        }
+        else if (mqcomplaintsTypes.includes("Debt and debt related disconnections")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+        else if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+    }     
+});
+
+
+
+
+
+// QS type billing service
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', function (req, res) { 
+    var mqTypeBillingServiceTotal = req.session.data['mqTypeBillingServiceTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeBillingServiceTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeBillingServiceTotal = {
+            "anchor": "mqTypeBillingServiceTotal",
+            "message": "Enter the number of billing service related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeBillingServiceTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeBillingServiceTotal = {
+            "anchor": "mqTypeBillingServiceTotal",
+            "message": "Number billing service related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Charge disputes")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes');
+        }
+
+        else if (mqcomplaintsTypes.includes("Customer service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
+        }
+        else if (mqcomplaintsTypes.includes("Debt and debt related disconnections")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+        else if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+    }     
+});
+
+
+
+// QS type charge disputes
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', function (req, res) { 
+    var mqTypeChargeDisputesTotal = req.session.data['mqTypeChargeDisputesTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeChargeDisputesTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeChargeDisputesTotal = {
+            "anchor": "mqTypeChargeDisputesTotal",
+            "message": "Enter the number of charge dispute related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeChargeDisputesTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeChargeDisputesTotal = {
+            "anchor": "mqTypeChargeDisputesTotal",
+            "message": "Number charge dispute related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Customer service")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service');
+        }
+        else if (mqcomplaintsTypes.includes("Debt and debt related disconnections")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+        else if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+
+
+        }     
+});
+
+
+// QS type customer service
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', {
+        data: req.session.data
+    });
+});
+
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', function (req, res) { 
+    var mqTypeCustomerServiceTotal = req.session.data['mqTypeCustomerServiceTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeCustomerServiceTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeCustomerServiceTotal = {
+            "anchor": "mqTypeCustomerServiceTotal",
+            "message": "Enter the number of customer service related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeCustomerServiceTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeCustomerServiceTotal = {
+            "anchor": "mqTypeCustomerServiceTotal",
+            "message": "Number customer service related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Debt and debt related disconnections")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt');
+        }
+        else if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+    }     
+});
+
+
+ 
+// QS type debt
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', function (req, res) { 
+    var mqTypeDebtTotal = req.session.data['mqTypeDebtTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeDebtTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeDebtTotal = {
+            "anchor": "mqTypeDebtTotal",
+            "message": "Enter the number of debt and debt related disconnections complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeDebtTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeDebtTotal = {
+            "anchor": "mqTypeDebtTotal",
+            "message": "Number debt and debt related disconnections complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Metering")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering');
+        }
+
+        else if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }
+
+        }     
+});
+
+// QS type metering
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', function (req, res) { 
+    var mqTypeMeteringTotal = req.session.data['mqTypeMeteringTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypeMeteringTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeMeteringTotal = {
+            "anchor": "mqTypeMeteringTotal",
+            "message": "Enter the number of metering related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeMeteringTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeMeteringTotal = {
+            "anchor": "mqTypeMeteringTotal",
+            "message": "Number metering related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqcomplaintsTypes.includes("Pricing")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing');
+        }
+
+        else if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }  
+
+        }     
+});
+
+
+// QS type pricing
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', function (req, res) { 
+    var mqTypePricingTotal = req.session.data['mqTypePricingTotal']
+    var mqcomplaintsTypes = req.session.data['mqcomplaintsTypes']
+
+
+
+    if (!mqTypePricingTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypePricingTotal = {
+            "anchor": "mqTypePricingTotal",
+            "message": "Enter the number of pricing related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypePricingTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypePricingTotal = {
+            "anchor": "mqTypePricingTotal",
+            "message": "Number pricing related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', {
+            data: req.session.data
+        });
+    }
+    else {
+         if (mqcomplaintsTypes.includes("Other")) {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other');
+        }
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+        }  
+
+        }     
+});
+
+
+
+
+
+
+
+
+
+
+// QS type other
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', function (req, res) { 
+    var mqTypeOtherTotal = req.session.data['mqTypeOtherTotal']
+
+    if (!mqTypeOtherTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeOtherTotal = {
+            "anchor": "mqTypeOtherTotal",
+            "message": "Enter the number of back billing related complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeOtherTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeOtherTotal = {
+            "anchor": "mqTypeOtherTotal",
+            "message": "Number back billing related complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
+    }     
+});
+
+

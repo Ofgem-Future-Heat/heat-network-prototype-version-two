@@ -50,28 +50,96 @@ Radienteco Ltd
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Have there been complaints this quarter?  
+                    Do you have the information you’ll need
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
-                    {{data.mqcomplaints}}{% if data.mqcomplaints == "Yes" %}<br />
-                    {{data.mqcomplaintstotal}} complaints
+                    {{data.mqqualityinitial}}{% if data.mqqualityinitial == "No" %}<br />
+                    {{data.mqqualityinitialtotal}} 
                     {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="initial">Change</a>
+                </dd>
+             </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Customer complaints made
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    
+                    {% if data.mqcomplaints == "Yes" %}{{data.mqcomplaintstotal}}{% else %} 0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="complaints">Change</a>
                 </dd>
             </div>
+
+
             {% if data.mqcomplaints == "Yes" %}
+
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Ombudsman this quarter? 
+                    Type of complaints have you received this quarter
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for type in data.mqcomplaintsTypes %}
+                        {{type}}<br />
+                    {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="complaints">Change</a>
+                </dd>
+            </div>
+
+                    {% for type in data.mqcomplaintsTypes %}
+                        
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    {{type}} complaints
+            </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if type == "Back billing" %}{{data.mqTypeBackBillingTotal}}{% endif %}
+                    {% if type == "Billing service" %}{{data.mqTypeBillingServiceTotal}}{% endif %}
+                    {% if type == "Charge disputes" %}{{data.mqTypeChargeDisputesTotal}}{% endif %}
+                    {% if type == "Customer service" %}{{data.mqTypeCustomerServiceTotal}}{% endif %}
+                    {% if type == "Debt and debt related disconnections" %}{{data.mqTypeDebtTotal}}{% endif %}
+                    {% if type == "Metering" %}{{data.mqTypeMeteringTotal}}{% endif %}
+                    {% if type == "Pricing" %}{{data.mqTypePricingTotal}}{% endif %}
+                    {% if type == "Other" %}{{data.mqTypeOtherTotal}}{% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    
+                    <a class="govuk-link" href="
+                    {% if type == "Back billing" %}type-back-billing{% endif %}
+                    {% if type == "Billing service" %}type-billing-service{% endif %}
+                    {% if type == "Charge disputes" %}type-charge-disputes{% endif %}
+                    {% if type == "Customer service" %}type-customer-service{% endif %}
+                    {% if type == "Debt and debt related disconnections" %}type-debt{% endif %}
+                    {% if type == "Metering" %}type-metering{% endif %}
+                    {% if type == "Pricing" %}type-pricing{% endif %}
+                    {% if type == "Other" %}type-other{% endif %}
+                    ">Change</a>
+                </dd>
+            </div>
+
+
+                    {% endfor %}
+        
+
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Complaints referred to the Ombudsman 
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
-                    {{data.mqombudsman}}{% if data.mqombudsman== "Yes" %}<br />
-                    {{data.mqombudsmantotal}} complaints
-                     {% endif %}
+                    {% if data.mqombudsman == "Yes" %}{{data.mqombudsmantotal}}{% else %} 0{% endif %}
+
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="ombudsman">Change</a>
@@ -80,13 +148,12 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Next working day this quarter? 
+                    Complaints resolved by the end of the next working day 
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
-                    {{data.mqnextday}}{% if data.mqnextday == "Yes" %}<br />
-                    {{data.mqnextdaytotal}} complaints
-                     {% endif %}
+                    {% if data.mqnextday == "Yes" %}{{data.mqnextdaytotal}}{% else %} 0{% endif %}
+
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="nextday">Change</a>
@@ -95,13 +162,10 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    8 weeks this quarter? 
+                    Complaints resolved within 8 weeks
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqeight}}{% if data.mqeight == "Yes" %}<br />
-                    {{data.mqeighttotal}} complaints
-                     {% endif %}
+                    {% if data.mqeight == "Yes" %}{{data.mqeighttotal}}{% else %} 0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="eight">Change</a>
@@ -113,7 +177,6 @@ Radienteco Ltd
         </dl>
         <form method="POST" novalidate>
             <input type="hidden" id="mqqualitycomplete" name="mqqualitycomplete" value="true" />
-            <input type="hidden" id="mqstatus" name="mqstatus" value="In progress" />
             <div class="govuk-button-group">
             {{
                 govukButton ({

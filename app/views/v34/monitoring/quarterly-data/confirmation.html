@@ -1,0 +1,66 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Monitoring data submitted" %}
+{% set _inError = data.validationError == "true"  %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set cdnumber = "246" %}
+{% set footerlink %}
+/{{data.version}}/emails/registration-complete
+{% endset %}
+{% set footertext %}
+Confirmation email
+{% endset %}
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+
+
+
+    </div>
+
+</div>
+{% endblock %}
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        {{title}}
+      </h1>
+      <div class="govuk-panel__body">
+        Monitoring submission ID: HNMQ0001234
+      </div>
+    </div>
+    <p class="govuk-body">
+      You’ve successfully submitted {{company}}’s quarterly monitoring data for Seaton town centre covering 1 April to
+      30 June 2026.
+    </p>
+    <p class="govuk-body">
+      We’ve sent you a confirmation email.
+    </p>
+
+    <h2 class="govuk-heading-s">What happens next</h2>
+
+
+    <p class="govuk-body">
+
+
+      We may contact you if we need any further information about your data.
+    </p>
+
+    <a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-button">Go to heat networks home</a>
+  </div>
+
+</div>
+{% endblock %}

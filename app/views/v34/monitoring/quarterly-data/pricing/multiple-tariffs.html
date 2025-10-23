@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any domestic customers disconnected for not paying their bills during this quarter?
+Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at the end of this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Were any domestic customers disconnected for not paying their bills during this 
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqcustomersdisconnected="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqcustomersdebt="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,7 @@ Were any domestic customers disconnected for not paying their bills during this 
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdisconnected %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdebt %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,13 +64,16 @@ Were any domestic customers disconnected for not paying their bills during this 
                         </h1>
 
                     </legend>
-                    
-                     <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
-
-                    {% if data.validationErrors.mqcustomersdisconnected %}
+                    <p class="govuk-body">
+                         This is where charges have been outstanding for three months or more after the date the bill has been issued, and outstanding charges are more than the amount specified by the authority for these purposes and the consumer is not on, or transitioning, to a repayment plan.  
+                    </p>
+                    <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
+                    {% if data.validationErrors.mqcustomersdebt %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqcustomersdisconnected.message}}
+                        {{data.validationErrors.mqcustomersdebt.message}}
                     </p>
                     {% endif %}
 
@@ -81,28 +84,28 @@ Were any domestic customers disconnected for not paying their bills during this 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdisconnected-yes" name="mqcustomersdisconnected" type="radio" value="Yes" data-aria-controls="mqcustomersdisconnected-conditional" {% if data.mqcustomersdisconnected == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdisconnected-yes">
+                            <input class="govuk-radios__input" id="mqcustomersdebt-yes" name="mqcustomersdebt" type="radio" value="Yes" data-aria-controls="mqcustomersdebt-conditional" {% if data.mqcustomersdebt == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqcustomersdebt-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqcustomersdisconnected-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdisconnectedtotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqcustomersdisconnectedtotal">
-                                Number of domestic customers disconnected for not paying bills this quarter
+                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqcustomersdebt-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdebttotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqcustomersdebttotal">
+                                Number of domestic customers in debt at the end of this quarter
                               </label>
-                              {% if data.validationErrors.mqcustomersdisconnectedtotal %}
+                              {% if data.validationErrors.mqcustomersdebttotal %}
                               <p class="govuk-error-message">
                                   <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqcustomersdisconnectedtotal.message}}
+                                  {{data.validationErrors.mqcustomersdebttotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqcustomersdisconnectedtotal" name="mqcustomersdisconnectedtotal" type="text" value="{{data.mqcustomersdisconnectedtotal}}">
+                              <input class="govuk-input govuk-!-width-one-third" id="mqcustomersdebttotal" name="mqcustomersdebttotal" type="text" value="{{data.mqcustomersdebttotal}}">
                             </div>
                           </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdisconnected-no" name="mqcustomersdisconnected" type="radio" value="No" {% if data.mqcustomersdisconnected == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdisconnected-no">
+                            <input class="govuk-radios__input" id="mqcustomersdebt-no" name="mqcustomersdebt" type="radio" value="No" {% if data.mqcustomersdebt == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqcustomersdebt-no">
                                 No
                             </label>
                         </div>

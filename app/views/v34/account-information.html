@@ -227,8 +227,8 @@
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">Name</th>
               <th scope="col" class="govuk-table__header">Role</th>
-              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
-              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Monitoring data</th>
+              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Registration status</th>
+              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Monitoring status</th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
@@ -245,8 +245,8 @@
             <tr class="govuk-table__row">
                   <th scope="row" class="govuk-table__header"><a href="add-heat-network/view" class="govuk-link govuk-link--no-visited-state">{% if data.name %}{{data.name}}{% else %}West Leeds{% endif %}</a><br />{% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag govuk-tag--light-blue govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}<br /><span class="govuk-body-s">(ID: 123456789)</span></th>
                   <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Role<br /></span>{% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{{data.role}}{% endif %}</td>
-                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
-                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Monitoring data<br /></span><strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-1">Not applicable</strong></td>
+                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Registration status<br /></span><strong class="govuk-tag govuk-!-margin-top-1">In progress</strong></td>
+                  <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Monitoring status<br /></span><strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-1">Not applicable</strong></td>
             </tr>
             
                   

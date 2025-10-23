@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Have there been any complaints referred to the Ombudsman this quarter?
+Were any complaints referred to the Ombudsman during this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -64,12 +64,8 @@ Have there been any complaints referred to the Ombudsman this quarter?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        For example....
-                    </p>
-                    <div class="govuk-inset-text">
-                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
-                    </div>
+                    <p class="govuk-body">This means complaints that were not resolved, so were sent to the Ombudsmen after 8 weeks or if they reached a deadlock situation.</p>
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
                     {% if data.validationErrors.mqombudsman %}
                     <p class="govuk-error-message">
@@ -93,7 +89,7 @@ Have there been any complaints referred to the Ombudsman this quarter?
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqombudsman-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqombudsmantotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqombudsmantotal">
-                                Number of complaints received this quarter
+                                Number of complaints referred to the Ombudsmen this quarter
                               </label>
                               {% if data.validationErrors.mqombudsmantotal %}
                               <p class="govuk-error-message">

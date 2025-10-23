@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Have the complaints been resolved within eight weeks this quarter?
+Were any complaints resolved within 8 weeks during this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -64,12 +64,7 @@ Have the complaints been resolved within eight weeks this quarter?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        For example....
-                    </p>
-                    <div class="govuk-inset-text">
-                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
-                    </div>
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
                     {% if data.validationErrors.mqeight %}
                     <p class="govuk-error-message">
@@ -93,7 +88,7 @@ Have the complaints been resolved within eight weeks this quarter?
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqeight-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqeighttotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqeighttotal">
-                                Number of complaints received this quarter
+                                Number of complaints resolved within 8 weeks this quarter
                               </label>
                               {% if data.validationErrors.mqeighttotal %}
                               <p class="govuk-error-message">
