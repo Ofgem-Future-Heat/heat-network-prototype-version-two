@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Types
+Which type of complaints have you received this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,7 +53,8 @@ Types
         {% endif %}
         
 <form id="sectionForm" method="POST" novalidate>
-  
+ <div class="govuk-form-group {% if data.validationErrors.mqtypes-compliants %}govuk-form-group--error{% endif %}">
+
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
@@ -61,6 +62,14 @@ Types
                             {{title}}
                         </h1>
          </legend>
+        <p class="govuk-body">Example...</p>
+         <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+                {% if data.validationErrors.mqtypes-compliants %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.mqtypes-compliants.message}}
+                    </p>
+                {% endif %}
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="complaintsTypes-debt" name="complaintsTypes" type="checkbox" value="debt" {% if data.complaintsTypes == "debt" %}checked{% endif %} >
@@ -113,7 +122,7 @@ Types
         
         </div>
     </fieldset>
-
+    </div>
 
 
             

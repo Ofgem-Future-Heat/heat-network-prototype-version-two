@@ -10094,9 +10094,125 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/types
 // QS type debt
  
 router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', function (req, res) {
-    req.session.data['mqtype-debtcancel'] = ""
  
     res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', {
         data: req.session.data
     });
 });
+
+
+router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', function (req, res) {
+    
+
+    var mqTypeDebt = req.session.data['mqTypeDebt']
+    var mqTypeDebtTotal = req.session.data['mqTypeDebtTotal']
+
+
+    if (!mqTypeDebt) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeDebt = {
+            "anchor": "mqTypeDebt",
+            "message": "Enter how many debt and debt related disconnections complaints have you received this quarter"
+        }
+    }
+
+    if (!mqTypeDebtTotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeDebtTotal = {
+            "anchor": "mqTypeDebtTotal",
+            "message": "Enter the number of debt and debt related disconnections complaints for this quarter"
+        }
+    }
+
+
+    if (mqTypeDebtTotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqTypeDebtTotal = {
+            "anchor": "mqTypeDebtTotal",
+            "message": "Number debt and debt related disconnections complaints must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-debt', {
+            data: req.session.data
+        });
+    }
+    else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/xxxxx');
+        }
+        
+});
+
+
+// QS type charge disputes
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-charge-disputes', {
+        data: req.session.data
+    });
+});
+
+
+// QS type customer service
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-customer-service', {
+        data: req.session.data
+    });
+});
+
+
+// QS type pricing
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-pricing', {
+        data: req.session.data
+    });
+});
+
+
+// QS type metering
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-metering', {
+        data: req.session.data
+    });
+});
+
+
+// QS type billing service
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-billing-service', {
+        data: req.session.data
+    });
+});
+
+
+// QS type back billing
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-back-billing', {
+        data: req.session.data
+    });
+});
+
+
+// QS type other
+ 
+router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', function (req, res) {
+ 
+    res.render('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', {
+        data: req.session.data
+    });
+});
+
+
