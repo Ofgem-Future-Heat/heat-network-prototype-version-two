@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Which type of complaints have you received this quarter?
+Which types of complaint did customers make about your organisation during this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,7 +53,7 @@ Which type of complaints have you received this quarter?
         {% endif %}
         
 <form id="sectionForm" method="POST" novalidate>
- <div class="govuk-form-group {% if data.validationErrors.mqtypes-compliants %}govuk-form-group--error{% endif %}">
+ <div class="govuk-form-group {% if data.validationErrors.mqcomplaintsTypes %}govuk-form-group--error{% endif %}">
 
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -62,60 +62,65 @@ Which type of complaints have you received this quarter?
                             {{title}}
                         </h1>
          </legend>
-        <p class="govuk-body">Example...</p>
-         <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
-                {% if data.validationErrors.mqtypes-compliants %}
+                  <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+
+        <p class="govuk-hint">Select all that apply</p>
+                {% if data.validationErrors.mqcomplaintsTypes %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqtypes-compliants.message}}
+                        {{data.validationErrors.mqcomplaintsTypes.message}}
                     </p>
                 {% endif %}
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-debt" name="complaintsTypes" type="checkbox" value="debt" {% if data.complaintsTypes == "debt" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-debt">
-            Debt and debt related disconnections
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-disputes" name="complaintsTypes" type="checkbox" value="disputes" {% if data.complaintsTypes == "disputes" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-disputes">
-            Charge disputes
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-customerService" name="complaintsTypes" type="checkbox" value="customerService" {% if data.complaintsTypes == "customerService" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-customerService">
-            Customer service
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-pricing" name="complaintsTypes" type="checkbox" value="pricing" {% if data.complaintsTypes == "pricing" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-pricing">
-            Pricing
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-metering" name="complaintsTypes" type="checkbox" value="metering" {% if data.complaintsTypes == "metering" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-metering">
-            Metering
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-billingService" name="complaintsTypes" type="checkbox" value="billingService" {% if data.complaintsTypes == "billingService" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-billingService">
-            Billing service
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-backBilling" name="complaintsTypes" type="checkbox" value="backBilling" {% if data.complaintsTypes == "backBilling" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-backBilling">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-backBilling" name="mqcomplaintsTypes" type="checkbox" value="Back billing" {% if data.mqcomplaintsTypes == "backBilling" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-backBilling">
             Back billing
             </label>
         </div>
         <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="complaintsTypes-other" name="complaintsTypes" type="checkbox" value="other" {% if data.complaintsTypes == "other" %}checked{% endif %} >
-            <label class="govuk-label govuk-checkboxes__label" for="complaintsTypes-other">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-billingService" name="mqcomplaintsTypes" type="checkbox" value="Billing service" {% if data.mqcomplaintsTypes == "billingService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-billingService">
+            Billing service
+            </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-disputes" name="mqcomplaintsTypes" type="checkbox" value="Charge disputes" {% if data.mqcomplaintsTypes == "disputes" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-disputes">
+            Charge disputes
+            </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-customerService" name="mqcomplaintsTypes" type="checkbox" value="Customer service" {% if data.mqcomplaintsTypes == "customerService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-customerService">
+            Customer service
+            </label>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-debt" name="mqcomplaintsTypes" type="checkbox" value="Debt and debt related disconnections" {% if data.mqcomplaintsTypes == "debt" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-debt">
+            Debt and debt related disconnections
+            </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-metering" name="mqcomplaintsTypes" type="checkbox" value="Metering" {% if data.mqcomplaintsTypes == "metering" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-metering">
+            Metering
+            </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-pricing" name="mqcomplaintsTypes" type="checkbox" value="Pricing" {% if data.mqcomplaintsTypes == "pricing" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-pricing">
+            Pricing
+            </label>
+        </div>
+
+
+
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-other" name="mqcomplaintsTypes" type="checkbox" value="Other" {% if data.mqcomplaintsTypes == "other" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-other">
             Other
             </label>
         </div>

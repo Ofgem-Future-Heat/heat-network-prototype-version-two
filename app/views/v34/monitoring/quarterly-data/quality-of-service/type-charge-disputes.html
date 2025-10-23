@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many charge disputes complaints have you received this quarter?
+How many complaints did your organisation receive about charge disputes this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,7 +53,7 @@ How many charge disputes complaints have you received this quarter?
         {% endif %}
         <form id="dataForm" method="POST" novalidate>
 
-           <div class="govuk-form-group {% if data.validationErrors.mqTypeChargeDisputes %}govuk-form-group--error{% endif %}">
+           <div class="govuk-form-group {% if data.validationErrors.mqTypeChargeDisputesTotal %}govuk-form-group--error{% endif %}">
 
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
@@ -61,24 +61,29 @@ How many charge disputes complaints have you received this quarter?
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">Any complaints regarding with the installation/exchange of a meter or meters not working.</p>
+                        <p class="govuk-body">This means complaints related to disagreements over charges to customers. For example, standing charges or heat usage.</p>
+                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
                         <p class="govuk-body">You must enter a whole number without decimals.</p>
 
 
-                    {% if data.validationErrors.mqTypeChargeDisputes %}
+                    {% if data.validationErrors.mqTypeChargeDisputesTotal %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqTypeChargeDisputes.message}}
+                        {{data.validationErrors.mqTypeChargeDisputesTotal.message}}
                     </p>
                     {% endif %}
 
                             <div class="govuk-form-group">
-                                <input class="govuk-input govuk-!-width-one-third" id="mqTypeChargeDisputesTotal" name="mqTypeChargeDisputesTotal" type="text" value="{{data.mqTypeChargeDisputesTotal}}">
+                                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.mqTypeChargeDisputesTotal %}govuk-input--error{% endif %}" id="mqTypeChargeDisputesTotal" name="mqTypeChargeDisputesTotal" type="text" value="{{data.mqTypeChargeDisputesTotal}}">
                             </div>
             </div>
             <div class="govuk-button-group">
-                <button class="govuk-button" type="button" onclick="goToNext()">Continue</button>
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
                 <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>

@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many debt and debt related disconnections complaints have you received this quarter?
+How many complaints did your organisation receive about debt and debt related disconnections this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -53,7 +53,7 @@ How many debt and debt related disconnections complaints have you received this 
         {% endif %}
         <form id="dataForm" method="POST" novalidate>
 
-           <div class="govuk-form-group {% if data.validationErrors.mqTypeDebt %}govuk-form-group--error{% endif %}">
+           <div class="govuk-form-group {% if data.validationErrors.mqTypeDebtTotal %}govuk-form-group--error{% endif %}">
 
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
@@ -61,25 +61,28 @@ How many debt and debt related disconnections complaints have you received this 
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">Any complaints related to disconnections or debt management/ repayment and collection.</p>
+                        <p class="govuk-body">This means complaints related to the service offered or how customers were engaged with. For example, if an appointment was missed or an issue was not addressed.</p>
+                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
                         <p class="govuk-body">You must enter a whole number without decimals.</p>
 
 
-                    {% if data.validationErrors.mqTypeDebt %}
+                    {% if data.validationErrors.mqTypeDebtTotal %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqTypeDebt.message}}
+                        {{data.validationErrors.mqTypeDebtTotal.message}}
                     </p>
                     {% endif %}
 
-                            <div class="govuk-form-group">
-                                <input class="govuk-input govuk-!-width-one-third" id="mqTypeDebtTotal" name="mqTypeDebtTotal" type="text" value="{{data.mqTypeDebtTotal}}">
-                            </div>
+
+                                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.mqTypeDebtTotal %}govuk-input--error{% endif %}" id="mqTypeDebtTotal" name="mqTypeDebtTotal" type="text" value="{{data.mqTypeDebtTotal}}">
             </div>
             <div class="govuk-button-group">
-                <button class="govuk-button" type="button" onclick="goToNext()">Continue</button>
-                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>
 

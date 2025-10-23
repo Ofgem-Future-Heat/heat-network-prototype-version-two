@@ -72,7 +72,8 @@ Seaton Town Centre
 
                         <p class="govuk-body govuk-!-margin-bottom-7">
                             <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
-                            <strong class="govuk-tag govuk-tag--red">Overdue</strong>                        
+                            {% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
+                        
                         </p>
 
 
@@ -139,12 +140,14 @@ Seaton Town Centre
 
         <form method="POST" novalidate>
             <div class="govuk-button-group">
+                                            {% if data.mqstatus != "Completed" %}
+
                 {{
                     govukButton ({
                         html: 'Submit'
                     })
                 }}
-                
+                {% endif %}
                 </div>
 
         </form>

@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many billing service complaints have you received this quarter?
+How many complaints did your organisation receive about its billing service this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ How many billing service complaints have you received this quarter?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqTypeBillingService="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqTypeBillingServiceTotal="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,7 @@ How many billing service complaints have you received this quarter?
         {% endif %}
         <form id="dataForm" method="POST" novalidate>
 
-           <div class="govuk-form-group {% if data.validationErrors.mqTypeBillingService %}govuk-form-group--error{% endif %}">
+           <div class="govuk-form-group {% if data.validationErrors.mqTypeBillingServiceTotal %}govuk-form-group--error{% endif %}">
 
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
@@ -61,24 +61,29 @@ How many billing service complaints have you received this quarter?
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">Any complaints regarding with the installation/exchange of a meter or meters not working.</p>
+                        <p class="govuk-body">This means complaints related to payment methods and issues with bills or annual statements. For example, billing frequency.</p>
+                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
                         <p class="govuk-body">You must enter a whole number without decimals.</p>
 
 
-                    {% if data.validationErrors.TypeBillingService %}
+                    {% if data.validationErrors.mqTypeBillingServiceTotal %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqTypeBillingService.message}}
+                        {{data.validationErrors.mqTypeBillingServiceTotal.message}}
                     </p>
                     {% endif %}
 
                             <div class="govuk-form-group">
-                                <input class="govuk-input govuk-!-width-one-third" id="mqTypeBillingServiceTotal" name="mqTypeBillingServiceTotal" type="text" value="{{data.mqTypeBillingServiceTotal}}">
+                                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.mqTypeBillingServiceTotal %}govuk-input--error{% endif %}" id="mqTypeBillingServiceTotal" name="mqTypeBillingServiceTotal" type="text" value="{{data.mqTypeBillingServiceTotal}}">
                             </div>
             </div>
             <div class="govuk-button-group">
-                <button class="govuk-button" type="button" onclick="goToNext()">Continue</button>
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
                 <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>

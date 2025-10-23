@@ -1,6 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% set title %}
-Are you sure you want to submit {{data.name}}?
+Are you sure you want to submit monitoring data from 1 April to 30 June 2026?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,12 +63,8 @@ Are you sure you want to submit {{data.name}}?
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">By submitting this monitoring information, you are confirming that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>you have the authority to provide this information, or are acting on behalf of someone who has delegated this authority to you</li>
-                        <li>all the information you are providing is correct to the best of your knowledge</li>
-                        <li>you will notify Ofgem as soon as possible if any of the information changes</li>
-                    </ul>
+                    <p class="govuk-body">By submitting this data, you’re confirming that all the information you’re providing is correct to the best of your knowledge.</p>
+
                     <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
@@ -102,6 +98,9 @@ Are you sure you want to submit {{data.name}}?
 
 
             </div>
+
+                        <input type="hidden" id="mqstatus" name="mqstatus" value="Completed" />
+
                         <div class="govuk-button-group">
                 {{
                     govukButton ({
