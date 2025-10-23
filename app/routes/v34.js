@@ -9007,6 +9007,7 @@ router.post('/' + version + '/monitoring/quarterly-data/confirm-submit', functio
    
    else {
 if (mqconfirmsubmit == "No") {
+    req.session.data['mqstatus'] = "";
     res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
 
 }
