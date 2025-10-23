@@ -146,7 +146,13 @@
             <p class="govuk-body">Your organistion must submit monitoring data for all of its heat networks both quarterly and annually.</p>
             <p class="govuk-body">{{data.name}}'s monitoring submission status:</p>
                 <ul class="govuk-list ">
-                <li><strong class="govuk-tag govuk-tag--red govuk-!-margin-bottom-1">3 overdue</strong></li>
+                    {% if data.mqstatus == "Completed" %} 
+                                    <li><strong class="govuk-tag govuk-tag--red govuk-!-margin-bottom-1">2 overdue</strong></li>
+
+                    {% else %}
+                                    <li><strong class="govuk-tag govuk-tag--red govuk-!-margin-bottom-1">3 overdue</strong></li>
+
+                    {% endif %}
                 <li><strong class="govuk-tag govuk-tag--yellow">2 due</strong></li>
 
                 </ul>
