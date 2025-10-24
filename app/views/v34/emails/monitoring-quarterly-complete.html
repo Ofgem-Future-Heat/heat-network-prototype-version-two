@@ -1,12 +1,14 @@
 {% extends 'layouts/email.html' %}
 {% set company %}
-{% if data.companyname %}
-{{data.companyname }}
-{% else %}
-Radienteco Ltd
-{% endif %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
 {% endset %}
-{% set title = "You’ve successfully submitted "+ company + "’s heat network" %}
+{% set title %}
+      You’ve successfully submitted {{company}}’s quarterly monitoring data for Seaton town centre covering 1 April to 30 June 2026.
+      {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -22,41 +24,28 @@ Radienteco Ltd
             <h1 class="govuk-heading-l">
               {{title}}
             </h1>
-            <p class="govuk-body">Your heat network registration ID is <strong>HN0001234</strong></p>
-            <p class="govuk-body">
-              {% if data.role == "Supplier" %}
-              You've confirmed that {{company}} is an energy supplier on the heat network {{data.name}}.
-  
-              {% else %}
-  
-              You've told us that {{company}} is a {% if data.role  == "Operator and supplier" %}Operator and supplier{% else %}{% if data.role %}{{data.role | lower }}{% else %} Operator and supplier{% endif %} {% endif %} on the heat network {{data.name}}.
-              {% endif %}
-            </p>            
+            <p class="govuk-body">Monitoring submission ID: HNMQ0001234</p>
             
-            
-            
-           
-              {% if (data.introsupply20 == "Yes") or (data.supply20 == "Yes") %}
-              <p class="govuk-body">
-              Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, it’s been given a ‘non-enduring deemed authorisation’. This means it will expire on 01/05/2027, but we will automatically convert this to an enduring authorisation. 
-            </p>
-            <p class="govuk-body">Prior to January 2028, we will convert this to an ‘enduring authorisation’ and may contact you for further information as part of this process. </p>
-              {% else %}
-              <p class="govuk-body">
-              You now have authorisation to undertake this regulated activity on the heat network. 
-            </p>
-              {% endif %}
-            <h2 class="govuk-heading-m">What you need to do now</h2>
-            <p class="govuk-body">You must ensure {{company}} remains compliant with the general authorisation conditions for heat network authorisation, related to its regulated activity on the heat network. You can view these at: <a href="#" class="govuk-link">tbc</a></p>
-            <p class="govuk-body">This includes submitting regular data about your organisation and this heat network so that we can monitor compliance. We’ll let you know when and how to do this nearer the time.</p>
-            <p class="govuk-body">We may contact you if we need any further information about this registration.</p>
+            <h2 class="govuk-heading-m">What happens next</h2>
+            <p class="govuk-body">If you’ve told us that you do not have all the information required to complete a section of your quarterly monitoring submission. We may get in touch to request further details about why you have not been able to provide this information.</p>
             <h2 class="govuk-heading-m">Need help?</h2>
-            <p class="govuk-body">Guidance is available at: <a href="#" class="govuk-link">tbc</a></p>
+            
+            <p class="govuk-body">To contact Ofgem about anything related to submitting monitoring data, email  <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>. We will usually respond within 2 working days.</p>
+             <p class="govuk-body">In your email, include:</p>    
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat network ID</li>
+                                    <li>monitoring period your query relates to</li>
+                                    <li>the issue you are having</li>
+                                </ul>
+            <p class="govuk-body">
+            
+            <p class="govuk-body govuk-body-s"><a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-button">Go to heat networks home</a></p>
+            
 
-            <p class="govuk-body">To contact Ofgem about anything related to heat network regulations, email  <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
-            <p class="govuk-body">Include the name of your organisation and any relevant heat networks, to help us process your enquiry quicker.</p>
     </div>
 
 </div>
+
+
 
 {% endblock %}
