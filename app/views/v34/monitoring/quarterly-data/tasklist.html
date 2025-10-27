@@ -140,13 +140,13 @@ Seaton Town Centre
 
         <form method="POST" novalidate>
             <div class="govuk-button-group">
-                                            {% if data.mqstatus != "Completed" %}
+                {% if data.mqstatus != "Completed" %}
 
-                {{
-                    govukButton ({
-                        html: 'Submit'
-                    })
-                }}
+                    {{
+                        govukButton ({
+                            html: 'Submit'
+                        })
+                    }}
                 {% endif %}
                 </div>
 

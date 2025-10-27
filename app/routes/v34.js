@@ -9006,14 +9006,14 @@ router.post('/' + version + '/monitoring/quarterly-data/confirm-submit', functio
     }
    
    else {
-if (mqconfirmsubmit == "No") {
-    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+if (mqconfirmsubmit == "Yes") {
+    req.session.data['mqstatus'] = "Completed";
+    res.redirect('/' + version + '/monitoring/quarterly-data/confirmation');
 
 }
 
 else {
-    req.session.data['HNStatus'] = "Submitted"
-    res.redirect('/' + version + '/monitoring/quarterly-data/confirmation');
+    res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
 
 }
    }
@@ -9959,6 +9959,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/cance
     }
     else {
         if (mqqualitycancel == "Yes") {
+            req.session.data['mqqualitycomplete'] = "";
             res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
     
         }
@@ -10001,6 +10002,7 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/cance
     }
     else {
         if (mqvulnerabilitycancel == "Yes") {
+            req.session.data['mqvulnerabilitycomplete'] = "";
             res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
     
         }
