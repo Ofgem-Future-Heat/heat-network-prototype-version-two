@@ -9827,11 +9827,11 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/initi
         }
     }
 
-     if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 40) {
+     if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 400) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualityinitialtotal = {
             "anchor": "mqqualityinitialtotal",
-            "message": "Reason why you can't complete this section must be 40 characters or less"
+            "message": "The reason why you can't complete must be 400 characters or less"
         }
     }
 
@@ -9893,11 +9893,11 @@ router.post('/' + version + '/monitoring/quarterly-data/vulnerability-debt/initi
         }
     }
 
-     if (mqdebtinitial == "No" && mqdebtinitialtotal.length > 40) {
+     if (mqdebtinitial == "No" && mqdebtinitialtotal.length > 400) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqdebtinitialtotal = {
             "anchor": "mqdebtinitialtotal",
-            "message": "Reason why you can't complete this section must be 40 characters or less"
+            "message": "The reason why you can't complete must be 400 characters or less"
         }
     }
 
