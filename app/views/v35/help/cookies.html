@@ -1,0 +1,191 @@
+{% extends 'layouts/main.html' %}
+{% set showhelp = false %}
+{% set cdnumber = "996" %}
+{% set cookibanner = "hidden" %}
+
+{% set title %}
+Cookies on  {{serviceName | lower}}
+{% endset %}
+{% set _inError = data.validationError == "true" %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/logout.html" %}
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/{{data.version}}/account-information">Home</a>
+    </li>
+
+
+  </ol>
+</nav>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+{% if data.cookiesnotification == "success" %}
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+      Your cookie settings were saved.
+    </h3>
+    <p class="govuk-body">
+      <a href="" class="govuk-link">Go back to the page you were looking at</a>
+    </p>
+  </div>
+</div>
+{% endif %}
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+
+    <p class="govuk-body">Cookies are files saved on your phone, tablet or computer when you visit a website.</p>
+    <p class="govuk-body">We use cookies to collect and store information about how you use the {{serviceName | lower}} website, such as the pages you visit. </p>
+    <p class="govuk-body">This page has a detailed explanation of each type of cookie we use. </p>
+
+<p class="govuk-body">This page has a brief explanation of each type of cookie we use. If you want more details, <a href="cookie-details" class="govuk-link"> read our detailed cookie information</a>.</p>
+
+    <h2 class="govuk-heading-m">Essential cookies</h2>
+    <p class="govuk-body">These essential cookies do things like remember your progress through a form (for example adding a heat network).</p>
+
+    <p class="govuk-body">They always need to be on.</p>
+
+
+<form method="POST">
+
+
+ 
+
+
+        <div class="govuk-form-group govuk-!-margin-bottom-6 govuk-!-margin-top-6">
+      <fieldset class="govuk-fieldset" aria-describedby="hint-72581874">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+          <h2 class="govuk-fieldset__heading">Cookies that remember your settings</h2>
+        </legend>
+        <div id="hint-72581874" class="govuk-hint">
+          <p class="govuk-body">These cookies do things like remember your preferences and the choices you make, to personalise your experience of using the site. </p>
+
+
+
+        </div>
+        <div class="govuk-form-group">
+        <div class="govuk-radios">
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookiespreferences" id="cookies-2" value="yes" class="govuk-radios__input" {% if (data.cookiespreferences == "yes") or ((not data.cookiespreferences) and (data.cookies == "yes")) %}checked{% endif %}>
+
+            <label for="cookies-2" class="gem-c-label govuk-label govuk-radios__label">Use cookies that remember my settings on the site</label>
+
+
+          </div>
+
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookiespreferences" id="cookies-3" value="no" class="govuk-radios__input" {% if (data.cookiespreferences == "no") or ((not data.cookiespreferences) and (data.cookies != "yes")) %}checked{% endif %}>
+
+            <label for="cookies-3" class="gem-c-label govuk-label govuk-radios__label">Do not use cookies that remember my settings on the site</label>
+
+
+          </div>
+
+
+
+        </div>
+        </div>
+
+      </fieldset>
+
+
+
+
+      <div>
+        
+      </div>
+    </div>
+
+           <div class="govuk-form-group govuk-!-margin-bottom-6 govuk-!-margin-top-6">
+      <fieldset class="govuk-fieldset" aria-describedby="hint-72581874">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+          <h2 class="govuk-fieldset__heading">Cookies that measure website use</h2>
+        </legend>
+          <p class="govuk-body">We use Salesforce and Google Analytics cookies to measure how you use {{serviceName | lower}}.</p>
+          <p class="govuk-body">These cookies collect information about:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>how you got to the site</li>
+            <li>the pages you visit and how long you spend on each page</li>
+            <li>what you click on while you're visiting these sites</li>
+          </ul>
+          <p class="govuk-body">We do not allow Google to use or share this data for their own purposes.</p>
+
+
+
+        <div class="govuk-form-group">
+        <div class="govuk-radios">
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookiesuse" id="cookies-0" value="yes" class="govuk-radios__input" {% if (data.cookiesuse == "yes") or ((not data.cookiesuse) and (data.cookies == "yes")) %}checked{% endif %}>
+
+            <label for="cookies-0" class="gem-c-label govuk-label govuk-radios__label">Use cookies that measure
+              my website use</label>
+
+
+          </div>
+
+          <div class="gem-c-radio govuk-radios__item">
+            <input type="radio" name="cookiesuse" id="cookies-1" value="no" class="govuk-radios__input" {% if (data.cookiesuse == "no") or ((not data.cookiesuse) and (data.cookies != "yes")) %}checked{% endif %}>
+
+            <label for="cookies-1" class="gem-c-label govuk-label govuk-radios__label">Do not use cookies that
+              measure my website use</label>
+
+
+          </div>
+
+
+
+        </div>
+        </div>
+ 
+
+      </fieldset>
+
+        <form method="POST">
+
+              <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button" type="submit">
+        Save changes
+        </button>
+
+      </form>
+
+
+      <div>
+        
+      </div>
+    </div>
+
+          </form>
+
+
+    {% endblock %}

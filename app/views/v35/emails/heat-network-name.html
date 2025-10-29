@@ -1,0 +1,70 @@
+{% extends 'layouts/email.html' %}
+
+{% set company %}
+{% if data.companyname %}
+{{data.companyname}}
+{% else %}
+Radienteco Ltd
+{% endif %}
+{% endset %}
+
+{% set operator %}
+{% if data.operator %}
+{{data.operator}}
+{% else %}
+British Gas
+{% endif %}
+{% endset %}
+
+{% set title %}
+You've successfully submitted {{company}} heat network
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+            <p class="govuk-body">You have now registered the regulated activity that {{company}} undertakes on the heat network {{operator}}</p>
+            
+            <p class="govuk-body">
+              {% if data.role == "Operator" %}
+                You've told us that {{company}} is responsible for operation.
+              {% elif data.role == "Supplier" %}
+                You've confirmed that {{company}} is responsible for supply.
+              {% else %}
+                You've told us that {{company}} is responsible for both operation and supply.
+              {% endif %}
+            </p>
+            <p class="govuk-body">Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been 'deemed authorised' for the initial period of regulation. </p>
+            <p class="govuk-body">Prior to January 2028, we may contact you for further information in order to make this authorisation enduring beyond the initial period of regulation.</p>
+            <p class="govuk-body">Your heat network registration ID is <strong>HN0001234</strong></p>
+
+            <h2 class="govuk-heading-m">What you need to know</h2>
+            <p class="govuk-body">We've published guidance that outlines your obligations and requirements within the authorisation conditions, related to regulated activity on the heat network.</p> 
+            <p class="govuk-body">You can view the guidance at: [TBC](xxx)</p>
+            <p class="govuk-body">You can view the authorisation conditions at: [TBC](xxx)</p>
+            <p class="govuk-body">We'll ask you to provide regular data and will let you know when and how to do this.</p>
+            <p class="govuk-body">We may contact you if we need any further information about this registration.</p>
+
+            <h2 class="govuk-heading-m">Making changes to this heat network</h2>
+            <p class="govuk-body">There will be a process to follow if you need to tell us about any changes to the information you submitted about this regulated activity.</p> 
+            <p class="govuk-body">Guidance is available at: [TBC](xxx)</p>
+            
+            <h2 class="govuk-heading-m">Contacting us</h2>
+            <p class="govuk-body">To contact Ofgem about your registration, email <a href="mailto: support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p> 
+            <p class="govuk-body">To help us process your enquiry, you should include the name of your organisation and any relevant heat networks.</p>
+            
+    </div>
+
+</div>
+
+{% endblock %}

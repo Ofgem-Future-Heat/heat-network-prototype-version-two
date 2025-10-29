@@ -1,0 +1,123 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "206" %}
+
+{% set title = "Is the heat network a single communal block?" %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+            {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.introcommunal %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - introduction</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">This is a single building divided into separate premises. For example, a block of flats or an office block that has multiple consumers (more than one bill-payer) in it. </p>
+                    <p class="govuk-body">This is what we call a 'communal network'.</p>
+                    <p class="govuk-body">You should answer ‘yes’, even if this heat network does not have its own energy centre.</p>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                            What is an 'energy centre'?
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            This is where the heat network's heating, cooling or hot water is produced. For example, a gas boiler, heat pump or combined heat and power (CHP) plant.
+                        </div>
+                      </details>
+
+
+                    {% if data.validationErrors.communal %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.introcommunal.message}}
+                    </p>
+                    {% endif %}
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="communal" name="introcommunal" type="radio" value="Yes" {% if data.introcommunal == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="communal">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="communal-2" name="introcommunal" type="radio" value="No" {% if data.introcommunal == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="communal-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            <div class="govuk-button-group">            {{
+            govukButton ({
+            html: 'Continue'
+            })
+            }}
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+        </div>
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

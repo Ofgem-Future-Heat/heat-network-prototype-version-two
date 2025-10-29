@@ -1,0 +1,67 @@
+{% extends 'layouts/main.html' %}
+
+{% set title %}
+Submit quarterly monitoring data for 1 April to 30 June 2026 
+{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/logout.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                <span class="govuk-caption-l">
+                    Seaton Town Centre
+                  </span>
+                        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+                            {{title}}
+                        </h1>
+                        <p class="govuk-body">
+                            <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
+                            {% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
+                        </p>
+
+                        <p class="govuk-body">We need information about this heat network for 1 April to 30 June 2026.</p>
+                        <p class="govuk-body">You'll need to tell us about:</p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>whether domestic customers were in debt, self-disconnected or reconnected</li>
+                            <li>whether customers were disconnected for non-payment or put on repayment plans</li>
+                            <li>whether any meters were switched to prepayment meters</li>
+                            <li>the types of complaint received and how quickly they were resolved</li>
+                            <li>the number of complaints referred to the Ombudsman</li>
+                        </ul>
+
+                        
+   
+            </div>
+        <a href="/{{data.version}}/monitoring/quarterly-data/tasklist" class="govuk-button">Continue</a>
+        
+    </div>
+</div>
+
+{% endblock %}
