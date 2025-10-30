@@ -1,0 +1,52 @@
+{% extends 'layouts/email.html' %}
+{% set company %}
+{% if data.companyname %}
+{{data.companyname }}
+{% else %}
+Radienteco Ltd
+{% endif %}
+{% endset %}
+{% set title %}
+
+{{data.operator}} has told us that {{company}} supplies to consumers on a heat network that they operate
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+
+
+
+
+            <p class="govuk-body">{{data.operator}} told us that you supply to consumers on their heat network.</p>
+            <h2 class="govuk-heading-m">Help with ‘supply’ and ‘operate’</h2>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Supply</h3>
+            <p class="govuk-body">An organisation has a contract to provide heating, cooling or hot water to some or all of the consumers on the heat network. A consumer is someone who has a contract for the purchase of heating, cooling or hot water, for example a bill payer.</p>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Operate</h3>                     
+            <p class="govuk-body"> An organisation owns some or all of the assets on the heat network or it has significant control over them. It has the ultimate decision-making authority to invest in the network, make upgrades and direct repairs to support its continued operation.</p>
+
+            <h2 class="govuk-heading-m">What happens next</h2>
+
+            <p class="govuk-body">You’ll need to sign in to the heat networks service and provide some additional information about {{data.name}}.</p>
+            <p class="govuk-body">If you do not believe you supply to consumers on this heat network, you should contact us on <a href="mailto: support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
+
+          <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="../account-information?v=supplier">Go to heat networks home</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

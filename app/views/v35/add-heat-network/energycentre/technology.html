@@ -1,0 +1,204 @@
+{% extends 'layouts/main.html' %}
+
+{% set title = "Which technology provides the largest proportion of the heat energy in this energy centre?" %}
+
+{% set cdnumber = "293" %}
+
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" techtechnology="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.techtechnology %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - technical information</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    {% if data.validationErrors.techtechnology %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.techtechnology.message}}
+                    </p>
+                    {% endif %}
+
+
+
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology" name="techtechnology" type="radio" value="Another heat network" {% if data.techtechnology=="Another heat network" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology">
+                                Another heat network
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-1" name="techtechnology" type="radio" value="Biofuel boiler" {% if data.techtechnology=="Biofuel boiler" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-1">
+                                Biofuel boiler
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-2" name="techtechnology" type="radio" value="combined heat and power (CHP) plant" {% if data.techtechnology=="combined heat and power (CHP) plant" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-2">
+                                Combined heat and power (CHP) plant
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-3" name="techtechnology" type="radio" value="Chiller" {% if data.techtechnology=="Chiller" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-3">
+                                Chiller
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-4" name="techtechnology" type="radio" value="Electric boiler" {% if data.techtechnology=="Electric boiler" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-4">
+                                Electric boiler
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-5" name="techtechnology" type="radio" value="Energy from waste plant" {% if data.techtechnology=="Energy from waste plant" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-5">
+                                Energy from waste plant
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-6" name="techtechnology" type="radio" value="Expander" {% if data.techtechnology=="Expander" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-6">
+                                Expander
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-7" name="techtechnology" type="radio" value="Geothermal" {% if data.techtechnology=="Geothermal" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-7">
+                                Geothermal
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-8" name="techtechnology" type="radio" value="Heat pump/exchanger" {% if data.techtechnology=="Heat pump/exchanger" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-8">
+                                Heat pump/exchanger
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-9" name="techtechnology" type="radio" value="Heat recovery" {% if data.techtechnology=="Heat recovery" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-9">
+                                Heat recovery
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-10" name="techtechnology" type="radio" value="Natural gas boiler" {% if data.techtechnology=="Natural gas boiler" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-10">
+                                Natural gas boiler
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-11" name="techtechnology" type="radio" value="Solar thermal" {% if data.techtechnology=="Solar thermal" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-11">
+                                Solar thermal
+                            </label>
+                        </div>
+                        <div class="govuk-radios__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="techtechnology-11" name="techtechnology" type="radio" value="Other" {% if data.techtechnology=="Other" %}checked{% endif %} data-aria-controls="conditional-techtechnology">
+                            <label class="govuk-label govuk-radios__label" for="techtechnology-11">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-techtechnology">
+                            <div class="govuk-form-group {% if data.validationErrors.techtechnologyother %}govuk-form-group--error{% endif %}">
+                                <label class="govuk-label" for="techtechnologyother">
+                                    Name of technology
+                                </label>
+                                {% if data.validationErrors.techtechnologyother %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.techtechnologyother.message}}
+                                </p>
+                                {% endif %}
+                                <input class="govuk-input {% if data.validationErrors.techtechnologyother %}govuk-input--error{% endif %}" id="techtechnologyother" name="techtechnologyother" type="text" spellcheck="false" value="{{data.techtechnologyother}}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+
+            </div>
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/energycentre/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

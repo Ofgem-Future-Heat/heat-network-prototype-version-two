@@ -1,0 +1,221 @@
+{% extends 'layouts/main.html' %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+
+{% set title = "Check your answers" %}
+{% set cdnumber = "257" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            {% if data.role == "Supplier" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Did {{company}} start supplying heating, cooling or hot water to some or all of the consumers on the heat network on or after 1 April 2025? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.supply20}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> supply</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does this heat network have domestic customers?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersdomestic}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers</span></a>
+                </dd>
+            </div>
+
+            {% if data.customersdomestic == "Yes" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersdomestictotal}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change<span class="govuk-visually-hidden"> domestic customers total</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does this heat network have non-domestic customers? 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersnondomestic}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="nondomestic">Change<span class="govuk-visually-hidden"> non-domestic customers</span></a>
+                </dd>
+            </div>
+
+            {% if data.customersnondomestic == "Yes" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of non-domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.customersnondomestictotal}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="nondomestic">Change<span class="govuk-visually-hidden"> non-domestic customers total</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if (data.customersnondomestic == "Yes") and (data.customersdomestic == "No") %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   Is the heat network an industrial heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.consumertypeindustrial}} 
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="industrial">Change<span class="govuk-visually-hidden"> whether the heat network is an industrial only network</span></a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if ((data.customersnondomestic == "Yes") and (data.customersdomestic == "Yes")) or ((data.customersnondomestic == "Yes") and (data.customersdomestic == "No") and data.consumertypeindustrial == "No") %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘small business’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘small businesses’?
+
+{% endif %}
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.smallenterprises}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="smallenterprises">Change<span class="govuk-visually-hidden"> whether any of the non-domestic customers are small businesses</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+{% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘microbusiness’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘microbusinesses’?
+{% endif %}                </dt>
+                <dd class="govuk-summary-list__value">
+
+                        {{data.consumertypemicrobusiness}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="microbusinesses">Change<span class="govuk-visually-hidden"> whether any of the non-domestic customers are microbusinesses!</span></a>
+                </dd>
+            </div>
+
+            {% endif %}
+
+            {% if data.customersdomestic == "Yes" %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                   How many customers on this heat network have pre-payment meters installed?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                   {{data.prepaymentmeters}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="prepaymentmeters">Change </a>
+                </dd>
+            </div>
+
+            {% endif %}
+
+
+           
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Does {{company}} use a metering or billing agent for this heat network?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.meteringagent}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="agent">Change</a>
+                </dd>
+            </div>
+
+        </dl>
+        <form method="POST" novalidate>
+            <input type="hidden" id="locationcomplete" name="buildingcomplete" value="true" />
+            <input type="hidden" id="HNStatus" name="HNStatus" value="In progress" />
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Save and continue'
+                    })
+                }}
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

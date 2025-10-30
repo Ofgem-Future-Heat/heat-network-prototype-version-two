@@ -1,0 +1,57 @@
+{% extends 'layouts/main.html' %}
+{% set showhelp = false %}
+{% set cdnumber = "995" %}
+
+{% set title %}
+Accessibility statement for {{serviceName | lower}}
+{% endset %}
+{% set _inError = data.validationError == "true" %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+
+
+    {% include data.version + "/_partials/logout.html" %}
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/{{data.version}}/account-information">Home</a>
+    </li>
+
+
+
+  </ol>
+</nav>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}
+    </h1>
+
+    <p>Text here...</p>
+
+
+        
+      </div>
+    </div>
+    {% endblock %}

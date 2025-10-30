@@ -1,0 +1,51 @@
+{% extends 'layouts/email.html' %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+{% set title %}
+      You’ve successfully submitted {{company}}’s quarterly monitoring data for Seaton town centre covering 1 April to 30 June 2026.
+      {% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+              {{title}}
+            </h1>
+            <p class="govuk-body">Monitoring submission ID: HNMQ0001234</p>
+            
+            <h2 class="govuk-heading-m">What happens next</h2>
+            <p class="govuk-body">If you’ve told us that you do not have all the information required to complete a section of your quarterly monitoring submission. We may get in touch to request further details about why you have not been able to provide this information.</p>
+            <h2 class="govuk-heading-m">Need help?</h2>
+            
+            <p class="govuk-body">To contact Ofgem about anything related to submitting monitoring data, email  <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>. We will usually respond within 2 working days.</p>
+             <p class="govuk-body">In your email, include:</p>    
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat network ID</li>
+                                    <li>monitoring period your query relates to</li>
+                                    <li>the issue you are having</li>
+                                </ul>
+            <p class="govuk-body">
+            
+            <p class="govuk-body govuk-body-s"><a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-button">Go to heat networks home</a></p>
+            
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

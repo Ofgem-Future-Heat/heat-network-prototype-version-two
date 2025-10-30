@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any complaints referred to the Ombudsman during this quarter?
+Were any complaints resolved by the end of the next working day during this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Were any complaints referred to the Ombudsman during this quarter?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqombudsman="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqnextday="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,7 @@ Were any complaints referred to the Ombudsman during this quarter?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqombudsman %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqnextday %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,13 +64,13 @@ Were any complaints referred to the Ombudsman during this quarter?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">This means complaints that were not resolved, so were sent to the Ombudsman after 8 weeks or if they reached a deadlock situation.</p>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
 
-                    {% if data.validationErrors.mqombudsman %}
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.</div>
+
+                    {% if data.validationErrors.mqnextday %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqombudsman.message}}
+                        {{data.validationErrors.mqnextday.message}}
                     </p>
                     {% endif %}
 
@@ -81,28 +81,28 @@ Were any complaints referred to the Ombudsman during this quarter?
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqombudsman-yes" name="mqombudsman" type="radio" value="Yes" data-aria-controls="mqombudsman-conditional" {% if data.mqombudsman == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqombudsman-yes">
+                            <input class="govuk-radios__input" id="mqnextday-yes" name="mqnextday" type="radio" value="Yes" data-aria-controls="mqnextday-conditional" {% if data.mqnextday == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqnextday-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqombudsman-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqombudsmantotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqombudsmantotal">
-                                Number of complaints referred to the Ombudsmen this quarter
+                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqnextday-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqnextdaytotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqnextdaytotal">
+                                Number of complaints resolved by the end of the next working day this quarter
                               </label>
-                              {% if data.validationErrors.mqombudsmantotal %}
+                              {% if data.validationErrors.mqnextdaytotal %}
                               <p class="govuk-error-message">
                                   <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqombudsmanstotal.message}}
+                                  {{data.validationErrors.mqnextdaytotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqombudsmantotal" name="mqombudsmantotal" type="text" value="{{data.mqombudsmantotal}}">
+                              <input class="govuk-input govuk-!-width-one-third" id="mqnextdaytotal" name="mqnextdaytotal" type="text" value="{{data.mqnextdaytotal}}">
                             </div>
                           </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqombudsman-no" name="mqombudsman" type="radio" value="No" {% if data.mqombudsman == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqombudsman-no">
+                            <input class="govuk-radios__input" id="mqnextday-no" name="mqnextday" type="radio" value="No" {% if data.mqnextday == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqnextday-no">
                                 No
                             </label>
                         </div>
