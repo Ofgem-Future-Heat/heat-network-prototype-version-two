@@ -8935,6 +8935,7 @@ router.get('/' + version + '/monitoring/quarterly-data/tasklist', function (req,
 router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
     var mqvulnerabilitycomplete = req.session.data['mqvulnerabilitycomplete']
     var mqqualitycomplete = req.session.data['mqqualitycomplete']
+    var mqpricingcomplete = req.session.data['mqpricingcomplete']
 /*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
@@ -8954,13 +8955,19 @@ router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req
     }
 
 
-
-
     if (mqqualitycomplete != "true" && mqqualitycomplete != "cannot") {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqqualitycomplete = {
             "anchor": "mqqualitycomplete",
             "message": "Quality of service must be marked as complete"
+        }
+    }
+
+    if (mqpricingcomplete != "true" && mqpricingcomplete != "cannot") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricingcomplete = {
+            "anchor": "mqpricingcomplete",
+            "message": "Pricing must be marked as complete"
         }
     }
 
@@ -10524,12 +10531,6 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-
 
 
 
-
-
-
-
-
-
 // QS type other
  
 router.get('/' + version + '/monitoring/quarterly-data/quality-of-service/type-other', function (req, res) {
@@ -10568,6 +10569,120 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-
     else {
             res.redirect('/' + version + '/monitoring/quarterly-data/quality-of-service/ombudsman');
     }     
+});
+
+
+
+
+/// Monitoring - Quarterly data - Pricing - Initial
+router.get('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/initial', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
+    clearvalidation(req);
+    var mqpricinginitial = req.session.data['mqpricinginitial']
+    var mqpricinginitialtotal = req.session.data['mqpricinginitialtotal']
+
+
+
+    if (!mqpricinginitial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitial = {
+            "anchor": "mqpricinginitial",
+            "message": "Select whether you have the correct information to continue"
+        }
+    }
+
+    if (mqpricinginitial == "No" && !mqpricinginitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitialtotal = {
+            "anchor": "mqpricinginitialtotal",
+            "message": "Enter a reason why are you unable to provide this information?"
+        }
+    }
+
+     if (mqpricinginitial == "No" && mqpricinginitialtotal.length > 400) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitialtotal = {
+            "anchor": "mqpricinginitialtotal",
+            "message": "The reason why you can't complete must be 400 characters or less"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/initial', {
+            data: req.session.data
+        });
+    }
+    else { 
+        if (mqpricinginitial == "Yes"){
+            res.redirect('/' + version + '/monitoring/quarterly-data/pricing/complaints');
+        } 
+        else {
+            res.redirect('/' + version + '/monitoring/quarterly-data/pricing/help');
+        }
+    }
+
+});
+
+
+
+/// Monitoring - Quarterly data - Pricing - Help
+router.get('/' + version + '/monitoring/quarterly-data/pricing/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/help', {
+        data: req.session.data
+    });
+});
+
+
+
+/// Monitoring - Quarterly data - Pricing - cancel
+router.get('/' + version + '/monitoring/quarterly-data/pricing/cancel', function (req, res) {
+    req.session.data['mqpricingcancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/cancel', function (req, res) {
+
+    var mqpricingcancel = req.session.data['mqpricingcancel']
+    const urlParams = req.query.v;
+
+
+    if (!mqpricingcancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricingcancel = {
+            "anchor": "mqpricingcancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqpricingcancel == "Yes") {
+            req.session.data['mqpricingcomplete'] = "";
+            res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
 });
 
 

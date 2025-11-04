@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Initial information you'll need
+Information you’ll need
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Initial information you'll need
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqdebtinitial="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqpricinginitial="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,71 +53,72 @@ Initial information you'll need
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqqdebtinitial %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+                        <span class="govuk-caption-l">Quarterly monitoring - Pricing</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
-                     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. . We'll provide definitions and guidance for any possibly unfamiliar concepts.</p>
+                     <p class="govuk-body">We need to know some details about the pricing that your organisation charges customers on this heat network.</p>
 
-                        <p class="govuk-body">You'll need the following information:</p>
+                        <p class="govuk-body">You’ll need to tell us:</p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            <li>whether there are multiple tariffs on this heat network</li>
+                            <li>if any tariffs use a flat fee based charging format</li>
+                            <li>the unit rate and standing charge for any tariffs</li>
+                            <li>if customers on this heat network are charged a connection fee</li>
+                            <li>whether customers are charged other fees</li>
+                            <li>total charges across customers</li>
                         </ul>
-
-                    {% if data.validationErrors.mqdebtinitial %}
+                    <div class="govuk-form-group {% if data.validationErrors.mqpricinginitial %}govuk-form-group--error{% endif %}">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Are you able to provide this information?
+                    </legend>
+                    
+                    {% if data.validationErrors.mqpricinginitial %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqdebtinitial.message}}
+                        {{data.validationErrors.mqpricinginitial.message}}
                     </p>
                     {% endif %}
-
-
-
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Do you have the data you need to progress now?
-                    </legend>
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqdebtinitial-yes" name="mqdebtinitial" type="radio" value="Yes" {% if data.mqdebtinitial == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqdebtinitial-yes">
+                            <input class="govuk-radios__input" id="mqpricinginitial-yes" name="mqpricinginitial" type="radio" value="Yes" {% if data.mqpricinginitial == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqpricinginitial-yes">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqdebtinitial-no" name="mqdebtinitial" type="radio" value="No" data-aria-controls="mqdebtinitial-conditional" {% if data.mqdebtinitial == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqdebtinitial-no">
+                            <input class="govuk-radios__input" id="mqpricinginitial-no" name="mqpricinginitial" type="radio" value="No" data-aria-controls="mqpricinginitial-conditional" {% if data.mqpricinginitial == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqpricinginitial-no">
                                 No
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqdebtinitial-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqdebtinitialtotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqdebtinitialtotal">
-                                Reason why you don’t have the information needed?
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqpricinginitial-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqpricinginitialtotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqpricinginitialtotal">
+                                Why are you unable to provide this information?
                               </label>
-                              {% if data.validationErrors.mqdebtinitialtotal %}
+                              {% if data.validationErrors.mqpricinginitialtotal %}
                               <p class="govuk-error-message">
                                   <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqdebtinitialtotal.message}}
+                                  {{data.validationErrors.mqpricinginitialtotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqdebtinitialtotal" name="mqdebtinitialtotal" type="text" value="{{data.mqdebtinitialtotal}}">
+                              <textarea class="govuk-textarea" id="mqpricinginitialtotal" name="mqpricinginitialtotal" rows="5">{{data.mqpricinginitialtotal}}</textarea>
+                        
                             </div>
                           </div>
 
                     </div>
-
+                    </div>
                     
 
                 </fieldset>
@@ -127,15 +128,14 @@ Initial information you'll need
 
 
             
-            <input type="hidden" id="mqdebtuncomplete" name="mqdebtuncomplete" value="true" />
-            <input type="hidden" id="mqstatus" name="mqstatus" value="Can not complete" />
+                    <input type="hidden" id="mqpricingcomplete" name="mqpricingcomplete" value="cannot" />
             <div class="govuk-button-group">
             {{
                 govukButton ({
                     html: 'Continue'
                 })
             }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
 
         </div>
         
