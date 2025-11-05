@@ -81,12 +81,14 @@ Total charges across all domestic customers 
                         </div>
 
             </div>
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
-            <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+            </div>
         </form>
     </div>
 
