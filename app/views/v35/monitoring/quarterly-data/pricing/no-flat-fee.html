@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at the end of this quarter?
+What is the unit rate and standing charge for this tariff?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,7 +65,7 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
 
                     </legend>
                     <p class="govuk-body">
-                         This is where charges have been outstanding for three months or more after the date the bill has been issued, and outstanding charges are more than the amount specified by the authority for these purposes and the consumer is not on, or transitioning, to a repayment plan.  
+                         A unit rate is the rate charged per unit of heat used. All levels of unit rate within a heat network should be reported as £ per kilowatt hour.
                     </p>
                     <div class="govuk-inset-text">
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
@@ -78,26 +78,23 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
                     {% endif %}
 
 
-
-
-
-                    <div class="govuk-radios" data-module="govuk-radios">
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-yes" name="mqmultipleTariffs" type="radio" value="Yes" data-aria-controls="mqmultipleTariffs-conditional" {% if data.mqmultipleTariffs == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-yes">
-                                Yes
-                            </label>
+                    <div class="govuk-form-group">
+                        <div class="govuk-hint" id="companynumber-hint" >
+                            You must enter a whole number without decimals.
                         </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-no" name="mqmultipleTariffs" type="radio" value="No" {% if data.mqmultipleTariffs == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-no">
-                                No
-                            </label>
-                        </div>
-
+                            <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.unitRates %}govuk-input--error{% endif %}" id="unitRates" name="unitRates" type="text" value="{{data.unitRates}}" >
+                            <div class="govuk-input__suffix" aria-hidden="true">kw</div>
                     </div>
-
+                    
+                    <div class="govuk-form-group">
+                        <div class="govuk-hint" id="companynumber-hint" >
+                            You must enter a whole number without decimals.
+                        </div>
+                            <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.standingCharges %}govuk-input--error{% endif %}" id="standingCharges" name="standingCharges" type="text" value="{{data.standingCharges}}" >
+                            <div class="govuk-input__suffix" aria-hidden="true">per day</div>
+                    </div>
 
                 </fieldset>
 

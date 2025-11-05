@@ -41,22 +41,34 @@ Radienteco Ltd
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        <span class="govuk-caption-l">Quarterly monitoring - vulnerability and debt</span>
+        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
 
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Were there domestic customers on this heat network at the end of this quarter?  
+                    Do you have the information you’ll need
                 </dt>
                 <dd class="govuk-summary-list__value">
                     
-                    {{data.mqcustomersdomestic}}{% if data.mqcustomersdomestic == "Yes" %}<br />
-                    {{data.mqcustomersdomestictotal}} customers
+                    {{data.mqpricingnitial}}{% if data.mqpricingnitial == "No" %}<br />
+                    {{data.mqpricingnitialtotal}} 
                     {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="initial">Change</a>
+                </dd>
+             </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% if data.mqcustomersdomestic == "Yes" %}{{data.mqcustomersdomestictotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="domestic">Change</a>
@@ -65,13 +77,10 @@ Radienteco Ltd
             {% if data.mqcustomersdomestic == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Were any domestic customers in debt at the end of this quarter? 
+                    Domestic customers in debt
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersdebt}}{% if data.mqcustomersdebt == "Yes" %}<br />
-                    {{data.mqcustomersdebttotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersdebt == "Yes" %}{{data.mqcustomersdebttotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="debt">Change</a>
@@ -80,13 +89,10 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Did any domestic customers self disconnect during this quarter? 
+                    Domestic customers who self-disconnected
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersdisconnect}}{% if data.mqcustomersdisconnect == "Yes" %}<br />
-                    {{data.mqcustomersdisconnecttotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersdisconnect == "Yes" %}{{data.mqcustomersdisconnecttotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="disconnections">Change</a>
@@ -95,13 +101,10 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Were any domestic customers disconnected for non payment during this quarter? 
+                    Domestic customers disconnected for not paying their bills
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersdisconnected}}{% if data.mqcustomersdisconnected == "Yes" %}<br />
-                    {{data.mqcustomersdisconnectedtotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersdisconnected == "Yes" %}{{data.mqcustomersdisconnectedtotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="disconnected">Change</a>
@@ -110,13 +113,10 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Were any of the 12 domestic customers on a repayment plan at the end of this quarter? 
+                  Domestic customers on a repayment plan
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersrepayment}}{% if data.mqcustomersrepayment == "Yes" %}<br />
-                    {{data.mqcustomersrepaymenttotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersrepayment == "Yes" %}{{data.mqcustomersrepaymenttotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="repayment">Change</a>
@@ -125,29 +125,22 @@ Radienteco Ltd
 
                      <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Were any domestic customers reconnected during this quarter? 
+                  Domestic customers who were reconnected
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersreconnect}}{% if data.mqcustomersreconnect == "Yes" %}<br />
-                    {{data.mqcustomersreconnecttotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersreconnect == "Yes" %}{{data.mqcustomersreconnecttotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="reconnections">Change</a>
                 </dd>
             </div>
 
-
-                     <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Were any domestic customers meters switched to prepayment meters during this quarter? 
+                  Domestic customers' meters switched to prepayment meters
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    
-                    {{data.mqcustomersprepayment}}{% if data.mqcustomersprepayment == "Yes" %}<br />
-                    {{data.mqcustomersprepaymenttotal}} customers
-                     {% endif %}
+                    {% if data.mqcustomersprepayment == "Yes" %}{{data.mqcustomersprepaymenttotal}}{% else %}0{% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="reconnections">Change</a>
@@ -159,7 +152,7 @@ Radienteco Ltd
 
         </dl>
         <form method="POST" novalidate>
-            <input type="hidden" id="mqvulnerabilitycomplete" name="mqvulnerabilitycomplete" value="true" />
+            <input type="hidden" id="mqpricingcomplete" name="mqpricingcomplete" value="true" />
             <input type="hidden" id="mqstatus" name="mqstatus" value="In progress" />
             <div class="govuk-button-group">
             {{
@@ -167,7 +160,7 @@ Radienteco Ltd
                     html: 'Save and continue'
                 })
             }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
 
         </div>
         </form>

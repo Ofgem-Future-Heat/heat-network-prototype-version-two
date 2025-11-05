@@ -1,0 +1,73 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "081" %}
+
+{% set title %}
+Add a other fee?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <span class="govuk-caption-l">Add further tariffs</span>
+        <h1 class="govuk-heading-l">
+                {{title}}
+        </h1>
+        <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut pretium mauris. Etiam auctor diam id ipsum feugiat facilisis. </p>
+        <a href="pipework" class="govuk-button">Add a tariff</a>
+
+        <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+
+
+      
+      
+    </div>
+
+</div>
+
+{% endblock %}

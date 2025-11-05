@@ -10573,8 +10573,7 @@ router.post('/' + version + '/monitoring/quarterly-data/quality-of-service/type-
 
 
 
-
-/// Monitoring - Quarterly data - Pricing - Initial
+/// Pricing - Initial
 router.get('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
     clearvalidation(req);
     res.render('/' + version + '/monitoring/quarterly-data/pricing/initial', {
@@ -10582,12 +10581,10 @@ router.get('/' + version + '/monitoring/quarterly-data/pricing/initial', functio
     });
 });
 
-
 router.post('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
     clearvalidation(req);
     var mqpricinginitial = req.session.data['mqpricinginitial']
     var mqpricinginitialtotal = req.session.data['mqpricinginitialtotal']
-
 
 
     if (!mqpricinginitial) {
@@ -10597,7 +10594,6 @@ router.post('/' + version + '/monitoring/quarterly-data/pricing/initial', functi
             "message": "Select whether you have the correct information to continue"
         }
     }
-
     if (mqpricinginitial == "No" && !mqpricinginitialtotal) {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqpricinginitialtotal = {
@@ -10619,12 +10615,13 @@ router.post('/' + version + '/monitoring/quarterly-data/pricing/initial', functi
             data: req.session.data
         });
     }
-    else { 
+     else {
         if (mqpricinginitial == "Yes"){
-            res.redirect('/' + version + '/monitoring/quarterly-data/pricing/complaints');
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs');
         } 
-        else {
-            res.redirect('/' + version + '/monitoring/quarterly-data/pricing/help');
+         if (mqpricinginitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/help');
+
         }
     }
 
@@ -10683,6 +10680,46 @@ router.post('/' + version + '/monitoring/quarterly-data/pricing/cancel', functio
          }
     
     }
+});
+
+// Monitoring - Quarterly data - Pricing  - Multiple tariffs
+router.get('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', function (req, res) {
+    
+
+    var mqmultipleTariffs = req.session.data['mqmultipleTariffs']
+
+
+    if (!mqmultipleTariffs) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqmultipleTariffs = {
+            "anchor": "mqmultipleTariffs",
+            "message": "Select yes if there are multiple tariffs on this heat network"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqmultipleTariffs == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/tariff-another');
+        } 
+         if (mqmultipleTariffs == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/flat-fee');
+
+        }
+    }
+        
 });
 
 

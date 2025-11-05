@@ -129,6 +129,31 @@ Seaton Town Centre
                     </div>
                 </li>
 
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqpricingcomplete == "true" %}href="pricing/cya"{% else %}href="pricing/initial"{% endif %} aria-describedby="company-details-1-status">Pricing</a>
+                        {% if data.validationErrors.mqpricingcomplete %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.mqpricingcomplete.message}}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="govuk-task-list__status hn-task-list__status" id="company-details-1-status">
+                        {% if data.mqpricingcomplete == "true" %}
+                        Completed
+                        {% else %}
+                        {% if data.mqpricingcomplete == "cannot" %}
+                        Unable to provide
+                        {% else %}
+                        <strong class="govuk-tag govuk-tag--blue">
+                            Incomplete
+                        </strong>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
+
 
 
 
