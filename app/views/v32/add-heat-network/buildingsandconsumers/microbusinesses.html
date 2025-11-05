@@ -63,7 +63,8 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
 
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.consumertypemicrobusiness %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.consumertypemicrobusiness %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -76,19 +77,19 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
                     </legend>
                     <details class="govuk-details">
                         <summary class="govuk-details__summary">
-                          <span class="govuk-details__summary-text">
-                            Help with ‘microbusinesses’
-                          </span>
+                            <span class="govuk-details__summary-text">
+                                Help with ‘microbusinesses’
+                            </span>
                         </summary>
                         <div class="govuk-details__text">
-                            <p class="govuk-body">These are businesses that either:</p>
+                            <p class="govuk-body">These are businesses that meet either of the following criteria:</p>
                             <ul class="govuk-list govuk-list--bullet">
-                                <li>have fewer than 10 full-time employees</li>
-                                <li>turn over less than £2 million per year</li>
+                                <li>consume less than 247,000 kWh of heat per year</li>
+                                <li>have fewer than 10 full-time employees and an annual turnover of less than £2 million</li>
                             </ul>
-                            <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
-                                </div>
-                      </details>
+                            <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
+                        </div>
+                    </details>
 
                     {% if data.validationErrors.consumertypemicrobusiness %}
                     <p class="govuk-error-message">
@@ -100,33 +101,38 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness" name="consumertypemicrobusiness" type="radio" value="Yes" {% if data.consumertypemicrobusiness == "Yes" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumertypemicrobusiness"
+                                name="consumertypemicrobusiness" type="radio" value="Yes"
+                                {% if data.consumertypemicrobusiness == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="consumertypemicrobusiness-2" name="consumertypemicrobusiness" type="radio" value="No" {% if data.consumertypemicrobusiness == "No" %}checked{% endif %}>
+                            <input class="govuk-radios__input" id="consumertypemicrobusiness-2"
+                                name="consumertypemicrobusiness" type="radio" value="No"
+                                {% if data.consumertypemicrobusiness == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="consumertypemicrobusiness-2">
                                 No
                             </label>
                         </div>
                     </div>
 
-            </fieldset>
+                </fieldset>
 
 
-    </div>
-                <div class="govuk-button-group">
+            </div>
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}"
+                    class="govuk-link govuk-link--no-visited-state">Cancel</a>
             </div>
         </form>
-</div>
+    </div>
 
 </div>
 
