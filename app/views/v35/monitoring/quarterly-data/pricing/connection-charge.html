@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at the end of this quarter?
+Do your customers pay a connection charge?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqmultipleTariffs="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqconnectionCharge="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,7 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqmultipleTariffs %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqconnectionCharge %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -65,15 +65,15 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
 
                     </legend>
                     <p class="govuk-body">
-                         This is where charges have been outstanding for three months or more after the date the bill has been issued, and outstanding charges are more than the amount specified by the authority for these purposes and the consumer is not on, or transitioning, to a repayment plan.  
+                         A connection charge is the amount charged for each new connection. It is a one-off charge independent of usage. All levels of connection charge within a heat network should be reported as £ per customer.
                     </p>
                     <div class="govuk-inset-text">
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
                     </div>
-                    {% if data.validationErrors.mqmultipleTariffs %}
+                    {% if data.validationErrors.mqconnectionCharge %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqmultipleTariffs.message}}
+                        {{data.validationErrors.mqconnectionCharge.message}}
                     </p>
                     {% endif %}
 
@@ -84,14 +84,14 @@ Were any of the {{data.mqcustomersdomestictotal}} domestic customers in debt at 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-yes" name="mqmultipleTariffs" type="radio" value="Yes" data-aria-controls="mqmultipleTariffs-conditional" {% if data.mqmultipleTariffs == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-yes">
+                            <input class="govuk-radios__input" id="mqconnectionCharge-yes" name="mqconnectionCharge" type="radio" value="Yes" data-aria-controls="mqconnectionCharge-conditional" {% if data.mqconnectionCharge == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqconnectionCharge-yes">
                                 Yes
                             </label>
                         </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-no" name="mqmultipleTariffs" type="radio" value="No" {% if data.mqmultipleTariffs == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-no">
+                            <input class="govuk-radios__input" id="mqconnectionCharge-no" name="mqconnectionCharge" type="radio" value="No" {% if data.mqconnectionCharge == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqconnectionCharge-no">
                                 No
                             </label>
                         </div>
