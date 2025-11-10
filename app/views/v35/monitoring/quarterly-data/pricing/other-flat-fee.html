@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any complaints referred to the Ombudsman during this quarter?
+Do you charge the same flat rate for your other fees?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -36,7 +36,7 @@ Were any complaints referred to the Ombudsman during this quarter?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqombudsman="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatOtherFees="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,7 @@ Were any complaints referred to the Ombudsman during this quarter?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqombudsman %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqflatOtherFees %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,13 +64,12 @@ Were any complaints referred to the Ombudsman during this quarter?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">This means complaints that were not resolved, so were sent to the Ombudsman after 8 weeks or if they reached a deadlock situation.</p>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> .</div>
 
-                    {% if data.validationErrors.mqombudsman %}
+                    {% if data.validationErrors.mqflatOtherFees %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqombudsman.message}}
+                        {{data.validationErrors.mqflatOtherFees.message}}
                     </p>
                     {% endif %}
 
@@ -81,28 +80,31 @@ Were any complaints referred to the Ombudsman during this quarter?
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqombudsman-yes" name="mqombudsman" type="radio" value="Yes" data-aria-controls="mqombudsman-conditional" {% if data.mqombudsman == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqombudsman-yes">
+                            <input class="govuk-radios__input" id="mqflatOtherFees-yes" name="mqflatOtherFees" type="radio" value="Yes" data-aria-controls="mqflatOtherFees-conditional" {% if data.mqflatOtherFees == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqflatOtherFees-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqombudsman-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqombudsmantotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqombudsmantotal">
-                                Number of complaints referred to the Ombudsmen this quarter
+                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqflatOtherFees-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqflatOtherFeestotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqflatOtherFeestotal">
+                                Other fees flat rate
                               </label>
-                              {% if data.validationErrors.mqombudsmantotal %}
+                              {% if data.validationErrors.mqflatOtherFeestotal %}
                               <p class="govuk-error-message">
                                   <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqombudsmanstotal.message}}
+                                  {{data.validationErrors.mqflatOtherFeestotal.message}}
                               </p>
                               {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqombudsmantotal" name="mqombudsmantotal" type="text" value="{{data.mqombudsmantotal}}">
+                              <div class="govuk-input__wrapper">
+                              <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                <input class="govuk-input govuk-!-width-one-third" id="mqflatOtherFeestotal" name="mqflatOtherFeestotal" type="text" value="{{data.mqflatOtherFeestotal}}">
+                              </div>
                             </div>
                           </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqombudsman-no" name="mqombudsman" type="radio" value="No" {% if data.mqombudsman == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqombudsman-no">
+                            <input class="govuk-radios__input" id="mqflatOtherFees-no" name="mqflatOtherFees" type="radio" value="No" {% if data.mqflatOtherFees == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqflatOtherFees-no">
                                 No
                             </label>
                         </div>
@@ -114,13 +116,13 @@ Were any complaints referred to the Ombudsman during this quarter?
 
 
             </div>
-                        <div class="govuk-button-group">
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>
 

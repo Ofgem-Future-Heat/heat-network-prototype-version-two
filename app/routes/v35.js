@@ -7265,10 +7265,10 @@ router.get("/" + version + "/monitoring/quarterly-data/tasklist", function (req,
 	});
 });
 
-router.post("/" + version + "/monitoring/quarterly-data/tasklist", function (req, res) {
-	var mqvulnerabilitycomplete = req.session.data["mqvulnerabilitycomplete"];
-	var mqqualitycomplete = req.session.data["mqqualitycomplete"];
-	/*
+router.post('/' + version + '/monitoring/quarterly-data/tasklist', function (req, res) {
+    var mqvulnerabilitycomplete = req.session.data['mqvulnerabilitycomplete']
+    var mqqualitycomplete = req.session.data['mqqualitycomplete']
+/*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
         req.session.data.validationErrors.mqvulnerabilitycomplete = {
@@ -7286,13 +7286,22 @@ router.post("/" + version + "/monitoring/quarterly-data/tasklist", function (req
 		};
 	}
 
-	if (mqqualitycomplete != "true" && mqqualitycomplete != "cannot") {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqqualitycomplete = {
-			anchor: "mqqualitycomplete",
-			message: "Quality of service must be marked as complete",
-		};
-	}
+    if (mqqualitycomplete != "true" && mqqualitycomplete != "cannot") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqqualitycomplete = {
+            "anchor": "mqqualitycomplete",
+            "message": "Quality of service must be marked as complete"
+        }
+    }
+
+    if (mqpricingcomplete != "true" && mqpricingcomplete != "cannot") {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricingcomplete = {
+            "anchor": "mqpricingcomplete",
+            "message": "Pricing must be marked as complete"
+        }
+    }
+
 
 	if (req.session.data.validationError == "true") {
 		res.render("/" + version + "/monitoring/quarterly-data/tasklist", {
@@ -8582,3 +8591,584 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 		res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/ombudsman");
 	}
 });
+
+
+
+/// Pricing - Initial
+router.get('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
+    clearvalidation(req);
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/initial', {
+        data: req.session.data
+    });
+});
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/initial', function (req, res) {
+    clearvalidation(req);
+    var mqpricinginitial = req.session.data['mqpricinginitial']
+    var mqpricinginitialtotal = req.session.data['mqpricinginitialtotal']
+
+
+    if (!mqpricinginitial) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitial = {
+            "anchor": "mqpricinginitial",
+            "message": "Select whether you have the correct information to continue"
+        }
+    }
+    if (mqpricinginitial == "No" && !mqpricinginitialtotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitialtotal = {
+            "anchor": "mqpricinginitialtotal",
+            "message": "Enter a reason why are you unable to provide this information?"
+        }
+    }
+
+     if (mqpricinginitial == "No" && mqpricinginitialtotal.length > 400) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricinginitialtotal = {
+            "anchor": "mqpricinginitialtotal",
+            "message": "The reason why you can't complete must be 400 characters or less"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/initial', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqpricinginitial == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs');
+        } 
+         if (mqpricinginitial == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/help');
+
+        }
+    }
+
+});
+
+
+
+/// Monitoring - Quarterly data - Pricing - Help
+router.get('/' + version + '/monitoring/quarterly-data/pricing/help', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/help', {
+        data: req.session.data
+    });
+});
+
+
+
+/// Monitoring - Quarterly data - Pricing - cancel
+router.get('/' + version + '/monitoring/quarterly-data/pricing/cancel', function (req, res) {
+    req.session.data['mqpricingcancel'] = ""
+
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/cancel', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/cancel', function (req, res) {
+
+    var mqpricingcancel = req.session.data['mqpricingcancel']
+    const urlParams = req.query.v;
+
+
+    if (!mqpricingcancel) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqpricingcancel = {
+            "anchor": "mqpricingcancel",
+            "message": "Select yes to cancel",
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/cancel', {
+            data: req.session.data
+        });
+    }
+    else {
+        if (mqpricingcancel == "Yes") {
+            req.session.data['mqpricingcomplete'] = "";
+            res.redirect('/' + version + '/monitoring/quarterly-data/tasklist');
+    
+        }
+        else {
+            res.redirect(urlParams);   
+         }
+    
+    }
+});
+
+// Monitoring - Quarterly data - Pricing  - Multiple tariffs
+router.get('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', function (req, res) {
+    
+
+    var mqmultipleTariffs = req.session.data['mqmultipleTariffs']
+
+
+    if (!mqmultipleTariffs) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqmultipleTariffs = {
+            "anchor": "mqmultipleTariffs",
+            "message": "Select yes if there are multiple tariffs on this heat network"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/multiple-tariffs', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqmultipleTariffs == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/tariff-another');
+        } 
+         if (mqmultipleTariffs == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/flat-fee');
+
+        }
+    }
+        
+});
+
+
+
+// Monitoring - Quarterly data - Pricing  - Tariff Flat Fee
+router.get('/' + version + '/monitoring/quarterly-data/pricing/flat-fee', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/flat-fee', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/flat-fee', function (req, res) {
+    
+
+    var mqflatFees = req.session.data['mqflatFees']
+    var mqflatFeestotal = req.session.data['mqflatFeestotal']
+
+
+    if (!mqflatFees) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatFees = {
+            "anchor": "mqflatFees",
+            "message": "Select yes if this tariff has a flat fee"
+        }
+    }
+
+    if (mqflatFees == "Yes" && !mqflatFeestotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatFeestotal = {
+            "anchor": "mqflatFeestotal",
+            "message": "Enter the £ per day"
+        }
+    }
+
+    if (mqflatFees == "Yes" && isNaN(mqflatFeestotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatFeestotal = {
+            "anchor": "mqflatFeestotal",
+            "message": "Enter the £ per day"
+        }
+    }
+
+
+
+    if (mqflatFees == "Yes" && mqflatFeestotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatFeestotal = {
+            "anchor": "mqflatFeestotal",
+            "message": "£ per day must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/flat-fee', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqflatFees == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/connection-charge');
+        } 
+         if (mqflatFees == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/no-flat-fee');
+
+        }
+    }
+        
+});
+
+
+// Monitoring - Quarterly data - Pricing  - Connection Charge
+router.get('/' + version + '/monitoring/quarterly-data/pricing/connection-charge', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-charge', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/connection-charge', function (req, res) {
+    
+
+    var mqconnectionCharge = req.session.data['mqconnectionCharge']
+
+    if (!mqconnectionCharge) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqconnectionCharge = {
+            "anchor": "mqconnectionCharge",
+            "message": "Select yes if you charge connection fees"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-charge', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqconnectionCharge == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee');
+        } 
+         if (mqconnectionCharge == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/other-fees');
+
+        }
+    }
+        
+});
+
+
+// Monitoring - Quarterly data - Pricing  - Connection Charge Flat Fee
+router.get('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee', function (req, res) {
+    
+
+    var mqflatConnectionFees = req.session.data['mqflatConnectionFees']
+    var mqflatConnectionFeestotal = req.session.data['mqflatConnectionFeestotal']
+
+
+    if (!mqflatConnectionFees) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatConnectionFees = {
+            "anchor": "mqflatConnectionFees",
+            "message": "Select yes if this is a flat connection fee"
+        }
+    }
+
+    if (mqflatConnectionFees == "Yes" && !mqflatConnectionFeestotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatConnectionFeestotal = {
+            "anchor": "mqflatConnectionFeestotal",
+            "message": "Enter the £ per customer"
+        }
+    }
+
+    if (mqflatConnectionFees == "Yes" && isNaN(mqflatConnectionFeestotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatConnectionFeestotal = {
+            "anchor": "mqflatConnectionFeestotal",
+            "message": "Enter the £ per customer"
+        }
+    }
+
+
+
+    if (mqflatConnectionFees == "Yes" && mqflatConnectionFeestotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatConnectionFeestotal = {
+            "anchor": "mqflatConnectionFeestotal",
+            "message": "£ per customer must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqflatConnectionFees == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/other-fees');
+        } 
+         if (mqflatConnectionFees == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/connection-another');
+
+        }
+    }
+        
+});
+
+
+// Monitoring - Quarterly data - Pricing  - Connection Charge Add to list
+router.get('/' + version + '/monitoring/quarterly-data/pricing/connection-add-info', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-add-info', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/connection-add-info', function (req, res) {
+    
+    var mqflatConnectionFeesAdd = req.session.data['mqflatConnectionFeesAdd']
+
+    if (!mqflatConnectionFeesAdd) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatConnectionFeesAdd = {
+            "anchor": "mqflatConnectionFeesAdd",
+            "message": "Enter the total fee"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-add-info', {
+            data: req.session.data
+        });
+    }
+    else {
+
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/connection-another');
+
+    }
+});
+
+
+
+// Monitoring - Quarterly data - Pricing  - Other Charge
+router.get('/' + version + '/monitoring/quarterly-data/pricing/other-fees', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/other-fees', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/other-fees', function (req, res) {
+    
+
+    var mqotherFees = req.session.data['mqotherFees']
+
+    if (!mqotherFees) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqotherFees = {
+            "anchor": "mqotherFees",
+            "message": "Select yes if you charge any other fees"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/other-fees', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqotherFees == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/other-flat-fee');
+        } 
+         if (mqotherFees == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/total-domestic');
+
+        }
+    }
+        
+});
+
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Flat Fee
+router.get('/' + version + '/monitoring/quarterly-data/pricing/other-flat-fee', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/other-flat-fee', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/other-flat-fee', function (req, res) {
+    
+
+    var mqflatOtherFees = req.session.data['mqflatOtherFees']
+    var mqflatOtherFeestotal = req.session.data['mqflatOtherFeestotal']
+
+
+    if (!mqflatOtherFees) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatOtherFees = {
+            "anchor": "mqflatOtherFees",
+            "message": "Select yes if this is a flat other fee"
+        }
+    }
+
+    if (mqflatOtherFees == "Yes" && !mqflatOtherFeestotal) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatOtherFeestotal = {
+            "anchor": "mqflatOtherFeestotal",
+            "message": "Enter the cost of the other fees"
+        }
+    }
+
+    if (mqflatOtherFees == "Yes" && isNaN(mqflatOtherFeestotal)) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatOtherFeestotal = {
+            "anchor": "mqflatOtherFeestotal",
+            "message": "Enter the cost of the other fees"
+        }
+    }
+
+
+
+    if (mqflatOtherFees == "Yes" && mqflatOtherFeestotal.length > 40) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatOtherFeestotal = {
+            "anchor": "mqflatOtherFeestotal",
+            "message": "£ value must be 40 characters or less"
+        }
+    }
+
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/connection-flat-fee', {
+            data: req.session.data
+        });
+    }
+     else {
+        if (mqflatOtherFees == "Yes"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/total-domestic');
+        } 
+         if (mqflatOtherFees == "No"){
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/other-another');
+
+        }
+    }
+        
+});
+
+
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Add to list
+router.get('/' + version + '/monitoring/quarterly-data/pricing/other-add-info', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/other-add-info', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/other-add-info', function (req, res) {
+    
+    var mqflatOtherFeesAdd = req.session.data['mqflatOtherFeesAdd']
+
+    if (!mqflatOtherFeesAdd) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqflatOtherFeesAdd = {
+            "anchor": "mqflatOtherFeesAdd",
+            "message": "Enter the total fee"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/other-add-info', {
+            data: req.session.data
+        });
+    }
+    else {
+
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/other-another');
+
+    }
+});
+
+
+
+// Monitoring - Quarterly data - Pricing  - Total Charges Domestic
+router.get('/' + version + '/monitoring/quarterly-data/pricing/total-domestic', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/total-domestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/total-domestic', function (req, res) {
+    
+    var mqtotalDomesticCosts = req.session.data['mqtotalDomesticCosts']
+
+    if (!mqtotalDomesticCosts) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.mqtotalDomesticCosts = {
+            "anchor": "mqtotalDomesticCosts",
+            "message": "Enter the total charge"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/total-domestic', {
+            data: req.session.data
+        });
+    }
+    else {
+
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/total-non-domestic');
+
+    }
+});
+
+
+// Monitoring - Quarterly data - Pricing  - Total Charges Non Domestic
+router.get('/' + version + '/monitoring/quarterly-data/pricing/total-non-domestic', function (req, res) {
+    
+    res.render('/' + version + '/monitoring/quarterly-data/pricing/total-non-domestic', {
+        data: req.session.data
+    });
+});
+
+
+router.post('/' + version + '/monitoring/quarterly-data/pricing/total-non-domestic', function (req, res) {
+    
+    var totalNonDomesticCosts = req.session.data['totalNonDomesticCosts']
+
+    if (!totalNonDomesticCosts) {
+        req.session.data.validationError = "true"
+        req.session.data.validationErrors.totalNonDomesticCosts = {
+            "anchor": "totalNonDomesticCosts",
+            "message": "Enter the total charge"
+        }
+    }
+
+    if (req.session.data.validationError == "true") {
+        res.render('/' + version + '/monitoring/quarterly-data/pricing/total-non-domestic', {
+            data: req.session.data
+        });
+    }
+    else {
+
+        res.redirect('/' + version + '/monitoring/quarterly-data/pricing/cya');
+
+    }
+});
+
+
+

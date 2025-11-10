@@ -1,0 +1,172 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "081" %}
+
+{% set title %}
+Would you like to add a connection fee?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+                  <span class="govuk-caption-l">Add further connection fees</span>
+
+                  <h1 class="govuk-heading-l">
+                    {{title}}
+                  </h1>
+
+
+
+
+                {% if data.validationErrors.orgparentanother %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.orgparentanother.message}}
+                </p>
+                {% endif %}
+                {% set parents = [] %}
+                {% set parentsadded = 0 %}
+
+                {% for i in range(1, data.parentsentered) %}
+                    {% set parents = parents.concat([{
+                        "id": i,
+                        "name": data["parentcompanyname" ~ i],
+                        "address": data["parentorgaddressSelect" ~ i],
+                        "added" : data["parentorgadded" ~ i]
+                    }]) %}
+                {% endfor %}
+                
+              {% for parent in parents %}
+              {% if (parent.id <= data.parentsentered) and parent.name and parent.added == "Yes" %}
+                {% set parentsadded = parentsadded + 1 %}
+                {% endif %}
+                {% endfor %}
+                {% if parentsadded > 0 %}
+                <dl class="govuk-summary-list">
+                    {% for parent in parents %}
+                    {% if (parent.id <= data.parentsentered) and parent.name and parent.added == "Yes" %}
+      
+
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    {{parent.name}}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% set parentaddress = parent.address.toString() %}
+                    {{parentaddress | replace(", , ", ",<br />") | replace(", ", ",<br />") | safe}}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <ul class="govuk-summary-list__actions-list">
+
+                        <li class="govuk-summary-list__actions-list-item">
+                            <form action="remove-parent" method="POST">
+                                <input type="hidden" name="parentId" value="{{ parent.id }}">
+                                <p class="govuk-body"><button type="submit" class="button-as-link govuk-link govuk-link--no-visited-state text-red">Remove <span class="govuk-visually-hidden">{{parent.name}}</span></button></p>
+                            </form>                            
+                        </li>
+  
+                      </ul>
+                  </dd>
+              </div>
+
+              {% endif %}
+              {% endfor %}
+  
+            </dl>
+            <form method="post" novalidate>
+
+            <div class="govuk-form-group {% if data.validationErrors.parentaddanother %}govuk-form-group--error{% endif %} ">
+
+
+        <h2 class="govuk-heading-m">Would you like to add another parent organisation?</h2>
+        {% if data.validationErrors.parentaddanother %}
+        <p class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{data.validationErrors.parentaddanother.message}}
+        </p>
+        {% endif %}
+
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="parentaddanother" name="parentaddanother" type="radio" value="Yes" {% if data.parentaddanother == "Yes" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="parentaddanother">
+                        Yes
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="parentaddanother-2" name="parentaddanother" type="radio" value="No" {% if data.parentaddanother == "No" %}checked{% endif %}>
+                    <label class="govuk-label govuk-radios__label" for="parentaddanother-2">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+    {{
+        govukButton ({
+            html: 'Continue'
+        })
+    }}
+</form>
+ 
+            {% else %}
+            <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut pretium mauris. Etiam auctor diam id ipsum feugiat facilisis.</p>
+
+            <p class="govuk-body"><a class="govuk-button" id="orgparents" href="connection-add-info?another=yes">Add a connection fee</a></p>
+
+            {% endif %}
+
+
+      
+      
+    </div>
+
+</div>
+
+{% endblock %}
