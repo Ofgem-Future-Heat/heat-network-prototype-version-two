@@ -68,137 +68,80 @@ Details about cookies on  {{serviceName | lower}}
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">__Secure-has-sid</td>
-      <td class="govuk-table__cell">Detects a user’s login state on the client side. Set during login to Aura or LWR Experience. Never set this cookie to HttpOnly.</td>
+      <td class="govuk-table__cell">Used to determine whether the user is logged in to the service</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
+
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlAnyoneDraftArticlesList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for the Draft Articles view in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlArchivedArticlesList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Archived Articles' in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlMyDraftArticlesList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Draft Articles' assigned to 'Me' in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlMyDraftTranslationsList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Draft Translations' in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlPublishedArticlesList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Published Articles' in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_spring_KmMlPublishedTranslationsList</td>
-      <td class="govuk-table__cell">In Salesforce Classic, used to configure layout properties for 'Published Translations' in Article Management.</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">&lt;namespace&gt;_sid</td>
-      <td class="govuk-table__cell">Identifies a Live Agent session. Stores a unique pseudonymous ID for a specific browser session over chat service.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">52609e00b7ee307e</td>
-      <td class="govuk-table__cell">Browser Fingerprint cookie. Used to detect session security problems.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">79eb100099b9a8bf</td>
-      <td class="govuk-table__cell">Browser Fingerprint trigger cookie. Used to detect session security problems.</td>
+      <td class="govuk-table__cell">&lt;16 digit alphanumeric string&gt;</td>
+      <td class="govuk-table__cell">Used to detect session security problems</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">apex__EmailAddress</td>
-      <td class="govuk-table__cell">Caches contact IDs associated with email addresses.</td>
+      <td class="govuk-table__cell">Used to store contact IDs associated with email addresses</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">BAYEAX_BROWSER</td>
-      <td class="govuk-table__cell">Identify a unique browser subscribed to CometD streaming channels.</td>
-      <td class="govuk-table__cell">Expired on creation</td>
-    </tr>
-    <tr class="govuk-table__row">
       <td class="govuk-table__cell">BrowserId</td>
-      <td class="govuk-table__cell">Used for security protections. Rendered on a subset of Salesforce domains.</td>
+      <td class="govuk-table__cell">Used for security protections</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">clientSrc</td>
-      <td class="govuk-table__cell">Used for security protections.</td>
+      <td class="govuk-table__cell">Used for security protections</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">communityId</td>
-      <td class="govuk-table__cell">Cookie set to tie the ideas to a specific Experience Cloud site.</td>
+      <td class="govuk-table__cell">Used to tie the ideas to a specific Experience Cloud site</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">CookieConsent</td>
-      <td class="govuk-table__cell">Used to apply end-user cookie consent preferences.</td>
+      <td class="govuk-table__cell">Used to apply end-user cookie consent preferences</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">CookieConsentPolicy</td>
-      <td class="govuk-table__cell">Used to apply end-user cookie consent preferences set by our client-side utility.</td>
+      <td class="govuk-table__cell">Used to apply end-user cookie consent preferences set by our client-side utility</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">cookieSettingVerified</td>
-      <td class="govuk-table__cell">Used to create a popup message telling users that cookies are required.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
+
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">cordovaVersion</td>
-      <td class="govuk-table__cell">Used for internal diagnostics with mobile applications.</td>
+      <td class="govuk-table__cell">Used for internal diagnostics with mobile applications</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">csssid</td>
-      <td class="govuk-table__cell">Used to establish a request context in the correct tenant org.</td>
+      <td class="govuk-table__cell">Used to establish a request context in the correct tenant organisation</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">csssid_Client</td>
-      <td class="govuk-table__cell">Enables user switching.</td>
+      <td class="govuk-table__cell">Used to enable user switching</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">devOverrideCsrfToken</td>
-      <td class="govuk-table__cell">CSRF Token.</td>
+      <td class="govuk-table__cell">Used to set CSRF (Cross-Site Request Forgery) token which prevents unauthorised requests</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">dialpadShown</td>
-      <td class="govuk-table__cell">Used in essential Open CTI functionality to determine the dial pad focus.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
+
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">disco</td>
-      <td class="govuk-table__cell">Tracks the last user login and active session for bypassing login.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">FedAuth</td>
-      <td class="govuk-table__cell">Used to authenticate to the top-level site in SharePoint.</td>
+      <td class="govuk-table__cell">Used to track the last user login and active session</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">force-proxy-stream</td>
-      <td class="govuk-table__cell">Ensures client requests hit the same proxy hosts and are more likely to retrieve content from cache.</td>
+      <td class="govuk-table__cell">Used to allow content on the service to be loaded from cache (previously loaded content)</td>
       <td class="govuk-table__cell">3 hours</td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">force-stream</td>
-      <td class="govuk-table__cell">Used to redirect server requests for sticky sessions.</td>
+      <td class="govuk-table__cell">Used to redirect server requests for sticky sessions</td>
       <td class="govuk-table__cell">180 minutes</td>
     </tr>
   </tbody>
@@ -221,227 +164,49 @@ Details about cookies on  {{serviceName | lower}}
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    <!-- 1 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KMPage</span></td>
-      <td class="govuk-table__cell">Remembers last user selection in Salesforce Classic (Find in View, Article Language, DataCategory, Validation Status).</td>
-      <td class="govuk-table__cell">1 day</td>
-    </tr>
-    <!-- 2 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageDispatcher</span></td>
-      <td class="govuk-table__cell">Remembers whether to show 'Articles' or 'My Drafts' in Knowledge view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 3 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilter{DataCategory}</span></td>
-      <td class="govuk-table__cell">Remembers the selected data category filter in Knowledge.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 4 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterArticleArticleType</span></td>
-      <td class="govuk-table__cell">Remembers the article type filter for 'Articles' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 5 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterArticlePublishStatus</span></td>
-      <td class="govuk-table__cell">Remembers the publish status filter for 'Articles' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 6 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterArticleValidationStatus</span></td>
-      <td class="govuk-table__cell">Remembers the validation status filter for 'Articles' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 7 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterLanguage</span></td>
-      <td class="govuk-table__cell">Remembers the language filter in Knowledge.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 8 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterMyDraftArticleType</span></td>
-      <td class="govuk-table__cell">Remembers the article type filter for 'My Drafts' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 9 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterMyDraftPublishStatus</span></td>
-      <td class="govuk-table__cell">Remembers the publish status filter for 'My Drafts' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 10 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageFilterMyDraftValidationStatus</span></td>
-      <td class="govuk-table__cell">Remembers the validation status filter for 'My Drafts' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 11 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageSortFieldArticle</span></td>
-      <td class="govuk-table__cell">Remembers the 'Sort by' setting for 'Articles' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 12 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><span class="govuk-!-text-break-word">{UserId}_KnowledgePageSortFieldMyDraft</span></td>
-      <td class="govuk-table__cell">Remembers the 'Sort by' setting for 'My Drafts' view.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 13 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">activeView</td>
-      <td class="govuk-table__cell">Remembers the last tab (Articles or Translations) in Knowledge.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 14 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">AgentConsoleFE</td>
-      <td class="govuk-table__cell">Remembers page style of the Agent Console.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 15 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">AgentConsoleS</td>
-      <td class="govuk-table__cell">Remembers page style of the Agent Console.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 16 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">AgentConsoleY</td>
-      <td class="govuk-table__cell">Remembers page style of the Agent Console.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 17 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">AgentConsoleX</td>
-      <td class="govuk-table__cell">Remembers page style of the Agent Console.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
+
     <!-- 18 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">autocomplete</td>
-      <td class="govuk-table__cell">Determines if login page remembers the user's username.</td>
+      <td class="govuk-table__cell">Used to determine whether the login page remembers the user's username</td>
       <td class="govuk-table__cell">60 days</td>
     </tr>
-    <!-- 19 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">caPanelState</td>
-      <td class="govuk-table__cell">Saves calendar panel open/closed state.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 20 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">communityId</td>
-      <td class="govuk-table__cell">Ties ideas to specific Experience Cloud site.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 21 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">cordovaVersion</td>
-      <td class="govuk-table__cell">Used for mobile app diagnostics.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 22 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">language</td>
-      <td class="govuk-table__cell">Identifies language for custom components, surveys, flows.</td>
+      <td class="govuk-table__cell">Used to identify the language for components on the service</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
-    <!-- 23 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">lastActivePage</td>
-      <td class="govuk-table__cell">Used in CTI to determine if current call screen-pop is needed.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 24 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">lastCallObjectId</td>
-      <td class="govuk-table__cell">Used in CTI to determine if current call screen-pop is needed.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
+
     <!-- 25 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">login</td>
-      <td class="govuk-table__cell">Fetches username for login hint after session expiry.</td>
+      <td class="govuk-table__cell">Used to fetch username for login hint after session expiry</td>
       <td class="govuk-table__cell">60 days</td>
     </tr>
     <!-- 26 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">logouturl</td>
-      <td class="govuk-table__cell">Stores last org to redirect after logout.</td>
+      <td class="govuk-table__cell">Used to store the site that the user was visiting prior to log out</td>
       <td class="govuk-table__cell">End of browsing session</td>
     </tr>
     <!-- 27 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">oid</td>
-      <td class="govuk-table__cell">Stores last logged-in org.</td>
+      <td class="govuk-table__cell">Used to store the last logged-in organisation</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
     <!-- 28 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">pc-unit</td>
-      <td class="govuk-table__cell">Sets preference for platform cache units (MB or KB).</td>
+      <td class="govuk-table__cell">Used to set preference for platform cache units (MB or KB)</td>
       <td class="govuk-table__cell">1 year</td>
     </tr>
-    <!-- 29 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">PicassoLanguage</td>
-      <td class="govuk-table__cell">Stores language selection for Experience Builder site.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 30 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">PicassoViewMode</td>
-      <td class="govuk-table__cell">Stores view‑mode selection for Experience Builder site.</td>
-      <td class="govuk-table__cell">End of browsing session</td>
-    </tr>
-    <!-- 31 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">PreferredLanguage&lt;18‑char SiteID&gt;</td>
-      <td class="govuk-table__cell">Stores user language preference in LWR sites.</td>
-      <td class="govuk-table__cell">1 year</td>
-    </tr>
+
     <!-- 32 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">redirectionWarning</td>
-      <td class="govuk-table__cell">Stores URLs exempt from redirect‑warning interstitials.</td>
+      <td class="govuk-table__cell">Used to prevent redirect warnings from showing for certain URLs</td>
       <td class="govuk-table__cell">1 year</td>
-    </tr>
-    <!-- 33 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">rememberUn</td>
-      <td class="govuk-table__cell">Tracks “Remember Me” checkbox for login hint.</td>
-      <td class="govuk-table__cell">60 days</td>
-    </tr>
-    <!-- 34 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">showNewBuilderWarningMessage</td>
-      <td class="govuk-table__cell">Shows or hides warning message for the new dashboard builder.</td>
-      <td class="govuk-table__cell">100 years</td>
-    </tr>
-    <!-- 35 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">sidebarPinned</td>
-      <td class="govuk-table__cell">Controls the Salesforce Classic sidebar state.</td>
-      <td class="govuk-table__cell">10 years</td>
-    </tr>
-    <!-- 36 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">waveUserPrefFinderLeftNav</td>
-      <td class="govuk-table__cell">Stores left navigation UI preference in CRM Analytics.</td>
-      <td class="govuk-table__cell">100 years</td>
-    </tr>
-    <!-- 37 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">waveUserPrefFinderListView</td>
-      <td class="govuk-table__cell">Stores list‑view preference in CRM Analytics.</td>
-      <td class="govuk-table__cell">100 years</td>
     </tr>
   </tbody>
 </table>
@@ -475,73 +240,30 @@ Details about cookies on  {{serviceName | lower}}
     <!-- 1 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">_ga</td>
-      <td class="govuk-table__cell">Google Analytics tracking—used if site admin opts to track with GA ID.</td>
+      <td class="govuk-table__cell">Used for Google Analytics (GA) tracking if site admin opts to track with GA ID</td>
       <td class="govuk-table__cell">2 years</td>
     </tr>
-                  <tr class="govuk-table__row">
-                <td class="govuk-table__cell">_gid</td>
-                <td class="govuk-table__cell">These help us count how many people visit {{serviceName | lower}} by tracking if
-                  you’ve visited before</td>
-                <td class="govuk-table__cell">24 hours</td>
-              </tr>
-              <tr class="govuk-table__row">
-                <td class="govuk-table__cell">_ga_S5RQ7FTGVR</td>
-                <td class="govuk-table__cell">Used by Google Analytics to find and track an individual session with your
-                  device</td>
-                <td class="govuk-table__cell">2 years</td>
-              </tr>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">_gid</td>
+        <td class="govuk-table__cell">Used to help us track if you’ve visited before, so we can count how many people visit comply with heat networks consumer protection regulations</td>
+        <td class="govuk-table__cell">24 hours</td>
+      </tr>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">_ga_S5RQ7FTGVR</td>
+        <td class="govuk-table__cell">Used by GA to find and track an individual session with your device</td>
+        <td class="govuk-table__cell">2 years</td>
+      </tr>
     <!-- 2 -->
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">&lt;userId&gt;expid_[site prefix]</td>
-      <td class="govuk-table__cell">Renders pages based on specified brand.</td>
-      <td class="govuk-table__cell">30 days</td>
-    </tr>
-    <!-- 3 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">alohaEpt</td>
-      <td class="govuk-table__cell">Tracks ExperiencePageTime on Salesforce Classic pages.</td>
-      <td class="govuk-table__cell">90 Seconds</td>
-    </tr>
-    <!-- 4 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">cqcid</td>
-      <td class="govuk-table__cell">Tracks guest shopper's browsing activity.</td>
-      <td class="govuk-table__cell">1 year</td>
-    </tr>
-    <!-- 5 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">webact</td>
-      <td class="govuk-table__cell">Collects per page-view metrics for personalisation.</td>
-      <td class="govuk-table__cell">1 year</td>
-    </tr>
-    <!-- 6 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">liveagent_invite_rejected_</td>
-      <td class="govuk-table__cell">Prevents repeated Live Agent chat invitations.</td>
-      <td class="govuk-table__cell">Session</td>
-    </tr>
-    <!-- 7 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">calViewState</td>
-      <td class="govuk-table__cell">Tracks the inline calendar date state in Classic (current week).</td>
-      <td class="govuk-table__cell">Session</td>
-    </tr>
-    <!-- 8 -->
-    <tr class="govuk-table__row">
       <td class="govuk-table__cell">auraBrokenDefGraph</td>
-      <td class="govuk-table__cell">Tracks when a Lightning page has malformed HTML.</td>
+      <td class="govuk-table__cell">Used to track when a Lightning page has broken HTML</td>
       <td class="govuk-table__cell">1 week</td>
     </tr>
-    <!-- 9 -->
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">liveagent_sid</td>
-      <td class="govuk-table__cell">Identifies a Live Agent session for chat service.</td>
-      <td class="govuk-table__cell">Session</td>
-    </tr>
+
     <!-- 10 -->
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">t</td>
-      <td class="govuk-table__cell">Avoids duplicate access checks.</td>
+      <td class="govuk-table__cell">Used to avoid duplicate access checks</td>
       <td class="govuk-table__cell">Expired on creation</td>
     </tr>
   </tbody>
