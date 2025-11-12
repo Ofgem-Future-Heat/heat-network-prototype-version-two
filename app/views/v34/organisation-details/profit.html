@@ -64,17 +64,7 @@ Does {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% end
                   </h1>
                 </legend>
 
-                <details class="govuk-details">
-                  <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      Help with ‘for profit’
-                    </span>
-                  </summary>
-                  <div class="govuk-details__text">
-                    <p class="govuk-body">An organisation operates for profit if its primary goal is to make a profit, for example a company.</p>
-                    <p class="govuk-body">Organisations that are not-for-profit, such as local authorities, charities and many housing associations, may make a profit with some of their activities, but this is not their primary goal.</p>
-                    </div>
-                </details>
+
                 {% if data.validationErrors.orgprofit %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
