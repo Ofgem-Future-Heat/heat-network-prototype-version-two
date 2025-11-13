@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title %} 
+{% set title %}
 Are there multiple tariffs on this heat network?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -18,10 +18,10 @@ Are there multiple tariffs on this heat network?
         {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
 
     </div>
@@ -36,7 +36,8 @@ Are there multiple tariffs on this heat network?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqmultipleTariffs="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqmultipleTariffs="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +54,8 @@ Are there multiple tariffs on this heat network?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqmultipleTariffs %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqmultipleTariffs %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -65,9 +67,11 @@ Are there multiple tariffs on this heat network?
 
                     </legend>
                     <p class="govuk-body">
-                         For example different customer groups (such as domestic and commercial customers) might pay different rates. 
+                        For example different customer groups (such as domestic and commercial customers) might pay
+                        different rates.
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
                     </div>
                     {% if data.validationErrors.mqmultipleTariffs %}
                     <p class="govuk-error-message">
@@ -77,38 +81,35 @@ Are there multiple tariffs on this heat network?
                     {% endif %}
 
 
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-yes" name="mqmultipleTariffs" type="radio" value="Yes" data-aria-controls="mqmultipleTariffs-conditional" {% if data.mqmultipleTariffs == "Yes" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="mqmultipleTariffs-yes" name="mqmultipleTariffs"
+                                type="radio" value="Yes" data-aria-controls="mqmultipleTariffs-conditional"
+                                {% if data.mqmultipleTariffs == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-yes">
                                 Yes
                             </label>
                         </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqmultipleTariffs-no" name="mqmultipleTariffs" type="radio" value="No" {% if data.mqmultipleTariffs == "No" %}checked{% endif %} >
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqmultipleTariffs-no" name="mqmultipleTariffs"
+                                type="radio" value="No" {% if data.mqmultipleTariffs == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqmultipleTariffs-no">
                                 No
                             </label>
                         </div>
-
                     </div>
-
-
                 </fieldset>
 
-
             </div>
-             <div class="govuk-button-group">
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 
