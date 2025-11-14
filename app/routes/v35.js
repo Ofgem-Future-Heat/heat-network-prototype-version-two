@@ -8932,8 +8932,8 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-f
 });
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-fee", function (req, res) {
-	var mqflatConnectionFees = req.session.data["mqflatConnectionFees"];
-	var mqflatConnectionFeestotal = req.session.data["mqflatConnectionFeestotal"];
+	const mqflatConnectionFees = req.session.data["mqflatConnectionFees"];
+	const mqflatConnectionFeestotal = req.session.data["mqflatConnectionFeestotal"];
 
 	if (!mqflatConnectionFees) {
 		req.session.data.validationError = "true";
@@ -8974,12 +8974,60 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 	} else {
 		if (mqflatConnectionFees == "Yes") {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-fees");
-		}
-		if (mqflatConnectionFees == "No") {
+		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 		}
 	}
 });
+
+
+// Monitoring - Quarterly data - Pricing  - Connection Add another
+router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-another", function (req, res) {
+	clearvalidation(req);
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-another", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-another", function (req, res) {
+	const mqConnectionAddAnother = req.session.data["mqConnectionAddAnother"];
+
+	if (!mqConnectionAddAnother) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqConnectionAddAnother = {
+			anchor: "mqConnectionAddAnother",
+			message: "Select yes if there are multiple connections on this heat network",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-another", {
+			data: req.session.data,
+		});
+	} else {
+		if (mqConnectionAddAnother == "Yes") {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info");
+		} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-fees");
+		}
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Connection Add another - Remove connection
+router.post("/" + version + "/monitoring/quarterly-data/pricing/remove-connection", function (req, res) {
+  const connectionId = parseInt(req.body.connectionId, 10);
+  let allFlatConnectionFees = req.session.data["allFlatConnectionFees"] || [];
+
+  if (!isNaN(connectionId) && connectionId > 0 && connectionId <= allFlatConnectionFees.length) {
+    allFlatConnectionFees.splice(connectionId - 1, 1);
+  }
+
+  req.session.data["connectionsEntered"] = allFlatConnectionFees;
+
+  res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
+});
+
+
 
 // Monitoring - Quarterly data - Pricing  - Connection Charge Add to list
 router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info", function (req, res) {
@@ -8989,7 +9037,8 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-add-in
 });
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info", function (req, res) {
-	var mqflatConnectionFeesAdd = req.session.data["mqflatConnectionFeesAdd"];
+	const mqflatConnectionFeesAdd = req.session.data["mqflatConnectionFeesAdd"];
+	let allFlatConnectionFees = req.session.data["allFlatConnectionFees"] || [];
 
 	if (!mqflatConnectionFeesAdd) {
 		req.session.data.validationError = "true";
@@ -9004,6 +9053,10 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 			data: req.session.data,
 		});
 	} else {
+		allFlatConnectionFees.push(parseFloat(mqflatConnectionFeesAdd).toFixed(2));
+		req.session.data["allFlatConnectionFees"] = allFlatConnectionFees;
+		req.session.data["mqflatConnectionFeesAdd"] = "";
+
 		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 	}
 });
@@ -9033,8 +9086,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-fees", fun
 	} else {
 		if (mqotherFees == "Yes") {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee");
-		}
-		if (mqotherFees == "No") {
+		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
 		}
 	}

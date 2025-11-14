@@ -89,7 +89,7 @@ What is the unit rate and standing charge for this tariff?
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input
                                 class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqUnitRate %}govuk-input--error{% endif %}"
-                                id="mqUnitRate" name="mqUnitRate" type="text" value="{{data.mqUnitRate}}">
+                                id="mqUnitRate" name="mqUnitRate" type="number">
                             <div class="govuk-input__suffix" aria-hidden="true">per kilowatt hour</div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@ What is the unit rate and standing charge for this tariff?
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input
                                 class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqStandingCharge %}govuk-input--error{% endif %}"
-                                id="mqStandingCharge" name="mqStandingCharge" type="text"
-                                value="{{data.mqStandingCharge}}">
+                                id="mqStandingCharge" name="mqStandingCharge" type="number"
+                               >
                             <div class="govuk-input__suffix" aria-hidden="true">per day</div>
                         </div>
                     </div>
