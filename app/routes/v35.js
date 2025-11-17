@@ -8696,7 +8696,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/multiple-tariffs
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqmultipleTariffs = {
 			anchor: "mqmultipleTariffs",
-			message: "Select yes if there are multiple tariffs on this heat network",
+			message: "Tell us if there are multiple tariffs charged on this heat network",
 		};
 	}
 
@@ -8819,7 +8819,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqmultipleTariffs = {
 			anchor: "mqmultipleTariffs",
-			message: "Add a unit rate and standing charge",
+			message: "Tell us the unit rate and standing charge on this heat network",
 		};
 	}
 
@@ -8827,7 +8827,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqmultipleTariffs = {
 			anchor: "mqmultipleTariffs",
-			message: "Add a unit rate and standing charge",
+			message: "Tell us the unit rate and standing charge on this heat network",
 		};
 	}
 
@@ -8861,7 +8861,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqtariffAddAnother = {
 			anchor: "mqtariffAddAnother",
-			message: "Select yes if there are multiple tariffs on this heat network",
+			message: "Tell us if you would like to add another tariff",
 		};
 	}
 
@@ -8906,7 +8906,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-charg
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqconnectionCharge = {
 			anchor: "mqconnectionCharge",
-			message: "Select yes if you charge connection fees",
+			message: "Tell us if your customers pay a connection charge on this heat network",
 		};
 	}
 
@@ -8939,7 +8939,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFees = {
 			anchor: "mqflatConnectionFees",
-			message: "Select yes if this is a flat connection fee",
+			message: "Tell us if your customers pay a flat rate for your connection charge on this heat network",
 		};
 	}
 
@@ -8996,7 +8996,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-anoth
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqConnectionAddAnother = {
 			anchor: "mqConnectionAddAnother",
-			message: "Select yes if there are multiple connections on this heat network",
+			message: "Tell us if you would like to add another connection charge",
 		};
 	}
 
@@ -9044,7 +9044,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeesAdd = {
 			anchor: "mqflatConnectionFeesAdd",
-			message: "Enter the total fee",
+			message: "Tell us the charge per customer",
 		};
 	}
 
@@ -9075,7 +9075,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-fees", fun
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqotherFees = {
 			anchor: "mqotherFees",
-			message: "Select yes if you charge any other fees",
+			message: "Tell us if there are any other charges on this heat network",
 		};
 	}
 
@@ -9107,7 +9107,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee",
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatOtherFees = {
 			anchor: "mqflatOtherFees",
-			message: "Select yes if this is a flat other fee",
+			message: "Tell us if your customers pay a flat rate for any other charges",
 		};
 	}
 

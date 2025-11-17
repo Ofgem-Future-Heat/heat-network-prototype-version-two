@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Total charges across all domestic customers
+Total charges across all domestic customers in this quarter
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -62,7 +62,7 @@ Total charges across all domestic customers
                             </h1>
                         </legend>
 
-                          <p class="govuk-body">This is the total amount of standing charges, unit rates, connection charges and other charges received across all non-domestic customers in the reporting quarter period. (£) </p>
+                          <p class="govuk-body">This is the total amount of standing charges, unit rates, connection charges and other charges received across all domestic customers.</p>
 
 
                     {% if data.validationErrors.mqtotalDomesticCosts %}
