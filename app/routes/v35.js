@@ -3477,40 +3477,147 @@ router.post("/" + version + "/add-heat-network/introduction/groundloop", functio
 		if (introgroundloop == "No") {
 			res.redirect("/" + version + "/add-heat-network/introduction/role");
 		} else {
-			res.redirect("/" + version + "/add-heat-network/introduction/typeofgroundloop");
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-individual");
 			// res.redirect('/' + version + '/add-heat-network/introduction/dropout?v=203');
 		}
 	}
 });
 
-router.get("/" + version + "/add-heat-network/introduction/typeofgroundloop", function (req, res) {
-	res.render("/" + version + "/add-heat-network/introduction/typeofgroundloop", {
+// Introduction - Type of ground loop - Individuals
+router.get("/" + version + "/add-heat-network/introduction/sgl-individual", function (req, res) {
+	res.render("/" + version + "/add-heat-network/introduction/sgl-individual", {
 		data: req.session.data,
 	});
 });
 
-router.post("/" + version + "/add-heat-network/introduction/typeofgroundloop", function (req, res) {
-	var typeofgroundloop = req.session.data["typeofgroundloop"];
+router.post("/" + version + "/add-heat-network/introduction/sgl-individual", function (req, res) {
+	var sglindividual = req.session.data["sglIndividuals"];
 
-	if (!typeofgroundloop) {
+	if (!sglindividual) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.introgroundloop = {
-			anchor: "introgroundloop",
-			message: "Select the type",
+		req.session.data.validationErrors.sglIndividuals = {
+			anchor: "sglIndividuals",
+			message: "Select yes if the shared ground loop is owned by individuals",
 		};
 	}
 
 	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/add-heat-network/introduction/typeofgroundloop", {
+		res.render("/" + version + "/add-heat-network/introduction/sgl-individual", {
 			data: req.session.data,
 		});
 	} else {
+		console.log("sglindividual:", sglindividual);
+		if (sglindividual == "Yes") {
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-responsible");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-fixedfee");
+		}
+		
+	}
+});
+
+// Introduction - Type of ground loop - Responsible
+router.get("/" + version + "/add-heat-network/introduction/sgl-responsible", function (req, res) {
+	res.render("/" + version + "/add-heat-network/introduction/sgl-responsible", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/add-heat-network/introduction/sgl-responsible", function (req, res) {
+	var sglresponsible = req.session.data["sglResponsible"];
+
+	if (!sglresponsible) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.sglResponsible = {
+			anchor: "sglResponsible",
+			message: "Select yes if the individuals are responsible for operating the heat network",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/add-heat-network/introduction/sgl-responsible", {
+			data: req.session.data,
+		});
+	} else {
+		console.log("sglresponsible:", sglresponsible);
+		if (sglresponsible == "Yes") {
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-private");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-fixedfee");
+		}
+	}
+});
+
+// Introduction - Type of ground loop - Private
+router.get("/" + version + "/add-heat-network/introduction/sgl-private", function (req, res) {
+	res.render("/" + version + "/add-heat-network/introduction/sgl-private", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/add-heat-network/introduction/sgl-private", function (req, res) {
+	var sglprivate = req.session.data["sglPrivate"];
+
+	if (!sglprivate) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.sglPrivate = {
+			anchor: "sglPrivate",
+			message: "Select yes if these individuals are the heat network's only consumers",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/add-heat-network/introduction/sgl-private", {
+			data: req.session.data,
+		});
+	} else {
+		console.log("sglprivate:", sglprivate);
+		if (sglprivate == "Yes") {
+			req.session.data["sglCategory"] = "Privately Owned";
+			res.redirect("/" + version + "/add-heat-network/introduction/role");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/introduction/sgl-fixedfee");
+		}
+	}
+});
+
+// Introduction - Type of ground loop - Fixed fee
+router.get("/" + version + "/add-heat-network/introduction/sgl-fixedfee", function (req, res) {
+	res.render("/" + version + "/add-heat-network/introduction/sgl-fixedfee", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/add-heat-network/introduction/sgl-fixedfee", function (req, res) {
+	var sglfixedfee = req.session.data["sglFixedFee"];
+
+	if (!sglfixedfee) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.sglFixedFee = {
+			anchor: "sglFixedFee",
+			message: "Select yes if your customers are charged a fixed fee to access the shared ground loop",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/add-heat-network/introduction/sgl-fixedfee", {
+			data: req.session.data,
+		});
+	} else {
+		if (sglfixedfee == "Yes") {
+			req.session.data["sglCategory"] = "Utility";
+		} else {
+			req.session.data["sglCategory"] = "Non-Utility";
+		}
 		res.redirect("/" + version + "/add-heat-network/introduction/role");
 	}
 });
 
+
 // Introduction - Role
 router.get("/" + version + "/add-heat-network/introduction/role", function (req, res) {
+	console.log("sglCategory:", req.session.data["sglCategory"]);
+
 	res.render("/" + version + "/add-heat-network/introduction/role", {
 		data: req.session.data,
 	});
@@ -7265,7 +7372,7 @@ router.get("/" + version + "/monitoring/quarterly-data/tasklist", function (req,
 router.post("/" + version + "/monitoring/quarterly-data/tasklist", function (req, res) {
 	var mqvulnerabilitycomplete = req.session.data["mqvulnerabilitycomplete"];
 	var mqqualitycomplete = req.session.data["mqqualitycomplete"];
-    var mqpricingcomplete = req.session.data["mqpricingcomplete"];
+	var mqpricingcomplete = req.session.data["mqpricingcomplete"];
 	/*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
