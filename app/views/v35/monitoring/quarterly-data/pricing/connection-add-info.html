@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Total charges across all domestic customers
+Add a connection charge
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -17,12 +17,12 @@ Total charges across all domestic customers
 
     <div class="govuk-grid-column-full">
 
-{% include data.version + "/_partials/headerlinks.html" %}
+        {% include data.version + "/_partials/headerlinks.html" %}
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
 
     </div>
@@ -51,34 +51,34 @@ Total charges across all domestic customers
             </div>
         </div>
         {% endif %}
-        <form  method="POST" novalidate>
-            
-            <div class="govuk-form-group {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-form-group--error{% endif %}">
+        <form method="POST" novalidate>
 
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                            <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
-                            <h1 class="govuk-fieldset__heading">
-                                {{title}}
-                            </h1>
-                        </legend>
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-form-group--error{% endif %}">
 
-                          <p class="govuk-body">This is the total amount of standing charges, unit rates, connection charges and other charges received across all non-domestic customers in the reporting quarter period. (£) </p>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
+                    <h1 class="govuk-fieldset__heading">
+                        {{title}}
+                    </h1>
+                </legend>
 
+                <p class="govuk-body">The charge per customer</p>
 
-                    {% if data.validationErrors.mqflatConnectionFeesAdd %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqflatConnectionFeesAdd.message}}
-                    </p>
-                    {% endif %}
+                {% if data.validationErrors.mqflatConnectionFeesAdd %}
+                <p class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    {{data.validationErrors.mqflatConnectionFeesAdd.message}}
+                </p>
+                {% endif %}
 
-                            <div class="govuk-form-group">
-                                <div class="govuk-input__wrapper">
-                                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
-
-                                <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-input--error{% endif %}" id="mqflatConnectionFeesAdd" name="mqflatConnectionFeesAdd" type="text" value="{{data.mqflatConnectionFeesAdd}}" >
-                            </div>
-                        </div>
+                <div class="govuk-form-group">
+                    <div class="govuk-input__wrapper">
+                        <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                        <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-input--error{% endif %}" id="mqflatConnectionFeesAdd" name="mqflatConnectionFeesAdd" type="number">
+                        <div class="govuk-input__suffix" aria-hidden="true">per customer</div>
+                    </div>
+                </div>
 
             </div>
             <div class="govuk-button-group">
@@ -87,7 +87,8 @@ Total charges across all domestic customers
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
     </div>
