@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title %} 
+{% set title %}
 Do your customers pay any other charges?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -18,10 +18,10 @@ Do your customers pay any other charges?
         {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
 
     </div>
@@ -36,7 +36,8 @@ Do your customers pay any other charges?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqotherFees="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqotherFees="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -65,10 +66,12 @@ Do your customers pay any other charges?
 
                     </legend>
                     <p class="govuk-body">
-                         Any other charges that are not standing charges, unit rates and connection charges. All levels and types of other charges within a heat network should be reported. 
+                        This includes any other charges that are not standing charges, unit rates or connection charges.
+                        All levels and types of other charges within a heat network should be reported.
                     </p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
                     </div>
                     {% if data.validationErrors.mqotherFees %}
                     <p class="govuk-error-message">
@@ -77,39 +80,34 @@ Do your customers pay any other charges?
                     </p>
                     {% endif %}
 
-
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqotherFees-yes" name="mqotherFees" type="radio" value="Yes" data-aria-controls="mqotherFees-conditional" {% if data.mqotherFees == "Yes" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="mqotherFees-yes" name="mqotherFees" type="radio"
+                                value="Yes" data-aria-controls="mqotherFees-conditional"
+                                {% if data.mqotherFees == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqotherFees-yes">
                                 Yes
                             </label>
                         </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqotherFees-no" name="mqotherFees" type="radio" value="No" {% if data.mqotherFees == "No" %}checked{% endif %} >
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqotherFees-no" name="mqotherFees" type="radio"
+                                value="No" {% if data.mqotherFees == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqotherFees-no">
                                 No
                             </label>
                         </div>
-
                     </div>
-
-
                 </fieldset>
-
-
             </div>
-             <div class="govuk-button-group">
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 
