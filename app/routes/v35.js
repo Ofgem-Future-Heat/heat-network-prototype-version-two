@@ -3774,7 +3774,6 @@ router.post("/" + version + "/add-heat-network/introduction/addressconfirm", fun
 	res.redirect("/" + version + "/add-heat-network/introduction/similarcommunal");
 });
 
-
 // Introduction - Address already in use
 router.get("/" + version + "/add-heat-network/introduction/similarcommunal", function (req, res) {
 	res.render("/" + version + "/add-heat-network/introduction/similarcommunal", {
@@ -3785,7 +3784,6 @@ router.get("/" + version + "/add-heat-network/introduction/similarcommunal", fun
 router.post("/" + version + "/add-heat-network/introduction/similarcommunal", function (req, res) {
 	var introgroundloop = req.session.data["introgroundloop"];
 	var role = req.session.data["role"];
-
 
 	if (introgroundloop == "Yes") {
 		console.log("role: ", role);
@@ -8789,7 +8787,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 	} else {
 		if (mqflatFees == "Yes") {
 			addTariffEntry(req.session.data);
-			if (mqmultipleTariffs) {
+			if (mqmultipleTariffs == "Yes") {
 				res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-another");
 			} else {
 				res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-charge");
@@ -8866,7 +8864,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 	}
 
 	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/pricing/multiple-tariffs", {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-another", {
 			data: req.session.data,
 		});
 	} else {
@@ -8880,16 +8878,16 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 
 // Monitoring - Quarterly data - Pricing  - Tariff Add another - Remove tariff
 router.post("/" + version + "/monitoring/quarterly-data/pricing/remove-tariff", function (req, res) {
-  const tariffId = parseInt(req.body.tariffId, 10);
-  let tariffsEntered = req.session.data["tariffsEntered"] || [];
+	const tariffId = parseInt(req.body.tariffId, 10);
+	let tariffsEntered = req.session.data["tariffsEntered"] || [];
 
-  if (!isNaN(tariffId) && tariffId > 0 && tariffId <= tariffsEntered.length) {
-    tariffsEntered.splice(tariffId - 1, 1);
-  }
+	if (!isNaN(tariffId) && tariffId > 0 && tariffId <= tariffsEntered.length) {
+		tariffsEntered.splice(tariffId - 1, 1);
+	}
 
-  req.session.data["tariffsEntered"] = tariffsEntered;
+	req.session.data["tariffsEntered"] = tariffsEntered;
 
-  res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-another");
+	res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-another");
 });
 
 // Monitoring - Quarterly data - Pricing  - Connection Charge
@@ -8980,7 +8978,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 	}
 });
 
-
 // Monitoring - Quarterly data - Pricing  - Connection Add another
 router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-another", function (req, res) {
 	clearvalidation(req);
@@ -9015,19 +9012,17 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-anoth
 
 // Monitoring - Quarterly data - Pricing  - Connection Add another - Remove connection
 router.post("/" + version + "/monitoring/quarterly-data/pricing/remove-connection", function (req, res) {
-  const connectionId = parseInt(req.body.connectionId, 10);
-  let allFlatConnectionFees = req.session.data["allFlatConnectionFees"] || [];
+	const connectionId = parseInt(req.body.connectionId, 10);
+	let allFlatConnectionFees = req.session.data["allFlatConnectionFees"] || [];
 
-  if (!isNaN(connectionId) && connectionId > 0 && connectionId <= allFlatConnectionFees.length) {
-    allFlatConnectionFees.splice(connectionId - 1, 1);
-  }
+	if (!isNaN(connectionId) && connectionId > 0 && connectionId <= allFlatConnectionFees.length) {
+		allFlatConnectionFees.splice(connectionId - 1, 1);
+	}
 
-  req.session.data["connectionsEntered"] = allFlatConnectionFees;
+	req.session.data["connectionsEntered"] = allFlatConnectionFees;
 
-  res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
+	res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 });
-
-
 
 // Monitoring - Quarterly data - Pricing  - Connection Charge Add to list
 router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info", function (req, res) {
@@ -9100,8 +9095,8 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", 
 });
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", function (req, res) {
-	var mqflatOtherFees = req.session.data["mqflatOtherFees"];
-	var mqflatOtherFeestotal = req.session.data["mqflatOtherFeestotal"];
+	const mqflatOtherFees = req.session.data["mqflatOtherFees"];
+	const mqflatOtherFeestotal = req.session.data["mqflatOtherFeestotal"];
 
 	if (!mqflatOtherFees) {
 		req.session.data.validationError = "true";
@@ -9136,42 +9131,173 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee",
 	}
 
 	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-fee", {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", {
 			data: req.session.data,
 		});
 	} else {
 		if (mqflatOtherFees == "Yes") {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
-		}
-		if (mqflatOtherFees == "No") {
+		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
 		}
 	}
 });
 
-// Monitoring - Quarterly data - Pricing  - Other Charge Add to list
-router.get("/" + version + "/monitoring/quarterly-data/pricing/other-add-info", function (req, res) {
-	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-add-info", {
+// Monitoring - Quarterly data - Pricing  - Charges Add another
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-another", function (req, res) {
+	clearvalidation(req);
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-another", {
 		data: req.session.data,
 	});
 });
 
-router.post("/" + version + "/monitoring/quarterly-data/pricing/other-add-info", function (req, res) {
-	var mqflatOtherFeesAdd = req.session.data["mqflatOtherFeesAdd"];
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-another", function (req, res) {
+	const mqChargesAddAnother = req.session.data["mqChargesAddAnother"];
 
-	if (!mqflatOtherFeesAdd) {
+	if (!mqChargesAddAnother) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatOtherFeesAdd = {
-			anchor: "mqflatOtherFeesAdd",
-			message: "Enter the total fee",
+		req.session.data.validationErrors.mqChargesAddAnother = {
+			anchor: "mqChargesAddAnother",
+			message: "Tell us if you would like to add another charge",
 		};
 	}
 
 	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-add-info", {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-another", {
 			data: req.session.data,
 		});
 	} else {
+		if (mqChargesAddAnother == "Yes") {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
+		} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
+		}
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Charges Add another - Remove charge
+router.post("/" + version + "/monitoring/quarterly-data/pricing/remove-charge", function (req, res) {
+	const chargeId = parseInt(req.body.chargeId, 10);
+	let chargesEntered = req.session.data["chargesEntered"] || [];
+
+	if (!isNaN(chargeId) && chargeId > 0 && chargeId <= chargesEntered.length) {
+		chargesEntered.splice(chargeId - 1, 1);
+	}
+
+	req.session.data["chargesEntered"] = chargesEntered;
+	res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
+});
+
+function addChargesEntry(sessionData) {
+	const chargesEntered = sessionData["chargesEntered"] || [];
+
+	const mqOtherChargeAmount = sessionData["mqOtherChargeAmount"];
+	const mqOtherChargeUnit = sessionData["mqOtherChargeUnit"];
+	const mqOtherChargeReason = sessionData["mqOtherChargeReason"];
+
+	chargesEntered.push({
+		amount: parseFloat(mqOtherChargeAmount).toFixed(2) || null,
+		unit: mqOtherChargeUnit || null,
+		reason: mqOtherChargeReason || null,
+	});
+
+	sessionData["chargesEntered"] = chargesEntered;
+	sessionData["mqOtherChargeAmount"] = null;
+	sessionData["mqOtherChargeUnit"] = null;
+	sessionData["mqOtherChargeReason"] = null;
+}
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Amount
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount", function (req, res) {
+	const mqOtherChargeAmount = req.session.data["mqOtherChargeAmount"];
+
+	if (!mqOtherChargeAmount) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeAmount = {
+			anchor: "mqOtherChargeAmount",
+			message: "Tell us the charge",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount", {
+			data: req.session.data,
+		});
+	} else {
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-unit");
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Unit
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-charge-unit", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-unit", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-unit", function (req, res) {
+	const mqOtherChargeUnit = req.session.data["mqOtherChargeUnit"];
+	const mqOtherChargeUnitOtherValue = req.session.data["mqOtherChargeUnitOtherValue"];
+
+	if (!mqOtherChargeUnit) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeUnit = {
+			anchor: "mqOtherChargeUnit",
+			message: "Tell us the unit",
+		};
+	}
+
+	if (mqOtherChargeUnit == "other" && !mqOtherChargeUnitOtherValue) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeUnitOtherValue = {
+			anchor: "mqOtherChargeUnitOtherValue",
+			message: "Tell us the other unit",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-unit", {
+			data: req.session.data,
+		});
+	} else {
+		if (mqOtherChargeUnit == "other") {
+			req.session.data["mqOtherChargeUnit"] = mqOtherChargeUnitOtherValue;
+		}
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason");
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Reason
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason", function (req, res) {
+	const mqOtherChargeReason = req.session.data["mqOtherChargeReason"];
+
+	if (!mqOtherChargeReason) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeReason = {
+			anchor: "mqOtherChargeReason",
+			message: "Tell us what the other charge is for",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason", {
+			data: req.session.data,
+		});
+	} else {
+		addChargesEntry(req.session.data);
+
 		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
 	}
 });
@@ -9228,4 +9354,11 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/total-non-domest
 	} else {
 		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/cya");
 	}
+});
+
+// Monitoring - Quarterly data - Pricing  - CYA
+router.get("/" + version + "/monitoring/quarterly-data/pricing/cya", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/cya", {
+		data: req.session.data,
+	});
 });

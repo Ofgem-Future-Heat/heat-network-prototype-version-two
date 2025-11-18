@@ -16,16 +16,13 @@ Do your customers pay a flat rate for any other charges?
 
     <div class="govuk-grid-column-full">
         {% include data.version + "/_partials/logout.html" %}
-
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
     </div>
-
 </div>
 
 {% endblock %}
@@ -36,7 +33,8 @@ Do your customers pay a flat rate for any other charges?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatOtherFees="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatOtherFees="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,18 +51,23 @@ Do your customers pay a flat rate for any other charges?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqflatOtherFees %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqflatOtherFees %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+                        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
 
                     </legend>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> .</div>
+                    <p class="govuk-body">
+                        Any other charges that are not standing charges, unit rates and connection charges.
+                    </p>
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city
+                            centre</strong>, covering <strong>1 April to 30 June 2026 </strong> .</div>
 
                     {% if data.validationErrors.mqflatOtherFees %}
                     <p class="govuk-error-message">
@@ -73,56 +76,57 @@ Do your customers pay a flat rate for any other charges?
                     </p>
                     {% endif %}
 
-
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatOtherFees-yes" name="mqflatOtherFees" type="radio" value="Yes" data-aria-controls="mqflatOtherFees-conditional" {% if data.mqflatOtherFees == "Yes" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="mqflatOtherFees-yes" name="mqflatOtherFees"
+                                type="radio" value="Yes" data-aria-controls="mqflatOtherFees-conditional"
+                                {% if data.mqflatOtherFees == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqflatOtherFees-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqflatOtherFees-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqflatOtherFeestotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqflatOtherFeestotal">
-                                Other fees flat rate
-                              </label>
-                              {% if data.validationErrors.mqflatOtherFeestotal %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqflatOtherFeestotal.message}}
-                              </p>
-                              {% endif %}
-                              <div class="govuk-input__wrapper">
-                              <div class="govuk-input__prefix" aria-hidden="true">£</div>
-                                <input class="govuk-input govuk-!-width-one-third" id="mqflatOtherFeestotal" name="mqflatOtherFeestotal" type="text" value="{{data.mqflatOtherFeestotal}}">
-                              </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="mqflatOtherFees-conditional">
+                            <div
+                                class="govuk-form-group {% if data.validationErrors.mqflatOtherFeestotal %}govuk-form-group--error{% endif %}">
+
+                                {% if data.validationErrors.mqflatOtherFeestotal %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.mqflatOtherFeestotal.message}}
+                                </p>
+                                {% endif %}
+                                <label class="govuk-label" for="mqflatOtherFeestotal">
+                                    Other flat fee
+                                </label>
+                                <div class="govuk-input__wrapper">
+                                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                    <input class="govuk-input govuk-!-width-one-third" id="mqflatOtherFeestotal"
+                                        name="mqflatOtherFeestotal" type="number">
+                                    <div class="govuk-input__suffix" aria-hidden="true">per customer</div>
+                                </div>
                             </div>
-                          </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatOtherFees-no" name="mqflatOtherFees" type="radio" value="No" {% if data.mqflatOtherFees == "No" %}checked{% endif %} >
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqflatOtherFees-no" name="mqflatOtherFees"
+                                type="radio" value="No" {% if data.mqflatOtherFees == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqflatOtherFees-no">
                                 No
                             </label>
                         </div>
-
                     </div>
-
-
                 </fieldset>
-
-
             </div>
+
             <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 

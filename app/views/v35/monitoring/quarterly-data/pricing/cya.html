@@ -3,15 +3,6 @@
 {% set cdnumber = "XXX" %}
 {% set _inError = data.validationError == "true"  %}
 
-{% set company %}
-{% if data.companyname %}
-{{data.companyname}}
-{% else %}
-Radienteco Ltd
-{% endif %}
-{% endset %}
-
-
 {% block pageTitle %}
 {{title}}
 {% endblock %}
@@ -46,7 +37,6 @@ Radienteco Ltd
             {{title}}
         </h1>
 
-
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
 
             <div class="govuk-summary-list__row">
@@ -54,105 +44,207 @@ Radienteco Ltd
                     Do you have the information you’ll need
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Yes
+                    {{data.mqpricinginitial}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="initial">Change</a>
                 </dd>
-             </div>
+            </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Are there multiple tariffs charged on this heat network
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    No
+                    {{data.mqmultipleTariffs}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="domestic">Change</a>
+                    <a class="govuk-link" href="multiple-tariffs">Change</a>
                 </dd>
             </div>
+
+            {% if data.mqmultipleTariffs == "No" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Does this tariff use a flat fee based charging format
                 </dt>
+                {% if data.tariffsEntered[data.tariffsEntered.length - 1].mqflatFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
-                    Flat Fee<br>
-                    £95.01 per day
+                    Flat Fee: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqflatFeestotal}} per day
                 </dd>
+
+                {% else %}
+
+                <dd class="govuk-summary-list__value">
+                    Unit Rate: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqUnitRate}} per kWh<br>
+                    Standing Charge: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqStandingCharge}} per day
+                </dd>
+
+                {% endif %}
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="debt">Change</a>
+                    <a class="govuk-link" href="flat-fee">Change</a>
                 </dd>
             </div>
+            {% endif %}
+
+
+            {% if data.mqmultipleTariffs == "Yes" and data.tariffsEntered.length > 0 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Tariff list
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for tariff in data.tariffsEntered %}
+                    <strong>Tariff {{loop.index}}</strong>
+                    {% if tariff.mqflatFees == "Yes" %}
+                    <p class="govuk-body">
+                        Flat Fee: £{{tariff.mqflatFeestotal}} per day
+                    </p>
+                    {% else %}
+                    <p class="govuk-body">
+                        Unit Rate: £{{tariff.mqUnitRate}} per kWh
+                        <br>
+                        Standing Charge: £{{tariff.mqStandingCharge}} per day
+                    </p>
+                    {% endif %}
+                    {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="tariff-another">Change</a>
+                </dd>
+            </div>
+            {% endif %}
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Do your customers pay a connection charge
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Yes
+                    {{data.mqconnectionCharge}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="disconnections">Change</a>
+                    <a class="govuk-link" href="connection-charge">Change</a>
                 </dd>
             </div>
 
+            {% if data.mqconnectionCharge == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Do you charge the same flat rate for your connection fees
                 </dt>
+
+                {% if data.mqflatConnectionFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
-                    £51.00 per customer
+                    £{{data.mqflatConnectionFeestotal}} per customer
+                </dd>
+
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                    No
+                </dd>
+
+                {% endif %}
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="connection-flat-fee">Change</a>
+                </dd>
+            </div>
+
+            {% if data.mqflatConnectionFees == "No" and data.allFlatConnectionFees.length > 0 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Connection list
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for flatConnection in data.allFlatConnectionFees %}
+                    <strong>Connection {{loop.index}}</strong>
+                    <p class="govuk-body">
+                        £{{flatConnection}} per customer
+                    </p>
+                    {% endfor %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="disconnected">Change</a>
+                    <a class="govuk-link" href="domestic">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you charge your customers other fees
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{data.mqotherFees}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="other-fees">Change</a>
+                </dd>
+            </div>
+
+            {% if data.mqotherFees == "Yes" %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Do you charge the same flat rate for your other charges
+                </dt>
+                {% if data.mqflatOtherFees == "Yes" %}
+                <dd class="govuk-summary-list__value">
+                    £{{data.mqflatOtherFeestotal}} per customer
+                </dd>
+
+                {% else %}
+                <dd class="govuk-summary-list__value">
+                    {{data.mqflatOtherFees}}
+                </dd>
+
+                {% endif %}
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="other-flat-fee">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+
+            {% if data.mqflatOtherFees == "No" and data.chargesEntered.length > 0 %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Charge list
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {% for charge in data.chargesEntered %}
+                    <strong>Charge {{loop.index}}</strong>
+                    <p class="govuk-body">
+                        £{{charge.amount}} {{charge.unit}}
+                        <br>
+                        {{charge.reason}}
+                    </p>
+                    {% endfor %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="domestic">Change</a>
+                </dd>
+            </div>
+            {% endif %}
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Total charges across all domestic customers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    £{{data.mqtotalDomesticCosts}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="total-domestic">Change</a>
                 </dd>
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Do you charge your customers other fees
+                    Total charges across all non-domestic customers 
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    Yes
+                    £{{data.totalNonDomesticCosts}}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="repayment">Change</a>
-                </dd>
-            </div>
-
-                     <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Do you charge the same flat rate for your other charges
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    £59.00 per kWh <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet tempor accumsan. Donec a nibh felis. Sed malesuada urna a rhoncus porta. Cras ipsum justo.
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="reconnections">Change</a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Total charges across all domestic customers
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    £59.00
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="reconnections">Change</a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  Total charges across all non-domestic customers 
-                </dt>
-                <dd class="govuk-summary-list__value">
-                  £59.00
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="reconnections">Change</a>
+                    <a class="govuk-link" href="total-non-domestic">Change</a>
                 </dd>
             </div>
 
@@ -161,14 +253,15 @@ Radienteco Ltd
             <input type="hidden" id="mqpricingcomplete" name="mqpricingcomplete" value="true" />
             <input type="hidden" id="mqstatus" name="mqstatus" value="In progress" />
             <div class="govuk-button-group">
-            {{
+                {{
                 govukButton ({
                     html: 'Save and continue'
                 })
             }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
 
-        </div>
+            </div>
         </form>
 
 
