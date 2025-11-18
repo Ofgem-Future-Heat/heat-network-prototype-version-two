@@ -7265,6 +7265,7 @@ router.get("/" + version + "/monitoring/quarterly-data/tasklist", function (req,
 router.post("/" + version + "/monitoring/quarterly-data/tasklist", function (req, res) {
 	var mqvulnerabilitycomplete = req.session.data["mqvulnerabilitycomplete"];
 	var mqqualitycomplete = req.session.data["mqqualitycomplete"];
+    var mqpricingcomplete = req.session.data["mqpricingcomplete"];
 	/*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
@@ -9361,4 +9362,8 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/cya", function (r
 	res.render("/" + version + "/monitoring/quarterly-data/pricing/cya", {
 		data: req.session.data,
 	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/cya", function (req, res) {
+	res.redirect("/" + version + "/monitoring/quarterly-data/tasklist");
 });
