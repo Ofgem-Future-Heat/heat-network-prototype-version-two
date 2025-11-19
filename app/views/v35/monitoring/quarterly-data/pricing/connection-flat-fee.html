@@ -64,7 +64,7 @@ Do you charge the same flat rate for your connection fees?
 
                     </legend>
                     <p class="govuk-body">
-                        This means that the same fee is charged per connection.
+                        This means that the same fee is charged for each connection.
                     </p>
                     <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city
                             centre</strong>, covering <strong>1 April to 30 June 2026 </strong> .</div>
@@ -98,11 +98,11 @@ Do you charge the same flat rate for your connection fees?
                                 </p>
                                 {% endif %}
                                 <label class="govuk-label" for="mqflatConnectionFeestotal">
-                                    Connection flat fee
+                                    Connection fee, per customer
                                 </label>
                                 <div class="govuk-input__wrapper">
                                     <div class="govuk-input__prefix" aria-hidden="true">£</div>
-                                    <input class="govuk-input govuk-!-width-one-third" id="mqflatConnectionFeestotal"
+                                    <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeestotal %}govuk-input--error{% endif %}" id="mqflatConnectionFeestotal"
                                         name="mqflatConnectionFeestotal" type="number"
                                         value="{{data.mqflatConnectionFeestotal}}">
                                     <div class="govuk-input__suffix" aria-hidden="true">per customer</div>

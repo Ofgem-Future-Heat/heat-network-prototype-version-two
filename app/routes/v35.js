@@ -8761,7 +8761,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "Enter the £ per day",
+			message: "Tell us the fee per day",
 		};
 	}
 
@@ -8769,7 +8769,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "Enter the £ per day",
+			message: "Tell us the fee per day",
 		};
 	}
 
@@ -8777,7 +8777,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "£ per day must be 40 characters or less",
+			message: "The fee per day must be 40 characters or less",
 		};
 	}
 
