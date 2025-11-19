@@ -188,7 +188,14 @@
                 </dt>
                 {% if data.mqflatOtherFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
-                    £{{data.mqflatOtherFeestotal}} per customer
+                    {% for charge in data.chargesEntered %}
+                    <strong>Flat Fee</strong>
+                    <p class="govuk-body">
+                        £{{charge.amount}} {{charge.unit}}
+                        <br>
+                        {{charge.reason}}
+                    </p>
+                    {% endfor %}
                 </dd>
 
                 {% else %}

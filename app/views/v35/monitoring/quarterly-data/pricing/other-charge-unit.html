@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Provide the unit for the other charge
+What’s this additional charge’s unit
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,9 +65,7 @@ Provide the unit for the other charge
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        For example, per kWh, per day 
-                    </p>
+
                     <div class="govuk-inset-text">
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
                         <strong>1 April to 30 June 2026 </strong> period.
@@ -79,6 +77,7 @@ Provide the unit for the other charge
                         {{data.validationErrors.mqOtherChargeUnit.message}}
                     </p>
                     {% endif %}
+
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
