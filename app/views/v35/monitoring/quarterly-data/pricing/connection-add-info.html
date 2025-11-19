@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Add a connection charge
+Provide the amount for the connection charge
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,7 +63,11 @@ Add a connection charge
                     </h1>
                 </legend>
 
-                <p class="govuk-body">The charge per customer</p>
+               
+                <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
 
                 {% if data.validationErrors.mqflatConnectionFeesAdd %}
                 <p class="govuk-error-message">

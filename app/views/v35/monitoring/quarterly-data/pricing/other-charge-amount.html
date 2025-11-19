@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Add a charge amount
+Provide the amount for the other charge
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,7 +63,11 @@ Add a charge amount
                     </h1>
                 </legend>
 
-                <p class="govuk-body">The charge per customer</p>
+                <p class="govuk-body">On the next page you will add the unit this charge was made.</p>
+                <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
 
                 {% if data.validationErrors.mqOtherChargeAmount %}
                 <p class="govuk-error-message">
@@ -76,8 +80,7 @@ Add a charge amount
                     <div class="govuk-input__wrapper">
                         <div class="govuk-input__prefix" aria-hidden="true">£</div>
                         <input
-                            class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqOtherChargeAmount %}govuk-input--error{% endif %}"
-                            id="mqOtherChargeAmount" name="mqOtherChargeAmount" type="number">
+                            class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqOtherChargeAmount %}govuk-input--error{% endif %}" id="mqOtherChargeAmount" name="mqOtherChargeAmount" type="number">
                     </div>
                 </div>
 
