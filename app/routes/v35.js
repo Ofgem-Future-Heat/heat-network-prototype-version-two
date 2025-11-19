@@ -8816,16 +8816,16 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 
 	if (!mqUnitRate || !mqStandingCharge) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqmultipleTariffs = {
-			anchor: "mqmultipleTariffs",
+		req.session.data.validationErrors.mqTariffNoFlatFee = {
+			anchor: "mqTariffNoFlatFee",
 			message: "Tell us the unit rate and standing charge on this heat network",
 		};
 	}
 
 	if (mqUnitRate == "0" || mqStandingCharge == "0") {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqmultipleTariffs = {
-			anchor: "mqmultipleTariffs",
+		req.session.data.validationErrors.mqTariffNoFlatFee = {
+			anchor: "mqTariffNoFlatFee",
 			message: "Tell us the unit rate and standing charge on this heat network",
 		};
 	}
@@ -9097,7 +9097,6 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", 
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", function (req, res) {
 	const mqflatOtherFees = req.session.data["mqflatOtherFees"];
-	const mqflatOtherFeestotal = req.session.data["mqflatOtherFeestotal"];
 
 	if (!mqflatOtherFees) {
 		req.session.data.validationError = "true";
@@ -9107,37 +9106,13 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee",
 		};
 	}
 
-	if (mqflatOtherFees == "Yes" && !mqflatOtherFeestotal) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatOtherFeestotal = {
-			anchor: "mqflatOtherFeestotal",
-			message: "Enter the cost of the other fees",
-		};
-	}
-
-	if (mqflatOtherFees == "Yes" && isNaN(mqflatOtherFeestotal)) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatOtherFeestotal = {
-			anchor: "mqflatOtherFeestotal",
-			message: "Enter the cost of the other fees",
-		};
-	}
-
-	if (mqflatOtherFees == "Yes" && mqflatOtherFeestotal.length > 40) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatOtherFeestotal = {
-			anchor: "mqflatOtherFeestotal",
-			message: "£ value must be 40 characters or less",
-		};
-	}
-
 	if (req.session.data.validationError == "true") {
 		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee", {
 			data: req.session.data,
 		});
 	} else {
 		if (mqflatOtherFees == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
 		}
@@ -9283,6 +9258,7 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reas
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-reason", function (req, res) {
 	const mqOtherChargeReason = req.session.data["mqOtherChargeReason"];
+	const mqflatOtherFees = req.session.data["mqflatOtherFees"];
 
 	if (!mqOtherChargeReason) {
 		req.session.data.validationError = "true";
@@ -9299,7 +9275,11 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-rea
 	} else {
 		addChargesEntry(req.session.data);
 
-		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
+		if (mqflatOtherFees == "Yes") {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
+		} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
+		}
 	}
 });
 
