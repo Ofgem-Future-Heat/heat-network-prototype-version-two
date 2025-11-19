@@ -8814,19 +8814,43 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 	const mqUnitRate = req.session.data["mqUnitRate"];
 	const mqStandingCharge = req.session.data["mqStandingCharge"];
 
-	if (!mqUnitRate || !mqStandingCharge) {
+	if(!mqUnitRate){
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqTariffNoFlatFee = {
-			anchor: "mqTariffNoFlatFee",
-			message: "Enter the unit rate and standing charge on this heat network",
+		req.session.data.validationErrors.mqUnitRate = {
+			anchor: "mqUnitRate",
+			message: "Enter the unit rate per kilowatt hour, in pounds ",
+		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(mqUnitRate)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqUnitRate = {
+			anchor: "mqUnitRate",
+			message: "Unit rate must only include numbers and leading hyphens",
+		};
+	} else if (mqUnitRate.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqUnitRate = {
+			anchor: "mqUnitRate",
+			message: "Unit rate must be 18 characters or less",
 		};
 	}
-
-	if (mqUnitRate == "0" || mqStandingCharge == "0") {
+	
+	if(!mqStandingCharge){
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqTariffNoFlatFee = {
-			anchor: "mqTariffNoFlatFee",
-			message: "Enter the unit rate and standing charge on this heat network",
+		req.session.data.validationErrors.mqStandingCharge = {
+			anchor: "mqStandingCharge",
+			message: "Enter the standing charge per day, in pounds",
+		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(mqStandingCharge)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqStandingCharge = {
+			anchor: "mqStandingCharge",
+			message: "Standing charge must only include numbers and leading hyphens",
+		};
+	} else if (mqStandingCharge.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqStandingCharge = {
+			anchor: "mqStandingCharge",
+			message: "Standing charge must be 18 characters or less",
 		};
 	}
 

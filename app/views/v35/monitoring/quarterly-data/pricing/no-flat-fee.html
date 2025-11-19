@@ -67,43 +67,49 @@ What is the unit rate and standing charge for this tariff?
 
                     </legend>
                     <p class="govuk-body">
-                        A unit rate is the rate charged per unit of heat used. A standing charge is a fixed charge that does not change with heat usage.
+                        A unit rate is the rate charged per unit of heat used. A standing charge is a fixed charge that
+                        does not change with heat usage.
                     </p>
                     <div class="govuk-inset-text">
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
                         <strong>1 April to 30 June 2026 </strong> period.
                     </div>
-                    {% if data.validationErrors.mqTariffNoFlatFee %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqTariffNoFlatFee.message}}
-                    </p>
-                    {% endif %}
 
-
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.mqUnitRate %}govuk-form-group--error{% endif %}">
+                        {% if data.validationErrors.mqUnitRate %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.mqUnitRate.message}}
+                        </p>
+                        {% endif %}
                         <label class="govuk-label govuk-input__label" for="mqUnitRate">
                             Unit rate, per kilowatt hour
                         </label>
                         <div class="govuk-input__wrapper">
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input
-                                class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqTariffNoFlatFee %}govuk-input--error{% endif %}"
-                                id="mqUnitRate" name="mqUnitRate" type="number">
+                                class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqUnitRate %}govuk-input--error{% endif %}"
+                                id="mqUnitRate" name="mqUnitRate" type="text" value="{{data.mqUnitRate}}">
                             <div class="govuk-input__suffix" aria-hidden="true">per kWh</div>
                         </div>
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group {% if data.validationErrors.mqStandingCharge %}govuk-form-group--error{% endif %}">
+                        {% if data.validationErrors.mqStandingCharge %}
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.mqStandingCharge.message}}
+                        </p>
+                        {% endif %}
+
                         <label class="govuk-label govuk-input__label" for="mqStandingCharge">
                             Standing charge, per day
                         </label>
                         <div class="govuk-input__wrapper">
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input
-                                class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqTariffNoFlatFee %}govuk-input--error{% endif %}"
-                                id="mqStandingCharge" name="mqStandingCharge" type="number"
-                               >
+                                class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqStandingCharge %}govuk-input--error{% endif %}"
+                                id="mqStandingCharge" name="mqStandingCharge" type="text" value="{{data.mqStandingCharge}}">
                             <div class="govuk-input__suffix" aria-hidden="true">per day</div>
                         </div>
                     </div>
