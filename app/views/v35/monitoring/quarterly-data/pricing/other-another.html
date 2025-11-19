@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Would you like to add a other charges?
+Other charges on this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -52,7 +52,7 @@ Would you like to add a other charges?
         </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add further charges</span>
+        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -65,6 +65,11 @@ Would you like to add a other charges?
         {% endif %}
 
         {% if data.chargesEntered.length > 0 %}
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
+
         <table class="govuk-table">
             <caption class="govuk-table__caption govuk-table__caption--m">Added Other Charges</caption>
             <thead class="govuk-table__head">
@@ -135,6 +140,10 @@ Would you like to add a other charges?
 
         <p class="govuk-body">You told us that your organisation has multiple other charges on this heat network, but
             have not added any yet. You must add at least 2.</p>
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
         <p class="govuk-body"><a class="govuk-button" href="other-charge-amount.html">Add a new charge</a></p>
 
         {% endif %}

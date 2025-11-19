@@ -7265,7 +7265,7 @@ router.get("/" + version + "/monitoring/quarterly-data/tasklist", function (req,
 router.post("/" + version + "/monitoring/quarterly-data/tasklist", function (req, res) {
 	var mqvulnerabilitycomplete = req.session.data["mqvulnerabilitycomplete"];
 	var mqqualitycomplete = req.session.data["mqqualitycomplete"];
-    var mqpricingcomplete = req.session.data["mqpricingcomplete"];
+	var mqpricingcomplete = req.session.data["mqpricingcomplete"];
 	/*
     if (mqvulnerabilitycomplete != "true") {
         req.session.data.validationError = "true"
@@ -8741,6 +8741,7 @@ function addTariffEntry(sessionData) {
 	sessionData["mqflatFeestotal"] = null;
 	sessionData["mqUnitRate"] = null;
 	sessionData["mqStandingCharge"] = null;
+	sessionData["mqtariffAddAnother"] = null;
 }
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", function (req, res) {
@@ -8763,17 +8764,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 			anchor: "mqflatFeestotal",
 			message: "Enter the fee per day, in pounds ",
 		};
-	}
-
-	if (mqflatFees == "Yes" && isNaN(mqflatFeestotal)) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatFeestotal = {
-			anchor: "mqflatFeestotal",
-			message: "Enter the fee per day, in pounds",
-		};
-	}
-
-	if (mqflatFees == "Yes" && mqflatFeestotal.length > 40) {
+	} else if (mqflatFees == "Yes" && !/^[-]?\d+(\.\d+)?$/.test(mqflatFeestotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
@@ -8814,7 +8805,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 	const mqUnitRate = req.session.data["mqUnitRate"];
 	const mqStandingCharge = req.session.data["mqStandingCharge"];
 
-	if(!mqUnitRate){
+	if (!mqUnitRate) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqUnitRate = {
 			anchor: "mqUnitRate",
@@ -8833,8 +8824,8 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 			message: "Unit rate must be 18 characters or less",
 		};
 	}
-	
-	if(!mqStandingCharge){
+
+	if (!mqStandingCharge) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqStandingCharge = {
 			anchor: "mqStandingCharge",
@@ -8962,7 +8953,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFees = {
 			anchor: "mqflatConnectionFees",
-			message: "Select yes if your customers pay a flat rate for connection charges",
+			message: "Select yes if your customers pay a flat rate for connection charges ",
 		};
 	}
 
@@ -8970,23 +8961,13 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the connection charge, in pounds",
+			message: "Enter the fee per customer, in pounds ",
 		};
-	}
-
-	if (mqflatConnectionFees == "Yes" && isNaN(mqflatConnectionFeestotal)) {
+	} else if (mqflatConnectionFees == "Yes" && !/^[-]?\d+(\.\d+)?$/.test(mqflatConnectionFeestotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the connection charge, in pounds",
-		};
-	}
-
-	if (mqflatConnectionFees == "Yes" && mqflatConnectionFeestotal.length > 18) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatConnectionFeestotal = {
-			anchor: "mqflatConnectionFeestotal",
-			message: "connection charge must be 18 characters or less",
+			message: "Fee per customer must only include numbers and leading hyphens",
 		};
 	}
 
@@ -9064,7 +9045,19 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeesAdd = {
 			anchor: "mqflatConnectionFeesAdd",
-			message: "Enter the charge per customer",
+			message: "Enter how much the connection charge is, in pounds",
+		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(mqflatConnectionFeesAdd)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqflatConnectionFeesAdd = {
+			anchor: "mqflatConnectionFeesAdd",
+			message: "Connection charge amount must only include numbers and leading hyphens",
+		};
+	} else if (mqflatConnectionFeesAdd.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqflatConnectionFeesAdd = {
+			anchor: "mqflatConnectionFeesAdd",
+			message: "Connection charge amount must be 18 characters or less",
 		};
 	}
 
@@ -9075,7 +9068,9 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 	} else {
 		allFlatConnectionFees.push(parseFloat(mqflatConnectionFeesAdd).toFixed(2));
 		req.session.data["allFlatConnectionFees"] = allFlatConnectionFees;
-		req.session.data["mqflatConnectionFeesAdd"] = "";
+		req.session.data["mqflatConnectionFeesAdd"] = null;
+		req.session.data["mqConnectionAddAnother"] = null;
+
 
 		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 	}
@@ -9205,6 +9200,7 @@ function addChargesEntry(sessionData) {
 	sessionData["mqOtherChargeAmount"] = null;
 	sessionData["mqOtherChargeUnit"] = null;
 	sessionData["mqOtherChargeReason"] = null;
+	sessionData["mqChargesAddAnother"] = null;
 }
 
 // Monitoring - Quarterly data - Pricing  - Other Charge Amount
@@ -9222,6 +9218,18 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amo
 		req.session.data.validationErrors.mqOtherChargeAmount = {
 			anchor: "mqOtherChargeAmount",
 			message: "Enter how much the additional charge is, in pounds",
+		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(mqOtherChargeAmount)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeAmount = {
+			anchor: "mqOtherChargeAmount",
+			message: "Additional charge amount must only include numbers and leading hyphens",
+		};
+	} else if (mqOtherChargeAmount.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeAmount = {
+			anchor: "mqOtherChargeAmount",
+			message: "Additional charge amount must be 18 characters or less",
 		};
 	}
 
@@ -9323,6 +9331,18 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/total-domestic",
 			anchor: "mqtotalDomesticCosts",
 			message: "Enter the total charges across all domestic customers in this quarter, in pounds",
 		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(mqtotalDomesticCosts)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqtotalDomesticCosts = {
+			anchor: "mqtotalDomesticCosts",
+			message: "Total income for the previous financial year must only include numbers and leading hyphens",
+		};
+	} else if (mqtotalDomesticCosts.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqtotalDomesticCosts = {
+			anchor: "mqtotalDomesticCosts",
+			message: "Total income for the previous financial year must be 18 characters or less",
+		};
 	}
 
 	if (req.session.data.validationError == "true") {
@@ -9349,6 +9369,18 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/total-non-domest
 		req.session.data.validationErrors.totalNonDomesticCosts = {
 			anchor: "totalNonDomesticCosts",
 			message: "Enter the total charges across all non-domestic customers in this quarter, in pounds",
+		};
+	} else if (!/^[-]?\d+(\.\d+)?$/.test(totalNonDomesticCosts)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.totalNonDomesticCosts = {
+			anchor: "totalNonDomesticCosts",
+			message: "Total charges must only include numbers and leading hyphens",
+		};
+	} else if (totalNonDomesticCosts.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.totalNonDomesticCosts = {
+			anchor: "totalNonDomesticCosts",
+			message: "Total charges must be 18 characters or less",
 		};
 	}
 
