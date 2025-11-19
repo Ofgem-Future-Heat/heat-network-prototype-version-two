@@ -8000,7 +8000,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/initi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqqualityinitial = {
 			anchor: "mqqualityinitial",
-			message: "Select whether you have the correct information to continue",
+			message: "Select yes if you are able to provide this information",
 		};
 	}
 
@@ -8008,7 +8008,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/initi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqqualityinitialtotal = {
 			anchor: "mqqualityinitialtotal",
-			message: "Enter a reason why are you unable to provide this information?",
+			message: "Enter why you are unable to provide this information",
 		};
 	}
 
@@ -8016,7 +8016,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/initi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqqualityinitialtotal = {
 			anchor: "mqqualityinitialtotal",
-			message: "The reason why you can't complete must be 400 characters or less",
+			message: "The reason why should be 400 characters or less",
 		};
 	}
 
@@ -8058,14 +8058,14 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqdebtinitial = {
 			anchor: "mqdebtinitial",
-			message: "Select whether you have the correct information to continue",
+			message: "Select yes if you are able to provide this information",
 		};
 	}
 	if (mqdebtinitial == "No" && !mqdebtinitialtotal) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqdebtinitialtotal = {
 			anchor: "mqdebtinitialtotal",
-			message: "Enter a reason why are you unable to provide this information?",
+			message: "Enter why you are unable to provide this information",
 		};
 	}
 
@@ -8073,7 +8073,7 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqdebtinitialtotal = {
 			anchor: "mqdebtinitialtotal",
-			message: "The reason why you can't complete must be 400 characters or less",
+			message: "The reason why should be 400 characters or less",
 		};
 	}
 
@@ -8606,14 +8606,14 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/initial", functi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqpricinginitial = {
 			anchor: "mqpricinginitial",
-			message: "Select whether you have the correct information to continue",
+			message: "Select yes if you are able to provide this information",
 		};
 	}
 	if (mqpricinginitial == "No" && !mqpricinginitialtotal) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqpricinginitialtotal = {
 			anchor: "mqpricinginitialtotal",
-			message: "Enter a reason why are you unable to provide this information?",
+			message: "Enter why you are unable to provide this information",
 		};
 	}
 
@@ -8621,7 +8621,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/initial", functi
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqpricinginitialtotal = {
 			anchor: "mqpricinginitialtotal",
-			message: "The reason why you can't complete must be 400 characters or less",
+			message: "The reason why should be 400 characters or less",
 		};
 	}
 
@@ -8695,7 +8695,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/multiple-tariffs
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqmultipleTariffs = {
 			anchor: "mqmultipleTariffs",
-			message: "Tell us if there are multiple tariffs charged on this heat network",
+			message: "Select yes if there are multiple tariffs charged on this heat network",
 		};
 	}
 
@@ -8753,7 +8753,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFees = {
 			anchor: "mqflatFees",
-			message: "Select yes if this tariff has a flat fee",
+			message: "Select yes if this tariff has a flat fee based charging format",
 		};
 	}
 
@@ -8761,7 +8761,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "Tell us the fee per day",
+			message: "Enter the fee per day, in pounds ",
 		};
 	}
 
@@ -8769,7 +8769,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "Tell us the fee per day",
+			message: "Enter the fee per day, in pounds",
 		};
 	}
 
@@ -8777,7 +8777,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatFeestotal = {
 			anchor: "mqflatFeestotal",
-			message: "The fee per day must be 40 characters or less",
+			message: "Fee per day must only include numbers and leading hyphens",
 		};
 	}
 
@@ -8818,7 +8818,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqTariffNoFlatFee = {
 			anchor: "mqTariffNoFlatFee",
-			message: "Tell us the unit rate and standing charge on this heat network",
+			message: "Enter the unit rate and standing charge on this heat network",
 		};
 	}
 
@@ -8826,7 +8826,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/no-flat-fee", fu
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqTariffNoFlatFee = {
 			anchor: "mqTariffNoFlatFee",
-			message: "Tell us the unit rate and standing charge on this heat network",
+			message: "Enter the unit rate and standing charge on this heat network",
 		};
 	}
 
@@ -8860,7 +8860,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqtariffAddAnother = {
 			anchor: "mqtariffAddAnother",
-			message: "Tell us if you would like to add another tariff",
+			message: "Select yes if you would like to add another tariff",
 		};
 	}
 
@@ -8905,7 +8905,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-charg
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqconnectionCharge = {
 			anchor: "mqconnectionCharge",
-			message: "Tell us if your customers pay a connection charge on this heat network",
+			message: "Select yes if your customers pay a connection charge",
 		};
 	}
 
@@ -8938,7 +8938,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFees = {
 			anchor: "mqflatConnectionFees",
-			message: "Tell us if your customers pay a flat rate for your connection charge on this heat network",
+			message: "Select yes if your customers pay a flat rate for connection charges",
 		};
 	}
 
@@ -8946,7 +8946,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the £ per customer",
+			message: "Enter the connection charge, in pounds",
 		};
 	}
 
@@ -8954,15 +8954,15 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the £ per customer",
+			message: "Enter the connection charge, in pounds",
 		};
 	}
 
-	if (mqflatConnectionFees == "Yes" && mqflatConnectionFeestotal.length > 40) {
+	if (mqflatConnectionFees == "Yes" && mqflatConnectionFeestotal.length > 18) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "£ per customer must be 40 characters or less",
+			message: "connection charge must be 18 characters or less",
 		};
 	}
 
@@ -8994,7 +8994,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-anoth
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqConnectionAddAnother = {
 			anchor: "mqConnectionAddAnother",
-			message: "Tell us if you would like to add another connection charge",
+			message: "Select yes if you would like to add another connection charge",
 		};
 	}
 
@@ -9040,7 +9040,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeesAdd = {
 			anchor: "mqflatConnectionFeesAdd",
-			message: "Tell us the charge per customer",
+			message: "Enter the charge per customer",
 		};
 	}
 
@@ -9071,7 +9071,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-fees", fun
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqotherFees = {
 			anchor: "mqotherFees",
-			message: "Tell us if there are any other charges on this heat network",
+			message: "Select yes if your customers pay any other charges",
 		};
 	}
 
@@ -9102,7 +9102,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee",
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatOtherFees = {
 			anchor: "mqflatOtherFees",
-			message: "Tell us if your customers pay a flat rate for any other charges",
+			message: "Select yes if your customers pay a flat rate for any other charges",
 		};
 	}
 
@@ -9134,7 +9134,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-another", 
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqChargesAddAnother = {
 			anchor: "mqChargesAddAnother",
-			message: "Tell us if you would like to add another charge",
+			message: "Select yes if you would like to add another charge",
 		};
 	}
 
@@ -9197,7 +9197,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amo
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqOtherChargeAmount = {
 			anchor: "mqOtherChargeAmount",
-			message: "Tell us the charge",
+			message: "Enter how much the additional charge is, in pounds",
 		};
 	}
 
@@ -9225,7 +9225,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-uni
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqOtherChargeUnit = {
 			anchor: "mqOtherChargeUnit",
-			message: "Tell us the unit",
+			message: "Select the additional charge's unit",
 		};
 	}
 
@@ -9233,7 +9233,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-uni
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqOtherChargeUnitOtherValue = {
 			anchor: "mqOtherChargeUnitOtherValue",
-			message: "Tell us the other unit",
+			message: "Enter the additional charge's unit",
 		};
 	}
 
@@ -9264,7 +9264,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-rea
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqOtherChargeReason = {
 			anchor: "mqOtherChargeReason",
-			message: "Tell us what the other charge is for",
+			message: "Enter what the additional charge is for",
 		};
 	}
 
@@ -9297,7 +9297,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/total-domestic",
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqtotalDomesticCosts = {
 			anchor: "mqtotalDomesticCosts",
-			message: "Enter the total charge",
+			message: "Enter the total charges across all domestic customers in this quarter, in pounds",
 		};
 	}
 
@@ -9324,7 +9324,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/total-non-domest
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.totalNonDomesticCosts = {
 			anchor: "totalNonDomesticCosts",
-			message: "Enter the total charge",
+			message: "Enter the total charges across all non-domestic customers in this quarter, in pounds",
 		};
 	}
 
