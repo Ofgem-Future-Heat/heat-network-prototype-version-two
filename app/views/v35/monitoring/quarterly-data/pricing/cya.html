@@ -129,7 +129,7 @@
             {% if data.mqconnectionCharge == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you charge the same flat rate for your connection fees
+                    Do your customers pay a flat rate for connection charges
                 </dt>
 
                 {% if data.mqflatConnectionFees == "Yes" %}
@@ -171,7 +171,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you charge your customers other fees
+                    Do your customers pay any other charges
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.mqotherFees}}
@@ -189,7 +189,6 @@
                 {% if data.mqflatOtherFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
                     {% for charge in data.chargesEntered %}
-                    <strong>Flat Fee</strong>
                     <p class="govuk-body">
                         £{{charge.amount}} {{charge.unit}}
                         <br>

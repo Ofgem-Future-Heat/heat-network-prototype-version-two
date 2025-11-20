@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-What were the total charges across all non-domestic customers 
+What were the total charges across all non-domestic customers?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -76,7 +76,7 @@ What were the total charges across all non-domestic customers 
 
                         <input
                             class="govuk-input govuk-input--width-5 {% if data.validationErrors.totalNonDomesticCosts %}govuk-input--error{% endif %}"
-                            id="totalNonDomesticCosts" name="totalNonDomesticCosts" type="number"
+                            id="totalNonDomesticCosts" name="totalNonDomesticCosts" type="text"
                             value="{{data.totalNonDomesticCosts}}">
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Would you like to add a tariff?
+Tariffs on this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -50,7 +50,7 @@ Would you like to add a tariff?
         </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add further tariffs</span>
+        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -63,9 +63,12 @@ Would you like to add a tariff?
         {% endif %}
 
         {% if data.tariffsEntered.length > 0 %}
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
 
         <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">Added Rates</caption>
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
@@ -80,11 +83,11 @@ Would you like to add a tariff?
                     <th scope="row" class="govuk-table__header">Tariff {{loop.index}}</th>
 
                     {% if tariff.mqflatFees == "Yes" %}
-                    <td class="govuk-table__cell">Flat Fee</td>
+                    <td class="govuk-table__cell">Flat fee</td>
                     <td class="govuk-table__cell">£{{tariff.mqflatFeestotal}}</td>
                     {% else %}
                     <td class="govuk-table__cell">
-                        Unit Rate<br>Standing Charge
+                        Unit rate<br>Standing charge
                     </td>
                     <td class="govuk-table__cell">
                         £{{tariff.mqUnitRate}} per kWh<br>£{{tariff.mqStandingCharge}} per day
@@ -110,7 +113,7 @@ Would you like to add a tariff?
 
         <form method="post" novalidate>
             <div
-                class="govuk-form-group {% if data.validationErrors.tariffAddAnother %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.mqtariffAddAnother %}govuk-form-group--error{% endif %}">
                 <h2 class="govuk-heading-m">Would you like to add another tariff?</h2>
 
                 {% if data.validationErrors.mqtariffAddAnother %}
@@ -143,6 +146,10 @@ Would you like to add a tariff?
         {% else %}
         <p class="govuk-body">You told us that your organisation has multiple tariffs on this heat network, but have not
             added any yet. You must add at least 2.</p>
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
         <p class="govuk-body"><a class="govuk-button" href="flat-fee">Add a tariff</a></p>
         {% endif %}
 

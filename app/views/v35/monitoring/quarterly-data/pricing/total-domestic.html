@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-What were the total charges across all domestic customers in this quarter
+What were the total charges across all domestic customers in this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -76,7 +76,7 @@ What were the total charges across all domestic customers in this quarter
 
                         <input
                             class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqtotalDomesticCosts %}govuk-input--error{% endif %}"
-                            id="mqtotalDomesticCosts" name="mqtotalDomesticCosts" type="number"
+                            id="mqtotalDomesticCosts" name="mqtotalDomesticCosts" type="text"
                             value="{{data.mqtotalDomesticCosts}}">
                     </div>
                 </div>

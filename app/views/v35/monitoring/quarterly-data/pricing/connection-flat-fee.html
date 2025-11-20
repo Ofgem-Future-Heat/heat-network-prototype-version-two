@@ -98,12 +98,12 @@ Do your customers pay a flat rate for connection charges?
                                 </p>
                                 {% endif %}
                                 <label class="govuk-label" for="mqflatConnectionFeestotal">
-                                    Connection charge, per customer
+                                    Connection charge
                                 </label>
                                 <div class="govuk-input__wrapper">
                                     <div class="govuk-input__prefix" aria-hidden="true">£</div>
                                     <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeestotal %}govuk-input--error{% endif %}" id="mqflatConnectionFeestotal"
-                                        name="mqflatConnectionFeestotal" type="number"
+                                        name="mqflatConnectionFeestotal" type="text"
                                         value="{{data.mqflatConnectionFeestotal}}">
                                     <div class="govuk-input__suffix" aria-hidden="true">per customer</div>
                                 </div>
