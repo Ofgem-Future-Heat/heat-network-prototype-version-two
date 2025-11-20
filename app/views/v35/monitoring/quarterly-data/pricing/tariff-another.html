@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Would you like to add a tariff?
+Tariffs on this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -50,7 +50,7 @@ Would you like to add a tariff?
         </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add further tariffs</span>
+        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -69,7 +69,6 @@ Would you like to add a tariff?
         </div>
 
         <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">Added Rates</caption>
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
@@ -84,11 +83,11 @@ Would you like to add a tariff?
                     <th scope="row" class="govuk-table__header">Tariff {{loop.index}}</th>
 
                     {% if tariff.mqflatFees == "Yes" %}
-                    <td class="govuk-table__cell">Flat Fee</td>
+                    <td class="govuk-table__cell">Flat fee</td>
                     <td class="govuk-table__cell">£{{tariff.mqflatFeestotal}}</td>
                     {% else %}
                     <td class="govuk-table__cell">
-                        Unit Rate<br>Standing Charge
+                        Unit rate<br>Standing charge
                     </td>
                     <td class="govuk-table__cell">
                         £{{tariff.mqUnitRate}} per kWh<br>£{{tariff.mqStandingCharge}} per day

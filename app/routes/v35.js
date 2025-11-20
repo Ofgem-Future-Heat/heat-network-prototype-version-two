@@ -8961,13 +8961,13 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the fee per customer, in pounds ",
+			message: "Enter the connection charge per customer, in pounds",
 		};
 	} else if (mqflatConnectionFees == "Yes" && !/^[-]?\d+(\.\d+)?$/.test(mqflatConnectionFeestotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFeestotal = {
 			anchor: "mqflatConnectionFeestotal",
-			message: "Fee per customer must only include numbers and leading hyphens",
+			message: "Charge per customer must only include numbers and leading hyphens",
 		};
 	}
 
