@@ -1,7 +1,10 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "230" %}
+{% set cdnumber = "325" %}
 
-{% set title = "Does the heat network meet the definition of a 'shared ground loop'?" %}
+{% set title %} 
+Are these individuals the heat network's only consumers?
+{% endset %}
+
 {% set _inError = data.validationError == "true" %}
 
 
@@ -13,15 +16,14 @@
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">  
+    <div class="govuk-grid-column-full">
 
         {% include data.version + "/_partials/logout.html" %}
-
         {{
-        govukBackLink ({
-        text: 'Back',
-        href: 'javascript:history.back()'
-        })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
 
     </div>
@@ -55,7 +57,7 @@
         <form method="POST" novalidate>
 
             <div
-                class="govuk-form-group {% if data.validationErrors.introgroundloop %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.sglPrivate %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -66,28 +68,24 @@
                         </h1>
                     </legend>
 
-                    <p class="gouk-body">This is a heat network that relies entirely on closed ground or water loops for heat generation, in combination with individual consumer heat pumps.</p>
-
-                    <p class="govuk-body">If the heat network relies on other heat sources, for example an ambient loop or electrical pump, select ‘No’.</p>
-
-                    {% if data.validationErrors.introgroundloop %}
+                    {% if data.validationErrors.sglPrivate %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.introgroundloop.message}}
+                        {{data.validationErrors.sglPrivate.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introgroundloop" name="introgroundloop" type="radio"
-                                value="Yes" {% if data.introgroundloop=="Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introgroundloop">
+                            <input class="govuk-radios__input" id="sglPrivate" name="sglPrivate"
+                                type="radio" value="Yes" {% if data.sglPrivate=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sglPrivate">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="introgroundloop-2" name="introgroundloop"
-                                type="radio" value="No" {% if data.introgroundloop=="No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="introgroundloop-2">
+                            <input class="govuk-radios__input" id="sglPrivate-2" name="sglPrivate"
+                                type="radio" value="No" {% if data.sglPrivate=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sglPrivate-2">
                                 No
                             </label>
                         </div>
@@ -98,7 +96,7 @@
             <div class="govuk-button-group">
                 {{
                     govukButton ({
-                        html: 'Continue'
+                    html: 'Continue'
                     })
                 }}
                 <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}"
