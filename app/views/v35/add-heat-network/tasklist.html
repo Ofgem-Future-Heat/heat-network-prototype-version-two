@@ -58,8 +58,13 @@
             <span class="govuk-caption-l">Add a heat network</span>
             <h1 class="govuk-heading-l">
                 {{title}}<br />
-                {% if data.introcommunal == "Yes" %}<strong class="govuk-tag govuk-tag--turquoise hn-tag  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal network</strong>{% else %}<strong class="govuk-tag hn-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District network</strong>{% endif %}            
-                <strong class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Complete' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong>
+                {% if data.introcommunal == "Yes" %}<strong
+                    class="govuk-tag govuk-tag--turquoise hn-tag  govuk-!-margin-top-1 govuk-!-margin-bottom-1">Communal
+                    network</strong>{% else %}<strong
+                    class="govuk-tag hn-tag govuk-tag--light-blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">District
+                    network</strong>{% endif %}
+                <strong
+                    class="govuk-tag {% if data.HNStatus == 'Not started' %}govuk-tag--red{% endif %} {% if data.HNStatus == 'Complete' %}govuk-tag--green{% endif %} govuk-!-margin-top-1">{{data.HNStatus}}</strong>
             </h1>
 
             </h1>
@@ -69,38 +74,46 @@
             <div class="govuk-inset-text">
                 {% if (data.variantname != "supplier" and data.variantname != "supplier2") %}
 
-                <p class="govuk-body">You’re registering a <strong>district heat network</strong> {% if data.role  == "Operator" or data.role  == "Operator and supplier" %}where you operate{% else %}that you supply to. This heat network contains{% endif %}:</p>
+                <p class="govuk-body">You’re registering a <strong>district heat network</strong>
+                    {% if data.role  == "Operator" or data.role  == "Operator and supplier" %}where you
+                    operate{% else %}that you supply to. This heat network contains{% endif %}:</p>
                 {% else %}
                 <p class="govuk-body">This is a <strong>district heat network</strong> containing:</p>
                 {% endif %}
 
-                <ul class="govuk-list govuk-list--bullet"> 
-                    {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}} </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a single consumer{% else %}connection to a building with single premises and a single consumer{% endif %}</li>{% endif %}
-                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}} </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
+                <ul class="govuk-list govuk-list--bullet">
+                    {% if data.introhnbuildings != 0 %}<li><strong>{{data.introhnbuildings}}
+                        </strong>{% if data.introhnbuildings > 1 %}connections to single premises buildings, each with a
+                        single consumer{% else %}connection to a building with single premises and a single
+                        consumer{% endif %}</li>{% endif %}
+                    {% if data.introenergycentre == "Yes" %} <li><strong>{{data.introenergycentrehowmany}}
+                        </strong>energy centre{% if data.introenergycentrehowmany > 1 %}s{% endif %}</li> {% endif %}
                 </ul>
-    
-    
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                  <span class="govuk-details__summary-text">
-                    View your heat network diagram
-                  </span>
-                </summary>
-                <div class="govuk-details__text">
-                    {% set HN %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif%}{% else %}0{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
-                    <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px" class="govuk-!-margin-bottom-3" />    
-                                </div>
-              </details>
+
+
+                <details class="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                            View your heat network diagram
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        {% set HN %}{% if data.introgroundloop == "Yes" %}HNSGL{% else %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif %}{% else %}0{% endif %}{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
+                        <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px"
+                            class="govuk-!-margin-bottom-3" />
+                    </div>
+                </details>
             </div>
 
-        {% endif %}
+            {% endif %}
 
 
             <ul class="govuk-task-list">
                 {% if data.role  == "Operator" or data.role  == "Operator and supplier" %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="introduction/cya" aria-describedby="company-details-1-status">Introduction</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="introduction/cya"
+                            aria-describedby="company-details-1-status">Introduction</a>
                         {% if data.validationErrors.introcomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -120,16 +133,18 @@
                 </li>
                 {% endif %}
 
-                {% if (data.role  == "Operator" or data.role  == "Operator and supplier") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentre == "Yes" )) %}  
-                
-
+                {% if (data.role  == "Operator" or data.role  == "Operator and supplier") and (data.introcommunal != "Yes" or (data.introcommunal == "Yes" and data.introenergycentre == "Yes" )) and (data.introgroundloop != "Yes") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.eccomplete %}govuk-form-group--error{% endif %}">
+                    <div
+                        class="govuk-task-list__name-and-hint {% if data.validationErrors.eccomplete %}govuk-form-group--error{% endif %}">
                         {% if data.eccomplete == "true" %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="energycentre/cya" aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
-                    {% else %}
-                    
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="energycentre/intro" aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="energycentre/cya"
+                            aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
+                        {% else %}
+
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            href="energycentre/intro"
+                            aria-describedby="company-details-3-hint company-details-3-status">Technical information</a>
                         {% endif %}
                         {% if data.validationErrors.eccomplete %}
                         <p class="govuk-error-message govuk-!-margin-top-1">
@@ -151,13 +166,20 @@
                 </li>
                 {% endif %}
 
-                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and ((data.introhnbuildings > 0) or (data.introcommunal == "Yes")) and (data.introselfsupply != "Yes") %}
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and ((data.introhnbuildings > 0) or (data.introcommunal == "Yes")) and (data.introselfsupply != "Yes") and (data.sglCategory != "Privately Owned") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint  {% if data.validationErrors.buildingcomplete %}govuk-form-group--error{% endif %}">
+                    <div
+                        class="govuk-task-list__name-and-hint  {% if data.validationErrors.buildingcomplete %}govuk-form-group--error{% endif %}">
                         {% if data.buildingcomplete == "true" %}
-                            <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="buildingsandconsumers/cya" aria-describedby="company-details-3-hint company-details-3-status">Customers and metering</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            href="buildingsandconsumers/cya"
+                            aria-describedby="company-details-3-hint company-details-3-status">Customers and
+                            metering</a>
                         {% else %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="buildingsandconsumers/intro" aria-describedby="company-details-3-hint company-details-3-status">Customers and metering</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            href="buildingsandconsumers/intro"
+                            aria-describedby="company-details-3-hint company-details-3-status">Customers and
+                            metering</a>
 
                         {% endif %}
                         {% if data.validationErrors.buildingcomplete %}
@@ -179,20 +201,16 @@
                 </li>
                 {% endif %}
 
-
-
-
-              
-
-                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") and (data.consumertypeindustrial != "Yes") %}
-                
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and (data.introhnbuildings > 0 or data.introcommunal == "Yes") and (data.consumertypeindustrial != "Yes") and (data.sglCategory != "Privately Owned") and (data.sglCategory != "Non-Utility") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
+                    <div
+                        class="govuk-task-list__name-and-hint {% if data.validationErrors.billingcomplete %}govuk-form-group--error{% endif %}">
                         {% if data.billingcomplete == "true" %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/cya" aria-describedby="company-details-5-status">Billing</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/cya"
+                            aria-describedby="company-details-5-status">Billing</a>
                         {% else %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/intro" aria-describedby="company-details-5-status">Billing</a
->
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="billing/intro"
+                            aria-describedby="company-details-5-status">Billing</a>
                         {% endif %}
                         {% if data.validationErrors.billingcomplete %}
                         <p class="govuk-error-message govuk-!-margin-top-1">
@@ -213,16 +231,20 @@
                 </li>
                 {% endif %}
 
-                
-                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and data.buildingcomplete == "true" and (data.customersdomestic == "Yes" or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") %}
 
+                {% if (data.role == "Energy supplier" or data.role  == "Operator and supplier") and data.buildingcomplete == "true" and (data.customersdomestic == "Yes" or data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes" or data.smallenterprises == "Yes") and (data.consumertypeindustrial != "Yes") and (data.sglCategory != "Privately Owned") %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">
+                    <div
+                        class="govuk-task-list__name-and-hint {% if data.validationErrors.protectionscomplete %}govuk-form-group--error{% endif %}">
                         {% if data.protectionscomplete == "true" %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="consumerprotections/cya" aria-describedby="company-details-8-status">Consumer protections</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            href="consumerprotections/cya" aria-describedby="company-details-8-status">Consumer
+                            protections</a>
 
                         {% else %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="consumerprotections/intro" aria-describedby="company-details-8-status">Consumer protections</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            href="consumerprotections/intro" aria-describedby="company-details-8-status">Consumer
+                            protections</a>
                         {% endif %}
                         {% if data.validationErrors.protectionscomplete %}
                         <p class="govuk-error-message govuk-!-margin-top-1">
@@ -232,7 +254,7 @@
                         {% endif %}
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-8-status">
-                      {% if data.protectionscomplete == "true" %}
+                        {% if data.protectionscomplete == "true" %}
                         Completed
                         {% else %}
                         <strong class="govuk-tag govuk-tag--blue">
@@ -244,23 +266,23 @@
                 </li>
                 {% endif %}
 
-
-
-
                 {% if (data.role  == "Operator" or (data.role  == "Operator and supplier" and data.introsuppliers == "No")) %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
-                    <div class="govuk-task-list__name-and-hint {% if data.validationErrors.suppliercomplete %}govuk-form-group--error{% endif %}">
+                    <div
+                        class="govuk-task-list__name-and-hint {% if data.validationErrors.suppliercomplete %}govuk-form-group--error{% endif %}">
                         {% if data.suppliercomplete == "true" %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/cya" aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
-                    {% else %}
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/intro" aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
-                    {% endif %}
-                    {% if data.validationErrors.suppliercomplete %}
-                    <p class="govuk-error-message govuk-!-margin-top-1">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.suppliercomplete.message}}
-                    </p>
-                    {% endif %}
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/cya"
+                            aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
+                        {% else %}
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" href="suppliers/intro"
+                            aria-describedby="company-details-3-hint company-details-3-status">Other suppliers</a>
+                        {% endif %}
+                        {% if data.validationErrors.suppliercomplete %}
+                        <p class="govuk-error-message govuk-!-margin-top-1">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.suppliercomplete.message}}
+                        </p>
+                        {% endif %}
 
                     </div>
                     <div class="govuk-task-list__status hn-task-list__status" id="company-details-4-status">
@@ -284,21 +306,23 @@
 
         <form method="POST" novalidate>
             <div class="govuk-button-group">
-                {% if data.variantname != "nopermissions" %} 
+                {% if data.variantname != "nopermissions" %}
                 {{
                     govukButton ({
                         html: 'Submit'
                     })
                 }}
-                
-                {% else %}
-                    <p class="govuk-body">You do not have permission to submit this heat network. You need to ask someone with permission to submit it instead.</p>
-                    {% endif %}
-                    {% if data.role != "Energy supplier" %}
 
-                    <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}" class="govuk-link text-red">Remove this heat network</a>
-                    {% endif %}
-                </div>
+                {% else %}
+                <p class="govuk-body">You do not have permission to submit this heat network. You need to ask someone
+                    with permission to submit it instead.</p>
+                {% endif %}
+                {% if data.role != "Energy supplier" %}
+
+                <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}"
+                    class="govuk-link text-red">Remove this heat network</a>
+                {% endif %}
+            </div>
 
         </form>
 

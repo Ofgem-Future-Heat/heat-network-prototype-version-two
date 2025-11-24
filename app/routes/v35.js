@@ -3491,13 +3491,13 @@ router.get("/" + version + "/add-heat-network/introduction/sgl-individual", func
 });
 
 router.post("/" + version + "/add-heat-network/introduction/sgl-individual", function (req, res) {
-	var sglindividual = req.session.data["sglIndividuals"];
+	var sglIndividual = req.session.data["sglIndividual"];
 
-	if (!sglindividual) {
+	if (!sglIndividual) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.sglIndividuals = {
-			anchor: "sglIndividuals",
-			message: "Select yes if the shared ground loop is owned by individuals",
+		req.session.data.validationErrors.sglIndividual = {
+			anchor: "sglIndividual",
+			message: "Select yes if the shared ground loop is owned by private individuals",
 		};
 	}
 
@@ -3506,13 +3506,12 @@ router.post("/" + version + "/add-heat-network/introduction/sgl-individual", fun
 			data: req.session.data,
 		});
 	} else {
-		console.log("sglindividual:", sglindividual);
-		if (sglindividual == "Yes") {
+		console.log("sglIndividual:", sglIndividual);
+		if (sglIndividual == "Yes") {
 			res.redirect("/" + version + "/add-heat-network/introduction/sgl-responsible");
 		} else {
 			res.redirect("/" + version + "/add-heat-network/introduction/sgl-fixedfee");
 		}
-		
 	}
 });
 
@@ -3716,6 +3715,7 @@ router.get("/" + version + "/add-heat-network/introduction/communal", function (
 
 router.post("/" + version + "/add-heat-network/introduction/communal", function (req, res) {
 	var introcommunal = req.session.data["introcommunal"];
+	var introgroundloop = req.session.data["introgroundloop"];
 
 	if (!introcommunal) {
 		req.session.data.validationError = "true";
@@ -3733,8 +3733,53 @@ router.post("/" + version + "/add-heat-network/introduction/communal", function 
 		if (introcommunal == "Yes") {
 			res.redirect("/" + version + "/add-heat-network/introduction/address");
 		} else {
-			res.redirect("/" + version + "/add-heat-network/introduction/buildingstotal");
+			if (introgroundloop == "Yes") {
+				res.redirect("/" + version + "/add-heat-network/introduction/sgl-location");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/introduction/buildingstotal");
+			}
 		}
+	}
+});
+
+function validateUKPostcode(postcode) {
+	const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
+	return postcodeRegex.test(postcode);
+}
+
+// Introduction - SGL Location
+router.get("/" + version + "/add-heat-network/introduction/sgl-location", function (req, res) {
+	res.render("/" + version + "/add-heat-network/introduction/sgl-location", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/add-heat-network/introduction/sgl-location", function (req, res) {
+	var sglLocation = req.session.data["sglLocation"].replace(/^(.*)(\d)/, "$1 $2").replace(" ", "");
+
+	if (!sglLocation) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.sglLocation = {
+			anchor: "sglLocation",
+			message: "Enter a postcode",
+		};
+	}
+
+	if (!validateUKPostcode(sglLocation)) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.sglLocation = {
+			anchor: "sglLocation",
+			message: "Enter a valid postcode",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/add-heat-network/introduction/sgl-location", {
+			data: req.session.data,
+		});
+	} else {
+		clearvalidation(req);
+		res.redirect("/" + version + "/add-heat-network/introduction/buildingstotal");
 	}
 });
 
@@ -3754,11 +3799,6 @@ router.post("/" + version + "/add-heat-network/introduction/address", function (
 			anchor: "buildingaddressPostcode",
 			message: "Enter a postcode",
 		};
-	}
-
-	function validateUKPostcode(postcode) {
-		const postcodeRegex = /^(GIR 0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|([A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))))\s?[0-9][ABD-HJLNP-UW-Z]{2})$/i;
-		return postcodeRegex.test(postcode);
 	}
 
 	if (!validateUKPostcode(userpostcode)) {
@@ -3894,10 +3934,10 @@ router.post("/" + version + "/add-heat-network/introduction/similarcommunal", fu
 
 	if (introgroundloop == "Yes") {
 		console.log("role: ", role);
-		if (role === "Operator and supplier") {
-			res.redirect("/" + version + "/add-heat-network/introduction/suppliers");
-		} else {
+		if (role === "Operator") {
 			res.redirect("/" + version + "/add-heat-network/introduction/name");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/introduction/suppliers");
 		}
 	} else {
 		res.redirect("/" + version + "/add-heat-network/introduction/energycentre");
@@ -4127,39 +4167,25 @@ router.post("/" + version + "/add-heat-network/introduction/communaloperate", fu
 			data: req.session.data,
 		});
 	} else {
-		console.log("introgroundloop: ", introgroundloop);
-		if (introcommunaloperate == "No") {
+		if (introcommunaloperate === "No") {
 			req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"];
-
-			if (introgroundloop == "Yes") {
-				res.redirect("/" + version + "/add-heat-network/introduction/summary");
-			} else {
-				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-			}
+		} else if (introbuildingshowmany === 1) {
+			// if (role == "Operator") {
+			// 		res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+			// 	}
+			req.session.data["introhnbuildings"] = 0;
 		} else {
-			if (introbuildingshowmany == 1) {
-				if (role == "Operator") {
-					res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-				} else {
-					req.session.data["introhnbuildings"] = 0;
-					if (introgroundloop == "Yes") {
-						res.redirect("/" + version + "/add-heat-network/introduction/summary");
-					} else {
-						res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-					}
-				}
-			} else {
-				if (role == "Operator" && introbuildingshowmany == introcommunaloperatehowmany) {
-					res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-				} else {
-					req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"] - introcommunaloperatehowmany;
-					if (introgroundloop == "Yes") {
-						res.redirect("/" + version + "/add-heat-network/introduction/summary");
-					} else {
-						res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-					}
-				}
-			}
+			//if (role == "Operator" && introbuildingshowmany == introcommunaloperatehowmany) {
+			//		res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+			//	}
+
+			req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"] - introcommunaloperatehowmany;
+		}
+
+		if (introgroundloop == "Yes") {
+			res.redirect("/" + version + "/add-heat-network/introduction/summary");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
 		}
 	}
 });
@@ -4251,7 +4277,7 @@ router.post("/" + version + "/add-heat-network/introduction/energycentreoperate"
 	}
 });
 
-// Introduction - introbuildingstotal
+// Introduction - introbuildings - total
 router.get("/" + version + "/add-heat-network/introduction/buildingstotal", function (req, res) {
 	res.render("/" + version + "/add-heat-network/introduction/buildingstotal", {
 		data: req.session.data,
@@ -4278,24 +4304,22 @@ router.post("/" + version + "/add-heat-network/introduction/buildingstotal", fun
 	} else {
 		if (introbuildingstotal == 0) {
 			if (introgroundloop == "Yes") {
-				res.redirect("/" + version + "/add-heat-network/introduction/summary");
+				res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=226");
 			} else {
-				if (role == "Operator") {
-					res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-				} else {
-					req.session.data["introhnbuildings"] = 0;
-					res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-				}
+				// if (role == "Operator") {
+				// 	res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+				// } else {
+				req.session.data["introhnbuildings"] = 0;
+				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+				// }
 			}
-
-			// ADD LOGIC HERE ASH
 		} else {
 			res.redirect("/" + version + "/add-heat-network/introduction/buildings");
 		}
 	}
 });
 
-// Introduction - introbuildings
+// Introduction - introbuildings - responsible buildings
 router.get("/" + version + "/add-heat-network/introduction/buildings", function (req, res) {
 	res.render("/" + version + "/add-heat-network/introduction/buildings", {
 		data: req.session.data,
@@ -4335,29 +4359,28 @@ router.post("/" + version + "/add-heat-network/introduction/buildings", function
 		});
 	} else {
 		if (introbuildingshowmany == "0") {
-			if (role == "Operator") {
-				res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+			// if (role == "Operator") {
+			// res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+			// } else {
+
+			if (introgroundloop == "Yes") {
+				res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=226");
 			} else {
+				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+			}
+			// }
+		} else if (introbuildings == "No") {
+			if (introbuildingstotal == 1) {
+				// if (role == "Operator") {
+				// res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
+				// } else {
+				req.session.data["introhnbuildings"] = 0;
 				if (introgroundloop == "Yes") {
 					res.redirect("/" + version + "/add-heat-network/introduction/summary");
 				} else {
 					res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
 				}
-			}
-		}
-
-		if (introbuildings == "No") {
-			if (introbuildingstotal == 1) {
-				if (role == "Operator") {
-					res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-				} else {
-					if (introgroundloop == "Yes") {
-						res.redirect("/" + version + "/add-heat-network/introduction/summary");
-					} else {
-						req.session.data["introhnbuildings"] = 0;
-						res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-					}
-				}
+				// }
 			} else {
 				res.redirect("/" + version + "/add-heat-network/introduction/communaloperate");
 			}
@@ -4377,10 +4400,20 @@ router.get("/" + version + "/add-heat-network/introduction/summary", function (r
 
 router.post("/" + version + "/add-heat-network/introduction/summary", function (req, res) {
 	var introgroundloop = req.session.data["introgroundloop"];
-	console.log("introgroundloop: ", introgroundloop);
+	var sglCategory = req.session.data["sglCategory"];
+	var buildings = req.session.data["introhnbuildings"];
+	var role = req.session.data["role"];
 
 	if (introgroundloop == "Yes") {
-		res.redirect("/" + version + "/add-heat-network/introduction/selfsupply");
+		if (sglCategory == "Non-Utility") {
+			res.redirect("/" + version + "/add-heat-network/introduction/selfsupply");
+		} else {
+			if (role == "Operator" || buildings == 1) {
+				res.redirect("/" + version + "/add-heat-network/introduction/name");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/introduction/suppliers");
+			}
+		}
 	} else {
 		res.redirect("/" + version + "/add-heat-network/introduction/pipework");
 	}
@@ -4474,6 +4507,11 @@ router.post("/" + version + "/add-heat-network/introduction/selfsupply", functio
 			data: req.session.data,
 		});
 	} else {
+		console.log('introselfsupply: ', introselfsupply);
+		console.log('role: ', role);
+		console.log('buildings: ', buildings);
+		
+
 		if (introselfsupply == "Yes" || (introselfsupply == "No" && role == "Operator") || (introselfsupply == "No" && buildings <= 1)) {
 			if (introgroundloop == "Yes") {
 				res.redirect("/" + version + "/add-heat-network/introduction/name");
@@ -5780,6 +5818,9 @@ router.post("/" + version + "/add-heat-network/buildingsandconsumers/nondomestic
 	var customersnondomestic = req.session.data["customersnondomestic"];
 	var customersnondomestictotal = req.session.data["customersnondomestictotal"];
 
+	const introgroundloop = req.session.data["introgroundloop"];
+	const sglCategory = req.session.data["sglCategory"];
+
 	if (!customersnondomestic) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.customersnondomestic = {
@@ -5818,13 +5859,17 @@ router.post("/" + version + "/add-heat-network/buildingsandconsumers/nondomestic
 		});
 	} else {
 		if (customersnondomestic == "Yes") {
-			if (mqcustomersdomestic == "Yes") {
+			if (introgroundloop == "Yes") {
 				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/smallenterprises");
 			} else {
 				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/industrial");
 			}
 		} else {
-			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+			if (sglCategory == "Non-Utility") {
+				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+			}
 		}
 	}
 });
@@ -5970,6 +6015,7 @@ router.get("/" + version + "/add-heat-network/buildingsandconsumers/microbusines
 router.post("/" + version + "/add-heat-network/buildingsandconsumers/microbusinesses", function (req, res) {
 	var consumertypemicrobusiness = req.session.data["consumertypemicrobusiness"];
 	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
+	const sglCategory = req.session.data["sglCategory"];
 
 	if (!consumertypemicrobusiness) {
 		req.session.data.validationError = "true";
@@ -5984,10 +6030,14 @@ router.post("/" + version + "/add-heat-network/buildingsandconsumers/microbusine
 			data: req.session.data,
 		});
 	} else {
-		if (mqcustomersdomestic == "Yes") {
-			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+		if (sglCategory != "Non-Utility") {
+			if (mqcustomersdomestic == "Yes") {
+				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/agent");
+			}
 		} else {
-			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/agent");
+			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
 		}
 	}
 });
@@ -6293,6 +6343,7 @@ router.post("/" + version + "/add-heat-network/consumerprotections/psr", functio
 	var consumerpsr = req.session.data["consumerpsr"];
 	var consumertypemicrobusiness = req.session.data["consumertypemicrobusiness"];
 	var smallmediumbusinesses = req.session.data["smallmediumbusinesses"];
+	const sglCategory = req.session.data["sglCategory"];
 
 	if (!consumerpsr) {
 		req.session.data.validationError = "true";
@@ -6307,10 +6358,14 @@ router.post("/" + version + "/add-heat-network/consumerprotections/psr", functio
 			data: req.session.data,
 		});
 	} else {
-		if ((consumertypemicrobusiness == "Yes") | (smallmediumbusinesses == "Yes")) {
+		if (consumertypemicrobusiness == "Yes" || smallmediumbusinesses == "Yes") {
 			res.redirect("/" + version + "/add-heat-network/consumerprotections/confirm");
 		} else {
-			res.redirect("/" + version + "/add-heat-network/consumerprotections/difficulties");
+			if (sglCategory == "Non-Utility") {
+				res.redirect("/" + version + "/add-heat-network/consumerprotections/cya");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/consumerprotections/difficulties");
+			}
 		}
 	}
 });
@@ -6323,6 +6378,7 @@ router.get("/" + version + "/add-heat-network/consumerprotections/confirm", func
 
 router.post("/" + version + "/add-heat-network/consumerprotections/confirm", function (req, res) {
 	var consumerconfirm = req.session.data["consumerconfirm"];
+	const sglCategory = req.session.data["sglCategory"];
 
 	if (!consumerconfirm) {
 		req.session.data.validationError = "true";
@@ -6337,7 +6393,11 @@ router.post("/" + version + "/add-heat-network/consumerprotections/confirm", fun
 			data: req.session.data,
 		});
 	} else {
-		res.redirect("/" + version + "/add-heat-network/consumerprotections/difficulties");
+		if (sglCategory == "Non-Utility") {
+			res.redirect("/" + version + "/add-heat-network/consumerprotections/cya");
+		} else {
+			res.redirect("/" + version + "/add-heat-network/consumerprotections/difficulties");
+		}
 	}
 });
 

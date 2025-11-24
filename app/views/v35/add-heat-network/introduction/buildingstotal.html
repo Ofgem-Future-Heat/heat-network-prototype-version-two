@@ -72,14 +72,22 @@ How many buildings does this heat network provide heating, cooling or hot water 
                         <label for="introbuildingshowmany">
                             {{title}}
                         </label>
-
                     </h1>
 
-                    <p class="govuk-body">If a single dwelling contains multiple shared ground loops, you can cover them all within one registration.</p>
-                    <p class="govuk-body">You should count a communal block as one building. You’ll need to do a separate registration for each communal network.</p>
+                    {% if data.introgroundloop == "Yes" %}
+                    <p class="govuk-body">If a single dwelling contains multiple shared ground loops, you can cover them
+                        all within one registration.</p>
+                    <p class="govuk-body">You should count a communal block as one building. You’ll need to do a
+                        separate registration for each communal network.</p>
                     <p class="govuk-body">If the heat network does not provide heating, cooling or hot water to any
                         buildings, enter '0'.</p>
 
+                    {% else %}
+                    <p class="govuk-body">You should count a communal block as one building.</p>
+                    <p class="govuk-body">If the heat network does not provide heating, cooling or hot water to any
+                        buildings, enter '0'.</p>
+
+                    {% endif %}
 
                     {% if data.validationErrors.introbuildingstotal %}
                     <p class="govuk-error-message">
@@ -89,25 +97,19 @@ How many buildings does this heat network provide heating, cooling or hot water 
                     {% endif %}
                     <input class="govuk-input govuk-input--width-4" id="introbuildingstotal" name="introbuildingstotal"
                         type="number" value="{{data.introbuildingstotal}}">
-
-
                 </fieldset>
-
 
             </div>
             <div class="govuk-button-group"> {{
-            govukButton ({
-            html: 'Continue'
-            })
-            }}
+                govukButton ({
+                    html: 'Continue'
+                    })
+                }}
                 <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}"
                     class="govuk-link govuk-link--no-visited-state">Cancel</a>
-
             </div>
-
         </form>
     </div>
-
 </div>
 
 {% endblock %}
