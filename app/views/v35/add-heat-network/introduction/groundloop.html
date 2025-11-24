@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "230" %}
 
-{% set title = "Does the heat network meet the definition of a 'shared ground loop'?" %}
+{% set title = "Does the network meet the definition of a ‘shared ground loop’ heat network?" %}
 {% set _inError = data.validationError == "true" %}
 
 
@@ -13,7 +13,7 @@
 
 <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-full">  
+    <div class="govuk-grid-column-full">
 
         {% include data.version + "/_partials/logout.html" %}
 
@@ -66,9 +66,11 @@
                         </h1>
                     </legend>
 
-                    <p class="gouk-body">This is a heat network that relies entirely on closed ground or water loops for heat generation, in combination with individual consumer heat pumps.</p>
+                    <p class="gouk-body">This is a heat network that relies entirely on closed ground or water loops for
+                        heat generation, in combination with individual consumer heat pumps.</p>
 
-                    <p class="govuk-body">If the heat network relies on other heat sources, for example an ambient loop or electrical pump, select ‘No’.</p>
+                    <p class="govuk-body">If the heat network relies on other heat sources, for example an ambient loop
+                        or electrical pump, select 'No'. </p>
 
                     {% if data.validationErrors.introgroundloop %}
                     <p class="govuk-error-message">

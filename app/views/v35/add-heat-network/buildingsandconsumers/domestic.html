@@ -34,7 +34,8 @@
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" customersdomestic="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqcustomersdomestic="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -51,7 +52,8 @@
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.customersdomestic %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqcustomersdomestic %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -63,44 +65,47 @@
 
                     </legend>
                     <p class="govuk-body">
-                        For example, customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.  
+                        For example, customers that live in houses or flats and use the heating, cooling or hot water
+                        from the heat network for personal purposes.  
                     </p>
-                    {% if data.validationErrors.customersdomestic %}
+                    {% if data.validationErrors.mqcustomersdomestic %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.customersdomestic.message}}
+                        {{data.validationErrors.mqcustomersdomestic.message}}
                     </p>
                     {% endif %}
-
-
-
-
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="customersdomestic-7" name="customersdomestic" type="radio" value="Yes" data-aria-controls="customersdomestic-conditional" {% if data.customersdomestic == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="customersdomestic-7">
+                            <input class="govuk-radios__input" id="mqcustomersdomestic-7" name="mqcustomersdomestic"
+                                type="radio" value="Yes" data-aria-controls="mqcustomersdomestic-conditional"
+                                {% if data.mqcustomersdomestic == "Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqcustomersdomestic-7">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="customersdomestic-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.customersdomestictotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="customersdomestictotal">
-                                Number of domestic customers
-                              </label>
-                              {% if data.validationErrors.customersdomestictotal %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.customersdomestictotal.message}}
-                              </p>
-                              {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="customersdomestictotal" name="customersdomestictotal" type="text" value="{{data.customersdomestictotal}}">
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="mqcustomersdomestic-conditional">
+                            <div
+                                class="govuk-form-group {% if data.validationErrors.mqcustomersdomestictotal %}govuk-form-group--error{% endif %}">
+                                <label class="govuk-label" for="mqcustomersdomestictotal">
+                                    Number of domestic customers
+                                </label>
+                                {% if data.validationErrors.mqcustomersdomestictotal %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.mqcustomersdomestictotal.message}}
+                                </p>
+                                {% endif %}
+                                <input class="govuk-input govuk-!-width-one-third" id="mqcustomersdomestictotal"
+                                    name="mqcustomersdomestictotal" type="text" value="{{data.mqcustomersdomestictotal}}">
                             </div>
-                          </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="customersdomestic-2" name="customersdomestic" type="radio" value="No" {% if data.customersdomestic == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="customersdomestic-2">
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqcustomersdomestic-2" name="mqcustomersdomestic"
+                                type="radio" value="No" {% if data.mqcustomersdomestic == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqcustomersdomestic-2">
                                 No
                             </label>
                         </div>
@@ -112,13 +117,14 @@
 
 
             </div>
-                        <div class="govuk-button-group">
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 

@@ -58,9 +58,7 @@
                     class="govuk-link govuk-link--no-visited-state">change the heat network information</a></p>
             <h3 class="govuk-heading-m">This heat network</h3>
 
-
-
-            {% set HN %}{% if data.introsharedground == "Yes" %}HNSGL{% else %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif %}{% else %}0{% endif %}{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
+            {% set HN %}{% if data.introgroundloop == "Yes" %}HNSGL{% else %}HNE{% if data.introenergycentre == "Yes" %}{% if data.introenergycentrehowmany > 6 %}M{% else %}{{data.introenergycentrehowmany}}{% endif %}{% else %}0{% endif %}{% endif %}B{% if data.introhnbuildings != 0 %}{% if data.introhnbuildings > 6 %}M{% else %}{{data.introhnbuildings}}{% endif %}{% else %}0{% endif %}{% endset %}
             <img src="/public/images/HNFINAL/{{HN}}.png" style="max-width: 100%; max-height: 700px"
                 class="govuk-!-margin-bottom-3" />
 

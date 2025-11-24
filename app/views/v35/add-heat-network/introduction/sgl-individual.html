@@ -2,7 +2,7 @@
 {% set cdnumber = "324" %}
 
 {% set title %} 
-Is the shared ground loop owned by individuals?
+Do private individuals own the shared ground loop?
 {% endset %}
 
 {% set _inError = data.validationError == "true" %}
@@ -57,7 +57,7 @@ Is the shared ground loop owned by individuals?
         <form method="POST" novalidate>
 
             <div
-                class="govuk-form-group {% if data.validationErrors.sglIndividuals %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.sglIndividual %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset">
 
@@ -68,24 +68,24 @@ Is the shared ground loop owned by individuals?
                         </h1>
                     </legend>
 
-                    {% if data.validationErrors.sglIndividuals %}
+                    {% if data.validationErrors.sglIndividual %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.sglIndividuals.message}}
+                        {{data.validationErrors.sglIndividual.message}}
                     </p>
                     {% endif %}
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sglIndividuals" name="sglIndividuals"
-                                type="radio" value="Yes" {% if data.sglIndividuals=="Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sglIndividuals">
+                            <input class="govuk-radios__input" id="sglIndividual" name="sglIndividual"
+                                type="radio" value="Yes" {% if data.sglIndividual=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sglIndividual">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="sglIndividuals-2" name="sglIndividuals"
-                                type="radio" value="No" {% if data.sglIndividuals=="No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="sglIndividuals-2">
+                            <input class="govuk-radios__input" id="sglIndividual-2" name="sglIndividual"
+                                type="radio" value="No" {% if data.sglIndividual=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="sglIndividual-2">
                                 No
                             </label>
                         </div>
