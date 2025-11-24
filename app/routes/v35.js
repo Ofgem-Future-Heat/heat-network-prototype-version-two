@@ -3933,7 +3933,7 @@ router.post("/" + version + "/add-heat-network/introduction/similarcommunal", fu
 	var role = req.session.data["role"];
 
 	if (introgroundloop == "Yes") {
-		console.log("role: ", role);
+
 		if (role === "Operator") {
 			res.redirect("/" + version + "/add-heat-network/introduction/name");
 		} else {
@@ -4138,6 +4138,8 @@ router.get("/" + version + "/add-heat-network/introduction/communaloperate", fun
 	});
 });
 
+
+// ASH TO REVIEW
 router.post("/" + version + "/add-heat-network/introduction/communaloperate", function (req, res) {
 	var introcommunaloperate = req.session.data["introcommunaloperate"];
 	var introcommunaloperatehowmany = req.session.data["introcommunaloperatehowmany"];
@@ -4169,24 +4171,38 @@ router.post("/" + version + "/add-heat-network/introduction/communaloperate", fu
 	} else {
 		if (introcommunaloperate === "No") {
 			req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"];
+			if (introgroundloop == "Yes") {
+				res.redirect("/" + version + "/add-heat-network/introduction/summary");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+			}
 		} else if (introbuildingshowmany === 1) {
-			// if (role == "Operator") {
-			// 		res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-			// 	}
 			req.session.data["introhnbuildings"] = 0;
-		} else {
-			//if (role == "Operator" && introbuildingshowmany == introcommunaloperatehowmany) {
-			//		res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=244");
-			//	}
+			if (introgroundloop == "Yes") {
+				res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=226");
+			} else {
+				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+			}
 
-			req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"] - introcommunaloperatehowmany;
+		} else {
+			if (introbuildingshowmany == introcommunaloperatehowmany) {
+				req.session.data["introhnbuildings"] = 0;
+				if (introgroundloop == "Yes") {
+					res.redirect("/" + version + "/add-heat-network/introduction/dropout?v=226");
+				} else {
+					res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+				}
+			} else {
+				req.session.data["introhnbuildings"] = req.session.data["introbuildingshowmany"] - introcommunaloperatehowmany;
+
+				if (introgroundloop == "Yes") {
+					res.redirect("/" + version + "/add-heat-network/introduction/summary");
+				} else {
+					res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
+				}
+			}
 		}
 
-		if (introgroundloop == "Yes") {
-			res.redirect("/" + version + "/add-heat-network/introduction/summary");
-		} else {
-			res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
-		}
 	}
 });
 
