@@ -48,7 +48,7 @@ Radienteco Ltd
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does the heat network meet the definition of a ‘shared ground loop’?
+                    Does the heat network meet the definition of a ‘shared ground loop’ heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.introgroundloop}}
@@ -62,7 +62,7 @@ Radienteco Ltd
             {% if data.introgroundloop == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do private individuals own the shared ground loop?
+                    Do private individuals own the SGL heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.sglIndividual}}
@@ -106,7 +106,7 @@ Radienteco Ltd
             {% if data.sglFixedFee %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do consumers pay a fixed fee to access the shared ground loop?
+                    Do consumers pay a fixed fee to access the SGL heat network?
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.sglFixedFee}}
@@ -249,7 +249,7 @@ Radienteco Ltd
             {% if data.introgroundloop == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Approximate location of the shared ground loop?
+                    Postcode of approximate location of the SGL heat network
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.sglLocation}}

@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the approximate location of the shared ground loop? " %}
+{% set title = "What is the postcode of the approximate location of the SGL heat network?" %}
 {% set cdnumber = "328" %}
 
 {% set _inError = data.validationError == "true"  %}
@@ -57,19 +57,16 @@
             {{title}}
         </h1>
 
-        <p class="govuk-body">We only need the postcode, not the full address. </p>
-        <p class="govuk-body">You can enter the postcode for any building that’s part of the SGL, apart from any
-            connected communal
-            buildings. This is because you must register these buildings separately.</p>
+        <p class="govuk-body">You should enter the postcode of where the SGL heat network is located.</p>
+        <p class="govuk-body">If the network covers more than one postcode, enter a postcode for a central location for the area the network covers.</p>
 
         <form method="POST" novalidate>
             <fieldset class="govuk-fieldset">
                 <div
                     class="govuk-form-group {% if data.validationErrors.sglLocation %}govuk-form-group--error{% endif %}">
                     <label class="govuk-label" for="address-postcode">
-                        Enter Postcode
+                        Postcode
                     </label>
-                    <div class="govuk-hint">For example, AA3 1AB</div>
                     {% if data.validationErrors.sglLocation %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
