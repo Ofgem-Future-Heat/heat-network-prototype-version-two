@@ -3612,7 +3612,6 @@ router.post("/" + version + "/add-heat-network/introduction/sgl-fixedfee", funct
 	}
 });
 
-
 // Introduction - Role
 router.get("/" + version + "/add-heat-network/introduction/role", function (req, res) {
 	console.log("sglCategory:", req.session.data["sglCategory"]);
@@ -3933,7 +3932,6 @@ router.post("/" + version + "/add-heat-network/introduction/similarcommunal", fu
 	var role = req.session.data["role"];
 
 	if (introgroundloop == "Yes") {
-
 		if (role === "Operator") {
 			res.redirect("/" + version + "/add-heat-network/introduction/name");
 		} else {
@@ -4137,7 +4135,6 @@ router.get("/" + version + "/add-heat-network/introduction/communaloperate", fun
 		data: req.session.data,
 	});
 });
-
 
 // ASH TO REVIEW
 router.post("/" + version + "/add-heat-network/introduction/communaloperate", function (req, res) {
@@ -7547,37 +7544,37 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domest
 });
 
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domestic", function (req, res) {
-	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
-	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
+	var customersdomestic = req.session.data["customersdomestic"];
+	var customersdomestictotal = req.session.data["customersdomestictotal"];
 
-	if (!mqcustomersdomestic) {
+	if (!customersdomestic) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestic = {
-			anchor: "mqcustomersdomestic",
+		req.session.data.validationErrors.customersdomestic = {
+			anchor: "customersdomestic",
 			message: "Select yes if this heat network has domestic customers",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && !mqcustomersdomestictotal) {
+	if (customersdomestic == "Yes" && !customersdomestictotal) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Enter the number of domestic customers",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && isNaN(mqcustomersdomestictotal)) {
+	if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Number of domestic customers must be a number",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && mqcustomersdomestictotal.length > 40) {
+	if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Number of domestic customers must be 40 characters or less",
 		};
 	}
@@ -7587,7 +7584,7 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domes
 			data: req.session.data,
 		});
 	} else {
-		if (mqcustomersdomestic == "Yes") {
+		if (customersdomestic == "Yes") {
 			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/cya");
@@ -7605,7 +7602,7 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt",
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt", function (req, res) {
 	var mqcustomersdebt = req.session.data["mqcustomersdebt"];
 	var mqcustomersdebttotal = req.session.data["mqcustomersdebttotal"];
-	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
+	var customersdomestictotal = req.session.data["customersdomestictotal"];
 
 	if (!mqcustomersdebt) {
 		req.session.data.validationError = "true";
@@ -7631,13 +7628,13 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt"
 		};
 	}
 
-	if (Number(mqcustomersdebttotal) > Number(mqcustomersdomestictotal)) {
+	if (Number(mqcustomersdebttotal) > Number(customersdomestictotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqcustomersdebttotal = {
 			anchor: "mqcustomersdebttotal",
 			message: "Number of domestic customers in debt cannot be more than the total number of domestic customers",
 		};
-		console.log(mqcustomersdebttotal + " vs " + mqcustomersdomestictotal);
+		console.log(mqcustomersdebttotal + " vs " + customersdomestictotal);
 	}
 
 	if (mqcustomersdebt == "Yes" && mqcustomersdebttotal.length > 40) {
@@ -7771,7 +7768,7 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repaym
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repayment", function (req, res) {
 	var mqcustomersrepayment = req.session.data["mqcustomersrepayment"];
 	var mqcustomersrepaymenttotal = req.session.data["mqcustomersrepaymenttotal"];
-	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
+	var customersdomestictotal = req.session.data["customersdomestictotal"];
 
 	if (!mqcustomersrepayment) {
 		req.session.data.validationError = "true";
@@ -7797,7 +7794,7 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repay
 		};
 	}
 
-	if (Number(mqcustomersrepaymenttotal) > Number(mqcustomersdomestictotal)) {
+	if (Number(mqcustomersrepaymenttotal) > Number(customersdomestictotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqcustomersrepaymenttotal = {
 			anchor: "mqcustomersrepaymenttotal",
