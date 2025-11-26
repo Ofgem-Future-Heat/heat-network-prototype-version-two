@@ -27,14 +27,12 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
         {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
     </div>
-
 </div>
 
 {% endblock %}
@@ -85,9 +83,11 @@ Are any of the non-domestic customers on this heat network ‘microbusinesses’
                             <p class="govuk-body">These are businesses that meet either of the following criteria:</p>
                             <ul class="govuk-list govuk-list--bullet">
                                 <li>consume less than 247,000 kWh of heat per year</li>
-                                <li>have fewer than 10 full-time employees and an annual turnover of less than £2 million</li>
+                                <li>have fewer than 10 full-time employees and an annual turnover of less than £2
+                                    million</li>
                             </ul>
-                            <p class="govuk-body">We need to know this, as you'll have different obligations if the network supplies this type of customer.</p>
+                            <p class="govuk-body">We need to know this, as you'll have different obligations if the
+                                network supplies this type of customer.</p>
                         </div>
                     </details>
 
