@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-            {% include data.version + "/_partials/logout.html" %}
+        {% include data.version + "/_partials/logout.html" %}
 
 
         {{
@@ -33,36 +33,59 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-form-group ">
+        <div class="govuk-form-group ">
 
-                <span class="govuk-caption-l">Add a heat network - customers and metering</span>
-                <h1 class="govuk-heading-l">
-                            {{title}}
-                        </h1>
-                        <p class="govuk-body">We need to know some information about the customers and meters on this heat network. You’ll need to tell us:</p>
-                        <ul class="govuk-list govuk-list--bullet">
-    <li>whether your organisation started supplying heating, cooling or hot water to some or all of the heat network’s consumers on or after 1 April 2025 (if you’re a supplier only)</li>
-    <li>whether the heat network has domestic and non-domestic customers</li>
-    <li>if there are non-domestic customers only, whether the heat network is an industrial network</li>
-    <li>if there are domestic and non-domestic customers, whether any are ‘small businesses’ or ‘microbusinesses’</li>
-    <li>how many domestic customers have pre-payment meters installed</li>
-    <li>whether your organisation uses a metering or billing agent for this heat network</li>
-                        </ul>
-                        
-                        <div class="govuk-button-group">
-                            {% if data.role == "Supplier" %}
-                            <a href="supply" class="govuk-button">Continue</a>
-    
-                            {% else %}
-                            <a href="domestic" class="govuk-button">Continue</a>
-    
-                            {% endif %}
-    
-                            <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
-                        </div>
+            <span class="govuk-caption-l">Add a heat network - customers and metering</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">We need to know some information about the customers and meters on this heat network.
+                You’ll need to tell us:</p>
+
+            {% if data.introgroundloop == "Yes" %}
+            <ul class="govuk-list govuk-list--bullet">
+                <li>whether your organisation started supplying heating, cooling or hot water to some or all of the heat
+                    network’s consumers on or after 1 April 2025 (if you’re a supplier only)</li>
+                <li>whether the heat network has domestic and non-domestic customers</li>
+                <li>if there are domestic and non-domestic customers, whether any are ‘small businesses’ or
+                    ‘microbusinesses’ </li>
+            </ul>
+
+            <p class="govuk-body">If customers pay a fixed fee to access the SGL heat network, we’ll also ask:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>how many have pre-payment meters installed</li>
+                <li>whether your organisation uses a metering or billing agent for this heat network</li>
+            </ul>
+
+            {% else %}
+
+            <ul class="govuk-list govuk-list--bullet">
+                <li>whether your organisation started supplying heating, cooling or hot water to some or all of the heat
+                    network’s consumers on or after 1 April 2025 (if you’re a supplier only)</li>
+                <li>whether the heat network has domestic and non-domestic customers</li>
+                <li>if there are non-domestic customers only, whether the heat network is an industrial network</li>
+                <li>if there are domestic and non-domestic customers, whether any are ‘small businesses’ or
+                    ‘microbusinesses’</li>
+                <li>how many domestic customers have pre-payment meters installed</li>
+                <li>whether your organisation uses a metering or billing agent for this heat network</li>
+            </ul>
+            {% endif %}
+
+            <div class="govuk-button-group">
+                {% if data.role == "Supplier" %}
+                <a href="supply" class="govuk-button">Continue</a>
+
+                {% else %}
+                <a href="domestic" class="govuk-button">Continue</a>
+
+                {% endif %}
+
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
+            </div>
 
 
+        </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}

@@ -22,16 +22,14 @@ You cannot register this heat network yet
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
-            {% include data.version + "/_partials/logout.html" %}
-
+        {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
     </div>
 
 </div>
@@ -43,9 +41,6 @@ You cannot register this heat network yet
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-
-
-
         <div class="govuk-form-group ">
 
             <span class="govuk-caption-l">Add a heat network - introduction</span>
@@ -60,41 +55,41 @@ You cannot register this heat network yet
             {% endif %}
 
             {% if data.introdropoutreason == "226" %}
+            
+            {% if data.introgroundloop %}
+            <p class="govuk-body">This is because your organisation is not responsible for any buildings. You also do not operate any energy centres because it’s an SGL heat network.</p>
+            
+            {% else %}
+            
             <p class="govuk-body">This is because your organisation is not responsible for any buildings and does not operate any energy centres on this heat network.</p>
+            {% endif %}
+
             <p class="govuk-body">You may operate part of the heat network and another organisation operates other parts of it. In this case, you must make sure that the primary operator registers the heat network on your behalf. </p>
             <p class="govuk-body">We’ll contact them if we need further information about your organisation or any of the other operators.</p>
 
             {% endif %}
 
             {% if data.introdropoutreason == "227" %}
-
-
             <p class="govuk-body">This is because the other operators on this heat network have not yet agreed that you can provide information on their behalf.</p>
             <p class="govuk-body">You can return to this service and register this heat network once you've checked with the other operators.</p>
             <p class="govuk-body">If you're having trouble contacting the other operators or getting their agreement, contact us on <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a></p>
-
             {% endif %}
             
             {% if data.introdropoutreason == "232" %}
-
             <p class="govuk-body">You’ll need to return to this service and register the heat network once it’s started providing heating, cooling or hot water to consumers.</p>
             {% endif %}
 
             {% if data.introdropoutreason == "233" %}
-
             <p class="govuk-body">If you're not carrying out a regulated activity until after 26 January 2027, you'll need to apply for authorisation. You must do this before the heat network starts providing heating, cooling or hot water to consumers.</p>
             <p class="govuk-body">We'll make authorisation available closer to the time.</p>
-
             {% endif %}
 
             {% if data.introdropoutreason == "237" %}
-
             <p class="govuk-body">You do not need to tell us about your heat network.</p>
             <p class="govuk-body">This is because you've told us it is not a 'relevant heat network', and therefore it falls outside the scope of the heat network regulations.
             {% endif %}
 
             {% if data.introdropoutreason == "238" %}
-
             <p class="govuk-body">
                 This is because we need to start with a single reliable map of an entire heat network - including its energy centres - and operators are best placed to provide this.
             </p>
@@ -118,17 +113,15 @@ You cannot register this heat network yet
                 </strong>
               </div>
             {% endif %}
-            {% if data.introdropoutreason == "244" %}
 
+            {% if data.introdropoutreason == "244" %}
             <p class="govuk-body">This is because you’ve told us that your organisation is an operator, but that you do not provide heating, cooling or hot water to any single dwelling buildings.</p>
             {% endif %}
 
             {% if data.introdropoutreason != "227" %}
-
             <p class="govuk-body">
                 For further information, you can contact us at <a href="mailto:support@registerheatnetworks.service.gov.uk" class="govuk-link">support@registerheatnetworks.service.gov.uk</a>
             </p>
-
             <p class="govuk-body">
                 We'll aim to respond within 5 working days.
             </p>
