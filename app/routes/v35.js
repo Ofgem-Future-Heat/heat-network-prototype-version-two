@@ -7544,37 +7544,37 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domest
 });
 
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domestic", function (req, res) {
-	var customersdomestic = req.session.data["customersdomestic"];
-	var customersdomestictotal = req.session.data["customersdomestictotal"];
+	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
+	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
 
-	if (!customersdomestic) {
+	if (!mqcustomersdomestic) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.customersdomestic = {
-			anchor: "customersdomestic",
+		req.session.data.validationErrors.mqcustomersdomestic = {
+			anchor: "mqcustomersdomestic",
 			message: "Select yes if this heat network has domestic customers",
 		};
 	}
 
-	if (customersdomestic == "Yes" && !customersdomestictotal) {
+	if (mqcustomersdomestic == "Yes" && !mqcustomersdomestictotal) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.customersdomestictotal = {
-			anchor: "customersdomestictotal",
+		req.session.data.validationErrors.mqcustomersdomestictotal = {
+			anchor: "mqcustomersdomestictotal",
 			message: "Enter the number of domestic customers",
 		};
 	}
 
-	if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
+	if (mqcustomersdomestic == "Yes" && isNaN(mqcustomersdomestictotal)) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.customersdomestictotal = {
-			anchor: "customersdomestictotal",
+		req.session.data.validationErrors.mqcustomersdomestictotal = {
+			anchor: "mqcustomersdomestictotal",
 			message: "Number of domestic customers must be a number",
 		};
 	}
 
-	if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
+	if (mqcustomersdomestic == "Yes" && mqcustomersdomestictotal.length > 40) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.customersdomestictotal = {
-			anchor: "customersdomestictotal",
+		req.session.data.validationErrors.mqcustomersdomestictotal = {
+			anchor: "mqcustomersdomestictotal",
 			message: "Number of domestic customers must be 40 characters or less",
 		};
 	}
@@ -7584,7 +7584,7 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/domes
 			data: req.session.data,
 		});
 	} else {
-		if (customersdomestic == "Yes") {
+		if (mqcustomersdomestic == "Yes") {
 			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/cya");
@@ -7602,7 +7602,7 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt",
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt", function (req, res) {
 	var mqcustomersdebt = req.session.data["mqcustomersdebt"];
 	var mqcustomersdebttotal = req.session.data["mqcustomersdebttotal"];
-	var customersdomestictotal = req.session.data["customersdomestictotal"];
+	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
 
 	if (!mqcustomersdebt) {
 		req.session.data.validationError = "true";
@@ -7628,13 +7628,13 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt"
 		};
 	}
 
-	if (Number(mqcustomersdebttotal) > Number(customersdomestictotal)) {
+	if (Number(mqcustomersdebttotal) > Number(mqcustomersdomestictotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqcustomersdebttotal = {
 			anchor: "mqcustomersdebttotal",
 			message: "Number of domestic customers in debt cannot be more than the total number of domestic customers",
 		};
-		console.log(mqcustomersdebttotal + " vs " + customersdomestictotal);
+		console.log(mqcustomersdebttotal + " vs " + mqcustomersdomestictotal);
 	}
 
 	if (mqcustomersdebt == "Yes" && mqcustomersdebttotal.length > 40) {
@@ -7768,7 +7768,7 @@ router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repaym
 router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repayment", function (req, res) {
 	var mqcustomersrepayment = req.session.data["mqcustomersrepayment"];
 	var mqcustomersrepaymenttotal = req.session.data["mqcustomersrepaymenttotal"];
-	var customersdomestictotal = req.session.data["customersdomestictotal"];
+	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
 
 	if (!mqcustomersrepayment) {
 		req.session.data.validationError = "true";
@@ -7794,7 +7794,7 @@ router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/repay
 		};
 	}
 
-	if (Number(mqcustomersrepaymenttotal) > Number(customersdomestictotal)) {
+	if (Number(mqcustomersrepaymenttotal) > Number(mqcustomersdomestictotal)) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqcustomersrepaymenttotal = {
 			anchor: "mqcustomersrepaymenttotal",
