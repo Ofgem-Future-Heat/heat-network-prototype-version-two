@@ -4183,7 +4183,6 @@ router.post("/" + version + "/add-heat-network/introduction/communaloperate", fu
 			} else {
 				res.redirect("/" + version + "/add-heat-network/introduction/energycentreoperate");
 			}
-
 		} else {
 			if (introbuildingshowmany == introcommunaloperatehowmany) {
 				req.session.data["introhnbuildings"] = 0;
@@ -4202,7 +4201,6 @@ router.post("/" + version + "/add-heat-network/introduction/communaloperate", fu
 				}
 			}
 		}
-
 	}
 });
 
@@ -4369,6 +4367,10 @@ router.post("/" + version + "/add-heat-network/introduction/buildings", function
 		}
 	}
 
+	if (introbuildings == "Yes") {
+		introbuildingshowmany = null;
+	}
+
 	if (req.session.data.validationError == "true") {
 		res.render("/" + version + "/add-heat-network/introduction/buildings", {
 			data: req.session.data,
@@ -4523,10 +4525,9 @@ router.post("/" + version + "/add-heat-network/introduction/selfsupply", functio
 			data: req.session.data,
 		});
 	} else {
-		console.log('introselfsupply: ', introselfsupply);
-		console.log('role: ', role);
-		console.log('buildings: ', buildings);
-		
+		console.log("introselfsupply: ", introselfsupply);
+		console.log("role: ", role);
+		console.log("buildings: ", buildings);
 
 		if (introselfsupply == "Yes" || (introselfsupply == "No" && role == "Operator") || (introselfsupply == "No" && buildings <= 1)) {
 			if (introgroundloop == "Yes") {
@@ -5777,37 +5778,37 @@ router.get("/" + version + "/add-heat-network/buildingsandconsumers/domestic", f
 });
 
 router.post("/" + version + "/add-heat-network/buildingsandconsumers/domestic", function (req, res) {
-	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
-	var mqcustomersdomestictotal = req.session.data["mqcustomersdomestictotal"];
+	var customersdomestic = req.session.data["customersdomestic"];
+	var customersdomestictotal = req.session.data["customersdomestictotal"];
 
-	if (!mqcustomersdomestic) {
+	if (!customersdomestic) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestic = {
-			anchor: "mqcustomersdomestic",
+		req.session.data.validationErrors.customersdomestic = {
+			anchor: "customersdomestic",
 			message: "Select yes if this heat network has domestic customers",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && !mqcustomersdomestictotal) {
+	if (customersdomestic == "Yes" && !customersdomestictotal) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Enter the number of domestic customers",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && isNaN(mqcustomersdomestictotal)) {
+	if (customersdomestic == "Yes" && isNaN(customersdomestictotal)) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Number of domestic customers must be a number",
 		};
 	}
 
-	if (mqcustomersdomestic == "Yes" && mqcustomersdomestictotal.length > 40) {
+	if (customersdomestic == "Yes" && customersdomestictotal.length > 40) {
 		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqcustomersdomestictotal = {
-			anchor: "mqcustomersdomestictotal",
+		req.session.data.validationErrors.customersdomestictotal = {
+			anchor: "customersdomestictotal",
 			message: "Number of domestic customers must be 40 characters or less",
 		};
 	}
@@ -5829,7 +5830,7 @@ router.get("/" + version + "/add-heat-network/buildingsandconsumers/nondomestic"
 });
 
 router.post("/" + version + "/add-heat-network/buildingsandconsumers/nondomestic", function (req, res) {
-	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
+	var customersdomestic = req.session.data["customersdomestic"];
 
 	var customersnondomestic = req.session.data["customersnondomestic"];
 	var customersnondomestictotal = req.session.data["customersnondomestictotal"];
@@ -6030,7 +6031,7 @@ router.get("/" + version + "/add-heat-network/buildingsandconsumers/microbusines
 
 router.post("/" + version + "/add-heat-network/buildingsandconsumers/microbusinesses", function (req, res) {
 	var consumertypemicrobusiness = req.session.data["consumertypemicrobusiness"];
-	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
+	var customersdomestic = req.session.data["customersdomestic"];
 	const sglCategory = req.session.data["sglCategory"];
 
 	if (!consumertypemicrobusiness) {
@@ -6046,14 +6047,14 @@ router.post("/" + version + "/add-heat-network/buildingsandconsumers/microbusine
 			data: req.session.data,
 		});
 	} else {
-		if (sglCategory != "Non-Utility") {
-			if (mqcustomersdomestic == "Yes") {
+		if (sglCategory == "Non-Utility") {
+			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
+		} else {
+			if (customersdomestic == "Yes") {
 				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
 			} else {
 				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/agent");
 			}
-		} else {
-			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
 		}
 	}
 });
@@ -6094,7 +6095,7 @@ router.get("/" + version + "/add-heat-network/buildingsandconsumers/smallenterpr
 
 router.post("/" + version + "/add-heat-network/buildingsandconsumers/smallenterprises", function (req, res) {
 	var smallenterprises = req.session.data["smallenterprises"];
-	var mqcustomersdomestic = req.session.data["mqcustomersdomestic"];
+	var customersdomestic = req.session.data["customersdomestic"];
 
 	if (!smallenterprises) {
 		req.session.data.validationError = "true";
