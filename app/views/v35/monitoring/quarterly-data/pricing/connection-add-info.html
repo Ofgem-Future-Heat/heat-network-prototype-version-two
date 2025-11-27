@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Add a connection charge
+How much is this connection charge?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,7 +63,11 @@ Add a connection charge
                     </h1>
                 </legend>
 
-                <p class="govuk-body">The charge per customer</p>
+               
+                <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
 
                 {% if data.validationErrors.mqflatConnectionFeesAdd %}
                 <p class="govuk-error-message">
@@ -75,7 +79,7 @@ Add a connection charge
                 <div class="govuk-form-group">
                     <div class="govuk-input__wrapper">
                         <div class="govuk-input__prefix" aria-hidden="true">£</div>
-                        <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-input--error{% endif %}" id="mqflatConnectionFeesAdd" name="mqflatConnectionFeesAdd" type="number">
+                        <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatConnectionFeesAdd %}govuk-input--error{% endif %}" id="mqflatConnectionFeesAdd" name="mqflatConnectionFeesAdd" type="text">
                         <div class="govuk-input__suffix" aria-hidden="true">per customer</div>
                     </div>
                 </div>

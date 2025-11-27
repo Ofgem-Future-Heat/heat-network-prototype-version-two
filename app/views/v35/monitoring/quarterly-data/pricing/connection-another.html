@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Connection fees on this heat network
+Connection charges on this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,9 +63,13 @@ Connection fees on this heat network
         {% endif %}
 
         {% if data.allFlatConnectionFees.length > 0 %}
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
 
         <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">Added Connection Fees</caption>
+            
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
@@ -77,7 +81,7 @@ Connection fees on this heat network
 
                 {% for flatConnectionFee in data.allFlatConnectionFees %}
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Connection Fee {{ loop.index }} </th>
+                    <th scope="row" class="govuk-table__header">Connection charge {{ loop.index }} </th>
                     <td class="govuk-table__cell">£{{ flatConnectionFee }}</td>
 
 
@@ -101,7 +105,7 @@ Connection fees on this heat network
         <form method="post" novalidate>
             <div
                 class="govuk-form-group {% if data.validationErrors.mqConnectionAddAnother %}govuk-form-group--error{% endif %}">
-                <h2 class="govuk-heading-m">Would you like to add another connection fee?</h2>
+                <h2 class="govuk-heading-m">Would you like to add another connection charge?</h2>
 
                 {% if data.validationErrors.mqConnectionAddAnother %}
                 <p class="govuk-error-message">
@@ -113,15 +117,14 @@ Connection fees on this heat network
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="mqConnectionAddAnother-yes" name="mqConnectionAddAnother"
-                            type="radio" value="Yes" data-aria-controls="mqConnectionAddAnother-conditional"
-                            {% if data.mqConnectionAddAnother == "Yes" %}checked{% endif %}>
+                            type="radio" value="Yes" data-aria-controls="mqConnectionAddAnother-conditional">
                         <label class="govuk-label govuk-radios__label" for="mqConnectionAddAnother-yes">
                             Yes
                         </label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="mqConnectionAddAnother-no" name="mqConnectionAddAnother"
-                            type="radio" value="No" {% if data.mqConnectionAddAnother == "No" %}checked{% endif %}>
+                            type="radio" value="No">
                         <label class="govuk-label govuk-radios__label" for="mqConnectionAddAnother-no">
                             No
                         </label>
@@ -133,8 +136,14 @@ Connection fees on this heat network
 
         {% else %}
 
-        <p class="govuk-body">You told us that your organisation has multiple connection charges on this heat network, but have not added any yet. You must add at least 2.</p>
-        <p class="govuk-body"><a class="govuk-button" href="connection-add-info.html?add-another">Add a connection fee</a></p>
+        <p class="govuk-body">You told us that your organisation has multiple connection charges on this heat network,
+            but have not added any yet. You must add at least 2.</p>
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
+        <p class="govuk-body"><a class="govuk-button" href="connection-add-info.html?add-another">Add a connection
+                fee</a></p>
 
         {% endif %}
     </div>

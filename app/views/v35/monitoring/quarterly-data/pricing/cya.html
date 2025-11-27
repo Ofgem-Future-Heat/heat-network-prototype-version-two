@@ -129,7 +129,7 @@
             {% if data.mqconnectionCharge == "Yes" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you charge the same flat rate for your connection fees
+                    Do your customers pay a flat rate for connection charges
                 </dt>
 
                 {% if data.mqflatConnectionFees == "Yes" %}
@@ -162,7 +162,7 @@
                     {% endfor %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="domestic">Change</a>
+                    <a class="govuk-link" href="connection-another">Change</a>
                 </dd>
             </div>
             {% endif %}
@@ -171,7 +171,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Do you charge your customers other fees
+                    Do your customers pay any other charges
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {{data.mqotherFees}}
@@ -188,7 +188,13 @@
                 </dt>
                 {% if data.mqflatOtherFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
-                    £{{data.mqflatOtherFeestotal}} per customer
+                    {% for charge in data.chargesEntered %}
+                    <p class="govuk-body">
+                        £{{charge.amount}} {{charge.unit}}
+                        <br>
+                        {{charge.reason}}
+                    </p>
+                    {% endfor %}
                 </dd>
 
                 {% else %}
@@ -219,7 +225,7 @@
                     {% endfor %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="domestic">Change</a>
+                    <a class="govuk-link" href="other-another">Change</a>
                 </dd>
             </div>
             {% endif %}

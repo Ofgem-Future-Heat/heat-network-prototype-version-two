@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Provide the unit for the other charge
+What’s this additional charge’s unit?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,9 +65,11 @@ Provide the unit for the other charge
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        For example, per kWh, per day 
-                    </p>
+
+                    <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
 
                     {% if data.validationErrors.mqOtherChargeUnit %}
                     <p class="govuk-error-message">
@@ -76,34 +78,35 @@ Provide the unit for the other charge
                     </p>
                     {% endif %}
 
+
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="mqOtherChargeUnit-kwh" name="mqOtherChargeUnit"
                                 type="radio" value="per kWh" {% if data.mqOtherChargeUnit == "per kWh" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqOtherChargeUnit-kwh">
-                                per kWh
+                                Per kWh
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="mqOtherChargeUnit-day" name="mqOtherChargeUnit"
                                 type="radio" value="per day" {% if data.mqOtherChargeUnit == "per day" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqOtherChargeUnit-day">
-                                per day
+                                Per day
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="mqOtherChargeUnit-customer" name="mqOtherChargeUnit"
                                 type="radio" value="per customer" {% if data.mqOtherChargeUnit == "per customer" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqOtherChargeUnit-customer">
-                                per customer
+                                Per customer
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="mqOtherChargeUnit-connection" name="mqOtherChargeUnit"
                                 type="radio" value="per connection" {% if data.mqOtherChargeUnit == "per connection" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqOtherChargeUnit-connection">
-                                per connection
+                                Per connection
                             </label>
                         </div>
 
@@ -112,7 +115,7 @@ Provide the unit for the other charge
                                 type="radio" value="other" data-aria-controls="mqOtherChargeUnit-conditional"
                                 {% if data.mqOtherChargeUnit == "other" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqOtherChargeUnit-other">
-                                other
+                                Other (please specify)
                             </label>
                         </div>
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
@@ -126,8 +129,11 @@ Provide the unit for the other charge
                                     {{data.validationErrors.mqOtherChargeUnitOtherValue.message}}
                                 </p>
                                 {% endif %}
-
+                                <label class="govuk-label" for="mqflatFeestotal">
+                                    Unit description
+                                </label>
                                 <div class="govuk-input__wrapper">
+                                    
                                     <input class="govuk-input govuk-!-width-one-third" id="mqOtherChargeUnitOtherValue"
                                         name="mqOtherChargeUnitOtherValue" type="text" value="{{data.mqOtherChargeUnitOtherValue}}">
                                     

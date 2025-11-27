@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Provide more detail for the other charge
+What’s this additional charge for?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -65,16 +65,16 @@ Provide more detail for the other charge
                         </h1>
                     </legend>
 
+                    <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
                     {% if data.validationErrors.mqOtherChargeReason %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
                         {{data.validationErrors.mqOtherChargeReason.message}}
                     </p>
                     {% endif %}
-                    
-                    <div id="mqOtherChargeReason-hint" class="govuk-hint">
-                        Tell us what the other charge is for. 
-                    </div>
                     <textarea class="govuk-textarea" id="mqOtherChargeReason" name="mqOtherChargeReason" rows="5" aria-describedby="mqOtherChargeReason-hint">{% if data.mqOtherChargeReason %}{{data.mqOtherChargeReason}}{% endif %}</textarea>
                 </fieldset>
             </div>

@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Would you like to add a other charges?
+Other charges on this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -52,7 +52,7 @@ Would you like to add a other charges?
         </div>
         {% endif %}
 
-        <span class="govuk-caption-l">Add further charges</span>
+        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
         <h1 class="govuk-heading-l">
             {{title}}
         </h1>
@@ -65,12 +65,16 @@ Would you like to add a other charges?
         {% endif %}
 
         {% if data.chargesEntered.length > 0 %}
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
+
         <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">Added Other Charges</caption>
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
-                    <th scope="col" class="govuk-table__header">Amount</th>
+                    <th scope="col" class="govuk-table__header">Cost</th>
                     <th scope="col" class="govuk-table__header">Unit</th>
                     <th scope="col" class="govuk-table__header">Reason</th>
                     <th scope="col" class="govuk-table__header"></th>
@@ -81,7 +85,7 @@ Would you like to add a other charges?
                 <tr class="govuk-table__row">
                     <th scope="row" class="govuk-table__header">Charge {{ loop.index }} </th>
                     <td class="govuk-table__cell">£{{ charge.amount }}</td>
-                    <td class="govuk-table__cell">{{ charge.unit }}</td>
+                    <td class="govuk-table__cell">{{ charge.unit | capitalize }}</td>
                     <td class="govuk-table__cell">{{ charge.reason }}</td>
 
                     <td class="govuk-table__cell">
@@ -114,15 +118,14 @@ Would you like to add a other charges?
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="mqChargesAddAnother-yes" name="mqChargesAddAnother"
-                            type="radio" value="Yes" data-aria-controls="mqChargesAddAnother-conditional"
-                            {% if data.mqChargesAddAnother == "Yes" %}checked{% endif %}>
+                            type="radio" value="Yes" data-aria-controls="mqChargesAddAnother-conditional">
                         <label class="govuk-label govuk-radios__label" for="mqChargesAddAnother-yes">
                             Yes
                         </label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="mqChargesAddAnother-no" name="mqChargesAddAnother"
-                            type="radio" value="No" {% if data.mqChargesAddAnother == "No" %}checked{% endif %}>
+                            type="radio" value="No">
                         <label class="govuk-label govuk-radios__label" for="mqChargesAddAnother-no">
                             No
                         </label>
@@ -136,6 +139,10 @@ Would you like to add a other charges?
 
         <p class="govuk-body">You told us that your organisation has multiple other charges on this heat network, but
             have not added any yet. You must add at least 2.</p>
+        <div class="govuk-inset-text">
+            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            <strong>1 April to 30 June 2026 </strong> period.
+        </div>
         <p class="govuk-body"><a class="govuk-button" href="other-charge-amount.html">Add a new charge</a></p>
 
         {% endif %}

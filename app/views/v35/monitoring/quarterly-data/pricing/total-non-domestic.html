@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Total charges across all non-domestic customers 
+What were the total charges across all non-domestic customers?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -60,8 +60,8 @@ Total charges across all non-domestic customers 
                     </h1>
                 </legend>
 
-                <p class="govuk-body">This is the total amount of standing charges, unit rates, connection charges and
-                    other charges received across all non-domestic customers in the reporting quarter period. (£)</p>
+                <p class="govuk-body">What were the total amount of standing charges, unit rates, connection charges and
+                    other charges received across all non-domestic customers in the reporting quarter period.</p>
 
                 {% if data.validationErrors.totalNonDomesticCosts %}
                 <p class="govuk-error-message">
@@ -76,7 +76,7 @@ Total charges across all non-domestic customers 
 
                         <input
                             class="govuk-input govuk-input--width-5 {% if data.validationErrors.totalNonDomesticCosts %}govuk-input--error{% endif %}"
-                            id="totalNonDomesticCosts" name="totalNonDomesticCosts" type="number"
+                            id="totalNonDomesticCosts" name="totalNonDomesticCosts" type="text"
                             value="{{data.totalNonDomesticCosts}}">
                     </div>
                 </div>
