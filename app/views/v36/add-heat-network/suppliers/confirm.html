@@ -1,0 +1,74 @@
+{% extends 'layouts/main.html' %}
+{% set title %}
+Confirm supplier
+ {% endset %}
+{% set cdnumber = "279" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+                    
+            <span class="govuk-caption-l">Add a heat network - suppliers</span>
+
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+          <div class="govuk-inset-text">
+            {{data.suppliernameselected}}<br />
+            {{data.supplieraddressselected | replace(", ",",<br />")| safe}}
+
+          </div>
+
+          
+          {% if data.supplierresults.length == 1 %}
+          <p class="govuk-body"><a href="dropout" class="govuk-link govuk-link--no-visited-state">I cannot find my supplier</a></p>
+          {% else %}
+          <p class="govuk-body"><a href="name" class="govuk-link govuk-link--no-visited-state">Change supplier</a></p>
+          {% endif %}
+
+
+
+
+
+          <form method="POST" novalidate>
+          <div class="govuk-button-group">
+            {{
+              govukButton ({
+                  html: 'Confirm and continue'
+              })
+            }}
+            <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+          </div>
+    </form>
+
+    </div>
+</div>
+
+{% endblock %}

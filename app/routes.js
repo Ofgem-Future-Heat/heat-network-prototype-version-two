@@ -33,3 +33,4 @@ require('./routes/v32.js');
 require('./routes/v33.js');
 require('./routes/v34.js');
 require('./routes/v35.js');
+require('./routes/v36.js');

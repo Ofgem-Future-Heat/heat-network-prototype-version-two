@@ -1,0 +1,64 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Add other suppliers" %}
+
+{% set cdnumber = "276" %}
+
+{% set _inError = data.validationError == "true"  %}
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Add a heat network - suppliers</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+
+                        <p class="govuk-body">You’ve told us that this heat network has one or more other suppliers on it.</p>
+                        <p class="govuk-body">You’ll need to add each supplier to this network so that we can invite them to add their supply data.</p>
+                        <ul class="govuk-list govuk-list--number">
+                            <li>Find the supplier from a list of those already in our system.</li>
+                            <li>If you cannot find them in the list, ask them offline to create an account with us and come back when they’ve done this.</li>
+                            <li>Confirm which supplier to proceed with.</li>
+                            <li>Confirm your final list of suppliers.</li>
+                            <li>After you submit this heat network information to Ofgem, we’ll send an invite to each supplier, asking them to add their supply data.</li>
+</ul>
+
+
+
+            </div>
+
+            <div class="govuk-button-group">
+                <a href="name" class="govuk-button">Continue</a>
+                <a href="/{{data.version}}/add-heat-network/suppliers/cancel?v={{data.lastpage}}" class="govuk-link govuk-link--no-visited-state">Cancel</a>
+  
+              </div>
+    </div>
+</div>
+
+{% endblock %}

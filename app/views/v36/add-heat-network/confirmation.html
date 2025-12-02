@@ -1,0 +1,123 @@
+{% extends 'layouts/main.html' %}
+{% set title = "Heat network submitted" %}
+{% set _inError = data.validationError == "true"  %}
+{% set company %}
+  {% if data.companyname %}
+  {{data.companyname}}
+  {% else %}
+  Radienteco Ltd 
+  {% endif %}
+{% endset %}
+
+{% set cdnumber = "246" %}
+{% set footerlink %}
+/{{data.version}}/emails/registration-complete
+{% endset %}
+{% set footertext %}
+Confirmation email
+{% endset %}
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+        {% include data.version + "/_partials/logout.html" %}
+
+
+
+
+    </div>
+
+</div>
+{% endblock %}
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              {{title}}
+            </h1>
+            <div class="govuk-panel__body">
+              Heat network registration ID: HN0001234
+            </div>
+          </div>
+          <p class="govuk-body">
+            We have sent you a confirmation email.
+          </p>
+          <p class="govuk-body">
+You have now registered the regulated activity that {{company}} undertakes on the heat network {{data.name}}.
+</p>
+
+          <p class="govuk-body">
+            {% if data.role == "Supplier" %}
+            You've confirmed that {{company}} is responsible for supply.
+            
+            {% elif data.role  == "Operator" %}
+            You've told us that {{company}} is responsible for operation.
+
+            {% else %}
+
+            You've told us that {{company}} is responsible for both operation and supply.       
+            {% endif %}
+          </p>
+          
+
+          {% if (data.introsupply20 == "Yes") or (data.supply20 == "Yes") %}
+          <p class="govuk-body">
+          Because {{company}} started its regulated activity on the heat network on or after 1 April 2025, this activity has been ‘deemed authorised’ for the initial period of regulation.
+        </p>
+        <p class="govuk-body">
+          Prior to January 2028, we may contact you for further information in order to make this authorisation enduring beyond the initial period of regulation.
+        </p>
+          {% endif %}
+
+          <h2 class="govuk-heading-m">
+            What you need to do next
+          </h2>
+            {% if data.introcommunaloperate == "Yes" %}
+            <div class="govuk-inset-text">
+
+            {% if data.introcommunaloperatehowmany > 1 %}
+            <p class="govuk-body">You must submit separate registrations for your {{data.introcommunaloperatehowmany}} communal buildings.</p>
+
+            {% else %}
+            <p class="govuk-body">You must submit a separate registration for your communal building.</p>
+
+            {% endif %}
+          </div>
+
+          {% endif %}
+
+
+          <p class="govuk-body">
+            	
+
+          You must also ensure {{company}} remains compliant with the general authorisation conditions for heat network authorisation, related to its regulated activity on the heat network. You can view these at: <a href="#" class="govuk-link" target="_blank">TBC</a>
+          </p>
+          <p class="govuk-body">
+            This includes submitting annual and quarterly monitoring data about your organisation and this heat network so that we can monitor compliance. We’ll let you know when and how to do this nearer the time.
+          </p>
+          <p class="govuk-body">
+            We may contact you if we need any further information about this registration.
+          </p>
+
+<h2 class="govuk-heading-m">Making changes to this heat network</h2>
+<p class="govuk-body">
+  There will be a process to follow if you need to tell us about any changes to the information you submitted about this regulated activity.
+  </p>
+  <p class="govuk-body">Guidance is available at: <a href="#" class="govuk-link" target="_blank">TBC</a></p>
+
+
+        <a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-button">Go to heat networks home</a>
+    </div>
+
+</div>
+
+{% endblock %}

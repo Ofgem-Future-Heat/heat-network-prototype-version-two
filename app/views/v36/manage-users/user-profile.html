@@ -1,0 +1,245 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "028" %}
+
+
+
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-full">
+    {% include data.version + "/_partials/logout.html" %}
+
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../account-information">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="../manage-users">Manage users</a>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% set users = [] %}
+
+    {% for i in range(data.userid, data.userid + 1) %}
+    {% set users = users.concat([{
+    "email": data["useremail" ~ i],
+    "firstname": data["userfirstname" ~ i],
+    "lastname": data["userlastname" ~ i],
+    "telephonetype": data["usertelephone" ~ i],
+    "telephonelandline": data["usertelephonelandline" ~ i],
+    "telephonelandlineext": data["usertelephonelandlineext" ~ i],
+    "telephonemobile": data["usertelephonemobile" ~ i],
+    "jobtitle": data["userjobtitle" ~ i],
+    "thirdparty": data["userthirdparty" ~ i],
+    "orgname": data["userorgname" ~ i],
+    "id": i,
+    "deleted": data["isdeleted" ~ i],
+    "permissions": [
+    data["adduserpermissionsview" ~ i],
+    data["adduserpermissionsregistration" ~ i],
+    data["adduserpermissionsmonitoring" ~ i],
+    data["adduserpermissionsusermanagement" ~ i]
+
+    ]
+    }]) %}
+    {% endfor %}
+
+    {% for user in users %}
+    {% set name %}{{user.firstname}} {{user.lastname}}{% endset %}
+    {% set title = name %}
+    {% if data.manageusersnotification %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+      aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          {% if data.manageusersnotification == 'editpermissions' %}
+          You changed {{name}}'s additional permissions
+          {% endif %}
+        </h3>
+        <p class="govuk-body">We've let them know via email.</p>
+      </div>
+    </div>
+    {% endif %}
+
+
+
+    {% if _inError %}
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+      <h2 class="govuk-error-summary__title" id="error-summary-title">
+        There is a problem
+      </h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          {% for name, item in data.validationErrors %}
+          <li>
+            <a href="#{{item.anchor}}">{{item.message}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <span class="govuk-caption-l">Manage users for {% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}</span>
+
+
+
+    <h1 class="govuk-heading-l">
+      {{title}}      <br />
+      {% if (user.thirdparty == "Yes") %}
+      <strong class="govuk-tag">
+        Third party
+      </strong>      
+      {% endif %}
+
+      {% if (data.regchange == user.id) %}
+      <strong class="govuk-tag">
+        Regulatory contact
+      </strong>
+      {% endif %}
+      {% if user.deleted == true %}
+      <strong class="govuk-tag govuk-tag--red">
+        Deactivated
+      </strong>
+      {% endif %}
+    </h1>
+
+
+
+
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.email}}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.firstname}} {{user.lastname}}
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if user.telephonetype == "Landline" %}{{user.telephonelandline}} {% if user.telephonelandlineext
+          %}<br />Extension: {{user.telephonelandlineext}}{% endif %}{% elif user.telephonetype == "Mobile"
+          %}{{user.telephonemobile}}{% endif %}
+        </dd>
+      </div>
+      {% if (user.thirdparty == "No") %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Job title
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.jobtitle}}
+        </dd>
+      </div>
+      {% endif %}
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Additional permissions
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <ul class="govuk-list">
+            {% if (data.regchange == user.id) %}
+            <li>Add or edit all heat network information</li>
+            <li>Submit all heat network information</li>
+            <li>Manage users</li>
+
+            {% else %}
+
+            {% if (user.permissions == ",,,,")  or (user.permissions == ",,,") %}
+            No additional permissions
+            {% else %}
+            {% for permission in user.permissions %}
+            {% if permission == "View all heat network information" %} 
+            {% if user.thirdparty == "Yes" %}
+            {{permission}}<br />
+            {% endif %}
+            {% else %}
+            {% if permission %}{{permission}}<br />{% endif %}
+            {% endif %}
+            {% endfor %}
+
+            {% endif %}
+            {% endif %}
+          </ul>
+        </dd>
+      </div>
+    </dl>
+
+    <ul class="govuk-summary-list__actions-list">
+      {% if (data.regchange == user.id) and (data.currentuserid == user.id) and (data.usertotal > 1) %}
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="reg-change" class="govuk-link govuk-link--no-visited-state">Reassign regulatory contact</a>
+      </li>
+
+      {% elif (data.currentuserid != user.id) %}
+      {% if user.deleted == true %}
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="reactivate-user?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Reactivate user</a>
+      </li>
+      {% else %}
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user-permissions?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">Change permissions</a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="edit-user-org?id={{user.id}}" class="govuk-link govuk-link--no-visited-state">
+          {% if (user.thirdparty == "Yes") %}
+          Change third party status    
+          {% else %}
+          Make user a third party
+          {% endif %}
+          
+        </a>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <a href="delete-user?id={{user.id}}" class="link-red">Deactivate user</a>
+      </li>
+      {% endif %}
+      {% endif %}
+    </ul>
+    {% endfor %}
+
+
+  </div>
+</div>
+
+{% endblock %}
