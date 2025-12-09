@@ -47,6 +47,8 @@
         {{title}}
       </h1>
 
+       <p class="govuk-body">Suppliers and operators will be required to submit reporting data on both a quarterly and an annual basis. When an annual data submission is due, this will be done in the same reporting window as the relevant quarterly data submission.</p>
+
 
 
       <div class="govuk-grid-row hn-flex">
@@ -92,9 +94,8 @@
 </div>
         </div>
       </div>
-
       <table class="govuk-table responsive">
-
+      <caption class="govuk-table__caption govuk-table__caption--m">Quarterly submissions</caption>
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header"></th>
@@ -149,7 +150,7 @@
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
                 class="govuk-tag govuk-tag--red">Overdue</strong></td>
           </tr>
-                    <tr class="govuk-table__row">
+            <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="#" class="govuk-link govuk-link--no-visited-state">
                 Jan to Mar 2027
@@ -164,6 +165,20 @@
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
                 class="govuk-tag govuk-tag--yellow">Due</strong></td>
           </tr>
+          
+        </tbody>
+      </table>
+
+      <table class="govuk-table responsive govuk-!-margin-top-9">
+        <caption class="govuk-table__caption govuk-table__caption--m">Annual submission</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Due by</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">    
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="/{{data.version}}/monitoring/annual-data/intro" class="govuk-link govuk-link--no-visited-state">
