@@ -1,0 +1,90 @@
+{% extends 'layouts/onelogin.html' %}
+
+{% set _pageID = "" %}
+
+{% set _signedin = "false" %}
+{% set _showLegalLinks = true %}
+
+{% set _customClear = true %}
+{% set _showReleaseLinks2 = true %}
+
+{% set _inError = myData.validationError == "true" %}
+
+{% block pageTitle %}
+{% if _inError %}Error: {% endif %}
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Check your phone</h1>
+
+    <div class="govuk-inset-text">
+      <p class="govuk-body">We have sent a code to your phone number ending with <b>9735</b></p>
+    </div>
+
+    <p class="govuk-body">It might take a few minutes to arrive. The code will expire after 15 minutes.</p>
+
+    <form action="../e22-01-24/start" method="post">
+
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="code">
+          Enter the 6 digit security code
+        </label>
+
+        <input class="govuk-input govuk-input--width-10 govuk-input--extra-letter-spacing" id="code" name="code" type="text" spellcheck="false"
+          autocomplete="one-time-code" inputmode="numeric" maxlength="8">
+
+      </div>
+      {% if data.inviteemailcomplete == "true" %} 
+      <a href="../../account-information" role="button"
+      draggable="false" class="govuk-button" data-module="govuk-button">
+      Continue
+  </a>
+      {% else %}
+      <a href="../intro" role="button"
+          draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue
+      </a>
+      {% endif %}
+
+    </form>
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Problems with the code?
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <p class="govuk-body">We can <a href="/resend-code-create-account?isResendCodeRequest=true" class="govuk-link"
+            rel="noreferrer noopener">send the code again</a> or you can <a href="/enter-phone-number"
+            class="govuk-link" rel="noreferrer noopener">use a different phone number</a>.</p>
+        <p class="govuk-body">
+          <a href="/get-security-codes" class="govuk-link" rel="noreferrer noopener">Get a code another way</a>.
+        </p>
+      </div>
+    </details>
+
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+
+
+
+</script>
+{% endblock pageScripts %}

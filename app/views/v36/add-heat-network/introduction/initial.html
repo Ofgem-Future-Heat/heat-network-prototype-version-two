@@ -1,0 +1,74 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "201" %}
+
+{% set title = "Initial information you'll need" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <span class="govuk-caption-l">Add a heat network - introduction</span>
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
+        <p class="govuk-body">To help us understand your specific obligations, we need some further information from
+            you. We'll provide definitions and guidance for any possibly unfamiliar concepts.</p>
+
+        <p class="govuk-body">You'll first need to tell us:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>which regulated activities your organisation undertakes on the heat network - operation, supply or both
+            </li>
+            <li>whether the network meets the definition of a ‘shared ground loop’ (SGL) heat network</li>
+            <li>if an SGL heat network, whether it’s owned, operated by and serves one group of individuals, and - if
+                not - whether consumers are charged a fixed fee to access it</li>
+            <li>which country the heat network's consumers are in</li>
+            <li>what type of heat network it is, and how much of it your organisation is responsible for, including
+                buildings and energy centres</li>
+            <li>whether the heat network is currently providing heating, cooling or hot water to consumers, and - if so
+                - whether the organisation began a regulated activity on or after 1 April 2025</li>
+            <li>if an SGL heat network, a postcode that covers the network’s approximate location</li>
+            <li>if a district network, whether the heat network is a 'self-supply' network</li>
+            <li>whether any other suppliers sell to consumers on the heat network</li>
+            <li>whether the heat network supplies heating, cooling or hot water to any other organisations or heat
+                networks</li>
+        </ul>
+
+
+        <div class="govuk-button-group">
+            <a href="groundloop" class="govuk-button">Continue</a>
+            <a href="/{{data.version}}/add-heat-network/introduction/cancel?v={{data.lastpage}}"
+                class="govuk-link govuk-link--no-visited-state">Cancel</a>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title %} 
+How many complaints did this heat network receive about its customer service this quarter?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqTypeCustomerServiceTotal="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form id="dataForm" method="POST" novalidate>
+
+           <div class="govuk-form-group {% if data.validationErrors.mqTypeCustomerServiceTotal %}govuk-form-group--error{% endif %}">
+
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+                            <h1 class="govuk-fieldset__heading">
+                                {{title}}
+                            </h1>
+                        </legend>
+                        <p class="govuk-body">This means complaints regarding the services offered by the supplier such as the Billing service or complaints process.</p>
+                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+
+                        <p class="govuk-body">You must enter a whole number without decimals.</p>
+
+
+                    {% if data.validationErrors.mqTypeCustomerServiceTotal %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.mqTypeCustomerServiceTotal.message}}
+                    </p>
+                    {% endif %}
+
+                            <div class="govuk-form-group">
+                                <input class="govuk-input govuk-!-width-one-third {% if data.validationErrors.mqTypeCustomerServiceTotal %}govuk-input--error{% endif %}" id="mqTypeCustomerServiceTotal" name="mqTypeCustomerServiceTotal" type="text" value="{{data.mqTypeCustomerServiceTotal}}">
+                            </div>
+            </div>
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
