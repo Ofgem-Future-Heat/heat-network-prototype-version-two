@@ -94,7 +94,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% for tariff in data.tariffsEntered %}
-                    <strong>Tariff {{loop.index}}</strong>
+                    <strong>{{tariff.mqTariffName}}</strong>
                     {% if tariff.mqflatFees == "Yes" %}
                     <p class="govuk-body">
                         Flat Fee: £{{tariff.mqflatFeestotal}} per day

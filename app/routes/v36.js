@@ -8448,8 +8448,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/types
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8498,8 +8496,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8546,8 +8542,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8595,8 +8589,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8642,8 +8634,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 	} else {
 		if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8687,9 +8677,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			data: req.session.data,
 		});
 	} else {
-		if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
-		} else if (mqcomplaintsTypes.includes("Pricing")) {
+		if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-other");
@@ -8699,7 +8687,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 	}
 });
 
-// QS type metering
+// QS type metering (NO LONGER USED)
 
 router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering", function (req, res) {
 	res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering", {
@@ -8954,12 +8942,14 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", functi
 function addTariffEntry(sessionData) {
 	const tariffsEntered = sessionData["tariffsEntered"] || [];
 
+	const mqTariffName = sessionData["mqTariffName"];
 	const mqflatFees = sessionData["mqflatFees"];
 	const mqflatFeestotal = sessionData["mqflatFeestotal"];
 	const mqUnitRate = sessionData["mqUnitRate"];
 	const mqStandingCharge = sessionData["mqStandingCharge"];
 
 	tariffsEntered.push({
+		mqTariffName: mqTariffName || null,
 		mqflatFees: mqflatFees || null,
 		mqflatFeestotal: mqflatFeestotal ? parseFloat(mqflatFeestotal).toFixed(2) : null,
 		mqUnitRate: mqUnitRate ? parseFloat(mqUnitRate).toFixed(2) : null,
@@ -8967,6 +8957,7 @@ function addTariffEntry(sessionData) {
 	});
 
 	sessionData["tariffsEntered"] = tariffsEntered;
+	sessionData["mqTariffName"] = null;
 	sessionData["mqflatFees"] = null;
 	sessionData["mqflatFeestotal"] = null;
 	sessionData["mqUnitRate"] = null;
@@ -9115,10 +9106,44 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 		});
 	} else {
 		if (mqtariffAddAnother == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-charge");
 		}
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - tariff name
+router.get("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", function (req, res) {
+	const mqTariffName = req.session.data["mqTariffName"];
+
+	if (!mqTariffName) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqTariffName = {
+			anchor: "mqTariffName",
+			message: "Enter how much the additional charge is, in pounds",
+		};
+
+	} else if (mqTariffName.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqTariffName = {
+			anchor: "mqTariffName",
+			message: "Tariff name must be 18 characters or less",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", {
+			data: req.session.data,
+		});
+	} else {
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
 	}
 });
 
