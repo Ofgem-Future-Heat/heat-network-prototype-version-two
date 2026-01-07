@@ -73,6 +73,7 @@ Tariffs on this heat network
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
                     <th scope="col" class="govuk-table__header">Type</th>
+                    <th scope="col" class="govuk-table__header">Cost type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
                     <th scope="col" class="govuk-table__header"></th>
                 </tr>
@@ -83,9 +84,11 @@ Tariffs on this heat network
                     <th scope="row" class="govuk-table__header">{{tariff.mqTariffName}}</th>
 
                     {% if tariff.mqflatFees == "Yes" %}
+                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
                     <td class="govuk-table__cell">Flat fee</td>
                     <td class="govuk-table__cell">£{{tariff.mqflatFeestotal}}</td>
                     {% else %}
+                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
                     <td class="govuk-table__cell">
                         Unit rate<br>Standing charge
                     </td>

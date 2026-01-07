@@ -74,6 +74,7 @@ Other charges on this heat network
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
                     <th scope="col" class="govuk-table__header">Unit</th>
                     <th scope="col" class="govuk-table__header">Reason</th>
@@ -83,7 +84,8 @@ Other charges on this heat network
             <tbody class="govuk-table__body">
                 {% for charge in data.chargesEntered %}
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Charge {{ loop.index }} </th>
+                    <th scope="row" class="govuk-table__header">{{ charge.name }} </th>
+                    <td class="govuk-table__cell">{{charge.type}}</td>
                     <td class="govuk-table__cell">£{{ charge.amount }}</td>
                     <td class="govuk-table__cell">{{ charge.unit | capitalize }}</td>
                     <td class="govuk-table__cell">{{ charge.reason }}</td>
@@ -143,7 +145,7 @@ Other charges on this heat network
             You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
             <strong>1 April to 30 June 2026 </strong> period.
         </div>
-        <p class="govuk-body"><a class="govuk-button" href="other-charge-amount.html">Add a new charge</a></p>
+        <p class="govuk-body"><a class="govuk-button" href="other-name.html">Add a new charge</a></p>
 
         {% endif %}
     </div>

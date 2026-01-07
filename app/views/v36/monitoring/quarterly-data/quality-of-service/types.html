@@ -77,18 +77,27 @@ Which types of complaint did customers make about this heat network during this 
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-backBilling">
             Back billing
             </label>
+            <div id="backBilling" class="govuk-hint govuk-checkboxes__hint">
+            such as incorrect calculations or not issuing bills.
+            </div>
         </div>
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-qualityOfService" name="mqcomplaintsTypes" type="checkbox" value="Quality of service" {% if data.mqcomplaintsTypes == "qualityOfService" %}checked{% endif %} >
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-qualityOfService">
             Quality of service
             </label>
+            <div id="qualityOfService" class="govuk-hint govuk-checkboxes__hint">
+            interruptions and disruption to the supply of heating, cooling or hot water.
+            </div>
         </div>
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-customerService" name="mqcomplaintsTypes" type="checkbox" value="Customer service" {% if data.mqcomplaintsTypes == "customerService" %}checked{% endif %} >
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-customerService">
             Customer service
             </label>
+            <div id="customerService" class="govuk-hint govuk-checkboxes__hint">
+            services offered by the supplier such as the Billing service or complaints process.
+            </div>
         </div>
 
         <div class="govuk-checkboxes__item">
@@ -96,12 +105,18 @@ Which types of complaint did customers make about this heat network during this 
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-debt">
             Vulnerability, debt and switching 
             </label>
+            <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
+            complaints related to disconnections or debt management/ repayment and collection and switches to PPM.
+            </div>
         </div>
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-pricing" name="mqcomplaintsTypes" type="checkbox" value="Pricing" {% if data.mqcomplaintsTypes == "pricing" %}checked{% endif %} >
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-pricing">
             Pricing
             </label>
+            <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
+            related to high prices, affordability or charges and their disputes, or price increases the supplier may have announced, or which have come into effect.
+            </div>
         </div>
 
 
@@ -111,6 +126,9 @@ Which types of complaint did customers make about this heat network during this 
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-other">
             Other
             </label>
+            <div id="other" class="govuk-hint govuk-checkboxes__hint">
+            any other complaints that do not fall within the specified listed categories.
+            </div>
         </div>
         
         </div>

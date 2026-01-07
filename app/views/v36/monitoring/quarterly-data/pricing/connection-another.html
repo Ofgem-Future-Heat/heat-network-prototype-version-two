@@ -73,16 +73,18 @@ Connection charges on this heat network
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
                     <th scope="col" class="govuk-table__header"></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
 
-                {% for flatConnectionFee in data.allFlatConnectionFees %}
+                {% for connectionEntry in data.allFlatConnectionFees %}
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Connection charge {{ loop.index }} </th>
-                    <td class="govuk-table__cell">£{{ flatConnectionFee }}</td>
+                    <th scope="row" class="govuk-table__header">{{connectionEntry.mqConnectionName}} </th>
+                    <td class="govuk-table__cell">{{ connectionEntry.mqConnectionType }}</td>
+                    <td class="govuk-table__cell">£{{ connectionEntry.mqFlatConnectionFee }}</td>
 
 
                     <td class="govuk-table__cell">
@@ -142,7 +144,7 @@ Connection charges on this heat network
             You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
             <strong>1 April to 30 June 2026 </strong> period.
         </div>
-        <p class="govuk-body"><a class="govuk-button" href="connection-add-info.html?add-another">Add a connection
+        <p class="govuk-body"><a class="govuk-button" href="connection-name.html?add-another">Add a connection
                 fee</a></p>
 
         {% endif %}
