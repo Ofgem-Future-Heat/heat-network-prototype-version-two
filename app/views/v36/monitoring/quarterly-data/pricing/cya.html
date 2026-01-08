@@ -65,23 +65,33 @@
             {% if data.mqmultipleTariffs == "No" %}
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Does this tariff use a flat fee based charging format
+                    Tariff details
                 </dt>
                 {% if data.tariffsEntered[data.tariffsEntered.length - 1].mqflatFees == "Yes" %}
+               
                 <dd class="govuk-summary-list__value">
+                    <strong>{{data.tariffsEntered[data.tariffsEntered.length - 1].mqTariffName}}</strong>
+                    <br>
+                    {{data.tariffsEntered[data.tariffsEntered.length - 1].mqTariffType}}
+                    <br>
                     Flat Fee: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqflatFeestotal}} per day
                 </dd>
 
                 {% else %}
 
                 <dd class="govuk-summary-list__value">
+                    <strong>{{data.tariffsEntered[data.tariffsEntered.length - 1].mqTariffName}}</strong>
+                    <br>
+                    {{data.tariffsEntered[data.tariffsEntered.length - 1].mqTariffType}}
+                    <br>
                     Unit Rate: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqUnitRate}} per kWh<br>
                     Standing Charge: £{{data.tariffsEntered[data.tariffsEntered.length - 1].mqStandingCharge}} per day
                 </dd>
 
                 {% endif %}
+             
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="flat-fee">Change</a>
+                    <a class="govuk-link" href="tariff-name">Change</a>
                 </dd>
             </div>
             {% endif %}
@@ -94,13 +104,17 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% for tariff in data.tariffsEntered %}
-                    <strong>Tariff {{loop.index}}</strong>
+                    <strong>{{tariff.mqTariffName}}</strong>
                     {% if tariff.mqflatFees == "Yes" %}
                     <p class="govuk-body">
+                        {{tariff.mqTariffType}}
+                        <br>
                         Flat Fee: £{{tariff.mqflatFeestotal}} per day
                     </p>
                     {% else %}
                     <p class="govuk-body">
+                        {{tariff.mqTariffType}}
+                        <br>
                         Unit Rate: £{{tariff.mqUnitRate}} per kWh
                         <br>
                         Standing Charge: £{{tariff.mqStandingCharge}} per day
@@ -133,9 +147,20 @@
                 </dt>
 
                 {% if data.mqflatConnectionFees == "Yes" %}
-                <dd class="govuk-summary-list__value">
-                    £{{data.mqflatConnectionFeestotal}} per customer
+                <dd class="govuk-summary-list__value"> 
+                    {% for connectionEntry in data.allFlatConnectionFees %}
+                    <strong>{{connectionEntry.mqConnectionName}}</strong>
+                    <p class="govuk-body">
+                        {{connectionEntry.mqConnectionType}}
+                        <br>
+                        £{{connectionEntry.mqFlatConnectionFee}} per customer
+                    </p>
+                    {% endfor %}
                 </dd>
+
+                <!--<dd class="govuk-summary-list__value">
+                    £{{data.mqflatConnectionFeestotal}} per customer
+                </dd>-->
 
                 {% else %}
                 <dd class="govuk-summary-list__value">
@@ -154,10 +179,12 @@
                     Connection list
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    {% for flatConnection in data.allFlatConnectionFees %}
-                    <strong>Connection {{loop.index}}</strong>
+                    {% for connectionEntry in data.allFlatConnectionFees %}
+                    <strong>{{connectionEntry.mqConnectionName}}</strong>
                     <p class="govuk-body">
-                        £{{flatConnection}} per customer
+                        {{connectionEntry.mqConnectionType}}
+                        <br>
+                        £{{connectionEntry.mqFlatConnectionFee}} per customer
                     </p>
                     {% endfor %}
                 </dd>
@@ -189,7 +216,10 @@
                 {% if data.mqflatOtherFees == "Yes" %}
                 <dd class="govuk-summary-list__value">
                     {% for charge in data.chargesEntered %}
+                    <strong>{{charge.name}}</strong>
                     <p class="govuk-body">
+                        {{charge.type}}
+                        <br>
                         £{{charge.amount}} {{charge.unit}}
                         <br>
                         {{charge.reason}}
@@ -216,8 +246,10 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     {% for charge in data.chargesEntered %}
-                    <strong>Charge {{loop.index}}</strong>
+                    <strong>{{charge.name}}</strong>
                     <p class="govuk-body">
+                        {{charge.type}}
+                        <br>
                         £{{charge.amount}} {{charge.unit}}
                         <br>
                         {{charge.reason}}

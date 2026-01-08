@@ -73,6 +73,7 @@ Tariffs on this heat network
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
                     <th scope="col" class="govuk-table__header">Type</th>
+                    <th scope="col" class="govuk-table__header">Cost type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
                     <th scope="col" class="govuk-table__header"></th>
                 </tr>
@@ -80,12 +81,14 @@ Tariffs on this heat network
             <tbody class="govuk-table__body">
                 {% for tariff in data.tariffsEntered %}
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Tariff {{loop.index}}</th>
+                    <th scope="row" class="govuk-table__header">{{tariff.mqTariffName}}</th>
 
                     {% if tariff.mqflatFees == "Yes" %}
+                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
                     <td class="govuk-table__cell">Flat fee</td>
                     <td class="govuk-table__cell">£{{tariff.mqflatFeestotal}}</td>
                     {% else %}
+                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
                     <td class="govuk-table__cell">
                         Unit rate<br>Standing charge
                     </td>
@@ -150,7 +153,7 @@ Tariffs on this heat network
             You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
             <strong>1 April to 30 June 2026 </strong> period.
         </div>
-        <p class="govuk-body"><a class="govuk-button" href="flat-fee">Add a tariff</a></p>
+        <p class="govuk-body"><a class="govuk-button" href="tariff-name">Add a tariff</a></p>
         {% endif %}
 
     </div>

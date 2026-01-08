@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Do your customers pay a flat rate for connection charges?
+Consumer type?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -16,13 +16,16 @@ Do your customers pay a flat rate for connection charges?
 
     <div class="govuk-grid-column-full">
         {% include data.version + "/_partials/logout.html" %}
+
         {{
             govukBackLink ({
                 text: 'Back',
                 href: 'javascript:history.back()'
             })
         }}
+
     </div>
+
 </div>
 
 {% endblock %}
@@ -33,7 +36,7 @@ Do your customers pay a flat rate for connection charges?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatConnectionFees="alert"
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqTariffType="alert"
             data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
@@ -52,7 +55,7 @@ Do your customers pay a flat rate for connection charges?
         <form method="POST" novalidate>
 
             <div
-                class="govuk-form-group {% if data.validationErrors.mqflatConnectionFees %}govuk-form-group--error{% endif %}">
+                class="govuk-form-group {% if data.validationErrors.mqTariffType %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -63,38 +66,46 @@ Do your customers pay a flat rate for connection charges?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        This means that the same fee is charged for each connection.
-                    </p>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city
-                            centre</strong>, covering <strong>1 April to 30 June 2026 </strong> .</div>
-
-                    {% if data.validationErrors.mqflatConnectionFees %}
+                    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet nibh non dolor fringilla, ac fermentum tortor faucibus. Sed commodo aliquet tellus, vitae ornare ligula commodo.</p>
+                    <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
+                    {% if data.validationErrors.mqTariffType %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqflatConnectionFees.message}}
+                        {{data.validationErrors.mqTariffType.message}}
                     </p>
                     {% endif %}
+
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatConnectionFees-yes" name="mqflatConnectionFees"
-                                type="radio" value="Yes" data-aria-controls="mqflatConnectionFees-conditional"
-                                {% if data.mqflatConnectionFees == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqflatConnectionFees-yes">
-                                Yes
+                            <input class="govuk-radios__input" id="mqTariffType-domestic" name="mqTariffType"
+                                type="radio" value="Domestic" data-aria-controls="mqTariffType-conditional"
+                                {% if data.mqTariffType == "Domestic" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqTariffType-domestic">
+                                Domestic
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatConnectionFees-no" name="mqflatConnectionFees"
-                                type="radio" value="No" {% if data.mqflatConnectionFees == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqflatConnectionFees-no">
-                                No
+                            <input class="govuk-radios__input" id="mqTariffType-nonDomestic" name="mqTariffType"
+                                type="radio" value="Non domestic" {% if data.mqTariffType == "Non domestic" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqTariffType-nonDomestic">
+                                Non domestic
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqTariffType-both" name="mqTariffType"
+                                type="radio" value="Both" {% if data.mqTariffType == "Both" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqTariffType-both">
+                                Both (domestic and non-domestic)
                             </label>
                         </div>
                     </div>
                 </fieldset>
+
             </div>
             <div class="govuk-button-group">
                 {{

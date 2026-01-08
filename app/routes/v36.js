@@ -8448,8 +8448,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/types
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8498,8 +8496,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8546,8 +8542,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8595,8 +8589,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-customer-service");
 		} else if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8642,8 +8634,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 	} else {
 		if (mqcomplaintsTypes.includes("Vulnerability, debt and switching")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-debt");
-		} else if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
 		} else if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
@@ -8687,9 +8677,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 			data: req.session.data,
 		});
 	} else {
-		if (mqcomplaintsTypes.includes("Metering")) {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering");
-		} else if (mqcomplaintsTypes.includes("Pricing")) {
+		if (mqcomplaintsTypes.includes("Pricing")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-pricing");
 		} else if (mqcomplaintsTypes.includes("Other")) {
 			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/type-other");
@@ -8699,7 +8687,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 	}
 });
 
-// QS type metering
+// QS type metering (NO LONGER USED)
 
 router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering", function (req, res) {
 	res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/type-metering", {
@@ -8938,7 +8926,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/multiple-tariffs
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-another");
 		}
 		if (mqmultipleTariffs == "No") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-name");
 		}
 	}
 });
@@ -8954,12 +8942,16 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/flat-fee", functi
 function addTariffEntry(sessionData) {
 	const tariffsEntered = sessionData["tariffsEntered"] || [];
 
+	const mqTariffName = sessionData["mqTariffName"];
+	const mqTariffType = sessionData["mqTariffType"];
 	const mqflatFees = sessionData["mqflatFees"];
 	const mqflatFeestotal = sessionData["mqflatFeestotal"];
 	const mqUnitRate = sessionData["mqUnitRate"];
 	const mqStandingCharge = sessionData["mqStandingCharge"];
 
 	tariffsEntered.push({
+		mqTariffName: mqTariffName || null,
+		mqTariffType: mqTariffType || null,
 		mqflatFees: mqflatFees || null,
 		mqflatFeestotal: mqflatFeestotal ? parseFloat(mqflatFeestotal).toFixed(2) : null,
 		mqUnitRate: mqUnitRate ? parseFloat(mqUnitRate).toFixed(2) : null,
@@ -8967,6 +8959,8 @@ function addTariffEntry(sessionData) {
 	});
 
 	sessionData["tariffsEntered"] = tariffsEntered;
+	sessionData["mqTariffName"] = null;
+	sessionData["mqTariffType"] = null;
 	sessionData["mqflatFees"] = null;
 	sessionData["mqflatFeestotal"] = null;
 	sessionData["mqUnitRate"] = null;
@@ -9115,10 +9109,71 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-another",
 		});
 	} else {
 		if (mqtariffAddAnother == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-charge");
 		}
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - tariff name
+router.get("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", function (req, res) {
+	const mqTariffName = req.session.data["mqTariffName"];
+
+	if (!mqTariffName) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqTariffName = {
+			anchor: "mqTariffName",
+			message: "Enter how much the additional charge is, in pounds",
+		};
+
+	} else if (mqTariffName.length > 18) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqTariffName = {
+			anchor: "mqTariffName",
+			message: "Tariff name must be 18 characters or less",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", {
+			data: req.session.data,
+		});
+	} else {
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-type");
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Tariff type
+router.get("/" + version + "/monitoring/quarterly-data/pricing/tariff-type", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-type", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-type", function (req, res) {
+	var mqTariffType = req.session.data["mqTariffType"];
+
+	if (!mqTariffType) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqTariffType = {
+			anchor: "mqTariffType",
+			message: "Select which type the tariff is",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/tariff-type", {
+			data: req.session.data,
+		});
+	} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
 	}
 });
 
@@ -9177,27 +9232,12 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-f
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-fee", function (req, res) {
 	const mqflatConnectionFees = req.session.data["mqflatConnectionFees"];
-	const mqflatConnectionFeestotal = req.session.data["mqflatConnectionFeestotal"];
 
 	if (!mqflatConnectionFees) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqflatConnectionFees = {
 			anchor: "mqflatConnectionFees",
-			message: "Select yes if your customers pay a flat rate for connection charges ",
-		};
-	}
-
-	if (mqflatConnectionFees == "Yes" && !mqflatConnectionFeestotal) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatConnectionFeestotal = {
-			anchor: "mqflatConnectionFeestotal",
-			message: "Enter the connection charge per customer, in pounds",
-		};
-	} else if (mqflatConnectionFees == "Yes" && !/^[-]?\d+(\.\d+)?$/.test(mqflatConnectionFeestotal)) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqflatConnectionFeestotal = {
-			anchor: "mqflatConnectionFeestotal",
-			message: "Charge per customer must only include numbers and leading hyphens",
+			message: "Select yes if your customers pay a flat rate for connection charges",
 		};
 	}
 
@@ -9207,7 +9247,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-flat-
 		});
 	} else {
 		if (mqflatConnectionFees == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-fees");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 		}
@@ -9239,10 +9279,72 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-anoth
 		});
 	} else {
 		if (mqConnectionAddAnother == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-fees");
 		}
+	}
+});
+
+
+// Monitoring - Quarterly data - Pricing  - connection name
+router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-name", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-name", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-name", function (req, res) {
+	const mqConnectionName = req.session.data["mqConnectionName"];
+
+	if (!mqConnectionName) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqConnectionName = {
+			anchor: "mqConnectionName",
+			message: "Enter the name of the connection",
+		};
+
+	} else if (mqConnectionName.length > 40) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqConnectionName = {
+			anchor: "mqConnectionName",
+			message: "Connection name must be 40 characters or less",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-name", {
+			data: req.session.data,
+		});
+	} else {
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-type");
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Connection type
+router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-type", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-type", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-type", function (req, res) {
+	var mqConnectionType = req.session.data["mqConnectionType"];
+
+	if (!mqConnectionType) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqConnectionType = {
+			anchor: "mqConnectionType",
+			message: "Select which type the connection is",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-type", {
+			data: req.session.data,
+		});
+	} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info");
 	}
 });
 
@@ -9269,6 +9371,10 @@ router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-add-in
 
 router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info", function (req, res) {
 	const mqflatConnectionFeesAdd = req.session.data["mqflatConnectionFeesAdd"];
+	const mqConnectionName = req.session.data["mqConnectionName"];
+	const mqConnectionType = req.session.data["mqConnectionType"];
+	const mqflatConnectionFees = req.session.data["mqflatConnectionFees"];
+
 	let allFlatConnectionFees = req.session.data["allFlatConnectionFees"] || [];
 
 	if (!mqflatConnectionFeesAdd) {
@@ -9296,13 +9402,85 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 			data: req.session.data,
 		});
 	} else {
-		allFlatConnectionFees.push(parseFloat(mqflatConnectionFeesAdd).toFixed(2));
+		allFlatConnectionFees.push({
+			mqConnectionName: mqConnectionName,
+			mqConnectionType: mqConnectionType,
+			mqFlatConnectionFee: parseFloat(mqflatConnectionFeesAdd).toFixed(2)
+		});
+
 		req.session.data["allFlatConnectionFees"] = allFlatConnectionFees;
 		req.session.data["mqflatConnectionFeesAdd"] = null;
 		req.session.data["mqConnectionAddAnother"] = null;
+		req.session.data["mqConnectionName"] = null;
+		req.session.data["mqConnectionType"] = null;
 
+		if (mqflatConnectionFees == "Yes") {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-fees");
+		} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
+		}
+	}
 
-		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
+});
+
+// Monitoring - Quarterly data - Pricing  - other charge name
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-name", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-name", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-name", function (req, res) {
+	const mqOtherChargeName = req.session.data["mqOtherChargeName"];
+
+	if (!mqOtherChargeName) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeName = {
+			anchor: "mqOtherChargeName",
+			message: "Enter the name of the other charge",
+		};
+
+	} else if (mqOtherChargeName.length > 40) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeName = {
+			anchor: "mqOtherChargeName",
+			message: "Other charge name must be 40 characters or less",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-name", {
+			data: req.session.data,
+		});
+	} else {
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-type");
+	}
+});
+
+// Monitoring - Quarterly data - Pricing  - Other Charge Type
+router.get("/" + version + "/monitoring/quarterly-data/pricing/other-charge-type", function (req, res) {
+	res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-type", {
+		data: req.session.data,
+	});
+});
+
+router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-type", function (req, res) {
+	var mqOtherChargeType = req.session.data["mqOtherChargeType"];
+
+	if (!mqOtherChargeType) {
+		req.session.data.validationError = "true";
+		req.session.data.validationErrors.mqOtherChargeType = {
+			anchor: "mqOtherChargeType",
+			message: "Select which type the other charge is",
+		};
+	}
+
+	if (req.session.data.validationError == "true") {
+		res.render("/" + version + "/monitoring/quarterly-data/pricing/other-charge-type", {
+			data: req.session.data,
+		});
+	} else {
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
 	}
 });
 
@@ -9361,7 +9539,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-flat-fee",
 		});
 	} else {
 		if (mqflatOtherFees == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-another");
 		}
@@ -9393,7 +9571,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-another", 
 		});
 	} else {
 		if (mqChargesAddAnother == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
+			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-name");
 		} else {
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/total-domestic");
 		}
@@ -9415,18 +9593,23 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/remove-charge", 
 
 function addChargesEntry(sessionData) {
 	const chargesEntered = sessionData["chargesEntered"] || [];
-
+	const mqOtherChargeName = sessionData["mqOtherChargeName"];
+	const mqOtherChargeType = sessionData["mqOtherChargeType"];
 	const mqOtherChargeAmount = sessionData["mqOtherChargeAmount"];
 	const mqOtherChargeUnit = sessionData["mqOtherChargeUnit"];
 	const mqOtherChargeReason = sessionData["mqOtherChargeReason"];
 
 	chargesEntered.push({
+		name: mqOtherChargeName || null,
+		type: mqOtherChargeType || null,
 		amount: parseFloat(mqOtherChargeAmount).toFixed(2) || null,
 		unit: mqOtherChargeUnit || null,
 		reason: mqOtherChargeReason || null,
 	});
 
 	sessionData["chargesEntered"] = chargesEntered;
+	sessionData["mqOtherChargeName"] = null;
+	sessionData["mqOtherChargeType"] = null;
 	sessionData["mqOtherChargeAmount"] = null;
 	sessionData["mqOtherChargeUnit"] = null;
 	sessionData["mqOtherChargeReason"] = null;

@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% set title %}
-Submit quarterly monitoring data for 1 April to 30 June 2026 
+Submit quarterly monitoring data for 1 July to 30 September 2026
 {% endset %}
 
 
@@ -46,7 +46,15 @@ Submit quarterly monitoring data for 1 April to 30 June 2026
                             {% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
                         </p>
 
-                        <p class="govuk-body">We need information about this heat network for 1 April to 30 June 2026.</p>
+                        <p class="govuk-body">We need information about this heat network for 1 July to 30 September 2026.</p>
+                        <div class="govuk-warning-text">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                            <span class="govuk-visually-hidden">Warning</span>
+                                Complete the Vulnerability and debt section, as well as the Quality of service section. In the Pricing section, you’ll be asked if there have been any changes this quarter. If there haven’t, select ‘No’, then review your answers on the Check Your Answers page and select ‘Save and continue’
+                            </strong>
+                        </div>
+                           
                         <p class="govuk-body">You'll need to tell us:</p>
                         <ul class="govuk-list govuk-list--bullet">
                             <li>whether domestic customers were in debt, self-disconnected or reconnected</li>
