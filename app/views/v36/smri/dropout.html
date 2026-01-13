@@ -1,0 +1,63 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "050" %}
+
+{% set title = "You cannot continue" %}
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+
+{% include data.version + "/_partials/headerlinks.html" %}
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">People with SMRI at {{company}}</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">
+                This is because you do not have all the information required to complete the fit and proper declaration.
+            </p>
+            <p class="govuk-body">You must make sure you’ve got:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>a list of everybody with SMRI at your organisation</li>
+                <li>confirmation from each one as to whether they meet all the fit and proper criteria, as defined in the Ongoing Fit and Proper Requirement Authorisation Condition</li>
+            </ul>
+            
+
+        </div>
+        <a href="/{{data.version}}/account-information" class="govuk-button">Finish</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

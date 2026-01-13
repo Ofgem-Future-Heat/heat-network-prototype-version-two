@@ -1,0 +1,73 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title %} 
+Help with pricing data
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group ">
+
+                        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
+                        <h1 class="govuk-heading-l">
+                            {{title}}
+                        </h1>
+                            <p class="govuk-body">You’ve told us that you do not have all the information required to complete this section of your organisation’s quarterly pricing submission. You can still submit any completed sections. </p>
+                            <p class="govuk-body">If the pricing data becomes available before you submit the other data for this quarter, you should return and add it. Once you’ve submitted your data, you will not be able to add or amend it.</p>
+                            <p class="govuk-body">We may get in touch to request further details about why you have not been able to provide this information.</p>
+                            <h2 class="govuk-heading-m">Get help</h2>
+                            <p class="govuk-body">If you do not want to submit your data without this section, you can email <a class="govuk-link" href="#">tbc</a>. We will usually respond within 2 working days.</p>
+                            <p class="govuk-body">In your email, include: </p>    
+                                <ul class="govuk-list govuk-list--bullet">
+                                    <li>heat network ID</li>
+                                    <li>monitoring period your query relates to</li>
+                                    <li>the issue you are having</li>
+                                </ul>
+                        
+                    <form method="POST" novalidate>
+
+
+                    <div class="govuk-button-group govuk-!-margin-top-5">
+                                <a href="/{{data.version}}/monitoring/quarterly-data/tasklist" class="govuk-button">Continue</a>
+                                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                            </div>
+                    </form>
+                
+        </div>
+    </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+

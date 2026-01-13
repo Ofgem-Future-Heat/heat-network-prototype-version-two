@@ -1,0 +1,147 @@
+{% extends 'layouts/main.html' %}
+
+{% set company %}{% if data.companyname %}{{data.companyname}}{% else %}Radienteco Ltd{% endif %}{% endset %}
+
+{% set title %}
+{% if data.customersnondomestictotal == "1" %}
+Is the non-domestic customer on this heat network a ‘small business’?
+
+{% else %}
+Are any of the non-domestic customers on this heat network ‘small businesses’?
+
+{% endif %}
+{% endset %}
+
+{% set cdnumber = "316" %}
+
+{% set _inError = data.validationError == "true" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+        govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+        })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+
+            <div
+                class="govuk-form-group {% if data.validationErrors.smallenterprises %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Add a heat network - customers and metering</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help with ‘small business’
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">
+                                These are businesses that meet either of the following criteria:
+                            </p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>consume less than 420,000 kWh of heat per year</li>
+                                <li>have fewer than 50 employees (or full-time equivalents) and an annual turnover of
+                                    less than £6.5 million or balance sheet total of less than £5 million</li>
+                            </ul>
+                            <p class="govuk-body">
+                                We need to know this, as you'll have different obligations if the network supplies this
+                                type of customer.
+                            </p>
+                        </div>
+                    </details>
+
+
+                    {% if data.validationErrors.smallenterprises %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.smallenterprises.message}}
+                    </p>
+                    {% endif %}
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="smallenterprises" name="smallenterprises"
+                                type="radio" value="Yes" {% if data.smallenterprises=="Yes" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="smallenterprises">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="smallenterprises-2" name="smallenterprises"
+                                type="radio" value="No" {% if data.smallenterprises=="No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="smallenterprises-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+            </div>
+            <div class="govuk-button-group">
+                {{
+                govukButton ({
+                html: 'Continue'
+                })
+                }}
+                <a href="/{{data.version}}/add-heat-network/buildingsandconsumers/cancel?v={{data.lastpage}}"
+                    class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

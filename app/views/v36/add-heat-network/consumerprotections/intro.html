@@ -1,0 +1,78 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "258" %}
+
+{% set title = "Introduction" %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - consumer protections</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+            <p class="govuk-body">We need to know what consumer protection measures your organisation currently has in
+                place for this heat network. You’ll need to tell us:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                {% if data.customersdomestic == "Yes" or data.introgroundloop == "Yes" %}
+                <li>whether the heat network provides heating, cooling or hot water to any vulnerable customers and - if
+                    so - how many</li>
+                <li>whether your organisation has a Priority Services Register (PSR)</li>
+                {% endif %}
+
+                {% if data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses == "Yes" or data.introgroundloop == "Yes" %}
+                <li>if there’s a procedure in place for domestic customers, microbusinesses and small businesses to
+                    raise a complaint</li>
+                <li>if you have a process for dealing with customers who have difficulties paying</li>
+                {% endif %}
+            </ul>
+
+            <div class="govuk-button-group">
+                {% if data.customersdomestic == "Yes" %}
+                <a href="vulnerable" class="govuk-button">Continue</a>
+                {% else %}
+                <a href="confirm" class="govuk-button">Continue</a>
+                {% endif %}
+                <a href="/{{data.version}}/add-heat-network/consumerprotections/cancel?v={{data.lastpage}}"
+                    class="govuk-link govuk-link--no-visited-state">Cancel</a>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    {% endblock %}
+
+
+
+    data.consumertypemicrobusiness == "Yes" or data.smallmediumbusinesses =="Yes")

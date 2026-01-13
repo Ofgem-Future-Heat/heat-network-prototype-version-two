@@ -1,0 +1,125 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title %}
+Consumer type?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqConnectionType="alert"
+            data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <form method="POST" novalidate>
+
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqConnectionType %}govuk-form-group--error{% endif %}">
+
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+
+                    </legend>
+                    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet nibh non dolor fringilla, ac fermentum tortor faucibus. Sed commodo aliquet tellus, vitae ornare ligula commodo.</p>
+                    <div class="govuk-inset-text">
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+                        <strong>1 April to 30 June 2026 </strong> period.
+                    </div>
+                    {% if data.validationErrors.mqConnectionType %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.mqConnectionType.message}}
+                    </p>
+                    {% endif %}
+
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqConnectionType-domestic" name="mqConnectionType"
+                                type="radio" value="Domestic" data-aria-controls="mqConnectionType-conditional"
+                                {% if data.mqConnectionType == "Domestic" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-domestic">
+                                Domestic
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqConnectionType-nonDomestic" name="mqConnectionType"
+                                type="radio" value="Non domestic" {% if data.mqConnectionType == "Non domestic" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-nonDomestic">
+                                Non domestic
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqConnectionType-both" name="mqConnectionType"
+                                type="radio" value="Both" {% if data.mqConnectionType == "Both" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-both">
+                                Both (domestic and non-domestic)
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

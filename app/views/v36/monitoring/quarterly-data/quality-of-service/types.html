@@ -1,0 +1,153 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "XXX" %}
+
+{% set title %} 
+Which types of complaint did customers make about this heat network during this quarter?
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        {% if _inError %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqeight="alert" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    {% for name, item in data.validationErrors %}
+                    <li>
+                        <a href="#{{item.anchor}}">{{item.message}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        
+<form id="sectionForm" method="POST" novalidate>
+ <div class="govuk-form-group {% if data.validationErrors.mqcomplaintsTypes %}govuk-form-group--error{% endif %}">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+                        <h1 class="govuk-fieldset__heading">
+                            {{title}}
+                        </h1>
+         </legend>
+                  <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+
+        <p class="govuk-hint">Select all that apply</p>
+                {% if data.validationErrors.mqcomplaintsTypes %}
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.mqcomplaintsTypes.message}}
+                    </p>
+                {% endif %}
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-backBilling" name="mqcomplaintsTypes" type="checkbox" value="Back billing" {% if data.mqcomplaintsTypes == "backBilling" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-backBilling">
+            Back billing
+            </label>
+            <div id="backBilling" class="govuk-hint govuk-checkboxes__hint">
+            such as incorrect calculations or not issuing bills.
+            </div>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-qualityOfService" name="mqcomplaintsTypes" type="checkbox" value="Quality of service" {% if data.mqcomplaintsTypes == "qualityOfService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-qualityOfService">
+            Quality of service
+            </label>
+            <div id="qualityOfService" class="govuk-hint govuk-checkboxes__hint">
+            interruptions and disruption to the supply of heating, cooling or hot water.
+            </div>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-customerService" name="mqcomplaintsTypes" type="checkbox" value="Customer service" {% if data.mqcomplaintsTypes == "customerService" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-customerService">
+            Customer service
+            </label>
+            <div id="customerService" class="govuk-hint govuk-checkboxes__hint">
+            services offered by the supplier such as the Billing service or complaints process.
+            </div>
+        </div>
+
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-debt" name="mqcomplaintsTypes" type="checkbox" value="Vulnerability, debt and switching" {% if data.mqcomplaintsTypes == "debt" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-debt">
+            Vulnerability, debt and switching 
+            </label>
+            <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
+            complaints related to disconnections or debt management/ repayment and collection and switches to PPM.
+            </div>
+        </div>
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-pricing" name="mqcomplaintsTypes" type="checkbox" value="Pricing" {% if data.mqcomplaintsTypes == "pricing" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-pricing">
+            Pricing
+            </label>
+            <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
+            related to high prices, affordability or charges and their disputes, or price increases the supplier may have announced, or which have come into effect.
+            </div>
+        </div>
+
+
+
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-other" name="mqcomplaintsTypes" type="checkbox" value="Other" {% if data.mqcomplaintsTypes == "other" %}checked{% endif %} >
+            <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-other">
+            Other
+            </label>
+            <div id="other" class="govuk-hint govuk-checkboxes__hint">
+            any other complaints that do not fall within the specified listed categories.
+            </div>
+        </div>
+        
+        </div>
+    </fieldset>
+    </div>
+
+
+            
+            <div class="govuk-button-group">
+                {{
+                    govukButton ({
+                        html: 'Continue'
+                    })
+                }}
+                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

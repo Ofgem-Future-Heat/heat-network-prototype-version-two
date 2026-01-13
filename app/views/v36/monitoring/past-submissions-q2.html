@@ -1,0 +1,400 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = "311" %}
+
+{% set title %} 
+Submitted quarterly monitoring data for July to September 2026
+{% endset %}
+{% set _inError = data.validationError == "true"  %}
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+ govukBackLink ({
+                    text: 'Back',
+                    href: 'javascript:history.back()'
+                })
+        }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Seaton Town Centre</span>
+            <h1 class="govuk-heading-l">
+                {{title}} <br />
+                <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
+                <strong class="govuk-tag govuk-tag--green hn-tag">Submitted</strong>
+            </h1>
+            <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pellentesque erat quis elit fringilla condimentum. </p>
+        
+
+            <h2 class="govuk-heading-m">Quarterly submissions</h2>
+
+            
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Vulnerability and debt
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN1Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN1Content" >
+                    <dl class="govuk-summary-list">
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">            
+                            Do you have the information you’ll need
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+                   
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Number of domestic customers
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                5
+                            </dd>
+                   
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers in debt
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                1
+                            </dd>
+                 
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers who self-disconnected
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+            
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers disconnected for not paying their bill
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                1
+                            </dd>
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers on a repayment plan
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers who were reconnected
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Domestic customers' meters switched to prepayment meters
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Quality of service
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN2Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN2Content" >
+                    <dl class="govuk-summary-list">
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">            
+                                Do you have the information you’ll need
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+                   
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Customer complaints made
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                6
+                            </dd>
+                   
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Type of complaints have you received this quarter
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Back billing <br />
+                                Vulnerability, debt and switching <br />
+                                Pricing
+                            </dd>
+                 
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Back billing complaints
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3
+                            </dd>
+            
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                 Vulnerability, debt and switching complaints
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                1
+                            </dd>
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                 Pricing complaints
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                2
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Complaints that were group complaints
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                3
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Complaints referred to the Ombudsman
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Complaints resolved by the end of the next working day
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                5
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Complaints resolved within 8 weeks
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                0
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+
+            <div class="govuk-summary-card">
+                <div class="govuk-summary-card__title-wrapper">
+                  <h2 class="govuk-summary-card__title">
+                    Pricing
+                  </h2>
+
+                  <ul class="govuk-summary-card__actions">
+                    <li class="govuk-summary-card__action">
+                      <a class="govuk-link govuk-link--no-visited-state" id="HN3Link" href="#">
+                        <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down govuk-!-margin-right-1"></span>Show</span>
+
+                      </a>
+                    </li>
+                </div>
+                <div class="govuk-summary-card__content govuk-!-display-none" id="HN3Content" >
+                    <dl class="govuk-summary-list">
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">            
+                            Do you have the information you’ll need
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+                   
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Are there multiple tariffs charged on this heat network
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+                   
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                 Tariff list
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Tariff 1 <br />
+                                Flat Fee: £0.66 per day<br /><br />
+                                Tariff 2 <br />
+                                Unit Rate: £0.70 per kWh<br />
+                                Standing Charge: £0.70 per day<br /><br />
+                                Tariff 3 <br />
+                                Flat Fee: £0.65 per day<br /><br />
+                            </dd>
+                 
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do your customers pay a connection charge
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+            
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do your customers pay a flat rate for connection charges
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £0.5 per customer
+                            </dd>
+                        </div>
+            
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do your customers pay any other charges
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                Yes
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Do you charge the same flat rate for your other charges
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £7.00 per day <br />
+                                Direct payment
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Total charges across all domestic customers
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £1000
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Total charges across all non-domestic customers
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                £1000
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[id^='HN'][id$='Link']").forEach(toggleLink => {
+        const contentId = toggleLink.id.replace("Link", "Content");
+        const content = document.getElementById(contentId);
+        
+        toggleLink.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+            
+            content.classList.toggle("govuk-!-display-none");
+            const isHidden = content.classList.contains("govuk-!-display-none");
+            
+            toggleLink.innerHTML = `<span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--${isHidden ? 'down' : 'up'} govuk-!-margin-right-1"></span>${isHidden ? 'Show' : 'Hide'}`;
+        });
+    });
+});
+
+</script>
+{% endblock %}
