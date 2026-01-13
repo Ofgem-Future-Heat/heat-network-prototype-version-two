@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% set title = "What is the postcode of the approximate location of the SGL heat network?" %}
+{% set title = "What is the SGL heat network's postcode?" %}
 {% set cdnumber = "328" %}
 
 {% set _inError = data.validationError == "true"  %}
@@ -57,7 +57,6 @@
             {{title}}
         </h1>
 
-        <p class="govuk-body">You should enter the postcode of where the SGL heat network is located.</p>
         <p class="govuk-body">If the network covers more than one postcode, enter a postcode for a central location for the area the network covers.</p>
 
         <form method="POST" novalidate>

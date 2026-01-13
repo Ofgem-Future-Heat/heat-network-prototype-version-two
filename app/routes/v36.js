@@ -3760,7 +3760,7 @@ router.post("/" + version + "/add-heat-network/introduction/sgl-location", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.sglLocation = {
 			anchor: "sglLocation",
-			message: "Enter a postcode",
+			message: "Enter the SGL heat network's postcode",
 		};
 	}
 
@@ -3768,7 +3768,7 @@ router.post("/" + version + "/add-heat-network/introduction/sgl-location", funct
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.sglLocation = {
 			anchor: "sglLocation",
-			message: "Enter a valid postcode",
+			message: "Enter a full real postcode for the SGL heat network",
 		};
 	}
 
