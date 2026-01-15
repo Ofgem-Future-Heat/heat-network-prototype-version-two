@@ -3930,9 +3930,10 @@ router.get("/" + version + "/add-heat-network/introduction/similarcommunal", fun
 router.post("/" + version + "/add-heat-network/introduction/similarcommunal", function (req, res) {
 	var introgroundloop = req.session.data["introgroundloop"];
 	var role = req.session.data["role"];
+	var sglCategory =	req.session.data["sglCategory"];
 
 	if (introgroundloop == "Yes") {
-		if (role === "Operator") {
+		if (role === "Operator" || sglCategory === "Privately Owned") {
 			res.redirect("/" + version + "/add-heat-network/introduction/name");
 		} else {
 			res.redirect("/" + version + "/add-heat-network/introduction/suppliers");
@@ -4423,7 +4424,7 @@ router.post("/" + version + "/add-heat-network/introduction/summary", function (
 		if (sglCategory == "Non-Utility") {
 			res.redirect("/" + version + "/add-heat-network/introduction/selfsupply");
 		} else {
-			if (role == "Operator" || buildings == 1) {
+			if (role == "Operator" || buildings == 1 || sglCategory === "Privately Owned") {
 				res.redirect("/" + version + "/add-heat-network/introduction/name");
 			} else {
 				res.redirect("/" + version + "/add-heat-network/introduction/suppliers");
@@ -4508,6 +4509,7 @@ router.post("/" + version + "/add-heat-network/introduction/selfsupply", functio
 	var buildings = req.session.data["introhnbuildings"];
 	var role = req.session.data["role"];
 	var introgroundloop = req.session.data["introgroundloop"];
+	var sglCategory =	req.session.data["sglCategory"];
 
 	if (!introselfsupply) {
 		req.session.data.validationError = "true";
@@ -4522,12 +4524,8 @@ router.post("/" + version + "/add-heat-network/introduction/selfsupply", functio
 			data: req.session.data,
 		});
 	} else {
-		console.log("introselfsupply: ", introselfsupply);
-		console.log("role: ", role);
-		console.log("buildings: ", buildings);
-
 		if (introselfsupply == "Yes" || (introselfsupply == "No" && role == "Operator") || (introselfsupply == "No" && buildings <= 1)) {
-			if (introgroundloop == "Yes") {
+			if (introgroundloop == "Yes" && sglCategory === "Privately Owned") {
 				res.redirect("/" + version + "/add-heat-network/introduction/name");
 			} else {
 				res.redirect("/" + version + "/add-heat-network/introduction/sell");
