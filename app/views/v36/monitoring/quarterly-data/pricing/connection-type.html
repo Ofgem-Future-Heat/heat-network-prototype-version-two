@@ -71,38 +71,44 @@ Consumer type?
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
                         <strong>1 April to 30 June 2026 </strong> period.
                     </div>
+
+                    <p class="govuk-hint">Select all that apply</p>
                     {% if data.validationErrors.mqConnectionType %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqConnectionType.message}}
-                    </p>
+                        <p class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>
+                            {{data.validationErrors.mqConnectionType.message}}
+                        </p>
                     {% endif %}
 
-
-                    <div class="govuk-radios" data-module="govuk-radios">
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqConnectionType-domestic" name="mqConnectionType"
-                                type="radio" value="Domestic" data-aria-controls="mqConnectionType-conditional"
-                                {% if data.mqConnectionType == "Domestic" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-domestic">
-                                Domestic
-                            </label>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="mqConnectionType-domestic" name="mqConnectionType" type="checkbox" value="Domestic" {% if data.mqConnectionType == "Domestic" %}checked{% endif %} >
+                        <label class="govuk-label govuk-checkboxes__label" for="mqConnectionType-domestic">
+                            Domestic
+                        </label>
+                        <div id="Domestic" class="govuk-hint govuk-checkboxes__hint">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqConnectionType-nonDomestic" name="mqConnectionType"
-                                type="radio" value="Non domestic" {% if data.mqConnectionType == "Non domestic" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-nonDomestic">
-                                Non domestic
-                            </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="mqConnectionType-nonDomestic" name="mqConnectionType" type="checkbox" value="Non domestic" {% if data.mqConnectionType == "Non domestic" %}checked{% endif %} >
+                        <label class="govuk-label govuk-checkboxes__label" for="mqConnectionType-nonDomestic">
+                            Non-domestic
+                        </label>
+                        <div id="nonDomestic" class="govuk-hint govuk-checkboxes__hint">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqConnectionType-both" name="mqConnectionType"
-                                type="radio" value="Both" {% if data.mqConnectionType == "Both" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqConnectionType-both">
-                                Both (domestic and non-domestic)
-                            </label>
+                    </div>
+                    <div class="govuk-checkboxes__divider">or</div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="mqConnectionType-heatSuppliers" name="mqConnectionType" type="checkbox" value="Heat suppliers" {% if data.mqConnectionType == "Heat suppliers" %}checked{% endif %} >
+                        <label class="govuk-label govuk-checkboxes__label" for="mqConnectionType-heatSuppliers">
+                            Heat suppliers
+                        </label>
+                        <div id="heatSuppliers" class="govuk-hint govuk-checkboxes__hint">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </div>
+                    </div>
                     </div>
                 </fieldset>
 
