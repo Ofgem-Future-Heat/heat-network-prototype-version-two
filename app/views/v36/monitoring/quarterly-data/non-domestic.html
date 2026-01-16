@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title = "Were there any domestic customers on this heat network at the end of this quarter?" %}
+{% set title = "Does this heat network have non-domestic customers?" %}
 {% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
@@ -34,7 +34,7 @@
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqcustomersdomestic="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqCustomersNonDomestic="alert" data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -51,12 +51,12 @@
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdomestic %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqCustomersNonDomestic %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - vulnerability and debt</span>
+                        <span class="govuk-caption-l">Quarterly monitoring</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
@@ -64,10 +64,10 @@
                     <p class="govuk-body">For example, customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.</p>
                      <div class="govuk-inset-text">You're submitting quarterly monitoring data for<strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026</strong>.</div>
 
-                    {% if data.validationErrors.mqcustomersdomestic %}
+                    {% if data.validationErrors.mqCustomersNonDomestic %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqcustomersdomestic.message}}
+                        {{data.validationErrors.mqCustomersNonDomestic.message}}
                     </p>
                     {% endif %}
 
@@ -75,28 +75,14 @@
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdomestic-yes" name="mqcustomersdomestic" type="radio" value="Yes" data-aria-controls="mqcustomersdomestic-conditional" {% if data.mqcustomersdomestic == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdomestic-yes">
+                            <input class="govuk-radios__input" id="mqCustomersNonDomestic-yes" name="mqCustomersNonDomestic" type="radio" value="Yes" data-aria-controls="mqCustomersNonDomestic-conditional" {% if data.mqCustomersNonDomestic == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqCustomersNonDomestic-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqcustomersdomestic-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqcustomersdomestictotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqcustomersdomestictotal">
-                                Number of domestic customers at the end of this quarter
-                              </label>
-                              {% if data.validationErrors.mqcustomersdomestictotal %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqcustomersdomestictotal.message}}
-                              </p>
-                              {% endif %}
-                              <input class="govuk-input govuk-!-width-one-third" id="mqcustomersdomestictotal" name="mqcustomersdomestictotal" type="text" value="{{data.mqcustomersdomestictotal}}">
-                            </div>
-                          </div>
                           <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqcustomersdomestic-no" name="mqcustomersdomestic" type="radio" value="No" {% if data.mqcustomersdomestic == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqcustomersdomestic-no">
+                            <input class="govuk-radios__input" id="mqCustomersNonDomestic-no" name="mqCustomersNonDomestic" type="radio" value="No" {% if data.mqCustomersNonDomestic == "No" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqCustomersNonDomestic-no">
                                 No
                             </label>
                         </div>
@@ -114,7 +100,7 @@
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/vulnerability-debt/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
             </div>
         </form>
 

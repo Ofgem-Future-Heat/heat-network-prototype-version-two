@@ -36,7 +36,7 @@ Do your customers pay any other charges?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqotherFees="alert"
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqOtherFees="alert"
             data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
@@ -54,7 +54,7 @@ Do your customers pay any other charges?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqotherFees %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqOtherFees %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -72,27 +72,43 @@ Do your customers pay any other charges?
                         You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
                         <strong>1 April to 30 June 2026 </strong> period.
                     </div>
-                    {% if data.validationErrors.mqotherFees %}
+                    {% if data.validationErrors.mqOtherFees %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqotherFees.message}}
+                        {{data.validationErrors.mqOtherFees.message}}
                     </p>
                     {% endif %}
 
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqotherFees-yes" name="mqotherFees" type="radio"
-                                value="Yes" data-aria-controls="mqotherFees-conditional"
-                                {% if data.mqotherFees == "Yes" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqotherFees-yes">
+                            <input class="govuk-radios__input" id="mqOtherFees-yes" name="mqOtherFees" type="radio" value="Yes" data-aria-controls="mqOtherFees-conditional" {% if data.mqOtherFees == "Yes" %}checked{% endif %} >
+                            <label class="govuk-label govuk-radios__label" for="mqOtherFees-yes">
                                 Yes
                             </label>
                         </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqOtherFees-conditional" >
+                            <div class="govuk-form-group {% if data.validationErrors.mqOtherFeesTotal %}govuk-form-group--error{% endif %}">
+                              <label class="govuk-label" for="mqOtherFeesTotal">
+                                Total customer fees
+                              </label>
+                              {% if data.validationErrors.mqOtherFeesTotal %}
+                              <p class="govuk-error-message">
+                                  <span class="govuk-visually-hidden">Error:</span>
+                                  {{data.validationErrors.mqOtherFeesTotal.message}}
+                              </p>
+                              {% endif %}
+                              <div class="govuk-input__wrapper">
+                              <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                <input class="govuk-input govuk-input--width-5" id="mqOtherFeesTotal" name="mqOtherFeesTotal" type="text" value="{{data.mqOtherFeesTotal}}">
+                              </div>
+                              
+                            </div>
+                          </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqotherFees-no" name="mqotherFees" type="radio"
-                                value="No" {% if data.mqotherFees == "No" %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mqotherFees-no">
+                            <input class="govuk-radios__input" id="mqOtherFees-no" name="mqOtherFees" type="radio"
+                                value="No" {% if data.mqOtherFees == "No" %}checked{% endif %}>
+                            <label class="govuk-label govuk-radios__label" for="mqOtherFees-no">
                                 No
                             </label>
                         </div>
