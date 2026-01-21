@@ -1,0 +1,89 @@
+{% extends 'layouts/main.html' %}
+{% set cdnumber = data.introdropoutreason %}
+{% set showhelp = false %}
+
+{% set title %}
+You do not need to register this heat network
+{% endset %}
+
+
+{% block pageTitle %}
+{{title}}
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
+
+        {{
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
+        }}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-form-group ">
+
+            <span class="govuk-caption-l">Add a heat network - customers and metering</span>
+            <h1 class="govuk-heading-l">
+                {{title}}
+            </h1>
+
+            <p class="govuk-body">
+                This is because you’ve told us that this heat network has no domestic and non-domestic customers.
+            </p>
+
+            {% if data.role == "Supplier" %}
+
+            <p class="govuk-body">
+                Contact us at <a href="mailto:heatnetworks.enquiries@ofgem.gov.uk"
+                    class="govuk-link">heatnetworks.enquiries@ofgem.gov.uk</a> so that we can remove this heat network
+                on your behalf.
+            </p>
+
+            <p class="govuk-body">
+                We'll aim to respond within 5 working days.
+            </p>
+
+            <a href="../../account-information" class="govuk-button">Finish</a>
+
+            {% else %}
+
+            <p class="govuk-body">
+                For further information, you can contact us at <a href="mailto:heatnetworks.enquiries@ofgem.gov.uk"
+                    class="govuk-link">heatnetworks.enquiries@ofgem.gov.uk</a>
+            </p>
+
+            <p class="govuk-body">
+                We'll aim to respond within 5 working days.
+            </p>
+
+            <p class="govuk-body">
+                You should remove this heat network from the service.
+            </p>
+
+            <a href="/{{data.version}}/add-heat-network/confirmremove?ref={{data.lastpage}}"
+                class="govuk-button govuk-button--warning">Remove this heat network</a>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

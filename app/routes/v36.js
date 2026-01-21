@@ -3930,7 +3930,7 @@ router.get("/" + version + "/add-heat-network/introduction/similarcommunal", fun
 router.post("/" + version + "/add-heat-network/introduction/similarcommunal", function (req, res) {
 	var introgroundloop = req.session.data["introgroundloop"];
 	var role = req.session.data["role"];
-	var sglCategory =	req.session.data["sglCategory"];
+	var sglCategory = req.session.data["sglCategory"];
 
 	if (introgroundloop == "Yes") {
 		if (role === "Operator" || sglCategory === "Privately Owned") {
@@ -4509,7 +4509,7 @@ router.post("/" + version + "/add-heat-network/introduction/selfsupply", functio
 	var buildings = req.session.data["introhnbuildings"];
 	var role = req.session.data["role"];
 	var introgroundloop = req.session.data["introgroundloop"];
-	var sglCategory =	req.session.data["sglCategory"];
+	var sglCategory = req.session.data["sglCategory"];
 
 	if (!introselfsupply) {
 		req.session.data.validationError = "true";
@@ -5658,7 +5658,7 @@ router.post("/" + version + "/add-heat-network/energycentre/summary", function (
 
 		if (techsummaryother == "No") {
 			if (energycentres > 1) {
-				(req.session.data["ecaddressHasPostcode" + req.session.data["currentecid"]] = req.session.data["ecaddressHasPostcode"]),
+				((req.session.data["ecaddressHasPostcode" + req.session.data["currentecid"]] = req.session.data["ecaddressHasPostcode"]),
 					(req.session.data["ecaddressPostcode" + req.session.data["currentecid"]] = req.session.data["ecaddressPostcode"]),
 					(req.session.data["ecaddressSelected" + req.session.data["currentecid"]] = req.session.data["ecaddressSelected"]),
 					(req.session.data["ecaddresslatitude" + req.session.data["currentecid"]] = req.session.data["ecaddresslatitude"]),
@@ -5668,7 +5668,7 @@ router.post("/" + version + "/add-heat-network/energycentre/summary", function (
 					(req.session.data["techcoolingcapacity" + req.session.data["currentecid"]] = req.session.data["techcoolingcapacity"]),
 					(req.session.data["technologies" + req.session.data["currentecid"]] = req.session.data["technologies"]),
 					(req.session.data["techmeters" + req.session.data["currentecid"]] = req.session.data["techmeters"]),
-					(req.session.data["eccomplete" + req.session.data["currentecid"]] = true);
+					(req.session.data["eccomplete" + req.session.data["currentecid"]] = true));
 				clearECdata(req);
 
 				res.redirect("/" + version + "/add-heat-network/energycentre/energycentres");
@@ -5870,17 +5870,21 @@ router.post("/" + version + "/add-heat-network/buildingsandconsumers/nondomestic
 			data: req.session.data,
 		});
 	} else {
-		if (customersnondomestic == "Yes") {
-			if (introgroundloop == "Yes") {
-				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/smallenterprises");
-			} else {
-				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/industrial");
-			}
+		if (customersdomestic == "No" && customersnondomestic == "No") {
+			res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/dropout");
 		} else {
-			if (sglCategory == "Non-Utility") {
-				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
+			if (customersnondomestic == "Yes") {
+				if (introgroundloop == "Yes") {
+					res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/smallenterprises");
+				} else {
+					res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/industrial");
+				}
 			} else {
-				res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+				if (sglCategory == "Non-Utility") {
+					res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/cya");
+				} else {
+					res.redirect("/" + version + "/add-heat-network/buildingsandconsumers/prepaymentmeters");
+				}
 			}
 		}
 	}
@@ -8058,7 +8062,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/group
 	}
 });
 
-
 // Monitoring - Quarterly data - Quality of service  - Ombudsman
 router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/ombudsman", function (req, res) {
 	res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/ombudsman", {
@@ -8435,7 +8438,7 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/types
 		res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/types", {
 			data: req.session.data,
 		});
-	} else { 
+	} else {
 		console.log(mqcomplaintsTypes);
 		console.log(mqcomplaintsTypes.includes("Back billing"));
 		if (mqcomplaintsTypes.includes("Back billing")) {
@@ -9130,7 +9133,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-name", fu
 			anchor: "mqTariffName",
 			message: "Enter how much the additional charge is, in pounds",
 		};
-
 	} else if (mqTariffName.length > 18) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqTariffName = {
@@ -9171,7 +9173,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/tariff-type", fu
 			data: req.session.data,
 		});
 	} else {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/flat-fee");
 	}
 });
 
@@ -9284,7 +9286,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-anoth
 	}
 });
 
-
 // Monitoring - Quarterly data - Pricing  - connection name
 router.get("/" + version + "/monitoring/quarterly-data/pricing/connection-name", function (req, res) {
 	res.render("/" + version + "/monitoring/quarterly-data/pricing/connection-name", {
@@ -9301,7 +9302,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-name"
 			anchor: "mqConnectionName",
 			message: "Enter the name of the connection",
 		};
-
 	} else if (mqConnectionName.length > 40) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqConnectionName = {
@@ -9342,7 +9342,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-type"
 			data: req.session.data,
 		});
 	} else {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info");
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-add-info");
 	}
 });
 
@@ -9403,7 +9403,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 		allFlatConnectionFees.push({
 			mqConnectionName: mqConnectionName,
 			mqConnectionType: mqConnectionType,
-			mqFlatConnectionFee: parseFloat(mqflatConnectionFeesAdd).toFixed(2)
+			mqFlatConnectionFee: parseFloat(mqflatConnectionFeesAdd).toFixed(2),
 		});
 
 		req.session.data["allFlatConnectionFees"] = allFlatConnectionFees;
@@ -9418,7 +9418,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/connection-add-i
 			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/connection-another");
 		}
 	}
-
 });
 
 // Monitoring - Quarterly data - Pricing  - other charge name
@@ -9437,7 +9436,6 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-name", fun
 			anchor: "mqOtherChargeName",
 			message: "Enter the name of the other charge",
 		};
-
 	} else if (mqOtherChargeName.length > 40) {
 		req.session.data.validationError = "true";
 		req.session.data.validationErrors.mqOtherChargeName = {
@@ -9478,7 +9476,7 @@ router.post("/" + version + "/monitoring/quarterly-data/pricing/other-charge-typ
 			data: req.session.data,
 		});
 	} else {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
+		res.redirect("/" + version + "/monitoring/quarterly-data/pricing/other-charge-amount");
 	}
 });
 
