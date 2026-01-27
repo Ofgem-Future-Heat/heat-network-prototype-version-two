@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many complaints did this heat network receive about back billing this quarter?
+How many back billing complaints did this heat network receive this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,9 +61,10 @@ How many complaints did this heat network receive about back billing this quarte
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">This means any complaints relating to issues on back billing such as incorrect calculations or not issuing bills.</p>
+                        <p class="govuk-body">This means any complaints relating to back billing issues such as incorrect calculations or bills not being issued.</p>
 
-                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</div>
                         
                         <p class="govuk-body">You must enter a whole number without decimals.</p>
 

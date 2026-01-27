@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Consumer type?
+Which type of customer type does this connection charge apply to?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -66,10 +66,13 @@ Consumer type?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet nibh non dolor fringilla, ac fermentum tortor faucibus. Sed commodo aliquet tellus, vitae ornare ligula commodo.</p>
+                    <p class="govuk-body">
+                        Do not include connection charges for industrial customers.
+                    </p>
+                    
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
-                        <strong>1 April to 30 June 2026 </strong> period.
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.
                     </div>
 
                     <p class="govuk-hint">Select all that apply</p>
@@ -87,7 +90,7 @@ Consumer type?
                             Domestic
                         </label>
                         <div id="Domestic" class="govuk-hint govuk-checkboxes__hint">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            For example, customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.
                         </div>
                     </div>
                     <div class="govuk-checkboxes__item">
@@ -96,7 +99,7 @@ Consumer type?
                             Non-domestic
                         </label>
                         <div id="nonDomestic" class="govuk-hint govuk-checkboxes__hint">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            For example, customers that use the heating, cooling or hot water from the heat network for commercial or industrial purposes. 
                         </div>
                     </div>
                     <div class="govuk-checkboxes__divider">or</div>
@@ -106,7 +109,7 @@ Consumer type?
                             Heat suppliers
                         </label>
                         <div id="heatSuppliers" class="govuk-hint govuk-checkboxes__hint">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            For example, people or organisations that supply heat or hot water to customers through a heat network.
                         </div>
                     </div>
                     </div>

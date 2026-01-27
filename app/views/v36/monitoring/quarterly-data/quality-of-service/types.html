@@ -62,7 +62,8 @@ Which types of complaint did customers make about this heat network during this 
                             {{title}}
                         </h1>
          </legend>
-                  <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+                  <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</div>
 
         <p class="govuk-hint">Select all that apply</p>
                 {% if data.validationErrors.mqcomplaintsTypes %}
@@ -78,7 +79,7 @@ Which types of complaint did customers make about this heat network during this 
             Back billing
             </label>
             <div id="backBilling" class="govuk-hint govuk-checkboxes__hint">
-            such as incorrect calculations or not issuing bills.
+            such as complaints about incorrect calculations or missing bills
             </div>
         </div>
         <div class="govuk-checkboxes__item">
@@ -87,7 +88,7 @@ Which types of complaint did customers make about this heat network during this 
             Quality of service
             </label>
             <div id="qualityOfService" class="govuk-hint govuk-checkboxes__hint">
-            interruptions and disruption to the supply of heating, cooling or hot water.
+            including complaints about interruptions or disruption to heating, cooling or hot water 
             </div>
         </div>
         <div class="govuk-checkboxes__item">
@@ -106,7 +107,7 @@ Which types of complaint did customers make about this heat network during this 
             Vulnerability, debt and switching 
             </label>
             <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
-            complaints related to disconnections or debt management/ repayment and collection and switches to PPM.
+            such as complaints about disconnections, debt issues, and switches to prepayment meters
             </div>
         </div>
         <div class="govuk-checkboxes__item">
@@ -115,7 +116,7 @@ Which types of complaint did customers make about this heat network during this 
             Pricing
             </label>
             <div id="vulnerabilityDebtSwitching" class="govuk-hint govuk-checkboxes__hint">
-            related to high prices, affordability or charges and their disputes, or price increases the supplier may have announced, or which have come into effect.
+            such as complaints about prices, affordability, charges, or price increases
             </div>
         </div>
 
@@ -124,10 +125,10 @@ Which types of complaint did customers make about this heat network during this 
         <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="mqcomplaintsTypes-other" name="mqcomplaintsTypes" type="checkbox" value="Other" {% if data.mqcomplaintsTypes == "other" %}checked{% endif %} >
             <label class="govuk-label govuk-checkboxes__label" for="mqcomplaintsTypes-other">
-            Other
+            Any other issues
             </label>
             <div id="other" class="govuk-hint govuk-checkboxes__hint">
-            any other complaints that do not fall within the specified listed categories.
+            including complaints not covered in these categories
             </div>
         </div>
         

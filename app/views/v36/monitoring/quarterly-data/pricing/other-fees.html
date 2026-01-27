@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Do your customers pay any other charges?
+Did your customers pay any other charges?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -66,11 +66,11 @@ Do your customers pay any other charges?
 
                     </legend>
                     <p class="govuk-body">
-                        You should report all levels and types of other charges for this heat network. Do not include standing charges, unit rates or connection charges. 
+                        Report any other charges that are not standing charges, unit rates, or connection charges.
                     </p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
-                        <strong>1 April to 30 June 2026 </strong> period.
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.
                     </div>
                     {% if data.validationErrors.mqOtherFees %}
                     <p class="govuk-error-message">
@@ -90,7 +90,7 @@ Do your customers pay any other charges?
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqOtherFees-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqOtherFeesTotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqOtherFeesTotal">
-                                Total customer fees
+                                Total amount of other charges
                               </label>
                               {% if data.validationErrors.mqOtherFeesTotal %}
                               <p class="govuk-error-message">

@@ -56,13 +56,13 @@
           <div class="govuk-!-padding-4 hn-box--grey">
             <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next quarterly submission</h3>
             {% if data.mqstatus == "Completed" %}
-            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Jul to Sep 2026</strong> <strong
-                class="govuk-tag govuk-tag--red">Overdue</strong></p>
-            <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Oct 2026</p>
+            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Jul to Sep 2027</strong> <strong
+                class="govuk-tag govuk-tag--red">Due</strong></p>
+            <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Oct 2027</p>
             {% else %}
-              <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr to Jun 2026</strong> <strong
-                class="govuk-tag govuk-tag--red">Overdue</strong></p>
-            <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Jul 2026</p>
+              <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr to Jun 2027</strong> <strong
+                class="govuk-tag govuk-tag--yellow">Due</strong></p>
+            <p class="govuk-body govuk-!-margin-top-1">Due by: 31 Jul 2027</p>
             {% endif %}
             <p class="govuk-body"><a href="/{{data.version}}/monitoring/quarterly-data/intro"
                 class="govuk-link govuk-link--no-visited-state">Submit quarterly data</a></p>
@@ -72,9 +72,9 @@
         <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4 hn-box">
           <div class="govuk-!-padding-4 hn-box--grey">
             <h3 class="govuk-heading-m govuk-!-font-weight-bold">Next annual submission</h3>
-            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr 2026 to Mar 2027</strong> <strong
+            <p class="govuk-body govuk-!-margin-bottom-1"><strong>Apr 2027 to Mar 2028</strong> <strong
                 class="govuk-tag govuk-tag--yellow">Due</strong></p>
-            <p class="govuk-body govuk-!-margin-top-1">Due by: 30 Apr 2027</p>
+            <p class="govuk-body govuk-!-margin-top-1">Due by: 30 Apr 2028</p>
             <p class="govuk-body"><a href="/{{data.version}}/monitoring/annual-data/intro"
                 class="govuk-link govuk-link--no-visited-state">Submit annual data</a></p>
           </div>
@@ -108,62 +108,62 @@
             <th scope="row" class="govuk-table__header">
               <a href="/{{data.version}}/monitoring/quarterly-data/intro"
                 class="govuk-link govuk-link--no-visited-state">
-                Apr to Jun 2026
+                Apr to Jun 2027
               </a>
               <br /><strong
                 class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
                 submission</strong>
             </th>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>31 Jul 2026</td>
+                by<br /></span>31 Jul 2027</td>
             <td class="govuk-table__cell"><span
-                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span>{% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span>{% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--yellow">Due</strong>{% endif %}
               </td>
           </tr>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="/{{data.version}}/monitoring/quarterly-data/intro-mini" class="govuk-link govuk-link--no-visited-state">
-                Jul to Sep 2026
+                Jul to Sep 2027
               </a>
               <br /><strong
                 class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
                 submission</strong>
             </th>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>31 Oct 2026</td>
+                by<br /></span>31 Oct 2027</td>
             <td class="govuk-table__cell"><span
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag govuk-tag--red">Overdue</strong></td>
+                class="govuk-tag">N/A</strong></td>
           </tr>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="#" class="govuk-link govuk-link--no-visited-state">
-                Oct to Dec 2026
+                Oct to Dec 2027
               </a>
               <br /><strong
                 class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
                 submission</strong>
             </th>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>31 Jan 2027</td>
+                by<br /></span>31 Jan 2028</td>
             <td class="govuk-table__cell"><span
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag govuk-tag--red">Overdue</strong></td>
+                class="govuk-tag">N/A</strong></td>
           </tr>
             <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="#" class="govuk-link govuk-link--no-visited-state">
-                Jan to Mar 2027
+                Jan to Mar 2028
               </a>
               <br /><strong
                 class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
                 submission</strong>
             </th>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>30 Apr 2027</td>
+                by<br /></span>30 Apr 2028</td>
             <td class="govuk-table__cell"><span
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag govuk-tag--yellow">Due</strong></td>
+                class="govuk-tag">N/A</strong></td>
           </tr>
           
         </tbody>
@@ -182,25 +182,130 @@
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">
               <a href="/{{data.version}}/monitoring/annual-data/intro" class="govuk-link govuk-link--no-visited-state">
-                Apr 2026 to Mar 2027
+                Apr 2027 to Mar 2028
               </a>
               <br /><strong
                 class="govuk-tag govuk-!-font-size-16 govuk-tag--green govuk-!-margin-top-1 govuk-!-margin-bottom-1">Annual
                 submission</strong>
             </th>
             <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>30 Apr 2027</td>
+                by<br /></span>30 Apr 2028</td>
             <td class="govuk-table__cell"><span
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
                 class="govuk-tag govuk-tag--yellow">Due</strong></td>
           </tr>
         </tbody>
       </table>
-      <br /><br /><br />
 
-          <p class="govuk-body govuk-body-s">
-            <a href="/{{data.version}}/monitoring/monitoring-information-past" class="govuk-link">Past submissions</a>
-        </p>
+
+      <div class="govuk-grid-row govuk-!-margin-top-9 govuk-!-margin-bottom-6" id="hn-list">
+        <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-m">Past submissions</h2>
+          <p class="govuk-body">This section shows your previous monitoring data submissions. You can use these records to review past reports and help ensure future submissions are consistent.</p>
+        </div>
+      </div>
+       <table class="govuk-table responsive">
+      <caption class="govuk-table__caption govuk-table__caption--s">Quarterly submissions</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Date submitted</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/past-submissions-q4" class="govuk-link govuk-link--no-visited-state">
+                Jan to Mar 2027
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong><br /><span class="govuk-body-s">(ID: MQ0001232)</span>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>30 Apr 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--green">Submitted</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/past-submissions-q3" class="govuk-link govuk-link--no-visited-state">
+                Oct to Dec 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong><br /><span class="govuk-body-s">(ID: MQ0001231)</span>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Jan 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--green">Submitted</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/past-submissions-q2" class="govuk-link govuk-link--no-visited-state">
+                Jul to Sep 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong><br /><span class="govuk-body-s">(ID: MQ0001230)</span>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Oct 2026</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--green">Submitted</strong></td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/{{data.version}}/monitoring/past-submissions-q1" class="govuk-link govuk-link--no-visited-state">
+                Apr to Jun 2026
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
+                submission</strong><br /><span class="govuk-body-s">(ID: MQ0001229)</span>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>31 Jul 2026</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--green">Submitted (late)</strong></td>
+          </tr>
+          
+        </tbody>
+      </table>
+
+      <table class="govuk-table responsive govuk-!-margin-top-9">
+        <caption class="govuk-table__caption govuk-table__caption--s">Annual submission</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Date submitted</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">    
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="#" class="govuk-link govuk-link--no-visited-state">
+                Apr 2026 to Mar 2027
+              </a>
+              <br /><strong
+                class="govuk-tag govuk-!-font-size-16 govuk-tag--green govuk-!-margin-top-1 govuk-!-margin-bottom-1">Annual
+                submission</strong><br /><span class="govuk-body-s">(ID: MQ0001233)</span>
+            </th>
+            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
+                by<br /></span>30 Apr 2027</td>
+            <td class="govuk-table__cell"><span
+                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
+                class="govuk-tag govuk-tag--green">Submitted</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 

@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Does this tariff use a flat fee based charging format?
+Does this tariff use a flat fee-based charging format?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -68,7 +68,8 @@ Does this tariff use a flat fee based charging format?
                          This means that the same fee is charged per day, regardless of the amount of heat used. This is more likely with shared ground loop or unmetered networks.
                     </p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong> period.
+                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.
                     </div>
                     {% if data.validationErrors.mqflatFees %}
                     <p class="govuk-error-message">

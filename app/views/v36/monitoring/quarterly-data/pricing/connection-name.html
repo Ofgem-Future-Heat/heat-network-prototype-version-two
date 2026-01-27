@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %}
-Connection name
+Give this connection charge a name
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -63,8 +63,8 @@ Connection name
                     </h1>
                 </legend>
                 <div class="govuk-inset-text">
-                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
-                    <strong>1 April to 30 June 2026 </strong> period.
+                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.
                 </div>
 
                 {% if data.validationErrors.mqConnectionName %}
@@ -76,6 +76,9 @@ Connection name
 
                 <div class="govuk-form-group">
                     <div class="govuk-input__wrapper">
+                        <div id="connection-name-hint" class="govuk-hint">
+                            Connection charge name can include any combination of letters, numbers, special characters and punctuation.
+                        </div>
                         <input
                             class="govuk-input govuk-input--width-20 {% if data.validationErrors.mqConnectionName %}govuk-input--error{% endif %}"
                             id="mqConnectionName" name="mqConnectionName" type="text">

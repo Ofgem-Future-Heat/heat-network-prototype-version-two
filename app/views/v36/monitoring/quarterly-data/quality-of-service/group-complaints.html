@@ -65,7 +65,8 @@ Were any complaints group complaints during this quarter?
 
                     </legend>
                     <p class="govuk-body">This means complaints that are made on behalf of multiple consumers.</p>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong> Seaton city centre</strong>, covering <strong>1 April to 30 June 2026 </strong>.</div>
+                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</div>
 
                     {% if data.validationErrors.mqgroupcomplaints %}
                     <p class="govuk-error-message">
@@ -89,7 +90,7 @@ Were any complaints group complaints during this quarter?
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqgroupcomplaints-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqgroupcomplaintstotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqgroupcomplaintstotal">
-                                Number of complaints that were group complaints this quarter
+                                Number of group complaints this quarter
                               </label>
                               {% if data.validationErrors.mqgroupcomplaintstotal %}
                               <p class="govuk-error-message">
