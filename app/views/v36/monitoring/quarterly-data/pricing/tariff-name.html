@@ -64,7 +64,7 @@ Give this tariff a name
                 </legend>
                 <p class="govuk-body">To help you identify this tariff, we recommend you give it a name that makes sense to you.</p>
                 <div class="govuk-inset-text">
-                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
                         <strong>1 April to 30 June 2026</strong>.</p>
                         <p class="govuk-body">Do not include tariffs for industrial customers.</p>
                 </div>
@@ -81,7 +81,7 @@ Give this tariff a name
                                 Tariff name
                         </label>
                         <input class="govuk-input govuk-input--width-20 {% if data.validationErrors.mqTariffName %}govuk-input--error{% endif %}"
-                            id="mqTariffName" name="mqTariffName" type="text">
+                            id="mqTariffName" name="mqTariffName" type="text" value="{{data.mqTariffName}}">
                 </div>
             </div>
             <div class="govuk-button-group">

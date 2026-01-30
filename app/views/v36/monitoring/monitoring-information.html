@@ -21,7 +21,7 @@
           <a class="govuk-breadcrumbs__link" href="../account-information?v=operatorcomplete">Account home</a>
         </li>
         <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="../add-heat-network/view?v=operatorcomplete">Seaton Town Centre</a>
+          <a class="govuk-breadcrumbs__link" href="../add-heat-network/view?v=operatorcomplete">{{data.name}}</a>
         </li>
       </ol>
     </div>
@@ -42,7 +42,7 @@
 
     <div class="govuk-form-group">
 
-      <span class="govuk-caption-l">Seaton Town Centre</span>
+      <span class="govuk-caption-l">{{data.name}}</span>
       <h1 class="govuk-heading-l">
         {{title}}
       </h1>
@@ -83,7 +83,7 @@
       <div class="govuk-grid-row govuk-!-margin-top-8" id="hn-list">
         <div class="govuk-grid-column-two-thirds">
           <h2 class="govuk-heading-m">Monitoring submissions</h2>
-          <p class="govuk-body">Seaton Town Centre has {% if data.mqstatus == "Completed" %}<strong>4</strong>{% else %}<strong>5</strong>{% endif %} outstanding monitoring submissions,
+          <p class="govuk-body">{{data.name}} has {% if data.mqstatus == "Completed" %}<strong>4</strong>{% else %}<strong>5</strong>{% endif %} outstanding monitoring submissions,
             {% if data.mqstatus == "Completed" %}<strong>2</strong>{% else %}<strong>3</strong>{% endif %} are overdue.</p>
               <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>

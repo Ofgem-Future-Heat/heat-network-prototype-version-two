@@ -1,11 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "231" %}
 
-    {% set name %}
-
+{% set name %}
 Seaton Town Centre
 {% endset %}
-
 
 {% set _inError = data.validationError == "true"  %}
 
@@ -24,12 +22,12 @@ Seaton Town Centre
 
     <div class="govuk-grid-column-full">
 
-{% include data.version + "/_partials/logout.html" %}
+        {% include data.version + "/_partials/logout.html" %}
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
 
     </div>
@@ -62,26 +60,31 @@ Seaton Town Centre
         {% endif %}
 
         <div class="govuk-form-group ">
+            <span class="govuk-caption-l">
+                {{name}}
+            </span>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+                {{title}}
+            </h1>
 
-                <span class="govuk-caption-l">
-                    {{name}}
-                  </span>
-                        <h1 class="govuk-heading-l govuk-!-margin-bottom-2">
-                            {{title}}
-                        </h1>
+            <p class="govuk-body govuk-!-margin-bottom-7">
+                <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
+                {% if data.mqstatus == "Completed" %}<strong
+                    class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong
+                    class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
 
-                        <p class="govuk-body govuk-!-margin-bottom-7">
-                            <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
-                            {% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--red">Overdue</strong>{% endif %}
-                        
-                        </p>
-
-
+            </p>
 
             <ul class="govuk-task-list">
+                {% if data.role == "Supplier" or data.role == "Operator and supplier" %}
+
+                {% if data.mqcustomersdomestic == "Yes" %}
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqvulnerabilitycomplete == "true" %}href="vulnerability-debt/cya"{% else %}href="vulnerability-debt/initial"{% endif %} aria-describedby="company-details-1-status">Vulnerability and debt</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            {% if data.mqvulnerabilitycomplete == "true" %}href="vulnerability-debt/cya"
+                            {% else %}href="vulnerability-debt/initial" {% endif %}
+                            aria-describedby="company-details-1-status">Vulnerability and debt</a>
                         {% if data.validationErrors.mqvulnerabilitycomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -103,10 +106,14 @@ Seaton Town Centre
                         {% endif %}
                     </div>
                 </li>
+                {% endif %}
 
                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqqualitycomplete == "true" %}href="quality-of-service/cya"{% else %}href="quality-of-service/initial"{% endif %} aria-describedby="company-details-1-status">Quality of service</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            {% if data.mqqualitycomplete == "true" %}href="quality-of-service/cya"
+                            {% else %}href="quality-of-service/initial" {% endif %}
+                            aria-describedby="company-details-1-status">Quality of service</a>
                         {% if data.validationErrors.mqqualitycomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -129,9 +136,13 @@ Seaton Town Centre
                     </div>
                 </li>
 
-                 <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                {% endif %}
+
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
                     <div class="govuk-task-list__name-and-hint">
-                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link" {% if data.mqpricingcomplete == "true" %}href="pricing/cya"{% else %}href="pricing/initial"{% endif %} aria-describedby="company-details-1-status">Pricing</a>
+                        <a class="govuk-link govuk-link--no-visited-state govuk-task-list__link"
+                            {% if data.mqpricingcomplete == "true" %}href="pricing/cya" {% else %}href="pricing/initial"
+                            {% endif %} aria-describedby="company-details-1-status">Pricing</a>
                         {% if data.validationErrors.mqpricingcomplete %}
                         <p class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span>
@@ -153,25 +164,20 @@ Seaton Town Centre
                         {% endif %}
                     </div>
                 </li>
-
-
             </ul>
-
-
         </div>
-
 
         <form method="POST" novalidate>
             <div class="govuk-button-group">
                 {% if data.mqstatus != "Completed" %}
 
-                    {{
-                        govukButton ({
-                            html: 'Submit'
-                        })
-                    }}
+                {{
+                    govukButton ({
+                        html: 'Submit'
+                    })
+                }}
                 {% endif %}
-                </div>
+            </div>
 
         </form>
 

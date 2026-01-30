@@ -64,20 +64,19 @@ Add connection charges to this heat network
 
         {% if data.allFlatConnectionFees.length > 0 %}
         <div class="govuk-inset-text">
-                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
                         <strong>1 April to 30 June 2026</strong>.</p>
                         <p class="govuk-body">Do not include connection charges for industrial customers.</p>
         </div>
 
         <table class="govuk-table">
-            
+
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
-                    <th scope="col" class="govuk-table__header">Type</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
-                    <th scope="col" class="govuk-table__header"></th>
-                    <th scope="col" class="govuk-table__header"></th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -90,26 +89,31 @@ Add connection charges to this heat network
 
 
                     <td class="govuk-table__cell">
-                        <form action="remove-connection" method="post" novalidate>
-                            <input type="hidden" name="connectionId" value="{{loop.index}}">
+                        <dl class="govuk-summary-list govuk-!-margin-0">
+                            <dd class="govuk-summary-list__actions govuk-!-margin-0 govuk-!-padding-0">
+                                <ul class="govuk-summary-list__actions-list">
+                                    <li class="govuk-summary-list__actions-list-item">
+                                        <form action="edit-connection" method="post" novalidate>
+                                            <input type="hidden" name="connectionId" value="{{loop.index}}">
+                                            <button type="submit" class="button-as-link">
+                                                <a class="govuk-link govuk-link--no-visited-state">Edit</a>
+                                            </button>
 
-                            <button type="submit"
-                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
-                                Remove
-                            </button>
+                                        </form>
+                                    </li>
+                                    <li class="govuk-summary-list__actions-list-item">
+                                        <form action="remove-connection" method="post" novalidate>
+                                            <input type="hidden" name="connectionId" value="{{loop.index}}">
 
-                        </form>
-                    </td>
-                    <td class="govuk-table__cell">
-                        <form action="edit-connection" method="post" novalidate>
-                            <input type="hidden" name="connectionId" value="{{loop.index}}">
-
-                            <button type="submit"
-                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
-                                Edit
-                            </button>
-
-                        </form>
+                                            <button type="submit"
+                                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
                     </td>
                 </tr>
 
