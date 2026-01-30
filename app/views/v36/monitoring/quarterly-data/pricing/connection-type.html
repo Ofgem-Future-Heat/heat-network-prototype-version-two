@@ -104,9 +104,9 @@ Which type of customer type does this connection charge apply to?
                     </div>
                     <div class="govuk-checkboxes__divider">or</div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="mqConnectionType-heatSuppliers" name="mqConnectionType" type="checkbox" value="Heat suppliers" {% if data.mqConnectionType == "Heat suppliers" %}checked{% endif %} >
+                        <input class="govuk-checkboxes__input" id="mqConnectionType-heatSuppliers" name="mqConnectionType" type="checkbox" value="Heat supplier" data-behaviour="exclusive" {% if data.mqConnectionType == "Heat supplier" %}checked{% endif %} >
                         <label class="govuk-label govuk-checkboxes__label" for="mqConnectionType-heatSuppliers">
-                            Heat suppliers
+                            Heat supplier
                         </label>
                         <div id="heatSuppliers" class="govuk-hint govuk-checkboxes__hint">
                             For example, people or organisations that supply heat or hot water to customers through a heat network.

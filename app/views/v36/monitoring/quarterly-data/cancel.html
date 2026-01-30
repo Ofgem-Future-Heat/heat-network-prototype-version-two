@@ -1,9 +1,20 @@
 {% extends 'layouts/main.html' %}
-{% set cdnumber = "XXX" %}
+{% set cdnumber = "xx" %}
+
+
+{% set hnname %}
+{% if data.name %}
+{{data.name}}
+{% else %}
+Seaton City Centre
+{% endif %}
+{% endset %}
+
 
 {% set title %}
-What were these other charges for?
+Are you sure you wish to cancel making changes to {{hnname}}?
 {% endset %}
+
 {% set _inError = data.validationError == "true"  %}
 
 
@@ -16,8 +27,8 @@ What were these other charges for?
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-full">
+        {% include data.version + "/_partials/logout.html" %}
 
-        {% include data.version + "/_partials/headerlinks.html" %}
         {{
             govukBackLink ({
                 text: 'Back',
@@ -34,6 +45,7 @@ What were these other charges for?
 {% block content %}
 
 <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
@@ -51,45 +63,50 @@ What were these other charges for?
             </div>
         </div>
         {% endif %}
+
         <form method="POST" novalidate>
 
-            <div
-                class="govuk-form-group {% if data.validationErrors.mqOtherChargeReason %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.quarterlydatacancel %}govuk-form-group--error{% endif %}">
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <fieldset class="govuk-fieldset">
 
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - pricing</span>
+                        <span class="govuk-caption-l">Quarterly monitoring</span>
                         <h1 class="govuk-fieldset__heading">
                             {{title}}
                         </h1>
                     </legend>
-                    <p class="govuk-body">
-                        Include a summary of what these other charges were for and how many customers paid them.
-                    </p>
-                    <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.
-                    </div>
-                    {% if data.validationErrors.mqOtherChargeReason %}
+
+                    {% if data.validationErrors.quarterlydatacancel %}
                     <p class="govuk-error-message">
                         <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqOtherChargeReason.message}}
+                        {{data.validationErrors.quarterlydatacancel.message}}
                     </p>
                     {% endif %}
-                    <textarea class="govuk-textarea" id="mqOtherChargeReason" name="mqOtherChargeReason" rows="5" aria-describedby="mqOtherChargeReason-hint">{% if data.mqOtherChargeReason %}{{data.mqOtherChargeReason}}{% endif %}</textarea>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="cancel" name="quarterlydatacancel" type="radio" value="Yes" >
+                            <label class="govuk-label govuk-radios__label" for="cancel">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="cancel-2" name="quarterlydatacancel" type="radio" value="No">
+                            <label class="govuk-label govuk-radios__label" for="cancel-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
                 </fieldset>
             </div>
-            <div class="govuk-button-group">
-                {{
-                    govukButton ({
-                        html: 'Continue'
-                    })
-                }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
-                    class="govuk-link">Cancel</a>
-            </div>
+            {{
+                govukButton ({
+                    html: 'Continue'
+                })
+            }}
         </form>
+
     </div>
 
 </div>

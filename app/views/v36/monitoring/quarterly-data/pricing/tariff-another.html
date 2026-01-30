@@ -64,19 +64,18 @@ Tariffs on this heat network
 
         {% if data.tariffsEntered.length > 0 %}
         <div class="govuk-inset-text">
-            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.
+            You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
+            <strong>1 April to 30 June 2026</strong>.
         </div>
 
         <table class="govuk-table">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Name</th>
-                    <th scope="col" class="govuk-table__header">Type</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Type</th>
                     <th scope="col" class="govuk-table__header">Cost type</th>
                     <th scope="col" class="govuk-table__header">Cost</th>
-                    <th scope="col" class="govuk-table__header"></th>
-                    <th scope="col" class="govuk-table__header"></th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -85,11 +84,11 @@ Tariffs on this heat network
                     <th scope="row" class="govuk-table__header">{{tariff.mqTariffName}}</th>
 
                     {% if tariff.mqflatFees == "Yes" %}
-                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
+                    <td class="govuk-table__cell">{{ tariff.mqTariffType}}</td>
                     <td class="govuk-table__cell">Flat fee</td>
                     <td class="govuk-table__cell">£{{tariff.mqflatFeestotal}}</td>
                     {% else %}
-                    <td class="govuk-table__cell">{{tariff.mqTariffType}}</td>
+                    <td class="govuk-table__cell">{{ tariff.mqTariffType }}</td>
                     <td class="govuk-table__cell">
                         Unit rate<br>Standing charge
                     </td>
@@ -100,26 +99,31 @@ Tariffs on this heat network
 
 
                     <td class="govuk-table__cell">
-                        <form action="remove-tariff" method="post" novalidate>
-                            <input type="hidden" name="tariffId" value="{{loop.index}}">
+                        <dl class="govuk-summary-list govuk-!-margin-0">
+                            <dd class="govuk-summary-list__actions govuk-!-margin-0 govuk-!-padding-0">
+                                <ul class="govuk-summary-list__actions-list">
+                                    <li class="govuk-summary-list__actions-list-item">
+                                        <form action="edit-tariff" method="post" novalidate>
+                                            <input type="hidden" name="tariffId" value="{{loop.index}}">
+                                            <button type="submit" class="button-as-link">
+                                                <a class="govuk-link govuk-link--no-visited-state">Edit</a>
+                                            </button>
 
-                            <button type="submit"
-                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
-                                Remove
-                            </button>
+                                        </form>
+                                    </li>
+                                    <li class="govuk-summary-list__actions-list-item">
+                                        <form action="remove-tariff" method="post" novalidate>
+                                            <input type="hidden" name="tariffId" value="{{loop.index}}">
 
-                        </form>
-                    </td>
-                    <td class="govuk-table__cell">
-                        <form action="edit-tariff" method="post" novalidate>
-                            <input type="hidden" name="tariffId" value="{{loop.index}}">
-
-                            <button type="submit"
-                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
-                                Edit
-                            </button>
-
-                        </form>
+                                            <button type="submit"
+                                                class="button-as-link govuk-link govuk-link--no-visited-state text-red">
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
                     </td>
                 </tr>
                 {% endfor %}
@@ -162,7 +166,7 @@ Tariffs on this heat network
         <p class="govuk-body">You told us that your organisation has multiple tariffs on this heat network, but have not
             added any yet. You must add at least 2.</p>
         <div class="govuk-inset-text">
-            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
+            You're submitting quarterly monitoring data for <strong>{{data.name}}</strong>, covering
             <strong>1 April to 30 June 2026 </strong> period.
         </div>
         <p class="govuk-body"><a class="govuk-button" href="tariff-name">Add a tariff</a></p>

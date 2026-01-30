@@ -54,8 +54,7 @@ Which type of customer type does this tariff apply to?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div
-                class="govuk-form-group {% if data.validationErrors.mqTariffType %}govuk-form-group--error{% endif %}">
+            <div class="govuk-form-group {% if data.validationErrors.mqTariffType %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -77,13 +76,15 @@ Which type of customer type does this tariff apply to?
 
                     <p class="govuk-hint">Select all that apply</p>
                     {% if data.validationErrors.mqTariffType %}
-                        <p class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span>
-                            {{data.validationErrors.mqTariffType.message}}
-                        </p>
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{data.validationErrors.mqTariffType.message}}
+                    </p>
                     {% endif %}
 
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+                    {% if data.mqcustomersdomestic == "Yes" %}
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="mqTariffType-domestic" name="mqTariffType" type="checkbox" value="Domestic" {% if data.mqTariffType == "Domestic" %}checked{% endif %} >
                         <label class="govuk-label govuk-checkboxes__label" for="mqTariffType-domestic">
@@ -94,6 +95,10 @@ Which type of customer type does this tariff apply to?
                             For example, customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.
                         </div>
                     </div>
+
+                    {% endif %}
+
+                    {% if data.mqCustomersNonDomestic == "Yes" %}
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="mqTariffType-nonDomestic" name="mqTariffType" type="checkbox" value="Non domestic" {% if data.mqTariffType == "Non domestic" %}checked{% endif %} >
                         <label class="govuk-label govuk-checkboxes__label" for="mqTariffType-nonDomestic">
@@ -103,11 +108,13 @@ Which type of customer type does this tariff apply to?
                             For example, customers that use the heating, cooling or hot water from the heat network for commercial or industrial purposes.
                         </div>
                     </div>
+                    {% endif %}
+
                     <div class="govuk-checkboxes__divider">or</div>
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="mqTariffType-heatSuppliers" name="mqTariffType" type="checkbox" value="Heat suppliers" {% if data.mqTariffType == "Heat suppliers" %}checked{% endif %} >
+                        <input class="govuk-checkboxes__input" id="mqTariffType-heatSuppliers" name="mqTariffType" type="checkbox" data-behaviour="exclusive" value="Heat supplier" {% if data.mqTariffType == "Heat supplier" %}checked{% endif %} >
                         <label class="govuk-label govuk-checkboxes__label" for="mqTariffType-heatSuppliers">
-                            Heat suppliers
+                            Heat supplier
                         </label>
                         <div id="heatSuppliers" class="govuk-hint govuk-checkboxes__hint">
                            For example, people or organisations that supply heat or hot water to customers through a heat network.

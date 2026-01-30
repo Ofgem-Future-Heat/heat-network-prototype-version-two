@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title %} 
+{% set title %}
 Does this tariff use a flat fee-based charging format?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -36,7 +36,8 @@ Does this tariff use a flat fee-based charging format?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatFees="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqflatFees="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -65,10 +66,12 @@ Does this tariff use a flat fee-based charging format?
 
                     </legend>
                     <p class="govuk-body">
-                         This means that the same fee is charged per day, regardless of the amount of heat used. This is more likely with shared ground loop or unmetered networks.
+                        This means that the same fee is charged per day, regardless of the amount of heat used. This is
+                        more likely with shared ground loop or unmetered networks.
                     </p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the
+                        period
                         <strong>1 April to 30 June 2026</strong>.
                     </div>
                     {% if data.validationErrors.mqflatFees %}
@@ -78,39 +81,42 @@ Does this tariff use a flat fee-based charging format?
                     </p>
                     {% endif %}
 
-
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatFees-yes" name="mqflatFees" type="radio" value="Yes" data-aria-controls="mqflatFees-conditional" {% if data.mqflatFees == "Yes" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="mqflatFees-yes" name="mqflatFees" type="radio"
+                                value="Yes" data-aria-controls="mqflatFees-conditional"
+                                {% if data.mqflatFees == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqflatFees-yes">
                                 Yes
                             </label>
                         </div>
-                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqflatFees-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqflatFeestotal %}govuk-form-group--error{% endif %}">
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="mqflatFees-conditional">
+                            <div
+                                class="govuk-form-group {% if data.validationErrors.mqflatFeestotal %}govuk-form-group--error{% endif %}">
 
-                              {% if data.validationErrors.mqflatFeestotal %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqflatFeestotal.message}}
-                              </p>
-                              {% endif %}
-                              <label class="govuk-label" for="mqflatFeestotal">
-                                Flat fee, per day
-                              </label>
-                              <div class="govuk-input__wrapper">
-                              <div class="govuk-input__prefix" aria-hidden="true">£</div>
-                                <input class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatFeestotal %}govuk-input--error{% endif %}" id="mqflatFeestotal" name="mqflatFeestotal" type="text">
-                              <div class="govuk-input__suffix" aria-hidden="true">per day</div>
+                                {% if data.validationErrors.mqflatFeestotal %}
+                                <p class="govuk-error-message">
+                                    <span class="govuk-visually-hidden">Error:</span>
+                                    {{data.validationErrors.mqflatFeestotal.message}}
+                                </p>
+                                {% endif %}
+                                <label class="govuk-label" for="mqflatFeestotal">
+                                    Flat fee, per day
+                                </label>
+                                <div class="govuk-input__wrapper">
+                                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                                    <input
+                                        class="govuk-input govuk-input--width-5 {% if data.validationErrors.mqflatFeestotal %}govuk-input--error{% endif %}"
+                                        id="mqflatFeestotal" name="mqflatFeestotal" type="text" value="{{data.mqflatFeestotal}}">
+                                    <div class="govuk-input__suffix" aria-hidden="true">per day</div>
+                                </div>
                             </div>
-                            </div>
-                          </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqflatFees-no" name="mqflatFees" type="radio" value="No" {% if data.mqflatFees == "No" %}checked{% endif %} >
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqflatFees-no" name="mqflatFees" type="radio"
+                                value="No" {% if data.mqflatFees == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqflatFees-no">
                                 No
                             </label>
@@ -123,13 +129,14 @@ Does this tariff use a flat fee-based charging format?
 
 
             </div>
-             <div class="govuk-button-group">
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 

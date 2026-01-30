@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title %} 
+{% set title %}
 Do your customers pay a connection charge?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -18,12 +18,11 @@ Do your customers pay a connection charge?
         {% include data.version + "/_partials/logout.html" %}
 
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
     </div>
 
 </div>
@@ -36,7 +35,8 @@ Do your customers pay a connection charge?
 
     <div class="govuk-grid-column-two-thirds">
         {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqconnectionCharge="alert" data-module="error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqconnectionCharge="alert"
+            data-module="error-summary">
             <h2 class="govuk-error-summary__title" id="error-summary-title">
                 There is a problem
             </h2>
@@ -53,7 +53,8 @@ Do your customers pay a connection charge?
         {% endif %}
         <form method="POST" novalidate>
 
-            <div class="govuk-form-group {% if data.validationErrors.mqconnectionCharge %}govuk-form-group--error{% endif %}">
+            <div
+                class="govuk-form-group {% if data.validationErrors.mqconnectionCharge %}govuk-form-group--error{% endif %}">
 
                 <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
 
@@ -64,11 +65,15 @@ Do your customers pay a connection charge?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">A connection charge is a one-off fee for a new connection, separate from usage charges. Do not include charges for industrial customers.</p>
-                    <p class="govuk-body">If you charge a large number of slightly different connection fees, enter an average instead. For example, fees based on square footage.</p>
-                    <p class="govuk-body">Enter up to 20 connection charges. If there are more than this, submit an average.</p>
+                    <p class="govuk-body">A connection charge is a one-off fee for a new connection, separate from usage
+                        charges. Do not include charges for industrial customers.</p>
+                    <p class="govuk-body">If you charge a large number of slightly different connection fees, enter an
+                        average instead. For example, fees based on square footage.</p>
+                    <p class="govuk-body">Enter up to 20 connection charges. If there are more than this, submit an
+                        average.</p>
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the
+                        period
                         <strong>1 April to 30 June 2026</strong>.
                     </div>
                     {% if data.validationErrors.mqconnectionCharge %}
@@ -78,39 +83,34 @@ Do your customers pay a connection charge?
                     </p>
                     {% endif %}
 
-
-
-
-
                     <div class="govuk-radios" data-module="govuk-radios">
-
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqconnectionCharge-yes" name="mqconnectionCharge" type="radio" value="Yes" data-aria-controls="mqconnectionCharge-conditional" {% if data.mqconnectionCharge == "Yes" %}checked{% endif %} >
+                            <input class="govuk-radios__input" id="mqconnectionCharge-yes" name="mqconnectionCharge"
+                                type="radio" value="Yes" data-aria-controls="mqconnectionCharge-conditional"
+                                {% if data.mqconnectionCharge == "Yes" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqconnectionCharge-yes">
                                 Yes
                             </label>
                         </div>
-                          <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqconnectionCharge-no" name="mqconnectionCharge" type="radio" value="No" {% if data.mqconnectionCharge == "No" %}checked{% endif %} >
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="mqconnectionCharge-no" name="mqconnectionCharge"
+                                type="radio" value="No" {% if data.mqconnectionCharge == "No" %}checked{% endif %}>
                             <label class="govuk-label govuk-radios__label" for="mqconnectionCharge-no">
                                 No
                             </label>
                         </div>
-
                     </div>
-
-
                 </fieldset>
-
-
             </div>
-             <div class="govuk-button-group">
+
+            <div class="govuk-button-group">
                 {{
                     govukButton ({
                         html: 'Continue'
                     })
                 }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
+                <a href="/{{data.version}}/monitoring/quarterly-data/pricing/cancel?v={{data.lastpage}}"
+                    class="govuk-link">Cancel</a>
             </div>
         </form>
 

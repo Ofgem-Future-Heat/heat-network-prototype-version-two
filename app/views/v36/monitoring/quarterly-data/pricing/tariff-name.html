@@ -63,7 +63,7 @@ Give this tariff a name
                     </h1>
                 </legend>
                 <div class="govuk-inset-text">
-                    You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                    You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
                         <strong>1 April to 30 June 2026</strong>.
                 </div>
 
@@ -81,7 +81,7 @@ Give this tariff a name
                         </div>
                         <input
                             class="govuk-input govuk-input--width-20 {% if data.validationErrors.mqTariffName %}govuk-input--error{% endif %}"
-                            id="mqTariffName" name="mqTariffName" type="text">
+                            id="mqTariffName" name="mqTariffName" type="text" value="{{data.mqTariffName}}">
                     </div>
                 </div>
 
