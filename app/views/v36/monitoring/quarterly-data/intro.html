@@ -61,12 +61,13 @@ Submit quarterly monitoring data for 1 April to 30 June 2026
                 <li>whether customers pay other charges</li>
                 <li>the total charges across all domestic and non-domestic customers this quarter</li>
             </ul>
-
-
-
         </div>
-        <a href="/{{data.version}}/monitoring/quarterly-data/domestic" class="govuk-button">Continue</a>
 
+        {% if data.role == "Operator" %}
+        <a href="/{{data.version}}/monitoring/quarterly-data/tasklist" class="govuk-button">Continue</a>
+        {% else %}
+        <a href="/{{data.version}}/monitoring/quarterly-data/domestic" class="govuk-button">Continue</a>
+        {% endif %}
     </div>
 </div>
 

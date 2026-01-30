@@ -1,6 +1,4 @@
-const e = require("express");
 const govukPrototypeKit = require("govuk-prototype-kit");
-const { url } = require("inspector");
 const router = govukPrototypeKit.requests.setupRouter();
 
 var version = "v36";
@@ -8338,56 +8336,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/eight
 	}
 });
 
-/// Quality of service - Initial
-router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/initial", function (req, res) {
-	clearvalidation(req);
-	res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/initial", {
-		data: req.session.data,
-	});
-});
-
-router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/initial", function (req, res) {
-	clearvalidation(req);
-	var mqqualityinitial = req.session.data["mqqualityinitial"];
-	var mqqualityinitialtotal = req.session.data["mqqualityinitialtotal"];
-
-	if (!mqqualityinitial) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqqualityinitial = {
-			anchor: "mqqualityinitial",
-			message: "Select yes if you are able to provide this information",
-		};
-	}
-
-	if (mqqualityinitial == "No" && !mqqualityinitialtotal) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqqualityinitialtotal = {
-			anchor: "mqqualityinitialtotal",
-			message: "Enter why you are unable to provide this information",
-		};
-	}
-
-	if (mqqualityinitial == "No" && mqqualityinitialtotal.length > 400) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqqualityinitialtotal = {
-			anchor: "mqqualityinitialtotal",
-			message: "The reason why should be 400 characters or less",
-		};
-	}
-
-	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/quality-of-service/initial", {
-			data: req.session.data,
-		});
-	} else {
-		if (mqqualityinitial == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/complaints");
-		}
-		if (mqqualityinitial == "No") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/help");
-		}
-	}
-});
 
 // Monitoring - Quarterly data - Quality of service - Help
 router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/help", function (req, res) {
@@ -8396,55 +8344,6 @@ router.get("/" + version + "/monitoring/quarterly-data/quality-of-service/help",
 	});
 });
 
-/// Vulnerability and debt - Initial
-router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initial", function (req, res) {
-	clearvalidation(req);
-	res.render("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initial", {
-		data: req.session.data,
-	});
-});
-
-router.post("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initial", function (req, res) {
-	clearvalidation(req);
-	var mqdebtinitial = req.session.data["mqdebtinitial"];
-	var mqdebtinitialtotal = req.session.data["mqdebtinitialtotal"];
-
-	if (!mqdebtinitial) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqdebtinitial = {
-			anchor: "mqdebtinitial",
-			message: "Select yes if you are able to provide this information",
-		};
-	}
-	if (mqdebtinitial == "No" && !mqdebtinitialtotal) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqdebtinitialtotal = {
-			anchor: "mqdebtinitialtotal",
-			message: "Enter why you are unable to provide this information",
-		};
-	}
-
-	if (mqdebtinitial == "No" && mqdebtinitialtotal.length > 400) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqdebtinitialtotal = {
-			anchor: "mqdebtinitialtotal",
-			message: "The reason why should be 400 characters or less",
-		};
-	}
-
-	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/vulnerability-debt/initial", {
-			data: req.session.data,
-		});
-	} else {
-		if (mqdebtinitial == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/debt");
-		}
-		if (mqdebtinitial == "No") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/vulnerability-debt/help");
-		}
-	}
-});
 
 // Monitoring - Quarterly data - Vulnerability and debt - Help
 router.get("/" + version + "/monitoring/quarterly-data/vulnerability-debt/help", function (req, res) {
@@ -8925,56 +8824,6 @@ router.post("/" + version + "/monitoring/quarterly-data/quality-of-service/type-
 		});
 	} else {
 		res.redirect("/" + version + "/monitoring/quarterly-data/quality-of-service/group-complaints");
-	}
-});
-
-/// Pricing - Initial
-router.get("/" + version + "/monitoring/quarterly-data/pricing/initial", function (req, res) {
-	clearvalidation(req);
-	res.render("/" + version + "/monitoring/quarterly-data/pricing/initial", {
-		data: req.session.data,
-	});
-});
-
-router.post("/" + version + "/monitoring/quarterly-data/pricing/initial", function (req, res) {
-	clearvalidation(req);
-	var mqpricinginitial = req.session.data["mqpricinginitial"];
-	var mqpricinginitialtotal = req.session.data["mqpricinginitialtotal"];
-
-	if (!mqpricinginitial) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqpricinginitial = {
-			anchor: "mqpricinginitial",
-			message: "Select yes if you are able to provide this information",
-		};
-	}
-	if (mqpricinginitial == "No" && !mqpricinginitialtotal) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqpricinginitialtotal = {
-			anchor: "mqpricinginitialtotal",
-			message: "Enter why you are unable to provide this information",
-		};
-	}
-
-	if (mqpricinginitial == "No" && mqpricinginitialtotal.length > 400) {
-		req.session.data.validationError = "true";
-		req.session.data.validationErrors.mqpricinginitialtotal = {
-			anchor: "mqpricinginitialtotal",
-			message: "The reason why should be 400 characters or less",
-		};
-	}
-
-	if (req.session.data.validationError == "true") {
-		res.render("/" + version + "/monitoring/quarterly-data/pricing/initial", {
-			data: req.session.data,
-		});
-	} else {
-		if (mqpricinginitial == "Yes") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/tariff-another");
-		}
-		if (mqpricinginitial == "No") {
-			res.redirect("/" + version + "/monitoring/quarterly-data/pricing/help");
-		}
 	}
 });
 

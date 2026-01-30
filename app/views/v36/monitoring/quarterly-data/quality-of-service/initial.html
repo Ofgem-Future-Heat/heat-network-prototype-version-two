@@ -1,10 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% set cdnumber = "XXX" %}
 
-{% set title %} 
+{% set title %}
 Information you’ll need
 {% endset %}
-{% set _inError = data.validationError == "true"  %}
 
 {% block pageTitle %}
 {{title}}
@@ -13,17 +12,14 @@ Information you’ll need
 {% block beforeContent %}
 
 <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-full">
         {% include data.version + "/_partials/logout.html" %}
-
         {{
- govukBackLink ({
-                    text: 'Back',
-                    href: 'javascript:history.back()'
-                })
+            govukBackLink ({
+                text: 'Back',
+                href: 'javascript:history.back()'
+            })
         }}
-
     </div>
 
 </div>
@@ -35,124 +31,44 @@ Information you’ll need
 <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-        {% if _inError %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" mqqualityinitial="alert" data-module="error-summary">
-            <h2 class="govuk-error-summary__title" id="error-summary-title">
-                There is a problem
-            </h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                    {% for name, item in data.validationErrors %}
-                    <li>
-                        <a href="#{{item.anchor}}">{{item.message}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
-        <form method="POST" novalidate>
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
+            <h1 class="govuk-fieldset__heading">
+                {{title}}
+            </h1>
 
-            <div class="govuk-form-group">
+        </legend>
 
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <p class="govuk-body">You'll need to inform us about the quality of service you provide on this heat
+            network.</p>
 
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <span class="govuk-caption-l">Quarterly monitoring - quality of service</span>
-                        <h1 class="govuk-fieldset__heading">
-                            {{title}}
-                        </h1>
+        <p class="govuk-body">If you received any complaints this quarter, you'll need to tell us how many
+            you received in each of the following categories:</p>
 
-                    </legend>
-                     <p class="govuk-body">You'll need to inform us about the quality of service you provide on this heat network.</p>
-
-                        <p class="govuk-body">If you received any complaints this quarter, you'll need to tell us how many you received in each of the following categories:</p>
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li>back billing</li>
-                            <li>quality of service</li>
-                            <li>customer service</li>
-                            <li>vulnerability, debt and switching </li>
-                            <li>pricing</li>
-                            <li>any other complaints</li>
-                        </ul>
-                        <p class="govuk-body">We also need to know how many complaints were:</p>
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li>group complaints</li>
-                            <li>referred to the Ombudsman</li>
-                            <li>resolved by the end of the next working day</li>
-                            <li>resolved within 8 weeks</li>
-                        </ul>
-
-                    <div class="govuk-form-group {% if data.validationErrors.mqqualityinitial %}govuk-form-group--error{% endif %}">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Can you provide this information?
-                    </legend>
-
-                    {% if data.validationErrors.mqqualityinitial %}
-                    <p class="govuk-error-message">
-                        <span class="govuk-visually-hidden">Error:</span>
-                        {{data.validationErrors.mqqualityinitial.message}}
-                    </p>
-                    {% endif %}
-
-                    <div class="govuk-radios" data-module="govuk-radios">
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqqualityinitial-yes" name="mqqualityinitial" type="radio" value="Yes" {% if data.mqqualityinitial == "Yes" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqqualityinitial-yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mqqualityinitial-no" name="mqqualityinitial" type="radio" value="No" data-aria-controls="mqqualityinitial-conditional" {% if data.mqqualityinitial == "No" %}checked{% endif %} >
-                            <label class="govuk-label govuk-radios__label" for="mqqualityinitial-no">
-                                No
-                            </label>
-                        </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqqualityinitial-conditional" >
-                            <div class="govuk-form-group {% if data.validationErrors.mqqualityinitialtotal %}govuk-form-group--error{% endif %}">
-                              <label class="govuk-label" for="mqqualityinitialtotal">
-                                Why are you unable to provide this information?
-                              </label>
-                              {% if data.validationErrors.mqqualityinitialtotal %}
-                              <p class="govuk-error-message">
-                                  <span class="govuk-visually-hidden">Error:</span>
-                                  {{data.validationErrors.mqqualityinitialtotal.message}}
-                              </p>
-                              {% endif %}
-                              <textarea class="govuk-textarea" id="mqqualityinitialtotal" name="mqqualityinitialtotal" rows="5" value="{{data.mqqualityinitialtotal}}"></textarea>
-                            </div>
-                          </div>
-
-                    </div>
-                    </div>
-
-                    
-
-                </fieldset>
-
-
-            </div>
-
-
-            
-            <input type="hidden" id="mqqualitycomplete" name="mqqualitycomplete" value="cannot" />
-            <div class="govuk-button-group">
-            {{
-                govukButton ({
-                    html: 'Continue'
-                })
-            }}
-                <a href="/{{data.version}}/monitoring/quarterly-data/quality-of-service/cancel?v={{data.lastpage}}" class="govuk-link">Cancel</a>
-
-        </div>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>back billing</li>
+            <li>quality of service</li>
+            <li>customer service</li>
+            <li>vulnerability, debt and switching </li>
+            <li>pricing</li>
+            <li>any other complaints</li>
+        </ul>
+        <p class="govuk-body">We also need to know how many complaints were:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>group complaints</li>
+            <li>referred to the Ombudsman</li>
+            <li>resolved by the end of the next working day</li>
+            <li>resolved within 8 weeks</li>
+        </ul>
         
-        </form>
-
+        {{
+            govukButton ({
+                html: 'Continue',
+                href: '/' + data.version + '/monitoring/quarterly-data/quality-of-service/complaints'
+            })
+        }}
     </div>
 
 </div>
 
 {% endblock %}
-
-
