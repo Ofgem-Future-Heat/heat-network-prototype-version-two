@@ -62,7 +62,9 @@ What were the total charges across all non-domestic customers, in pounds?
 
                 <p class="govuk-body">What were the total amount of standing charges, unit rates, connection charges and
                     other charges received across all non-domestic customers in the reporting quarter period. Use estimated totals if final amounts are not yet available.</p>
-
+                <div class="govuk-inset-text">
+                    Do not include other charges for industrial customers.
+                </div>
                 {% if data.validationErrors.totalNonDomesticCosts %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>

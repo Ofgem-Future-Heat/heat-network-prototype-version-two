@@ -66,15 +66,13 @@ Which type of customer type does this connection charge apply to?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        Do not include connection charges for industrial customers.
-                    </p>
                     
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include connection charges for industrial customers.</p>
                     </div>
-
+                    
                     <p class="govuk-hint">Select all that apply</p>
                     {% if data.validationErrors.mqConnectionType %}
                         <p class="govuk-error-message">
@@ -90,7 +88,7 @@ Which type of customer type does this connection charge apply to?
                             Domestic
                         </label>
                         <div id="Domestic" class="govuk-hint govuk-checkboxes__hint">
-                            For example, customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.
+                            such as customers that live in houses or flats and use the heating, cooling or hot water from the heat network for personal purposes.
                         </div>
                     </div>
                     <div class="govuk-checkboxes__item">
@@ -99,7 +97,7 @@ Which type of customer type does this connection charge apply to?
                             Non-domestic
                         </label>
                         <div id="nonDomestic" class="govuk-hint govuk-checkboxes__hint">
-                            For example, customers that use the heating, cooling or hot water from the heat network for commercial or industrial purposes. 
+                            such as, customers that use the heating, cooling or hot water from the heat network for commercial or industrial purposes. 
                         </div>
                     </div>
                     <div class="govuk-checkboxes__divider">or</div>
@@ -109,7 +107,7 @@ Which type of customer type does this connection charge apply to?
                             Heat suppliers
                         </label>
                         <div id="heatSuppliers" class="govuk-hint govuk-checkboxes__hint">
-                            For example, people or organisations that supply heat or hot water to customers through a heat network.
+                            such as, people or organisations that supply heat or hot water to customers through a heat network.
                         </div>
                     </div>
                     </div>

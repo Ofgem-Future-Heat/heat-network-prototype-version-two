@@ -66,16 +66,11 @@ What is the unit rate and standing charge for this tariff?
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">
-                        A unit rate is the rate charged per unit of heat used.
-                    </p>
-                    <p class="govuk-body">
-                        A standing charge is a fixed charge that
-                        does not change with heat usage.
-                    </p>
+
                     <div class="govuk-inset-text">
-                        You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include tariffs for industrial customers.</p>
                     </div>
 
                     <div class="govuk-form-group {% if data.validationErrors.mqUnitRate %}govuk-form-group--error{% endif %}">
@@ -85,9 +80,12 @@ What is the unit rate and standing charge for this tariff?
                             {{data.validationErrors.mqUnitRate.message}}
                         </p>
                         {% endif %}
-                        <label class="govuk-label govuk-input__label" for="mqUnitRate">
-                            Unit rate, per kilowatt hour
+                        <label class="govuk-label govuk-label--s" for="mqUnitRate">
+                            Unit rate, per kilowatt hour (kWh)
                         </label>
+                        <div id="unit-rate-hint" class="govuk-hint">
+                            A unit rate is the rate charged per unit of heat used.
+                         </div>
                         <div class="govuk-input__wrapper">
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input
@@ -105,9 +103,12 @@ What is the unit rate and standing charge for this tariff?
                         </p>
                         {% endif %}
 
-                        <label class="govuk-label govuk-input__label" for="mqStandingCharge">
-                            Standing charge, per day. Can be zero
+                        <label class="govuk-label govuk-label--s" for="mqStandingCharge">
+                            Standing charge, per day
                         </label>
+                        <div id="standing-charge-hint" class="govuk-hint">
+                            A standing charge is a fixed charge that does not change with heat usage. Enter zero if no charge applies.
+                         </div>
                         <div class="govuk-input__wrapper">
                             <div class="govuk-input__prefix" aria-hidden="true">£</div>
                             <input

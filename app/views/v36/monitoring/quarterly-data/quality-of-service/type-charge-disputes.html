@@ -62,11 +62,11 @@ How many complaints did this heat network receive about charge disputes this qua
                             </h1>
                         </legend>
                         <p class="govuk-body">This means complaints related to disagreements over charges to customers. For example, standing charges or heat usage.</p>
-                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
-
-                        <p class="govuk-body">You must enter a whole number without decimals.</p>
-
+                        <div class="govuk-inset-text">
+                            <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                            <strong>1 April to 30 June 2026</strong>.</p>
+                            <p class="govuk-body">Do not include complaints for industrial customers.</p>
+                        </div>
 
                     {% if data.validationErrors.mqTypeChargeDisputesTotal %}
                     <p class="govuk-error-message">

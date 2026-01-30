@@ -64,8 +64,11 @@ Did any customers on this heat network make a complaint during this quarter?
                         </h1>
 
                     </legend>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
+                    <div class="govuk-inset-text">
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include complaints for industrial customers.</p>
+                    </div>
 
                     {% if data.validationErrors.mqcomplaints %}
                     <p class="govuk-error-message">
@@ -73,9 +76,6 @@ Did any customers on this heat network make a complaint during this quarter?
                         {{data.validationErrors.mqcomplaints.message}}
                     </p>
                     {% endif %}
-
-
-
 
 
                     <div class="govuk-radios" data-module="govuk-radios">

@@ -61,7 +61,9 @@ What were the total charges across all domestic customers in this quarter, in po
 
                 <p class="govuk-body">This is the total amount of standing charges, unit rates, connection charges and
                     other charges received across all domestic customers. Use estimated totals if final amounts are not yet available.</p>
-
+                <div class="govuk-inset-text">
+                    Do not include other charges for industrial customers.
+                </div>
 
                 {% if data.validationErrors.mqtotalDomesticCosts %}
                 <p class="govuk-error-message">

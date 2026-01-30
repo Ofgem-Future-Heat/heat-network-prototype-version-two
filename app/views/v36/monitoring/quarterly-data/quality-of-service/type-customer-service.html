@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many complaints did this heat network receive about its customer service this quarter?
+How many customer service complaints did this heat network receive this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,12 +61,12 @@ How many complaints did this heat network receive about its customer service thi
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">This means complaints regarding the services offered by the supplier such as the Billing service or complaints process.</p>
-                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
-
-                        <p class="govuk-body">You must enter a whole number without decimals.</p>
-
+                        <p class="govuk-body">This means complaints regarding the services offered by the supplier such as billing or the complaints process.</p>
+                        <div class="govuk-inset-text">
+                            <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                            <strong>1 April to 30 June 2026</strong>.</p>
+                            <p class="govuk-body">Do not include complaints for industrial customers.</p>
+                        </div>
 
                     {% if data.validationErrors.mqTypeCustomerServiceTotal %}
                     <p class="govuk-error-message">

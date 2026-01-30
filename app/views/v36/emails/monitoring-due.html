@@ -2,7 +2,7 @@
 {% set company %}{% if data.companyname %}{{data.companyname }}{% else %}Radienteco Ltd{% endif %}{% endset %}
 {% set title %}
 
-Submit monitoring data for your heat networks
+Monitoring data is due for your heat networks
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -21,9 +21,9 @@ Submit monitoring data for your heat networks
             </h1>
 <p class="govuk-body">You need to submit monitoring data for 4 heat networks on behalf of {{company}}.</p>
 
-          <p class="govuk-body">Submit your data and view your monitoring deadlines at <a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-link">https://heat-networks-consumer-regulations.service.gov.uk/</a></p>
+          <p class="govuk-body">View your monitoring deadlines and submit your data at <a href="/{{data.version}}/account-information?v=operatorcomplete" class="govuk-link">https://heat-networks-consumer-regulations.service.gov.uk/</a></p>
 
-<h2 class="govuk-heading-m">Monitoring requirements</h2>
+<h2 class="govuk-heading-m">Help with monitoring</h2>
 
 <p class="govuk-body">To comply with heat network regulations, you must submit data to Ofgem quarterly and annually. </p>
 

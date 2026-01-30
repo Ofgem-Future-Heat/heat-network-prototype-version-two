@@ -47,7 +47,7 @@
         {{title}}
       </h1>
 
-       <p class="govuk-body">Suppliers and operators will be required to submit reporting data on both a quarterly and an annual basis. When an annual data submission is due, this will be done in the same reporting window as the relevant quarterly data submission.</p>
+      <p class="govuk-body">You must submit monitoring data for Seaton Town Centre quarterly and annually.</p>
 
 
 
@@ -83,8 +83,7 @@
       <div class="govuk-grid-row govuk-!-margin-top-8" id="hn-list">
         <div class="govuk-grid-column-two-thirds">
           <h2 class="govuk-heading-m">Monitoring submissions</h2>
-          <p class="govuk-body">Seaton Town Centre has {% if data.mqstatus == "Completed" %}<strong>4</strong>{% else %}<strong>5</strong>{% endif %} outstanding monitoring submissions,
-            {% if data.mqstatus == "Completed" %}<strong>2</strong>{% else %}<strong>3</strong>{% endif %} are overdue.</p>
+          <p class="govuk-body">Seaton Town Centre has <strong>2</strong> outstanding monitoring submissions.</p>
               <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong class="govuk-warning-text__text">
@@ -120,52 +119,6 @@
                 class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span>{% if data.mqstatus == "Completed" %}<strong class="govuk-tag govuk-tag--green">Completed</strong>{% else %}<strong class="govuk-tag govuk-tag--yellow">Due</strong>{% endif %}
               </td>
           </tr>
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">
-              <a href="/{{data.version}}/monitoring/quarterly-data/intro-mini" class="govuk-link govuk-link--no-visited-state">
-                Jul to Sep 2027
-              </a>
-              <br /><strong
-                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
-                submission</strong>
-            </th>
-            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>31 Oct 2027</td>
-            <td class="govuk-table__cell"><span
-                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag">N/A</strong></td>
-          </tr>
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">
-              <a href="#" class="govuk-link govuk-link--no-visited-state">
-                Oct to Dec 2027
-              </a>
-              <br /><strong
-                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
-                submission</strong>
-            </th>
-            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>31 Jan 2028</td>
-            <td class="govuk-table__cell"><span
-                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag">N/A</strong></td>
-          </tr>
-            <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">
-              <a href="#" class="govuk-link govuk-link--no-visited-state">
-                Jan to Mar 2028
-              </a>
-              <br /><strong
-                class="govuk-tag govuk-!-font-size-16 govuk-tag--blue govuk-!-margin-top-1 govuk-!-margin-bottom-1">Quarterly
-                submission</strong>
-            </th>
-            <td class="govuk-table__cell"><span class="visually-hidden-desktop govuk-!-font-weight-bold">Due
-                by<br /></span>30 Apr 2028</td>
-            <td class="govuk-table__cell"><span
-                class="visually-hidden-desktop govuk-!-font-weight-bold">Status<br /></span><strong
-                class="govuk-tag">N/A</strong></td>
-          </tr>
-          
         </tbody>
       </table>
 
@@ -305,7 +258,11 @@
           </tr>
         </tbody>
       </table>
+<br /><br /><br />
 
+          <p class="govuk-body govuk-body-s">
+            <a href="/{{data.version}}/monitoring/monitoring-information" class="govuk-link">Back</a>
+        </p>
     </div>
   </div>
 

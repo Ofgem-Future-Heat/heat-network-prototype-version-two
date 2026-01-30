@@ -2,7 +2,8 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-Were any complaints resolved by the end of the next working day during this quarter?
+During this quarter, were any complaints resolved within a working day of being received?
+ 
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -64,7 +65,6 @@ Were any complaints resolved by the end of the next working day during this quar
                         </h1>
 
                     </legend>
-                    <p class="govuk-body">This means complaints that were resolved by the end of the next working day after the complaint was received (Day+1)</p>
                     <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
                         <strong>1 April to 30 June 2026</strong>.</div>
 
@@ -90,7 +90,7 @@ Were any complaints resolved by the end of the next working day during this quar
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqnextday-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqnextdaytotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqnextdaytotal">
-                                Number of complaints resolved by the end of the next working day this quarter
+                                Number of complaints resolved with in a working day during this quarter
                               </label>
                               {% if data.validationErrors.mqnextdaytotal %}
                               <p class="govuk-error-message">

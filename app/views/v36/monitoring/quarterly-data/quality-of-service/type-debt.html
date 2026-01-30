@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-How many complaints did this heat network receive about vulnerability, debt and switching this quarter?
+How many vulnerability, debt and switching complaints did this heat network receive this quarter?
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -61,12 +61,18 @@ How many complaints did this heat network receive about vulnerability, debt and 
                                 {{title}}
                             </h1>
                         </legend>
-                        <p class="govuk-body">This means complaints related to disconnections or debt management/ repayment and collection and switches to PPM.</p>
-                        <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
-
-                        <p class="govuk-body">You must enter a whole number without decimals.</p>
-
+                            <p class="govuk-body">This means complaints related to:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>disconnections</li>
+                                <li>debt management</li>
+                                <li>repayment and collection</li>
+                                <li>switches to prepayment meters</li>
+                            </ul>
+                        <div class="govuk-inset-text">
+                            <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                            <strong>1 April to 30 June 2026</strong>.</p>
+                            <p class="govuk-body">Do not include complaints for industrial customers.</p>
+                        </div>
 
                     {% if data.validationErrors.mqTypeDebtTotal %}
                     <p class="govuk-error-message">

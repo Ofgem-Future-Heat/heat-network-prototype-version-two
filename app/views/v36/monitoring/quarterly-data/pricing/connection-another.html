@@ -2,7 +2,7 @@
 {% set cdnumber = "081" %}
 
 {% set title %}
-Connection charges on this heat network
+Add connection charges to this heat network
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -64,8 +64,9 @@ Connection charges on this heat network
 
         {% if data.allFlatConnectionFees.length > 0 %}
         <div class="govuk-inset-text">
-            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include connection charges for industrial customers.</p>
         </div>
 
         <table class="govuk-table">
@@ -150,11 +151,12 @@ Connection charges on this heat network
 
         {% else %}
 
-        <p class="govuk-body">You told us that your organisation has multiple connection charges on this heat network,
-            but have not added any yet. You must add at least 2.</p>
+        <p class="govuk-body">If you charge a large number of slightly different connection fees, enter an average instead. For example, fees based on square footage.</p>
+                    <p class="govuk-body">Enter up to 20 connection charges. If there are more than this, submit an average.</p>
         <div class="govuk-inset-text">
-            You're submitting quarterly monitoring data for <strong>Seaton city centre</strong>, covering
-            <strong>1 April to 30 June 2026 </strong> period.
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include connection charges for industrial customers.</p>
         </div>
         <p class="govuk-body"><a class="govuk-button" href="connection-name.html?add-another">Add a connection
                 fee</a></p>
