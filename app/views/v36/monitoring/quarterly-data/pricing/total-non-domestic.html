@@ -60,11 +60,18 @@ What were the total charges across all non-domestic customers, in pounds?
                     </h1>
                 </legend>
 
-                <p class="govuk-body">What were the total amount of standing charges, unit rates, connection charges and
-                    other charges received across all non-domestic customers in the reporting quarter period. Use estimated totals if final amounts are not yet available.</p>
+                <p class="govuk-body">The sum of all tariff charges, connection charges and other fees applied to non-domestic consumers</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>amount charged by tariffs (unit rate plus standing charge)</li>
+                                <li>amount charged for connections</li>
+                                <li>amount charged for other fees</li>
+                            </ul>
+                <p class="govuk-body">If your network sets prices on a cost recovery basis and bills customers based on estimates, please provide your estimated total.</p>
                 <div class="govuk-inset-text">
-                    Do not include other charges for industrial customers.
-                </div>
+                        <p class="govuk-body">You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
+                        <strong>1 April to 30 June 2026</strong>.</p>
+                        <p class="govuk-body">Do not include total charges for industrial customers.</p>
+                    </div>
                 {% if data.validationErrors.totalNonDomesticCosts %}
                 <p class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>

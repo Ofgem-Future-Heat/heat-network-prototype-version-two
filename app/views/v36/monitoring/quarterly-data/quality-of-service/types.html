@@ -62,8 +62,11 @@ Which types of complaint did customers make about this heat network during this 
                             {{title}}
                         </h1>
          </legend>
-                  <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
+         <div class="govuk-inset-text">
+                            <p class="govuk-body">You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
+                            <strong>1 April to 30 June 2026</strong>.</p>
+                            <p class="govuk-body">Do not include complaints for industrial customers.</p>
+         </div>
 
         <p class="govuk-hint">Select all that apply</p>
                 {% if data.validationErrors.mqcomplaintsTypes %}

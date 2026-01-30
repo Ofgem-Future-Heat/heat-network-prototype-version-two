@@ -2,7 +2,7 @@
 {% set cdnumber = "311" %}
 
 {% set title %} 
-Submitted quarterly monitoring data for 1 October to 31 December 2026
+Quarterly monitoring data for 1 October to 31 December 2026
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
 
@@ -40,17 +40,14 @@ Submitted quarterly monitoring data for 1 October to 31 December 2026
 
         <div class="govuk-form-group ">
 
-            <span class="govuk-caption-l">Seaton Town Centre</span>
+            <span class="govuk-caption-l">{{data.name}}</span>
             <h1 class="govuk-heading-l">
                 {{title}} <br />
+                <span class="govuk-body">(ID: MQ0001231)</span><br />
                 <strong class="govuk-tag govuk-tag--blue hn-tag">Quarterly submission</strong>
                 <strong class="govuk-tag govuk-tag--green hn-tag">Submitted</strong>
             </h1>
-            <p class="govuk-body">View the quarterly monitoring data you submitted for the period 1 October to 31 December 2026.</p>
 
-            <h2 class="govuk-heading-m">Quarterly submissions</h2>
-
-            
             <div class="govuk-summary-card">
                 <div class="govuk-summary-card__title-wrapper">
                   <h2 class="govuk-summary-card__title">

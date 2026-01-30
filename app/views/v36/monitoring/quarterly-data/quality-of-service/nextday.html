@@ -2,7 +2,7 @@
 {% set cdnumber = "XXX" %}
 
 {% set title %} 
-During this quarter, were any complaints resolved within a working day of being received?
+Were any complaints resolved by the end of the next working day during this quarter?
  
 {% endset %}
 {% set _inError = data.validationError == "true"  %}
@@ -65,8 +65,12 @@ During this quarter, were any complaints resolved within a working day of being 
                         </h1>
 
                     </legend>
-                    <div class="govuk-inset-text">You're submitting quarterly monitoring data for <strong>Seaton city centre</strong> for the period
-                        <strong>1 April to 30 June 2026</strong>.</div>
+                    <p class="govuk-body">This means complaints that were resolved by the end of the next working day after the complaint was received.</p>
+                    <div class="govuk-inset-text">
+                            <p class="govuk-body">You're submitting quarterly monitoring data for <strong>{{data.name}}</strong> for the period
+                            <strong>1 April to 30 June 2026</strong>.</p>
+                            <p class="govuk-body">Do not include complaints for industrial customers.</p>
+                    </div>
 
                     {% if data.validationErrors.mqnextday %}
                     <p class="govuk-error-message">
@@ -74,9 +78,6 @@ During this quarter, were any complaints resolved within a working day of being 
                         {{data.validationErrors.mqnextday.message}}
                     </p>
                     {% endif %}
-
-
-
 
 
                     <div class="govuk-radios" data-module="govuk-radios">
@@ -90,7 +91,7 @@ During this quarter, were any complaints resolved within a working day of being 
                          <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="mqnextday-conditional" >
                             <div class="govuk-form-group {% if data.validationErrors.mqnextdaytotal %}govuk-form-group--error{% endif %}">
                               <label class="govuk-label" for="mqnextdaytotal">
-                                Number of complaints resolved with in a working day during this quarter
+                                Number of complaints resolved by the end of the next working day this quarter
                               </label>
                               {% if data.validationErrors.mqnextdaytotal %}
                               <p class="govuk-error-message">
